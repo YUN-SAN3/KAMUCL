@@ -338,7 +338,7 @@ test('慢速连接在滑动窗口内字节过少时主动掐断并重试耗尽',
       downloadFile(`${base}/slow.bin`, path.join(root, 'slow.bin')),
       /速度过慢|下载失败/
     )
-    assert.equal(requests, 3, 'transient 掐断应恰好重试 3 次后失败')
+    assert.equal(requests, 4, 'transient 掐断：第一轮重试 3 次 + 整体重试轮再试 1 次')
   } finally {
     Object.assign(slowSpeedThresholds, original)
     await closeServer(server)

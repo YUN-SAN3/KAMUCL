@@ -8,6 +8,14 @@ export interface UpdateNote {
 
 /** 按版本倒序；latest 为当前版本 */
 export const updateNotes: UpdateNote[] = [
+  { version: '1.0.8', date: '2026-09-07', changes: [
+    '修复：启动命令行拼接重复——Fabric/NeoForge 版本 json 自带的 -cp ${classpath}、-Djava.library.path、-Djna.tmpdir 与启动器手动补的参数成片重复；现仅在版本 json 缺失时才补，FabricMcEmu 等参数值的前导空格已去除；JVM 参数→classpath→主类→游戏参数顺序与 PCLCE 一致，实测命令行无重复无异常空格（长度从过万显著缩短）',
+    '修复：下载网络波动失败——下载改用 HTTP/2 共享连接（undici allowH2 自动协商，多路复用更稳，不支持时自动回退 HTTP/1.1）；新增整体重试轮：所有来源失败/换源后等待 2 秒整体再试一轮（仅针对网络波动类失败，内容校验错误不无效重试）',
+    '修复：个性化编辑模式顶栏不再是拖拽区，点击顶栏板块可正常选中编辑',
+    '修复：个性化编辑时切换到其他主题，自定义面板保持打开且可继续更改设置',
+    '修复：个性化面板空内容分组（如启动展示卡）展开时显示说明而非空白布局异常',
+    '修复：皮肤预览 Steve/Alex 区分——新增皮肤图自动检测（Alex 手臂窄 1 像素特征列全透明），不再依赖档案 variant 传递链是否准确'
+  ] },
   { version: '1.0.7', date: '2026-09-07', changes: [
     '修复：默认配置其他游戏配置的 options.txt 字段名经真实文件实证修正——垂直同步 enableVsync、帧率上限 maxFps、潜行 toggleCrouch、疾跑 toggleSprint、图像品质 graphicsPreset（1.21.11 前为 graphics 数字，26.2 起为带引号 JSON 串）——此前错误字段名导致同步未生效',
     '修复：FOV 视角场同步格式——options.txt 所有版本的 fov 均为 0-1 浮点（度数映射 (d-30)/80），此前写整数度数导致 1.12.2 视角颠倒（角视场 3470）与 26.2 未生效；现已统一转换并实证（90° 写入 fov:0.75）',
