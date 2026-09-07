@@ -502,11 +502,18 @@ async function launchOwned(
   // ${version_name}.jar 与实际 clientJar 不一致，原版 jar 会被模块系统当作自动模块
   // 与 fml 合成的 minecraft 模块重复导出包（ResolutionException 闪退），补写真实文件名
   const clientJarName = path.basename(clientJar)
-  const jsonJvmArgs = expandEntries(merged.arguments?.jvm).map((a) =>
-    a.startsWith('-DignoreList=') && !a.split(',').some((x) => x.trim() === clientJarName)
-      ? `${a},${clientJarName}`
-      : a
-  )
+  const jsonJvmArgs = expandEntries(merged.arguments?.jvm)
+    .map((a) => a.trim()) // fabric json 的 -DFabricMcEmu= 等参数值带前导空格，trim 去除
+    .map((a) =>
+      a.startsWith('-DignoreList=') && !a.split(',').some((x) => x.trim() === clientJarName)
+        ? `${a},${clientJarName}`
+        : a
+    )
+  // 版本 json（MC 官方 1.13+ / fabric / neoforge）的 arguments.jvm 自带
+  // -Djava.library.path / -Djna.tmpdir / -cp ${classpath}。手动再补会重复
+  // （用户实测命令行里 classpath 与 natives 参数成片重复）。仅在 json 缺失时补。
+  const jsonHas = (prefix: string) => jsonJvmArgs.some((a) => a.startsWith(prefix))
+  const jsonHasCp = jsonJvmArgs.some((a) => a === '-cp')
   const jvmArgs: string[] = [
     `-Xmx${mem}M`,
     `-Xms${Math.min(mem, 1024)}M`,
@@ -516,8 +523,8 @@ async function launchOwned(
     '-Dfile.encoding=UTF-8',
     // macOS 上 LWJGL 必须在主线程启动 AWT
     ...(process.platform === 'darwin' ? ['-XstartOnFirstThread'] : []),
-    `-Djava.library.path=${nativesPath}`,
-    `-Djna.tmpdir=${nativesPath}`,
+    ...(jsonHas('-Djava.library.path=') ? [] : [`-Djava.library.path=${nativesPath}`]),
+    ...(jsonHas('-Djna.tmpdir=') ? [] : [`-Djna.tmpdir=${nativesPath}`]),
     // 外置登录 javaagent 与预取元数据必须位于主类之前。
     ...externalAuthArgs,
     // 版本 json 自带的 JVM 参数（forge 的 -p ${classpath} 等依赖它）
@@ -554,8 +561,8 @@ async function launchOwned(
     log(`[KAMUCL] Minecraft ${minecraftVersion} 不支持 Quick Play，已仅启动实例`)
   }
 
-  // g) 启动进程
-  const args = [...jvmArgs, '-cp', classpath, merged.mainClass, ...gameArgs]
+  // g) 启动进程（json 自带 -cp ${classpath} 时不再重复加 -cp；forge 的 -p 是模块路径仍需 -cp）
+  const args = [...jvmArgs, ...(jsonHasCp ? [] : ['-cp', classpath]), merged.mainClass, ...gameArgs]
   // 日志中隐藏 accessToken
   const privateLaunchValues = new Set(
     [validAccount.accessToken, validAccount.clientToken, userProperties].filter(

@@ -1,7 +1,7 @@
 {
   "name": "kamucl",
   "productName": "KAMUCL",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "KAMUCL - 简约美观的一键式 Minecraft 启动器",
   "main": "out/main/index.js",
   "scripts": {
@@ -53,7 +53,8 @@
     "@iarna/toml": "2.2.5",
     "adm-zip": "^0.6.0",
     "sharp": "^0.35.4",
-    "three": "^0.185.1"
+    "three": "^0.185.1",
+    "undici": "^6.28.0"
   },
   "devDependencies": {
     "@electron/packager": "^20.3.0",

@@ -1819,6 +1819,10 @@ onUnmounted(() => {
   background: color-mix(in srgb, var(--bg-2) 78%, transparent);
   -webkit-app-region: drag;
 }
+/* 个性化编辑模式：顶栏不再是拖拽区，点击可落到 DOM 选中顶栏板块（退出编辑恢复拖拽） */
+.shell.edit-mode .topbar {
+  -webkit-app-region: no-drag;
+}
 
 .top-back {
   display: inline-flex;

@@ -253,6 +253,8 @@ function applyCode() {
                 @blur="onHexBlur(f.key, $event)"
               />
             </div>
+            <!-- 空分组（如启动展示卡由图片/背景派生）：展开时给提示而不是空白布局异常 -->
+            <p v-if="!g.colors.length" class="ep-hint ep-empty-hint">该板块颜色由界面背景与主色调自动派生，无可单独调整项。</p>
           </div>
         </details>
       </template>
@@ -438,6 +440,11 @@ function applyCode() {
 .ep-details-body {
   padding: 4px 12px 10px;
   border-top: 1px solid var(--border);
+}
+/* 空分组（无颜色项）展开时的提示，避免展开后空白导致的布局异常观感 */
+.ep-empty-hint {
+  padding: 6px 0 4px;
+  margin: 0;
 }
 
 /* 颜色行 */
