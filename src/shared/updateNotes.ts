@@ -8,6 +8,11 @@ export interface UpdateNote {
 
 /** 按版本倒序；latest 为当前版本 */
 export const updateNotes: UpdateNote[] = [
+  { version: '1.0.7', date: '2026-09-07', changes: [
+    '修复：默认配置其他游戏配置的 options.txt 字段名经真实文件实证修正——垂直同步 enableVsync、帧率上限 maxFps、潜行 toggleCrouch、疾跑 toggleSprint、图像品质 graphicsPreset（1.21.11 前为 graphics 数字，26.2 起为带引号 JSON 串）——此前错误字段名导致同步未生效',
+    '修复：FOV 视角场同步格式——options.txt 所有版本的 fov 均为 0-1 浮点（度数映射 (d-30)/80），此前写整数度数导致 1.12.2 视角颠倒（角视场 3470）与 26.2 未生效；现已统一转换并实证（90° 写入 fov:0.75）',
+    '修复：默认配置滑块拖动时不再回弹抖动（拖动期间绑定预览值），FOV 可按 1° 步进精确调节'
+  ] },
   { version: '1.0.6', date: '2026-09-07', changes: [
     '修复：原版 1.20.1 在仅装 Java 21（无 Java 17）时无法启动——Java 匹配从「精确匹配」修正为「最低版本 + 向上兼容」：游戏要求 Java N 时所有 ≥N 的已安装 Java 均可用，优先推荐版本、否则取满足条件的最高版本（与 PCL2/HMCL 一致）；先完整扫描本机、确认无任何满足条件的 Java 后才提示下载；下载提示改为「未找到 Java N 或更高版本」；日志记录实际选用的 Java 路径与版本号；26.x 新版号/快照不再错判为 Java 8（按 Java 21 处理）'
   ] },

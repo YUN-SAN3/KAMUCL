@@ -192,30 +192,38 @@ export function mcVersionAtLeast(mcVersion: string, target: string): boolean {
 
 /**
  * 按 MC 版本适配配置写入：
- * - FOV：<1.16.2 存 0-1 浮点（度数映射 (d-30)/80）；≥1.16.2 存整数度数。
- *   旧版误写整数度数会导致投影异常（用户报告 1.12.2 视角颠倒、显示"角视场 3470"）。
- * - 渲染距离：≥1.18 字段名改为 viewDistance（写 renderDistance 无效——26.2 未生效的根因）。
- * - 潜行/疾跑切换：1.15 辅助功能引入，更早版本无此字段，跳过。
- * - 自动跳跃：各版本字段一致（autoJump）。
+ * - FOV：options.txt 所有版本均为 0-1 浮点（度数映射 (d-30)/80），统一转换；
+ *   写整数度数会被误读（用户报告 1.12.2 视角颠倒、显示"角视场 3470"）。
+ * - 图像品质：1.21.11 前为 graphics:0/1/2（数字）；1.21.11 起为 graphicsPreset:"fast"/"fancy"/"fabulous"（带引号 JSON 串）。
+ * - 潜行/疾跑切换：1.15 引入 toggleCrouch/toggleSprint，更早版本无此字段，跳过。
+ * - 渲染距离 renderDistance、亮度 gamma、鼠标灵敏度 mouseSensitivity、垂直同步 enableVsync、
+ *   帧率上限 maxFps、自动跳跃 autoJump 各版本字段一致（均经真实 options.txt 实证）。
  */
 export function adaptOptionsForVersion(options: Record<string, string>, mcVersion: string): Record<string, string> {
   const out = { ...options }
-  const legacyFov = !mcVersionAtLeast(mcVersion, '1.16.2')
-  if (legacyFov && out.fov != null && out.fov !== '') {
+  // FOV：度数 → 0-1 浮点（所有版本一致）
+  if (out.fov != null && out.fov !== '') {
     const degrees = Number(out.fov)
     if (Number.isFinite(degrees)) {
       out.fov = String(Math.max(0, Math.min(1, (degrees - 30) / 80)))
     }
   }
-  if (out.renderDistance != null && out.renderDistance !== '') {
-    if (mcVersionAtLeast(mcVersion, '1.18')) {
-      out.viewDistance = out.renderDistance
-      delete out.renderDistance
+  // 图像品质：按版本选字段与值格式
+  if (out.graphicsPreset != null && out.graphicsPreset !== '') {
+    const preset = out.graphicsPreset
+    if (mcVersionAtLeast(mcVersion, '1.21.11')) {
+      // 新版：graphicsPreset 带引号 JSON 字符串
+      out.graphicsPreset = `"${preset}"`
+    } else {
+      // 旧版：graphics 数字（0 流畅 / 1 高品质 / 2 极佳）
+      out.graphics = preset === 'fast' ? '0' : preset === 'fabulous' ? '2' : '1'
+      delete out.graphicsPreset
     }
   }
+  // 潜行/疾跑切换：1.15 辅助功能引入，更早版本无此字段，跳过
   if (!mcVersionAtLeast(mcVersion, '1.15')) {
-    delete out.sneakToggled
-    delete out.sprintToggled
+    delete out.toggleCrouch
+    delete out.toggleSprint
   }
   return out
 }

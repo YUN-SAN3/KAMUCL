@@ -341,7 +341,7 @@ onUnmounted(stopCapture)
                   :min="item.min"
                   :max="item.max"
                   :step="item.step"
-                  :value="optionValue(item)"
+                  :value="sliderPreview[item.id] ?? optionValue(item)"
                   @input="onSliderInput(item, $event)"
                   @change="onSliderChange(item, $event)"
                 />

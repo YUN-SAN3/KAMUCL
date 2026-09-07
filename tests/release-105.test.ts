@@ -7,24 +7,21 @@ import { VANILLA_OPTIONS } from '../src/shared/keybindings'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
 
-test('options version adaptation: FOV float for <1.16.2, integer degrees for newer, viewDistance rename for >=1.18', () => {
+test('options version adaptation: FOV float for all versions, graphics preset fork at 1.21.11, toggle fields skipped before 1.15', () => {
   // 1.12.2：FOV 70° 必须写为浮点 0.5（(70-30)/80），否则投影异常视角颠倒
-  const legacy = adaptOptionsForVersion({ fov: '70', renderDistance: '12', sneakToggled: 'false', sprintToggled: 'true', gamma: '0.5' }, '1.12.2')
+  const legacy = adaptOptionsForVersion({ fov: '70', renderDistance: '12', toggleCrouch: 'false', toggleSprint: 'true', gamma: '0.5' }, '1.12.2')
   assert.equal(legacy.fov, '0.5', 'FOV 70° must become 0.5 float for 1.12.2')
   assert.equal(legacy.renderDistance, '12', 'renderDistance kept for 1.12.2')
-  assert.equal(legacy.sneakToggled, undefined, 'sneakToggled skipped for 1.12.2 (no such field)')
-  assert.equal(legacy.sprintToggled, undefined, 'sprintToggled skipped for 1.12.2')
+  assert.equal(legacy.toggleCrouch, undefined, 'toggleCrouch skipped for 1.12.2 (no such field)')
+  assert.equal(legacy.toggleSprint, undefined, 'toggleSprint skipped for 1.12.2')
   assert.equal(legacy.gamma, '0.5', 'gamma unchanged')
-  // 1.16.1 仍浮点；1.16.2 起整数度数
+  // FOV 浮点与版本无关（1.16.1/1.20.1/26.2 同样 0-1 浮点，实证）
   assert.equal(adaptOptionsForVersion({ fov: '90' }, '1.16.1').fov, '0.75')
-  assert.equal(adaptOptionsForVersion({ fov: '90' }, '1.16.2').fov, '90')
-  // 1.18+：renderDistance → viewDistance（26.2 未生效的根因修复）
-  const modern = adaptOptionsForVersion({ renderDistance: '16', fov: '80' }, '26.2')
-  assert.equal(modern.viewDistance, '16')
-  assert.equal(modern.renderDistance, undefined)
-  assert.equal(modern.fov, '80')
-  // 1.17.1 仍 renderDistance
-  assert.equal(adaptOptionsForVersion({ renderDistance: '16' }, '1.17.1').renderDistance, '16')
+  assert.equal(adaptOptionsForVersion({ fov: '90' }, '1.20.1').fov, '0.75')
+  assert.equal(adaptOptionsForVersion({ fov: '90' }, '26.2').fov, '0.75')
+  // 渲染距离各版本字段一致（renderDistance，26.2 实证）
+  assert.equal(adaptOptionsForVersion({ renderDistance: '16' }, '26.2').renderDistance, '16')
+  assert.equal(adaptOptionsForVersion({ renderDistance: '16' }, '1.12.2').renderDistance, '16')
 })
 
 test('version comparison: 26.x new scheme is newer than all 1.x; unknown treated as latest', () => {

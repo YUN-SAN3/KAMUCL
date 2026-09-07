@@ -151,29 +151,31 @@ export interface GameOptionDef {
   options?: Array<{ value: string; label: string }>
 }
 
-/** 原版 options.txt 中可同步的其他配置项（参考游戏内设置的分类与入口层级） */
+/** 原版 options.txt 中可同步的其他配置项（字段名经真实 options.txt 实证，参考游戏内设置的分类与入口层级） */
 export const VANILLA_OPTIONS: GameOptionDef[] = [
   // 视频设置（游戏内「视频设置」页）
+  // fov 在所有版本的 options.txt 中都是 0-1 浮点（度数映射 (d-30)/80），与版本无关——26.2 实证 fov:0.375。
   { id: 'fov', category: '视频设置', label: '视场角（FOV）', type: 'slider', defaultValue: 70, min: 30, max: 110, step: 1, unit: '°' },
   { id: 'gamma', category: '视频设置', label: '亮度', type: 'slider', defaultValue: 0.5, min: 0, max: 1, step: 0.05 },
   { id: 'renderDistance', category: '视频设置', label: '渲染距离', type: 'slider', defaultValue: 12, min: 2, max: 32, step: 1, unit: '区块' },
   {
-    id: 'graphics', category: '视频设置', label: '图像品质', type: 'select', defaultValue: '1',
-    options: [{ value: '0', label: '流畅' }, { value: '1', label: '高品质' }, { value: '2', label: '极佳' }]
+    // 1.21.11 前 options.txt 为 graphics:0/1/2；1.21.11 起为 graphicsPreset:"fast"/"fancy"/"fabulous"（带引号 JSON 串）
+    id: 'graphicsPreset', category: '视频设置', label: '图像品质', type: 'select', defaultValue: 'fancy',
+    options: [{ value: 'fast', label: '流畅' }, { value: 'fancy', label: '高品质' }, { value: 'fabulous', label: '极佳' }]
   },
   {
-    id: 'maxFramerate', category: '视频设置', label: '帧率上限', type: 'select', defaultValue: '120',
+    id: 'maxFps', category: '视频设置', label: '帧率上限', type: 'select', defaultValue: '120',
     options: [
       { value: '260', label: '无限制' }, { value: '240', label: '240 fps' }, { value: '144', label: '144 fps' },
       { value: '120', label: '120 fps' }, { value: '60', label: '60 fps' }, { value: '30', label: '30 fps' }
     ]
   },
-  { id: 'vsync', category: '视频设置', label: '垂直同步', type: 'boolean', defaultValue: true },
+  { id: 'enableVsync', category: '视频设置', label: '垂直同步', type: 'boolean', defaultValue: true },
   // 鼠标设置（游戏内「选项 → 控制 → 鼠标设置」）
   { id: 'mouseSensitivity', category: '鼠标设置', label: '鼠标灵敏度', type: 'slider', defaultValue: 0.5, min: 0, max: 1, step: 0.01 },
-  // 辅助功能（游戏内「辅助功能设置」中的操作方式）
-  { id: 'sneakToggled', category: '辅助功能', label: '潜行：切换式（按一下保持）', type: 'boolean', defaultValue: false },
-  { id: 'sprintToggled', category: '辅助功能', label: '疾跑：切换式（按一下保持）', type: 'boolean', defaultValue: false },
+  // 辅助功能（游戏内「辅助功能设置」中的操作方式；1.15 起字段为 toggleCrouch/toggleSprint）
+  { id: 'toggleCrouch', category: '辅助功能', label: '潜行：切换式（按一下保持）', type: 'boolean', defaultValue: false },
+  { id: 'toggleSprint', category: '辅助功能', label: '疾跑：切换式（按一下保持）', type: 'boolean', defaultValue: false },
   { id: 'autoJump', category: '辅助功能', label: '自动跳跃', type: 'boolean', defaultValue: true },
   // 资源包（options.txt 的 resourcePacks 是 JSON 数组字符串）
   {

@@ -61,23 +61,24 @@ test('background auto-switch: multi-image, strategy (off/order/random), startup 
 })
 
 test('default options: FOV/sensitivity/brightness/video/sneak-sprint/resource packs with independent sync toggle', () => {
-  // 定义表覆盖需求列出的项目
+  // 定义表覆盖需求列出的项目（字段名经真实 options.txt 实证）
   const ids = new Set(VANILLA_OPTIONS.map((d) => d.id))
-  for (const required of ['fov', 'mouseSensitivity', 'gamma', 'graphics', 'sneakToggled', 'sprintToggled', 'resourcePacks', 'renderDistance', 'maxFramerate', 'vsync']) {
+  for (const required of ['fov', 'mouseSensitivity', 'gamma', 'graphicsPreset', 'toggleCrouch', 'toggleSprint', 'resourcePacks', 'renderDistance', 'maxFps', 'enableVsync']) {
     assert(ids.has(required), required)
   }
   // 默认配置存储含原版默认
   const defaults = getDefaultOptions()
   assert.equal(defaults.fov, '70')
-  assert.equal(defaults.sneakToggled, 'false')
-  // 同步：覆盖登记项、保留其他行；resourcePacks 空=不同步
+  assert.equal(defaults.toggleCrouch, 'false')
+  // 同步：覆盖登记项、保留其他行；FOV 转浮点（80° → 0.625）；resourcePacks 空=不同步
   const dir = tmpDir()
   const file = require('node:path').join(dir, 'options.txt')
-  fs.writeFileSync(file, 'lang:zh_cn\nfov:90\ncustomLine:keep\n', 'utf8')
+  fs.writeFileSync(file, 'lang:zh_cn\nfov:0.5\ncustomLine:keep\n', 'utf8')
   const changed = syncOptionsToGameDir(dir, { ...defaults, fov: '80' })
   assert.equal(changed, true)
   const after = fs.readFileSync(file, 'utf8')
-  assert(after.includes('fov:80'), 'fov overridden')
+  assert(after.includes('fov:0.625'), 'fov 80° written as 0.625 float, got: ' + after)
+  assert(!after.includes('fov:0.5'), 'old fov gone')
   assert(after.includes('customLine:keep'), 'custom line kept')
   assert(after.includes('lang:zh_cn'), 'lang kept')
   // resourcePacks 逗号分隔转 JSON 数组；空则不动
