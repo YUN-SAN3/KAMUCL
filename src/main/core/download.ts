@@ -15,6 +15,7 @@ import { once } from 'node:events'
 import { pipeline } from 'node:stream/promises'
 import { downloadLimiter } from './downloadLimits'
 import { launcherLog } from './launcherLog'
+import { httpFetch } from './httpClient'
 import {
   abortableDelay,
   inheritTaskControl,
@@ -232,6 +233,15 @@ export function noteHostSuccess(url: string): void {
   if (host) hostHealth.delete(host)
 }
 
+/** 整体重试一轮时调用：网络波动恢复后解除所有 host 冷却，避免恢复的源仍被沉底。 */
+export function noteHostsRecovered(): void {
+  const now = Date.now()
+  for (const rec of hostHealth.values()) {
+    if (rec.cooldownUntil <= now) rec.cooldownUntil = 0
+    rec.fails = 0
+  }
+}
+
 /** 仅供测试：清空会话级健康度记录。 */
 export function resetHostHealthForTest(): void {
   hostHealth.clear()
@@ -441,7 +451,7 @@ async function downloadChunkRange(
       }
       await waitIfTaskPaused(ctx.extSignal)
       armInactivity()
-      const res = await fetch(url, {
+      const res = await httpFetch(url, {
         signal: requestController.signal,
         redirect: 'follow',
         headers: { Range: `bytes=${chunk.start + offset}-${chunk.end - 1}` }
@@ -727,7 +737,7 @@ async function doDownload(
       const headers: Record<string, string> = {}
       if (offset > 0) headers.Range = `bytes=${offset}-`
       else if (allowSizeProbe) headers.Range = 'bytes=0-'
-      const res = await fetch(url, {
+      const res = await httpFetch(url, {
         signal: requestController.signal,
         redirect: 'follow',
         headers
@@ -1003,57 +1013,71 @@ export async function downloadFile(
   const failures: string[] = []
   let lastErr: unknown = null
   let transferTries = 0
-  for (const candidate of candidates) {
-    for (let attempt = 0; attempt < 3; attempt++) {
-      if (extSignal?.aborted) throw new Error('已取消')
-      transferTries++
-      try {
-        const transfer = await startTransfer(candidate, dest, monoOnProgress, extSignal, expected.size)
-        // 探测/分块得出的总长只参与本次校验，不写回 expected：避免污染后续候选来源
-        const verifyTarget =
-          expected.size == null && transfer.chunked && transfer.total > 0
-            ? { ...expected, size: transfer.total }
-            : expected
-        const invalid = await verifyFile(transfer.tmp, verifyTarget, extSignal)
-        if (invalid) {
-          fs.rmSync(transfer.tmp, { force: true })
-          launcherLog(`校验失败 ${baseName}：${invalid}（${candidate}）`)
-          failures.push(`${candidate} -> ${invalid}`)
-          lastErr = new DownloadIntegrityError(`${invalid}: ${path.basename(dest)}`)
-          // 完整响应但内容错误：切换来源，不对同一地址无脑重试。
-          break
-        }
-        fs.rmSync(dest, { force: true })
-        fs.renameSync(transfer.tmp, dest)
-        noteHostSuccess(candidate)
-        if (logTransfer) {
-          launcherLog(
-            `下载完成 ${baseName}：${fmtBytes(fs.statSync(dest).size)}，耗时 ${Date.now() - startedAt}ms` +
-              (transferTries > 1 ? `，传输 ${transferTries} 次` : '')
-          )
-        }
-        return
-      } catch (e) {
-        if (extSignal?.aborted) {
-          fs.rmSync(dest + '.part', { force: true })
-          throw new Error('已取消')
-        }
-        lastErr = e
-        const kind = classifyTransferError(e)
-        const message = e instanceof Error ? e.message : String(e)
-        failures.push(`${candidate} -> ${message}${attempt ? `（重试 ${attempt}）` : ''}`)
-        // 404/410 以及其他确定性 4xx 对同一地址不重试，立即尝试下一个合法来源。
-        if (kind !== 'transient') break
-        // 仅 transient 失败记 host 健康度（404/410 等文件级错误不算源的问题）
-        noteHostFailure(candidate)
-        if (attempt < 2) {
-          launcherLog(`重试 ${baseName}：${message}（第 ${attempt + 1}/2 次重试）`)
-          await abortableDelay(350 * 2 ** attempt, extSignal)
+  let hadTransient = false
+  // 网络波动兜底：第一轮每源最多 3 次退避重试；存在 transient 失败（网络波动/超时/慢速）时，
+  // 全部来源失败/换源后仍失败，等待 2s 后整体再试一轮（每源 1 次）。
+  // 内容校验失败/404 等确定性失败不参与整体重试（重试无意义）。
+  for (let round = 0; round < 2; round++) {
+    if (round > 0) {
+      if (!hadTransient) break
+      launcherLog(`所有来源均失败，等待 2s 后整体重试一轮：${baseName}`)
+      await abortableDelay(2000, extSignal)
+      noteHostsRecovered()
+    }
+    const maxAttempts = round === 0 ? 3 : 1
+    for (const candidate of candidates) {
+      for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        if (extSignal?.aborted) throw new Error('已取消')
+        transferTries++
+        try {
+          const transfer = await startTransfer(candidate, dest, monoOnProgress, extSignal, expected.size)
+          // 探测/分块得出的总长只参与本次校验，不写回 expected：避免污染后续候选来源
+          const verifyTarget =
+            expected.size == null && transfer.chunked && transfer.total > 0
+              ? { ...expected, size: transfer.total }
+              : expected
+          const invalid = await verifyFile(transfer.tmp, verifyTarget, extSignal)
+          if (invalid) {
+            fs.rmSync(transfer.tmp, { force: true })
+            launcherLog(`校验失败 ${baseName}：${invalid}（${candidate}）`)
+            failures.push(`${candidate} -> ${invalid}`)
+            lastErr = new DownloadIntegrityError(`${invalid}: ${path.basename(dest)}`)
+            // 完整响应但内容错误：切换来源，不对同一地址无脑重试。
+            break
+          }
+          fs.rmSync(dest, { force: true })
+          fs.renameSync(transfer.tmp, dest)
+          noteHostSuccess(candidate)
+          if (logTransfer) {
+            launcherLog(
+              `下载完成 ${baseName}：${fmtBytes(fs.statSync(dest).size)}，耗时 ${Date.now() - startedAt}ms` +
+                (transferTries > 1 ? `，传输 ${transferTries} 次` : '')
+            )
+          }
+          return
+        } catch (e) {
+          if (extSignal?.aborted) {
+            fs.rmSync(dest + '.part', { force: true })
+            throw new Error('已取消')
+          }
+          lastErr = e
+          const kind = classifyTransferError(e)
+          const message = e instanceof Error ? e.message : String(e)
+          failures.push(`${candidate} -> ${message}${attempt ? `（重试 ${attempt}）` : ''}`)
+          if (kind === 'transient') hadTransient = true
+          // 404/410 以及其他确定性 4xx 对同一地址不重试，立即尝试下一个合法来源。
+          if (kind !== 'transient') break
+          // 仅 transient 失败记 host 健康度（404/410 等文件级错误不算源的问题）
+          noteHostFailure(candidate)
+          if (attempt < maxAttempts - 1) {
+            launcherLog(`重试 ${baseName}：${message}（第 ${attempt + 1}/${maxAttempts - 1} 次重试）`)
+            await abortableDelay(350 * 2 ** attempt, extSignal)
+          }
         }
       }
-    }
-    if (candidate !== candidates[candidates.length - 1]) {
-      launcherLog(`换源 ${baseName}：放弃 ${candidate}，尝试下一来源`)
+      if (candidate !== candidates[candidates.length - 1]) {
+        launcherLog(`换源 ${baseName}：放弃 ${candidate}，尝试下一来源`)
+      }
     }
   }
   const detail = failures.length ? `；已尝试：${failures.join('；')}` : ''

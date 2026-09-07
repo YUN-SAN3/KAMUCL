@@ -111,11 +111,35 @@ function at(mesh: THREE.Mesh, x: number, y: number, z: number): THREE.Mesh {
 /**
  * 按 variant 重建人偶（64×64 经典布局；左臂/左腿用 1.16+ 第二套区域）。
  * 尺寸：头 8³ 中心 y=28；躯干 8×12×4 中心 y=18；臂 4(3)×12×4 肩 y=24；腿 4×12×4 髋 y=12。
+ * slim 判定优先用皮肤图自动检测（Alex 手臂窄 1px，x=54 列全透明），不依赖档案传递链。
  */
+let autoSlim = false
+
+/** Alex（slim）检测：classic 右臂背面右缘列（x=54, y=20..32）有内容，slim 该列全透明。 */
+function detectSlimFromTexture(tex: THREE.Texture): boolean {
+  const image = tex.image as HTMLImageElement | ImageBitmap | undefined
+  if (!image) return false
+  try {
+    const canvas = document.createElement('canvas')
+    canvas.width = 64
+    canvas.height = 64
+    const ctx = canvas.getContext('2d', { willReadFrequently: true })
+    if (!ctx) return false
+    ctx.drawImage(image as CanvasImageSource, 0, 0)
+    const data = ctx.getImageData(54, 20, 1, 12).data
+    for (let i = 3; i < data.length; i += 4) {
+      if (data[i] !== 0) return false // 有内容 → classic
+    }
+    return true // 全透明 → slim
+  } catch {
+    return false
+  }
+}
+
 function buildModel() {
   disposeModel()
   if (!baseTex) return
-  const slim = props.variant === 'slim'
+  const slim = props.variant === 'slim' || autoSlim
   const armW = slim ? 3 : 4
   const armX = slim ? 5 : 5.5
 
@@ -250,6 +274,8 @@ function rebuild() {
       const old = baseTex
       baseTex = tex
       fallbackTextureActive = false
+      // Alex/Steve 自动检测：皮肤图为准，不依赖档案 variant 传递是否准确
+      autoSlim = detectSlimFromTexture(tex)
       buildModel()
       old?.dispose()
       renderer?.render(scene, camera)
