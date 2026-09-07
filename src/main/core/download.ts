@@ -366,6 +366,8 @@ interface TransferResult {
 const CHUNK_MIN_BYTES = 8 * 1024 * 1024
 const CHUNK_SIZE_BYTES = 8 * 1024 * 1024
 const CHUNK_MAX_CONNECTIONS = 8
+/** 全部块无字节进展超过该时长 → 中止分块回退单连接（源挂起兜底，块级 inactivity 之外的整体保护） */
+const CHUNK_STALL_MS = 45_000
 /** 每块独立重试上限（仅 transient 类失败）。 */
 const CHUNK_RETRY_LIMIT = 3
 
@@ -607,7 +609,11 @@ async function doDownloadChunked(
       chunk.done = 0
     }
   }
+  // 整体无进度看门狗：任一块在块级 inactivity（30s）之外仍可能因源挂起而无进展。
+  // 全部块超过 CHUNK_STALL_MS 没有任何字节进度 → 中止整组分块，回退单连接下载。
+  let lastBytesAt = Date.now()
   const updateProgress = (): void => {
+    lastBytesAt = Date.now()
     if (!onProgress) return
     const received = Math.min(total, plan.reduce((sum, c) => sum + c.done, 0))
     onProgress(received, total)
@@ -615,6 +621,11 @@ async function doDownloadChunked(
   updateProgress()
   launcherLog(`分块下载 ${path.basename(dest)}：${chunkCount} 个连接 / 共 ${fmtBytes(total)}`)
   const groupAbort = new AbortController()
+  const stallWatchdog = setInterval(() => {
+    if (Date.now() - lastBytesAt >= CHUNK_STALL_MS) {
+      groupAbort.abort(new Error(`分块下载 ${CHUNK_STALL_MS / 1000}s 无进展，回退单连接`))
+    }
+  }, 5000)
   const runChunk = (chunk: ChunkPlan, onValidated?: () => void): Promise<void> =>
     downloadChunkRange(url, chunk, {
       extSignal,
@@ -643,6 +654,7 @@ async function doDownloadChunked(
     updateProgress()
     return await mergeChunkParts(plan, dest, total, extSignal)
   } catch (e) {
+    const stalledByWatchdog = groupAbort.signal.aborted
     groupAbort.abort(e instanceof Error ? e : new Error(String(e)))
     if (restPromise) await restPromise.catch(() => undefined)
     cleanupChunkParts(plan.map((c) => c.part))
@@ -652,7 +664,14 @@ async function doDownloadChunked(
       launcherLog(`分块回退单连接 ${path.basename(dest)}：${e.message}`)
       return doDownload(url, dest, onProgress, extSignal, total)
     }
+    // 分块组整体超时/挂起（看门狗触发）→ 回退单连接而非卡死
+    if (stalledByWatchdog) {
+      launcherLog(`分块无进展回退单连接 ${path.basename(dest)}：${e instanceof Error ? e.message : String(e)}`)
+      return doDownload(url, dest, onProgress, extSignal, total)
+    }
     throw e
+  } finally {
+    clearInterval(stallWatchdog)
   }
 }
 

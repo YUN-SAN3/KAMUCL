@@ -821,7 +821,10 @@ export function requiredMajor(versionJson: VersionJson): number {
   // 按 MC 版本号推断（id 形如 1.20.5 / 1.18 / 1.8.9；自定义命名的原版取 _mcVersion）
   const verId = versionJson.inheritsFrom ?? versionJson._mcVersion ?? versionJson.id
   const m = /^1\.(\d+)(?:\.(\d+))?/.exec(verId)
-  if (!m) return 8
+  if (!m) {
+    // 非 1.x 命名（如 26.2 新版号、24w14a 快照）：均为现代版本，需 Java 21
+    return 21
+  }
   const minor = parseInt(m[1], 10)
   const patch = parseInt(m[2] ?? '0', 10)
   if (minor > 20 || (minor === 20 && patch >= 5)) return 21
@@ -834,21 +837,30 @@ interface AdoptiumAsset {
   binary?: { package?: { link?: string } }
 }
 
+/** 最低版本 + 向上兼容选择：优先推荐版本（==need），否则取满足条件的最高版本（纯函数，可测试）。 */
+export function selectJavaByMajor<T extends { major: number; is64Bit: boolean }>(available: T[], need: number): T | null {
+  const ok = available.filter((j) => j.major >= need && j.is64Bit)
+  return ok.find((j) => j.major === need) ?? [...ok].sort((a, b) => b.major - a.major)[0] ?? null
+}
+
 /**
- * 确保有可用 Java：优先本机扫描（major 匹配且 64 位），
- * 没有则从 Adoptium 下载 JRE 到 gameDir/runtimes/jre-<major>/。
+ * 确保有可用 Java：最低版本 + 向上兼容——游戏要求 Java N 时，所有 ≥N 的已安装
+ * Java 均可用；优先推荐版本（==need），否则取满足条件的最高版本（如仅装 Java 21
+ * 无 Java 17 时，1.20.1 直接用 Java 21 启动，与 PCL2/HMCL 一致）。
+ * 完整扫描本机后仍无满足条件的 Java 时，才从 Adoptium 下载 JRE 到 gameDir/runtimes/jre-<major>/。
  * Windows 为 zip（adm-zip 解压）；macOS/Linux 为 tar.gz（系统 tar 解压）。
  * 返回 java 可执行文件绝对路径。
  */
 export async function ensureJava(versionJson: VersionJson, emit: ProgressEmit): Promise<string> {
   const need = requiredMajor(versionJson)
   const started = Date.now()
-  const local = scanJava().find((j) => j.major === need && j.is64Bit)
+  const local = selectJavaByMajor(scanJava(), need)
   if (local) {
-    javaLog.debug(`本机已有 Java ${need}（64位）：${local.path}`)
+    if (local.major === need) javaLog.debug(`本机已有 Java ${need}（64位）：${local.path}`)
+    else javaLog.info(`本机没有 Java ${need}，向上兼容选用 Java ${local.major}（${local.version}，64位）：${local.path}`)
     return local.path
   }
-  javaLog.info(`本机没有 Java ${need} (64位)，开始从 Adoptium 自动下载`)
+  javaLog.info(`本机没有 Java ${need} 或更高版本（64位），开始从 Adoptium 自动下载`)
   try {
     const exe = await downloadAndExtractJava(need, emit)
     javaLog.info(`Java ${need} 自动下载完成：${exe}（耗时 ${((Date.now() - started) / 1000).toFixed(1)}s）`)
@@ -860,7 +872,7 @@ export async function ensureJava(versionJson: VersionJson, emit: ProgressEmit): 
 }
 
 async function downloadAndExtractJava(need: number, emit: ProgressEmit): Promise<string> {
-  emit({ stage: 'java', progress: 0, text: `本机没有 Java ${need} (64位)，开始自动下载…` })
+  emit({ stage: 'java', progress: 0, text: `本机没有 Java ${need} 或更高版本（64位），开始自动下载…` })
 
   // 查询 Adoptium 最新 JRE（平台与架构按当前系统）
   const osName = IS_WIN ? 'windows' : IS_MAC ? 'mac' : 'linux'

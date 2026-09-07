@@ -174,6 +174,7 @@ export const VANILLA_OPTIONS: GameOptionDef[] = [
   // 辅助功能（游戏内「辅助功能设置」中的操作方式）
   { id: 'sneakToggled', category: '辅助功能', label: '潜行：切换式（按一下保持）', type: 'boolean', defaultValue: false },
   { id: 'sprintToggled', category: '辅助功能', label: '疾跑：切换式（按一下保持）', type: 'boolean', defaultValue: false },
+  { id: 'autoJump', category: '辅助功能', label: '自动跳跃', type: 'boolean', defaultValue: true },
   // 资源包（options.txt 的 resourcePacks 是 JSON 数组字符串）
   {
     id: 'resourcePacks', category: '资源包', label: '启用的资源包', type: 'text',

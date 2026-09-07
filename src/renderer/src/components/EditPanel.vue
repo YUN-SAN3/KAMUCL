@@ -285,16 +285,19 @@ function applyCode() {
 <style scoped>
 .edit-panel {
   position: fixed;
-  top: 64px;
+  /* 避开顶部「个性化编辑中」提示栏（top:14px + 高约40px + ≥12px 间距），不穿提示栏 */
+  top: 72px;
   right: 0;
   bottom: 0;
   width: 320px;
   z-index: 120;
   display: flex;
   flex-direction: column;
-  background: var(--card);
-  border-left: 1px solid var(--border);
-  box-shadow: -12px 0 32px rgba(0, 0, 0, 0.14);
+  /* 接近不透明：透明主题的 --card 半透明会透出背景内容；--bg 在六套主题下均不透明 */
+  background: var(--bg);
+  /* 明确视觉边界：左侧描边 + 更强投影，与下方内容分层 */
+  border-left: 1px solid var(--border-strong);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.32);
 }
 
 /* 头部 */

@@ -707,6 +707,8 @@ export const IPC = {
   optionsGetDefault: 'options:getDefault', // () => Record<string, string>
   optionsSetDefault: 'options:setDefault', // (id: string, value: string) => Record<string, string>
   optionsReset: 'options:reset', // () => Record<string, string>
+  optionsImportPacks: 'options:importPacks', // (paths: string[]) => Record<string, string>  拖入材质包装载
+  optionsRemovePack: 'options:removePack', // (name: string) => Record<string, string>
   // 桥接 MOD 实时配置面板（游戏目录 .kamucl-bridge.json 发现 + token 校验，仅本机）
   bridgeStatus: 'bridge:status', // (versionId: string) => BridgeStatus
   bridgeManifest: 'bridge:manifest', // (versionId: string) => { protocol, params: BridgeParam[] }

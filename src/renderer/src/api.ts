@@ -297,6 +297,10 @@ export const getDefaultOptions = () => invoke<Record<string, string>>(IPC.option
 export const setDefaultOption = (id: string, value: string) =>
   invoke<Record<string, string>>(IPC.optionsSetDefault, id, value)
 export const resetDefaultOptions = () => invoke<Record<string, string>>(IPC.optionsReset)
+export const importDefaultResourcePacks = (paths: string[]) =>
+  invoke<Record<string, string>>(IPC.optionsImportPacks, paths)
+export const removeDefaultResourcePack = (name: string) =>
+  invoke<Record<string, string>>(IPC.optionsRemovePack, name)
 
 // ---------------- 桥接 MOD 实时配置面板 ----------------
 export const bridgeStatus = (versionId: string) =>

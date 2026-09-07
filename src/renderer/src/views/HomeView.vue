@@ -366,13 +366,10 @@ watch(
   () => { skinProfile.value = null; void reloadSkin() }
 )
 
-// ---------------- 我的实例与菜单 ----------------
-const recent = computed(() => {
-  const sorted = sortWithFavorite(store.installed)
-  const selected = currentVersion.value
-  if (!selected) return sorted.slice(0, 4)
-  return [selected, ...sorted.filter((version) => version.id !== selected.id)].slice(0, 4)
-})
+// ---------------- 最近游戏与菜单 ----------------
+// 收藏优先 + 最近游玩排序；启动某实例后 recordLastPlayed 更新使其自然提前。
+// 选中实例不再直接置顶——只有启动过才排到第一个。
+const recent = computed(() => sortWithFavorite(store.installed).slice(0, 4))
 const sortedInstalled = computed(() => sortWithFavorite(store.installed))
 
 const versionMenu = reactive({ open: false, top: 0, left: 0, width: 230 })
@@ -555,7 +552,7 @@ onUnmounted(() => {
 
       <section class="instances-block">
         <div class="instances-head">
-          <h2>我的实例</h2>
+          <h2>最近游戏</h2>
           <button class="manage-instances" @click="store.currentView = 'game'">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>
             管理实例

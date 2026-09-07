@@ -5,7 +5,7 @@
  * 两个同步开关独立：按键设置同步 / 其他设置同步，分别决定是否写入实例 options.txt。
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { errText, getDefaultKeys, getDefaultOptions, resetDefaultKeys, resetDefaultOptions, setDefaultKey, setDefaultOption } from '../api'
+import { errText, getDefaultKeys, getDefaultOptions, importDefaultResourcePacks, removeDefaultResourcePack, resetDefaultKeys, resetDefaultOptions, setDefaultKey, setDefaultOption } from '../api'
 import { store, toast } from '../store'
 import { updateSettings } from '../settingsUpdates'
 import { KEYBIND_CATEGORIES, VANILLA_KEYBINDS, VANILLA_OPTIONS, OPTION_CATEGORIES, codeToMcKey, mcKeyLabel, mouseButtonToMcKey } from '@shared/keybindings'
@@ -16,6 +16,9 @@ const options = ref<Record<string, string>>({})
 const loading = ref(true)
 const keySearch = ref('')
 const capturing = ref('')
+
+/** 精确输入框自动聚焦 */
+const vFocus = { mounted: (el: HTMLElement) => el.focus() }
 
 const keySync = computed(() => store.settings?.keySync === true)
 const optionsSync = computed(() => store.settings?.optionsSync === true)
@@ -120,6 +123,69 @@ function serialize(v: number | string | boolean): string {
 function optionValue(def: GameOptionDef): string {
   return options.value[def.id] ?? serialize(def.defaultValue)
 }
+
+/** 数值显示完全参考 MC 游戏内标识：亮度=百分比、鼠标灵敏度=百分比（×200）、FOV=度数、渲染距离=区块 */
+function optionDisplayValue(def: GameOptionDef): string {
+  const raw = optionValue(def)
+  if (def.id === 'gamma') return Math.round(Number(raw) * 100) + '%'
+  if (def.id === 'mouseSensitivity') return Math.round(Number(raw) * 200) + '%'
+  return raw + (def.unit ?? '')
+}
+
+/** 滑块拖动实时显示（input 事件），释放时保存（change 事件） */
+const sliderPreview = ref<Record<string, string>>({})
+function onSliderInput(def: GameOptionDef, e: Event) {
+  sliderPreview.value[def.id] = (e.target as HTMLInputElement).value
+}
+async function onSliderChange(def: GameOptionDef, e: Event) {
+  const value = (e.target as HTMLInputElement).value
+  delete sliderPreview.value[def.id]
+  await applyOption(def, value)
+}
+function sliderShown(def: GameOptionDef): string {
+  const raw = sliderPreview.value[def.id]
+  if (raw == null) return optionDisplayValue(def)
+  // 拖动中用预览值实时计算 MC 风格显示
+  if (def.id === 'gamma') return Math.round(Number(raw) * 100) + '%'
+  if (def.id === 'mouseSensitivity') return Math.round(Number(raw) * 200) + '%'
+  return raw + (def.unit ?? '')
+}
+
+/** 点击数值 → 精确输入 */
+const editingOption = ref('')
+const editingText = ref('')
+function startOptionEdit(def: GameOptionDef) {
+  editingOption.value = def.id
+  editingText.value = optionValue(def)
+}
+function cancelOptionEdit() {
+  editingOption.value = ''
+  editingText.value = ''
+}
+async function commitOptionEdit(def: GameOptionDef) {
+  const value = editingText.value.trim()
+  cancelOptionEdit()
+  if (!value) return
+  let n = Number(value)
+  if (!Number.isFinite(n)) return
+  // 百分比输入（亮度/灵敏度显示为 %，输入百分比数值）
+  if (def.id === 'gamma') n = n / 100
+  if (def.id === 'mouseSensitivity') n = n / 200
+  if (def.min != null && n < def.min) n = def.min
+  if (def.max != null && n > def.max) n = def.max
+  await applyOption(def, String(n))
+}
+
+/** 潜行/疾跑切换式：与 MC 原版一致，点一下在「按住/切换」间切换 */
+async function toggleSneakSprint(def: GameOptionDef) {
+  const next = optionValue(def) !== 'true'
+  await applyOption(def, String(next))
+}
+/** 潜行/疾跑按钮文字参考 MC：按住（保持）/ 切换 */
+function sneakSprintLabel(def: GameOptionDef): string {
+  const base = def.id === 'sneakToggled' ? '潜行' : '疾跑'
+  return `${base}：${optionValue(def) === 'true' ? '切换' : '按住'}`
+}
 async function applyOption(def: GameOptionDef, value: string) {
   try {
     options.value = await setDefaultOption(def.id, value)
@@ -137,6 +203,34 @@ async function resetAllOptions() {
     toast('其他配置已全部恢复为 MC 原版默认', 'success')
   } catch (e) {
     toast('重置失败：' + errText(e), 'error')
+  }
+}
+
+// ---------------- 默认材质包（拖入装载） ----------------
+const packDragActive = ref(false)
+const packList = computed(() =>
+  (options.value.resourcePacks ?? '').split(',').map((s) => s.trim()).filter(Boolean)
+)
+
+async function onPackDrop(e: DragEvent) {
+  e.preventDefault()
+  e.stopPropagation()
+  packDragActive.value = false
+  const files = [...(e.dataTransfer?.files ?? [])].map((f) => (f as File & { path?: string }).path).filter((p): p is string => !!p)
+  if (!files.length) return
+  try {
+    options.value = await importDefaultResourcePacks(files)
+    toast(`已装载 ${files.length} 个材质包`, 'success')
+  } catch (err) {
+    toast('装载失败：' + errText(err), 'error')
+  }
+}
+async function onRemovePack(name: string) {
+  try {
+    options.value = await removeDefaultResourcePack(name)
+    toast(`已移除材质包 ${name}`, 'success')
+  } catch (e) {
+    toast('移除失败：' + errText(e), 'error')
   }
 }
 
@@ -239,7 +333,7 @@ onUnmounted(stopCapture)
                 {{ item.label }}
                 <small v-if="item.description" class="cfg-label-desc">{{ item.description }}</small>
               </span>
-              <!-- 滑块 -->
+              <!-- 滑块：拖动实时显示 MC 风格数值，点击数值可精确输入 -->
               <template v-if="item.type === 'slider'">
                 <input
                   type="range"
@@ -248,9 +342,24 @@ onUnmounted(stopCapture)
                   :max="item.max"
                   :step="item.step"
                   :value="optionValue(item)"
-                  @change="applyOption(item, ($event.target as HTMLInputElement).value)"
+                  @input="onSliderInput(item, $event)"
+                  @change="onSliderChange(item, $event)"
                 />
-                <span class="cfg-slider-val">{{ optionValue(item) }}{{ item.unit ?? '' }}</span>
+                <input
+                  v-if="editingOption === item.id"
+                  v-model="editingText"
+                  class="input cfg-value-input"
+                  @keydown.enter="commitOptionEdit(item)"
+                  @keydown.esc="cancelOptionEdit"
+                  @blur="commitOptionEdit(item)"
+                  v-focus
+                />
+                <span
+                  v-else
+                  class="cfg-slider-val cfg-val-editable"
+                  :title="`${optionDisplayValue(item)}（点击精确输入）`"
+                  @click="startOptionEdit(item)"
+                >{{ sliderShown(item) }}</span>
               </template>
               <!-- 下拉 -->
               <select
@@ -261,6 +370,16 @@ onUnmounted(stopCapture)
               >
                 <option v-for="o in item.options" :key="o.value" :value="o.value">{{ o.label }}</option>
               </select>
+              <!-- 潜行/疾跑：与 MC 原版一致的按住/切换切换按钮 -->
+              <button
+                v-else-if="item.id === 'sneakToggled' || item.id === 'sprintToggled'"
+                class="cfg-bind cfg-toggle-bind"
+                :class="{ modified: optionValue(item) === 'true' }"
+                title="与游戏内辅助功能一致：点击在「按住」与「切换」间切换"
+                @click="toggleSneakSprint(item)"
+              >
+                {{ sneakSprintLabel(item) }}
+              </button>
               <!-- 开关 -->
               <label v-else-if="item.type === 'boolean'" class="switch cfg-switch-inline">
                 <input
@@ -270,7 +389,28 @@ onUnmounted(stopCapture)
                 />
                 <span class="switch-ui"></span>
               </label>
-              <!-- 文本（资源包列表） -->
+              <!-- 材质包：拖入文件装载（支持多个同时装载），同步时复制到实例 -->
+              <div
+                v-else-if="item.id === 'resourcePacks'"
+                class="cfg-pack-zone"
+                :class="{ 'drag-active': packDragActive }"
+                @dragenter.prevent.stop="packDragActive = true"
+                @dragover.prevent.stop
+                @dragleave.prevent.stop="packDragActive = false"
+                @drop="onPackDrop"
+              >
+                <div class="cfg-pack-drop">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+                  <span>{{ packList.length ? '继续拖入材质包（.zip）' : '把材质包文件（.zip）拖到这里装载' }}</span>
+                </div>
+                <div v-if="packList.length" class="cfg-pack-list">
+                  <span v-for="name in packList" :key="name" class="cfg-pack-tag">
+                    {{ name }}
+                    <button class="cfg-pack-remove" title="移除该材质包" @click="onRemovePack(name)">×</button>
+                  </span>
+                </div>
+              </div>
+              <!-- 文本（其他文本项） -->
               <input
                 v-else
                 class="input cfg-text"
@@ -340,5 +480,17 @@ onUnmounted(stopCapture)
 .cfg-select { min-width: 130px; }
 .cfg-text { flex: 1; min-width: 180px; font-size: 12px; }
 .cfg-switch-inline { flex-shrink: 0; }
+.cfg-val-editable { cursor: text; border-radius: 4px; padding: 1px 4px; transition: background 0.12s ease, color 0.12s ease; }
+.cfg-val-editable:hover { background: var(--hover); color: var(--text); }
+.cfg-value-input { width: 70px; padding: 2px 6px; font-size: 12px; text-align: right; }
+.cfg-toggle-bind { min-width: 96px; }
+.cfg-pack-zone { flex: 1; min-width: 200px; border: 1px dashed var(--border-strong); border-radius: 10px; padding: 10px; transition: border-color 0.15s ease, background 0.15s ease; }
+.cfg-pack-zone.drag-active { border-color: var(--accent); background: var(--accent-soft); }
+.cfg-pack-drop { display: flex; align-items: center; gap: 8px; color: var(--text-dim); font-size: 12px; justify-content: center; }
+.cfg-pack-drop svg { width: 18px; height: 18px; }
+.cfg-pack-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.cfg-pack-tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border: 1px solid var(--border); border-radius: 999px; background: var(--card-2); font-size: 11px; }
+.cfg-pack-remove { border: none; background: transparent; color: var(--text-dim); cursor: pointer; font-size: 13px; padding: 0 2px; }
+.cfg-pack-remove:hover { color: var(--danger); }
 .cfg-capture-mask { z-index: 9000; }
 </style>

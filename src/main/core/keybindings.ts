@@ -6,6 +6,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { app } from 'electron'
 import { VANILLA_KEYBINDS, VANILLA_OPTIONS } from '../../shared/keybindings'
+import { compareVersions } from '../../shared/modCompatibility'
 
 const KEY_ID_RE = /^key_key\.[a-z0-9.]+$/i
 const BIND_RE = /^key\.(keyboard|mouse)\.[a-z0-9.]+$/
@@ -149,14 +150,25 @@ export function resetDefaultOptions(): Record<string, string> {
 }
 
 /** 启动时同步其他配置：写进实例 options.txt（resourcePacks 为空字符串时不同步该项）。返回是否有改动。 */
-export function syncOptionsToGameDir(gameDir: string, options: Record<string, string> = getDefaultOptions()): boolean {
+export function syncOptionsToGameDir(gameDir: string, options: Record<string, string> = getDefaultOptions(), mcVersion = ''): boolean {
   const effective: Record<string, string> = {}
-  for (const [key, value] of Object.entries(options)) {
+  const adapted = adaptOptionsForVersion(options, mcVersion)
+  for (const [key, value] of Object.entries(adapted)) {
     // 资源包列表：逗号分隔文本 → options.txt 的 JSON 数组；为空 = 未配置，不同步
     if (key === 'resourcePacks') {
       const list = value.split(',').map((s) => s.trim()).filter(Boolean)
       if (!list.length) continue
-      effective[key] = JSON.stringify(list)
+      // 拖入的包文件随同步复制到实例 resourcepacks 目录（不存在才复制，不覆盖）
+      const packsDir = defaultResourcePacksDir()
+      const targetDir = path.join(gameDir, 'resourcepacks')
+      fs.mkdirSync(targetDir, { recursive: true })
+      for (const packName of list) {
+        const src = path.join(packsDir, path.basename(packName))
+        const dest = path.join(targetDir, path.basename(packName))
+        if (fs.existsSync(src) && !fs.existsSync(dest)) fs.copyFileSync(src, dest)
+      }
+      // .zip 文件加 file/ 前缀；vanilla/fabric 等内置标识原样保留
+      effective[key] = JSON.stringify(list.map((n) => /\.zip$/i.test(n) ? `file/${path.basename(n)}` : n))
       continue
     }
     effective[key] = value
@@ -168,4 +180,93 @@ export function syncOptionsToGameDir(gameDir: string, options: Record<string, st
   if (after === before) return false
   fs.writeFileSync(file, after, 'utf-8')
   return true
+}
+
+// ---------------- MC 版本适配（不同版本 options.txt 的字段名/格式差异） ----------------
+
+/** MC 版本是否 ≥ 目标版本（1.x.y 格式；26.x 新版号天然大于所有 1.x） */
+export function mcVersionAtLeast(mcVersion: string, target: string): boolean {
+  if (!mcVersion) return true // 未知版本按最新处理
+  return compareVersions(mcVersion, target) >= 0
+}
+
+/**
+ * 按 MC 版本适配配置写入：
+ * - FOV：<1.16.2 存 0-1 浮点（度数映射 (d-30)/80）；≥1.16.2 存整数度数。
+ *   旧版误写整数度数会导致投影异常（用户报告 1.12.2 视角颠倒、显示"角视场 3470"）。
+ * - 渲染距离：≥1.18 字段名改为 viewDistance（写 renderDistance 无效——26.2 未生效的根因）。
+ * - 潜行/疾跑切换：1.15 辅助功能引入，更早版本无此字段，跳过。
+ * - 自动跳跃：各版本字段一致（autoJump）。
+ */
+export function adaptOptionsForVersion(options: Record<string, string>, mcVersion: string): Record<string, string> {
+  const out = { ...options }
+  const legacyFov = !mcVersionAtLeast(mcVersion, '1.16.2')
+  if (legacyFov && out.fov != null && out.fov !== '') {
+    const degrees = Number(out.fov)
+    if (Number.isFinite(degrees)) {
+      out.fov = String(Math.max(0, Math.min(1, (degrees - 30) / 80)))
+    }
+  }
+  if (out.renderDistance != null && out.renderDistance !== '') {
+    if (mcVersionAtLeast(mcVersion, '1.18')) {
+      out.viewDistance = out.renderDistance
+      delete out.renderDistance
+    }
+  }
+  if (!mcVersionAtLeast(mcVersion, '1.15')) {
+    delete out.sneakToggled
+    delete out.sprintToggled
+  }
+  return out
+}
+
+/**
+ * 键位版本适配：≤1.12.2 的 options.txt 键位是 LWJGL2 数字 keycode（key_key.forward:19），
+ * 与 1.13+ 的 key.keyboard.* 格式不兼容。旧版跳过键位同步（写 key.keyboard.* 会让 1.12.2 键位失效）。
+ */
+export function keySyncSupportedForVersion(mcVersion: string): boolean {
+  return mcVersionAtLeast(mcVersion, '1.13')
+}
+
+// ---------------- 默认材质包（拖入装载，随同步复制到实例） ----------------
+
+/** 拖入的默认材质包存放目录 */
+function defaultResourcePacksDir(): string {
+  try {
+    return path.join(app.getPath('userData'), 'default-resourcepacks')
+  } catch {
+    // 测试环境无 Electron app：回退临时目录（同步逻辑仍可验证）
+    return path.join(require('node:os').tmpdir(), 'kamucl-default-resourcepacks')
+  }
+}
+
+/** 拖入材质包文件（.zip）：复制到启动器资源库并加入默认资源包列表。 */
+export function importDefaultResourcePacks(paths: string[]): Record<string, string> {
+  const options = getDefaultOptions()
+  const current = (options.resourcePacks ?? '').split(',').map((s) => s.trim()).filter(Boolean)
+  const dir = defaultResourcePacksDir()
+  fs.mkdirSync(dir, { recursive: true })
+  for (const source of paths) {
+    const name = path.basename(String(source))
+    if (!/\.zip$/i.test(name)) throw new Error(`不支持的材质包文件：${name}（仅支持 .zip）`)
+    const dest = path.join(dir, name)
+    fs.copyFileSync(String(source), dest)
+    if (!current.includes(name)) current.push(name)
+  }
+  options.resourcePacks = current.join(',')
+  persistOptions(options)
+  return options
+}
+
+/** 移除默认材质包（列表移除 + 删除库文件） */
+export function removeDefaultResourcePack(name: string): Record<string, string> {
+  const options = getDefaultOptions()
+  const safe = path.basename(String(name))
+  const current = (options.resourcePacks ?? '').split(',').map((s) => s.trim()).filter(Boolean).filter((n) => n !== safe)
+  options.resourcePacks = current.join(',')
+  persistOptions(options)
+  try {
+    fs.rmSync(path.join(defaultResourcePacksDir(), safe), { force: true })
+  } catch { /* 删除失败不影响列表 */ }
+  return options
 }

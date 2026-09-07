@@ -307,31 +307,35 @@ async function launchOwned(
     /* 写入失败不影响启动 */
   }
 
-  // 默认按键同步（总开关开启时覆盖实例 options.txt 的 key_* 项，其余行原样保留）
-  if (settings.keySync) {
-    try {
-      const { syncKeysToGameDir } = await import('./keybindings')
-      if (syncKeysToGameDir(effectiveGameDir)) log('[KAMUCL] 已同步默认按键到 options.txt')
-    } catch (error) {
-      log(`[KAMUCL] 默认按键同步失败（不影响启动）：${error instanceof Error ? error.message : String(error)}`)
-    }
-  }
-
-  // 其他游戏配置同步（独立开关：FOV/灵敏度/亮度/视频/潜行疾跑方式/资源包）
-  if (settings.optionsSync) {
-    try {
-      const { syncOptionsToGameDir } = await import('./keybindings')
-      if (syncOptionsToGameDir(effectiveGameDir)) log('[KAMUCL] 已同步其他游戏配置到 options.txt')
-    } catch (error) {
-      log(`[KAMUCL] 其他游戏配置同步失败（不影响启动）：${error instanceof Error ? error.message : String(error)}`)
-    }
-  }
-
   // a) 版本链合并
   emit({ stage: 'launch', progress: 0, text: '解析版本信息' })
   const { merged, baseId } = resolveChain(versionId)
   launchLog.debug(`版本链解析完成：${versionId} → 底层 ${baseId}`)
   const instanceConfig = readVersionJson(versionId)
+  const instanceMcVersion = instanceConfig._mcVersion ?? baseId
+
+  // 默认按键同步（总开关开启时覆盖实例 options.txt 的 key_* 项，其余行原样保留）
+  if (settings.keySync) {
+    try {
+      const { syncKeysToGameDir, keySyncSupportedForVersion } = await import('./keybindings')
+      if (!keySyncSupportedForVersion(instanceMcVersion)) {
+        log(`[KAMUCL] Minecraft ${instanceMcVersion} 的键位为数字 keycode 格式，跳过按键同步`)
+      } else if (syncKeysToGameDir(effectiveGameDir)) log('[KAMUCL] 已同步默认按键到 options.txt')
+    } catch (error) {
+      log(`[KAMUCL] 默认按键同步失败（不影响启动）：${error instanceof Error ? error.message : String(error)}`)
+    }
+  }
+
+  // 其他游戏配置同步（独立开关：FOV/灵敏度/亮度/视频/潜行疾跑方式/资源包；按版本适配字段与格式）
+  if (settings.optionsSync) {
+    try {
+      const { syncOptionsToGameDir } = await import('./keybindings')
+      if (syncOptionsToGameDir(effectiveGameDir, undefined, instanceMcVersion)) log('[KAMUCL] 已同步其他游戏配置到 options.txt')
+    } catch (error) {
+      log(`[KAMUCL] 其他游戏配置同步失败（不影响启动）：${error instanceof Error ? error.message : String(error)}`)
+    }
+  }
+
   const clientJar = clientJarPath(baseId)
   if (!fs.existsSync(clientJar)) {
     throw new Error(`客户端文件缺失（${baseId}.jar），请先完整安装版本 ${baseId}`)
