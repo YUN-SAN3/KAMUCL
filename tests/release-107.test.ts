@@ -28,12 +28,20 @@ test('FOV is 0-1 float in options.txt for ALL versions (1.12.2 and 26.2 alike), 
   }
 })
 
-test('graphics preset: graphics:0/1/2 before 1.21.11, graphicsPreset quoted string from 1.21.11', () => {
-  assert.equal(adaptOptionsForVersion({ graphicsPreset: 'fancy' }, '1.20.1').graphics, '1')
-  assert.equal(adaptOptionsForVersion({ graphicsPreset: 'fancy' }, '1.20.1').graphicsPreset, undefined)
+test('graphics: <1.16 graphics:0/1 → 1.16-1.21.10 graphicsMode:0/1/2 → >=1.21.11 graphicsPreset quoted string', () => {
+  // Wiki 实证：graphics 在 1.16 被 graphicsMode 取代，1.21.11（开发版 25w41a 起）再被 graphicsPreset 取代；
+  // 1.0.7 旧断言让 1.16-1.21.10 区间写 graphics(数字)，游戏忽略未知键导致「图像品质不生效」，本用例按三段正确行为修正。
+  const mid = adaptOptionsForVersion({ graphicsPreset: 'fancy' }, '1.20.1')
+  assert.equal(mid.graphicsMode, '1', '1.16-1.21.10 must write graphicsMode')
+  assert.equal(mid.graphics, undefined, 'graphics field must not be written for 1.20.1')
+  assert.equal(mid.graphicsPreset, undefined)
+  assert.equal(adaptOptionsForVersion({ graphicsPreset: 'fancy' }, '1.16.5').graphicsMode, '1')
+  assert.equal(adaptOptionsForVersion({ graphicsPreset: 'fabulous' }, '1.20.1').graphicsMode, '2')
+  assert.equal(adaptOptionsForVersion({ graphicsPreset: 'fancy' }, '1.15.2').graphics, '1', '<1.16 keeps numeric graphics')
   assert.equal(adaptOptionsForVersion({ graphicsPreset: 'fast' }, '1.12.2').graphics, '0')
   assert.equal(adaptOptionsForVersion({ graphicsPreset: 'fabulous' }, '26.2').graphicsPreset, '"fabulous"')
   assert.equal(adaptOptionsForVersion({ graphicsPreset: 'fancy' }, '1.21.11').graphicsPreset, '"fancy"')
+  assert.equal(adaptOptionsForVersion({ graphicsPreset: 'fancy' }, '25w41a').graphicsPreset, '"fancy"', 'snapshot 25w41a+ is in the graphicsPreset family')
 })
 
 test('toggleCrouch/toggleSprint skipped before 1.15 (field did not exist)', () => {

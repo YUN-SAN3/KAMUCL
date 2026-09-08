@@ -126,6 +126,7 @@ export class Puncher {
   private wonResolvers: Array<() => void> = []
   private stopFlag = false
   private recvTimer: NodeJS.Timeout | null = null
+  private onMsg: ((buf: Buffer, rinfo: dgram.RemoteInfo) => void) | null = null
 
   constructor(opts: PuncherOptions) {
     this.conn = opts.conn
@@ -180,6 +181,7 @@ export class Puncher {
       this.target = from
       this.signalWon()
     }
+    this.onMsg = onMsg
     this.conn.on('message', onMsg)
 
     const poll = (): void => {
@@ -225,14 +227,20 @@ export class Puncher {
     for (const fn of list) fn()
   }
 
-  /** 停止打洞（幂等）。不关闭 socket。 */
+  /**
+   * 停止打洞（幂等）。不关闭 socket —— socket 归调用方所有：
+   * 多轮重试要在同一 socket 上继续打洞，成功后 socket 交给 RudpConn 接管，
+   * 由调用方/RudpConn 负责最终 close（Go 版 stop 同样不 close fd）。
+   */
   stop(): void {
     if (this.stopFlag) return
     this.stopFlag = true
     if (this.recvTimer) clearTimeout(this.recvTimer)
+    if (this.onMsg) {
+      try { this.conn.removeListener('message', this.onMsg) } catch { /* ignore */ }
+      this.onMsg = null
+    }
     try { this.conn.setRecvBufferSize?.(0) } catch { /* ignore */ }
-    // 解除 read 阻塞
-    try { this.conn.close() } catch { /* ignore */ }
     this.signalWon()
   }
 }

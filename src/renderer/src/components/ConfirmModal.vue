@@ -33,7 +33,7 @@ const emit = defineEmits<{
 
 <style scoped>
 .confirm-text {
-  font-size: 13.5px;
+  font-size: var(--text-md);
   line-height: 1.7;
   word-break: break-all;
 }

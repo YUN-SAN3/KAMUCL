@@ -16,12 +16,16 @@ export default defineConfig({
       else console.warn('[kamucl] bridge/dist/kamucl-bridge-1.0.0.jar missing; run node scripts/build-bridge.cjs')
     } }],
     build: {
-      outDir: 'out/main'
+      outDir: 'out/main',
+      minify: true,
+      sourcemap: false
     }
   },
   preload: {
     build: {
       outDir: 'out/preload',
+      minify: true,
+      sourcemap: false,
       rollupOptions: { input: { index: resolve(__dirname, 'src/preload/index.ts'), splash: resolve(__dirname, 'src/preload/splash.ts') } }
     }
   },

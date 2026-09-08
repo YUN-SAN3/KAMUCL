@@ -28,6 +28,8 @@ async function revealSection() {
   if (!store.settingsSection) return
   const target = page.value?.querySelector<HTMLElement>(`[data-section="${store.settingsSection}"]`)
   if (!target) return
+  // 目标分区是折叠卡片时先展开再滚动，保证滚动定位有效
+  if (target.tagName === 'DETAILS') (target as HTMLDetailsElement).open = true
   target.scrollIntoView({ block: 'start', behavior: 'instant' })
   target.focus({ preventScroll: true })
   store.settingsSection = ''
@@ -317,285 +319,313 @@ async function onRemovePlugin(p: PluginInfo) {
     </div>
 
     <template v-else>
-      <!-- 外观主题 -->
-      <div class="card group">
-        <h3 class="group-title">主题</h3>
-        <div class="theme-options">
-          <button
-            v-for="theme in themeOptions"
-            :key="theme.key"
-            class="theme-option"
-            :class="{ active: store.settings.theme === theme.key }"
-            :title="theme.description"
-            @click="chooseTheme(theme.key, theme.label)"
-          >
-            <span
-              class="theme-preview"
-              :class="{ 'preview-custom': theme.key === 'custom', 'preview-transparent': theme.key === 'transparent' }"
-              :style="{ background: themePreviewBackground(theme.key, theme.colors.bg) }"
+      <!-- 外观主题（PCL 式折叠卡片：标题行 + 箭头，展开内容统一内边距） -->
+      <details class="card group collapse" open>
+        <summary class="collapse-head">
+          <h3 class="group-title">主题</h3>
+          <span class="collapse-arrow" aria-hidden="true"></span>
+        </summary>
+        <div class="collapse-body">
+          <div class="theme-options">
+            <button
+              v-for="theme in themeOptions"
+              :key="theme.key"
+              class="theme-option"
+              :class="{ active: store.settings.theme === theme.key }"
+              :title="theme.description"
+              @click="chooseTheme(theme.key, theme.label)"
             >
               <span
-                class="tp-side"
-                :style="{
-                  background: theme.key === 'transparent' ? 'rgba(12, 23, 25, .68)' : theme.colors.sidebarBg,
-                  borderRight: '1px solid ' + theme.colors.border
-                }"
+                class="theme-preview"
+                :class="{ 'preview-custom': theme.key === 'custom', 'preview-transparent': theme.key === 'transparent' }"
+                :style="{ background: themePreviewBackground(theme.key, theme.colors.bg) }"
               >
-                <span class="tp-dot" :style="{ background: theme.colors.accent }"></span>
-              </span>
-              <span class="tp-main">
                 <span
-                  class="tp-top"
+                  class="tp-side"
                   :style="{
-                    background: theme.key === 'transparent' ? 'rgba(20, 31, 33, .62)' : theme.colors.card,
-                    borderBottom: '1px solid ' + theme.colors.border
+                    background: theme.key === 'transparent' ? 'rgba(12, 23, 25, .68)' : theme.colors.sidebarBg,
+                    borderRight: '1px solid ' + theme.colors.border
                   }"
-                ></span>
-                <span class="tp-body">
+                >
+                  <span class="tp-dot" :style="{ background: theme.colors.accent }"></span>
+                </span>
+                <span class="tp-main">
                   <span
-                    class="tp-block"
+                    class="tp-top"
                     :style="{
-                      background: theme.key === 'transparent' ? 'rgba(27, 39, 40, .64)' : theme.colors.card,
-                      border: '1px solid ' + theme.colors.border
+                      background: theme.key === 'transparent' ? 'rgba(20, 31, 33, .62)' : theme.colors.card,
+                      borderBottom: '1px solid ' + theme.colors.border
                     }"
                   ></span>
-                  <span class="tp-btn" :style="{ background: theme.colors.accent }"></span>
+                  <span class="tp-body">
+                    <span
+                      class="tp-block"
+                      :style="{
+                        background: theme.key === 'transparent' ? 'rgba(27, 39, 40, .64)' : theme.colors.card,
+                        border: '1px solid ' + theme.colors.border
+                      }"
+                    ></span>
+                    <span class="tp-btn" :style="{ background: theme.colors.accent }"></span>
+                  </span>
                 </span>
+                <span v-if="theme.key === 'custom'" class="tp-custom-grad"></span>
+                <svg v-if="theme.key === 'custom'" class="tp-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.04 10 9c0 3.31-2.69 6-6 6h-1.77c-.28 0-.5.22-.5.5 0 .12.05.23.13.33.41.47.64 1.06.64 1.67A2.5 2.5 0 0 1 12 22Z" />
+                  <circle cx="7.5" cy="11.5" r="1" fill="currentColor" stroke="none" />
+                  <circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none" />
+                  <circle cx="16.5" cy="11.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+                <svg v-if="store.settings.theme === theme.key" class="tp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
               </span>
-              <span v-if="theme.key === 'custom'" class="tp-custom-grad"></span>
-              <svg v-if="theme.key === 'custom'" class="tp-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.04 10 9c0 3.31-2.69 6-6 6h-1.77c-.28 0-.5.22-.5.5 0 .12.05.23.13.33.41.47.64 1.06.64 1.67A2.5 2.5 0 0 1 12 22Z" />
-                <circle cx="7.5" cy="11.5" r="1" fill="currentColor" stroke="none" />
-                <circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none" />
-                <circle cx="16.5" cy="11.5" r="1" fill="currentColor" stroke="none" />
-              </svg>
-              <svg v-if="store.settings.theme === theme.key" class="tp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
-            </span>
-            <span class="theme-label">{{ theme.label }}</span>
+              <span class="theme-label">{{ theme.label }}</span>
+            </button>
+          </div>
+
+          <p class="muted group-hint">六套主题共用图一布局与系统桌面磨砂玻璃，只改变配色；切换不会改变账户、版本或启动设置。</p>
+          <button
+            v-if="store.settings.theme === 'custom'"
+            class="btn personalize-btn"
+            @click="enterEditMode"
+          >
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3" />
+              <path d="M1 14h6M9 8h6M17 16h6" />
+            </svg>
+            个性化
           </button>
         </div>
-
-        <p class="muted group-hint">六套主题共用图一布局与系统桌面磨砂玻璃，只改变配色；切换不会改变账户、版本或启动设置。</p>
-        <button
-          v-if="store.settings.theme === 'custom'"
-          class="btn personalize-btn"
-          @click="enterEditMode"
-        >
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3" />
-            <path d="M1 14h6M9 8h6M17 16h6" />
-          </svg>
-          个性化
-        </button>
-      </div>
+      </details>
 
       <!-- 功能管理 -->
-      <div class="card group">
-        <h3 class="group-title">功能管理</h3>
-        <p class="muted group-hint" style="margin-top: 0; margin-bottom: 12px">
-          关闭的功能将从侧边栏隐藏入口。核心功能（首页/游戏/设置）不可关闭。
-        </p>
-        <div v-for="f in featureToggles" :key="f.key" class="feature-row">
-          <span class="feature-name">{{ f.label }}</span>
-          <span class="switch">
-            <input
-              type="checkbox"
-              :checked="!store.settings.disabledFeatures.includes(f.key)"
-              @change="onToggleFeature(f.key, ($event.target as HTMLInputElement).checked)"
-            />
-            <span class="switch-ui"></span>
-          </span>
+      <details class="card group collapse" open>
+        <summary class="collapse-head">
+          <h3 class="group-title">功能管理</h3>
+          <span class="collapse-arrow" aria-hidden="true"></span>
+        </summary>
+        <div class="collapse-body">
+          <p class="muted group-hint">
+            关闭的功能将从侧边栏隐藏入口。核心功能（首页/游戏/设置）不可关闭。
+          </p>
+          <div v-for="f in featureToggles" :key="f.key" class="feature-row">
+            <span class="feature-name">{{ f.label }}</span>
+            <span class="switch">
+              <input
+                type="checkbox"
+                :checked="!store.settings.disabledFeatures.includes(f.key)"
+                @change="onToggleFeature(f.key, ($event.target as HTMLInputElement).checked)"
+              />
+              <span class="switch-ui"></span>
+            </span>
+          </div>
         </div>
-      </div>
+      </details>
 
       <!-- 个性化背景与启动卡图片；首页结构固定为图一布局。 -->
       <HomeLayoutEditor />
 
-      <!-- 游戏文件夹统一在版本页管理，设置页只显示当前状态，避免双入口冲突。 -->
-      <div class="card group setting-target" data-section="downloads" tabindex="-1">
-        <h3 class="group-title">下载</h3>
-        <label class="download-setting">最大线程数
-          <input class="input" type="number" min="1" max="64" :value="store.settings.downloadThreads" @change="save({ downloadThreads: Number(($event.target as HTMLInputElement).value) })" />
-        </label>
-        <label class="download-setting">速度限制（KiB/s）
-          <input class="input" type="number" min="0" max="1048576" :value="store.settings.downloadSpeedKBps" @change="save({ downloadSpeedKBps: Number(($event.target as HTMLInputElement).value) })" />
-        </label>
-        <p class="muted group-hint">0 表示不限速。限制对全部下载任务合计生效；减少线程数后，已有连接完成时释放名额。</p>
-      </div>
-      <div class="card group">
-        <h3 class="group-title">下载目标文件夹</h3>
-        <p class="muted group-hint">
-          请在“首页 → 版本选择 → 文件夹列表”中更改下载目标文件夹；也可进入游戏版本页统一管理。
-        </p>
-        <div class="dir-row">
-          <input class="input mono" :value="store.settings.activeFolder" readonly title="当前游戏文件夹" />
-          <button class="btn btn-gold dir-btn" @click="store.currentView = 'game'">
-            前往管理
-          </button>
+      <!-- 下载 + 下载目标文件夹：同一行横向排布，窄窗口自动换行 -->
+      <div class="settings-grid">
+        <!-- 游戏文件夹统一在版本页管理，设置页只显示当前状态，避免双入口冲突。 -->
+        <details class="card group collapse setting-target" data-section="downloads" tabindex="-1" open>
+          <summary class="collapse-head">
+            <h3 class="group-title">下载</h3>
+            <span class="collapse-arrow" aria-hidden="true"></span>
+          </summary>
+          <div class="collapse-body">
+            <label class="download-setting">最大线程数
+              <input class="input" type="number" min="1" max="64" :value="store.settings.downloadThreads" @change="save({ downloadThreads: Number(($event.target as HTMLInputElement).value) })" />
+            </label>
+            <label class="download-setting">速度限制（KiB/s）
+              <input class="input" type="number" min="0" max="1048576" :value="store.settings.downloadSpeedKBps" @change="save({ downloadSpeedKBps: Number(($event.target as HTMLInputElement).value) })" />
+            </label>
+            <p class="muted group-hint">0 表示不限速。限制对全部下载任务合计生效；减少线程数后，已有连接完成时释放名额。</p>
+          </div>
+        </details>
+        <div class="card group">
+          <h3 class="group-title">下载目标文件夹</h3>
+          <p class="muted group-hint">
+            请在“首页 → 版本选择 → 文件夹列表”中更改下载目标文件夹；也可进入游戏版本页统一管理。
+          </p>
+          <div class="dir-row">
+            <input class="input mono" :value="store.settings.activeFolder" readonly title="当前游戏文件夹" />
+            <button class="btn btn-gold dir-btn" @click="store.currentView = 'game'">
+              前往管理
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- 默认版本隔离 -->
-      <div class="card group">
-        <label class="java-auto-row">
-          <span class="java-auto-text">
-            <span class="java-auto-title">新版本默认开启版本隔离（推荐）</span>
-            <span class="muted java-auto-desc">
-              每个新安装的版本使用独立的存档/模组/配置目录，互不干扰。关闭后新版本与全局共享游戏目录；已安装的版本可在游戏版本页单独开关。
-            </span>
-          </span>
-          <span class="switch">
-            <input
-              type="checkbox"
-              :checked="store.settings.defaultIsolation"
-              @change="save({ defaultIsolation: ($event.target as HTMLInputElement).checked })"
-            />
-            <span class="switch-ui"></span>
-          </span>
+      <div class="card group group-inline">
+        <div>
+          <h3 class="group-title">新版本默认开启版本隔离（推荐）</h3>
+          <p class="muted group-hint">
+            每个新安装的版本使用独立的存档/模组/配置目录，互不干扰。关闭后新版本与全局共享游戏目录；已安装的版本可在游戏版本页单独开关。
+          </p>
+        </div>
+        <label class="switch">
+          <input
+            type="checkbox"
+            :checked="store.settings.defaultIsolation"
+            @change="save({ defaultIsolation: ($event.target as HTMLInputElement).checked })"
+          />
+          <span class="switch-ui"></span>
         </label>
       </div>
 
       <!-- 内存 -->
-      <div class="card group setting-target" data-section="memory" tabindex="-1">
-        <h3 class="group-title">内存分配</h3>
-        <div class="memory-row">
-          <input
-            v-model.number="store.settings.memoryMB"
-            type="range"
-            class="slider"
-            :style="{ background: sliderFill }"
-            :min="MEM_MIN"
-            :max="memMax"
-            :step="MEM_STEP"
-            @change="save({ memoryMB: store.settings!.memoryMB })"
-          />
-          <span class="memory-value">{{ memoryText }}</span>
+      <details class="card group collapse setting-target" data-section="memory" tabindex="-1" open>
+        <summary class="collapse-head">
+          <h3 class="group-title">内存分配</h3>
+          <span class="collapse-arrow" aria-hidden="true"></span>
+        </summary>
+        <div class="collapse-body">
+          <div class="memory-row">
+            <input
+              v-model.number="store.settings.memoryMB"
+              type="range"
+              class="slider"
+              :style="{ background: sliderFill }"
+              :min="MEM_MIN"
+              :max="memMax"
+              :step="MEM_STEP"
+              @change="save({ memoryMB: store.settings!.memoryMB })"
+            />
+            <span class="memory-value">{{ memoryText }}</span>
+          </div>
+          <p class="muted group-hint">分配给游戏进程的最大内存（1 GB - {{ memoryMaxText }}，按本机物理内存识别）</p>
         </div>
-        <p class="muted group-hint">分配给游戏进程的最大内存（1 GB - {{ memoryMaxText }}，按本机物理内存识别）</p>
-      </div>
+      </details>
 
       <!-- Java -->
-      <div class="card group setting-target" data-section="java" tabindex="-1">
-        <h3 class="group-title">Java 运行时</h3>
-        <label class="java-auto-row">
-          <span class="java-auto-text">
-            <span class="java-auto-title">自动检测并下载所需 Java（推荐）</span>
-            <span class="muted java-auto-desc">
-              启动时按游戏版本自动选择匹配的 Java；本机没有时自动下载安装。关闭后使用下方手动选择的 Java。
-            </span>
-          </span>
-          <span class="switch">
-            <input
-              type="checkbox"
-              :checked="store.settings.javaAuto"
-              @change="save({ javaAuto: ($event.target as HTMLInputElement).checked })"
-            />
-            <span class="switch-ui"></span>
-          </span>
-        </label>
-        <div v-if="javaLoading" class="java-loading">
-          <span class="spin"></span>
-          <span class="muted">正在检测本机 Java…</span>
-        </div>
-        <template v-else>
-          <select
-            v-model="store.settings.javaPath"
-            class="select"
-            :disabled="store.settings.javaAuto"
-            @change="save({ javaPath: store.settings!.javaPath })"
-          >
-            <option value="">自动选择（推荐）</option>
-            <option v-for="j in javas" :key="j.path" :value="j.path">{{ javaLabel(j) }}</option>
-          </select>
-          <p v-if="javaError" class="group-error">Java 检测失败：{{ javaError }}</p>
-          <p v-else-if="!javas.length" class="muted group-hint">
-            未检测到本机 Java，将使用「自动选择」或在启动时自动下载。
-          </p>
-
-          <div class="java-scan-row">
-            <div class="java-scan-status">
-              <span class="muted">扫描注册表、PATH、启动器 Runtime 与全部本地固定磁盘</span>
-              <span v-if="javaRefreshing" class="muted java-scan-text" :title="javaScanText">
-                {{ javaScanText }}
+      <details class="card group collapse setting-target" data-section="java" tabindex="-1" open>
+        <summary class="collapse-head">
+          <h3 class="group-title">Java 运行时</h3>
+          <span class="collapse-arrow" aria-hidden="true"></span>
+        </summary>
+        <div class="collapse-body">
+          <label class="java-auto-row">
+            <span class="java-auto-text">
+              <span class="java-auto-title">自动检测并下载所需 Java（推荐）</span>
+              <span class="muted java-auto-desc">
+                启动时按游戏版本自动选择匹配的 Java；本机没有时自动下载安装。关闭后使用下方手动选择的 Java。
               </span>
-              <div v-if="javaRefreshing" class="java-scan-track" aria-label="Java 扫描进度">
-                <span :style="{ width: `${javaScanProgress * 100}%` }"></span>
+            </span>
+            <span class="switch">
+              <input
+                type="checkbox"
+                :checked="store.settings.javaAuto"
+                @change="save({ javaAuto: ($event.target as HTMLInputElement).checked })"
+              />
+              <span class="switch-ui"></span>
+            </span>
+          </label>
+          <div v-if="javaLoading" class="java-loading">
+            <span class="spin"></span>
+            <span class="muted">正在检测本机 Java…</span>
+          </div>
+          <template v-else>
+            <select
+              v-model="store.settings.javaPath"
+              class="select"
+              :disabled="store.settings.javaAuto"
+              @change="save({ javaPath: store.settings!.javaPath })"
+            >
+              <option value="">自动选择（推荐）</option>
+              <option v-for="j in javas" :key="j.path" :value="j.path">{{ javaLabel(j) }}</option>
+            </select>
+            <p v-if="javaError" class="group-error">Java 检测失败：{{ javaError }}</p>
+            <p v-else-if="!javas.length" class="muted group-hint">
+              未检测到本机 Java，将使用「自动选择」或在启动时自动下载。
+            </p>
+
+            <div class="java-scan-row">
+              <div class="java-scan-status">
+                <span class="muted">扫描注册表、PATH、启动器 Runtime 与全部本地固定磁盘</span>
+                <span v-if="javaRefreshing" class="muted java-scan-text" :title="javaScanText">
+                  {{ javaScanText }}
+                </span>
+                <div v-if="javaRefreshing" class="java-scan-track" aria-label="Java 扫描进度">
+                  <span :style="{ width: `${javaScanProgress * 100}%` }"></span>
+                </div>
+              </div>
+              <button
+                class="btn btn-ghost btn-sm"
+                :disabled="javaCancelling"
+                @click="onRefreshJava()"
+              >
+                {{ javaCancelling ? '正在取消…' : javaRefreshing ? '取消扫描' : '重新扫描' }}
+              </button>
+            </div>
+
+            <!-- 已识别的 Java 列表（版本/位数/来源，支持移除） -->
+            <div v-if="javas.length" class="java-list">
+              <div class="java-list-head">
+                <span class="muted">已识别 {{ javas.length }} 个 Java</span>
+              </div>
+              <div v-for="j in javas" :key="j.path" class="java-item">
+                <span class="tag" :class="j.source === 'manual' ? 'tag-accent' : ''">
+                  {{ j.source === 'manual' ? '手动' : '自动' }}
+                </span>
+                <span class="java-item-ver">Java {{ j.major }}</span>
+                <span
+                  class="muted java-item-path"
+                  :title="`${j.vendor ?? '未知发行版'} · ${j.architecture ?? (j.is64Bit ? '64 位' : '32 位')} · ${j.sourceDetail ?? ''}\n${j.path}`"
+                >
+                  {{ j.vendor ?? 'Java' }} · {{ j.architecture ?? (j.is64Bit ? '64 位' : '32 位') }} · {{ j.path }}
+                </span>
+                <button class="java-item-hide" title="从列表隐藏" @click="onHideJava(j.path)">×</button>
               </div>
             </div>
-            <button
-              class="btn btn-ghost btn-sm"
-              :disabled="javaCancelling"
-              @click="onRefreshJava()"
-            >
-              {{ javaCancelling ? '正在取消…' : javaRefreshing ? '取消扫描' : '重新扫描' }}
-            </button>
-          </div>
 
-          <!-- 已识别的 Java 列表（版本/位数/来源，支持移除） -->
-          <div v-if="javas.length" class="java-list">
-            <div class="java-list-head">
-              <span class="muted">已识别 {{ javas.length }} 个 Java</span>
+            <!-- 手动添加 Java：点「添加」弹文件选择器定位 java.exe（自动校验版本/位数）；也可粘贴完整路径后回车 -->
+            <div class="java-add-row">
+              <input
+                v-model="javaCustomInput"
+                class="input mono"
+                placeholder="粘贴 java 可执行文件完整路径回车添加，或留空点「添加」选择文件…"
+                spellcheck="false"
+                @keyup.enter="onAddJava"
+              />
+              <button class="btn btn-ghost" :disabled="javaAdding" @click="onAddJava">
+                {{ javaAdding ? '校验中…' : '添加' }}
+              </button>
             </div>
-            <div v-for="j in javas" :key="j.path" class="java-item">
-              <span class="tag" :class="j.source === 'manual' ? 'tag-accent' : ''">
-                {{ j.source === 'manual' ? '手动' : '自动' }}
-              </span>
-              <span class="java-item-ver">Java {{ j.major }}</span>
-              <span
-                class="muted java-item-path"
-                :title="`${j.vendor ?? '未知发行版'} · ${j.architecture ?? (j.is64Bit ? '64 位' : '32 位')} · ${j.sourceDetail ?? ''}\n${j.path}`"
-              >
-                {{ j.vendor ?? 'Java' }} · {{ j.architecture ?? (j.is64Bit ? '64 位' : '32 位') }} · {{ j.path }}
-              </span>
-              <button class="java-item-hide" title="从列表隐藏" @click="onHideJava(j.path)">×</button>
+            <p v-if="javaAddError" class="group-error">{{ javaAddError }}</p>
+          </template>
+        </div>
+      </details>
+
+      <!-- 分辨率 + JVM 参数：同一行横向排布 -->
+      <div class="settings-grid">
+        <div class="card group">
+          <h3 class="group-title">游戏窗口分辨率</h3>
+          <div class="resolution-row">
+            <div class="res-field">
+              <span class="muted res-label">宽</span>
+              <input
+                v-model.number="store.settings.resolution.width"
+                type="number"
+                class="input"
+                min="854"
+                max="7680"
+                :disabled="store.settings.resolution.mode !== 'windowed'"
+                @change="saveResolution"
+              />
             </div>
-          </div>
-
-          <!-- 手动添加 Java：点「添加」弹文件选择器定位 java.exe（自动校验版本/位数）；也可粘贴完整路径后回车 -->
-          <div class="java-add-row">
-            <input
-              v-model="javaCustomInput"
-              class="input mono"
-              placeholder="粘贴 java 可执行文件完整路径回车添加，或留空点「添加」选择文件…"
-              spellcheck="false"
-              @keyup.enter="onAddJava"
-            />
-            <button class="btn btn-ghost" :disabled="javaAdding" @click="onAddJava">
-              {{ javaAdding ? '校验中…' : '添加' }}
-            </button>
-          </div>
-          <p v-if="javaAddError" class="group-error">{{ javaAddError }}</p>
-        </template>
-      </div>
-
-      <!-- 窗口分辨率 -->
-      <div class="card group">
-        <h3 class="group-title">游戏窗口分辨率</h3>
-        <div class="resolution-row">
-          <div class="res-field">
-            <span class="muted res-label">宽</span>
-            <input
-              v-model.number="store.settings.resolution.width"
-              type="number"
-              class="input"
-              min="854"
-              max="7680"
-              :disabled="store.settings.resolution.mode !== 'windowed'"
-              @change="saveResolution"
-            />
-          </div>
-          <span class="muted res-x">×</span>
-          <div class="res-field">
-            <span class="muted res-label">高</span>
-            <input
-              v-model.number="store.settings.resolution.height"
-              type="number"
-              class="input"
-              min="480"
-              max="4320"
-              :disabled="store.settings.resolution.mode !== 'windowed'"
-              @change="saveResolution"
-            />
+            <span class="muted res-x">×</span>
+            <div class="res-field">
+              <span class="muted res-label">高</span>
+              <input
+                v-model.number="store.settings.resolution.height"
+                type="number"
+                class="input"
+                min="480"
+                max="4320"
+                :disabled="store.settings.resolution.mode !== 'windowed'"
+                @change="saveResolution"
+              />
+            </div>
           </div>
           <div class="resolution-mode">
             <span class="muted res-label">模式</span>
@@ -605,168 +635,253 @@ async function onRemovePlugin(p: PluginInfo) {
               <option value="fullscreen">全屏</option>
             </select>
           </div>
+          <p v-if="resolutionError" class="group-error">{{ resolutionError }}</p>
+          <p v-else class="muted group-hint">
+            窗口化使用以上宽高；最大化使用启动时所在显示器的工作区；全屏不会修改显示器分辨率。
+          </p>
         </div>
-        <p v-if="resolutionError" class="group-error">{{ resolutionError }}</p>
-        <p v-else class="muted group-hint">
-          窗口化使用以上宽高；最大化使用启动时所在显示器的工作区；全屏不会修改显示器分辨率。
-        </p>
-      </div>
 
-      <!-- JVM 参数 -->
-      <div class="card group">
-        <h3 class="group-title">JVM 参数</h3>
-        <input
-          v-model="store.settings.jvmArgs"
-          class="input mono"
-          placeholder="例如：-XX:+UseG1GC -XX:+ParallelRefProcEnabled"
-          @change="save({ jvmArgs: store.settings!.jvmArgs })"
-        />
-        <p class="muted group-hint">高级选项，留空则使用默认参数</p>
-      </div>
-
-      <!-- 下载镜像 -->
-      <div class="card group">
-        <h3 class="group-title">下载镜像</h3>
-        <div class="mirror-options">
-          <label class="mirror-option" :class="{ active: store.settings.mirror === 'official' }">
-            <input v-model="store.settings.mirror" type="radio" value="official" @change="save({ mirror: 'official' })" />
-            <span>官方源</span>
-          </label>
-          <label class="mirror-option" :class="{ active: store.settings.mirror === 'bmclapi' }">
-            <input v-model="store.settings.mirror" type="radio" value="bmclapi" @change="save({ mirror: 'bmclapi' })" />
-            <span>BMCLAPI 镜像（国内更快）</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- 微软登录 Client ID -->
-      <div class="card group">
-        <h3 class="group-title">微软登录 Client ID</h3>
-        <input
-          v-model="store.settings.msClientId"
-          class="input mono"
-          placeholder="Azure 应用 client_id"
-          @change="save({ msClientId: store.settings!.msClientId })"
-        />
-        <p class="muted group-hint">使用 device code 流程的 Azure 应用 ID</p>
-      </div>
-
-      <!-- 正版登录系统代理 -->
-      <div class="card group group-inline">
-        <div>
-          <h3 class="group-title">正版登录使用系统代理</h3>
-          <p class="muted group-hint">默认直连微软端点（安全优先）。浏览器能打开微软登录页但启动器登录失败时开启；经代理 CONNECT 隧道传输，端到端 TLS 证书校验保持不变。</p>
-        </div>
-        <label class="switch">
+        <div class="card group">
+          <h3 class="group-title">JVM 参数</h3>
           <input
-            :checked="store.settings.msUseProxy === true"
-            type="checkbox"
-            @change="save({ msUseProxy: ($event.target as HTMLInputElement).checked })"
+            v-model="store.settings.jvmArgs"
+            class="input mono"
+            placeholder="例如：-XX:+UseG1GC -XX:+ParallelRefProcEnabled"
+            @change="save({ jvmArgs: store.settings!.jvmArgs })"
           />
-          <span class="switch-ui"></span>
-        </label>
-      </div>
-
-      <!-- 启动后关闭 -->
-      <div class="card group group-inline">
-        <div>
-          <h3 class="group-title">启动后关闭启动器</h3>
-          <p class="muted group-hint">游戏成功启动后自动退出 KAMUCL</p>
+          <p class="muted group-hint">高级选项，留空则使用默认参数</p>
         </div>
-        <label class="switch">
-          <input
-            v-model="store.settings.closeAfterLaunch"
-            type="checkbox"
-            @change="save({ closeAfterLaunch: store.settings!.closeAfterLaunch })"
-          />
-          <span class="switch-ui"></span>
-        </label>
       </div>
 
-      <!-- 插件系统 -->
-      <div class="card group">
-        <h3 class="group-title">插件</h3>
-        <p class="muted group-hint">
-          JS 插件可更改界面、新增功能（启动器版 Mod）。插件拥有界面完全控制权，请只安装可信来源。
-        </p>
-        <div v-if="plugins.length" class="plugin-list">
-          <div v-for="p in plugins" :key="p.id" class="plugin-row">
-            <div class="plugin-info">
-              <span class="plugin-name">
-                {{ p.name }}
-                <span v-if="p.version" class="muted">v{{ p.version }}</span>
-              </span>
-              <span class="muted plugin-meta">{{ [p.author, p.description].filter(Boolean).join(' · ') || p.id }}</span>
-            </div>
-            <button
-              class="btn btn-sm"
-              :class="pluginConfirmRemove === p.id ? 'btn-danger' : 'btn-ghost'"
-              @click="onRemovePlugin(p)"
-            >{{ pluginConfirmRemove === p.id ? '确认删除' : '删除' }}</button>
-            <label class="switch" :title="p.enabled ? '停用插件' : '启用插件'">
-              <input type="checkbox" :checked="p.enabled" @change="onTogglePlugin(p, ($event.target as HTMLInputElement).checked)" />
-              <span class="switch-ui"></span>
+      <!-- 下载镜像（微软登录 Client ID 按隐私要求不在界面展示，登录固定使用内置默认应用） -->
+      <div class="settings-grid">
+        <div class="card group">
+          <h3 class="group-title">下载镜像</h3>
+          <div class="mirror-options">
+            <label class="mirror-option" :class="{ active: store.settings.mirror === 'official' }">
+              <input v-model="store.settings.mirror" type="radio" value="official" @change="save({ mirror: 'official' })" />
+              <span>官方源</span>
+            </label>
+            <label class="mirror-option" :class="{ active: store.settings.mirror === 'bmclapi' }">
+              <input v-model="store.settings.mirror" type="radio" value="bmclapi" @change="save({ mirror: 'bmclapi' })" />
+              <span>BMCLAPI 镜像（国内更快）</span>
             </label>
           </div>
         </div>
-        <p v-else class="muted group-hint">还没有安装插件</p>
-        <div class="plugin-actions">
-          <button class="btn btn-ghost btn-sm" :disabled="pluginBusy" @click="onInstallPlugin">
-            <span v-if="pluginBusy" class="spin"></span>
-            安装插件（.js）
-          </button>
-          <button class="btn btn-ghost btn-sm" @click="openPluginsDir">打开插件目录</button>
-          <button v-if="pluginDirty" class="btn btn-gold btn-sm" @click="($event.target as HTMLButtonElement).blur(); location.reload()">重载启动器生效</button>
+      </div>
+
+      <!-- 正版代理 + 启动后关闭：同一行横向排布 -->
+      <div class="settings-grid">
+        <div class="card group group-inline">
+          <div>
+            <h3 class="group-title">正版登录使用系统代理</h3>
+            <p class="muted group-hint">默认直连微软端点（安全优先）。浏览器能打开微软登录页但启动器登录失败时开启；经代理 CONNECT 隧道传输，端到端 TLS 证书校验保持不变。</p>
+          </div>
+          <label class="switch">
+            <input
+              :checked="store.settings.msUseProxy === true"
+              type="checkbox"
+              @change="save({ msUseProxy: ($event.target as HTMLInputElement).checked })"
+            />
+            <span class="switch-ui"></span>
+          </label>
+        </div>
+
+        <div class="card group group-inline">
+          <div>
+            <h3 class="group-title">启动后关闭启动器</h3>
+            <p class="muted group-hint">游戏成功启动后自动退出 KAMUCL</p>
+          </div>
+          <label class="switch">
+            <input
+              v-model="store.settings.closeAfterLaunch"
+              type="checkbox"
+              @change="save({ closeAfterLaunch: store.settings!.closeAfterLaunch })"
+            />
+            <span class="switch-ui"></span>
+          </label>
         </div>
       </div>
+
+      <!-- 插件系统 -->
+      <details class="card group collapse" open>
+        <summary class="collapse-head">
+          <h3 class="group-title">插件</h3>
+          <span class="collapse-arrow" aria-hidden="true"></span>
+        </summary>
+        <div class="collapse-body">
+          <p class="muted group-hint">
+            JS 插件可更改界面、新增功能（启动器版 Mod）。插件拥有界面完全控制权，请只安装可信来源。
+          </p>
+          <div v-if="plugins.length" class="plugin-list">
+            <div v-for="p in plugins" :key="p.id" class="plugin-row">
+              <div class="plugin-info">
+                <span class="plugin-name">
+                  {{ p.name }}
+                  <span v-if="p.version" class="muted">v{{ p.version }}</span>
+                </span>
+                <span class="muted plugin-meta">{{ [p.author, p.description].filter(Boolean).join(' · ') || p.id }}</span>
+              </div>
+              <button
+                class="btn btn-sm"
+                :class="pluginConfirmRemove === p.id ? 'btn-danger' : 'btn-ghost'"
+                @click="onRemovePlugin(p)"
+              >{{ pluginConfirmRemove === p.id ? '确认删除' : '删除' }}</button>
+              <label class="switch" :title="p.enabled ? '停用插件' : '启用插件'">
+                <input type="checkbox" :checked="p.enabled" @change="onTogglePlugin(p, ($event.target as HTMLInputElement).checked)" />
+                <span class="switch-ui"></span>
+              </label>
+            </div>
+          </div>
+          <p v-else class="muted group-hint">还没有安装插件</p>
+          <div class="plugin-actions">
+            <button class="btn btn-ghost btn-sm" :disabled="pluginBusy" @click="onInstallPlugin">
+              <span v-if="pluginBusy" class="spin"></span>
+              安装插件（.js）
+            </button>
+            <button class="btn btn-ghost btn-sm" @click="openPluginsDir">打开插件目录</button>
+            <button v-if="pluginDirty" class="btn btn-gold btn-sm" @click="($event.target as HTMLButtonElement).blur(); location.reload()">重载启动器生效</button>
+          </div>
+        </div>
+      </details>
     </template>
 
   </div>
 </template>
 
 <style scoped>
-.plugin-list { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 12px; }
-.plugin-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; }
+.plugin-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.plugin-row { display: flex; align-items: center; gap: var(--space-3); min-height: var(--row-h); padding: var(--space-2) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-md); }
 .plugin-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .plugin-name { font-weight: 600; }
-.plugin-meta { font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.plugin-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.download-setting { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 12px 0; }
+.plugin-meta { font-size: var(--text-xs); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.plugin-actions { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.download-setting { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); }
 .download-setting .input { width: 160px; }
-.setting-target { scroll-margin-top: 20px; }
-.setting-target:focus { outline: 2px solid var(--accent); outline-offset: 4px; }
+.setting-target { scroll-margin-top: var(--space-5); }
+.setting-target:focus { outline: 2px solid var(--accent); outline-offset: var(--space-1); }
 .page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 720px;
+  gap: var(--sec-gap);
+  max-width: 760px;
   margin: 0 auto;
+}
+
+/* 小卡片两两成行（顺序横向向下），窄窗口自动换行堆叠 */
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--card-gap);
+  align-items: stretch;
+}
+.settings-grid > .card {
+  min-width: 0;
 }
 
 .group {
   display: flex;
   flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--card-pad);
 }
 .group-title {
-  font-size: 15px;
-  margin-bottom: 12px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.5;
 }
+.group-hint {
+  font-size: var(--text-xs);
+  margin: 0;
+  line-height: 1.6;
+}
+.group-error {
+  font-size: var(--text-xs);
+  margin: 0;
+  color: var(--danger);
+}
+.group-inline {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+/* PCL 式折叠卡片：折叠态 = 标题行（行高）+ 右侧箭头；展开态内容统一内边距 */
+.collapse {
+  padding: 0;
+}
+.collapse-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--card-pad);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.collapse-head::-webkit-details-marker {
+  display: none;
+}
+.collapse-head:hover .group-title {
+  color: var(--accent-2);
+}
+.collapse-arrow {
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid var(--text-dim);
+  border-bottom: 2px solid var(--text-dim);
+  /* 折叠态：箭头朝上（PCL 折叠卡片右上箭头） */
+  transform: rotate(-45deg);
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+.collapse[open] > .collapse-head .collapse-arrow {
+  /* 展开态：箭头朝下 */
+  transform: rotate(45deg);
+}
+.collapse-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--card-pad) var(--card-pad);
+  border-top: 1px solid var(--border);
+}
+
+/* 功能开关行 */
+.feature-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 40px;
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+.feature-row:last-child {
+  border-bottom: none;
+}
+.feature-name {
+  font-size: var(--text-sm);
+}
+
 /* Java 列表 */
 .java-list {
-  margin-top: 12px;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 .java-scan-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-top: 12px;
-  padding: 9px 12px;
+  gap: var(--space-3);
+  padding: var(--space-3);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background: var(--card-2);
 }
 .java-scan-status {
@@ -774,8 +889,8 @@ async function onRemovePlugin(p: PluginInfo) {
   flex: 1;
   min-width: 0;
   flex-direction: column;
-  gap: 5px;
-  font-size: 11.5px;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
 }
 .java-scan-text {
   overflow: hidden;
@@ -799,17 +914,18 @@ async function onRemovePlugin(p: PluginInfo) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: var(--space-2) var(--space-3);
   background: var(--card-2);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 .java-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 12px;
+  gap: var(--space-2);
+  min-height: var(--row-h);
+  padding: var(--space-1) var(--space-3);
   border-top: 1px solid var(--border);
-  font-size: 12.5px;
+  font-size: var(--text-sm);
 }
 .java-item-ver {
   font-weight: 600;
@@ -822,16 +938,16 @@ async function onRemovePlugin(p: PluginInfo) {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: ui-monospace, Consolas, monospace;
-  font-size: 11.5px;
+  font-size: var(--text-xs);
 }
 .java-item-hide {
   border: none;
   background: transparent;
   color: var(--text-dim);
   cursor: pointer;
-  font-size: 14px;
-  padding: 0 4px;
-  border-radius: 6px;
+  font-size: var(--text-md);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
 }
 .java-item-hide:hover {
   color: var(--danger);
@@ -839,85 +955,49 @@ async function onRemovePlugin(p: PluginInfo) {
 }
 .java-add-row {
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
+  gap: var(--space-2);
 }
 .java-auto-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  padding: 10px 12px;
-  margin-bottom: 12px;
+  gap: var(--space-4);
+  padding: var(--space-3);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background: var(--card-2);
   cursor: pointer;
 }
 .java-auto-text {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: var(--space-1);
   min-width: 0;
 }
 .java-auto-title {
-  font-size: 13.5px;
+  font-size: var(--text-sm);
   font-weight: 600;
 }
 .java-auto-desc {
-  font-size: 12px;
+  font-size: var(--text-xs);
   line-height: 1.6;
 }
 .select:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
-.feature-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9px 2px;
-  border-bottom: 1px solid var(--border);
-}
-.feature-row:last-child {
-  border-bottom: none;
-}
-.feature-name {
-  font-size: 13.5px;
-}
-.group-hint {
-  font-size: 12px;
-  margin-top: 8px;
-}
-.group-error {
-  font-size: 12px;
-  margin-top: 8px;
-  color: var(--danger);
-}
-.group-inline {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.group-inline .group-title {
-  margin-bottom: 4px;
-}
-.group-inline .group-hint {
-  margin-top: 0;
-}
 
 /* 主题选择 */
 .theme-options {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-3);
 }
 .theme-option {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   padding: 0;
   border: none;
   background: transparent;
@@ -929,7 +1009,7 @@ async function onRemovePlugin(p: PluginInfo) {
   display: flex;
   width: 150px;
   height: 84px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   border: 1.5px solid var(--border);
   overflow: hidden;
   transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.12s ease;
@@ -946,7 +1026,7 @@ async function onRemovePlugin(p: PluginInfo) {
   transform: scale(0.98);
 }
 .theme-label {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--text-dim);
   transition: color 0.16s ease;
 }
@@ -960,7 +1040,7 @@ async function onRemovePlugin(p: PluginInfo) {
   flex-shrink: 0;
   display: flex;
   justify-content: center;
-  padding-top: 8px;
+  padding-top: var(--space-2);
 }
 .tp-dot {
   width: 8px;
@@ -1004,50 +1084,6 @@ async function onRemovePlugin(p: PluginInfo) {
   color: var(--on-accent);
   padding: 3.5px;
 }
-/* 亮色预览：白底蓝点 */
-.preview-light {
-  background: #ffffff;
-}
-.preview-light .tp-side {
-  background: #f5f7fb;
-  border-right: 1px solid #e1e6f0;
-}
-.preview-light .tp-dot {
-  background: #2563eb;
-}
-.preview-light .tp-top {
-  background: #f5f7fb;
-  border-bottom: 1px solid #e1e6f0;
-}
-.preview-light .tp-block {
-  background: #f2f5fa;
-  border: 1px solid #e1e6f0;
-}
-.preview-light .tp-btn {
-  background: linear-gradient(135deg, #4a86ff, #2563eb);
-}
-/* 暗色预览：黑底橙点 */
-.preview-dark {
-  background: #16161d;
-}
-.preview-dark .tp-side {
-  background: #111116;
-  border-right: 1px solid #26262f;
-}
-.preview-dark .tp-dot {
-  background: #f97316;
-}
-.preview-dark .tp-top {
-  background: #111116;
-  border-bottom: 1px solid #26262f;
-}
-.preview-dark .tp-block {
-  background: #1c1c25;
-  border: 1px solid #26262f;
-}
-.preview-dark .tp-btn {
-  background: linear-gradient(135deg, #fb923c, #f97316);
-}
 /* 自定义预览：彩虹渐变色块 + 调色盘图标 */
 .preview-custom {
   align-items: center;
@@ -1070,7 +1106,6 @@ async function onRemovePlugin(p: PluginInfo) {
 /* 「个性化」入口（选中自定义主题后出现） */
 .personalize-btn {
   align-self: flex-start;
-  margin-top: 14px;
   border-color: var(--accent);
   color: var(--accent);
   background: var(--accent-soft);
@@ -1085,12 +1120,12 @@ async function onRemovePlugin(p: PluginInfo) {
 /* 目录 */
 .dir-row {
   display: flex;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .dir-row .input {
   flex: 1;
   min-width: 0;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 .dir-btn {
   flex-shrink: 0;
@@ -1100,7 +1135,7 @@ async function onRemovePlugin(p: PluginInfo) {
 .memory-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-4);
 }
 .memory-value {
   flex-shrink: 0;
@@ -1115,17 +1150,18 @@ async function onRemovePlugin(p: PluginInfo) {
 .resolution-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
+  flex-wrap: wrap;
 }
 .res-field {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex: 1;
   min-width: 0;
 }
 .res-label {
-  font-size: 13px;
+  font-size: var(--text-sm);
   flex-shrink: 0;
 }
 .res-x {
@@ -1134,10 +1170,9 @@ async function onRemovePlugin(p: PluginInfo) {
 .resolution-mode {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   flex-shrink: 0;
-  margin-left: 8px;
-  font-size: 14px;
+  font-size: var(--text-md);
 }
 .resolution-mode .select {
   min-width: 108px;
@@ -1146,20 +1181,23 @@ async function onRemovePlugin(p: PluginInfo) {
 /* 镜像 */
 .mirror-options {
   display: flex;
-  gap: 10px;
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 .mirror-option {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-4);
+  min-height: var(--ctl-h);
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--card-2);
   color: var(--text);
-  font-size: 13.5px;
+  font-size: var(--text-sm);
   cursor: pointer;
+  white-space: nowrap;
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 .mirror-option input {
@@ -1175,13 +1213,13 @@ async function onRemovePlugin(p: PluginInfo) {
 }
 
 .mono {
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 
 .java-loading {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 0;
+  gap: var(--space-3);
+  padding: var(--space-1) 0;
 }
 </style>

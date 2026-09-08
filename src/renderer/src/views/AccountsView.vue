@@ -672,7 +672,7 @@ async function onRemove(acc: Account) {
 .page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--sec-gap);
   max-width: 720px;
   margin: 0 auto;
 }
@@ -680,19 +680,20 @@ async function onRemove(acc: Account) {
 .acc-top {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  justify-content: center;
+  gap: var(--space-2);
   align-self: flex-start;
-  padding: 6px 12px 6px 8px;
+  padding: var(--space-2) var(--space-3);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
@@ -707,39 +708,51 @@ async function onRemove(acc: Account) {
 }
 
 .section-title {
-  font-size: 15px;
-  margin-bottom: 14px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin: 0 0 var(--space-3);
+  line-height: 1.5;
 }
 
 .account-type-tabs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
-  padding: 5px;
+  gap: var(--space-1);
+  padding: var(--space-1);
   border: 1px solid var(--border);
-  border-radius: 11px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
 }
 .account-type-tabs button {
-  padding: 9px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--ctl-h);
+  padding: 0 var(--space-2);
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--text-dim);
   font: inherit;
-  font-size: 12px;
+  font-size: var(--text-xs);
   cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.account-type-tabs button:hover {
+  color: var(--text);
 }
 .account-type-tabs button.active {
   color: var(--on-accent);
   background: var(--accent-grad);
+  font-weight: 600;
 }
 .account-mode-panel {
-  margin-top: 14px;
+  margin-top: var(--space-4);
 }
 .mode-description {
-  margin-bottom: 12px;
-  font-size: 12.5px;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-xs);
   line-height: 1.6;
 }
 
@@ -747,7 +760,7 @@ async function onRemove(acc: Account) {
 .add-row {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .add-input-wrap {
   flex: 1;
@@ -757,8 +770,8 @@ async function onRemove(acc: Account) {
   border-color: var(--danger);
 }
 .field-error {
-  margin-top: 6px;
-  font-size: 12px;
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
   color: var(--danger);
 }
 .add-btn,
@@ -767,92 +780,95 @@ async function onRemove(acc: Account) {
 }
 .ygg-panel {
   display: grid;
-  gap: 14px;
+  gap: var(--space-4);
 }
 .provider-head,
 .provider-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
 }
 .provider-head-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 7px;
+  gap: var(--space-2);
 }
 .provider-head .mode-description {
-  margin: 4px 0 0;
+  margin: var(--space-1) 0 0;
 }
 .provider-list {
   display: grid;
-  gap: 7px;
+  gap: var(--space-2);
 }
 .provider-item {
-  padding: 10px 12px;
+  min-height: var(--row-h);
+  padding: var(--space-3);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
 }
 .provider-item strong {
-  margin-right: 8px;
-  font-size: 13px;
+  margin-right: var(--space-2);
+  font-size: var(--text-sm);
 }
 .provider-url {
   max-width: 520px;
-  margin-top: 4px;
+  margin-top: var(--space-1);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font: 11px 'Cascadia Code', Consolas, monospace;
+  font: var(--text-xs) 'Cascadia Code', Consolas, monospace;
 }
 .provider-empty {
-  padding: 12px;
+  padding: var(--space-3);
   border: 1px dashed var(--border);
-  border-radius: 9px;
+  border-radius: var(--radius-sm);
   color: var(--text-dim);
-  font-size: 12px;
+  font-size: var(--text-xs);
+  text-align: center;
 }
 .ygg-login-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .ygg-login-grid label {
   display: grid;
-  gap: 6px;
+  gap: var(--space-2);
   color: var(--text-dim);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 .ygg-login-grid label:first-child {
   grid-column: 1 / -1;
 }
 .ygg-login-btn {
   align-self: end;
-  min-height: 38px;
+  min-height: var(--ctl-h);
 }
 .security-note {
   color: var(--ok);
-  font-size: 11.5px;
+  font-size: var(--text-xs);
 }
 
 /* 账号列表 */
 .list-empty {
-  padding: 28px;
+  padding: var(--space-6) var(--space-5);
 }
 .account-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .account-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-3) var(--space-4);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
   cursor: pointer;
   transition: border-color 0.18s ease, background 0.18s ease;
@@ -871,7 +887,7 @@ async function onRemove(acc: Account) {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: var(--text-lg);
   font-weight: 800;
   color: var(--on-accent);
   background: var(--accent-grad);
@@ -880,24 +896,26 @@ async function onRemove(acc: Account) {
 .account-meta {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-1);
   min-width: 0;
   flex: 1;
 }
 .account-name {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   font-weight: 600;
   overflow: hidden;
   white-space: nowrap;
 }
 .uuid {
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-family: 'Cascadia Code', Consolas, monospace;
 }
 .selected-badge {
-  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-xs);
   color: var(--accent);
   flex-shrink: 0;
 }
@@ -910,22 +928,23 @@ async function onRemove(acc: Account) {
   text-align: center;
 }
 .modal-title {
-  font-size: 17px;
-  margin-bottom: 10px;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0 0 var(--space-3);
 }
 .ms-tip {
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.6;
 }
 .user-code {
-  margin: 18px auto 6px;
-  padding: 14px 24px;
+  margin: var(--space-4) auto var(--space-2);
+  padding: var(--space-4) var(--space-5);
   border: 1px dashed var(--accent);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: var(--accent-soft);
   color: var(--accent-2);
   font-family: 'Cascadia Code', Consolas, monospace;
-  font-size: 28px;
+  font-size: var(--text-2xl);
   font-weight: 700;
   letter-spacing: 4px;
   cursor: pointer;
@@ -935,23 +954,24 @@ async function onRemove(acc: Account) {
   background: color-mix(in srgb, var(--accent) 22%, transparent);
 }
 .copy-hint {
-  font-size: 12px;
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  margin-bottom: var(--space-4);
 }
 .copy-hint.copied {
   color: var(--ok);
-  display: flex;
-  align-items: center;
-  gap: 5px;
 }
 .ms-uri-row {
   display: flex;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .ms-uri-row .input {
   flex: 1;
   min-width: 0;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 .ms-uri-row .btn {
   flex-shrink: 0;
@@ -960,61 +980,63 @@ async function onRemove(acc: Account) {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-top: 18px;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 .modal-actions {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 .provider-modal {
   width: min(620px, calc(100vw - 40px));
 }
 .provider-input-label {
   display: grid;
-  gap: 7px;
-  margin-top: 14px;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
   color: var(--text-dim);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 .provider-source {
   min-height: 84px;
   resize: vertical;
-  font: 12px/1.55 'Cascadia Code', Consolas, monospace;
+  font: var(--text-xs)/1.55 'Cascadia Code', Consolas, monospace;
 }
 .insecure-confirm {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  margin-top: 12px;
-  padding: 10px;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
   border: 1px solid color-mix(in srgb, var(--danger) 50%, var(--border));
-  border-radius: 9px;
+  border-radius: var(--radius-sm);
   color: var(--danger);
-  font-size: 12px;
+  font-size: var(--text-xs);
   line-height: 1.5;
 }
 .provider-error {
-  margin-top: 10px;
+  margin-top: var(--space-3);
   color: var(--danger);
-  font-size: 12px;
+  font-size: var(--text-xs);
   line-height: 1.5;
 }
 .provider-preview {
   display: grid;
-  gap: 8px;
-  margin-top: 14px;
-  padding: 12px;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: var(--space-3);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
 }
 .provider-preview > div {
   display: grid;
   grid-template-columns: 108px minmax(0, 1fr);
-  gap: 8px;
-  font-size: 12px;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
 }
 .provider-preview span {
   color: var(--text-dim);
@@ -1023,28 +1045,29 @@ async function onRemove(acc: Account) {
 .profile-options code {
   overflow-wrap: anywhere;
   color: var(--text);
-  font: 11px 'Cascadia Code', Consolas, monospace;
+  font: var(--text-xs) 'Cascadia Code', Consolas, monospace;
 }
 .ali-note {
   color: var(--ok);
-  font-size: 11.5px;
+  font-size: var(--text-xs);
 }
 .provider-actions {
   justify-content: flex-end;
 }
 .profile-options {
   display: grid;
-  gap: 8px;
-  margin-top: 15px;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
 }
 .profile-options label {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 10px;
-  padding: 11px 12px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
   cursor: pointer;
 }

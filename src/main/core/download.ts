@@ -3,10 +3,12 @@
  * 移植 PCL2 下载引擎优化：
  * - 本地文件复用（CheckExistingFiles）：大小预筛 + sha1 校验，命中直接复制
  * - 大文件分块多线程下载：8MB/块、最多 8 连接、每块独立重试、可断点续传
+ *   （块组失败保留已完成块的 .partN 断点；整体看门狗只在「有块传输中」停滞时才回退单连接，
+ *    排队等并发名额不算停滞——否则并发闸门饥饿会误杀健康分块组）
  * - 慢速连接主动掐断：滑动窗口内字节过少即断开换源（限速时跳过）
  * - 会话级源健康度（NetSource.FailCount/IsFailed）：连续 transient 失败的 host 冷却沉底
  * - 磁盘空间预检：≥50MB 文件下载前检查剩余空间
- * 仅使用 Node 内置模块（全局 fetch / node:fs / node:crypto）
+ * 网络层经 httpClient（undici allowH2 共享连接池），文件/哈希用 node:fs / node:crypto
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -376,12 +378,25 @@ interface TransferResult {
 const CHUNK_MIN_BYTES = 8 * 1024 * 1024
 const CHUNK_SIZE_BYTES = 8 * 1024 * 1024
 const CHUNK_MAX_CONNECTIONS = 8
-/** 全部块无字节进展超过该时长 → 中止分块回退单连接（源挂起兜底，块级 inactivity 之外的整体保护） */
-const CHUNK_STALL_MS = 45_000
-/** 每块独立重试上限（仅 transient 类失败）。 */
+/**
+ * 下载响应体超时：下载路径显式放宽到 120s（见 httpClient.ts bodyTimeoutMs 注释）。
+ * 共享 Agent 默认 30s 的 bodyTimeout 监测 socket 层数据间隔，限速读循环的合法停留
+ * （低档限速放行一个读块可达数十秒）会被误判为死链而反复中止。
+ */
+const DOWNLOAD_BODY_TIMEOUT_MS = 120_000
+/**
+ * 整体看门狗：仅当「仍有块处于传输中」且全组无任何字节进展超过 stallMs 时，
+ * 中止分块回退单连接（源挂起兜底，块级 inactivity 之外的整体保护）。
+ * 块在等全局并发名额或退避时不算挂起——排队饥饿是并发闸门下的正常现象，
+ * 误杀会把健康的分块组整组取消（1.0.8 曾因此退化：多线程下载被大量取消）。
+ * stallMs/tickMs 仅测试注入用。
+ */
+export const chunkStallWatchdog = { stallMs: 45_000, tickMs: 5_000 }
+/** 每块独立重试上限（仅 transient 类失败）。块级重试发生在单次传输尝试内部，
+ *  与 downloadFile 的整体轮次是两层机制：块级重试不消耗轮次，轮次不重复计进度。 */
 const CHUNK_RETRY_LIMIT = 3
 
-interface ChunkPlan {
+export interface ChunkPlan {
   index: number
   /** 块起始偏移（含）与结束偏移（不含） */
   start: number
@@ -392,8 +407,41 @@ interface ChunkPlan {
   done: number
 }
 
+/** 纯函数：把 total 切成 ≤CHUNK_MAX_CONNECTIONS 个分块。边界取 floor(total*i/n)，
+ *  与断点续传测试约定的块边界一致；.partN 命名供断点续传按大小识别。 */
+export function buildChunkPlan(total: number, dest: string): ChunkPlan[] {
+  const chunkCount = Math.max(1, Math.min(Math.ceil(total / CHUNK_SIZE_BYTES), CHUNK_MAX_CONNECTIONS))
+  const plan: ChunkPlan[] = []
+  for (let i = 0; i < chunkCount; i++) {
+    const start = Math.floor((total * i) / chunkCount)
+    const end = Math.floor((total * (i + 1)) / chunkCount)
+    plan.push({ index: i, start, end, length: end - start, part: `${dest}.part${i}`, done: 0 })
+  }
+  return plan
+}
+
 function cleanupChunkParts(parts: string[]): void {
   for (const part of parts) fs.rmSync(part, { force: true })
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+/** 删除某 dest 的全部分块产物（.part 与 .partN）。用于内容校验失败等「断点不可信」
+ *  场景：坏块若保留，后续候选/重试会直接拼接同样坏的内容，sha1 永远过不去。 */
+function cleanupChunkArtifacts(dest: string): void {
+  fs.rmSync(dest + '.part', { force: true })
+  let names: string[]
+  try {
+    names = fs.readdirSync(path.dirname(dest))
+  } catch {
+    return
+  }
+  const pattern = new RegExp(`^${escapeRegExp(path.basename(dest))}\\.part\\d+$`)
+  for (const name of names) {
+    if (pattern.test(name)) fs.rmSync(path.join(path.dirname(dest), name), { force: true })
+  }
 }
 
 /** 单个分块的传输：独立连接 + 独立重试，覆盖并发闸门、限速、暂停感知、慢速掐断。 */
@@ -405,6 +453,10 @@ async function downloadChunkRange(
     groupSignal: AbortSignal
     onBytes: () => void
     onValidated?: () => void
+    /** 响应校验通过、即将接收体字节时/结束时回调：整体看门狗据此区分「传输中停滞」
+     *  与「排队/退避中」（后者不是故障，不得触发看门狗）。begin/end 严格成对。 */
+    onTransferBegin?: () => void
+    onTransferEnd?: () => void
   }
 ): Promise<void> {
   let validated = false
@@ -454,7 +506,8 @@ async function downloadChunkRange(
       const res = await httpFetch(url, {
         signal: requestController.signal,
         redirect: 'follow',
-        headers: { Range: `bytes=${chunk.start + offset}-${chunk.end - 1}` }
+        headers: { Range: `bytes=${chunk.start + offset}-${chunk.end - 1}` },
+        bodyTimeoutMs: DOWNLOAD_BODY_TIMEOUT_MS
       })
       if (res.status === 200) {
         // 服务端忽略 Range：由上层决定回退单连接或换源
@@ -474,6 +527,8 @@ async function downloadChunkRange(
         )
       }
       const slowWindow = new SlowWindow()
+      // 传输期开始：此后本块停滞才计入整体看门狗
+      ctx.onTransferBegin?.()
       const ws = fs.createWriteStream(chunk.part, { flags: 'a' })
       ws.on('error', () => undefined)
       const reader = res.body.getReader()
@@ -525,6 +580,7 @@ async function downloadChunkRange(
         if (!ws.closed) await once(ws, 'close').catch(() => undefined)
         throw e
       } finally {
+        ctx.onTransferEnd?.()
         requestController.signal.removeEventListener('abort', onAbort)
       }
     } catch (e) {
@@ -589,13 +645,8 @@ async function doDownloadChunked(
   total: number,
   seed?: { part: string; bytes: number }
 ): Promise<TransferResult> {
-  const chunkCount = Math.max(1, Math.min(Math.ceil(total / CHUNK_SIZE_BYTES), CHUNK_MAX_CONNECTIONS))
-  const plan: ChunkPlan[] = []
-  for (let i = 0; i < chunkCount; i++) {
-    const start = Math.floor((total * i) / chunkCount)
-    const end = Math.floor((total * (i + 1)) / chunkCount)
-    plan.push({ index: i, start, end, length: end - start, part: `${dest}.part${i}`, done: 0 })
-  }
+  const plan = buildChunkPlan(total, dest)
+  const chunkCount = plan.length
   // 断点续传迁移：单连接遗留的 .part 恰为文件前缀，直接作为第一个分块
   if (seed) {
     fs.rmSync(plan[0].part, { force: true })
@@ -619,29 +670,40 @@ async function doDownloadChunked(
       chunk.done = 0
     }
   }
-  // 整体无进度看门狗：任一块在块级 inactivity（30s）之外仍可能因源挂起而无进展。
-  // 全部块超过 CHUNK_STALL_MS 没有任何字节进度 → 中止整组分块，回退单连接下载。
+  // 整体无进度看门狗：仅当仍有块处于传输中（已通过 206 校验、正在接收体字节）且全组
+  // 超过 stallMs 无任何字节 → 中止整组分块，回退单连接下载。块在等全局并发名额/退避/
+  // 暂停时不算挂起——那是并发闸门下的正常排队，误杀会把健康分块组整组取消。
   let lastBytesAt = Date.now()
+  let activeTransfers = 0
   const updateProgress = (): void => {
     lastBytesAt = Date.now()
     if (!onProgress) return
     const received = Math.min(total, plan.reduce((sum, c) => sum + c.done, 0))
     onProgress(received, total)
   }
+  const beginTransfer = (): void => {
+    activeTransfers++
+    lastBytesAt = Date.now()
+  }
+  const endTransfer = (): void => {
+    if (activeTransfers > 0) activeTransfers--
+  }
   updateProgress()
   launcherLog(`分块下载 ${path.basename(dest)}：${chunkCount} 个连接 / 共 ${fmtBytes(total)}`)
   const groupAbort = new AbortController()
   const stallWatchdog = setInterval(() => {
-    if (Date.now() - lastBytesAt >= CHUNK_STALL_MS) {
-      groupAbort.abort(new Error(`分块下载 ${CHUNK_STALL_MS / 1000}s 无进展，回退单连接`))
+    if (activeTransfers > 0 && Date.now() - lastBytesAt >= chunkStallWatchdog.stallMs) {
+      groupAbort.abort(new Error(`分块下载 ${chunkStallWatchdog.stallMs / 1000}s 无进展，回退单连接`))
     }
-  }, 5000)
+  }, chunkStallWatchdog.tickMs)
   const runChunk = (chunk: ChunkPlan, onValidated?: () => void): Promise<void> =>
     downloadChunkRange(url, chunk, {
       extSignal,
       groupSignal: groupAbort.signal,
       onBytes: updateProgress,
-      onValidated
+      onValidated,
+      onTransferBegin: beginTransfer,
+      onTransferEnd: endTransfer
     })
   const incomplete = plan.filter((c) => c.done < c.length)
   const [firstChunk, ...rest] = incomplete
@@ -667,18 +729,34 @@ async function doDownloadChunked(
     const stalledByWatchdog = groupAbort.signal.aborted
     groupAbort.abort(e instanceof Error ? e : new Error(String(e)))
     if (restPromise) await restPromise.catch(() => undefined)
-    cleanupChunkParts(plan.map((c) => c.part))
-    fs.rmSync(dest + '.part', { force: true })
-    if (extSignal?.aborted) throw new Error('已取消')
+    const parts = plan.map((c) => c.part)
+    if (extSignal?.aborted) {
+      cleanupChunkParts(parts)
+      fs.rmSync(dest + '.part', { force: true })
+      throw new Error('已取消')
+    }
     if (e instanceof RangeUnsupportedError) {
+      cleanupChunkParts(parts)
+      fs.rmSync(dest + '.part', { force: true })
       launcherLog(`分块回退单连接 ${path.basename(dest)}：${e.message}`)
       return doDownload(url, dest, onProgress, extSignal, total)
     }
     // 分块组整体超时/挂起（看门狗触发）→ 回退单连接而非卡死
     if (stalledByWatchdog) {
+      cleanupChunkParts(parts)
+      fs.rmSync(dest + '.part', { force: true })
       launcherLog(`分块无进展回退单连接 ${path.basename(dest)}：${e instanceof Error ? e.message : String(e)}`)
       return doDownload(url, dest, onProgress, extSignal, total)
     }
+    // 其余失败（如个别块级重试耗尽）：保留 .partN 断点（PCL2 断点续传语义），
+    // 下一次传输尝试按磁盘大小只补缺失块，不整组推倒重来；单连接残留的 .part
+    // 必须删除，避免后续探测迁移用旧前缀覆盖块 0 的更新进度。
+    fs.rmSync(dest + '.part', { force: true })
+    const completedCount = plan.filter((c) => c.done >= c.length).length
+    launcherLog(
+      `分块部分完成 ${path.basename(dest)}：保留 ${completedCount}/${chunkCount} 块断点待续传` +
+        `（${e instanceof Error ? e.message : String(e)}）`
+    )
     throw e
   } finally {
     clearInterval(stallWatchdog)
@@ -740,7 +818,8 @@ async function doDownload(
       const res = await httpFetch(url, {
         signal: requestController.signal,
         redirect: 'follow',
-        headers
+        headers,
+        bodyTimeoutMs: DOWNLOAD_BODY_TIMEOUT_MS
       })
       if (res.status === 416 && expectedSize != null && offset === expectedSize) {
         await res.body?.cancel()
@@ -1017,6 +1096,9 @@ export async function downloadFile(
   // 网络波动兜底：第一轮每源最多 3 次退避重试；存在 transient 失败（网络波动/超时/慢速）时，
   // 全部来源失败/换源后仍失败，等待 2s 后整体再试一轮（每源 1 次）。
   // 内容校验失败/404 等确定性失败不参与整体重试（重试无意义）。
+  // 与 PCL2 分块引擎的两层重试分工：块级重试（CHUNK_RETRY_LIMIT）发生在单次传输尝试
+  // 内部，恢复的 .partN 断点按磁盘口径推进、不会重复累计进度；这里的整体轮次只在
+  // 整个传输尝试抛错后进行，二者是包含关系而非并行竞争。
   for (let round = 0; round < 2; round++) {
     if (round > 0) {
       if (!hadTransient) break
@@ -1039,6 +1121,9 @@ export async function downloadFile(
           const invalid = await verifyFile(transfer.tmp, verifyTarget, extSignal)
           if (invalid) {
             fs.rmSync(transfer.tmp, { force: true })
+            // 分块产物拼接后内容不符：断点不可信（可能含坏块），全部丢弃，
+            // 防止后续候选/重试直接复用坏块导致校验永远失败。
+            if (transfer.chunked) cleanupChunkArtifacts(dest)
             launcherLog(`校验失败 ${baseName}：${invalid}（${candidate}）`)
             failures.push(`${candidate} -> ${invalid}`)
             lastErr = new DownloadIntegrityError(`${invalid}: ${path.basename(dest)}`)

@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { carouselImages, carouselDuration } from '@shared/appearancePolicy'
 import { CarouselPlayback } from '@shared/carouselPlayback'
+import { registerIdleReleasable } from '../idleTrim'
 import {
   errText,
   exportLaunchLogs,
@@ -44,9 +45,9 @@ import type {
 } from '@shared/types'
 import { trackBootTask } from '../bootTasks'
 import { managedImageUrl } from '../managedAssets'
-import banner1 from '../assets/banner1.png'
-import banner2 from '../assets/banner2.png'
-import banner3 from '../assets/banner3.png'
+import banner1 from '../assets/banner1.webp'
+import banner2 from '../assets/banner2.webp'
+import banner3 from '../assets/banner3.webp'
 
 const LAST_VERSION_KEY = 'kamucl.lastVersion'
 const builtInBanners = [banner1, banner2, banner3]
@@ -127,6 +128,16 @@ function preloadBanner(src: string) {
   im.onload = () => readyBanners.add(src)
   im.src = src
 }
+// 窗口静默（最小化/隐藏）时释放轮播就绪缓存，让已解码位图随缓存策略回收；
+// 回到前台立即重建当前张，切换不露白。见 idleTrim.ts。
+const unregisterBannerIdleRelease = registerIdleReleasable({
+  release: () => readyBanners.clear(),
+  restore: () => {
+    const cur = banners.value[bannerIndex.value]?.src
+    if (cur) preloadBanner(cur)
+  }
+})
+onUnmounted(unregisterBannerIdleRelease)
 const bannerScope = computed(() => currentVersion.value?.thumbnail ? `instance:${currentVersion.value.folder}:${currentVersion.value.id}` : customBanners.value.length ? 'global' : 'builtin')
 
 function stopBannerTimer() {
@@ -452,86 +463,95 @@ async function confirmRemove() {
   }
 }
 
+/** 页面隐藏时暂停轮播（书签保留进度），回到前台后从书签恢复 */
+function onVisibilityChange() {
+  if (document.hidden) stopBannerTimer()
+  else startBannerTimer()
+}
+
 onMounted(() => {
   startBannerTimer()
+  document.addEventListener('visibilitychange', onVisibilityChange)
   void loadJavaSummary()
   void reloadSkin()
 })
 
 onUnmounted(() => {
+  document.removeEventListener('visibilitychange', onVisibilityChange)
   stopBannerTimer()
   skinRequestToken++
 })
 </script>
 
 <template>
-  <div class="home-dashboard">
-    <div class="home-main">
-      <section class="hero-card" data-edit="banner">
-        <img
-          v-for="(item, index) in banners"
-          :key="item.path"
-          :src="item.src"
-          class="hero-image"
-          :class="{ active: index === bannerIndex }"
-          :style="{ objectFit: item.fit }"
-          alt=""
-          aria-hidden="true"
-          @error="onBannerError(item)"
-        />
-        <div class="hero-shade"></div>
+  <div class="home-page">
+    <!-- 区块一：横幅启动区（轮播 + 当前实例 + 启动操作） -->
+    <section class="hero-card" data-edit="banner">
+      <img
+        v-for="(item, index) in banners"
+        :key="item.path"
+        :src="item.src"
+        class="hero-image"
+        :class="{ active: index === bannerIndex }"
+        :style="{ objectFit: item.fit }"
+        alt=""
+        aria-hidden="true"
+        @error="onBannerError(item)"
+      />
+      <div class="hero-shade"></div>
 
-        <div class="hero-content" data-edit="bannerText">
-          <span class="hero-kicker">当前版本</span>
-          <div class="hero-metadata-slot">
-            <Transition name="instance-switch" mode="out-in">
-              <div :key="JSON.stringify([currentVersion?.folder, selectedId, heroName, heroVersion, currentVersion?.loader, currentVersion?.loaderVersion])" class="hero-metadata">
-                <h1 :title="heroName" :class="{ 'long-name': heroName.length > 16 }">{{ heroName }}</h1>
-                <div class="hero-edition">
-                  <span v-if="currentVersion" class="hero-game-version" :title="`Minecraft ${heroVersion}`">{{ heroVersion }}</span>
-                  <span v-if="currentVersion" class="loader-badge">{{ loaderText(currentVersion) }}</span>
-                </div>
+      <div class="hero-content" data-edit="bannerText">
+        <span class="hero-kicker">当前版本</span>
+        <div class="hero-metadata-slot">
+          <Transition name="instance-switch" mode="out-in">
+            <div :key="JSON.stringify([currentVersion?.folder, selectedId, heroName, heroVersion, currentVersion?.loader, currentVersion?.loaderVersion])" class="hero-metadata">
+              <h1 :title="heroName" :class="{ 'long-name': heroName.length > 16 }">{{ heroName }}</h1>
+              <div class="hero-edition">
+                <span v-if="currentVersion" class="hero-game-version" :title="`Minecraft ${heroVersion}`">{{ heroVersion }}</span>
+                <span v-if="currentVersion" class="loader-badge">{{ loaderText(currentVersion) }}</span>
               </div>
-            </Transition>
+            </div>
+          </Transition>
+        </div>
+
+        <div class="hero-actions">
+          <div class="hero-secondary-actions">
+            <button class="hero-settings" :disabled="!currentVersion" @click="openVersionSettings">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1.4 1.68V21h-4v-.08A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3 13.6H3v-4h.08A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6 1.7 1.7 0 0 0 10.4 3H14a1.7 1.7 0 0 0 1.4 1.6 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9 1.7 1.7 0 0 0 21 10.4V14a1.7 1.7 0 0 0-1.6 1Z" /></svg>
+              版本设置
+            </button>
+            <button
+              class="hero-more"
+              :disabled="!currentVersion"
+              title="更多实例操作"
+              @click="currentVersion && openCardMenu($event, currentVersion.id)"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8" /><circle cx="12" cy="12" r="1.8" /><circle cx="19" cy="12" r="1.8" /></svg>
+            </button>
           </div>
 
-          <div class="hero-actions">
-            <div class="hero-secondary-actions">
-              <button class="hero-settings" :disabled="!currentVersion" @click="openVersionSettings">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1.4 1.68V21h-4v-.08A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3 13.6H3v-4h.08A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6 1.7 1.7 0 0 0 10.4 3H14a1.7 1.7 0 0 0 1.4 1.6 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9 1.7 1.7 0 0 0 21 10.4V14a1.7 1.7 0 0 0-1.6 1Z" /></svg>
-                版本设置
-              </button>
-              <button
-                class="hero-more"
-                :disabled="!currentVersion"
-                title="更多实例操作"
-                @click="currentVersion && openCardMenu($event, currentVersion.id)"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8" /><circle cx="12" cy="12" r="1.8" /><circle cx="19" cy="12" r="1.8" /></svg>
-              </button>
-            </div>
-
-            <div class="launch-combo" data-edit="accent">
-              <button
-                class="launch-main"
-                :class="{ launching }"
-                :disabled="launching || !currentVersion"
-                @click="onLaunchClick"
-              >
-                <span v-if="launching" class="launch-progress" :style="{ width: percent + '%' }"></span>
-                <span class="launch-content">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5Z" /></svg>
-                  <span>{{ launchText }}</span>
-                </span>
-              </button>
-              <button ref="versionMenuButton" class="launch-arrow" title="选择游戏实例" @click="toggleVersionMenu">
-                <svg :class="{ open: versionMenu.open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
-              </button>
-            </div>
+          <div class="launch-combo" data-edit="accent">
+            <button
+              class="launch-main"
+              :class="{ launching }"
+              :disabled="launching || !currentVersion"
+              @click="onLaunchClick"
+            >
+              <span v-if="launching" class="launch-progress" :style="{ width: percent + '%' }"></span>
+              <span class="launch-content">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5Z" /></svg>
+                <span>{{ launchText }}</span>
+              </span>
+            </button>
+            <button ref="versionMenuButton" class="launch-arrow" title="选择游戏实例" @click="toggleVersionMenu">
+              <svg :class="{ open: versionMenu.open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
           </div>
         </div>
-      </section>
-
+      </div>
+    </section>
+    <!-- 区块二：快捷启动行（运行环境 / 内存 / 状态 / 账户，窄窗口自动换行） -->
+    <section class="home-row">
       <section class="runtime-strip" data-edit="card">
         <button class="runtime-item" @click="openJavaPicker" title="选择此实例的 Java：自动或手动">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M7 8h10a4 4 0 0 1 4 4v0a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8v0a4 4 0 0 1 4-4Z" /><path d="M8 13h8M9 17h6" /></svg>
@@ -549,53 +569,6 @@ onUnmounted(() => {
           <svg class="runtime-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6" /></svg>
         </button>
       </section>
-
-      <section class="instances-block">
-        <div class="instances-head">
-          <h2>最近游戏</h2>
-          <button class="manage-instances" @click="store.currentView = 'game'">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>
-            管理实例
-          </button>
-        </div>
-
-        <div v-if="store.installed.length" class="instance-grid">
-          <article
-            v-for="version in recent"
-            :key="version.id"
-            class="instance-card"
-            :class="{ selected: version.id === selectedId }"
-            data-edit="card"
-            @click="chooseVersion(version.id)"
-            @contextmenu.prevent="showFolderContextMenu(version.folder, version.id)"
-          >
-            <img v-if="versionIconUrl(version)" class="instance-icon image" :src="versionIconUrl(version)" alt="" />
-            <svg v-else class="instance-icon" viewBox="0 0 48 48" aria-hidden="true"><polygon points="24,5 43,14.5 24,24 5,14.5" fill="#79c144" /><polygon points="5,14.5 24,24 24,29.5 5,20" fill="#5da236" /><polygon points="24,24 43,14.5 43,20 24,29.5" fill="#4e8a2f" /><polygon points="5,20 24,29.5 24,43 5,33.5" fill="#8b5e34" /><polygon points="24,29.5 43,20 43,33.5 24,43" fill="#6f4a29" /></svg>
-            <div class="instance-copy">
-              <strong :title="versionLabel(version)">{{ versionLabel(version) }}</strong>
-              <span :title="displayVersionSub(version)">{{ displayVersionSub(version) }}</span>
-            </div>
-            <button class="instance-more" title="更多" @click.stop="openCardMenu($event, version.id)">
-              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="19" cy="12" r="1.7" /></svg>
-            </button>
-            <span class="instance-last">上次游玩：{{ fmtLastPlayed(store.lastPlayed[version.id]) }}</span>
-            <button
-              class="instance-play"
-              :disabled="launching"
-              :title="`启动 ${version.id}`"
-              @click.stop="startVersion(version.id)"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5Z" /></svg>
-            </button>
-          </article>
-        </div>
-        <button v-else class="empty-instances" @click="store.currentView = 'game'">
-          尚未安装游戏实例，点击前往版本管理
-        </button>
-      </section>
-    </div>
-
-    <aside class="home-side">
       <section class="account-panel" data-edit="card">
         <template v-if="store.selectedAccount">
           <div class="account-head">
@@ -625,7 +598,54 @@ onUnmounted(() => {
           </button>
         </template>
       </section>
+    </section>
 
+    <!-- 区块三：最近游戏（左） + 皮肤预览（右）同行分栏，窄窗口自动换行堆叠 -->
+    <section class="instances-block">
+      <div class="instances-head">
+        <h2>最近游戏</h2>
+        <button class="manage-instances" @click="store.currentView = 'game'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>
+          管理实例
+        </button>
+      </div>
+
+      <div class="instances-row">
+      <div v-if="store.installed.length" class="instance-grid">
+        <article
+          v-for="version in recent"
+          :key="version.id"
+          class="instance-card"
+          :class="{ selected: version.id === selectedId }"
+          data-edit="card"
+          @click="chooseVersion(version.id)"
+          @contextmenu.prevent="showFolderContextMenu(version.folder, version.id)"
+        >
+          <img v-if="versionIconUrl(version)" class="instance-icon image" :src="versionIconUrl(version)" alt="" />
+          <svg v-else class="instance-icon" viewBox="0 0 48 48" aria-hidden="true"><polygon points="24,5 43,14.5 24,24 5,14.5" fill="#79c144" /><polygon points="5,14.5 24,24 24,29.5 5,20" fill="#5da236" /><polygon points="24,24 43,14.5 43,20 24,29.5" fill="#4e8a2f" /><polygon points="5,20 24,29.5 24,43 5,33.5" fill="#8b5e34" /><polygon points="24,29.5 43,20 43,33.5 24,43" fill="#6f4a29" /></svg>
+          <div class="instance-copy">
+            <strong :title="versionLabel(version)">{{ versionLabel(version) }}</strong>
+            <span :title="displayVersionSub(version)">{{ displayVersionSub(version) }}</span>
+          </div>
+          <button class="instance-more" title="更多" @click.stop="openCardMenu($event, version.id)">
+            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="19" cy="12" r="1.7" /></svg>
+          </button>
+          <span class="instance-last">上次游玩：{{ fmtLastPlayed(store.lastPlayed[version.id]) }}</span>
+          <button
+            class="instance-play"
+            :disabled="launching"
+            :title="`启动 ${version.id}`"
+            @click.stop="startVersion(version.id)"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5Z" /></svg>
+          </button>
+        </article>
+      </div>
+      <button v-else class="empty-instances" @click="store.currentView = 'game'">
+        尚未安装游戏实例，点击前往版本管理
+      </button>
+
+      <!-- 右：皮肤预览（3D）卡 -->
       <section class="skin-panel" data-edit="card">
         <div class="skin-head">
           <div><h3>皮肤预览</h3><span>{{ currentSkin ? (skinVariant === 'slim' ? '纤细模型' : '经典模型') : '动态角色' }}</span></div>
@@ -645,8 +665,13 @@ onUnmounted(() => {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6" /></svg>
         </button>
       </section>
+      </div>
+    </section>
+
+    <!-- 区块四：创作者（收置于页面末行整条横卡，平整贴齐网格不抢视觉） -->
+    <section class="home-row">
       <CreatorCard class="home-creator" />
-    </aside>
+    </section>
 
     <Teleport to="body">
       <div v-if="versionMenu.open" class="menu-overlay" @click="versionMenu.open = false"></div>
@@ -747,59 +772,86 @@ onUnmounted(() => {
   </Teleport>
   <Teleport to="body"><div v-if="restartConfirm" class="modal-mask" style="z-index: 10030"><section class="modal" role="dialog" aria-modal="true" aria-label="正常退出超时">
     <h3>正常退出等待超时</h3><p>Minecraft 可能仍在保存世界。建议在游戏内保存退出，然后重试。</p><p style="color: var(--danger)">强制结束可能丢失进度或损坏存档；只有你确认后才会执行。</p>
-    <div style="display: flex; gap: 12px; justify-content: flex-end"><button class="btn btn-ghost" :disabled="restartBusy" @click="cancelRestartPrompt">取消重启，继续等待</button><button class="btn btn-danger" :disabled="restartBusy" @click="quickRestart({ id: restartConfirm.id, folder: restartConfirm.folder } as InstalledVersion, restartConfirm.token)">确认强制结束并重启</button></div>
+    <div class="modal-actions"><button class="btn btn-ghost" :disabled="restartBusy" @click="cancelRestartPrompt">取消重启，继续等待</button><button class="btn btn-danger" :disabled="restartBusy" @click="quickRestart({ id: restartConfirm.id, folder: restartConfirm.folder } as InstalledVersion, restartConfirm.token)">确认强制结束并重启</button></div>
   </section></div></Teleport>
 </template>
 
 <style scoped>
 .java-picker { width: min(580px, calc(100vw - 40px)); }
-.java-picker .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
-.java-picker-description { color: var(--text-dim); font-size: 12px; margin-bottom: 16px; overflow-wrap: anywhere; }
-.java-list { max-height: 32vh; overflow: auto; margin-top: 10px; }
-.java-option { display: flex; gap: 12px; align-items: center; padding: 13px; margin-bottom: 8px; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; }
+.java-picker .modal-actions { display: flex; justify-content: flex-end; gap: var(--space-3); margin-top: var(--space-5); }
+.java-picker-description { color: var(--text-dim); font-size: var(--text-xs); margin-bottom: var(--space-4); overflow-wrap: anywhere; }
+.java-list { max-height: 32vh; overflow: auto; margin-top: var(--space-3); }
+.java-option { display: flex; gap: var(--space-3); align-items: center; padding: var(--space-3); margin-bottom: var(--space-2); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; }
 .java-option:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
 .java-option input { accent-color: var(--accent); flex: none; }
 .java-option span { min-width: 0; }
 .java-option strong, .java-option small { display: block; }
-.java-option small { margin-top: 5px; font-size: 11px; color: var(--text-dim); overflow-wrap: anywhere; }
-.home-dashboard {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 286px;
-  gap: 14px;
+.java-option small { margin-top: var(--space-1); font-size: var(--text-xs); color: var(--text-dim); overflow-wrap: anywhere; }
+
+/* ---------------- 页面骨架：顺序横向向下（每个逻辑区块一行，行内横向排布，窄窗口自动换行） ---------------- */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sec-gap);
   width: 100%;
-  max-width: 1160px;
+  max-width: 1280px;
   margin: 0 auto;
   min-width: 0;
-  min-height: calc(100vh - 132px);
 }
-.home-main {
+.home-row {
   display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--card-gap);
   min-width: 0;
-  min-height: inherit;
-  flex-direction: column;
-  gap: 14px;
 }
+
+/* ---------------- 区块一：横幅启动区 ---------------- */
 .hero-card {
   position: relative;
-  height: var(--banner-h);
+  height: min(var(--banner-h), 58vh);
   min-height: 330px;
   flex: none;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--border) 95%, white 4%);
-  border-radius: 16px;
-  background: #17231f;
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--bg) 92%, black);
+  box-shadow: var(--shadow);
 }
 .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease; }
 .hero-image.active { opacity: 1; }
 .hero-shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(8, 14, 15, 0.66), rgba(8, 14, 15, 0.24) 54%, rgba(8, 14, 15, 0.08)), linear-gradient(0deg, rgba(5, 10, 9, 0.38), transparent 52%);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, black 66%, transparent), color-mix(in srgb, black 24%, transparent) 54%, color-mix(in srgb, black 8%, transparent)),
+    linear-gradient(0deg, color-mix(in srgb, black 38%, transparent), transparent 52%);
 }
-.hero-content { position: relative; z-index: 1; display: flex; height: 100%; padding: 48px 36px 30px; flex-direction: column; align-items: flex-start; color: var(--bn-text); }
-.hero-kicker { display: inline-flex; align-items: center; min-height: 34px; padding: 0 14px; border: 1px solid rgba(255, 255, 255, 0.13); border-radius: 7px; background: rgba(9, 13, 14, 0.48); backdrop-filter: blur(12px); font-size: 13px; font-weight: 650; }
-.hero-content h1 { max-width: 100%; margin-top: 18px; overflow: hidden; color: #fff; font-size: clamp(46px, 5.2vw, 64px); font-weight: 850; line-height: 1.15; letter-spacing: -1px; text-overflow: ellipsis; text-shadow: 0 4px 24px rgba(0, 0, 0, 0.32); white-space: nowrap; }
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  padding: var(--space-7) var(--space-6) var(--space-5);
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--bn-text);
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--ctl-h);
+  padding: 0 var(--space-4);
+  border: 1px solid color-mix(in srgb, white 13%, transparent);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, black 48%, transparent);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.hero-content h1 { max-width: 100%; margin-top: var(--space-4); overflow: hidden; color: var(--bn-text); font-size: clamp(46px, 5.2vw, 64px); font-weight: 800; line-height: 1.15; letter-spacing: -1px; text-overflow: ellipsis; text-shadow: 0 4px 24px color-mix(in srgb, black 32%, transparent); white-space: nowrap; }
 .hero-content h1.long-name { font-size: clamp(28px, 3.2vw, 42px); letter-spacing: -0.5px; }
 .hero-metadata-slot { width: 100%; min-height: 130px; position: relative; }
 .hero-metadata { width: 100%; }
@@ -809,170 +861,193 @@ onUnmounted(() => {
 @media (prefers-reduced-motion: reduce) {
   .instance-switch-enter-active, .instance-switch-leave-active { transition: none; }
 }
-.hero-edition { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 16px; font-size: 17px; font-weight: 650; overflow-wrap: anywhere; }
-.hero-game-version { color: #fff; }
-.loader-badge { padding: 5px 11px; border: 1px solid color-mix(in srgb, var(--accent-2) 34%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--accent) 30%, rgba(20, 30, 24, 0.46)); color: #f6fff8; font-size: 11px; font-weight: 650; }
-.hero-actions { display: flex; width: 100%; margin-top: auto; align-items: flex-end; justify-content: space-between; gap: 18px; }
+.hero-edition { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-top: var(--space-4); font-size: var(--text-lg); font-weight: 600; overflow-wrap: anywhere; }
+.hero-game-version { color: var(--bn-text); }
+.loader-badge { display: inline-flex; align-items: center; justify-content: center; padding: var(--space-1) var(--space-3); border: 1px solid color-mix(in srgb, var(--accent-2) 34%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--accent) 30%, color-mix(in srgb, black 46%, transparent)); color: var(--bn-text); font-size: var(--text-xs); font-weight: 600; }
+.hero-actions { display: flex; width: 100%; margin-top: auto; align-items: flex-end; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
 .hero-secondary-actions, .launch-combo { display: flex; align-items: stretch; }
-.hero-settings, .hero-more { height: 52px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(10, 16, 17, 0.58); color: #f4f7f5; backdrop-filter: blur(13px); cursor: pointer; }
-.hero-settings { display: inline-flex; align-items: center; gap: 10px; min-width: 150px; padding: 0 18px; border-radius: 10px 0 0 10px; font-family: inherit; font-size: 14px; font-weight: 650; }
+.hero-settings, .hero-more {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 52px;
+  border: 1px solid color-mix(in srgb, white 14%, transparent);
+  background: color-mix(in srgb, black 58%, transparent);
+  color: var(--bn-text);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  cursor: pointer;
+}
+.hero-settings { gap: var(--space-2); min-width: 150px; padding: 0 var(--space-4); border-radius: var(--radius-md) 0 0 var(--radius-md); font-family: inherit; font-size: var(--text-md); font-weight: 600; }
 .hero-settings svg { width: 18px; height: 18px; }
-.hero-more { width: 52px; border-left: 0; border-radius: 0 10px 10px 0; }
+.hero-more { width: 52px; border-left: 0; border-radius: 0 var(--radius-md) var(--radius-md) 0; }
 .hero-more svg { width: 19px; height: 19px; }
-.hero-settings:hover:not(:disabled), .hero-more:hover:not(:disabled) { background: rgba(19, 29, 29, 0.76); }
+.hero-settings:hover:not(:disabled), .hero-more:hover:not(:disabled) { background: color-mix(in srgb, white 12%, transparent); }
 .hero-settings:disabled, .hero-more:disabled { opacity: 0.45; cursor: default; }
-.launch-combo { min-width: 310px; height: 70px; border-radius: 11px; box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 30%, transparent); overflow: hidden; }
+.launch-combo { min-width: 310px; height: 70px; border-radius: var(--radius-md); box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 30%, transparent); overflow: hidden; }
 .launch-main, .launch-arrow { position: relative; overflow: hidden; border: 0; background: var(--accent-grad); color: var(--on-accent); cursor: pointer; }
-.launch-main { flex: 1; min-width: 0; padding: 0 24px; font-family: inherit; font-size: 20px; font-weight: 750; }
-.launch-content { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 12px; }
+.launch-main { flex: 1; min-width: 0; padding: 0 var(--space-5); font-family: inherit; font-size: var(--text-xl); font-weight: 700; }
+.launch-content { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: var(--space-3); height: 100%; }
 .launch-content svg { width: 22px; height: 22px; flex: none; }
 .launch-content span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.launch-progress { position: absolute; inset: 0 auto 0 0; background: rgba(255, 255, 255, 0.25); transition: width 0.25s ease; }
+.launch-progress { position: absolute; inset: 0 auto 0 0; background: color-mix(in srgb, white 25%, transparent); transition: width 0.25s ease; }
 .launch-main:disabled { cursor: not-allowed; filter: saturate(0.75); }
-.launch-arrow { width: 62px; border-left: 1px solid rgba(255, 255, 255, 0.22); }
+.launch-arrow { width: 62px; border-left: 1px solid color-mix(in srgb, white 22%, transparent); }
 .launch-arrow:hover, .launch-main:hover:not(:disabled) { filter: brightness(1.08); }
 .launch-arrow svg { width: 22px; height: 22px; transition: transform 0.18s ease; }
 .launch-arrow svg.open { transform: rotate(180deg); }
 
-.runtime-strip { display: grid; grid-template-columns: 1.12fr 0.95fr 0.92fr; min-height: 78px; flex: none; overflow: hidden; border: 1px solid var(--border); border-radius: 13px; background: color-mix(in srgb, var(--card) 80%, transparent); box-shadow: var(--shadow); }
-.runtime-item { display: grid; grid-template-columns: 34px minmax(0, 1fr) 15px; align-items: center; gap: 11px; min-width: 0; padding: 0 18px; border: 0; background: transparent; color: var(--text); text-align: left; cursor: pointer; }
+/* ---------------- 区块二：快捷启动行 ---------------- */
+.runtime-strip {
+  flex: 1 1 460px;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-height: 78px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--card) 80%, transparent);
+  box-shadow: var(--shadow);
+}
+.runtime-item { display: grid; grid-template-columns: 34px minmax(0, 1fr) 15px; align-items: center; gap: var(--space-3); min-width: 0; min-height: var(--row-h); padding: 0 var(--space-4); border: 0; background: transparent; color: var(--text); text-align: left; cursor: pointer; }
 .runtime-item + .runtime-item { border-left: 1px solid var(--border); }
 .runtime-item:hover { background: var(--hover); }
 .runtime-item > svg:first-child { width: 27px; height: 27px; color: var(--text); }
-.runtime-item > span { display: flex; min-width: 0; flex-direction: column; gap: 4px; }
-.runtime-item small { color: var(--text-dim); font-size: 10px; }
-.runtime-item strong { overflow: hidden; font-size: 13px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+.runtime-item > span { display: flex; min-width: 0; flex-direction: column; gap: var(--space-1); }
+.runtime-item small { color: var(--text-dim); font-size: var(--text-xs); }
+.runtime-item strong { overflow: hidden; font-size: var(--text-md); font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
 .runtime-chevron { width: 14px; height: 14px; color: var(--text-dim); opacity: 0.7; }
 .runtime-state > svg:first-child { color: var(--accent-2); }
-.runtime-state strong { display: flex; align-items: center; gap: 7px; color: var(--accent-2); }
-.runtime-state i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: #9ca3af; }
+.runtime-state strong { display: flex; align-items: center; gap: var(--space-2); color: var(--accent-2); }
+.runtime-state i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--text-dim); }
 .runtime-state.ready i, .runtime-state.running i { background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); }
 .runtime-state.error strong { color: var(--danger); }
 .runtime-state.error i { background: var(--danger); box-shadow: 0 0 0 3px var(--danger-soft); }
 
-.instances-block { min-width: 0; margin-top: 28px; }
-.instances-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 11px; }
-.instances-head h2 { font-size: 17px; font-weight: 750; }
-.manage-instances { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 12px; border: 1px solid var(--border); border-radius: 9px; background: var(--card-2); color: var(--text-dim); font-family: inherit; font-size: 12px; font-weight: 550; cursor: pointer; }
+/* 账户面板（与运行环境同行，窄窗口自动换行） */
+.account-panel {
+  flex: 1 1 320px;
+  max-width: 460px;
+  min-width: 0;
+  min-height: 146px;
+  padding: var(--card-pad);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--card) 78%, transparent);
+  box-shadow: var(--shadow);
+}
+.account-head { display: flex; align-items: center; gap: var(--space-3); }
+.account-head :deep(.mc-avatar) { border-radius: var(--radius-md); box-shadow: 0 0 0 4px color-mix(in srgb, var(--text) 8%, transparent); }
+.account-copy { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: var(--space-1); }
+.account-copy strong { overflow: hidden; font-size: var(--text-lg); text-overflow: ellipsis; white-space: nowrap; }
+.account-copy span { display: flex; align-items: center; gap: var(--space-2); color: var(--accent-2); font-size: var(--text-xs); }
+.account-copy span i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); }
+.account-copy .offline-state { color: var(--text-dim); }
+.account-more, .skin-refresh { display: inline-flex; align-items: center; justify-content: center; width: var(--ctl-h); height: var(--ctl-h); border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-dim); cursor: pointer; flex: none; }
+.account-more:hover, .skin-refresh:hover:not(:disabled) { color: var(--text); background: var(--hover); }
+.account-more svg, .skin-refresh svg { width: 17px; height: 17px; }
+.account-placeholder { display: flex; align-items: center; justify-content: center; width: 54px; height: 54px; border: 1px dashed var(--border-strong); border-radius: var(--radius-md); color: var(--text-dim); font-size: var(--text-xl); }
+.account-provider { display: grid; grid-template-columns: 26px minmax(0, 1fr) 15px; align-items: center; gap: var(--space-3); width: 100%; min-height: var(--row-h); margin-top: var(--space-4); padding: 0 var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--card-2); color: var(--text); font-family: inherit; font-size: var(--text-sm); font-weight: 500; text-align: left; cursor: pointer; }
+.account-provider:hover { border-color: var(--border-strong); }
+.account-provider > svg { width: 15px; height: 15px; color: var(--text-dim); }
+.provider-mark { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: var(--radius-sm); background: linear-gradient(135deg, #f35325 0 48%, #81bc06 48% 100%); color: #fff; font-size: var(--text-xs); font-weight: 800; }
+.provider-mark.yggdrasil { background: linear-gradient(135deg, #65bd78, #268e54); }
+.provider-mark.offline { background: var(--card); color: var(--text-dim); }
+
+/* ---------------- 区块三：最近游戏（左） + 皮肤预览（右）同行分栏，窄窗口自动换行 ---------------- */
+.instances-block { min-width: 0; }
+.instances-row { display: flex; flex-wrap: wrap; align-items: stretch; gap: var(--card-gap); min-width: 0; }
+.instances-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3); }
+.instances-head h2 { font-size: var(--text-lg); font-weight: 700; }
+.manage-instances { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: var(--ctl-h); padding: 0 var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--card-2); color: var(--text-dim); font-family: inherit; font-size: var(--text-xs); font-weight: 500; cursor: pointer; }
 .manage-instances:hover { color: var(--text); border-color: var(--border-strong); }
 .manage-instances svg { width: 15px; height: 15px; }
-.instance-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.instance-card { position: relative; display: grid; grid-template-columns: 36px minmax(0, 1fr); grid-template-rows: 1fr auto; gap: 8px 8px; min-width: 0; height: 130px; min-height: 130px; padding: 17px 14px 13px; border: 1px solid var(--border); border-radius: 13px; background: color-mix(in srgb, var(--card) 82%, transparent); cursor: pointer; transition: border-color 0.18s ease, background 0.18s ease, transform 0.15s ease; }
+.instance-grid { flex: 1 1 520px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--card-gap); align-content: start; }
+.instance-card { position: relative; display: grid; grid-template-columns: 36px minmax(0, 1fr); grid-template-rows: 1fr auto; gap: var(--space-2); min-width: 0; height: 130px; min-height: 130px; padding: var(--space-4) var(--space-4) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--card) 82%, transparent); cursor: pointer; transition: border-color 0.18s ease, background 0.18s ease, transform 0.15s ease; }
 .instance-card:hover { border-color: var(--border-strong); background: var(--card-2); transform: translateY(-1px); }
 .instance-card.selected { border-color: var(--accent-2); box-shadow: inset 0 0 0 1px var(--accent), 0 8px 24px var(--accent-soft); }
 .instance-icon { align-self: center; width: 36px; height: 36px; }
 .instance-icon.image { object-fit: contain; image-rendering: pixelated; }
-.instance-copy { grid-column: 2; padding-right: 7px; align-self: center; display: flex; min-width: 0; flex-direction: column; gap: 4px; }
-.instance-copy strong { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 12.5px; line-height: 1.3; font-weight: 650; overflow-wrap: anywhere; word-break: break-all; }
-.instance-copy span, .instance-last { overflow: hidden; color: var(--text-dim); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
-.instance-more { position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border: 0; border-radius: 7px; background: transparent; color: var(--text-dim); cursor: pointer; }
+.instance-copy { grid-column: 2; padding-right: var(--space-2); align-self: center; display: flex; min-width: 0; flex-direction: column; gap: var(--space-1); }
+.instance-copy strong { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: var(--text-sm); line-height: 1.3; font-weight: 600; overflow-wrap: anywhere; word-break: break-all; }
+.instance-copy span, .instance-last { overflow: hidden; color: var(--text-dim); font-size: var(--text-xs); text-overflow: ellipsis; white-space: nowrap; }
+.instance-more { position: absolute; top: var(--space-1); right: var(--space-1); display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-dim); cursor: pointer; }
 .instance-more:hover { background: var(--hover); color: var(--text); }
 .instance-more svg { width: 15px; height: 15px; }
 .instance-last { grid-column: 1 / -1; grid-row: 2; padding-right: 42px; align-self: center; }
-.instance-play { grid-column: 2; grid-row: 2; display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 32px; justify-self: end; border: 0; border-radius: 8px; background: color-mix(in srgb, var(--accent) 18%, var(--card-2)); color: var(--accent-2); cursor: pointer; }
+.instance-play { grid-column: 2; grid-row: 2; display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 32px; justify-self: end; border: 0; border-radius: var(--radius-sm); background: color-mix(in srgb, var(--accent) 18%, var(--card-2)); color: var(--accent-2); cursor: pointer; }
 .instance-play:hover:not(:disabled) { background: var(--accent); color: var(--on-accent); }
 .instance-play:disabled { opacity: 0.45; cursor: default; }
 .instance-play svg { width: 15px; height: 15px; }
-.empty-instances { width: 100%; min-height: 110px; border: 1px dashed var(--border-strong); border-radius: 13px; background: var(--card); color: var(--text-dim); cursor: pointer; }
+.empty-instances { flex: 1 1 520px; min-width: 0; display: flex; align-items: center; justify-content: center; width: 100%; min-height: 110px; border: 1px dashed var(--border-strong); border-radius: var(--radius-lg); background: var(--card); color: var(--text-dim); font-family: inherit; font-size: var(--text-sm); cursor: pointer; }
 
-.home-side { display: flex; min-width: 0; flex-direction: column; gap: 12px; }
+/* ---------------- 皮肤预览卡：贴「最近游戏」行右列，整列等高（3D 舞台弹性填充） ---------------- */
+.skin-panel { display: flex; flex-direction: column; flex: 0 1 360px; min-width: 300px; padding: var(--card-pad); border: 1px solid var(--border); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--card) 78%, transparent); box-shadow: var(--shadow); }
+/* 区块四：创作者收置在页面末行（整行横条，不与主内容争抢视觉） */
+.home-creator { flex: 1 1 100%; min-width: 0; }
 .home-creator { margin-top: auto; }
-.account-panel, .skin-panel { border: 1px solid var(--border); border-radius: 14px; background: color-mix(in srgb, var(--card) 78%, transparent); box-shadow: var(--shadow); }
-.account-panel { min-height: 146px; padding: 18px; }
-.account-head { display: flex; align-items: center; gap: 13px; }
-.account-head :deep(.mc-avatar) { border-radius: 12px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--text) 8%, transparent); }
-.account-copy { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 5px; }
-.account-copy strong { overflow: hidden; font-size: 16px; text-overflow: ellipsis; white-space: nowrap; }
-.account-copy span { display: flex; align-items: center; gap: 7px; color: var(--accent-2); font-size: 11px; }
-.account-copy span i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); }
-.account-copy .offline-state { color: var(--text-dim); }
-.account-more, .skin-refresh { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 0; border-radius: 8px; background: transparent; color: var(--text-dim); cursor: pointer; }
-.account-more:hover, .skin-refresh:hover:not(:disabled) { color: var(--text); background: var(--hover); }
-.account-more svg, .skin-refresh svg { width: 17px; height: 17px; }
-.account-placeholder { display: flex; align-items: center; justify-content: center; width: 54px; height: 54px; border: 1px dashed var(--border-strong); border-radius: 12px; color: var(--text-dim); font-size: 20px; }
-.account-provider { display: grid; grid-template-columns: 26px minmax(0, 1fr) 15px; align-items: center; gap: 10px; width: 100%; min-height: 44px; margin-top: 15px; padding: 0 11px; border: 1px solid var(--border); border-radius: 9px; background: var(--card-2); color: var(--text); font-family: inherit; font-size: 12px; font-weight: 550; text-align: left; cursor: pointer; }
-.account-provider:hover { border-color: var(--border-strong); }
-.account-provider > svg { width: 15px; height: 15px; color: var(--text-dim); }
-.provider-mark { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, #f35325 0 48%, #81bc06 48% 100%); color: #fff; font-size: 10px; font-weight: 800; }
-.provider-mark.yggdrasil { background: linear-gradient(135deg, #65bd78, #268e54); }
-.provider-mark.offline { background: var(--card); color: var(--text-dim); }
-
-.skin-panel { min-height: 352px; padding: 15px 14px 12px; }
-.skin-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 0 2px 8px; }
-.skin-head > div { display: flex; flex-direction: column; gap: 3px; }
-.skin-head h3 { font-size: 14px; font-weight: 700; }
-.skin-head span { color: var(--text-dim); font-size: 10px; }
+.skin-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 0 0 var(--space-2); }
+.skin-head > div { display: flex; flex-direction: column; gap: var(--space-1); }
+.skin-head h3 { font-size: var(--text-md); font-weight: 700; }
+.skin-head span { color: var(--text-dim); font-size: var(--text-xs); }
 .skin-refresh:disabled { opacity: 0.4; cursor: default; }
 .skin-refresh .spinning { animation: spin 0.8s linear infinite; }
-.skin-stage { position: relative; height: 260px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--border) 78%, transparent); border-radius: 11px; background: radial-gradient(circle at 50% 82%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 38%), linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 18%, transparent)); }
+.skin-stage { position: relative; flex: 1; min-height: 240px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--border) 78%, transparent); border-radius: var(--radius-md); background: radial-gradient(circle at 50% 82%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 38%), linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 18%, transparent)); }
 .skin-stage :deep(.viewer3d) { height: 100%; --sv3d-height: 100%; background: transparent; }
 .skin-aura { position: absolute; z-index: 0; left: 50%; bottom: 17px; width: 126px; height: 25px; border: 2px solid color-mix(in srgb, var(--accent-2) 62%, transparent); border-radius: 50%; background: color-mix(in srgb, var(--accent) 18%, transparent); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 46%, transparent), inset 0 0 18px color-mix(in srgb, var(--accent) 25%, transparent); transform: translateX(-50%); }
-.skin-overlay { position: absolute; z-index: 2; right: 12px; bottom: 12px; left: 12px; display: flex; min-height: 34px; align-items: center; justify-content: center; gap: 9px; padding: 7px 10px; border: 1px solid var(--border); border-radius: 9px; background: color-mix(in srgb, var(--card) 78%, transparent); color: var(--text-dim); font-family: inherit; font-size: 11px; font-weight: 550; backdrop-filter: blur(12px); }
+.skin-overlay { position: absolute; z-index: 2; right: var(--space-3); bottom: var(--space-3); left: var(--space-3); display: flex; min-height: var(--ctl-h); align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-md); background: color-mix(in srgb, var(--card) 78%, transparent); color: var(--text-dim); font-family: inherit; font-size: var(--text-xs); font-weight: 500; backdrop-filter: blur(24px) saturate(130%); -webkit-backdrop-filter: blur(24px) saturate(130%); }
 .skin-overlay.action { cursor: pointer; }
 .skin-overlay.action:hover { color: var(--text); }
 .skin-overlay.error { color: var(--danger); }
-.skin-tip { display: flex; align-items: center; justify-content: center; gap: 5px; width: 100%; margin-top: 8px; border: 0; background: transparent; color: var(--text-dim); font-family: inherit; font-size: 10px; font-weight: 500; cursor: pointer; }
+.skin-tip { display: flex; align-items: center; justify-content: center; gap: var(--space-1); width: 100%; margin-top: var(--space-2); border: 0; background: transparent; color: var(--text-dim); font-family: inherit; font-size: var(--text-xs); font-weight: 500; cursor: pointer; }
 .skin-tip:hover { color: var(--accent-2); }
 .skin-tip svg { width: 12px; height: 12px; }
 
-.menu-overlay { position: fixed; inset: 0; z-index: 8000; }
-.float-menu { position: fixed; z-index: 8001; max-height: 280px; overflow-y: auto; padding: 6px; border: 1px solid var(--border); border-radius: 10px; background: color-mix(in srgb, var(--card) 94%, transparent); box-shadow: var(--shadow-lg); backdrop-filter: blur(24px); }
-.card-float-menu { width: 232px; max-height: 340px; background: var(--card-solid, #192225); }
-.card-float-menu .menu-item { min-height: 40px; font-size: 13px; }
-.menu-item:disabled { opacity: .45; cursor: not-allowed; }
-.menu-item { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 34px; padding: 0 10px; border: 0; border-radius: 7px; background: transparent; color: var(--text); font-family: inherit; font-size: 12px; font-weight: 500; text-align: left; cursor: pointer; }
-.menu-item:hover, .menu-item.active { background: var(--accent-soft); color: var(--accent-2); }
-.menu-item.danger { color: var(--danger); }
+/* ---------------- 浮层：仅保留首页特有覆盖，基础 .float-menu / .menu-item 样式统一走全局 styles.css ---------------- */
+.card-float-menu { width: 232px; max-height: 340px; background: var(--card-solid, var(--card)); }
 .menu-spacer { width: 12px; flex: none; }
-.menu-empty { padding: 20px 8px; color: var(--text-dim); font-size: 12px; text-align: center; }
 
-.log-mask { position: fixed; z-index: 9100; inset: 0; display: flex; align-items: center; justify-content: center; padding: 24px; background: var(--mask); backdrop-filter: blur(5px); }
-.log-dialog { display: flex; width: min(760px, calc(100vw - 64px)); max-height: min(620px, calc(100vh - 80px)); flex-direction: column; overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: color-mix(in srgb, var(--card) 94%, transparent); box-shadow: var(--shadow-lg); }
-.log-dialog header { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--border); }
-.log-dialog header div { display: flex; flex-direction: column; gap: 3px; }
-.log-dialog h3 { font-size: 16px; }
-.log-dialog header span { color: var(--text-dim); font-size: 11px; }
-.log-close { width: 32px; height: 32px; border: 0; border-radius: 8px; background: transparent; color: var(--text-dim); font-size: 20px; cursor: pointer; }
+/* ---------------- 启动日志弹窗 ---------------- */
+.log-mask { position: fixed; z-index: 9100; inset: 0; display: flex; align-items: center; justify-content: center; padding: var(--space-5); background: var(--mask); backdrop-filter: blur(24px) saturate(130%); -webkit-backdrop-filter: blur(24px) saturate(130%); }
+.log-dialog { display: flex; width: min(760px, calc(100vw - 64px)); max-height: min(620px, calc(100vh - 80px)); flex-direction: column; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--card) 94%, transparent); box-shadow: var(--shadow-lg); }
+.log-dialog header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4); border-bottom: 1px solid var(--border); }
+.log-dialog header div { display: flex; flex-direction: column; gap: var(--space-1); }
+.log-dialog h3 { font-size: var(--text-lg); }
+.log-dialog header span { color: var(--text-dim); font-size: var(--text-xs); }
+.log-close { display: inline-flex; align-items: center; justify-content: center; width: var(--ctl-h); height: var(--ctl-h); border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-dim); font-size: var(--text-xl); cursor: pointer; }
 .log-close:hover { background: var(--hover); color: var(--text); }
-.log-failure { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 18px; background: var(--danger-soft); color: var(--danger); font-size: 12px; }
-.log-failure button { padding: 6px 10px; border: 1px solid var(--danger-border); border-radius: 7px; background: transparent; color: var(--danger); cursor: pointer; }
-.log-body { min-height: 220px; flex: 1; overflow: auto; padding: 14px 18px; background: color-mix(in srgb, var(--bg) 42%, transparent); user-select: text; }
-.log-body pre { display: flex; flex-direction: column; color: var(--text-dim); font: 11.5px/1.65 'Cascadia Code', Consolas, monospace; white-space: pre-wrap; word-break: break-all; }
-.log-empty { padding: 70px 0; color: var(--text-dim); text-align: center; }
-.log-dialog footer { display: flex; justify-content: flex-end; padding: 11px 16px; border-top: 1px solid var(--border); }
+.log-failure { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--danger-soft); color: var(--danger); font-size: var(--text-xs); }
+.log-failure button { padding: var(--space-1) var(--space-2); border: 1px solid var(--danger-border); border-radius: var(--radius-sm); background: transparent; color: var(--danger); font-family: inherit; cursor: pointer; }
+.log-body { min-height: 220px; flex: 1; overflow: auto; padding: var(--space-4); background: color-mix(in srgb, var(--bg) 42%, transparent); user-select: text; }
+.log-body pre { display: flex; flex-direction: column; margin: 0; color: var(--text-dim); font: var(--text-xs)/1.65 'Cascadia Code', Consolas, monospace; white-space: pre-wrap; word-break: break-all; }
+.log-empty { padding: var(--space-7) 0; color: var(--text-dim); text-align: center; }
+.log-dialog footer { display: flex; justify-content: flex-end; padding: var(--space-3) var(--space-4); border-top: 1px solid var(--border); }
 
+/* ---------------- 窄窗口 / 矮窗口适配 ---------------- */
 @media (max-width: 1180px) {
-  .home-dashboard { grid-template-columns: minmax(0, 1fr) 248px; gap: 12px; }
-  .hero-content { padding: 38px 26px 25px; }
-  .launch-combo { min-width: 242px; height: 62px; }
-  .launch-main { padding: 0 16px; font-size: 17px; }
+  .hero-content { padding: var(--space-6) var(--space-5) var(--space-4); }
+  .launch-combo { min-width: 250px; height: 62px; }
+  .launch-main { padding: 0 var(--space-4); }
   .launch-arrow { width: 50px; }
-  .hero-settings { min-width: 126px; padding: 0 13px; }
+  .hero-settings { min-width: 130px; padding: 0 var(--space-3); }
   .hero-more { width: 46px; }
-  .runtime-item { grid-template-columns: 28px minmax(0, 1fr); padding: 0 12px; }
+  .runtime-item { grid-template-columns: 28px minmax(0, 1fr); padding: 0 var(--space-3); }
   .runtime-item > svg:first-child { width: 23px; height: 23px; }
   .runtime-chevron { display: none; }
-  .instance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 1010px) {
-  .home-dashboard { grid-template-columns: minmax(0, 1fr) 226px; }
-  .hero-card { min-height: 320px; }
-  .hero-content h1 { font-size: 42px; }
-  .hero-actions { gap: 10px; }
-  .hero-settings { min-width: 112px; font-size: 12px; }
-  .launch-combo { min-width: 210px; }
-  .launch-main { font-size: 15px; }
-  .runtime-item { padding: 0 9px; gap: 8px; }
-  .runtime-item strong { font-size: 11px; }
-  .skin-panel { padding-inline: 10px; }
+  .hero-card { min-height: 300px; }
+  .hero-actions { gap: var(--space-2); }
+  .hero-settings { min-width: 110px; }
+  .launch-combo { min-width: 220px; }
+  .runtime-strip { grid-template-columns: minmax(0, 1fr); }
+  .runtime-item { min-height: var(--row-h); padding: var(--space-2) var(--space-4); }
+  .runtime-item + .runtime-item { border-left: 0; border-top: 1px solid var(--border); }
+  .account-panel { max-width: none; }
 }
 
 @media (max-height: 760px) {
-  .home-dashboard { min-height: 660px; }
   .hero-card { height: 340px; }
-  .hero-content { padding-top: 30px; }
-  .skin-stage { height: 230px; }
-  .skin-panel { min-height: 322px; }
+  .skin-stage { min-height: 210px; }
 }
 </style>

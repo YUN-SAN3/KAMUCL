@@ -1,12 +1,21 @@
-import type { ChildProcess } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
+import type { GameProcessHandle } from './gracefulClose'
 
 interface SessionEntry {
   token: symbol
   versionId: string
-  child?: ChildProcess
+  child?: GameProcessHandle
   stopping: boolean
   stopApproval?: string
+}
+
+/**
+ * 退出提示语（纯函数供测试）：启动器任何正常退出路径都不终止游戏进程，
+ * 只记录「游戏继续运行」；无运行中的游戏时返回 null（不写日志）。
+ */
+export function formatExitGamesLine(pids: number[]): string | null {
+  if (!pids.length) return null
+  return `启动器已退出，游戏(进程 PID ${pids.join('、')})继续运行`
 }
 
 /**
@@ -38,6 +47,13 @@ export class GameSession {
     return new Set([...this.sessions.values()].map((s) => s.versionId))
   }
 
+  /** 运行中游戏的 PID 列表（仅供退出日志等观测用途；清理流程绝不据此终止进程） */
+  runningPids(): number[] {
+    return [...this.sessions.values()]
+      .map((s) => s.child?.pid)
+      .filter((p): p is number => typeof p === 'number')
+  }
+
   /** 指定版本是否正在运行 */
   isRunning(versionId: string): boolean {
     return [...this.sessions.values()].some((s) => s.versionId === versionId)
@@ -60,7 +76,7 @@ export class GameSession {
 
   /** Save-first stop. Only a timed-out request can authorize force for this JVM. */
   async requestStop(
-    requestClose: (child: ChildProcess) => Promise<void>,
+    requestClose: (child: GameProcessHandle) => Promise<void>,
     forceToken?: string,
     timeoutMs = 30000,
     token: symbol | undefined = this.lastToken
@@ -90,7 +106,7 @@ export class GameSession {
   }
 
   async stopGracefully(
-    requestClose: (child: ChildProcess) => Promise<void>,
+    requestClose: (child: GameProcessHandle) => Promise<void>,
     timeoutMs = 30000,
     token: symbol | undefined = this.lastToken
   ): Promise<void> {
@@ -125,7 +141,7 @@ export class GameSession {
     return token
   }
 
-  attach(token: symbol, child: ChildProcess): void {
+  attach(token: symbol, child: GameProcessHandle): void {
     const entry = this.sessions.get(token)
     if (!entry) throw new Error('启动会话已失效')
     entry.child = child

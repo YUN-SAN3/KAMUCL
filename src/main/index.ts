@@ -20,6 +20,26 @@ import { stopDirectHost } from './core/directConnect'
 import { stopVoxlinkOnQuit } from './core/voxlink'
 import { stopTerracottaOnQuit } from './core/terracotta'
 import { frpController } from './core/frp'
+import { startMemoryTrim } from './core/memTrim'
+import type { MemoryTrimController } from './core/memTrim'
+import { getRunningGamePids } from './core/launch'
+
+// ---------------- 内存极限压榨（任务A）：Chromium/V8 开关（必须 app ready 前注册） ----------------
+app.commandLine.appendSwitch(
+  'js-flags',
+  [
+    // 渲染层持有轮播图/皮肤/列表等图片型大对象，512MB 老生代上限防 OOM（上限≠预留，按需分配，主进程实际占用远低于此）
+    '--max-old-space-size=512',
+    // 年轻生代半空间 16MB→8MB：压低静默期年轻代常驻，代价是 Minor GC 稍频繁
+    '--max-semi-space-size=8',
+    // 暴露 window.gc()：idleTrim 瘦身时主动回收
+    '--expose-gc'
+  ].join(' ')
+)
+// 单窗口应用：限制渲染进程数量为 1，防止额外渲染进程常驻
+app.commandLine.appendSwitch('renderer-process-limit', '1')
+// 同站点共享渲染进程，避免按站点膨胀进程数
+app.commandLine.appendSwitch('process-per-site')
 
 // 启动日志尽 earliest 初始化：闪退发生在 app.whenReady 之前时也有据可查
 try {
@@ -53,6 +73,8 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 let win: BrowserWindow | null = null
+/** 内存压榨控制器：whenReady 时初始化；createWindow 的窗口事件经此转发（静默瘦身） */
+let memTrim: MemoryTrimController | null = null
 
 function createWindow(startup?: ReturnType<typeof createStartupSplash>): void {
   logScope('window').debug('开始创建主窗口')
@@ -70,8 +92,9 @@ function createWindow(startup?: ReturnType<typeof createStartupSplash>): void {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: true,
       contextIsolation: true,
-      nodeIntegration: false,
-      backgroundThrottling: false
+      nodeIntegration: false
+      // backgroundThrottling 保持默认开启（不设 false）：窗口隐藏/最小化时定时器与 rAF 自动节流，
+      // 静默期渲染层近零功耗；IPC 推送（进度/日志事件）不受节流影响。
     }
   })
   if (startup) startup.attach(win)
@@ -80,6 +103,11 @@ function createWindow(startup?: ReturnType<typeof createStartupSplash>): void {
   if (windowState?.maximized) win.maximize()
   trackWindowState(win)
   const mainWindow = win
+  // 静默瘦身钩子：最小化/隐藏触发工作集整理 + 渲染层瘦身广播；恢复不做处理（自然回涨）
+  mainWindow.on('minimize', () => memTrim?.noteHidden())
+  mainWindow.on('hide', () => memTrim?.noteHidden())
+  mainWindow.on('restore', () => memTrim?.noteVisible())
+  mainWindow.on('show', () => memTrim?.noteVisible())
   if (process.platform === 'win32') {
     // Native draggable regions do not dispatch DOM clicks. Observe, never consume.
     mainWindow.hookWindowMessage(0x00A1, (wParam) => {
@@ -115,6 +143,9 @@ app.whenReady().then(async () => {
   launcherLogInfo('main', `Electron 就绪（版本 ${app.getVersion()}）`)
   const startup = createStartupSplash()
   launcherLogInfo('main', '启动闪屏已创建')
+  // 内存压榨控制器：指标日志 + 静默期工作集整理（trim 进程清单来自 getAppMetrics，绝不触碰游戏进程）
+  memTrim = await startMemoryTrim(() => win, (message) => launcherLogInfo('memory', message))
+  launcherLogInfo('memory', '内存压榨控制器已启动（指标日志 5 分钟/条；静默 10 分钟后低频整理）')
   const { registerIpc } = await import('./ipc')
   try {
     await migrateLegacyAppearanceAssets()
@@ -189,6 +220,10 @@ app.on('child-process-gone', (_event, details) => {
   )
 })
 app.on('before-quit', () => {
+  // 任务B：任何正常退出路径都不终止游戏——游戏进程以脱离方式创建（gracefulClose.spawnGameProcess），
+  // 这里只记录「游戏继续运行」，绝无 taskkill/树杀。
+  const gamePids = getRunningGamePids()
+  if (gamePids.length) launcherLogInfo('exit', `启动器已退出，游戏(进程 PID ${gamePids.join('、')})继续运行`)
   // 尽早异步刷盘；quit 事件里还有同步兜底
   void flushLauncherLog()
 })

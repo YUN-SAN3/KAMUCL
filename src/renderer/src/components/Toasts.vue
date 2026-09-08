@@ -15,26 +15,26 @@ import { store } from '../store'
 .toasts {
   position: fixed;
   top: 76px;
-  right: 20px;
+  right: var(--space-5);
   z-index: 200;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
   pointer-events: none;
 }
 
 .toast {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   max-width: 360px;
-  padding: 11px 14px;
-  border-radius: 12px;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
   background: var(--card);
   border: 1px solid var(--border);
   border-left-width: 3px;
   box-shadow: var(--shadow-lg);
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.5;
   user-select: text;
 }

@@ -6,14 +6,13 @@ import os from 'node:os'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import { createCommandWorld } from './commandWorld'
-import { requestGameWindowClose, focusGameWindow } from './gracefulClose'
+import { requestGameWindowClose, focusGameWindow, spawnGameProcess } from './gracefulClose'
 import { logScope } from './launcherLog'
 
 const launchLog = logScope('launch')
 import { reuseExternalRuntimeLibraries } from './externalRuntime'
 import { repairNeoRuntime } from './loaders'
 import { pathIdentity } from './folderPaths'
-import { spawn } from 'node:child_process'
 import { GameSession } from './gameSession'
 import { app, screen } from 'electron'
 import AdmZip from 'adm-zip'
@@ -103,6 +102,11 @@ export async function restartGame(versionId: string, folder: string, forceToken?
 /** 当前正在运行的全部游戏版本 id（多开支持；改名等写操作前校验） */
 export function getRunningVersionIds(): Set<string> {
   return gameSession.runningIds()
+}
+
+/** 运行中游戏的 PID（退出路径仅用于记录「游戏继续运行」日志，绝不用于终止） */
+export function getRunningGamePids(): number[] {
+  return gameSession.runningPids()
 }
 
 /** 最近一次会话的版本 id（兼容旧调用） */
@@ -591,7 +595,9 @@ async function launchOwned(
   launchLog.info(`启动准备完成（耗时 ${Date.now() - pipelineStarted}ms），正在创建游戏进程`)
 
   emit({ stage: 'launch', progress: 1, text: '启动游戏进程' })
-  const proc = spawn(javaPath, args, { cwd: effectiveGameDir })
+  // 脱离式创建：游戏进程与启动器生命周期完全解耦（Windows CreateProcessW，见 gracefulClose.ts），
+  // 关闭启动器时游戏继续运行；stdout/stderr 仍以管道回流，日志体验不变。
+  const proc = await spawnGameProcess(javaPath, args, { cwd: effectiveGameDir })
   gameSession.attach(token, proc)
   spawned = true
   const spawnedAt = Date.now()

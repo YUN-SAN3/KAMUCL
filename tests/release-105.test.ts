@@ -34,14 +34,16 @@ test('version comparison: 26.x new scheme is newer than all 1.x; unknown treated
   assert(keySyncSupportedForVersion('26.2'))
 })
 
-test('chunked download stall watchdog falls back to single connection instead of hanging', () => {
+test('chunked download stall watchdog only aborts when transfers are active (排队块不再被误杀)', () => {
   const dl = read('src/main/core/download.ts')
-  assert.match(dl, /CHUNK_STALL_MS = 45_000/)
-  assert.match(dl, /stallWatchdog = setInterval/)
-  assert.match(dl, /lastBytesAt = Date\.now\(\)/)
-  assert.match(dl, /stalledByWatchdog/)
-  assert.match(dl, /分块无进展回退单连接/)
-  assert.match(dl, /clearInterval\(stallWatchdog\)/)
+  // 1.0.9 修正：看门狗只在「有块处于传输中」且全组无字节进展时中止分块；
+  // 旧实现把排队等待全局并发名额的块也计入停滞，导致健康分块组被整组取消、回退单连接。
+  assert.match(dl, /chunkStallWatchdog = \{ stallMs: 45_000/)
+  assert.match(dl, /onTransferBegin\?: \(\) => void/)
+  assert.match(dl, /onTransferEnd\?: \(\) => void/)
+  assert.match(dl, /activeTransfers\+\+/)
+  assert.match(dl, /if \(activeTransfers > 0 && Date\.now\(\) - lastBytesAt >= chunkStallWatchdog\.stallMs\)/)
+  assert.match(dl, /无进展，回退单连接/)
 })
 
 test('home recent games: selection no longer pins to top; launch recency drives order; renamed', () => {

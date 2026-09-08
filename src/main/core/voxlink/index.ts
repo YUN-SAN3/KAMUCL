@@ -89,6 +89,10 @@ export function registerVoxlinkIpc(ipcMain: IpcMain): void {
     if (typeof partial.theme === 'string' && partial.theme) a.saveSettingsJSON({ theme: partial.theme })
     return a.settings
   })
+
+  // 手动后备（app-desktop 同名能力）：打洞约 20 秒未成功时由用户触发
+  ipcMain.handle('voxlink:tryDirect', () => vapp().tryDirect())
+  ipcMain.handle('voxlink:usePlayerRelay', () => vapp().usePlayerRelay())
 }
 
 /** 应用退出时停掉会话（gracefulClose 里调用）。 */

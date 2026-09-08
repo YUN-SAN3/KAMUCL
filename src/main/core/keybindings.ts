@@ -5,8 +5,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { app } from 'electron'
-import { VANILLA_KEYBINDS, VANILLA_OPTIONS } from '../../shared/keybindings'
-import { compareVersions } from '../../shared/modCompatibility'
+import { VANILLA_KEYBINDS, VANILLA_OPTIONS, adaptOptionsForVersion, mcVersionAtLeast, serializeResourcePacks } from '../../shared/keybindings'
+
+// 版本判定与 options.txt 行适配的纯函数实现已收敛到 shared/keybindings（可测试、渲染层同源）；
+// 此处 re-export 维持既有导入路径（launch.ts / 测试）。
+export { adaptOptionsForVersion, mcVersionAtLeast }
 
 const KEY_ID_RE = /^key_key\.[a-z0-9.]+$/i
 const BIND_RE = /^key\.(keyboard|mouse)\.[a-z0-9.]+$/
@@ -149,26 +152,34 @@ export function resetDefaultOptions(): Record<string, string> {
   return options
 }
 
-/** 启动时同步其他配置：写进实例 options.txt（resourcePacks 为空字符串时不同步该项）。返回是否有改动。 */
+/**
+ * 启动时同步其他配置：写进实例 options.txt（resourcePacks 为空字符串时不同步该项）。返回是否有改动。
+ *
+ * 写入时机（防「被游戏回写吞掉」）：本函数是 options.txt 的唯一写入点，只在启动管线内、
+ * 游戏进程 spawn 之前调用（launch.ts）。玩家在启动器内改动的任何时刻（含游戏运行中）都只
+ * 持久化进 default-options.json（即 pending 缓冲），运行中改动不会碰 options.txt，因此不会被
+ * MC 退出时的全量回写覆盖；每次启动前从这里现读 default-options.json 统一落盘，即
+ * 「运行中改动进缓冲、启动前最后一步统一落盘」的真实实现。
+ */
 export function syncOptionsToGameDir(gameDir: string, options: Record<string, string> = getDefaultOptions(), mcVersion = ''): boolean {
   const effective: Record<string, string> = {}
   const adapted = adaptOptionsForVersion(options, mcVersion)
   for (const [key, value] of Object.entries(adapted)) {
-    // 资源包列表：逗号分隔文本 → options.txt 的 JSON 数组；为空 = 未配置，不同步
+    // 资源包列表：逗号分隔文本 → options.txt 的 JSON 数组（serializeResourcePacks）；空 = 未配置，不同步
     if (key === 'resourcePacks') {
-      const list = value.split(',').map((s) => s.trim()).filter(Boolean)
-      if (!list.length) continue
+      const line = serializeResourcePacks(value)
+      if (line == null) continue
       // 拖入的包文件随同步复制到实例 resourcepacks 目录（不存在才复制，不覆盖）
       const packsDir = defaultResourcePacksDir()
       const targetDir = path.join(gameDir, 'resourcepacks')
       fs.mkdirSync(targetDir, { recursive: true })
-      for (const packName of list) {
+      for (const packName of String(value).split(',').map((s) => s.trim()).filter(Boolean)) {
         const src = path.join(packsDir, path.basename(packName))
         const dest = path.join(targetDir, path.basename(packName))
         if (fs.existsSync(src) && !fs.existsSync(dest)) fs.copyFileSync(src, dest)
       }
-      // .zip 文件加 file/ 前缀；vanilla/fabric 等内置标识原样保留
-      effective[key] = JSON.stringify(list.map((n) => /\.zip$/i.test(n) ? `file/${path.basename(n)}` : n))
+      // .zip 已由 serializeResourcePacks 加 file/ 前缀；vanilla/fabric 等内置标识原样保留
+      effective[key] = line
       continue
     }
     effective[key] = value
@@ -178,59 +189,17 @@ export function syncOptionsToGameDir(gameDir: string, options: Record<string, st
   const before = fs.existsSync(file) ? fs.readFileSync(file, 'utf-8') : ''
   const after = mergeKeysIntoOptions(before, effective)
   if (after === before) return false
+  // 编码与换行与 MC 一致：UTF-8 文本、LF 行尾（MC 自身即按 UTF-8 读写并以 \n 保存）
   fs.writeFileSync(file, after, 'utf-8')
   return true
 }
 
-// ---------------- MC 版本适配（不同版本 options.txt 的字段名/格式差异） ----------------
-
-/** MC 版本是否 ≥ 目标版本（1.x.y 格式；26.x 新版号天然大于所有 1.x） */
-export function mcVersionAtLeast(mcVersion: string, target: string): boolean {
-  if (!mcVersion) return true // 未知版本按最新处理
-  return compareVersions(mcVersion, target) >= 0
-}
-
-/**
- * 按 MC 版本适配配置写入：
- * - FOV：options.txt 所有版本均为 0-1 浮点（度数映射 (d-30)/80），统一转换；
- *   写整数度数会被误读（用户报告 1.12.2 视角颠倒、显示"角视场 3470"）。
- * - 图像品质：1.21.11 前为 graphics:0/1/2（数字）；1.21.11 起为 graphicsPreset:"fast"/"fancy"/"fabulous"（带引号 JSON 串）。
- * - 潜行/疾跑切换：1.15 引入 toggleCrouch/toggleSprint，更早版本无此字段，跳过。
- * - 渲染距离 renderDistance、亮度 gamma、鼠标灵敏度 mouseSensitivity、垂直同步 enableVsync、
- *   帧率上限 maxFps、自动跳跃 autoJump 各版本字段一致（均经真实 options.txt 实证）。
- */
-export function adaptOptionsForVersion(options: Record<string, string>, mcVersion: string): Record<string, string> {
-  const out = { ...options }
-  // FOV：度数 → 0-1 浮点（所有版本一致）
-  if (out.fov != null && out.fov !== '') {
-    const degrees = Number(out.fov)
-    if (Number.isFinite(degrees)) {
-      out.fov = String(Math.max(0, Math.min(1, (degrees - 30) / 80)))
-    }
-  }
-  // 图像品质：按版本选字段与值格式
-  if (out.graphicsPreset != null && out.graphicsPreset !== '') {
-    const preset = out.graphicsPreset
-    if (mcVersionAtLeast(mcVersion, '1.21.11')) {
-      // 新版：graphicsPreset 带引号 JSON 字符串
-      out.graphicsPreset = `"${preset}"`
-    } else {
-      // 旧版：graphics 数字（0 流畅 / 1 高品质 / 2 极佳）
-      out.graphics = preset === 'fast' ? '0' : preset === 'fabulous' ? '2' : '1'
-      delete out.graphicsPreset
-    }
-  }
-  // 潜行/疾跑切换：1.15 辅助功能引入，更早版本无此字段，跳过
-  if (!mcVersionAtLeast(mcVersion, '1.15')) {
-    delete out.toggleCrouch
-    delete out.toggleSprint
-  }
-  return out
-}
+// ---------------- 键位同步的版本门槛 ----------------
 
 /**
  * 键位版本适配：≤1.12.2 的 options.txt 键位是 LWJGL2 数字 keycode（key_key.forward:19），
  * 与 1.13+ 的 key.keyboard.* 格式不兼容。旧版跳过键位同步（写 key.keyboard.* 会让 1.12.2 键位失效）。
+ * 快照按开发周期判定（17w43a 起为 1.13 新键位），见 shared 的 mcVersionFamily 映射。
  */
 export function keySyncSupportedForVersion(mcVersion: string): boolean {
   return mcVersionAtLeast(mcVersion, '1.13')

@@ -166,11 +166,12 @@ async function commitOptionEdit(def: GameOptionDef) {
   const value = editingText.value.trim()
   cancelOptionEdit()
   if (!value) return
-  let n = Number(value)
+  const hasPercent = value.includes('%')
+  let n = Number(value.replace(/%/g, ''))
   if (!Number.isFinite(n)) return
-  // 百分比输入（亮度/灵敏度显示为 %，输入百分比数值）
-  if (def.id === 'gamma') n = n / 100
-  if (def.id === 'mouseSensitivity') n = n / 200
+  // 带 % 的输入按百分比换算（亮度 ×100、灵敏度 ×200 显示；纯数字视为已归一化的 0-1 值，避免双重换算）
+  if (hasPercent && def.id === 'gamma') n = n / 100
+  else if (hasPercent && def.id === 'mouseSensitivity') n = n / 200
   if (def.min != null && n < def.min) n = def.min
   if (def.max != null && n > def.max) n = def.max
   await applyOption(def, String(n))
@@ -183,7 +184,7 @@ async function toggleSneakSprint(def: GameOptionDef) {
 }
 /** 潜行/疾跑按钮文字参考 MC：按住（保持）/ 切换 */
 function sneakSprintLabel(def: GameOptionDef): string {
-  const base = def.id === 'sneakToggled' ? '潜行' : '疾跑'
+  const base = def.id === 'toggleCrouch' ? '潜行' : '疾跑'
   return `${base}：${optionValue(def) === 'true' ? '切换' : '按住'}`
 }
 async function applyOption(def: GameOptionDef, value: string) {
@@ -277,14 +278,17 @@ onUnmounted(stopCapture)
       </div>
     </div>
 
-    <div v-if="loading" class="card empty"><span class="spin"></span></div>
+    <div v-if="loading" class="card empty">
+      <span class="spin"></span>
+      <span>正在读取默认配置…</span>
+    </div>
     <div v-else class="cfg-columns">
       <!-- 左：按键配置 -->
       <div class="card cfg-col">
         <div class="cfg-col-head">
           <div>
             <h3 class="group-title">按键配置</h3>
-            <p class="muted group-hint" style="margin: 2px 0 0">对应游戏内「选项 → 控制 → 按键控制」</p>
+            <p class="muted group-hint">对应游戏内「选项 → 控制 → 按键控制」</p>
           </div>
           <button class="btn btn-ghost btn-sm" :disabled="!keyModifiedCount" @click="resetAllKeys">全部恢复默认</button>
         </div>
@@ -321,7 +325,7 @@ onUnmounted(stopCapture)
         <div class="cfg-col-head">
           <div>
             <h3 class="group-title">其他游戏配置</h3>
-            <p class="muted group-hint" style="margin: 2px 0 0">对应游戏内「视频设置 / 鼠标设置 / 辅助功能 / 资源包」</p>
+            <p class="muted group-hint">对应游戏内「视频设置 / 鼠标设置 / 辅助功能 / 资源包」</p>
           </div>
           <button class="btn btn-ghost btn-sm" :disabled="!optionModifiedCount" @click="resetAllOptions">全部恢复默认</button>
         </div>
@@ -438,30 +442,37 @@ onUnmounted(stopCapture)
 
 <style scoped>
 .cfg-page { max-width: 1180px; }
-.cfg-switches { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.group-title { font-size: var(--text-sm); font-weight: 700; margin: 0 0 var(--space-1); line-height: 1.5; }
+.group-hint { font-size: var(--text-xs); margin: 0; line-height: 1.6; }
+.group-inline { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.cfg-switch .switch { flex-shrink: 0; }
+.cfg-switches { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--card-gap); }
 .cfg-switch { align-items: flex-start; }
 .cfg-columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 16px;
+  gap: var(--card-gap);
   align-items: start;
 }
 @media (max-width: 1100px) {
   .cfg-columns { grid-template-columns: 1fr; }
 }
 .cfg-col { display: flex; flex-direction: column; min-height: 0; }
-.cfg-col-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-.cfg-search { width: 100%; margin-bottom: 8px; }
-.cfg-scroll { overflow-y: auto; max-height: calc(100vh - 330px); min-height: 220px; padding-right: 4px; }
-.cfg-group { margin-top: 12px; }
-.cfg-cat { font-size: 13px; color: var(--text-dim); margin: 0 0 6px; font-weight: 650; }
-.cfg-row { display: flex; align-items: center; gap: 10px; padding: 7px 4px; border-radius: 8px; }
+.cfg-col-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); }
+.cfg-search { width: 100%; margin-bottom: var(--space-2); }
+.cfg-scroll { overflow-y: auto; max-height: calc(100vh - 330px); min-height: 220px; padding-right: var(--space-1); }
+.cfg-group { margin-top: var(--space-3); }
+.cfg-cat { font-size: var(--text-sm); color: var(--text-dim); margin: 0 0 var(--space-2); font-weight: 600; }
+.cfg-row { display: flex; align-items: center; gap: var(--space-3); min-height: var(--row-h); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); }
 .cfg-row:hover { background: var(--card-2); }
-.cfg-label { flex: 1; min-width: 0; font-size: 13px; display: flex; flex-direction: column; gap: 1px; }
-.cfg-label-desc { font-size: 11px; color: var(--text-dim); font-weight: 400; }
+.cfg-label { flex: 1; min-width: 0; font-size: var(--text-sm); display: flex; flex-direction: column; gap: 2px; }
+.cfg-label-desc { font-size: var(--text-xs); color: var(--text-dim); font-weight: 400; }
 .cfg-bind {
-  min-width: 120px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px;
-  background: var(--card-2); color: var(--text); font-size: 12px; font-family: inherit; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 120px; min-height: var(--ctl-h); padding: 0 var(--space-3);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--card-2); color: var(--text); font-size: var(--text-xs); font-family: inherit; cursor: pointer;
+  white-space: nowrap;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 .cfg-bind:hover { border-color: var(--accent); }
@@ -469,28 +480,28 @@ onUnmounted(stopCapture)
 .cfg-bind.capturing { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); color: var(--accent-2); }
 .cfg-reset {
   display: flex; align-items: center; justify-content: center; width: 26px; height: 26px;
-  border: none; border-radius: 6px; background: transparent; color: var(--text-dim); cursor: pointer; flex-shrink: 0;
+  border: none; border-radius: var(--radius-sm); background: transparent; color: var(--text-dim); cursor: pointer; flex-shrink: 0;
 }
 .cfg-reset:hover { color: var(--accent-2); background: var(--hover); }
 .cfg-reset svg { width: 13px; height: 13px; }
 .cfg-reset.invisible { visibility: hidden; }
 .cfg-row-option { flex-wrap: wrap; }
 .cfg-slider { flex: 0 0 150px; accent-color: var(--accent); }
-.cfg-slider-val { min-width: 52px; text-align: right; font-size: 12px; color: var(--accent-2); font-variant-numeric: tabular-nums; }
+.cfg-slider-val { min-width: 52px; text-align: right; font-size: var(--text-xs); color: var(--accent-2); font-variant-numeric: tabular-nums; }
 .cfg-select { min-width: 130px; }
-.cfg-text { flex: 1; min-width: 180px; font-size: 12px; }
+.cfg-text { flex: 1; min-width: 180px; font-size: var(--text-xs); }
 .cfg-switch-inline { flex-shrink: 0; }
-.cfg-val-editable { cursor: text; border-radius: 4px; padding: 1px 4px; transition: background 0.12s ease, color 0.12s ease; }
+.cfg-val-editable { cursor: text; border-radius: var(--radius-sm); padding: 1px var(--space-1); transition: background 0.12s ease, color 0.12s ease; }
 .cfg-val-editable:hover { background: var(--hover); color: var(--text); }
-.cfg-value-input { width: 70px; padding: 2px 6px; font-size: 12px; text-align: right; }
+.cfg-value-input { width: 70px; padding: 2px var(--space-2); font-size: var(--text-xs); text-align: right; }
 .cfg-toggle-bind { min-width: 96px; }
-.cfg-pack-zone { flex: 1; min-width: 200px; border: 1px dashed var(--border-strong); border-radius: 10px; padding: 10px; transition: border-color 0.15s ease, background 0.15s ease; }
+.cfg-pack-zone { flex: 1; min-width: 200px; border: 1px dashed var(--border-strong); border-radius: var(--radius-md); padding: var(--space-3); transition: border-color 0.15s ease, background 0.15s ease; }
 .cfg-pack-zone.drag-active { border-color: var(--accent); background: var(--accent-soft); }
-.cfg-pack-drop { display: flex; align-items: center; gap: 8px; color: var(--text-dim); font-size: 12px; justify-content: center; }
+.cfg-pack-drop { display: flex; align-items: center; gap: var(--space-2); color: var(--text-dim); font-size: var(--text-xs); justify-content: center; }
 .cfg-pack-drop svg { width: 18px; height: 18px; }
-.cfg-pack-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.cfg-pack-tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border: 1px solid var(--border); border-radius: 999px; background: var(--card-2); font-size: 11px; }
-.cfg-pack-remove { border: none; background: transparent; color: var(--text-dim); cursor: pointer; font-size: 13px; padding: 0 2px; }
+.cfg-pack-list { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+.cfg-pack-tag { display: inline-flex; align-items: center; gap: var(--space-1); padding: 3px var(--space-2); border: 1px solid var(--border); border-radius: 999px; background: var(--card-2); font-size: var(--text-xs); }
+.cfg-pack-remove { border: none; background: transparent; color: var(--text-dim); cursor: pointer; font-size: var(--text-sm); padding: 0 2px; }
 .cfg-pack-remove:hover { color: var(--danger); }
 .cfg-capture-mask { z-index: 9000; }
 </style>

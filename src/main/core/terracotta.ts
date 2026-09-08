@@ -4,7 +4,7 @@
  * 移植自 VoxLink MOD 的集成方式（fabric/26.2/.../terracotta/*）：
  *  - 官方渠道下载 terracotta-<ver>-windows-<arch>-pkg.tar.gz（多镜像回退）→ SHA-256 校验 → 解出 exe
  *  - `terracotta.exe --hmcl <portFile>` 启动 → 轮询 portFile 得 {"port": N} → HTTP 127.0.0.1:N
- *  - 房主：GET /state/scanning?player=NAME        → 轮询 /state 直到 state=host_ok，room=U/XXXX-XXXX-XXXX
+ *  - 房主：GET /state/scanning?player=NAME        → 轮询 /state 直到 state=host_ok，room=U/XXXX-XXXX-XXXX-XXXX
  *  - 加入：GET /state/guesting?room=CODE&player=NAME → 轮询 /state 直到给出 url
  *  - 复位：GET /state/ide（官方拼写即 ide）；停止：GET /panic?peaceful=true + 杀进程树
  *
@@ -304,7 +304,8 @@ async function tcStart(payload: { mode: 'host' | 'join'; code?: string; port?: n
       emit('ready', { mode: 'host', room: final.room, state: final.state })
     } else {
       const code = String(payload.code ?? '').trim().toUpperCase()
-      if (!/^U\/[A-Z0-9]{4}(-[A-Z0-9]{4}){3}$/.test(code)) throw new Error('陶瓦房间码格式应为 U/XXXX-XXXX-XXXX')
+      // 陶瓦房间码：U/ 前缀 + 四段各 4 位（GitHub burningtnt/Terracotta 官方格式）
+      if (!/^U\/[A-Z0-9]{4}(-[A-Z0-9]{4}){3}$/.test(code)) throw new Error('陶瓦房间码格式应为 U/XXXX-XXXX-XXXX-XXXX（U/ 开头共四段）')
       setState({ phase: 'joining', room: code, url: undefined, error: undefined })
       await tcGet(`/state/guesting?room=${encodeURIComponent(code)}&player=${encodeURIComponent(me)}`)
       emit('log', { level: 'info', msg: '已请求加入陶瓦房间，等待连接就绪…' })

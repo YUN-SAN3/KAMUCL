@@ -159,7 +159,8 @@ export const VANILLA_OPTIONS: GameOptionDef[] = [
   { id: 'gamma', category: '视频设置', label: '亮度', type: 'slider', defaultValue: 0.5, min: 0, max: 1, step: 0.05 },
   { id: 'renderDistance', category: '视频设置', label: '渲染距离', type: 'slider', defaultValue: 12, min: 2, max: 32, step: 1, unit: '区块' },
   {
-    // 1.21.11 前 options.txt 为 graphics:0/1/2；1.21.11 起为 graphicsPreset:"fast"/"fancy"/"fabulous"（带引号 JSON 串）
+    // 存储恒为 preset 标识（fast/fancy/fabulous）；写入按版本由 adaptOptionsForVersion 三段适配：
+    // <1.16 → graphics:0/1；1.16–1.21.10 → graphicsMode:0/1/2；≥1.21.11（25w41a+/26.x）→ graphicsPreset:"..."（带引号 JSON 串）
     id: 'graphicsPreset', category: '视频设置', label: '图像品质', type: 'select', defaultValue: 'fancy',
     options: [{ value: 'fast', label: '流畅' }, { value: 'fancy', label: '高品质' }, { value: 'fabulous', label: '极佳' }]
   },
@@ -186,3 +187,133 @@ export const VANILLA_OPTIONS: GameOptionDef[] = [
 ]
 
 export const OPTION_CATEGORIES = ['视频设置', '鼠标设置', '辅助功能', '资源包'] as const
+
+// ---------------- MC 版本比较（纯函数，渲染层/主进程/测试共用；不得引入 node 依赖） ----------------
+
+/** 快照 id（如 25w41a、26w05a）→ [年, 周]；非快照返回 null */
+export function parseSnapshotId(version: string): [number, number] | null {
+  const m = /^(\d{2})w(\d{1,2})[a-e]?$/i.exec(version.trim())
+  return m ? [Number(m[1]), Number(m[2])] : null
+}
+
+/**
+ * 把任意 MC 版本字符串映射为可比较的数值元组（版本族）：
+ * - 正式版按数字段比较（26.x 新版号天然大于所有 1.x）；-pre/-rc/-snapshot 及 "1.14 Pre-Release 2"
+ *   等开发后缀视为其对应正式版（pre1/rc1 的 options.txt 字段已与正式版一致）；
+ * - 快照按「年-周 → 版本族」映射，分界周对齐启动器判定的功能引入点：
+ *   16w20a=autoJump(1.10)、17w43a=新键位系统(1.13)、19w41a=toggleCrouch/toggleSprint(1.15)、
+ *   20w06a=1.16 开发周期（graphicsMode）、25w41a=1.21.11 开发周期（graphicsPreset）、26.x 新版号。
+ *   只需保证对本启动器使用的分界目标（1.10/1.13/1.15/1.16/1.21.11/26.x）单调正确。
+ * 无法解析的非常规 id 按最新处理（与空版本一致的保守方向：宁写新字段不写错旧字段会由字段本身被忽略兜底）。
+ */
+export function mcVersionFamily(version: string): number[] {
+  const v = String(version ?? '').trim()
+  const snap = parseSnapshotId(v)
+  if (snap) {
+    const [yy, ww] = snap
+    if (yy >= 26) return [26, 0]
+    if (yy === 25) return ww >= 41 ? [1, 21, 11] : [1, 21, 10]
+    if (yy === 24) return [1, 21, 4]
+    if (yy === 23) return [1, 20, 4]
+    if (yy === 22) return [1, 19, 3]
+    if (yy === 21) return [1, 18, 2]
+    if (yy === 20) return ww >= 6 ? [1, 16, 5] : [1, 15, 2]
+    if (yy === 19) return ww >= 41 ? [1, 15, 2] : [1, 14, 4]
+    if (yy === 18) return [1, 14, 4]
+    if (yy === 17) return ww >= 43 ? [1, 13] : [1, 12, 2]
+    if (yy === 16) return ww >= 20 ? [1, 10, 2] : [1, 9, 4]
+    if (yy === 15) return [1, 9]
+    return [1, 8]
+  }
+  // 正式版：剥离开发后缀（含 26.2-snapshot-1 / 1.21.11-pre1 / 1.14 Pre-Release 2 三种写法）
+  const base = v.split(/[\s-]/)[0]
+  const parts = base.split('.').map((p) => (/^\d+$/.test(p) ? Number(p) : NaN))
+  if (!parts.length || parts.some((p) => !Number.isFinite(p))) return [999]
+  return parts
+}
+
+/** 版本族元组比较：返回 -1/0/1。26.x > 全部 1.x；1.21.11 > 1.21.9（数字段比较，非字符串） */
+export function compareMcVersions(a: string, b: string): number {
+  const fa = mcVersionFamily(a)
+  const fb = mcVersionFamily(b)
+  for (let i = 0; i < Math.max(fa.length, fb.length); i++) {
+    const d = (fa[i] ?? 0) - (fb[i] ?? 0)
+    if (d) return Math.sign(d)
+  }
+  return 0
+}
+
+/** MC 版本是否 ≥ 目标版本。空版本按最新处理（未知实例不丢同步项）。 */
+export function mcVersionAtLeast(mcVersion: string, target: string): boolean {
+  if (!mcVersion) return true
+  return compareMcVersions(mcVersion, target) >= 0
+}
+
+// ---------------- options.txt 值换算与版本适配（纯函数） ----------------
+
+/** FOV 游戏内角度 ↔ options.txt 存储：存储值 = (角度-30)/80， clamp 到 0-1（实证 90° → 0.75） */
+export function fovDegreesToStored(degrees: number): number {
+  return Math.max(0, Math.min(1, (degrees - 30) / 80))
+}
+/** FOV 存储 0-1 ↔ 游戏内角度：角度 = 30 + 存储×80 */
+export function fovStoredToDegrees(stored: number): number {
+  return 30 + stored * 80
+}
+
+/**
+ * 逗号分隔的包名列表 → options.txt 的 resourcePacks 行值：JSON 数组、带引号、逗号分隔
+ * （wiki 实证格式 ["vanilla","file/x.zip"]）。.zip 自动加 file/ 前缀并取文件名。
+ * 空列表返回 null = 未配置，不同步。纯字符串实现（无 node:path），渲染层安全。
+ */
+export function serializeResourcePacks(value: string): string | null {
+  const list = String(value ?? '').split(',').map((s) => s.trim()).filter(Boolean)
+  if (!list.length) return null
+  return JSON.stringify(list.map((n) => (/\.zip$/i.test(n) ? `file/${n.split(/[\\/]/).pop() ?? n}` : n)))
+}
+
+/**
+ * 按 MC 版本适配 options.txt 写入字段与格式（证据：minecraft.wiki/w/Options.txt + 真实文件实证）：
+ * - fov：所有版本都是 0-1 浮点（角度映射 (d-30)/80），统一转换；写整数度数会被误读
+ *   （1.12.2 视角颠倒/角视场 3470 的历史 bug）。
+ * - 图像品质三段分界（wiki 实证 "graphics → replaced by graphicsMode in 1.16, then by
+ *   graphicsPreset in 1.21.11"，graphicsPreset 开发版自 25w41a 引入）：
+ *   <1.16 → graphics:0/1（无 fabulous，极佳回退高品质）；1.16–1.21.10 → graphicsMode:0/1/2；
+ *   ≥1.21.11（含 25w41a+ 快照与 26.x）→ graphicsPreset:"fast"/"fancy"/"fabulous"（带引号 JSON 串）。
+ *   写错字段名游戏会整行忽略 → 表现为「不生效」。
+ * - toggleCrouch/toggleSprint：1.15（19w41a）辅助功能引入，更早版本无此字段，跳过。
+ * - autoJump：1.10（16w20a）引入，更早版本跳过。
+ * - enableVsync（1.3.1+）、maxFps（1.7.2+）、gamma 0-1、mouseSensitivity 0-1、renderDistance 2-32：
+ *   覆盖全部受支持版本且各版本字段一致，原样写入。
+ */
+export function adaptOptionsForVersion(options: Record<string, string>, mcVersion: string): Record<string, string> {
+  const out = { ...options }
+  // FOV：度数 → 0-1 浮点（所有版本一致；存储值恒为度数，setDefaultOption 已按 30-110 校验）
+  if (out.fov != null && out.fov !== '') {
+    const degrees = Number(out.fov)
+    if (Number.isFinite(degrees)) out.fov = String(fovDegreesToStored(degrees))
+  }
+  // 图像品质：三段分界选字段与值格式
+  if (out.graphicsPreset != null && out.graphicsPreset !== '') {
+    const preset = out.graphicsPreset
+    if (mcVersionAtLeast(mcVersion, '1.21.11')) {
+      // 新版：graphicsPreset 带引号 JSON 字符串
+      out.graphicsPreset = `"${preset}"`
+    } else if (mcVersionAtLeast(mcVersion, '1.16')) {
+      // 1.16–1.21.10：graphicsMode 数字（0 流畅 / 1 高品质 / 2 极佳）
+      out.graphicsMode = preset === 'fast' ? '0' : preset === 'fabulous' ? '2' : '1'
+      delete out.graphicsPreset
+    } else {
+      // 1.16 前：graphics 只有 0/1，fabulous 不存在 → 回退高品质
+      out.graphics = preset === 'fast' ? '0' : '1'
+      delete out.graphicsPreset
+    }
+  }
+  // 潜行/疾跑切换：1.15 引入，更早版本无此字段，跳过
+  if (!mcVersionAtLeast(mcVersion, '1.15')) {
+    delete out.toggleCrouch
+    delete out.toggleSprint
+  }
+  // 自动跳跃：1.10 引入，更早版本跳过
+  if (!mcVersionAtLeast(mcVersion, '1.10')) delete out.autoJump
+  return out
+}

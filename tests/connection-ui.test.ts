@@ -5,6 +5,8 @@ import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 import { editedServers } from '../src/main/core/serverEditing'
 import type { ServerEntry } from '../src/shared/types'
 
+const read = (file: string): string => fs.readFileSync(file, 'utf8')
+
 test('server edits preserve identity, binding and history; reject invalid and duplicate endpoints', () => {
   const server: ServerEntry = { id: 'one', name: '旧名称', address: 'old.example.com', versionId: '背刺', folder: 'C:/games', minecraftVersion: '1.21.4', loader: 'fabric', loaderVersion: '0.16.10', lastUsedAt: '2026-09-01', source: 'minecraft' }
   const updated = editedServers([server], 'one', '  好友生存服  ', '[2001:db8::1]:25566')[0]
@@ -24,34 +26,53 @@ test('server edits preserve identity, binding and history; reject invalid and du
 })
 
 test('all restructured connection components compile and use theme colors', () => {
-  const components = ['FriendConnect.vue', ...['ConnectionPanel', 'ConnectionStatus', 'NetworkOverview', 'ServerListItem', 'ServerDetails'].map(s => `connection/${s}.vue`)]
-  for (const file of [...components.map(s => `src/renderer/src/components/${s}`), 'src/renderer/src/views/ServersView.vue']) {
-    const source = fs.readFileSync(file, 'utf8')
+  const components = ['ConnectionPanel', 'ConnectionStatus', 'FrpPanel', 'VoxLinkPanel', 'TerracottaPanel', 'ServerListItem', 'ServerDetails'].map(s => `connection/${s}.vue`)
+  for (const file of [...components.map(s => `src/renderer/src/components/${s}`), 'src/renderer/src/views/FriendConnectView.vue', 'src/renderer/src/views/ServersView.vue']) {
+    const source = read(file)
     const { descriptor, errors } = parse(source)
     assert.deepEqual(errors, [], file)
     const script = compileScript(descriptor, { id: file })
     assert.deepEqual(compileTemplate({ source: descriptor.template!.content, filename: file, id: file, compilerOptions: { bindingMetadata: script.bindings } }).errors, [], file)
     for (const style of descriptor.styles) assert.ok(!/#[0-9a-f]{3,8}\b|rgba?\(/i.test(style.content), file)
   }
-  const css = fs.readFileSync('src/renderer/src/components/connection/connection.css', 'utf8')
+  const css = read('src/renderer/src/components/connection/connection.css')
   assert.ok(!/#[0-9a-f]{3,8}\b|rgba?\(/i.test(css))
   assert.match(css, /prefers-reduced-motion/)
   assert.match(css, /focus-visible/)
   assert.match(css, /grid-template-columns: 1fr/)
 })
 
-test('direct connection retains real host/join operations and required cautions', () => {
-  const source = fs.readFileSync('src/renderer/src/components/FriendConnect.vue', 'utf8')
-  for (const name of ['getDirectOverview', 'getDirectState', 'startDirectHost', 'stopDirectHost', 'prepareDirectJoin', 'resolveDirectInvitation', 'launchGame']) assert.match(source, new RegExp(`await ${name}\\(`))
-  for (const text of ['CGNAT', '手机热点', '校园网', '专业内网穿透工具', '手动 IPv4', 'MOD 完全兼容', '正常认证', 'manualJoinAddress', 'state.endpoints', 'state.messages', 'resolved.failures']) assert.ok(source.includes(text), text)
-  assert.match(source, /v-model="useUpnp" type="checkbox" :disabled="busy \|\| state.active"/)
+test('玩家直连入口已删除，且被复用的共享基础设施原样保留', () => {
+  // 孤儿文件必须删除
+  assert.equal(fs.existsSync('src/renderer/src/components/FriendConnect.vue'), false, 'FriendConnect.vue（玩家直连面板）应已删除')
+  assert.equal(fs.existsSync('src/renderer/src/components/connection/NetworkOverview.vue'), false, 'NetworkOverview.vue 应随入口一并删除')
+  // 渲染层不得残留引用
+  const viewFiles = ['src/renderer/src/views/FriendConnectView.vue', 'src/renderer/src/views/ServersView.vue', 'src/renderer/src/App.vue']
+  const componentFiles = fs.readdirSync('src/renderer/src/components/connection').map((f) => `src/renderer/src/components/connection/${f}`)
+  for (const file of [...viewFiles, ...componentFiles]) {
+    const source = read(file)
+    assert.ok(!source.includes('FriendConnect.vue'), `${file} 不得再引用 FriendConnect.vue`)
+    assert.ok(!source.includes('NetworkOverview'), `${file} 不得再引用 NetworkOverview`)
+    assert.ok(!source.includes('getDirectOverview') && !source.includes('startDirectHost'), `${file} 不得残留玩家直连调用`)
+  }
+  // 共享层保留：主进程直连协议能力与 IPC 常量不被入口删除波及（VoxLink 尝试直连等仍依赖）
+  assert.ok(fs.existsSync('src/shared/directConnect.ts'), 'shared/directConnect.ts 必须保留')
+  assert.ok(fs.existsSync('src/main/core/directProtocol.ts'), 'main 直连协议能力必须保留')
+  const api = read('src/renderer/src/api.ts')
+  for (const fn of ['getDirectOverview', 'getDirectState', 'startDirectHost', 'stopDirectHost', 'prepareDirectJoin', 'resolveDirectInvitation']) {
+    assert.ok(api.includes(fn), `共享 api 层必须保留 ${fn}`)
+  }
+  // 服务器列表复用的面板组件原样保留
+  for (const file of ['ConnectionPanel.vue', 'ConnectionStatus.vue', 'ServerListItem.vue', 'ServerDetails.vue']) {
+    assert.ok(fs.existsSync(`src/renderer/src/components/connection/${file}`), `${file} 是 ServersView 共享组件，必须保留`)
+  }
 })
 
 test('server page connects edit IPC and preserves sync, selection, delete confirmation and launch preparation', () => {
-  const source = fs.readFileSync('src/renderer/src/views/ServersView.vue', 'utf8')
+  const source = read('src/renderer/src/views/ServersView.vue')
   for (const name of ['editServer', 'addServer', 'removeServer', 'syncServersFromDat', 'prepareServerLaunch', 'launchGame', 'bindServer']) assert.ok(source.includes(`await ${name}(`), name)
   for (const text of ['filteredServers', 'toggleAll', 'openBatchDelete', 'requestDelete', 'delModal.batch', 'versionMissing', 'targetToken', 'onCardDblClick', '没有找到匹配的服务器']) assert.ok(source.includes(text), text)
   assert.match(source, /target: s, batch: false/)
-  assert.match(fs.readFileSync('src/main/ipc.ts', 'utf8'), /ipcMain.handle\(IPC.serversEdit/)
-  assert.match(fs.readFileSync('src/renderer/src/api.ts', 'utf8'), /invoke<ServerEntry\[\]>\(IPC.serversEdit, id, name, address\)/)
+  assert.match(read('src/main/ipc.ts', 'utf8'), /ipcMain.handle\(IPC.serversEdit/)
+  assert.match(read('src/renderer/src/api.ts', 'utf8'), /invoke<ServerEntry\[\]>\(IPC.serversEdit, id, name, address\)/)
 })
