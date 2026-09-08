@@ -133,12 +133,23 @@ body {
   font-family: inherit;
   line-height: 1.2;
   cursor: pointer;
+  /* 2026 现代感：悬浮微浮起 + 阴影过渡 + 按压反馈 + 焦点环 */
   transition: background 0.18s ease, border-color 0.18s ease, filter 0.18s ease,
-    transform 0.12s ease, opacity 0.18s ease, color 0.18s ease;
+    transform 0.14s ease, opacity 0.18s ease, color 0.18s ease, box-shadow 0.2s ease;
   white-space: nowrap;
 }
+/* 焦点环（可访问性）：键盘聚焦时可见描边 */
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+/* 悬浮：微浮起 + 阴影 */
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+/* 按压反馈 */
 .btn:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 .btn:disabled {
   opacity: 0.45;
@@ -148,7 +159,7 @@ body {
   flex-shrink: 0;
 }
 
-/* 主按钮：accent 渐变底 + on-accent 文字 */
+/* 主按钮：accent 渐变底 + on-accent 文字（实心主题色） */
 .btn-gold {
   background: var(--accent-grad);
   color: var(--on-accent);
@@ -157,9 +168,18 @@ body {
 }
 .btn-gold:hover:not(:disabled) {
   filter: brightness(1.08);
+  box-shadow: 0 6px 22px var(--accent-soft);
+  transform: translateY(-1px);
+}
+.btn-gold:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.btn-gold:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft), 0 4px 16px var(--accent-soft);
 }
 
-/* 次按钮：card-2 底 + 边框，hover 金边 */
+/* 次按钮：card-2 底 + 边框，悬浮金边 + 微浮起 */
 .btn-ghost {
   background: var(--card-2);
   border-color: var(--border);
@@ -168,8 +188,18 @@ body {
 .btn-ghost:hover:not(:disabled) {
   border-color: var(--accent-deep);
   color: var(--accent-2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.btn-ghost:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.btn-ghost:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+/* 危险按钮：克制的红色语义（浅红底 + 红字，不实心） */
 .btn-danger {
   background: var(--danger-soft);
   border-color: var(--danger-border);
@@ -177,6 +207,15 @@ body {
 }
 .btn-danger:hover:not(:disabled) {
   background: color-mix(in srgb, var(--danger) 18%, transparent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--danger) 14%, transparent);
+}
+.btn-danger:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.btn-danger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 22%, transparent);
 }
 
 .btn-sm {
@@ -197,16 +236,22 @@ body {
   background: transparent;
   color: var(--text-dim);
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease,
-    transform 0.12s ease;
+  transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease,
+    transform 0.14s ease, box-shadow 0.2s ease;
   flex-shrink: 0;
 }
 .icon-btn:hover:not(:disabled) {
   background: var(--card-2);
   color: var(--accent-2);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 .icon-btn:active:not(:disabled) {
-  transform: scale(0.94);
+  transform: scale(0.93);
+}
+.icon-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 .icon-btn:disabled {
   opacity: 0.45;
