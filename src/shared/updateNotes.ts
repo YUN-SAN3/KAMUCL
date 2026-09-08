@@ -8,6 +8,9 @@ export interface UpdateNote {
 
 /** 按版本倒序；latest 为当前版本 */
 export const updateNotes: UpdateNote[] = [
+  { version: '1.0.10', date: '2026-09-08', changes: [
+    '修复：披风预览图案贴反——64×32 披风布局的外面（主图案，背后可见）[1,1] 与内面（贴身浅图）[12,1] 映射颠倒，导致从背面看到的是内面浅色图；经真实披风贴图实证修正，现与游戏内显示一致'
+  ] },
   { version: '1.0.9', date: '2026-09-08', changes: [
     '修复：默认配置同步全链路实证修复——FOV 82° 等设置从面板存储到 options.txt 写入再到 MC 退出回写逐步取证，版本号字段保留不重置；新增 options-sync 正式日志通道与回归脚本（scripts/verify-options-sync.cjs），根因为此前修复建立在错误字段名/格式假设上',
     '新增：游戏页版本列表每个版本新增金色「启动」按钮（删除按钮之前），无需先设为默认再回首页启动',
