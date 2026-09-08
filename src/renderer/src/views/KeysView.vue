@@ -81,6 +81,14 @@ async function resetOneKey(id: string) {
   if (!def) return
   await applyKey(id, def.defaultBind)
 }
+/** 捕获中点击空白遮罩 = 将该按键设置为空（清空绑定） */
+async function clearCapturedKey() {
+  const id = capturing.value
+  stopCapture()
+  if (!id) return
+  await applyKey(id, 'key.keyboard.unknown')
+  toast('已将该按键设置为空', 'success')
+}
 async function resetAllKeys() {
   try {
     keys.value = await resetDefaultKeys()
@@ -156,7 +164,8 @@ onUnmounted(stopCapture)
       </div>
     </div>
 
-    <div v-if="capturing" class="menu-overlay cfg-capture-mask" @click="stopCapture"></div>
+    <!-- 捕获遮罩：点击空白 = 该按键设置为空；Esc = 取消 -->
+    <div v-if="capturing" class="menu-overlay cfg-capture-mask" @click="clearCapturedKey"></div>
   </div>
 </template>
 

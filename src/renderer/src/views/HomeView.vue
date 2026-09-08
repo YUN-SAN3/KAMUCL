@@ -634,7 +634,6 @@ onUnmounted(() => {
           </button>
         </div>
         <div class="skin-stage" @dblclick="store.currentView = store.selectedAccount ? 'skins' : 'accounts'">
-          <div class="skin-aura"></div>
           <SkinViewer3D :src="skinSrc" :variant="skinVariant" />
           <div v-if="skinLoading" class="skin-overlay"><span class="spin"></span><span>正在加载皮肤…</span></div>
           <button v-else-if="!store.selectedAccount" class="skin-overlay action" @click="store.currentView = 'accounts'">登录后加载角色皮肤</button>
@@ -923,7 +922,7 @@ onUnmounted(() => {
 .skin-refresh .spinning { animation: spin 0.8s linear infinite; }
 .skin-stage { position: relative; height: 300px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--border) 78%, transparent); border-radius: 12px; background: radial-gradient(circle at 50% 82%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 38%), linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 18%, transparent)); }
 .skin-stage :deep(.viewer3d) { height: 100%; --sv3d-height: 100%; background: transparent; }
-.skin-aura { position: absolute; z-index: 0; left: 50%; bottom: 17px; width: 126px; height: 25px; border: 2px solid color-mix(in srgb, var(--accent-2) 62%, transparent); border-radius: 50%; background: color-mix(in srgb, var(--accent) 18%, transparent); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 46%, transparent), inset 0 0 18px color-mix(in srgb, var(--accent) 25%, transparent); transform: translateX(-50%); }
+
 .skin-overlay { position: absolute; z-index: 2; right: 12px; bottom: 12px; left: 12px; display: flex; min-height: 34px; align-items: center; justify-content: center; gap: 9px; padding: 7px 10px; border: 1px solid var(--border); border-radius: 9px; background: color-mix(in srgb, var(--card) 78%, transparent); color: var(--text-dim); font-family: inherit; font-size: 11px; font-weight: 550; backdrop-filter: blur(12px); }
 .skin-overlay.action { cursor: pointer; }
 .skin-overlay.action:hover { color: var(--text); }

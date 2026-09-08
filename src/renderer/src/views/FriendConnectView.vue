@@ -126,18 +126,32 @@ function pick(key: ConnectPage) {
   background: color-mix(in srgb, var(--card) 82%, transparent);
   backdrop-filter: blur(24px) saturate(130%); -webkit-backdrop-filter: blur(24px) saturate(130%);
   color: var(--text); cursor: pointer;
-  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .22s ease;
+  /* 入场：自下而上渐入 + 按序错落 */
+  animation: pick-card-in 0.42s cubic-bezier(0.22, 0.9, 0.32, 1) backwards;
 }
-.pick-card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 55%, var(--border-strong)); box-shadow: var(--shadow); }
+.pick-card:nth-child(1) { animation-delay: 0ms; }
+.pick-card:nth-child(2) { animation-delay: 60ms; }
+.pick-card:nth-child(3) { animation-delay: 120ms; }
+.pick-card:nth-child(4) { animation-delay: 180ms; }
+@keyframes pick-card-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.pick-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 55%, var(--border-strong)); box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 15%, transparent); }
+.pick-card:active { transform: translateY(-1px) scale(0.995); }
 .pick-card:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
 .pick-card.primary { border-color: color-mix(in srgb, var(--accent) 55%, var(--border-strong)); }
-.pick-icon { width: 34px; height: 34px; flex: none; color: var(--accent); margin-top: 2px; }
-.pick-icon :deep(svg) { width: 100%; height: 100%; }
+.pick-icon {
+  width: 42px; height: 42px; flex: none; color: var(--accent); margin-top: 2px;
+  display: grid; place-items: center; border-radius: var(--radius-md);
+  background: var(--accent-soft); transition: transform .2s cubic-bezier(0.22, 0.9, 0.32, 1.2);
+}
+.pick-card:hover .pick-icon { transform: scale(1.08); }
+.pick-icon :deep(svg) { width: 22px; height: 22px; }
 .pick-copy { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; flex: 1; }
 .pick-name { display: inline-flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); font-size: var(--text-lg); font-weight: 700; }
 .pick-name em { display: inline-flex; align-items: center; font-style: normal; font-size: var(--text-xs); font-weight: 500; padding: 2px var(--space-2); border-radius: 999px; border: 1px solid var(--border-strong); color: var(--text-dim); }
 .pick-desc { font-size: var(--text-xs); line-height: 1.8; color: var(--text-dim); }
 .pick-scene { font-size: var(--text-xs); color: var(--accent-2); line-height: 1.7; }
-.pick-go { align-self: center; flex: none; color: var(--text-dim); font-size: var(--text-lg); }
-.pick-card:hover .pick-go { color: var(--accent-2); }
+/* 箭头悬浮滑入 */
+.pick-go { align-self: center; flex: none; color: var(--text-dim); font-size: var(--text-lg); opacity: 0.4; transform: translateX(-4px); transition: opacity .18s ease, transform .22s cubic-bezier(0.22, 0.9, 0.32, 1.2), color .18s ease; }
+.pick-card:hover .pick-go { color: var(--accent-2); opacity: 1; transform: translateX(0); }
 </style>

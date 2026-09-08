@@ -1587,8 +1587,10 @@ async function onRemovePlugin(p: PluginInfo) {
 .mem-slider-fill {
   position: absolute; left: 0; top: 50%; height: 6px; transform: translateY(-50%);
   border-radius: 999px; background: linear-gradient(90deg, var(--accent-2), var(--accent)); pointer-events: none;
-  transition: width 0.06s linear;
+  /* 拖动中禁用过渡：否则填充追着指针值跑=前后抽搐闪现（用户实测报告） */
+  transition: width 0.12s ease;
 }
+.mem-slider:has(.mem-slider-thumb.dragging) .mem-slider-fill { transition: none; }
 .mem-slider-thumb {
   position: absolute; top: 50%; width: 16px; height: 16px; transform: translate(-50%, -50%);
   border-radius: 50%; background: var(--accent); border: 2px solid var(--on-accent);

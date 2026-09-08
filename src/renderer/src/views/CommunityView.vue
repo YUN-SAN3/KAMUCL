@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { communityDownload, communityFiles, communitySearch, errText, getManifest, getModTargets } from '../api'
 import { store, toast } from '../store'
 import { instanceKey } from '@shared/modCompatibility'
@@ -55,6 +55,29 @@ const kindTabs: Array<{ value: CommunityKind; label: string }> = [
   { value: 'shader', label: '光影包' },
   { value: 'datapack', label: '数据包' }
 ]
+
+/** 类型筛选胶囊滑动指示块（与导航水滴/游戏 Tab 同款弹簧动效） */
+const kindCapsules = ref<HTMLElement | null>(null)
+const kindBlob = reactive({ left: 0, width: 0, on: false })
+function updateKindBlob() {
+  const root = kindCapsules.value
+  if (!root) return
+  const active = root.querySelector<HTMLElement>(`.capsule[data-kind="${query.kind}"]`)
+  if (!active) return
+  kindBlob.left = active.offsetLeft
+  kindBlob.width = active.offsetWidth
+  kindBlob.on = true
+}
+watch(() => query.kind, () => nextTick(updateKindBlob))
+onMounted(() => {
+  nextTick(updateKindBlob)
+  setTimeout(updateKindBlob, 200)
+})
+const kindBlobStyle = computed(() => ({
+  left: kindBlob.left + 'px',
+  width: kindBlob.width + 'px',
+  opacity: kindBlob.on ? 1 : 0
+}))
 
 const sourceOptions: Array<{ value: 'all' | CommunitySource; label: string }> = [
   { value: 'all', label: '全部来源' },
@@ -424,11 +447,13 @@ async function confirmDownload() {
         <button class="btn btn-ghost" :disabled="loading" @click="onReset">重置条件</button>
       </div>
 
-      <div class="kind-capsules">
+      <div class="kind-capsules" ref="kindCapsules">
+        <span class="capsule-blob" :style="kindBlobStyle" aria-hidden="true"></span>
         <button
           v-for="t in kindTabs"
           :key="t.value"
           class="capsule"
+          :data-kind="t.value"
           :class="{ active: query.kind === t.value }"
           @click="query.kind = t.value; onFilterChange()"
         >
@@ -661,34 +686,51 @@ async function confirmDownload() {
 }
 
 .kind-capsules {
+  position: relative;
   display: flex;
-  gap: var(--space-2);
+  gap: 2px;
   flex-wrap: wrap;
-}
-.capsule {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--ctl-h);
-  padding: 0 var(--space-4);
+  padding: 3px;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--card-2);
+  width: fit-content;
+}
+/* 类型筛选滑动指示块：弹簧动效跟随激活胶囊 */
+.capsule-blob {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 999px;
+  background: var(--accent-grad);
+  box-shadow: 0 2px 8px var(--accent-soft);
+  transition: left 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), width 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.capsule {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--ctl-h) - 6px);
+  padding: 0 var(--space-4);
+  border: none;
+  border-radius: 999px;
+  background: transparent;
   color: var(--text-dim);
   font-size: var(--text-sm);
   font-family: inherit;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.2s ease;
 }
 .capsule:hover {
   color: var(--text);
-  border-color: var(--border-strong);
 }
 .capsule.active {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  color: var(--accent);
+  color: var(--on-accent);
   font-weight: 600;
 }
 
@@ -729,7 +771,7 @@ async function confirmDownload() {
 
 /* ---------------- 结果列表（卡片横向网格，窄窗口自动换行） ---------------- */
 .list-card {
-  padding: var(--space-2);
+  padding: var(--space-3);
 }
 .result-list {
   display: grid;
@@ -743,13 +785,21 @@ async function confirmDownload() {
   min-width: 0;
   padding: var(--space-4);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background: var(--card-2);
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.22s ease;
+  /* 入场：自下而上渐入 + 按序错落 */
+  animation: community-card-in 0.4s cubic-bezier(0.22, 0.9, 0.32, 1) backwards;
 }
+.result-card:nth-child(3n+1) { animation-delay: 0ms; }
+.result-card:nth-child(3n+2) { animation-delay: 50ms; }
+.result-card:nth-child(3n) { animation-delay: 100ms; }
+@keyframes community-card-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 .result-card:hover {
-  border-color: var(--border-strong);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
   background: var(--hover);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 13%, transparent);
 }
 
 .result-top {
@@ -760,16 +810,17 @@ async function confirmDownload() {
 }
 
 .result-icon {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   flex-shrink: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--card);
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 8%, transparent);
 }
 .result-icon img {
   width: 100%;

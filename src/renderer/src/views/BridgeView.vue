@@ -300,7 +300,12 @@ function isModified(p: BridgeParam): boolean {
 .bridge-status { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--card-pad); flex-wrap: wrap; }
 .bridge-status.connected { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
 .bridge-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--text-dim); flex-shrink: 0; }
-.bridge-dot.on { background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); }
+/* 已连接状态点：呼吸脉冲 */
+.bridge-dot.on { background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); animation: bridge-pulse 2.2s ease-in-out infinite; }
+@keyframes bridge-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--ok-soft); }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--ok) 10%, transparent); }
+}
 /* 观感修正：文字行距/元素间距从 2px 提到令牌档，避免与边框/控件贴死 */
 .bridge-status-text { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: var(--space-1); }
 .bridge-status-text strong { font-size: var(--text-sm); }
@@ -308,7 +313,8 @@ function isModified(p: BridgeParam): boolean {
 .bridge-toolbar { display: flex; }
 .bridge-search { flex: 1; }
 .bridge-mod { display: flex; flex-direction: column; gap: var(--card-gap); }
-.bridge-card { padding: var(--space-4) var(--card-pad) var(--space-4); }
+.bridge-card { padding: var(--space-4) var(--card-pad) var(--space-4); transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.18s ease; }
+.bridge-card:hover { transform: translateY(-2px); box-shadow: 0 10px 26px color-mix(in srgb, var(--accent) 10%, transparent); border-color: var(--border-strong); }
 .bridge-card-head { display: flex; align-items: baseline; gap: var(--space-3); padding: 0 0 var(--space-3); border-bottom: 1px solid var(--border); margin-bottom: var(--space-2); }
 .bridge-card-head strong { font-size: var(--text-sm); font-weight: 700; }
 .bridge-card-head .muted { font-size: var(--text-xs); }
