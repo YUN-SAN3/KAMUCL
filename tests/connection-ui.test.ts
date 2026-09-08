@@ -42,20 +42,16 @@ test('all restructured connection components compile and use theme colors', () =
   assert.match(css, /grid-template-columns: 1fr/)
 })
 
-test('玩家直连入口已删除，且被复用的共享基础设施原样保留', () => {
-  // 孤儿文件必须删除
-  assert.equal(fs.existsSync('src/renderer/src/components/FriendConnect.vue'), false, 'FriendConnect.vue（玩家直连面板）应已删除')
-  assert.equal(fs.existsSync('src/renderer/src/components/connection/NetworkOverview.vue'), false, 'NetworkOverview.vue 应随入口一并删除')
-  // 渲染层不得残留引用
-  const viewFiles = ['src/renderer/src/views/FriendConnectView.vue', 'src/renderer/src/views/ServersView.vue', 'src/renderer/src/App.vue']
-  const componentFiles = fs.readdirSync('src/renderer/src/components/connection').map((f) => `src/renderer/src/components/connection/${f}`)
-  for (const file of [...viewFiles, ...componentFiles]) {
-    const source = read(file)
-    assert.ok(!source.includes('FriendConnect.vue'), `${file} 不得再引用 FriendConnect.vue`)
-    assert.ok(!source.includes('NetworkOverview'), `${file} 不得再引用 NetworkOverview`)
-    assert.ok(!source.includes('getDirectOverview') && !source.includes('startDirectHost'), `${file} 不得残留玩家直连调用`)
-  }
-  // 共享层保留：主进程直连协议能力与 IPC 常量不被入口删除波及（VoxLink 尝试直连等仍依赖）
+test('玩家直连已还原为联机第四方式（DirectPanel 独立页），共享基础设施原样保留', () => {
+  // 1.0.18 还原：DirectPanel.vue 为玩家直连独立页组件，NetworkOverview.vue 一并还原
+  assert.ok(fs.existsSync('src/renderer/src/components/connection/DirectPanel.vue'), 'DirectPanel.vue（玩家直连面板）必须存在')
+  assert.ok(fs.existsSync('src/renderer/src/components/connection/NetworkOverview.vue'), 'NetworkOverview.vue 必须存在')
+  const view = read('src/renderer/src/views/FriendConnectView.vue')
+  assert.ok(view.includes("key: 'direct'"), '联机方式列表必须含玩家直连')
+  assert.ok(view.includes('DirectPanel'), 'FriendConnectView 必须渲染 DirectPanel')
+  const panel = read('src/renderer/src/components/connection/DirectPanel.vue')
+  assert.ok(panel.includes('startDirectHost') && panel.includes('getDirectOverview'), 'DirectPanel 必须接入直连主流程')
+  // 共享层保留：主进程直连协议能力与 IPC 常量
   assert.ok(fs.existsSync('src/shared/directConnect.ts'), 'shared/directConnect.ts 必须保留')
   assert.ok(fs.existsSync('src/main/core/directProtocol.ts'), 'main 直连协议能力必须保留')
   const api = read('src/renderer/src/api.ts')

@@ -51,8 +51,6 @@ async function loadProfile() {
 const viewerRef = ref<InstanceType<typeof SkinViewer3D> | null>(null)
 /** 行走 / 待机动画切换 */
 const previewAnim = ref<'walk' | 'idle'>('walk')
-/** 暂停 / 播放 */
-const previewPaused = ref(false)
 
 // ---------------- 披风 ----------------
 const capeRenders = ref<Record<string, string>>({})
@@ -349,18 +347,6 @@ watch(
                   待机
                 </button>
               </div>
-              <button
-                class="icon-btn"
-                :title="previewPaused ? '播放动画' : '暂停动画'"
-                @click="previewPaused = !previewPaused"
-              >
-                <svg v-if="previewPaused" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                  <path d="M8 5.5v13l11-6.5-11-6.5Z" />
-                </svg>
-                <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                  <path d="M9 5v14M15 5v14" />
-                </svg>
-              </button>
               <button class="icon-btn" title="回正视角" @click="viewerRef?.resetView()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="7.5" />
@@ -376,7 +362,6 @@ watch(
                 :src="currentSkin.dataUrl"
                 :variant="currentVariant"
                 :animation="previewAnim"
-                :paused="previewPaused"
                 :cape="activeCape"
               />
               <p class="muted viewer-tip">拖动旋转 · 滚轮缩放 · 双击回正</p>

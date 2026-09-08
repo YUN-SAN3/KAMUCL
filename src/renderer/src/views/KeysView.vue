@@ -109,27 +109,24 @@ onUnmounted(stopCapture)
       <p class="page-sub">启动器级默认按键；开启同步后，启动任何版本时自动写入该实例的 options.txt</p>
     </div>
 
-    <!-- 按键同步开关 -->
-    <div class="card group-inline cfg-switch">
-      <div>
-        <h3 class="group-title">按键设置同步</h3>
-        <p class="muted group-hint">启动任意版本时，用下方默认按键覆盖该实例 options.txt 的 key_* 项</p>
-      </div>
-      <label class="switch">
-        <input type="checkbox" :checked="keySync" @change="toggleKeySync(($event.target as HTMLInputElement).checked)" />
-        <span class="switch-ui"></span>
-      </label>
-    </div>
-
     <div v-if="loading" class="card empty"><span class="spin"></span></div>
-    <!-- 按键配置 -->
+    <!-- 按键配置（同步开关整合进卡片头部，不再单独占一张卡） -->
     <div v-else class="card cfg-col">
       <div class="cfg-col-head">
         <div>
           <h3 class="group-title">按键配置</h3>
           <p class="muted group-hint" style="margin: 2px 0 0">对应游戏内「选项 → 控制 → 按键控制」</p>
         </div>
-        <button class="btn btn-ghost btn-sm" :disabled="!keyModifiedCount" @click="resetAllKeys">全部恢复默认</button>
+        <div class="cfg-head-actions">
+          <label class="cfg-sync" title="启动任意版本时，用下方默认按键覆盖该实例 options.txt 的 key_* 项">
+            <span class="cfg-sync-text">按键设置同步</span>
+            <span class="switch">
+              <input type="checkbox" :checked="keySync" @change="toggleKeySync(($event.target as HTMLInputElement).checked)" />
+              <span class="switch-ui"></span>
+            </span>
+          </label>
+          <button class="btn btn-ghost btn-sm" :disabled="!keyModifiedCount" @click="resetAllKeys">全部恢复默认</button>
+        </div>
       </div>
       <input v-model="keySearch" class="input cfg-search" placeholder="搜索按键名称…" />
       <div class="cfg-scroll">
@@ -166,9 +163,16 @@ onUnmounted(stopCapture)
 <style scoped>
 /* 间距全部走全局设计令牌：元素与板块边缘保持呼吸感（card-pad 由 .card 提供） */
 .cfg-page { max-width: 760px; }
-.cfg-switch { align-items: flex-start; }
 .cfg-col { display: flex; flex-direction: column; min-height: 0; }
-.cfg-col-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); }
+.cfg-col-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); flex-wrap: wrap; }
+/* 头部操作区：同步开关 + 恢复默认 同行右置 */
+.cfg-head-actions { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+.cfg-sync {
+  display: inline-flex; align-items: center; gap: var(--space-2); cursor: pointer;
+  padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm);
+}
+.cfg-sync:hover { background: var(--hover); }
+.cfg-sync-text { font-size: var(--text-sm); color: var(--text-dim); font-weight: 600; }
 .cfg-search { width: 100%; margin-bottom: var(--space-3); }
 .cfg-scroll { overflow-y: auto; max-height: calc(100vh - 330px); min-height: 220px; padding-right: var(--space-2); }
 .cfg-group { margin-top: var(--space-4); }

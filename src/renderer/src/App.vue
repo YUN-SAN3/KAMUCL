@@ -1494,9 +1494,9 @@ onUnmounted(() => {
         </Teleport>
       </header>
 
-      <!-- 内容区 -->
+      <!-- 内容区（:duration 显式给出过渡时长：窗口被遮挡/最小化时 transitionend 不会触发，setTimeout 兜底防切换卡死） -->
       <main class="content">
-        <Transition name="fade" mode="out-in">
+        <Transition name="fade" mode="out-in" :duration="250">
           <div :key="store.currentView" class="route-view">
             <component :is="currentComponent" />
           </div>

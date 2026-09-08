@@ -6,12 +6,13 @@ import '../components/connection/connection.css'
 const FrpPanel = defineAsyncComponent(() => import('../components/connection/FrpPanel.vue'))
 const VoxLinkPanel = defineAsyncComponent(() => import('../components/connection/VoxLinkPanel.vue'))
 const TerracottaPanel = defineAsyncComponent(() => import('../components/connection/TerracottaPanel.vue'))
+const DirectPanel = defineAsyncComponent(() => import('../components/connection/DirectPanel.vue'))
 
 /** 联机模块多页结构：landing=方式选择页，其余为各方式的独立页面 */
-type ConnectPage = 'choose' | 'frp' | 'voxlink' | 'terracotta'
+type ConnectPage = 'choose' | 'frp' | 'voxlink' | 'terracotta' | 'direct'
 const page = ref<ConnectPage>('choose')
 
-/** 三种联机方式：一句准确介绍 + 适用场景标签 */
+/** 四种联机方式：一句准确介绍 + 适用场景标签 */
 const methodCards: Array<{ key: Exclude<ConnectPage, 'choose'>; name: string; tag: string; scene: string; desc: string; icon: string }> = [
   {
     key: 'frp',
@@ -36,6 +37,14 @@ const methodCards: Array<{ key: Exclude<ConnectPage, 'choose'>; name: string; ta
     scene: '适合不想配置任何参数、极端 NAT 环境',
     desc: '独立开源联机项目（GitHub burningtnt/Terracotta，基于 EasyTier，AGPL-3.0）：自动下载官方二进制并校验，创建/加入房间开箱即用，极端 NAT 下成功率较高。',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v10l8 4 8-4V7l-8-4Z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg>'
+  },
+  {
+    key: 'direct',
+    name: '玩家直连',
+    tag: '零平台依赖 · 自主可控',
+    scene: '适合有公网 IPv4/IPv6 或愿意做路由器端口映射的玩家',
+    desc: '不依赖任何联机平台：通过 UPnP 自动或手动完成路由器端口映射，生成 KAMUCL 邀请信息发给好友，对方粘贴即可验证连通性并加入。',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="8" cy="8" r="3"/><path d="M2 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6M18 15a5 5 0 0 1 4 5"/></svg>'
   }
 ]
 
@@ -54,7 +63,7 @@ function pick(key: ConnectPage) {
           <div>
             <span class="connection-eyebrow">PLAY TOGETHER</span>
             <h1>选择联机方式</h1>
-            <p>三种方式各配一处场景：追求稳定选 FRP，房间码方便选 VoxLink，开箱即用选陶瓦。</p>
+            <p>追求稳定选 FRP，房间码方便选 VoxLink，开箱即用选陶瓦；有公网地址或会做端口映射选玩家直连。</p>
           </div>
         </header>
 
@@ -87,7 +96,7 @@ function pick(key: ConnectPage) {
             <p>{{ currentCard?.desc ?? '' }}</p>
           </div>
           <div class="header-side">
-            <ConnectionStatus tone="neutral" :label="page === 'frp' ? 'FRP 隧道' : page === 'voxlink' ? 'VoxLink 房间' : '陶瓦房间'" />
+            <ConnectionStatus tone="neutral" :label="page === 'frp' ? 'FRP 隧道' : page === 'voxlink' ? 'VoxLink 房间' : page === 'direct' ? '直连房间' : '陶瓦房间'" />
             <button class="btn btn-ghost" @click="page = 'choose'">← 更换方式</button>
           </div>
         </header>
@@ -95,6 +104,7 @@ function pick(key: ConnectPage) {
         <FrpPanel v-if="page === 'frp'" />
         <VoxLinkPanel v-else-if="page === 'voxlink'" />
         <TerracottaPanel v-else-if="page === 'terracotta'" />
+        <DirectPanel v-else-if="page === 'direct'" />
       </template>
     </div>
   </div>

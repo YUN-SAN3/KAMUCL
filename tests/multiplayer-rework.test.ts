@@ -15,37 +15,38 @@ const multiplayerSources = [
   'src/renderer/src/components/connection/connection.css'
 ]
 
-test('联机文案纠错：多页全部文件不得出现「一点即连/一键联机/输码即连/备选/在多人游戏中查看/玩家直连」', () => {
+test('联机文案纠错：多页全部文件不得出现「一点即连/一键联机/输码即连/备选/在多人游戏中查看」', () => {
   for (const file of multiplayerSources) {
     const source = read(file)
-    for (const banned of ['一点即连', '一键联机', '输码即连', '在多人游戏中查看', '备选方案', 'VoxLink 的备选', 'VoxLink 备选', '玩家直连']) {
+    for (const banned of ['一点即连', '一键联机', '输码即连', '在多人游戏中查看', '备选方案', 'VoxLink 的备选', 'VoxLink 备选']) {
       assert.ok(!source.includes(banned), `${file} 不应出现「${banned}」`)
     }
   }
   const view = read('src/renderer/src/views/FriendConnectView.vue')
-  // 方式选择页三张卡片：准确介绍 + 适用场景标签
+  // 方式选择页卡片：准确介绍 + 适用场景标签
   for (const text of ['注册樱花穿透（natfrp.com）并创建隧道', '公网隧道 · 最稳', 'UDP 打洞 + STUN 的 P2P 直连，游戏数据不经服务器', '6 位房间码 · 免公网 IP', '打通后仍需在游戏内「直接连接」填入地址', '独立开源联机项目', 'burningtnt/Terracotta', '独立开源 · 开箱即用']) {
     assert.ok(view.includes(text), `方式选择页缺少：${text}`)
   }
-  // 三张横向卡片各配一句适用场景
-  for (const scene of ['适合追求稳定', '适合双方网络尚可', '适合不想配置任何参数']) {
+  // 横向卡片各配一句适用场景（含还原的玩家直连）
+  for (const scene of ['适合追求稳定', '适合双方网络尚可', '适合不想配置任何参数', '适合有公网']) {
     assert.ok(view.includes(scene), `方式选择页缺少场景标签：${scene}`)
   }
-  // 方式选择页恰好三张卡片（FRP / VoxLink / 陶瓦）
-  assert.equal((view.match(/key: '/g) ?? []).length, 3)
+  // 方式选择页四张卡片（FRP / VoxLink / 陶瓦 / 玩家直连——1.0.18 还原）
+  assert.equal((view.match(/key: '/g) ?? []).length, 4)
 })
 
 test('联机多页结构：landing=方式选择，每种方式独立页并保留「← 更换方式」返回', () => {
   const view = read('src/renderer/src/views/FriendConnectView.vue')
-  // 页面路由：choose 为 landing，三种方式各自独立页
-  for (const key of ["'choose'", "'frp'", "'voxlink'", "'terracotta'"]) assert.ok(view.includes(key), `缺少页面态 ${key}`)
+  // 页面路由：choose 为 landing，四种方式各自独立页
+  for (const key of ["'choose'", "'frp'", "'voxlink'", "'terracotta'", "'direct'"]) assert.ok(view.includes(key), `缺少页面态 ${key}`)
   assert.ok(view.includes("v-if=\"page === 'choose'\""), 'landing 应为方式选择页')
   assert.ok(view.includes("v-if=\"page === 'frp'\""), 'FRP 应是独立页面')
   assert.ok(view.includes("v-else-if=\"page === 'voxlink'\""), 'VoxLink 应是独立页面')
   assert.ok(view.includes("v-else-if=\"page === 'terracotta'\""), '陶瓦应是独立页面')
+  assert.ok(view.includes("v-else-if=\"page === 'direct'\""), '玩家直连应是独立页面（1.0.18 还原）')
   assert.ok(view.includes('← 更换方式'), '独立页必须保留「← 更换方式」返回')
-  // 方式卡片只剩三张（玩家直连卡片已删除）
-  assert.ok(!view.includes("'direct'"), '不得残留玩家直连页面态')
+  // 玩家直连面板组件存在且接入
+  assert.ok(view.includes('DirectPanel'), '玩家直连面板必须接入')
 })
 
 test('FRP 页重排：一键开始 + 状态区/主操作区/参考折叠/日志窄区 + 宽松节点行', () => {
