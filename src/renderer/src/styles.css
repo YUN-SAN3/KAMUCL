@@ -339,7 +339,8 @@ input[type='number'] {
   border-radius: 999px;
   background: var(--card-2);
   border: 1px solid var(--border);
-  transition: background 0.2s ease, border-color 0.2s ease;
+  /* 开/关过渡放慢一倍（0.2s → 0.4s），ease-in-out 保持平滑 */
+  transition: background 0.4s ease-in-out, border-color 0.4s ease-in-out;
 }
 .switch-ui::before {
   content: '';
@@ -351,7 +352,7 @@ input[type='number'] {
   height: 14px;
   border-radius: 50%;
   background: var(--text-dim);
-  transition: left 0.2s ease, background 0.2s ease;
+  transition: left 0.4s ease-in-out, background 0.4s ease-in-out;
 }
 .switch input:checked + .switch-ui {
   background: var(--accent);
