@@ -318,23 +318,24 @@ async function submit() {
 
 <style scoped>
 .world-modal { width: min(680px, calc(100vw - 36px)); max-height: 88vh; overflow-y: auto; }
-.world-title { margin: 0 0 14px; font-size: 18px; }
-.world-summary { display: grid; gap: 9px; padding: 13px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-2); }
-.world-summary > div:first-child { display: flex; justify-content: space-between; gap: 12px; }
-.world-summary > div:first-child span, .world-summary p { color: var(--text-dim); font-size: 11.5px; margin: 0; }
-.world-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.world-warning { display: grid; gap: 4px; margin-top: 12px; padding: 10px 12px; border: 1px solid color-mix(in srgb, #e5a323 45%, var(--border)); border-radius: 9px; background: color-mix(in srgb, #e5a323 9%, var(--card)); font-size: 11.5px; line-height: 1.5; }
-.field { display: grid; gap: 6px; margin-top: 12px; color: var(--text-dim); font-size: 12px; }
-.mode-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 14px; }
-.mode-tabs button { padding: 9px; border: 1px solid var(--border); border-radius: 8px; background: var(--card-2); color: var(--text-dim); cursor: pointer; }
+.world-title { margin: 0 0 var(--space-4); font-size: var(--text-lg); font-weight: 700; }
+.world-summary { display: grid; gap: var(--space-2); padding: var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--card-2); }
+.world-summary > div:first-child { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
+.world-summary > div:first-child span, .world-summary p { color: var(--text-dim); font-size: var(--text-xs); margin: 0; }
+.world-summary strong { font-size: var(--text-md); }
+.world-tags { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.world-warning { display: grid; gap: var(--space-1); margin-top: var(--space-3); padding: var(--space-3); border: 1px solid color-mix(in srgb, #e5a323 45%, var(--border)); border-radius: var(--radius-sm); background: color-mix(in srgb, #e5a323 9%, var(--card)); font-size: var(--text-xs); line-height: 1.5; }
+.field { display: grid; gap: var(--space-2); margin-top: var(--space-3); color: var(--text-dim); font-size: var(--text-xs); }
+.mode-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); margin-top: var(--space-3); }
+.mode-tabs button { display: inline-flex; align-items: center; justify-content: center; min-height: var(--ctl-h); padding: 0 var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card-2); color: var(--text-dim); font-size: var(--text-sm); font-family: inherit; cursor: pointer; }
 .mode-tabs button.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
 .mode-tabs button:disabled { opacity: .45; cursor: not-allowed; }
-.new-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.ack-row { display: flex; align-items: flex-start; gap: 8px; margin-top: 12px; padding: 9px 10px; border-radius: 8px; background: var(--card-2); color: var(--text-dim); font-size: 11.5px; line-height: 1.45; }
-.ack-row.danger { color: #d84b50; }
+.new-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.ack-row { display: flex; align-items: flex-start; gap: var(--space-2); margin-top: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); background: var(--card-2); color: var(--text-dim); font-size: var(--text-xs); line-height: 1.45; }
+.ack-row.danger { color: var(--danger); }
 .ack-row input { margin-top: 2px; accent-color: var(--accent); }
-.world-notes { display: grid; gap: 3px; margin-top: 10px; color: var(--text-dim); font-size: 10.5px; }
-.error-text { color: #e5484d; font-size: 11.5px; line-height: 1.45; }
-.modal-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 18px; }
+.world-notes { display: grid; gap: var(--space-1); margin-top: var(--space-3); color: var(--text-dim); font-size: var(--text-xs); line-height: 1.5; }
+.error-text { color: var(--danger); font-size: var(--text-xs); line-height: 1.45; }
+.modal-actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); margin-top: var(--space-5); }
 @media (max-width: 620px) { .new-grid { grid-template-columns: 1fr; } }
 </style>

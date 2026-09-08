@@ -6,7 +6,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { app } from 'electron'
 import { VANILLA_KEYBINDS } from '../../shared/keybindings'
-import { compareVersions } from '../../shared/modCompatibility'
 
 const BIND_RE = /^key\.(keyboard|mouse)\.[a-z0-9.]+$/
 
@@ -88,11 +87,9 @@ export function syncKeysToGameDir(gameDir: string, keys: Record<string, string> 
 
 // ---------------- MC 版本适配 ----------------
 
-/** MC 版本是否 ≥ 目标版本（1.x.y 格式；26.x 新版号天然大于所有 1.x） */
-export function mcVersionAtLeast(mcVersion: string, target: string): boolean {
-  if (!mcVersion) return true // 未知版本按最新处理
-  return compareVersions(mcVersion, target) >= 0
-}
+// 版本族比较统一走 shared/keybindings（快照感知版），此处转发保持既有调用点不变
+export { mcVersionAtLeast } from '../../shared/keybindings'
+import { mcVersionAtLeast } from '../../shared/keybindings'
 
 /**
  * 键位版本适配：≤1.12.2 的 options.txt 键位是 LWJGL2 数字 keycode（key_key.forward:19），

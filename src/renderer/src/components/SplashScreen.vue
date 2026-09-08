@@ -133,7 +133,7 @@ onUnmounted(() => timers.forEach(clearTimeout))
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: var(--space-6);
   background: var(--bg);
   opacity: 1;
   transition: opacity 400ms ease;
@@ -212,7 +212,7 @@ onUnmounted(() => timers.forEach(clearTimeout))
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -222,14 +222,14 @@ onUnmounted(() => timers.forEach(clearTimeout))
   transform: translateY(0);
 }
 .brand-name {
-  font-size: 27px;
+  font-size: var(--text-2xl);
   font-weight: 800;
   letter-spacing: 7px;
   color: var(--text);
   text-indent: 7px; /* 补偿 letter-spacing 尾部空隙，视觉居中 */
 }
 .brand-hint {
-  font-size: 12.5px;
+  font-size: var(--text-xs);
   color: var(--text-dim);
 }
 

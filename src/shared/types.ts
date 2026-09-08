@@ -704,6 +704,8 @@ export const IPC = {
   voxlinkLobby: 'voxlink:lobby', // () => VoxLinkRoom[]
   voxlinkSettings: 'voxlink:settings', // (partial) => VoxLinkSettings
   voxlinkEvent: 'voxlink:event', // push: {type, data}
+  voxlinkTryDirect: 'voxlink:tryDirect', // () => {ok, err?}  直连探测（app-desktop TryDirect）
+  voxlinkUsePlayerRelay: 'voxlink:usePlayerRelay', // () => {ok, err?}  请求玩家中继（app-desktop UsePlayerRelay）
 
   // 联机 · 陶瓦联机（Terracotta 官方工具驱动）
   tcStart: 'tc:start', // ({mode:'host'|'join', code?, port?}) => TerracottaState
@@ -715,6 +717,7 @@ export const IPC = {
   frpStart: 'frp:start', // ({accessKey, tunnelId, localPort?}) => FrpState
   frpStop: 'frp:stop', // () => FrpState
   frpStatus: 'frp:status', // () => FrpState
+  frpNodes: 'frp:nodes', // ({accessKey?, refresh?}) => FrpNodesResult（api.natfrp.com/v4 节点+隧道，缓存 10 分钟）
   frpEvent: 'frp:event', // push: {type:'log'|'ready'|'error'|'stopped', data}
 
   versionsSetJava: 'versions:setJava', // (id: string, javaPath: string) => void  版本独立指定 Java（空串恢复自动匹配）

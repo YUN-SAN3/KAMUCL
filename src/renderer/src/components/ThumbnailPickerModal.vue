@@ -149,11 +149,21 @@ async function resetImage() {
 .thumbnail-modal {
   width: min(600px, calc(100vw - 48px));
 }
+.modal-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0 0 var(--space-1);
+}
+.modal-label {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  margin: 0;
+}
 .thumbnail-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
 }
 .thumbnail-preview {
   display: flex;
@@ -161,10 +171,10 @@ async function resetImage() {
   justify-content: center;
   width: 100%;
   aspect-ratio: 16 / 7;
-  margin: 18px 0;
+  margin: var(--space-4) 0;
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background: var(--card-2);
 }
 .thumbnail-preview img {
@@ -172,9 +182,9 @@ async function resetImage() {
   height: 100%;
 }
 .thumbnail-empty {
-  padding: 24px;
+  padding: var(--space-5);
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-sm);
   text-align: center;
 }
 .thumbnail-actions,
@@ -182,20 +192,21 @@ async function resetImage() {
 .thumbnail-fit-options {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
+  flex-wrap: wrap;
 }
 .thumbnail-actions {
-  margin-bottom: 16px;
+  margin-bottom: var(--space-2);
 }
 .thumbnail-fit {
   justify-content: space-between;
-  padding: 12px 0;
+  padding: var(--space-3) 0;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 .thumbnail-note {
-  margin-top: 14px;
-  font-size: 11.5px;
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
   line-height: 1.55;
 }
 </style>

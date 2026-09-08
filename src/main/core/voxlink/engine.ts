@@ -340,12 +340,15 @@ export class ConnEngine extends EventEmitter {
     })
 
     let mine: StunMappedAddr | null = null
+    this.emitStage('stun', 'active', '正在通过 STUN 探测本机 NAT 映射…')
     try {
       const samples = await stunSampleSeries(sock, STUN_SERVERS, 3, 2, 1500)
       if (samples.length > 0) mine = samples[0]!
     } catch {
       this.deps.netLog('warn', 'STUN 探测全部失败，punch_info 不带映射地址')
     }
+    if (mine) this.emitStage('stun', 'ok', 'NAT 映射探测完成')
+    else this.emitStage('stun', 'degraded', 'STUN 探测失败，将按房主公告地址直接打洞')
 
     const punchData: Record<string, unknown> = {}
     if (mine) {
@@ -406,6 +409,7 @@ export class ConnEngine extends EventEmitter {
     }
 
     this.gPunchSock = sock
+    this.emitStage('punch', 'active', 'UDP 打洞进行中（通常几秒，持续约 20 秒未成功会出现手动后备）')
 
     let predictStep = predDelta
     if (predictStep === 0) predictStep = 1
@@ -453,6 +457,7 @@ export class ConnEngine extends EventEmitter {
         this.gPuncher = null
         p.stop()
         cycle += 1
+        this.emitStage('punch', 'retry', `第 ${cycle} 轮打洞未命中，调整端口预测继续尝试`)
         await new Promise<void>((resolve) => setTimeout(resolve, PUNCH_CYCLE_INTERVAL_MS))
         continue
       }
@@ -478,12 +483,16 @@ export class ConnEngine extends EventEmitter {
         guestBridge.stop()
         return
       }
+      // 修复：成功后释放打洞器的接收循环（原先从不 stop，500ms 轮询定时器泄漏）；
+      // socket 交由 rudp 接管，stop() 不再关闭 socket。
+      p.stop()
       this.gPuncher = null
       this.gPunchSock = null
       this.gRudp = rc
       this.gBridge = guestBridge
       this.gP2PDone = true
       this.deps.netLog('info', 'P2P 打洞成功，rudp 隧道已建立')
+      this.emitStage('punch', 'ok', 'UDP 打洞成功，数据隧道已建立')
       const directAddr = `${hostIp}:${hostPort}`
       this.emitConnState(PHASE_P2P, STATUS_SUCCESS, directAddr, `本地代理 ${localAddr}`)
       return
@@ -539,11 +548,15 @@ export class ConnEngine extends EventEmitter {
       return
     }
     const rc = this.gRudp, bridge = this.gBridge, puncher = this.gPuncher
+    const sock = this.gPunchSock
     this.gRudp = null
     this.gBridge = null
+    this.gPunchSock = null
     this.gP2PDone = false
     this.gActive = false
     if (puncher) puncher.stop()
+    // 修复：stop() 不再隐式关闭 socket，房主断开时要显式关闭打洞 socket
+    if (sock) try { sock.close() } catch { /* ignore */ }
     if (bridge) bridge.stop()
     if (rc) try { rc.close() } catch { /* ignore */ }
     this.deps.netLog('warn', '房主已断开，将重新尝试打洞')
@@ -576,6 +589,7 @@ export class ConnEngine extends EventEmitter {
   private async hostServeJoin(peer: HostPeer, hostPort: number): Promise<void> {
     const sock = await punchListen(hostPort)
 
+    this.emitStage('host_stun', 'active', '房主：正在通过 STUN 探测 NAT 映射…')
     let hostMapped: StunMappedAddr | null = null
     let hostDelta = 0
     try {
@@ -583,6 +597,7 @@ export class ConnEngine extends EventEmitter {
       if (samples.length > 0) hostMapped = samples[0]!
       hostDelta = stunDeltaFromSamples(samples)
     } catch { /* ignore */ }
+    this.emitStage('host_stun', hostMapped ? 'ok' : 'degraded', hostMapped ? '房主 NAT 映射探测完成' : '房主 STUN 探测失败，将在邀请中省略映射地址')
 
     const offer: Record<string, unknown> = { hostPort }
     if (this.hostIp) offer.hostIp = this.hostIp
@@ -613,6 +628,7 @@ export class ConnEngine extends EventEmitter {
     peer.puncher = puncher
     puncher.start()
     this.deps.netLog('info', '已签发 holepunch_offer，等待房客穿透')
+    this.emitStage('host_punch', 'active', '已签发打洞邀请，等待与房客打通…')
 
     let actual: { address: string; port: number }
     try {
@@ -622,14 +638,18 @@ export class ConnEngine extends EventEmitter {
       const cur = this.hPeers.get(peer.id)
       if (cur === peer && !cur.rudp) this.hPeers.delete(peer.id)
       this.deps.netLog('warn', 'host 打洞未成功')
+      this.emitStage('host_punch', 'fail', '与房客打洞未成功，等待房客重试或改用后备方式')
       return
     }
+    // 成功后停止打洞接收循环；socket 交由 rudp 接管（stop 不再关闭 socket）
+    puncher.stop()
     const rc = new RudpConn(sock!, actual)
     rc.start()
     const cur = this.hPeers.get(peer.id)
     if (cur !== peer) { rc.close(); return }
     peer.rudp = rc
     this.deps.netLog('info', 'host 端 rudp 隧道已建立，等待 MC 握手')
+    this.emitStage('host_punch', 'ok', '房客数据隧道已建立')
     void startHostLazyBridge(rc, this.hostPort, this.deps.netLog)
   }
 
@@ -723,16 +743,22 @@ export class ConnEngine extends EventEmitter {
     if (this.isHost) return { ok: false, err: '房主无需玩家中继' }
     if (this.rInFlight || this.rDone) return { ok: false, err: '玩家中继已在进行中' }
 
+    // 修复：失效当前 p2p 打洞周期（gen+1），否则打洞循环会与下面的中继打洞
+    // 共用同一个 socket 互相干扰（Go 版通过取消 context 实现，这里对齐为代次失效）。
+    this.gCycle += 1
+    this.gActive = false
     if (this.gPuncher && !this.gP2PDone) {
       this.gPuncher.stop()
       this.gPuncher = null
-      if (this.gRudp) this.gPunchSock = null
     }
+    // 打洞循环退出时会 close 自己持有的 sock；这里清引用，中继打洞改用全新 socket。
+    this.gPunchSock = null
     this.rInFlight = true
     this.rResult = []
     this.rDone = false
 
     this.emitConnState(PHASE_PRELAY, STATUS_TRYING, '', '')
+    this.emitStage('relay', 'active', '已请求玩家中继，等待房主派发中继节点（约 20 秒超时）')
     void this.sendSignal('relay_request', { clientId: this.clientID }, 'host').then(() => {
       this.deps.netLog('info', '已发送 relay_request，等待房主派发中继…')
     }).catch((e) => {
@@ -740,18 +766,21 @@ export class ConnEngine extends EventEmitter {
     })
 
     void (async (): Promise<void> => {
+      // 修复：原实现超时后 interval 永远不清除（另有一处裸 `clearInterval` 死语句），定时器泄漏
       const winner = await new Promise<string | null>((resolve) => {
-        const timer = setTimeout(() => resolve('TIMEOUT'), RELAY_REQUEST_TIMEOUT_MS)
+        let done = false
+        const finish = (v: string | null): void => {
+          if (done) return
+          done = true
+          clearTimeout(timer)
+          clearInterval(check)
+          resolve(v)
+        }
         const check = setInterval(() => {
-          if (this.rResult.length > 0) {
-            const a = this.rResult.shift()!
-            clearTimeout(timer)
-            clearInterval(check)
-            resolve(a || null)
-          }
+          if (this.rResult.length > 0) finish(this.rResult.shift() || null)
         }, 100)
+        const timer = setTimeout(() => finish('TIMEOUT'), RELAY_REQUEST_TIMEOUT_MS)
       })
-      clearInterval
       if (winner === 'TIMEOUT') this.guestRelayFail('中继请求超时（20s 无响应）')
     })()
 
@@ -776,6 +805,7 @@ export class ConnEngine extends EventEmitter {
     if (rudp) try { rudp.close() } catch { /* ignore */ }
     if (sock) try { sock.close() } catch { /* ignore */ }
     this.deps.netLog('warn', `玩家中继失败: ${reason}`)
+    this.emitStage('relay', 'fail', `玩家中继失败：${reason}`)
     this.emitConnState(PHASE_PRELAY, STATUS_FAILED, '', reason)
   }
 
@@ -804,6 +834,7 @@ export class ConnEngine extends EventEmitter {
     this.rDone = true
     this.rInFlight = false
     this.deps.netLog('info', '中继链路就绪')
+    this.emitStage('relay', 'ok', '玩家中继链路已建立')
     this.emitConnState(PHASE_PRELAY, STATUS_SUCCESS, addr, '')
     void this.sendSignal('relay_ready', { clientId: this.clientID }, 'host')
     this.relayResultChanSend(addr)
@@ -835,12 +866,15 @@ export class ConnEngine extends EventEmitter {
     const p = new Puncher({ conn: sock!, timeoutMs: RELAY_PUNCH_TIMEOUT_MS })
     p.setTarget(target)
     p.start()
+    this.emitStage('relay', 'active', '已获得中继节点，正在与中继节点打洞…')
     let actual: { address: string; port: number }
     try { actual = await p.wait() } catch (e) {
       if (!reused) try { sock!.close() } catch { /* ignore */ }
       this.guestRelayFail(`中继打洞失败（${(e as Error).message}）`)
       return
     }
+    // 成功后停止打洞接收循环；socket 交由 rudp 接管（stop 不再关闭 socket）
+    p.stop()
     const rc = new RudpConn(sock!, actual)
     rc.start()
     let guestBridge: TcpBridge | null = null
@@ -868,6 +902,7 @@ export class ConnEngine extends EventEmitter {
     this.rBridge = null
     bridge?.stop()
     if (rc) try { rc.close() } catch { /* ignore */ }
+    this.emitStage('relay', 'fail', '中继隧道已断开')
     this.emitConnState(PHASE_PRELAY, STATUS_FAILED, '', '中继隧道已断开')
   }
 
@@ -953,6 +988,8 @@ export class ConnEngine extends EventEmitter {
         try { await this.sendSignal('relay_declined', {}, 'host') } catch { /* ignore */ }
         return
       }
+      // 成功后停止打洞接收循环；socket 交由 rudp 接管（stop 不再关闭 socket）
+      p.stop()
       const targetRc = new RudpConn(sock, actual)
       targetRc.start()
       const stop = pumpRelay(hostRudp, targetRc)
@@ -972,6 +1009,19 @@ export class ConnEngine extends EventEmitter {
   private emitConnState(phase: string, status: string, address: string, detail: string): void {
     if (!this.session) return
     this.deps.emit('conn:state', { phase, status, address, detail } satisfies ConnState)
+  }
+
+  /**
+   * 关键阶段事件（'stage'）：驱动面板「连接过程」阶段条逐步点亮。
+   * 仅补充本地事件发射，不改变任何信令/协议行为；detail 不含远程地址（消敏）。
+   */
+  private emitStage(
+    key: 'stun' | 'punch' | 'relay' | 'host_stun' | 'host_punch',
+    status: 'active' | 'retry' | 'ok' | 'degraded' | 'fail',
+    detail: string
+  ): void {
+    if (!this.session) return
+    this.deps.emit('stage', { key, status, detail, ts: Date.now() })
   }
 
   // ---- 解绑 ----

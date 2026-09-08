@@ -481,18 +481,18 @@ async function confirmDownload() {
       <!-- 列表 -->
       <template v-else>
         <div class="result-list">
-          <div v-for="r in results" :key="itemKey(r)" class="result-row">
-            <div class="result-icon">
-              <img
-                v-if="r.iconUrl && !brokenIcons.has(itemKey(r))"
-                :src="r.iconUrl"
-                alt=""
-                loading="lazy"
-                @error="onIconError(r)"
-              />
-              <span v-else class="icon-placeholder">{{ (r.title || '?').charAt(0).toUpperCase() }}</span>
-            </div>
-            <div class="result-info">
+          <div v-for="r in results" :key="itemKey(r)" class="result-card">
+            <div class="result-top">
+              <div class="result-icon">
+                <img
+                  v-if="r.iconUrl && !brokenIcons.has(itemKey(r))"
+                  :src="r.iconUrl"
+                  alt=""
+                  loading="lazy"
+                  @error="onIconError(r)"
+                />
+                <span v-else class="icon-placeholder">{{ (r.title || '?').charAt(0).toUpperCase() }}</span>
+              </div>
               <div class="result-head">
                 <MarqueeText class="result-title" :text="r.title"/>
                 <span class="tag" :class="r.source === 'modrinth' ? 'tag-success' : 'tag-cf'">
@@ -500,37 +500,39 @@ async function confirmDownload() {
                 </span>
                 <span v-if="r.author" class="muted result-author">{{ r.author }}</span>
               </div>
-              <p class="result-desc" :title="r.description">{{ r.description || '暂无简介' }}</p>
-              <div class="result-meta muted">
-                <span>下载量 {{ fmtDownloads(r.downloads) }}</span>
-                <span class="meta-dot">·</span>
-                <span>更新于 {{ fmtDate(r.updatedAt) }}</span>
+            </div>
+            <p class="result-desc" :title="r.description">{{ r.description || '暂无简介' }}</p>
+            <div class="result-meta muted">
+              <span>下载量 {{ fmtDownloads(r.downloads) }}</span>
+              <span class="meta-dot">·</span>
+              <span>更新于 {{ fmtDate(r.updatedAt) }}</span>
+            </div>
+            <div class="result-foot">
+              <div class="result-links">
+                <button
+                  class="icon-btn"
+                  :title="`打开 ${r.source === 'modrinth' ? 'Modrinth' : 'CurseForge'} 源页面（查看完整介绍）`"
+                  @click="openExternal(sourceUrl(r))"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+                </button>
+                <button
+                  class="icon-btn"
+                  title="在 MC 百科查看介绍与教程"
+                  @click="openMcmod(r)"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                </button>
               </div>
-            </div>
-            <div class="result-links">
-              <button
-                class="icon-btn"
-                :title="`打开 ${r.source === 'modrinth' ? 'Modrinth' : 'CurseForge'} 源页面（查看完整介绍）`"
-                @click="openExternal(sourceUrl(r))"
-              >
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
-              </button>
-              <button
-                class="icon-btn"
-                title="在 MC 百科查看介绍与教程"
-                @click="openMcmod(r)"
-              >
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              <button class="btn btn-gold btn-sm result-dl" @click="openDownload(r)">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v11" />
+                  <path d="m7 10 5 5 5-5" />
+                  <path d="M4 21h16" />
+                </svg>
+                下载
               </button>
             </div>
-            <button class="btn btn-gold btn-sm result-dl" @click="openDownload(r)">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 3v11" />
-                <path d="m7 10 5 5 5-5" />
-                <path d="M4 21h16" />
-              </svg>
-              下载
-            </button>
           </div>
         </div>
         <!-- 加载更多 -->
@@ -546,7 +548,7 @@ async function confirmDownload() {
     <!-- 下载模态框 -->
     <Teleport to="body">
       <div v-if="modal.open" class="modal-mask" @pointerdown.self="!modal.downloading && (modal.open = false)">
-        <div class="modal" style="width: min(740px, calc(100vw - 40px)); max-height: 88vh; overflow-y: auto">
+        <div class="modal download-modal">
           <h3 class="modal-title"><MarqueeText :text="'下载 ' + modal.item?.title"/></h3>
           <div v-if="modal.item" class="modal-links">
             <button class="btn btn-ghost btn-sm" @click="openExternal(sourceUrl(modal.item))">
@@ -557,8 +559,8 @@ async function confirmDownload() {
             </button>
           </div>
           <div class="filter-row">
-            <label style="flex: 1; min-width: 0">Minecraft 版本<input v-model="modal.mcVersion" class="input" list="mod-minecraft-versions" placeholder="全部版本" @change="loadFiles"/></label>
-            <label style="flex: 1; min-width: 0">Loader<select v-model="modal.loader" class="select" @change="loadFiles"><option v-for="l in loaderOptions" :key="l.value" :value="l.value">{{ l.label }}</option></select></label>
+            <label class="modal-field">Minecraft 版本<input v-model="modal.mcVersion" class="input" list="mod-minecraft-versions" placeholder="全部版本" @change="loadFiles"/></label>
+            <label class="modal-field">Loader<select v-model="modal.loader" class="select" @change="loadFiles"><option v-for="l in loaderOptions" :key="l.value" :value="l.value">{{ l.label }}</option></select></label>
             <datalist id="mod-minecraft-versions"><option v-for="v in manifestVersions" :key="v" :value="v"/></datalist>
           </div>
 
@@ -614,7 +616,7 @@ async function confirmDownload() {
 .page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--sec-gap);
   max-width: 940px;
   margin: 0 auto;
 }
@@ -623,11 +625,11 @@ async function confirmDownload() {
 .search-card {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--space-3);
 }
 .search-row {
   display: flex;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .search-row .input {
   flex: 1;
@@ -639,18 +641,23 @@ async function confirmDownload() {
 
 .kind-capsules {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 .capsule {
-  padding: 6px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--ctl-h);
+  padding: 0 var(--space-4);
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--card-2);
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   cursor: pointer;
+  white-space: nowrap;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 .capsule:hover {
@@ -666,7 +673,7 @@ async function confirmDownload() {
 
 .filter-row {
   display: flex;
-  gap: 10px;
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 .filter-select {
@@ -685,7 +692,7 @@ async function confirmDownload() {
 }
 .ver-filter-menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + var(--space-1));
   left: 0;
   right: 0;
   max-height: 260px;
@@ -693,42 +700,51 @@ async function confirmDownload() {
   z-index: 9001;
 }
 .ver-menu-empty {
-  padding: 12px;
+  padding: var(--space-3);
   text-align: center;
   color: var(--text-dim);
-  font-size: 12.5px;
+  font-size: var(--text-xs);
 }
 
-/* ---------------- 结果列表 ---------------- */
+/* ---------------- 结果列表（卡片横向网格，窄窗口自动换行） ---------------- */
 .list-card {
-  padding: 8px;
+  padding: var(--space-2);
 }
 .result-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-3);
+}
+.result-card {
   display: flex;
   flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card-2);
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
-.result-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 12px;
-  border-radius: 10px;
-  transition: background 0.15s ease;
-}
-.result-row + .result-row {
-  border-top: 1px solid var(--border);
-}
-.result-row:hover {
+.result-card:hover {
+  border-color: var(--border-strong);
   background: var(--hover);
 }
 
+.result-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
 .result-icon {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  background: var(--card-2);
+  background: var(--card);
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -741,64 +757,73 @@ async function confirmDownload() {
   display: block;
 }
 .icon-placeholder {
-  font-size: 20px;
+  font-size: var(--text-lg);
   font-weight: 700;
   color: var(--text-dim);
 }
 
-.result-info {
+.result-head {
   flex: 1;
   min-width: 0;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.result-head {
-  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 .result-title {
-  flex: 1 1 220px;
+  flex: 1 1 100%;
   font-weight: 700;
-  font-size: 15px;
+  font-size: var(--text-md);
 }
 /* CurseForge 橙（Modrinth 绿复用 tag-success） */
 .tag-cf {
-  background: rgba(249, 115, 22, 0.12);
+  background: color-mix(in srgb, #f97316 12%, transparent);
   color: #f97316;
 }
 .result-author {
-  font-size: 12px;
+  font-size: var(--text-xs);
+  min-width: 0;
 }
 .result-desc {
-  font-size: 13px;
+  font-size: var(--text-xs);
+  line-height: 1.6;
   color: var(--text-dim);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  /* 固定两行高度，保证网格内卡片对齐不跳动 */
+  min-height: calc(var(--text-xs) * 1.6 * 2);
 }
 .result-meta {
-  font-size: 12px;
+  font-size: var(--text-xs);
   display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: auto;
 }
 .meta-dot {
   opacity: 0.6;
 }
+.result-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
 .result-links {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: var(--space-1);
   flex-shrink: 0;
-  margin-right: 4px;
 }
 .modal-links {
   display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: var(--space-2);
+  flex-wrap: wrap;
 }
 .result-dl {
   flex-shrink: 0;
@@ -807,51 +832,65 @@ async function confirmDownload() {
 .more-row {
   display: flex;
   justify-content: center;
-  padding: 14px 0 8px;
+  padding: var(--space-4) 0 var(--space-2);
 }
 
 /* ---------------- 下载模态框 ---------------- */
+.download-modal {
+  width: min(740px, calc(100vw - 40px));
+  max-height: 88vh;
+  overflow-y: auto;
+}
+.modal-field {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+}
 .modal-title {
-  font-size: 17px;
+  font-size: var(--text-lg);
   font-weight: 700;
-  margin-bottom: 16px;
+  margin: 0 0 var(--space-3);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .modal-label {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--text-dim);
-  margin: 14px 0 8px;
+  margin: var(--space-4) 0 var(--space-2);
 }
 .files-loading {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px 0;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
 }
 .file-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-1);
   max-height: 240px;
   overflow-y: auto;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 6px;
+  border-radius: var(--radius-md);
+  padding: var(--space-1);
   background: var(--card-2);
 }
 .file-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
+  min-height: var(--row-h);
   width: 100%;
-  padding: 12px 10px;
+  padding: var(--space-2) var(--space-3);
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--text);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   text-align: left;
   cursor: pointer;
@@ -873,22 +912,23 @@ async function confirmDownload() {
   font-weight: 600;
 }
 .file-meta {
-  font-size: 12px;
+  font-size: var(--text-xs);
   white-space: nowrap;
 }
 .files-error {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--danger);
-  padding: 6px 0;
+  padding: var(--space-1) 0;
 }
 .pack-tip {
-  font-size: 13px;
-  margin-top: 14px;
+  font-size: var(--text-sm);
+  margin: var(--space-4) 0 0;
 }
 .modal-actions {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 </style>

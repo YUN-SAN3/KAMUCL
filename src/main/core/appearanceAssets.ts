@@ -8,6 +8,7 @@ import {
   type ManagedImagePurpose
 } from './imageAssetPolicy'
 import { encodeManagedImage, inspectImageFile } from './imageAssetProcessor'
+import { sniffImageFormat } from './imageAssetPolicy'
 
 export interface ManagedImage {
   path: string
@@ -72,6 +73,22 @@ export async function importInstanceThumbnail(
   return importImage(sourcePath, 'instance-thumbnail', instanceThumbnailDir(folder))
 }
 
+/** WebP 无主进程解码器（nativeImage 会报空）：以魔数头校验完整性。 */
+function hasWebpHeader(candidate: string): boolean {
+  try {
+    const fd = fs.openSync(candidate, 'r')
+    try {
+      const header = Buffer.alloc(12)
+      const read = fs.readSync(fd, header, 0, 12, 0)
+      return sniffImageFormat(header.subarray(0, read)) === 'webp'
+    } finally {
+      fs.closeSync(fd)
+    }
+  } catch {
+    return false
+  }
+}
+
 function validateManagedPath(candidate: string, directory: string): string {
   if (!candidate || !isPathInside(candidate, directory)) return ''
   const directoryStat = fs.lstatSync(directory)
@@ -79,7 +96,7 @@ function validateManagedPath(candidate: string, directory: string): string {
   const resolvedDirectory = fs.existsSync(directory) ? fs.realpathSync(directory) : path.resolve(directory)
   const resolved = inspectImageFile(candidate).path
   if (!isPathInside(resolved, resolvedDirectory)) return ''
-  if (nativeImage.createFromPath(resolved).isEmpty()) return ''
+  if (nativeImage.createFromPath(resolved).isEmpty() && !hasWebpHeader(resolved)) return ''
   return resolved
 }
 

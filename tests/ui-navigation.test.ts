@@ -10,7 +10,10 @@ test('friend connection is independently routed after servers and keeps the exis
   assert.match(app, /friends: FriendConnectView/)
   assert(app.indexOf("key: 'friends'") > app.indexOf("key: 'servers'"))
   assert(!servers.includes('FriendConnect'))
-  assert.match(friends, /<FriendConnect\s*\/>/)
+  // 联机改为多页结构：视图内含方式选择 landing 与独立页返回入口，不再挂 FriendConnect 面板
+  assert.match(friends, /选择联机方式/)
+  assert.match(friends, /← 更换方式/)
+  assert.ok(!friends.includes('FriendConnect'), 'FriendConnectView 不得再引用 FriendConnect 组件')
   assert.match(fs.readFileSync('src/renderer/src/views/SettingsView.vue', 'utf8'), /key: 'friends'/)
   for (const source of [app, servers, friends]) {
     const { descriptor, errors } = parse(source)

@@ -340,37 +340,44 @@ const modCompatOf = (m: ModInfo): string[] => matchMap.value[m.filePath] ?? []
 </template>
 
 <style scoped>
-.mismatch-item { padding: 10px 0; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
-.mismatch-item small { display: block; opacity: .75; }
-.mismatch-item p { margin: 4px 0; }
-summary { cursor: pointer; padding: 8px 0; }
+.mismatch-item { padding: var(--space-2) 0; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
+.mismatch-item small { display: block; opacity: .75; font-size: var(--text-xs); }
+.mismatch-item p { margin: var(--space-1) 0; font-size: var(--text-xs); }
+.mismatch-item strong { font-size: var(--text-sm); }
+summary { cursor: pointer; padding: var(--space-2) 0; font-size: var(--text-sm); }
 .moddrop-modal {
   width: 520px;
   max-height: 82vh;
   overflow-y: auto;
 }
+.modal-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0 0 var(--space-4);
+}
 .parse-loading {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 24px 0;
+  gap: var(--space-3);
+  padding: var(--space-5) 0;
   justify-content: center;
 }
 .mod-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 6px 0 4px;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
   max-height: 300px;
   overflow-y: auto;
 }
 .mod-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 9px 12px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background: var(--card-2);
 }
 .mod-row.failed {
@@ -380,7 +387,7 @@ summary { cursor: pointer; padding: 8px 0; }
 .mod-icon {
   width: 34px;
   height: 34px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   flex-shrink: 0;
   object-fit: contain;
   image-rendering: pixelated;
@@ -392,7 +399,7 @@ summary { cursor: pointer; padding: 8px 0; }
   background: var(--accent-soft);
   color: var(--accent);
   font-weight: 700;
-  font-size: 15px;
+  font-size: var(--text-md);
 }
 .mod-meta {
   min-width: 0;
@@ -401,17 +408,17 @@ summary { cursor: pointer; padding: 8px 0; }
 .mod-title-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 .mod-name {
-  font-size: 13.5px;
+  font-size: var(--text-sm);
   font-weight: 700;
   word-break: break-all;
 }
 .mod-sub {
-  margin-top: 3px;
-  font-size: 12px;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
   line-height: 1.5;
   word-break: break-all;
 }
@@ -424,17 +431,18 @@ summary { cursor: pointer; padding: 8px 0; }
 .ver-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-2);
   max-height: 200px;
   overflow-y: auto;
 }
 .ver-option {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 9px 12px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background: var(--card-2);
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease;
@@ -446,25 +454,30 @@ summary { cursor: pointer; padding: 8px 0; }
 .ver-option input {
   accent-color: var(--accent);
 }
-.ver-name small { display: block; font-weight: 400; font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+.ver-name small { display: block; font-weight: 400; font-size: var(--text-xs); color: var(--text-dim); margin-top: var(--space-1); }
 .ver-name {
   flex: 1;
-  font-size: 13.5px;
+  font-size: var(--text-sm);
   font-weight: 600;
   word-break: break-all;
 }
 .none-hint {
-  padding: 12px 14px;
+  padding: var(--space-3) var(--space-4);
   border: 1px dashed var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.7;
-  margin-bottom: 4px;
+  margin-bottom: var(--space-1);
 }
 .failed-summary {
-  margin-top: 10px;
-  font-size: 12px;
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
   line-height: 1.6;
+}
+.modal-label {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  margin: var(--space-3) 0 var(--space-2);
 }
 </style>
