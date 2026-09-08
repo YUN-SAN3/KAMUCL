@@ -84,6 +84,76 @@ export function consumeUpdateFailedFlag(): boolean {
   return false
 }
 
+// ---------------- 待安装更新（下载校验完成即就绪；关闭启动器时自动安装，小白零操作） ----------------
+
+export interface PendingUpdate {
+  release: ReleaseInfo
+  file: string
+}
+
+function pendingFile(): string {
+  return path.join(userDataDir(), 'pending-update.json')
+}
+
+/** 读取已就绪待安装的更新（结构有效且文件仍存在才返回） */
+export function getPendingUpdate(): PendingUpdate | null {
+  try {
+    const j = JSON.parse(fs.readFileSync(pendingFile(), 'utf-8'))
+    if (j?.release?.version && typeof j.file === 'string' && fs.existsSync(j.file)) {
+      return j as PendingUpdate
+    }
+  } catch { /* 无待装 */ }
+  return null
+}
+
+export function clearPendingUpdate(): void {
+  try { fs.rmSync(pendingFile(), { force: true }) } catch { /* 忽略 */ }
+}
+
+function writePendingUpdate(release: ReleaseInfo, file: string): void {
+  try {
+    fs.writeFileSync(pendingFile(), JSON.stringify({ release, file } satisfies PendingUpdate), 'utf-8')
+  } catch (e) {
+    updateLog.debug('待安装状态写入失败（不影响功能）', e)
+  }
+}
+
+/** 当前是否有更新包在下载中（防重复触发自动下载） */
+let autoDownloadingVersion: string | null = null
+export function isUpdateDownloading(): boolean {
+  return !!autoDownloadingVersion
+}
+
+/**
+ * 自动安装模式入口：静默后台下载；完成后写待安装状态并发 updateReady，
+ * 启动器关闭时由 before-quit 钩子自动安装。无任何弹窗。
+ */
+export function startAutoUpdate(release: ReleaseInfo, settings: Pick<Settings, 'updateSource' | 'updateMirrorUrl'>): void {
+  if (!currentPortableExe()) return
+  if (autoDownloadingVersion) return
+  autoDownloadingVersion = release.version
+  try {
+    const handle = startUpdateDownload(release, settings, 'upgrade')
+    handle.done
+      .then(() => {
+        updateLog.info(`更新 v${release.version} 已就绪（静默下载完成），将在启动器关闭时自动安装`)
+        emit(IPC_EVENT.updateReady, { version: release.version })
+      })
+      .catch(() => { /* 失败/取消：静默，下次启动再试 */ })
+      .finally(() => { autoDownloadingVersion = null })
+  } catch {
+    autoDownloadingVersion = null
+  }
+}
+
+/** 存在已就绪更新则立即安装（before-quit 钩子与设置页「立即安装」共用）。返回是否将退出安装。 */
+export async function applyPendingIfAny(): Promise<boolean> {
+  const p = getPendingUpdate()
+  if (!p) return false
+  await applyDownloadedUpdate(p.release)
+  return true
+}
+
 // ---------------- 下载源 ----------------
 
 /** 按设置构造下载候选 URL 列表（auto=直连优先镜像兜底；direct=仅直连；mirror=仅镜像） */
@@ -112,6 +182,8 @@ export function startUpdateDownload(release: ReleaseInfo, settings: Pick<Setting
   const exe = currentPortableExe()
   if (!exe) throw new Error('当前运行形态不支持自更新（仅便携版）')
   if (!release.assetUrl) throw new Error('该版本没有可用的安装包资产')
+  // 新下载开始时清掉旧的待安装记录（避免装到旧包）
+  clearPendingUpdate()
   const updateDir = updateDirOf(exe)
   fs.mkdirSync(updateDir, { recursive: true })
   const dest = path.join(updateDir, release.assetName || `KAMUCL-${release.version}.exe`)
@@ -167,6 +239,8 @@ export function startUpdateDownload(release: ReleaseInfo, settings: Pick<Setting
         throw new Error(`更新包校验失败（SHA256 不一致），已删除文件。期望 ${expected.slice(0, 12)}… 实际 ${actual.slice(0, 12)}…`)
       }
       updateLog.info(`更新包下载完成并校验通过：${dest}`)
+      // 就绪即写待安装状态：关闭启动器时自动安装（手动「立即安装」亦可随时触发）
+      writePendingUpdate(release, dest)
       emit(IPC_EVENT.taskDone, { taskId: task.id, ok: true })
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e)
@@ -298,6 +372,8 @@ export async function applyDownloadedUpdate(release: ReleaseInfo): Promise<void>
     result: 'applied'
   }
   fs.writeFileSync(stateFile(), JSON.stringify(state, null, 2), 'utf-8')
+  // 安装动作接管后清掉待安装记录（防止重复触发）
+  clearPendingUpdate()
   spawnUpdater({
     oldExe: exe,
     newExe: file,

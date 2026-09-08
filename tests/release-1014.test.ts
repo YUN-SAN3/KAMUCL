@@ -127,7 +127,7 @@ test('update wiring: IPC channels registered, startup auto-check, skip persisted
   }
   const index = read('src/main/index.ts')
   assert.match(index, /checkLatest\(false\)/)
-  assert.match(index, /shouldPrompt/)
+  assert.match(index, /decideUpdateAction/)
   assert.match(index, /consumeUpdateFailedFlag/)
   const types = read('src/shared/types.ts')
   assert.match(types, /skipUpdateVersion\?: string/)

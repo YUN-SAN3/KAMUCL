@@ -19,6 +19,7 @@ import {
   onProgress,
   onTaskDone,
   onUpdatePrompt,
+  onUpdateReady,
   onUpdateSlowHint,
   pauseTask,
   probeModpack,
@@ -1110,6 +1111,9 @@ onMounted(async () => {
     }),
     onUpdateSlowHint((r) => {
       if (updateModal.open && r.taskId === updateModal.taskId) updateModal.slowHint = true
+    }),
+    onUpdateReady((r) => {
+      toast(`新版本 v${r.version} 已下载完成，关闭启动器时将自动安装`, 'success')
     }),
     onInstallDone((r) => {
       store.installing.delete(r.versionId)

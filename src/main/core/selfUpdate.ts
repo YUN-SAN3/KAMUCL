@@ -173,6 +173,29 @@ export function shouldPrompt(release: ReleaseInfo | undefined, skipVersion: stri
   return true
 }
 
+/**
+ * 检查到更新后的动作决策（纯函数，可测试）：
+ * - none：无更新/已跳过/已在下载/已有同版或更新版就绪待装
+ * - auto-download：自动安装模式（默认）且运行形态支持 → 静默后台下载
+ * - prompt：弹窗询问模式（自动安装关闭或不支持自更新的形态）
+ */
+export function decideUpdateAction(opts: {
+  release?: ReleaseInfo
+  skipVersion?: string
+  current: string
+  autoUpdate: boolean
+  supported: boolean
+  downloading: boolean
+  pendingVersion?: string
+}): 'auto-download' | 'prompt' | 'none' {
+  if (!shouldPrompt(opts.release, opts.skipVersion, opts.current)) return 'none'
+  const version = opts.release!.version
+  if (opts.downloading) return 'none'
+  if (opts.pendingVersion && compareSemver(opts.pendingVersion, version) >= 0) return 'none'
+  if (opts.autoUpdate && opts.supported) return 'auto-download'
+  return 'prompt'
+}
+
 /** 版本回退候选：全部正式 Release（含当前与更旧版本，按发布时间倒序） */
 export async function listReleases(): Promise<ReleaseInfo[]> {
   try {

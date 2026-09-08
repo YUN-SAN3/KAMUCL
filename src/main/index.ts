@@ -20,6 +20,7 @@ import { stopDirectHost } from './core/directConnect'
 import { stopVoxlinkOnQuit } from './core/voxlink'
 import { stopTerracottaOnQuit } from './core/terracotta'
 import { frpController } from './core/frp'
+import { applyPendingIfAny, getPendingUpdate } from './core/applyUpdate'
 
 // 启动日志尽 earliest 初始化：闪退发生在 app.whenReady 之前时也有据可查
 try {
@@ -161,26 +162,43 @@ app.whenReady().then(async () => {
       const record = restoreRunningGame((s) => win?.webContents.send('event:launchState', s))
       if (record) launcherLogInfo('main', `检测到运行中游戏已恢复：pid=${record.pid} 实例=${record.versionId}`)
     })
-    // 启动自动检查更新：有新版且未跳过 → 弹窗；失败/限流静默降级仅记日志
-    void (async () => {
+    // 更新：启动自动检查（自动安装模式静默下载；弹窗模式才提示）；已有就绪更新则通知
+    const runUpdateCheck = async () => {
       try {
-        const { checkLatest, shouldPrompt } = await import('./core/selfUpdate')
-        const { consumeUpdateFailedFlag } = await import('./core/applyUpdate')
+        const { checkLatest, decideUpdateAction } = await import('./core/selfUpdate')
+        const applyMod = await import('./core/applyUpdate')
         const { getSettings } = await import('./core/settings')
-        if (consumeUpdateFailedFlag()) {
+        if (applyMod.consumeUpdateFailedFlag()) {
           win?.webContents.send('event:updatePrompt', { rollbackNotice: true })
         }
+        // 已有就绪待装的更新（上次下载完成后未关闭安装）：提醒一次
+        const pending = applyMod.getPendingUpdate()
+        if (pending) win?.webContents.send('event:updateReady', { version: pending.release.version })
         const result = await checkLatest(false)
-        if (result.ok && result.hasUpdate && result.release) {
-          const s = getSettings()
-          if (shouldPrompt(result.release, s.skipUpdateVersion, app.getVersion())) {
-            win?.webContents.send('event:updatePrompt', result.release)
-          }
+        if (!result.ok || !result.release) return
+        const s = getSettings()
+        const action = decideUpdateAction({
+          release: result.release,
+          skipVersion: s.skipUpdateVersion,
+          current: app.getVersion(),
+          autoUpdate: s.autoUpdate !== false,
+          supported: applyMod.updateSupported(),
+          downloading: applyMod.isUpdateDownloading(),
+          pendingVersion: pending?.release.version
+        })
+        if (action === 'auto-download') {
+          launcherLogInfo('main', `自动安装模式：静默下载更新 v${result.release.version}`)
+          applyMod.startAutoUpdate(result.release, s)
+        } else if (action === 'prompt') {
+          win?.webContents.send('event:updatePrompt', result.release)
         }
       } catch (e) {
         launcherLogInfo('main', `启动自动检查更新失败（静默降级）：${e instanceof Error ? e.message : String(e)}`)
       }
-    })()
+    }
+    void runUpdateCheck()
+    // 运行中每 6 小时复查一次（与缓存 TTL 对齐；自动模式全程静默）
+    setInterval(() => void runUpdateCheck(), 6 * 3600_000)
   })
 
   app.on('activate', () => {
@@ -199,6 +217,35 @@ app.on('window-all-closed', () => {
   frpController.dispose()
   launcherLogInfo('main', '所有窗口已关闭，开始清理联机相关资源')
   if (process.platform !== 'darwin') app.quit()
+})
+
+// ---------------- 关闭时自动安装更新（小白零操作） ----------------
+// 已有就绪更新包时：拦截退出 → 校验/备份/替换/重启由旁路脚本完成；游戏进程不受影响（detached）。
+let applyingPendingUpdate = false
+app.on('before-quit', (e) => {
+  if (applyingPendingUpdate) return
+  // 同步检查（preventDefault 必须同步调用才生效）
+  let hasPending = false
+  try {
+    hasPending = !!getPendingUpdate()
+  } catch { /* 读失败按无待装处理 */ }
+  if (!hasPending) return
+  e.preventDefault()
+  applyingPendingUpdate = true
+  launcherLogInfo('main', '检测到已就绪更新，退出时自动安装')
+  applyPendingIfAny()
+    .then((willApply) => {
+      if (!willApply) {
+        applyingPendingUpdate = false
+        app.quit()
+      }
+      // willApply=true：applyDownloadedUpdate 已安排 app.quit()，再次进入本钩子时直接放行
+    })
+    .catch((error) => {
+      applyingPendingUpdate = false
+      launcherLogInfo('main', `退出时自动安装失败（继续正常退出）：${error instanceof Error ? error.message : String(error)}`)
+      app.quit()
+    })
 })
 
 // ---------------- 崩溃取证（win11 25h2 概率闪退排查） ----------------
