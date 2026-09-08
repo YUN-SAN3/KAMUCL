@@ -10,9 +10,10 @@ import { beginBootTask } from '../bootTasks'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import * as THREE from 'three'
 
-const props = withDefaults(defineProps<{ src?: string; variant?: 'classic' | 'slim' }>(), {
+const props = withDefaults(defineProps<{ src?: string; variant?: 'classic' | 'slim'; cape?: string }>(), {
   src: '',
-  variant: 'classic'
+  variant: 'classic',
+  cape: ''
 })
 
 const container = ref<HTMLDivElement | null>(null)
@@ -36,6 +37,11 @@ let parts: {
 /** 当前模型占用的几何体/材质/纹理，重建或卸载时统一 dispose */
 let disposables: { dispose(): void }[] = []
 let baseTex: THREE.Texture | null = null
+/** 披风纹理（装备时加载）与披风部件组 */
+let capeTex: THREE.Texture | null = null
+let capeGroup: THREE.Group | null = null
+/** 披风纹理加载令牌（cape 变化后忽略旧回调） */
+let capeToken = 0
 /** 无皮肤或远端纹理不可用时使用本地生成的像素角色，外层需关闭以免遮住基础层 */
 let fallbackTextureActive = false
 /** 皮肤加载失败回调的过期令牌（src 变化后忽略旧回调） */
@@ -106,6 +112,82 @@ function buildPart(
 function at(mesh: THREE.Mesh, x: number, y: number, z: number): THREE.Mesh {
   mesh.position.set(x, y, z)
   return mesh
+}
+
+/**
+ * 披风六面在披风图上的区域 [x, y, w, h]（64×32 披风布局）。
+ * 正面 [1,1]、背面 [12,1]、顶 [1,0]、底 [11,0]、左缘 [0,1]、右缘 [11,1]。
+ */
+function capeRegions() {
+  return [
+    [11, 1, 1, 16], // +x 右缘
+    [0, 1, 1, 16], // -x 左缘
+    [1, 0, 10, 1], // +y 顶
+    [11, 0, 10, 1], // -y 底
+    [1, 1, 10, 16], // +z 正面（朝向角色=被遮挡面）
+    [12, 1, 10, 16] // -z 背面（外侧可见面）
+  ] as const
+}
+
+/** 建披风薄板：10×16×1，顶部轴心（挂在肩部后方），摆动由动画驱动 */
+function buildCape(): THREE.Group | null {
+  if (!capeTex) return null
+  const geo = new THREE.BoxGeometry(10, 16, 1)
+  geo.translate(0, -8, 0) // 顶部轴心
+  const materials = capeRegions().map(([x, y, rw, rh]) => {
+    const t = capeTex!.clone()
+    // 披风图 64×32：v 翻转与皮肤一致
+    t.offset.set(x / 64, 1 - (y + rh) / 32)
+    t.repeat.set(rw / 64, rh / 32)
+    t.magFilter = THREE.NearestFilter
+    t.minFilter = THREE.NearestFilter
+    t.generateMipmaps = false
+    t.colorSpace = THREE.SRGBColorSpace
+    t.needsUpdate = true
+    const m = new THREE.MeshBasicMaterial({ map: t })
+    disposables.push(t, m)
+    return m
+  })
+  disposables.push(geo)
+  const group = new THREE.Group()
+  group.add(new THREE.Mesh(geo, materials))
+  // 背部悬挂：肩部后缘（躯干背面 z=-2），微微后仰
+  group.position.set(0, 24, -2.6)
+  group.rotation.x = 0.08
+  return group
+}
+
+/** 装备/卸下披风：立即重建披风部件 */
+function rebuildCape() {
+  if (capeGroup && model) {
+    model.remove(capeGroup)
+    capeGroup = null
+  }
+  if (!capeTex || !model) return
+  capeGroup = buildCape()
+  if (capeGroup) model.add(capeGroup)
+}
+
+/** 加载披风纹理（cape 变化时调用） */
+function reloadCape() {
+  const token = ++capeToken
+  const src = props.cape
+  if (!src) {
+    capeTex = null
+    rebuildCape()
+    return
+  }
+  new THREE.TextureLoader().load(src, (tex) => {
+    if (token !== capeToken) { tex.dispose(); return }
+    const old = capeTex
+    capeTex = tex
+    rebuildCape()
+    old?.dispose()
+  }, undefined, () => {
+    if (token !== capeToken) return
+    capeTex = null
+    rebuildCape()
+  })
 }
 
 /**
@@ -181,6 +263,7 @@ function buildModel() {
   model = root
   parts = { head, armL, armR, legL, legR }
   scene.add(root)
+  rebuildCape() // 装备的披风挂到模型背部（跟随模型重建）
 }
 
 /**
@@ -348,6 +431,10 @@ function animate(now: number) {
     parts.legL.rotation.x = -s * 0.65
     parts.legR.rotation.x = s * 0.65
     parts.head.rotation.x = Math.sin(walkT * 8) * 0.03
+    // 披风跟随走路摆动：基础后仰 + 四肢摆动节奏 + 拖尾感滞后
+    if (capeGroup) {
+      capeGroup.rotation.x = 0.08 + Math.abs(s) * 0.14 + Math.sin(walkT * 4 - 0.6) * 0.05
+    }
   }
 
   // 视角：lerp 平滑趋近目标；未拖动时目标缓慢回到初始角度
@@ -391,6 +478,7 @@ onMounted(() => {
   observer.observe(el)
 
   rebuild()
+  reloadCape()
   lastTime = performance.now()
   rafId = requestAnimationFrame(animate)
 })
@@ -398,18 +486,22 @@ onMounted(() => {
 onUnmounted(() => {
   finishBootTexture()
   loadToken++ // 丢弃已卸载后才完成的纹理请求，避免重新创建 GPU 资源。
+  capeToken++
   cancelAnimationFrame(rafId)
   observer?.disconnect()
   onPointerUp() // 防止拖动中卸载残留全局监听
   disposeModel()
   baseTex?.dispose()
   baseTex = null
+  capeTex?.dispose()
+  capeTex = null
   renderer?.dispose()
   renderer?.domElement.remove()
   renderer = null
 })
 
 watch([() => props.src, () => props.variant], rebuild)
+watch(() => props.cape, reloadCape)
 </script>
 
 <template>

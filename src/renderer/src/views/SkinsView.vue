@@ -32,6 +32,8 @@ const currentVariant = computed<SkinVariant>(() =>
   currentSkin.value?.variant === 'slim' ? 'slim' : 'classic'
 )
 const capes = computed(() => profile.value?.capes ?? [])
+/** 当前装备的披风（active=true）纹理，传给 3D 预览实时渲染 */
+const activeCapeDataUrl = computed(() => capes.value.find((c) => c.active)?.dataUrl ?? '')
 
 async function loadProfile() {
   loadingProfile.value = true
@@ -323,7 +325,7 @@ watch(
           <!-- 左：3D 人偶预览 -->
           <div class="preview-3d">
             <template v-if="!loadingProfile && currentSkin?.dataUrl">
-              <SkinViewer3D :src="currentSkin.dataUrl" :variant="currentVariant" />
+              <SkinViewer3D :src="currentSkin.dataUrl" :variant="currentVariant" :cape="activeCapeDataUrl" />
               <p class="muted viewer-tip">拖动可旋转视角 · 正在播放走路动画</p>
             </template>
             <div v-else class="preview-3d-empty">
