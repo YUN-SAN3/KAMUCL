@@ -182,6 +182,7 @@ const navEl = ref<HTMLElement | null>(null)
 const navHoverKey = ref('')
 const navBlob = reactive({ top: 0, height: 0, on: false, stretch: false })
 let blobStretchTimer: ReturnType<typeof setTimeout> | undefined
+let blobRecalcTimer: ReturnType<typeof setTimeout> | undefined
 const navBlobStyle = computed(() => ({
   height: navBlob.height + 'px',
   transform: `translateY(${navBlob.top}px) scale(${navBlob.stretch ? '0.96, 1.12' : '1, 1'})`
@@ -201,9 +202,12 @@ function updateNavBlob() {
   clearTimeout(blobStretchTimer)
   blobStretchTimer = setTimeout(() => { navBlob.stretch = false }, 430)
 }
-watch([navHoverKey, () => store.currentView, resourceExpanded, visibleNavItems, visibleResourceSubItems], () =>
+watch([navHoverKey, () => store.currentView, resourceExpanded, visibleNavItems, visibleResourceSubItems], () => {
   nextTick(updateNavBlob)
-)
+  // 子列表展开/收起动画结束后二次校准水滴位置（动画期间元素位移尚未稳定）
+  clearTimeout(blobRecalcTimer)
+  blobRecalcTimer = setTimeout(updateNavBlob, 420)
+})
 
 /** 关闭启动器不影响游戏：游戏在跑时点关闭先提示一次，再真正关闭 */
 let closeHintShown = false
@@ -1285,19 +1289,23 @@ onUnmounted(() => {
                 <path d="m9 6 6 6-6 6" />
               </svg>
             </button>
-            <div v-show="resourceExpanded || inResourceGroup" class="nav-sub">
-              <button
-                v-for="sub in visibleResourceSubItems"
-                :key="sub.key"
-                class="nav-item nav-sub-item"
-                :data-nav="sub.key"
-                :class="{ active: store.currentView === sub.key }"
-                @mouseenter="navHoverKey = sub.key"
-                @click="store.currentView = sub.key"
-              >
-                <span class="nav-icon" v-html="sub.icon"></span>
-                <span class="nav-label">{{ sub.label }}</span>
-              </button>
+            <!-- 资源管理子级菜单：grid 0fr→1fr 高度展开 + 子项错落渐入（插在「游戏版本」之后） -->
+            <div class="nav-sub" :class="{ open: resourceExpanded || inResourceGroup }">
+              <div class="nav-sub-inner">
+                <button
+                  v-for="(sub, subIndex) in visibleResourceSubItems"
+                  :key="sub.key"
+                  class="nav-item nav-sub-item"
+                  :data-nav="sub.key"
+                  :style="{ '--sub-i': subIndex }"
+                  :class="{ active: store.currentView === sub.key }"
+                  @mouseenter="navHoverKey = sub.key"
+                  @click="store.currentView = sub.key"
+                >
+                  <span class="nav-icon" v-html="sub.icon"></span>
+                  <span class="nav-label">{{ sub.label }}</span>
+                </button>
+              </div>
             </div>
           </template>
         </template>
@@ -1899,11 +1907,40 @@ onUnmounted(() => {
 .nav-parent .nav-caret.open {
   transform: rotate(90deg);
 }
+/* 资源管理子级菜单：grid 0fr→1fr 高度过渡（打开/收起都有动画），子项自上而下错落渐入 */
 .nav-sub {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  margin: 0;
+  transition: grid-template-rows 0.34s cubic-bezier(0.32, 0.72, 0.35, 1), opacity 0.22s ease, margin 0.34s cubic-bezier(0.32, 0.72, 0.35, 1);
+}
+.nav-sub.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin: var(--space-1) 0;
+}
+.nav-sub-inner {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  margin: var(--space-1) 0;
+  min-height: 0;
+}
+.nav-sub .nav-sub-item {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.98);
+  transition: opacity 0.22s ease, transform 0.3s cubic-bezier(0.22, 0.9, 0.32, 1.1);
+  transition-delay: 0s;
+}
+.nav-sub.open .nav-sub-item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  /* 错落：第 i 项比前一项晚 28ms 入场 */
+  transition-delay: calc(var(--sub-i) * 28ms + 60ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-sub, .nav-sub .nav-sub-item { transition: none; }
 }
 .nav-sub-item {
   height: 40px;

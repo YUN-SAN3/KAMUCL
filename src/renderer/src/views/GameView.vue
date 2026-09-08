@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import {
   addFolder,
   cleanupPartialInstall,
@@ -62,6 +62,32 @@ const tab = ref<'download' | 'installed'>(
     : 'download'
 )
 watch(tab, (t) => localStorage.setItem(TAB_KEY, t))
+
+// ---------------- Tab 滑动指示块（版本下载 ⇄ 已安装 平滑滑动，与导航水滴同款弹簧动效） ----------------
+const gameTabs = ref<HTMLElement | null>(null)
+const tabBlob = reactive({ left: 0, width: 0, on: false })
+function updateTabBlob() {
+  const root = gameTabs.value
+  if (!root) return
+  const active = root.querySelector<HTMLElement>(`.game-tab[data-tab="${tab.value}"]`)
+  if (!active) return
+  tabBlob.left = active.offsetLeft
+  tabBlob.width = active.offsetWidth
+  tabBlob.on = true
+}
+watch(tab, () => nextTick(updateTabBlob))
+onMounted(() => {
+  nextTick(updateTabBlob)
+  // 字体/布局就绪后校准一次（首帧 offsetWidth 可能未稳定）
+  setTimeout(updateTabBlob, 200)
+})
+window.addEventListener('resize', updateTabBlob)
+onUnmounted(() => window.removeEventListener('resize', updateTabBlob))
+const tabBlobStyle = computed(() => ({
+  left: tabBlob.left + 'px',
+  width: tabBlob.width + 'px',
+  opacity: tabBlob.on ? 1 : 0
+}))
 
 async function load(refresh = false) {
   loading.value = true
@@ -845,11 +871,12 @@ async function confirmIsolation() {
 
     <!-- 控制行：Tab + 搜索/筛选/刷新/下载源（同一行横向排布，窄窗口自动换行） -->
     <div class="game-controls">
-      <div class="game-tabs">
-        <button class="game-tab" :class="{ active: tab === 'download' }" @click="tab = 'download'">
+      <div class="game-tabs" ref="gameTabs">
+        <span class="game-tabs-blob" :style="tabBlobStyle" aria-hidden="true"></span>
+        <button class="game-tab" data-tab="download" :class="{ active: tab === 'download' }" @click="tab = 'download'">
           版本下载
         </button>
-        <button class="game-tab" :class="{ active: tab === 'installed' }" @click="tab = 'installed'">
+        <button class="game-tab" data-tab="installed" :class="{ active: tab === 'installed' }" @click="tab = 'installed'">
           已安装<template v-if="store.installed.length">（{{ store.installed.length }}）</template>
         </button>
       </div>
@@ -1744,6 +1771,7 @@ async function confirmIsolation() {
 
 /* 顶部 Tab 分段 */
 .game-tabs {
+  position: relative;
   display: inline-flex;
   gap: var(--space-1);
   padding: var(--space-1);
@@ -1752,7 +1780,21 @@ async function confirmIsolation() {
   background: var(--card-2);
   flex-shrink: 0;
 }
+/* 滑动指示块：跟随激活 Tab（弹簧动效，与导航水滴同源） */
+.game-tabs-blob {
+  position: absolute;
+  top: var(--space-1);
+  bottom: var(--space-1);
+  border-radius: 999px;
+  background: var(--accent-grad);
+  box-shadow: 0 2px 8px var(--accent-soft);
+  transition: left 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), width 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 0;
+}
 .game-tab {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1767,15 +1809,13 @@ async function confirmIsolation() {
   font-family: inherit;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: color 0.2s ease;
 }
 .game-tab:hover {
   color: var(--text);
 }
 .game-tab.active {
-  background: var(--accent-grad);
   color: var(--on-accent);
-  box-shadow: 0 2px 8px var(--accent-soft);
 }
 
 /* 安装中/失败行 */

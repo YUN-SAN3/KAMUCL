@@ -58,7 +58,7 @@ test('creator card uses theme tokens, keyboard focus and correct external Bilibi
   assert.match(creator, /var\(--text\)/)
   assert.ok(!/#[\da-f]{3,8}\b/i.test(creator), 'no hard-coded palette that conflicts with themes')
   assert.match(home, /<CreatorCard class="home-creator" \/>/)
-  assert.match(home, /\.home-creator \{ margin-top: auto; \}/)
+  assert.match(home, /\.home-creator \{ margin-top: auto;/)
 })
 
 test('home and creator templates compile without Vue errors', () => {

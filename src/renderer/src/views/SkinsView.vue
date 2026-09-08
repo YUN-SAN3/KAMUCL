@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'
 import {
   changeCape,
   deleteSkinHistory,
@@ -51,6 +51,29 @@ async function loadProfile() {
 const viewerRef = ref<InstanceType<typeof SkinViewer3D> | null>(null)
 /** 行走 / 待机动画切换 */
 const previewAnim = ref<'walk' | 'idle'>('walk')
+
+/** 行走/待机分段控件滑动块（与导航水滴/游戏 Tab 同款弹簧动效） */
+const animSeg = ref<HTMLElement | null>(null)
+const animSegBlob = reactive({ left: 0, width: 0, on: false })
+function updateAnimSegBlob() {
+  const root = animSeg.value
+  if (!root) return
+  const active = root.querySelector<HTMLElement>(`.seg-btn[data-seg="${previewAnim.value}"]`)
+  if (!active) return
+  animSegBlob.left = active.offsetLeft
+  animSegBlob.width = active.offsetWidth
+  animSegBlob.on = true
+}
+watch(previewAnim, () => nextTick(updateAnimSegBlob))
+onMounted(() => {
+  nextTick(updateAnimSegBlob)
+  setTimeout(updateAnimSegBlob, 200)
+})
+const animSegBlobStyle = computed(() => ({
+  left: animSegBlob.left + 'px',
+  width: animSegBlob.width + 'px',
+  opacity: animSegBlob.on ? 1 : 0
+}))
 
 // ---------------- 披风 ----------------
 const capeRenders = ref<Record<string, string>>({})
@@ -331,9 +354,11 @@ watch(
           <header class="pane-head">
             <h3 class="pane-title">3D 预览</h3>
             <div v-if="!loadingProfile && currentSkin?.dataUrl" class="pane-tools">
-              <div class="seg" role="group" aria-label="动画模式">
+              <div class="seg" ref="animSeg" role="group" aria-label="动画模式">
+                <span class="seg-blob" :style="animSegBlobStyle" aria-hidden="true"></span>
                 <button
                   class="seg-btn"
+                  data-seg="walk"
                   :class="{ active: previewAnim === 'walk' }"
                   @click="previewAnim = 'walk'"
                 >
@@ -341,6 +366,7 @@ watch(
                 </button>
                 <button
                   class="seg-btn"
+                  data-seg="idle"
                   :class="{ active: previewAnim === 'idle' }"
                   @click="previewAnim = 'idle'"
                 >
@@ -760,6 +786,7 @@ watch(
 
 /* 模型分段选择 */
 .seg {
+  position: relative;
   display: inline-flex;
   align-items: stretch;
   gap: 2px;
@@ -769,7 +796,20 @@ watch(
   border-radius: var(--radius-md);
   background: var(--card-2);
 }
+/* 滑动指示块：弹簧动效跟随激活分段 */
+.seg-blob {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-grad);
+  transition: left 0.3s cubic-bezier(0.3, 1.2, 0.4, 1), width 0.3s cubic-bezier(0.3, 1.2, 0.4, 1), opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 0;
+}
 .seg-btn {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -782,14 +822,13 @@ watch(
   font-size: var(--text-xs);
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: color 0.2s ease;
   white-space: nowrap;
 }
 .seg-btn:hover:not(.active) {
   color: var(--text);
 }
 .seg-btn.active {
-  background: var(--accent-grad);
   color: var(--on-accent);
   font-weight: 600;
 }

@@ -17,6 +17,7 @@ test('skin3d parity: -y bottom face UV follows skinview3d uvBottom vertex order 
   assert.ok(m, 'mapBoxUVs 底面分支存在')
   assert.match(m[0], /setXY\(o \+ 0, u0, vBot\)/)
   assert.match(m[0], /setXY\(o \+ 1, u1, vBot\)/)
+  // 对照 skinview3d setUVs 原文：uvBottom=[bl,br,tl,tr] → o+2=tl=(u0,vTop)、o+3=tr=(u1,vTop)
   assert.match(m[0], /setXY\(o \+ 2, u0, vTop\)/)
   assert.match(m[0], /setXY\(o \+ 3, u1, vTop\)/)
   // 披风（64×32 纹理）的底面（下摆）同一约定
@@ -33,9 +34,10 @@ test('skin3d parity: walking arms swing on X only + constant 0.02π outward Z ti
   assert.match(viewer, /const ARM_BASE_TILT = Math\.PI \* 0\.02/)
   assert.match(viewer, /joints\.armL\.rotation\.z = ARM_BASE_TILT/)
   assert.match(viewer, /joints\.armR\.rotation\.z = -ARM_BASE_TILT/)
-  // FCL 主摆参数保留（用户要过的手感）：臂 ±10°@30°/s、腿 ±30°@90°/s
-  assert.match(viewer, /mainRate: 30, mainAmp: 10/)
-  assert.match(viewer, /mainRate: 90, mainAmp: 30/)
+  // MC 原版公式（HumanoidModel.setupAnim）：cos × 1.4 × amount，行走 ±45°、四肢同幅、对角反相（用户要求与 MC 游戏完全一致）
+  assert.match(viewer, /Math\.cos\(animT \* WALK_RATE\) \* j\.mainAmp/)
+  assert.match(viewer, /mainAmp: 45/)
+  assert.ok(!/mainAmp: 10|mainAmp: 30/.test(viewer), '旧 FCL 幅度（±10°/±30°）已替换为 MC ±45°')
 })
 
 test('skin3d parity: cape keeps skinview3d standard 10x16x1 with flip mount (no 8-wide regression)', () => {

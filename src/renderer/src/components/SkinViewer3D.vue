@@ -83,6 +83,8 @@ let zoomTarget = 1
 // ---------------- 行走动画（FCL 三角波参数：每帧步进 × 60fps → 度/秒） ----------------
 
 const D2R = Math.PI / 180
+/** 行走余弦节奏（rad/s）：与 MC 行走视觉周期一致 */
+const WALK_RATE = 4.71
 /** 手臂恒定外张底角（skinview3d WalkAnimation/IdleAnimation 的 basicArmRotationZ = 0.02π ≈ 3.6°），
  *  让垂落的手臂自然离开躯干侧壁，行走/待机共用 */
 const ARM_BASE_TILT = Math.PI * 0.02
@@ -110,29 +112,20 @@ function makeWalkJoints(): Record<'armL' | 'armR' | 'legL' | 'legR', WalkJoint> 
     // 任何绕 Y 的内摆都会把手臂内前/内后角切进躯干（20° 时穿透约 0.56px、slim 约 0.63px）；
     // skinview3d WalkAnimation 手臂同样只有 X 轴摆动，改用 0.02π 恒定外张底角（见 applyPose）。
     // 腿的副摆 amp/rate 必须为 0：双腿绕 Y 轴镜像扭转就是「内八/外八」的根源。
-    armL: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 30, mainAmp: 10, subRate: 0, subAmp: 0 },
-    armR: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 30, mainAmp: 10, subRate: 0, subAmp: 0 },
-    legL: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 90, mainAmp: 30, subRate: 0, subAmp: 0 },
-    legR: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 90, mainAmp: 30, subRate: 0, subAmp: 0 }
+    armL: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 0, mainAmp: 45, subRate: 0, subAmp: 0 },
+    armR: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 0, mainAmp: 45, subRate: 0, subAmp: 0 },
+    legL: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 0, mainAmp: 45, subRate: 0, subAmp: 0 },
+    legR: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 0, mainAmp: 45, subRate: 0, subAmp: 0 }
   }
 }
 
-function stepOsc(o: Osc, dt: number, rate: number, amp: number): void {
-  o.a += o.dir * rate * dt
-  if (o.a >= amp) {
-    o.a = amp
-    o.dir = -1
-  } else if (o.a <= -amp) {
-    o.a = -amp
-    o.dir = 1
-  }
-}
-
-function stepWalk(dt: number): void {
+function stepWalk(): void {
   if (!walkJoints) return
+  // MC 原版公式（HumanoidModel.setupAnim）：rotation.x = cos(limbSwing × 0.6662) × 1.4 × amount。
+  // 行走 amount≈0.56 → 幅度 ±45°；四肢同幅、对角反相（左腿+右臂 / 右腿+左臂）；余弦在极值平滑转向。
   for (const j of Object.values(walkJoints)) {
-    stepOsc(j.main, dt, j.mainRate, j.mainAmp)
-    stepOsc(j.sub, dt, j.subRate, j.subAmp)
+    j.main.a = j.main.dir * Math.cos(animT * WALK_RATE) * j.mainAmp
+    j.sub.a = 0
   }
 }
 
@@ -571,7 +564,7 @@ function tick(now: number): void {
   const animating = !props.paused && !document.hidden
   if (animating) {
     animT += dt
-    if (props.animation === 'walk') stepWalk(dt)
+    if (props.animation === 'walk') stepWalk()
     const bt = props.animation === 'walk' ? 1 : 0
     walkBlend += (bt - walkBlend) * Math.min(1, dt * 6)
   }
