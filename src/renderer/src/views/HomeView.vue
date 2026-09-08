@@ -36,6 +36,7 @@ import Avatar from '../components/Avatar.vue'
 import ConfirmModal from '../components/ConfirmModal.vue'
 import SkinViewer3D from '../components/SkinViewer3D.vue'
 import CreatorCard from '../components/CreatorCard.vue'
+import LaunchFab from '../components/LaunchFab.vue'
 import type {
   ImageFit,
   InstalledVersion,
@@ -198,6 +199,9 @@ const launchText = computed(() => {
   if (launching.value) return store.progress?.text || '正在启动…'
   return '开始游戏'
 })
+const fabSub = computed(() =>
+  currentVersion.value ? `${heroName.value} · ${heroVersion.value}` : '请先选择游戏实例'
+)
 const heroStatus = computed(() => {
   const version = currentVersion.value
   if (!version) return { text: '等待选择', tone: 'idle' }
@@ -530,23 +534,12 @@ onUnmounted(() => {
             </button>
           </div>
 
-          <div class="launch-combo" data-edit="accent">
-            <button
-              class="launch-main"
-              :class="{ launching }"
-              :disabled="launching || !currentVersion"
-              @click="onLaunchClick"
-            >
-              <span v-if="launching" class="launch-progress" :style="{ width: percent + '%' }"></span>
-              <span class="launch-content">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5Z" /></svg>
-                <span>{{ launchText }}</span>
-              </span>
-            </button>
-            <button ref="versionMenuButton" class="launch-arrow" title="选择游戏实例" @click="toggleVersionMenu">
-              <svg :class="{ open: versionMenu.open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
-            </button>
-          </div>
+          <!-- 启动职责已移交右下角悬浮启动球（LaunchFab）；此处保留实例选择（原 ▼ 拆分下拉） -->
+          <button ref="versionMenuButton" class="hero-instance-picker" data-edit="accent" title="选择游戏实例" @click="toggleVersionMenu">
+            <span class="picker-kicker">游戏实例</span>
+            <span class="picker-name">{{ heroName }}</span>
+            <svg :class="{ open: versionMenu.open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+          </button>
         </div>
       </div>
     </section>
@@ -774,6 +767,16 @@ onUnmounted(() => {
     <h3>正常退出等待超时</h3><p>Minecraft 可能仍在保存世界。建议在游戏内保存退出，然后重试。</p><p style="color: var(--danger)">强制结束可能丢失进度或损坏存档；只有你确认后才会执行。</p>
     <div class="modal-actions"><button class="btn btn-ghost" :disabled="restartBusy" @click="cancelRestartPrompt">取消重启，继续等待</button><button class="btn btn-danger" :disabled="restartBusy" @click="quickRestart({ id: restartConfirm.id, folder: restartConfirm.folder } as InstalledVersion, restartConfirm.token)">确认强制结束并重启</button></div>
   </section></div></Teleport>
+
+  <!-- 右下角悬浮启动球：持续悬浮于内容之上，点击直接复用本页启动链路 -->
+  <LaunchFab
+    :label="launchText"
+    :sub="fabSub"
+    :busy="launching"
+    :percent="percent"
+    :disabled="launching || !currentVersion"
+    @launch="onLaunchClick"
+  />
 </template>
 
 <style scoped>
@@ -882,18 +885,23 @@ onUnmounted(() => {
 .hero-more svg { width: 19px; height: 19px; }
 .hero-settings:hover:not(:disabled), .hero-more:hover:not(:disabled) { background: color-mix(in srgb, white 12%, transparent); }
 .hero-settings:disabled, .hero-more:disabled { opacity: 0.45; cursor: default; }
-.launch-combo { min-width: 310px; height: 70px; border-radius: var(--radius-md); box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 30%, transparent); overflow: hidden; }
-.launch-main, .launch-arrow { position: relative; overflow: hidden; border: 0; background: var(--accent-grad); color: var(--on-accent); cursor: pointer; }
-.launch-main { flex: 1; min-width: 0; padding: 0 var(--space-5); font-family: inherit; font-size: var(--text-xl); font-weight: 700; }
-.launch-content { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: var(--space-3); height: 100%; }
-.launch-content svg { width: 22px; height: 22px; flex: none; }
-.launch-content span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.launch-progress { position: absolute; inset: 0 auto 0 0; background: color-mix(in srgb, white 25%, transparent); transition: width 0.25s ease; }
-.launch-main:disabled { cursor: not-allowed; filter: saturate(0.75); }
-.launch-arrow { width: 62px; border-left: 1px solid color-mix(in srgb, white 22%, transparent); }
-.launch-arrow:hover, .launch-main:hover:not(:disabled) { filter: brightness(1.08); }
-.launch-arrow svg { width: 22px; height: 22px; transition: transform 0.18s ease; }
-.launch-arrow svg.open { transform: rotate(180deg); }
+/* 实例选择器：原「开始游戏 ▼」拆分下拉的承载者；启动职责已移交右下角 LaunchFab */
+.hero-instance-picker {
+  display: inline-flex; align-items: center; gap: var(--space-3); height: 70px; padding: 0 var(--space-5);
+  border: 1px solid color-mix(in srgb, white 14%, transparent);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, black 58%, transparent);
+  color: var(--bn-text);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  font-family: inherit;
+  cursor: pointer;
+}
+.hero-instance-picker:hover { background: color-mix(in srgb, white 12%, transparent); }
+.picker-kicker { color: color-mix(in srgb, var(--bn-text) 70%, transparent); font-size: var(--text-xs); font-weight: 600; }
+.picker-name { max-width: 240px; overflow: hidden; font-size: var(--text-lg); font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.hero-instance-picker > svg { width: 22px; height: 22px; flex: none; transition: transform 0.18s ease; }
+.hero-instance-picker > svg.open { transform: rotate(180deg); }
 
 /* ---------------- 区块二：快捷启动行 ---------------- */
 .runtime-strip {
@@ -1025,9 +1033,8 @@ onUnmounted(() => {
 /* ---------------- 窄窗口 / 矮窗口适配 ---------------- */
 @media (max-width: 1180px) {
   .hero-content { padding: var(--space-6) var(--space-5) var(--space-4); }
-  .launch-combo { min-width: 250px; height: 62px; }
-  .launch-main { padding: 0 var(--space-4); }
-  .launch-arrow { width: 50px; }
+  .hero-instance-picker { height: 62px; padding: 0 var(--space-4); }
+  .picker-name { max-width: 170px; }
   .hero-settings { min-width: 130px; padding: 0 var(--space-3); }
   .hero-more { width: 46px; }
   .runtime-item { grid-template-columns: 28px minmax(0, 1fr); padding: 0 var(--space-3); }
@@ -1039,7 +1046,6 @@ onUnmounted(() => {
   .hero-card { min-height: 300px; }
   .hero-actions { gap: var(--space-2); }
   .hero-settings { min-width: 110px; }
-  .launch-combo { min-width: 220px; }
   .runtime-strip { grid-template-columns: minmax(0, 1fr); }
   .runtime-item { min-height: var(--row-h); padding: var(--space-2) var(--space-4); }
   .runtime-item + .runtime-item { border-left: 0; border-top: 1px solid var(--border); }

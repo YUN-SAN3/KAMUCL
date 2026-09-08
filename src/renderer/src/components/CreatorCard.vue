@@ -5,7 +5,7 @@
       <span class="creator-pixels" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
     </div>
     <p class="creator-intro">由人见人爱，花见花开的 UP 主</p>
-    <p class="creator-signature"><strong>卡慕<span>SaMa</span></strong><span class="creator-made">制作</span></p>
+    <p class="creator-signature"><strong>卡慕<span>SaMa</span></strong><span class="creator-made">制作，和他的粉丝物晖</span></p>
     <a
       class="creator-link"
       href="https://space.bilibili.com/9596327"
