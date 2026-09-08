@@ -3,9 +3,11 @@ import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import {
   addCustomJava,
   applyLocalUpdate,
+  applyPendingUpdate,
   cancelJavaScan,
   checkUpdate,
   errText,
+  getPendingUpdate,
   getSystemInfo,
   getUpdateState,
   hideJava,
@@ -124,6 +126,11 @@ async function refreshUpdateState() {
   } catch {
     updateState.value = null
   }
+  try {
+    pendingUpdate.value = await getPendingUpdate()
+  } catch {
+    pendingUpdate.value = null
+  }
 }
 async function onRestoreBackup() {
   if (!updateState.value) return
@@ -133,6 +140,16 @@ async function onRestoreBackup() {
   } catch (e) {
     restoringBackup.value = false
     toast('还原失败：' + errText(e), 'error')
+  }
+}
+
+// 已就绪待安装的更新（关闭启动器时自动安装，也可立即安装）
+const pendingUpdate = ref<{ release: ReleaseInfo; file: string } | null>(null)
+async function onApplyPending() {
+  try {
+    await applyPendingUpdate()
+  } catch (e) {
+    toast('安装失败：' + errText(e), 'error')
   }
 }
 
@@ -813,6 +830,22 @@ async function onRemovePlugin(p: PluginInfo) {
           <span v-else-if="updateCheckState === 'failed'" class="muted">检查失败（已记日志，可稍后再试）</span>
         </div>
         <div class="upd-row">
+          <span class="upd-label">自动安装更新</span>
+          <label class="switch">
+            <input
+              :checked="store.settings.autoUpdate !== false"
+              type="checkbox"
+              @change="save({ autoUpdate: ($event.target as HTMLInputElement).checked })"
+            />
+            <span class="switch-ui"></span>
+          </label>
+          <span class="muted upd-auto-hint">发现新版本静默下载，关闭启动器时自动安装；关闭则弹窗询问</span>
+        </div>
+        <div v-if="pendingUpdate" class="upd-row upd-pending-row">
+          <span class="upd-pending-text">v{{ pendingUpdate.release.version }} 已就绪，关闭启动器时自动安装</span>
+          <button class="btn btn-gold btn-sm" @click="onApplyPending">立即重启安装</button>
+        </div>
+        <div class="upd-row">
           <span class="upd-label">更新下载源</span>
           <select class="select upd-source" :value="updateSource" @change="onUpdateSourceChange">
             <option value="auto">自动（直连优先，镜像加速）</option>
@@ -952,6 +985,12 @@ async function onRemovePlugin(p: PluginInfo) {
 .upd-source { min-width: 220px; }
 .upd-mirror { flex: 1; min-width: 240px; font-size: 12px; }
 .upd-actions-row { gap: 8px; margin-top: 4px; }
+.upd-auto-hint { font-size: 12px; }
+.upd-pending-row {
+  padding: 8px 12px; border-radius: 10px; background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.upd-pending-text { font-size: 13px; font-weight: 600; }
 /* 回退/本地安装弹窗 */
 .upd-modal-mask { z-index: 9400; display: grid; place-items: center; }
 .upd-modal-card { width: min(560px, 92vw); max-height: 82vh; display: flex; flex-direction: column; gap: 12px; padding: 20px 22px; }

@@ -906,6 +906,10 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     // 配置不兼容时重置：先备份原文件再写默认值
     settings.resetSettingsToDefaults()
   })
+  ipcMain.handle(IPC.updateGetPending, () => applyUpdate.getPendingUpdate())
+  ipcMain.handle(IPC.updateApplyPending, async () => {
+    await applyUpdate.applyPendingIfAny()
+  })
 
   // ---------------- 桥接 MOD 实时配置面板 ----------------
   ipcMain.handle(IPC.bridgeStatus, (_e, versionId: string) => modBridge.bridgeStatus(String(versionId ?? '')))

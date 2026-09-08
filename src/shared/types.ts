@@ -411,6 +411,8 @@ export interface Settings {
   updateMirrorUrl?: string
   /** 内测群号覆盖（免打包临时改；默认取 shared/branding.ts 的 QQ_GROUP_NUMBER） */
   qqGroupNumber?: string
+  /** 自动安装更新（默认开启）：发现新版本静默下载，启动器关闭时自动安装；关闭则弹窗询问 */
+  autoUpdate?: boolean
 }
 
 // ---------------- 启动器自更新 ----------------
@@ -822,7 +824,9 @@ export const IPC = {
   updatePickLocalFile: 'update:pickLocalFile', // () => LocalUpdateCheck | null  选择本地安装包并校验
   updateApplyLocal: 'update:applyLocal', // (check: LocalUpdateCheck) => void  本地包走相同备份-替换-重启
   updateGetConfigStatus: 'update:getConfigStatus', // () => { configVersion: number; current: number; mismatch: 'newer' | null }
-  updateResetSettings: 'update:resetSettings' // () => void  配置不兼容时重置设置（先备份原文件）
+  updateResetSettings: 'update:resetSettings', // () => void  配置不兼容时重置设置（先备份原文件）
+  updateGetPending: 'update:getPending', // () => { release: ReleaseInfo; file: string } | null  已就绪待安装
+  updateApplyPending: 'update:applyPending' // () => void  立即安装已就绪的更新并重启
 } as const
 
 export interface FsEntry {
@@ -842,7 +846,8 @@ export const IPC_EVENT = {
   taskDone: 'event:taskDone', // (r: { taskId: string; ok: boolean; error?: string; cancelled?: boolean; stage?: string })  所有后台任务（含普通资源下载）的统一完成通知
   gameDirDone: 'event:gameDirDone', // (r: { ok: boolean; error?: string; gameDir?: string })  目录迁移结束（配置已切换/失败已回滚）
   updatePrompt: 'event:updatePrompt', // (r: ReleaseInfo)  启动自动检查发现新版本 → 弹窗
-  updateSlowHint: 'event:updateSlowHint' // (r: { taskId: string })  更新下载连续 30s 低于 100KB/s → 进度界面内嵌提示一次
+  updateSlowHint: 'event:updateSlowHint', // (r: { taskId: string })  更新下载连续 30s 低于 100KB/s → 进度界面内嵌提示一次
+  updateReady: 'event:updateReady' // (r: { version: string })  更新已下载校验就绪，关闭启动器时自动安装
 } as const
 
 /**

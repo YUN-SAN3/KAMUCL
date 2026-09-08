@@ -308,10 +308,15 @@ export const applyLocalUpdate = (check: import('@shared/types').LocalUpdateCheck
 export const getConfigStatus = () =>
   invoke<{ configVersion: number; current: number; mismatch: 'newer' | null }>(IPC.updateGetConfigStatus)
 export const resetSettingsToDefaults = () => invoke<void>(IPC.updateResetSettings)
+export const getPendingUpdate = () =>
+  invoke<{ release: import('@shared/types').ReleaseInfo; file: string } | null>(IPC.updateGetPending)
+export const applyPendingUpdate = () => invoke<void>(IPC.updateApplyPending)
 export const onUpdatePrompt = (cb: (r: import('@shared/types').ReleaseInfo & { rollbackNotice?: boolean }) => void) =>
   subscribe<import('@shared/types').ReleaseInfo & { rollbackNotice?: boolean }>(IPC_EVENT.updatePrompt, cb)
 export const onUpdateSlowHint = (cb: (r: { taskId: string }) => void) =>
   subscribe<{ taskId: string }>(IPC_EVENT.updateSlowHint, cb)
+export const onUpdateReady = (cb: (r: { version: string }) => void) =>
+  subscribe<{ version: string }>(IPC_EVENT.updateReady, cb)
 
 // ---------------- 桥接 MOD 实时配置面板 ----------------
 export const bridgeStatus = (versionId: string) =>
