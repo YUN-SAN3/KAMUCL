@@ -372,6 +372,8 @@ export interface Settings {
   /** 从扫描结果中隐藏的 Java 路径 */
   javaHidden: string[]
   memoryMB: number
+  /** 自动分配内存（推荐）：开启后按物理内存 25% 自动计算（2-8GB），忽略 memoryMB 手动值 */
+  memoryAuto?: boolean
   jvmArgs: string
   resolution: GameResolution
   mirror: 'official' | 'bmclapi'

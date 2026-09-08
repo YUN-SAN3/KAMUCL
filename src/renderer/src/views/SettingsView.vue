@@ -26,12 +26,15 @@ import {
 } from '../api'
 import { enterEditMode, store, toast } from '../store'
 import { DEFAULT_CUSTOM_THEME, THEME_PRESETS } from '@shared/types'
+import { autoMemoryMB } from '@shared/memory'
 import type { LocalUpdateCheck, PluginInfo, ReleaseInfo, Settings, ThemeName, UpdateStateInfo } from '@shared/types'
 import { QQ_GROUP_NUMBER } from '@shared/branding'
 import HomeLayoutEditor from '../components/HomeLayoutEditor.vue'
 import { updateSettings } from '../settingsUpdates'
 
 const page = ref<HTMLElement | null>(null)
+/** 精确输入框自动聚焦 */
+const vFocus = { mounted: (el: HTMLElement) => el.focus() }
 async function revealSection() {
   await nextTick()
   if (!store.settingsSection) return
@@ -324,14 +327,17 @@ const javaLabel = (j: { major: number; path: string; version: string; architectu
 
 // ---------------- 内存显示与滑块填充 ----------------
 const MEM_MIN = 1024
-/** 滑块步长 256MB（0.25GB），比整 GB / 0.5GB 更精细 */
-const MEM_STEP = 256
-/** 上限 = 真实物理内存向下取 256MB 整（系统信息加载前的临时值） */
+/** 滑块步长 512MB（0.5GB，粗调节）；精细调节用数值输入框（0.25GB 精度） */
+const MEM_STEP = 512
+/** 上限 = 真实物理内存向下取 512MB 整（系统信息加载前的临时值） */
 const memMax = ref(16384)
+/** 物理内存总量（自动分配展示用） */
+const memTotal = ref(0)
 
 onMounted(async () => {
   try {
     const info = await getSystemInfo()
+    memTotal.value = info.totalMemMB
     memMax.value = Math.max(MEM_MIN, Math.floor(info.totalMemMB / MEM_STEP) * MEM_STEP)
     // 旧配置可能超出真实内存（换机/降配后），夹回可保存范围
     const s = store.settings
@@ -353,11 +359,70 @@ const memoryText = computed(() => {
   return mb % 1024 === 0 ? `${mb / 1024} GB` : `${mb} MB`
 })
 
-/* 已填充段 = accent 渐变 */
-const sliderFill = computed(() => {
+/** 自动分配的当前计算值（展示用） */
+const autoMemoryText = computed(() => {
+  if (!memTotal.value) return '…'
+  const mb = autoMemoryMB(memTotal.value)
+  return `${mb / 1024} GB`
+})
+
+const memoryAuto = computed(() => store.settings?.memoryAuto === true)
+function onToggleMemoryAuto(on: boolean) {
+  void save({ memoryAuto: on })
+}
+
+// ---------------- 自定义内存滑块（拇指拖拽，不抢鼠标：点轨道不跳值） ----------------
+const memTrack = ref<HTMLElement | null>(null)
+const memDragging = ref(false)
+
+function memFromClientX(clientX: number): number {
+  const track = memTrack.value
+  if (!track) return store.settings?.memoryMB ?? MEM_MIN
+  const rect = track.getBoundingClientRect()
+  const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
+  const raw = MEM_MIN + ratio * (memMax.value - MEM_MIN)
+  return Math.round(raw / MEM_STEP) * MEM_STEP
+}
+
+function onMemThumbDown(e: PointerEvent) {
+  e.preventDefault()
+  e.stopPropagation()
+  memDragging.value = true
+  ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
+}
+function onMemPointerMove(e: PointerEvent) {
+  if (!memDragging.value) return
+  const v = memFromClientX(e.clientX)
+  if (store.settings && v !== store.settings.memoryMB) store.settings.memoryMB = v
+}
+function onMemPointerUp() {
+  if (!memDragging.value) return
+  memDragging.value = false
+  void save({ memoryMB: store.settings!.memoryMB })
+}
+
+/** 数值输入（GB，支持 0.25 精度）；失焦/回车保存 */
+const memoryInputGB = ref('')
+const memoryEditing = ref(false)
+function startMemoryEdit() {
+  memoryInputGB.value = String(((store.settings?.memoryMB ?? MEM_MIN) / 1024).toFixed(2)).replace(/\.?0+$/, '')
+  memoryEditing.value = true
+}
+function commitMemoryEdit() {
+  const gb = Number(memoryInputGB.value)
+  memoryEditing.value = false
+  if (!Number.isFinite(gb) || gb <= 0) return
+  const mb = Math.round(Math.max(MEM_MIN / 1024, Math.min(gb, memMax.value / 1024)) * 1024)
+  if (store.settings) {
+    store.settings.memoryMB = mb
+    void save({ memoryMB: mb })
+  }
+}
+
+/* 已填充段 = accent 渐变（自定义滑块填充宽度） */
+const memFillPct = computed(() => {
   const mb = store.settings?.memoryMB ?? MEM_MIN
-  const pct = Math.max(0, Math.min(100, ((mb - MEM_MIN) / (memMax.value - MEM_MIN)) * 100))
-  return `linear-gradient(90deg, var(--accent-2), var(--accent) ${pct}%, var(--card-2) ${pct}%)`
+  return Math.max(0, Math.min(100, ((mb - MEM_MIN) / (memMax.value - MEM_MIN)) * 100))
 })
 
 // ---------------- 分辨率 ----------------
@@ -611,20 +676,49 @@ async function onRemovePlugin(p: PluginInfo) {
           <span class="collapse-arrow" aria-hidden="true"></span>
         </summary>
         <div class="collapse-body">
-          <div class="memory-row">
-            <input
-              v-model.number="store.settings.memoryMB"
-              type="range"
-              class="slider"
-              :style="{ background: sliderFill }"
-              :min="MEM_MIN"
-              :max="memMax"
-              :step="MEM_STEP"
-              @change="save({ memoryMB: store.settings!.memoryMB })"
-            />
-            <span class="memory-value">{{ memoryText }}</span>
+          <div class="memory-auto-row">
+            <span class="java-auto-text">
+              <span class="java-auto-title">自动分配（推荐）</span>
+              <span class="muted java-auto-desc">按物理内存 25% 自动分配（本机当前 {{ autoMemoryText }}，2-8GB 区间），覆盖绝大多数版本与整合包。</span>
+            </span>
+            <span class="switch">
+              <input type="checkbox" :checked="memoryAuto" @change="onToggleMemoryAuto(($event.target as HTMLInputElement).checked)" />
+              <span class="switch-ui"></span>
+            </span>
           </div>
-          <p class="muted group-hint">分配给游戏进程的最大内存（1 GB - {{ memoryMaxText }}，按本机物理内存识别）</p>
+          <template v-if="!memoryAuto">
+            <div class="memory-row">
+              <!-- 自定义滑块：只有按住拇指才拖得动（点轨道不跳值，不抢鼠标）；0.5GB 步进 -->
+              <div ref="memTrack" class="mem-slider" @pointermove="onMemPointerMove" @pointerup="onMemPointerUp" @pointercancel="onMemPointerUp">
+                <div class="mem-slider-track"></div>
+                <div class="mem-slider-fill" :style="{ width: memFillPct + '%' }"></div>
+                <div
+                  class="mem-slider-thumb"
+                  :class="{ dragging: memDragging }"
+                  :style="{ left: memFillPct + '%' }"
+                  @pointerdown="onMemThumbDown"
+                  @pointermove="onMemPointerMove"
+                  @pointerup="onMemPointerUp"
+                  @pointercancel="onMemPointerUp"
+                ></div>
+              </div>
+              <input
+                v-if="memoryEditing"
+                v-model="memoryInputGB"
+                class="input memory-input"
+                type="number"
+                :min="MEM_MIN / 1024"
+                :max="memMax / 1024"
+                step="0.25"
+                @keydown.enter="commitMemoryEdit"
+                @keydown.esc="memoryEditing = false"
+                @blur="commitMemoryEdit"
+                v-focus
+              />
+              <span v-else class="memory-value" title="点击精确输入（GB）" @click="startMemoryEdit">{{ memoryText }}</span>
+            </div>
+            <p class="muted group-hint">拖动滑块以 0.5 GB 步进；需要精细调节（如 0.25 GB）时点右侧数值直接输入（1 GB - {{ memoryMaxText }}）</p>
+          </template>
         </div>
       </details>
 
@@ -1442,7 +1536,32 @@ async function onRemovePlugin(p: PluginInfo) {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--accent-2);
+  cursor: text;
+  border-radius: var(--radius-sm);
+  padding: 2px var(--space-1);
 }
+.memory-value:hover { background: var(--hover); }
+.memory-input { width: 88px; text-align: right; }
+.memory-auto-row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-3); }
+/* 自定义内存滑块：拇指拖拽，轨道不响应点击（不抢鼠标） */
+.mem-slider { position: relative; flex: 1; height: 24px; touch-action: none; }
+.mem-slider-track {
+  position: absolute; left: 0; right: 0; top: 50%; height: 6px; transform: translateY(-50%);
+  border-radius: 999px; background: var(--card-2); pointer-events: none;
+}
+.mem-slider-fill {
+  position: absolute; left: 0; top: 50%; height: 6px; transform: translateY(-50%);
+  border-radius: 999px; background: linear-gradient(90deg, var(--accent-2), var(--accent)); pointer-events: none;
+  transition: width 0.06s linear;
+}
+.mem-slider-thumb {
+  position: absolute; top: 50%; width: 16px; height: 16px; transform: translate(-50%, -50%);
+  border-radius: 50%; background: var(--accent); border: 2px solid var(--on-accent);
+  box-shadow: 0 1px 6px color-mix(in srgb, var(--accent) 45%, transparent);
+  cursor: grab; transition: transform 0.12s ease;
+}
+.mem-slider-thumb:hover { transform: translate(-50%, -50%) scale(1.12); }
+.mem-slider-thumb.dragging { cursor: grabbing; transform: translate(-50%, -50%) scale(1.18); }
 
 /* 分辨率 */
 .resolution-row {
