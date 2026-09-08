@@ -293,14 +293,6 @@ export const getDefaultKeys = () => invoke<Record<string, string>>(IPC.keysGetDe
 export const setDefaultKey = (id: string, bind: string) =>
   invoke<Record<string, string>>(IPC.keysSetDefault, id, bind)
 export const resetDefaultKeys = () => invoke<Record<string, string>>(IPC.keysReset)
-export const getDefaultOptions = () => invoke<Record<string, string>>(IPC.optionsGetDefault)
-export const setDefaultOption = (id: string, value: string) =>
-  invoke<Record<string, string>>(IPC.optionsSetDefault, id, value)
-export const resetDefaultOptions = () => invoke<Record<string, string>>(IPC.optionsReset)
-export const importDefaultResourcePacks = (paths: string[]) =>
-  invoke<Record<string, string>>(IPC.optionsImportPacks, paths)
-export const removeDefaultResourcePack = (name: string) =>
-  invoke<Record<string, string>>(IPC.optionsRemovePack, name)
 
 // ---------------- 桥接 MOD 实时配置面板 ----------------
 export const bridgeStatus = (versionId: string) =>

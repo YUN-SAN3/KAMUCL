@@ -399,8 +399,6 @@ export interface Settings {
   closeAfterLaunch: boolean
   /** 默认按键同步：开启后启动任何版本时把启动器默认键位写入该实例 options.txt 的 key_* 项 */
   keySync?: boolean
-  /** 其他游戏配置同步：FOV/灵敏度/亮度/视频设置/潜行疾跑方式/资源包（独立开关，与按键同步分开） */
-  optionsSync?: boolean
   /** 正版登录使用系统代理：默认直连（安全优先）；直连微软端点失败时用户可开启（CONNECT 隧道+端到端 TLS 校验保持） */
   msUseProxy?: boolean
 }
@@ -703,12 +701,6 @@ export const IPC = {
   keysGetDefault: 'keys:getDefault', // () => Record<string, string>
   keysSetDefault: 'keys:setDefault', // (id: string, bind: string) => Record<string, string>
   keysReset: 'keys:reset', // () => Record<string, string>  全部恢复 MC 原版默认
-  // 其他游戏配置默认值（FOV/灵敏度/亮度/视频/潜行疾跑/资源包）
-  optionsGetDefault: 'options:getDefault', // () => Record<string, string>
-  optionsSetDefault: 'options:setDefault', // (id: string, value: string) => Record<string, string>
-  optionsReset: 'options:reset', // () => Record<string, string>
-  optionsImportPacks: 'options:importPacks', // (paths: string[]) => Record<string, string>  拖入材质包装载
-  optionsRemovePack: 'options:removePack', // (name: string) => Record<string, string>
   // 桥接 MOD 实时配置面板（游戏目录 .kamucl-bridge.json 发现 + token 校验，仅本机）
   bridgeStatus: 'bridge:status', // (versionId: string) => BridgeStatus
   bridgeManifest: 'bridge:manifest', // (versionId: string) => { protocol, params: BridgeParam[] }

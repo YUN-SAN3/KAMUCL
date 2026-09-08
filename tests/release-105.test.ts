@@ -2,27 +2,9 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
-import { adaptOptionsForVersion, keySyncSupportedForVersion, mcVersionAtLeast } from '../src/main/core/keybindings'
-import { VANILLA_OPTIONS } from '../src/shared/keybindings'
+import { keySyncSupportedForVersion, mcVersionAtLeast } from '../src/main/core/keybindings'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
-
-test('options version adaptation: FOV float for all versions, graphics preset fork at 1.21.11, toggle fields skipped before 1.15', () => {
-  // 1.12.2：FOV 70° 必须写为浮点 0.5（(70-30)/80），否则投影异常视角颠倒
-  const legacy = adaptOptionsForVersion({ fov: '70', renderDistance: '12', toggleCrouch: 'false', toggleSprint: 'true', gamma: '0.5' }, '1.12.2')
-  assert.equal(legacy.fov, '0.5', 'FOV 70° must become 0.5 float for 1.12.2')
-  assert.equal(legacy.renderDistance, '12', 'renderDistance kept for 1.12.2')
-  assert.equal(legacy.toggleCrouch, undefined, 'toggleCrouch skipped for 1.12.2 (no such field)')
-  assert.equal(legacy.toggleSprint, undefined, 'toggleSprint skipped for 1.12.2')
-  assert.equal(legacy.gamma, '0.5', 'gamma unchanged')
-  // FOV 浮点与版本无关（1.16.1/1.20.1/26.2 同样 0-1 浮点，实证）
-  assert.equal(adaptOptionsForVersion({ fov: '90' }, '1.16.1').fov, '0.75')
-  assert.equal(adaptOptionsForVersion({ fov: '90' }, '1.20.1').fov, '0.75')
-  assert.equal(adaptOptionsForVersion({ fov: '90' }, '26.2').fov, '0.75')
-  // 渲染距离各版本字段一致（renderDistance，26.2 实证）
-  assert.equal(adaptOptionsForVersion({ renderDistance: '16' }, '26.2').renderDistance, '16')
-  assert.equal(adaptOptionsForVersion({ renderDistance: '16' }, '1.12.2').renderDistance, '16')
-})
 
 test('version comparison: 26.x new scheme is newer than all 1.x; unknown treated as latest', () => {
   assert(mcVersionAtLeast('26.2', '1.18'))
@@ -51,36 +33,6 @@ test('home recent games: selection no longer pins to top; launch recency drives 
   const recent = home.slice(home.indexOf('const recent = computed'), home.indexOf('const sortedInstalled'))
   assert(!recent.includes('selected'), 'recent must not reference selected for pinning')
   assert.match(recent, /sortWithFavorite\(store\.installed\)\.slice\(0, 4\)/)
-})
-
-test('resource packs: drag-drop import replaces text input; multi-pack load; sync copies files', () => {
-  const kb = read('src/main/core/keybindings.ts')
-  assert.match(kb, /importDefaultResourcePacks/)
-  assert.match(kb, /removeDefaultResourcePack/)
-  assert.match(kb, /default-resourcepacks/)
-  assert.match(kb, /resourcepacks/)
-  const view = read('src/renderer/src/views/KeysView.vue')
-  assert.match(view, /cfg-pack-zone/)
-  assert.match(view, /onPackDrop/)
-  assert.match(view, /dataTransfer/)
-})
-
-test('default config right column: MC-identical value display, slider live preview, click-to-edit, sneak/sprint toggle, autoJump', () => {
-  const ids = new Set(VANILLA_OPTIONS.map((d) => d.id))
-  assert(ids.has('autoJump'), 'autoJump added')
-  const view = read('src/renderer/src/views/KeysView.vue')
-  // 亮度/灵敏度按 MC 百分比显示
-  assert.match(view, /Math\.round\(Number\(raw\) \* 100\)/)
-  assert.match(view, /Math\.round\(Number\(raw\) \* 200\)/)
-  // 拖动实时显示 + 点击精确输入
-  assert.match(view, /sliderPreview/)
-  assert.match(view, /onSliderInput/)
-  assert.match(view, /startOptionEdit/)
-  assert.match(view, /commitOptionEdit/)
-  // 潜行/疾跑与 MC 原版一致的按住/切换按钮
-  assert.match(view, /toggleSneakSprint/)
-  assert.match(view, /sneakSprintLabel/)
-  assert(view.includes("'潜行'") && view.includes("'疾跑'"), 'sneak/sprint labels')
 })
 
 test('personalization edit panel: opaque background, clear boundary, avoids top tip bar', () => {

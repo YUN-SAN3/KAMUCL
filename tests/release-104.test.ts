@@ -2,11 +2,9 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
-import { getDefaultOptions, syncOptionsToGameDir, mergeKeysIntoOptions } from '../src/main/core/keybindings'
-import { VANILLA_OPTIONS } from '../src/shared/keybindings'
+import { mergeKeysIntoOptions } from '../src/main/core/keybindings'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
-const tmpDir = () => fs.mkdtempSync(require('node:os').tmpdir() + '/kamucl-opt-')
 
 test('microsoft login: every pipeline step is labeled and written to launcher log', () => {
   const accounts = read('src/main/core/accounts.ts')
@@ -60,46 +58,11 @@ test('background auto-switch: multi-image, strategy (off/order/random), startup 
   assert.match(editor, /switchMode/)
 })
 
-test('default options: FOV/sensitivity/brightness/video/sneak-sprint/resource packs with independent sync toggle', () => {
-  // 定义表覆盖需求列出的项目（字段名经真实 options.txt 实证）
-  const ids = new Set(VANILLA_OPTIONS.map((d) => d.id))
-  for (const required of ['fov', 'mouseSensitivity', 'gamma', 'graphicsPreset', 'toggleCrouch', 'toggleSprint', 'resourcePacks', 'renderDistance', 'maxFps', 'enableVsync']) {
-    assert(ids.has(required), required)
-  }
-  // 默认配置存储含原版默认
-  const defaults = getDefaultOptions()
-  assert.equal(defaults.fov, '70')
-  assert.equal(defaults.toggleCrouch, 'false')
-  // 同步：覆盖登记项、保留其他行；FOV 转浮点（80° → 0.625）；resourcePacks 空=不同步
-  const dir = tmpDir()
-  const file = require('node:path').join(dir, 'options.txt')
-  fs.writeFileSync(file, 'lang:zh_cn\nfov:0.5\ncustomLine:keep\n', 'utf8')
-  const changed = syncOptionsToGameDir(dir, { ...defaults, fov: '80' })
-  assert.equal(changed, true)
-  const after = fs.readFileSync(file, 'utf8')
-  assert(after.includes('fov:0.625'), 'fov 80° written as 0.625 float, got: ' + after)
-  assert(!after.includes('fov:0.5'), 'old fov gone')
-  assert(after.includes('customLine:keep'), 'custom line kept')
-  assert(after.includes('lang:zh_cn'), 'lang kept')
-  // resourcePacks 逗号分隔转 JSON 数组；空则不动
-  syncOptionsToGameDir(dir, { ...defaults, resourcePacks: 'file/a.zip, vanilla' })
-  const after2 = fs.readFileSync(file, 'utf8')
-  assert(after2.includes('resourcePacks:["file/a.zip","vanilla"]'), 'resourcePacks written as JSON array, got: ' + after2)
-  // launch 两个独立开关
-  const launch = read('src/main/core/launch.ts')
-  assert.match(launch, /if \(settings\.keySync\)/)
-  assert.match(launch, /if \(settings\.optionsSync\)/)
-})
-
-test('default config page: renamed, two-column split, separate sync switches, vanilla-aligned categories', () => {
+test('default config page: renamed, key sync switch, vanilla-aligned categories (1.0.12 起仅保留键位)', () => {
   const view = read('src/renderer/src/views/KeysView.vue')
   assert.match(view, /默认配置/)
-  assert.match(view, /cfg-columns/)
   assert.match(view, /按键设置同步/)
-  assert.match(view, /其他设置同步/)
   assert.match(view, /toggleKeySync/)
-  assert.match(view, /toggleOptionsSync/)
-  assert.match(view, /视频设置/)
   assert.match(view, /按键配置/)
   // 导航与功能开关改名
   const app = read('src/renderer/src/App.vue')
@@ -108,10 +71,18 @@ test('default config page: renamed, two-column split, separate sync switches, va
   assert.match(settings, /label: '默认配置'/)
 })
 
-test('options.txt merge is the shared primitive for both keys and options sync', () => {
+test('options.txt merge covers key_* lines and preserves everything else', () => {
+  const merged = mergeKeysIntoOptions('lang:zh_cn\nkey_key.forward:key.keyboard.w\ncustomLine:keep\n', {
+    'key_key.forward': 'key.keyboard.s',
+    'key_key.back': 'key.keyboard.w'
+  })
+  assert(merged.includes('key_key.forward:key.keyboard.s'), 'registered key overwritten')
+  assert(merged.includes('key_key.back:key.keyboard.w'), 'missing key appended')
+  assert(merged.includes('customLine:keep'), 'custom line kept')
+  assert(merged.includes('lang:zh_cn'), 'lang kept')
   const kb = read('src/main/core/keybindings.ts')
-  assert.match(kb, /syncOptionsToGameDir[\s\S]*?mergeKeysIntoOptions/)
   assert.match(kb, /export function mergeKeysIntoOptions/)
+  assert.match(kb, /export function syncKeysToGameDir/)
 })
 
 test('new/changed Vue components compile', () => {
