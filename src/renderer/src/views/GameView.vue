@@ -9,6 +9,7 @@ import {
   getIsolationPlan,
   getSettings,
   installVersion,
+  launchGame,
   listFabricApi,
   listFolders,
   listJava,
@@ -450,6 +451,15 @@ async function openVersionFolder(v: InstalledVersion) {
     await openDir('versions/' + v.id)
   } catch (e) {
     toast('打开文件夹失败：' + errText(e), 'error')
+  }
+}
+
+/** 版本列表条目的主操作：直接用该版本启动游戏（与首页最近游戏卡片行为一致） */
+async function launchVersion(v: InstalledVersion) {
+  try {
+    await launchGame(v.id, undefined, v.folder)
+  } catch (e) {
+    toast('启动失败：' + errText(e), 'error')
   }
 }
 
@@ -1060,6 +1070,15 @@ async function confirmIsolation() {
               <circle cx="12" cy="12" r="3" />
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
             </svg>
+          </button>
+          <button
+            class="btn btn-gold btn-sm installed-launch"
+            :disabled="store.launchState?.status === 'running' || store.launchState?.status === 'launching'"
+            :title="`启动 ${v.id}`"
+            @click="launchVersion(v)"
+          >
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" style="margin-right:4px;vertical-align:-1px"><path d="M8 5.5v13l11-6.5Z" /></svg>
+            启动
           </button>
           <button
             class="btn btn-danger btn-sm installed-remove"

@@ -131,6 +131,65 @@ export function getLastLaunch(): LastLaunchInfo | null {
   return lastLaunch
 }
 
+// ---------------- 运行中游戏持久化（重开启动器识别并恢复） ----------------
+
+interface RunningGameRecord {
+  pid: number
+  versionId: string
+  effectiveGameDir: string
+  logDir: string
+  startedAt: string
+}
+
+function runningGameFile(): string {
+  return path.join(app.getPath('userData'), 'running-game.json')
+}
+
+function persistRunningGame(record: RunningGameRecord): void {
+  try {
+    fs.writeFileSync(runningGameFile(), JSON.stringify(record, null, 2), 'utf-8')
+  } catch { /* 写入失败不影响启动 */ }
+}
+
+function clearRunningGame(): void {
+  try {
+    fs.rmSync(runningGameFile(), { force: true })
+  } catch { /* 忽略 */ }
+}
+
+/**
+ * 重开启动器时恢复运行中游戏的状态显示：
+ * 读取上次的运行记录，校验进程存活；存活则恢复 launchState=running + lastLaunch 上下文。
+ * 进程句柄不重建（detached 后无法重连 stdio），日志从游戏目录 logs/latest.log 读取。
+ */
+export function restoreRunningGame(onState: (s: LaunchState) => void): RunningGameRecord | null {
+  let record: RunningGameRecord | null = null
+  try {
+    const raw = JSON.parse(fs.readFileSync(runningGameFile(), 'utf-8'))
+    if (Number.isInteger(raw?.pid) && raw.pid > 0 && typeof raw.versionId === 'string') record = raw
+  } catch {
+    return null
+  }
+  if (!record) return null
+  try {
+    process.kill(record.pid, 0) // 存活探测（不杀进程）
+  } catch {
+    clearRunningGame() // 残留记录：进程已不在
+    return null
+  }
+  // 恢复到当前会话的状态跟踪
+  lastLaunch = {
+    versionId: record.versionId,
+    javaPath: '',
+    startedAt: record.startedAt,
+    effectiveGameDir: record.effectiveGameDir,
+    logDir: record.logDir,
+    pid: record.pid
+  }
+  onState({ status: 'running', text: '检测到正在运行的游戏（启动器重启后恢复）' })
+  return record
+}
+
 /** 记录 Java 进程创建前的准备失败，仅供诊断导出，不改变启动流程。 */
 export function recordLaunchPreparationError(versionId: string, message: string): void {
   if (!lastLaunch || lastLaunch.versionId !== versionId) {
@@ -591,7 +650,11 @@ async function launchOwned(
   launchLog.info(`启动准备完成（耗时 ${Date.now() - pipelineStarted}ms），正在创建游戏进程`)
 
   emit({ stage: 'launch', progress: 1, text: '启动游戏进程' })
-  const proc = spawn(javaPath, args, { cwd: effectiveGameDir })
+  // detached + unref：游戏进程与启动器完全分离（独立进程组、脱离父子关系），
+  // detached + unref：游戏进程与启动器完全分离（独立进程组、脱离父子关系），
+  // 关闭启动器不会杀掉运行中的游戏；stdio pipe 仍用于实时日志读取。
+  const proc = spawn(javaPath, args, { cwd: effectiveGameDir, detached: true })
+  proc.unref()
   gameSession.attach(token, proc)
   spawned = true
   const spawnedAt = Date.now()
@@ -607,6 +670,8 @@ async function launchOwned(
     windowHeight: windowArgs.height,
     pid: proc.pid
   }
+  // 持久化运行中游戏记录：重开启动器时据此识别并恢复状态
+  persistRunningGame({ pid: proc.pid ?? 0, versionId, effectiveGameDir, logDir: launchLogDir, startedAt: lastLaunch.startedAt })
   proc.once('spawn', () => {
     launchLog.info(`游戏进程已启动：pid=${proc.pid}`)
     onState({ status: 'running', text: '游戏进程已启动' })
@@ -658,6 +723,7 @@ async function launchOwned(
       lastLaunch.exitCode = code
       lastLaunch.endedAt = new Date().toISOString()
     }
+    clearRunningGame()
     onState({ status: 'exited', code: code ?? 0, intentionalRestart: restartPending?.sessionToken === token, intentionalStop: gameSession.wasIntentionalStop(token), text: `游戏已退出 (code=${code ?? 0})` })
   })
   } finally {

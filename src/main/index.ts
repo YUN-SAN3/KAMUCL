@@ -155,6 +155,14 @@ app.whenReady().then(async () => {
   createWindow(startup)
   launcherLogInfo('main', '主窗口创建完成')
 
+  // 重开启动器时恢复运行中游戏：主窗口加载完成后推送 running 状态 + 日志尾部
+  win?.webContents.once('did-finish-load', () => {
+    void import('./core/launch').then(({ restoreRunningGame }) => {
+      const record = restoreRunningGame((s) => win?.webContents.send('event:launchState', s))
+      if (record) launcherLogInfo('main', `检测到运行中游戏已恢复：pid=${record.pid} 实例=${record.versionId}`)
+    })
+  })
+
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       launcherLogInfo('window', 'macOS 激活事件：重新创建主窗口')

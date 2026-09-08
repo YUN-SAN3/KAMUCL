@@ -191,7 +191,15 @@ watch([navHoverKey, () => store.currentView, resourceExpanded, visibleNavItems, 
   nextTick(updateNavBlob)
 )
 
+/** 关闭启动器不影响游戏：游戏在跑时点关闭先提示一次，再真正关闭 */
+let closeHintShown = false
 const win = (action: 'minimize' | 'maximize' | 'close') => {
+  if (action === 'close' && store.launchState?.status === 'running' && !closeHintShown) {
+    closeHintShown = true
+    toast('关闭启动器不影响游戏，游戏继续运行', 'info')
+    setTimeout(() => window.kamucl.send('window:close'), 1300)
+    return
+  }
   window.kamucl.send(`window:${action}`)
 }
 

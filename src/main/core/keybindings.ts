@@ -7,6 +7,9 @@ import path from 'node:path'
 import { app } from 'electron'
 import { VANILLA_KEYBINDS, VANILLA_OPTIONS } from '../../shared/keybindings'
 import { compareVersions } from '../../shared/modCompatibility'
+import { logScope } from './launcherLog'
+
+const syncLog = logScope('options-sync')
 
 const KEY_ID_RE = /^key_key\.[a-z0-9.]+$/i
 const BIND_RE = /^key\.(keyboard|mouse)\.[a-z0-9.]+$/
@@ -153,6 +156,8 @@ export function resetDefaultOptions(): Record<string, string> {
 export function syncOptionsToGameDir(gameDir: string, options: Record<string, string> = getDefaultOptions(), mcVersion = ''): boolean {
   const effective: Record<string, string> = {}
   const adapted = adaptOptionsForVersion(options, mcVersion)
+  // 同步写入记录（诊断同步失效时可核对写入键值/目标路径/版本口径）
+  syncLog.debug(`同步其他配置 mc=${mcVersion} target=${path.join(gameDir, 'options.txt')} write=${JSON.stringify(adapted)}`)
   for (const [key, value] of Object.entries(adapted)) {
     // 资源包列表：逗号分隔文本 → options.txt 的 JSON 数组；为空 = 未配置，不同步
     if (key === 'resourcePacks') {
