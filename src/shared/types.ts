@@ -1204,4 +1204,6 @@ export interface ServerPingResult {
 export interface SystemInfo {
   /** 物理内存总量（MB，向下取整） */
   totalMemMB: number
+  /** 当前空闲物理内存（MB，向下取整；随系统实时波动） */
+  freeMemMB: number
 }

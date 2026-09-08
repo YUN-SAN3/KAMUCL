@@ -6,11 +6,13 @@ import { autoMemoryMB } from '../src/shared/memory'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
 
-test('3D viewer: smooth bob (no abs jitter), chin -y face skinview3d convention, pitch orbits camera', () => {
+test('3D viewer: static height (bob removed), chin -y face skinview3d convention, pitch orbits camera, sine walk', () => {
   const v = read('src/renderer/src/components/SkinViewer3D.vue')
-  // 颤抖修复：不再用 abs(sin) 急弯弹跳，改 sin² 平滑
+  // 颤抖修复：行走弹跳整体移除（root.position.y 恒定 0），四肢改正弦摆动（无三角波硬反向）
   assert.doesNotMatch(v, /Math\.abs\(Math\.sin\(animT \* 9\.42\)\)/)
-  assert.match(v, /stepBob \* stepBob \* 0\.3 \* b/)
+  assert.match(v, /root\.position\.y = 0/)
+  assert.doesNotMatch(v, /function stepOsc/)
+  assert.match(v, /j\.main\.dir \* Math\.sin\(/)
   // 下巴：-y 底面按 skinview3d 约定（v 翻转映射），身体与披风两处 UV 写入都修
   const uvBlocks = v.match(/if \(f === 3\) \{[\s\S]*?uv\.setXY\(o \+ 3, u0, vTop\)[\s\S]*?\}/g) ?? []
   assert.equal(uvBlocks.length, 2, 'mapBoxUVs 与 attachCapeMesh 都应有 -y 特例')

@@ -551,6 +551,7 @@ async function launchOwned(
   // Xmx 按真实物理内存钳制：配置文件可能被手改或从大内存机器迁移过来，
   // 超出物理内存的分配会让 JVM 起不来或系统整卡死。
   const totalMemMB = Math.floor(os.totalmem() / 1024 / 1024)
+  // 自动分配算法统一走 shared/memory.ts（25% 物理内存，2-8GB），与设置页展示值一致
   const mem = settings.memoryAuto
     ? autoMemoryMB(totalMemMB)
     : Math.min(Math.max(512, settings.memoryMB || 4096), totalMemMB)

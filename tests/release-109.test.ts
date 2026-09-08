@@ -24,11 +24,11 @@ test('game view: per-version launch button before delete (新增2)', () => {
   assert.match(gv, /@click="launchVersion\(v\)"/)
 })
 
-test('skin viewer: cape preview via HMCL-style flip, 64x32 layout, cape prop watch (新增3；1.0.16 起用物晖重写版实现)', () => {
+test('skin viewer: cape preview via HMCL-style flip, narrowed torso width, cape prop watch (新增3；1.0.16 物晖重写版+收窄防穿模)', () => {
   const viewer = read('src/renderer/src/components/SkinViewer3D.vue')
   assert.match(viewer, /function attachCapeMesh/)
-  // 披风 10×16×1，正面 UV (1,1)，180° 翻转朝后挂背部
-  assert.match(viewer, /faceRegions\(1, 1, 10, 16, 1\)/)
+  // 披风收窄至躯干同宽 8（根治正面/侧前方穿模），180° 翻转朝后挂背部
+  assert.match(viewer, /BoxGeometry\(8, 16, 1\)/)
   assert.match(viewer, /rotation\.y = Math\.PI/)
   assert.match(viewer, /joint\.position\.set\(0, 24, -2\.7\)/)
   // cape prop 监听重载
