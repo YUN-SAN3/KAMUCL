@@ -859,17 +859,6 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     keybindings.setDefaultKey(String(id ?? ''), String(bind ?? ''))
   )
   ipcMain.handle(IPC.keysReset, () => keybindings.resetDefaultKeys())
-  ipcMain.handle(IPC.optionsGetDefault, () => keybindings.getDefaultOptions())
-  ipcMain.handle(IPC.optionsSetDefault, (_e, id: string, value: string) =>
-    keybindings.setDefaultOption(String(id ?? ''), String(value ?? ''))
-  )
-  ipcMain.handle(IPC.optionsReset, () => keybindings.resetDefaultOptions())
-  ipcMain.handle(IPC.optionsImportPacks, (_e, paths: string[]) =>
-    keybindings.importDefaultResourcePacks(Array.isArray(paths) ? paths.map(String) : [])
-  )
-  ipcMain.handle(IPC.optionsRemovePack, (_e, name: string) =>
-    keybindings.removeDefaultResourcePack(String(name ?? ''))
-  )
 
   // ---------------- 桥接 MOD 实时配置面板 ----------------
   ipcMain.handle(IPC.bridgeStatus, (_e, versionId: string) => modBridge.bridgeStatus(String(versionId ?? '')))

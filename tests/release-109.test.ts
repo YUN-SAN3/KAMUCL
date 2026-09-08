@@ -5,21 +5,13 @@ import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
 
-test('options-sync: formal log scope + correct option field names (修复1)', () => {
+test('key sync: launch wiring + version gate intact (修复1 后续：1.0.12 移除其他配置，仅留键位)', () => {
   const kb = read('src/main/core/keybindings.ts')
-  // 正式日志通道（取证埋点转正式）
-  assert.match(kb, /logScope\('options-sync'\)/)
-  // MC 真实字段名（1.0.7 实证）：enableVsync/maxFps/toggleCrouch/toggleSprint
-  assert.match(kb, /enableVsync/)
-  assert.match(kb, /maxFps/)
-  assert.match(kb, /toggleCrouch/)
-  assert.match(kb, /toggleSprint/)
-  // fov 全版本 0-1 浮点写入 + 版本号保留
-  assert.match(kb, /adaptOptionsForVersion/)
-  // 回归脚本入库且可独立运行
-  const script = read('scripts/verify-options-sync.cjs')
-  assert.match(script, /options\.txt/)
-  assert.match(script, /fov/)
+  assert.match(kb, /export function syncKeysToGameDir/)
+  assert.match(kb, /export function keySyncSupportedForVersion/)
+  const launch = read('src/main/core/launch.ts')
+  assert.match(launch, /if \(settings\.keySync\)/)
+  assert.match(launch, /keySyncSupportedForVersion\(instanceMcVersion\)/)
 })
 
 test('game view: per-version launch button before delete (新增2)', () => {
