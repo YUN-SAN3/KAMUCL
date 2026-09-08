@@ -58,6 +58,8 @@ import { exportLaunchLogs } from './core/exportLogs'
 import { ProgressEventGuard } from './core/progress'
 import { launcherLogDebug, launcherLogError, launcherLogInfo, launcherLogWarn } from './core/launcherLog'
 import * as gameFolders from './core/gameFolders'
+import * as selfUpdate from './core/selfUpdate'
+import * as applyUpdate from './core/applyUpdate'
 import * as instances from './core/instances'
 import * as worlds from './core/worlds'
 import * as yggdrasil from './core/yggdrasil'
@@ -859,6 +861,51 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     keybindings.setDefaultKey(String(id ?? ''), String(bind ?? ''))
   )
   ipcMain.handle(IPC.keysReset, () => keybindings.resetDefaultKeys())
+
+  // ---------------- 启动器自更新与版本回退 ----------------
+  applyUpdate.setUpdateEmitter(send)
+  ipcMain.handle(IPC.updateCheck, async (_e, force?: boolean) => selfUpdate.checkLatest(force === true))
+  ipcMain.handle(IPC.updateSkip, (_e, version: string) => {
+    settings.saveSettings({ skipUpdateVersion: String(version ?? '') })
+  })
+  ipcMain.handle(IPC.updateStart, (_e, release: import('../shared/types').ReleaseInfo, mode: 'upgrade' | 'rollback') => {
+    const s = settings.getSettings()
+    const handle = applyUpdate.startUpdateDownload(release, s, mode === 'rollback' ? 'rollback' : 'upgrade')
+    // 下载结果由 event:taskDone 统一派发；此处同步返回任务 id 供 UI 关联
+    void handle.done.catch(() => {})
+    return { taskId: handle.taskId }
+  })
+  ipcMain.handle(IPC.updateApply, async (_e, release: import('../shared/types').ReleaseInfo) => {
+    await applyUpdate.applyDownloadedUpdate(release)
+  })
+  ipcMain.handle(IPC.updateListReleases, () => selfUpdate.listReleases())
+  ipcMain.handle(IPC.updateGetState, () => applyUpdate.getUpdateState())
+  ipcMain.handle(IPC.updateRestoreBackup, async () => {
+    await applyUpdate.restoreBackupAndRestart()
+  })
+  ipcMain.handle(IPC.updatePickLocalFile, async () => {
+    const win = getWin()
+    const opts = {
+      properties: ['openFile' as const],
+      title: '选择 KAMUCL 安装包',
+      filters: [{ name: 'KAMUCL 安装包', extensions: ['exe'] }]
+    }
+    const result = win ? await dialog.showOpenDialog(win, opts) : await dialog.showOpenDialog(opts)
+    if (result.canceled || !result.filePaths[0]) return null
+    return applyUpdate.checkLocalUpdateFile(result.filePaths[0])
+  })
+  ipcMain.handle(IPC.updateApplyLocal, async (_e, check: import('../shared/types').LocalUpdateCheck) => {
+    await applyUpdate.applyLocalUpdateFile(check)
+  })
+  ipcMain.handle(IPC.updateGetConfigStatus, () => {
+    const CURRENT = 1
+    const v = settings.getSettings().configVersion ?? 1
+    return { configVersion: v, current: CURRENT, mismatch: v > CURRENT ? ('newer' as const) : null }
+  })
+  ipcMain.handle(IPC.updateResetSettings, () => {
+    // 配置不兼容时重置：先备份原文件再写默认值
+    settings.resetSettingsToDefaults()
+  })
 
   // ---------------- 桥接 MOD 实时配置面板 ----------------
   ipcMain.handle(IPC.bridgeStatus, (_e, versionId: string) => modBridge.bridgeStatus(String(versionId ?? '')))

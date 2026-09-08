@@ -56,8 +56,24 @@ function defaults(): Settings {
     homeLayout: structuredClone(DEFAULT_HOME_LAYOUT),
     background: structuredClone(DEFAULT_BACKGROUND),
     launchThumbnail: structuredClone(DEFAULT_LAUNCH_THUMBNAIL),
-    closeAfterLaunch: false
+    closeAfterLaunch: false,
+    configVersion: 1
   }
+}
+
+/** 配置不兼容时重置为默认（原文件先备份为 settings.backup-时间戳.json，可人工找回） */
+export function resetSettingsToDefaults(): void {
+  const file = settingsFile()
+  try {
+    if (fs.existsSync(file)) {
+      const stamp = new Date().toISOString().replace(/[:.]/g, '-')
+      fs.copyFileSync(file, file.replace(/\.json$/, `.backup-${stamp}.json`))
+    }
+  } catch { /* 备份失败不阻断重置 */ }
+  const def = defaults()
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  fs.writeFileSync(file, JSON.stringify(def, null, 2), 'utf-8')
+  cached = def
 }
 
 /** 读取设置（带内存缓存），文件不存在/损坏时返回默认值 */

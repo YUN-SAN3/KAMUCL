@@ -107,6 +107,8 @@ export const store = reactive({
   noticesUnread: false,
   /** 整合包导入处理器（App.vue 注册，供任意页面触发导入确认弹窗） */
   importHandler: null as ((filePath: string) => void) | null,
+  /** 启动器更新弹窗触发器（设置页手动检查/启动自动检查写入，App.vue 监听打开弹窗） */
+  updatePrompt: null as { release: import('@shared/types').ReleaseInfo; rollback: boolean } | null,
   /** 外置登录提供商拖拽入口；切换到账号页期间先暂存在 pending 中。 */
   yggdrasilImportHandler: null as ((input: YggdrasilProviderInput) => void) | null,
   pendingYggdrasilImport: null as YggdrasilProviderInput | null,
