@@ -5,7 +5,7 @@
       <span class="creator-pixels" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
     </div>
     <p class="creator-intro">由人见人爱，花见花开的 UP 主</p>
-    <p class="creator-signature"><strong>卡慕<span>SaMa</span></strong><span class="creator-fan">和他的粉丝物晖</span><span class="creator-made">制作</span></p>
+    <p class="creator-signature"><strong>卡慕<span>SaMa</span></strong><span class="creator-made">制作，和他的粉丝物晖</span></p>
     <a
       class="creator-link"
       href="https://space.bilibili.com/9596327"
@@ -54,7 +54,6 @@
 .creator-signature strong { font-size: var(--text-lg); font-weight: 700; line-height: 1.3; letter-spacing: 0.2px; }
 .creator-signature strong span { margin-left: var(--space-1); font-size: var(--text-md); font-weight: 600; letter-spacing: -0.6px; }
 .creator-made { color: var(--text-dim); font-size: var(--text-xs); }
-.creator-fan { color: color-mix(in srgb, var(--text-dim) 75%, transparent); font-size: calc(var(--text-xs) - 1px); }
 .creator-link { display: flex; flex: none; min-height: var(--ctl-h); align-items: center; justify-content: space-between; gap: var(--space-2); padding: 0 var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card-2); color: var(--text); text-decoration: none; transition: background 180ms ease, border-color 180ms ease; }
 .creator-link-label { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); font-weight: 600; }
 .bilibili-icon { width: 22px; height: 22px; flex: none; color: var(--accent-2); }

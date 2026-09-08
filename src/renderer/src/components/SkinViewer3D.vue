@@ -2,10 +2,11 @@
 /**
  * Minecraft 玩家 3D 查看器（Three.js / WebGL）
  * 参考成熟启动器实现：
- * - HMCL SkinCanvas：部件/UV 全表、外层放大倍率（帽 1.125、其余 1.0625）
- * - FCL SkinRenderer：FOV 45° 透视、NEAREST 像素过滤、背面剔除、行走摆臂参数（三角波）、
- *   拖动手感（yaw 固定灵敏度 ≈0.5°/px、pitch 直接增减夹紧 ±30°）与「静止即完全静止」
- *   ——待机无呼吸/环顾/弹跳等微动画，模型始终立在固定高度
+ * - HMCL SkinCanvas：部件/UV 全表、外层放大倍率（帽 1.125、其余 1.0625）、拖拽与缩放体验
+ * - FCL SkinRenderer：FOV 45° 透视、NEAREST 像素过滤、背面剔除、行走摆臂参数（三角波）
+ * - skinview3d v3.4.2（bs-community，MIT）：底面 UV 顶点序（setUVs uvBottom）、
+ *   行走手臂仅 X 轴摆动 + 0.02π 外张底角（animation.ts WalkAnimation）。
+ *   参考源码：参考/skinview3d-master（仅对照数值与顶点约定，未整段移植）
  * - 64×64 标准 UV；旧版 64×32 皮肤先经 skin-render 迁移再上 GPU
  * - 按需渲染循环：无动画（暂停）且无交互平滑且 document.hidden 时停止 rAF；
  *   卸载时释放全部几何体/材质/纹理/GL 上下文与监听
@@ -19,7 +20,7 @@ const props = withDefaults(
   defineProps<{
     src?: string
     variant?: 'classic' | 'slim'
-    /** 动画模式：walk = 行走摆臂（FCL 三角波参数），idle = 完全静止站姿（FCL 无待机微动画）。默认 walk 保持既有观感 */
+    /** 动画模式：walk = 行走摆臂（FCL 参数），idle = 待机呼吸。默认 walk 保持既有观感 */
     animation?: 'walk' | 'idle'
     /** 暂停动画（冻结在当前帧，交互仍可平滑响应） */
     paused?: boolean
@@ -62,13 +63,12 @@ let disposed = false
 // ---------------- 相机 / 视角 ----------------
 
 const FOV = 45 // FCL：透视 45°
-/** FCL 拖动手感：垂直拖动 pitch 直接增减并夹紧在 ±30° 左右 */
-const PITCH_MAX = (30 * Math.PI) / 180
+const PITCH_MAX = (75 * Math.PI) / 180
 const ZOOM_MIN = 0.5
 const ZOOM_MAX = 3
 /** 模型几何中心：标准 MC 全身 0~32（头 24~32 / 身 12~24 / 腿 0~12），取景以 y=16 居中 */
 const MODEL_CENTER_Y = 16
-/** 取景半幅：模型半高 16 + 余量（帽层放大、行走摆臂幅度与落地间隙） */
+/** 取景半幅：模型半高 16 + 余量（帽层放大 0.5、行走/呼吸起伏 0.3、头部摆动与落地间隙） */
 const FIT_HALF_HEIGHT = 18
 /** 初始朝向：微侧三分之二视角（经典启动器观感） */
 const INITIAL_YAW = -0.35
@@ -83,6 +83,9 @@ let zoomTarget = 1
 // ---------------- 行走动画（FCL 三角波参数：每帧步进 × 60fps → 度/秒） ----------------
 
 const D2R = Math.PI / 180
+/** 手臂恒定外张底角（skinview3d WalkAnimation/IdleAnimation 的 basicArmRotationZ = 0.02π ≈ 3.6°），
+ *  让垂落的手臂自然离开躯干侧壁，行走/待机共用 */
+const ARM_BASE_TILT = Math.PI * 0.02
 interface Osc {
   a: number
   dir: 1 | -1
@@ -95,30 +98,41 @@ interface WalkJoint {
   subRate: number
   subAmp: number
 }
-/** 对角肢体同相：左臂+右腿一组、右臂+左腿一组；副摆绕 Y 轴内外摆（FCL：仅手臂有副摆） */
+/** 对角肢体同相：左臂+右腿一组、右臂+左腿一组；所有肢体均只绕 X 轴前后摆（对齐 skinview3d） */
 let walkJoints: Record<'armL' | 'armR' | 'legL' | 'legR', WalkJoint> | null = null
 let walkBlend = 0
+let animT = 0
 
 function makeWalkJoints(): Record<'armL' | 'armR' | 'legL' | 'legR', WalkJoint> {
   return {
-    // 主摆：臂 ±10°@30°/s，腿 ±30°@90°/s；Y 轴副摆只作用于臂（±20°@20°/s）。
+    // 主摆：臂 ±10°@30°/s，腿 ±30°@90°/s（FCL 参数，保留用户要过的手感）。
+    // 手臂 Y 轴副摆已移除（原 FCL ±20°@20°/s）：臂内缘与躯干侧壁齐平（classic x=±4 贴 ±4），
+    // 任何绕 Y 的内摆都会把手臂内前/内后角切进躯干（20° 时穿透约 0.56px、slim 约 0.63px）；
+    // skinview3d WalkAnimation 手臂同样只有 X 轴摆动，改用 0.02π 恒定外张底角（见 applyPose）。
     // 腿的副摆 amp/rate 必须为 0：双腿绕 Y 轴镜像扭转就是「内八/外八」的根源。
-    armL: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 30, mainAmp: 10, subRate: 20, subAmp: 20 },
-    armR: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 30, mainAmp: 10, subRate: 20, subAmp: 20 },
+    armL: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 30, mainAmp: 10, subRate: 0, subAmp: 0 },
+    armR: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 30, mainAmp: 10, subRate: 0, subAmp: 0 },
     legL: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 90, mainAmp: 30, subRate: 0, subAmp: 0 },
     legR: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 90, mainAmp: 30, subRate: 0, subAmp: 0 }
   }
 }
 
-/**
- * 正弦摆动（MC 原版式平滑行走）：三角波在极值点硬反向是「一抖一抖」的根源。
- * 各关节角频率 = rate·π/(2·amp)（保持原节奏：四肢周期 4/3s），dir 控制对侧反相（左臂+右腿/右臂+左腿）。
- */
-function stepWalk(): void {
+function stepOsc(o: Osc, dt: number, rate: number, amp: number): void {
+  o.a += o.dir * rate * dt
+  if (o.a >= amp) {
+    o.a = amp
+    o.dir = -1
+  } else if (o.a <= -amp) {
+    o.a = -amp
+    o.dir = 1
+  }
+}
+
+function stepWalk(dt: number): void {
   if (!walkJoints) return
   for (const j of Object.values(walkJoints)) {
-    j.main.a = j.main.dir * Math.sin((animT * j.mainRate * Math.PI) / (2 * j.mainAmp)) * j.mainAmp
-    j.sub.a = j.subAmp === 0 ? 0 : j.sub.dir * Math.sin((animT * j.subRate * Math.PI) / (2 * j.subAmp)) * j.subAmp
+    stepOsc(j.main, dt, j.mainRate, j.mainAmp)
+    stepOsc(j.sub, dt, j.subRate, j.subAmp)
   }
 }
 
@@ -159,13 +173,16 @@ function mapBoxUVs(
     const vTop = 1 - ry / 64 // 纹理 flipY，皮肤 y 向下 → v 向上翻转
     const vBot = 1 - (ry + rh) / 64
     const o = f * 4
-    // BoxGeometry 每面 4 顶点 uv 顺序 (0,1) (1,1) (0,0) (1,0) = 左上/右上/左下/右下
-    // 实证（skinview3d setUVs）：-y 底面顶点排布与其他面不同，需按底面约定映射，否则下巴/脚底前后颠倒
+    // BoxGeometry 每面 4 顶点 uv 顺序 (0,1) (1,1) (0,0) (1,0) = 左上/右上/左下/右下。
+    // 但 -y 底面（ny）由 vdir=-1 构建，几何顶点序是 前左/前右/后左/后右（与其他面相反）。
+    // 对齐 skinview3d setUVs 的 uvBottom = [下左, 下右, 上左, 上右]：
+    // 前缘贴区域下边、后缘贴区域上边、u 方向不镜像 —— 若后缘 u 反接（旧「下巴修复」），
+    // 底面前后边 u 相互反转呈蝶形扭曲，下巴/脚底等不对称纹理左右错位。
     if (f === 3) {
       uv.setXY(o + 0, u0, vBot)
       uv.setXY(o + 1, u1, vBot)
-      uv.setXY(o + 2, u1, vTop)
-      uv.setXY(o + 3, u0, vTop)
+      uv.setXY(o + 2, u0, vTop)
+      uv.setXY(o + 3, u1, vTop)
     } else {
       uv.setXY(o + 0, u0, vTop)
       uv.setXY(o + 1, u1, vTop)
@@ -278,36 +295,19 @@ function buildModel(): void {
 
   g.add(head, body, armL, armR, legL, legR)
   attachCapeMesh(g)
-  // 模型自身只随 yaw 水平旋转；俯仰由相机环绕实现（applyCamera）。
-  // 不可写 rotation.x，否则换肤/披风重建模型时会残留固定倾倒角。
   g.rotation.y = yaw
+  g.rotation.x = pitch
   root = g
   joints = { head, armL, armR, legL, legR }
   scene.add(g)
 }
 
-/**
- * 披风：8×16×1，枢轴在顶端，翻转朝后并外倾 10°（HMCL 披风参数）。
- * 宽度取 8（与躯干同宽）而非原版的 10——「视觉优先于还原度」的取舍：原版 10 宽比躯干（8）宽出
- * 各 1px，挂在背后任何非正后视角都会从躯干与手臂之间露出彩色边缘穿帮；收窄到 8 后正面/侧前方
- * 任意 yaw 下都完全隐藏在躯干正后方，背面看依然完整。
- * 悬挂 z=-2.7：贴图面顶端 z≈-2.21，与外套层背面（8×12×4 × 1.0625 → z=-2.125）留 ~0.08 间隙，
- * 下摆经 10° 外倾越摆越远，全程不穿模（-2.7 也在 -2.5~-2.8 的候选区间内）。
- */
+/** 披风：10×16×1，正面 UV (1,1)，枢轴在顶端，翻转朝后并外倾 10°（HMCL 披风参数） */
 function attachCapeMesh(parent: THREE.Group): void {
   if (!capeTex || fallbackActive) return
-  const geo = new THREE.BoxGeometry(8, 16, 1)
+  const geo = new THREE.BoxGeometry(10, 16, 1)
   geo.translate(0, -8, 0) // 枢轴在披风顶端
-  // 64×32 披风图布局：正面 (1,1,10,16)、背面 (12,1,10,16)、左右侧条 (11,1)/(0,1)、顶 (1,0)、底 (11,0)。
-  // UV 随几何同步收窄：正面/背面/顶/底取各自 10 列区域的居中 8 列（左右各弃 1 列），1px 侧条不动。
-  const regions = [
-    [11, 1, 1, 16], // +x 左侧
-    [0, 1, 1, 16], // -x 右侧
-    [2, 0, 8, 1], // +y 顶
-    [12, 0, 8, 1], // -y 底
-    [2, 1, 8, 16], // +z 正面（10 列居中裁 8）
-    [13, 1, 8, 16] // -z 背面（10 列居中裁 8）
-  ] as const
+  const regions = faceRegions(1, 1, 10, 16, 1)
   const uv = geo.attributes.uv as THREE.BufferAttribute
   const colors: number[] = []
   for (let f = 0; f < 6; f++) {
@@ -317,12 +317,12 @@ function attachCapeMesh(parent: THREE.Group): void {
     const vTop = 1 - ry / 32 // 披风纹理 64×32
     const vBot = 1 - (ry + rh) / 32
     const o = f * 4
-    // 与 mapBoxUVs 相同：-y 底面按 skinview3d 底面约定映射（披风下缘方向修正）
+    // 与 mapBoxUVs 相同的 -y 底面约定（skinview3d uvBottom 顶点序），修复披风下摆 UV 蝶形扭曲
     if (f === 3) {
       uv.setXY(o + 0, u0, vBot)
       uv.setXY(o + 1, u1, vBot)
-      uv.setXY(o + 2, u1, vTop)
-      uv.setXY(o + 3, u0, vTop)
+      uv.setXY(o + 2, u0, vTop)
+      uv.setXY(o + 3, u1, vTop)
     } else {
       uv.setXY(o + 0, u0, vTop)
       uv.setXY(o + 1, u1, vTop)
@@ -494,10 +494,6 @@ function rebuildCape(): void {
 let lastX = 0
 let lastY = 0
 
-/** FCL 拖动灵敏度：水平 2°/dp ≈ 0.5°/px 固定值；垂直同标度直接增减 pitch */
-const DRAG_YAW_PER_PX = 0.5 * D2R
-const DRAG_PITCH_PER_PX = 0.5 * D2R
-
 function onPointerDown(e: PointerEvent) {
   if (e.pointerType === 'mouse' && e.button !== 0) return
   dragging.value = true
@@ -517,10 +513,10 @@ function onPointerMove(e: PointerEvent) {
   const dy = e.clientY - lastY
   lastX = e.clientX
   lastY = e.clientY
-  // FCL 手感：水平拖 → yaw 固定灵敏度无限旋转；垂直拖 → pitch 直接增减并夹紧（无象限分配公式）。
-  // 模型 rotation 用 YXZ 欧拉序，任意朝向下垂直拖动都「朝自己倾倒」。
-  yawTarget += dx * DRAG_YAW_PER_PX
-  pitchTarget = clamp(pitchTarget + dy * DRAG_PITCH_PER_PX, -PITCH_MAX, PITCH_MAX)
+  // 水平拖 → yaw 无限旋转；垂直拖 → pitch 夹紧。模型 rotation 用 YXZ 欧拉序，
+  // 等价于 HMCL 象限分配公式：任意朝向下垂直拖动都朝观察者方向倾倒。
+  yawTarget += dx * 0.01
+  pitchTarget = clamp(pitchTarget + dy * 0.01, -PITCH_MAX, PITCH_MAX)
   requestFrame()
 }
 
@@ -574,7 +570,8 @@ function tick(now: number): void {
   // 动画时钟：暂停或页面隐藏时不推进（冻结当前帧）
   const animating = !props.paused && !document.hidden
   if (animating) {
-    if (props.animation === 'walk') stepWalk()
+    animT += dt
+    if (props.animation === 'walk') stepWalk(dt)
     const bt = props.animation === 'walk' ? 1 : 0
     walkBlend += (bt - walkBlend) * Math.min(1, dt * 6)
   }
@@ -601,21 +598,30 @@ function tick(now: number): void {
 function applyPose(): void {
   if (!root || !joints) return
   const b = walkBlend
+  const idle = 1 - b
   const j = walkJoints
+  const idleSwing = Math.sin(animT * 1.6)
   if (j) {
-    // 对角同相：左臂+右腿、右臂+左腿（方向符号在 makeWalkJoints 中配置）
-    joints.armL.rotation.x = j.armL.main.a * D2R * b
-    joints.armL.rotation.y = j.armL.sub.a * D2R * b
-    joints.armR.rotation.x = j.armR.main.a * D2R * b
-    joints.armR.rotation.y = j.armR.sub.a * D2R * b
+    // 对角同相：左臂+右腿、右臂+左腿（方向符号在 makeWalkJoints 中配置）；
+    // 手臂只绕 X 轴摆动（Y 副摆穿模已移除），Z 轴恒定外张（skinview3d basicArmRotationZ）
+    joints.armL.rotation.x = j.armL.main.a * D2R * b + idleSwing * 0.035 * idle
+    joints.armL.rotation.y = Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armL.rotation.z = ARM_BASE_TILT
+    joints.armR.rotation.x = j.armR.main.a * D2R * b - idleSwing * 0.035 * idle
+    joints.armR.rotation.y = -Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armR.rotation.z = -ARM_BASE_TILT
     // 腿：只有 X 轴前后主摆（FCL 无 Y 轴副摆），rotation.y/z 恒为 0。
     // 待机（b→0）时双腿垂直并拢在 x=±2；行走时仅前后摆，绝无内外八。
     joints.legL.rotation.x = j.legL.main.a * D2R * b
     joints.legR.rotation.x = j.legR.main.a * D2R * b
   }
-  // 头部与躯干完全静止（FCL 无行走弹跳、待机呼吸/环顾/点头）：待机=完全静止站姿，
-  // 模型始终立在固定高度，「上下颤抖」的根源（root.position.y 动态偏移）已移除。
-  root.position.y = 0
+  // 头部：行走微点头 + 待机环顾
+  joints.head.rotation.x = Math.sin(animT * 8) * 0.02 * b + Math.sin(animT * 1.3) * 0.03 * idle
+  joints.head.rotation.y = Math.sin(animT * 0.7) * 0.05 * idle
+  // 躯干：行走轻微弹跳 + 待机呼吸起伏
+  // abs(sin) 过零点导数不连续，1.5Hz 下呈上下颤抖；改 sin 平方（平滑曲线，半步双起伏）
+  const stepBob = Math.sin(animT * 4.712) // 与腿部摆动同频（腿周期 4/3s），每步一次起伏
+  root.position.y = stepBob * stepBob * 0.3 * b + idleSwing * 0.18 * idle
   root.rotation.y = yaw
   // pitch 不再翻倒模型（绕脚部倾倒不符合直觉）；俯仰由相机环绕实现（applyCamera）
 }

@@ -199,7 +199,6 @@ const launchText = computed(() => {
   if (launching.value) return store.progress?.text || '正在启动…'
   return '开始游戏'
 })
-// 悬浮启动球副文本：仿 PCL 大按钮内嵌副文本（实例名 · MC 版本）；无实例时引导先选实例
 const fabSub = computed(() =>
   currentVersion.value ? `${heroName.value} · ${heroVersion.value}` : '请先选择游戏实例'
 )
@@ -490,7 +489,7 @@ onUnmounted(() => {
 
 <template>
   <div class="home-page">
-    <!-- 区块一：横幅实例区（轮播 + 当前实例 + 实例选择；启动操作移至右下角悬浮启动球） -->
+    <!-- 区块一：横幅启动区（轮播 + 当前实例 + 启动操作） -->
     <section class="hero-card" data-edit="banner">
       <img
         v-for="(item, index) in banners"
@@ -869,7 +868,7 @@ onUnmounted(() => {
 .hero-game-version { color: var(--bn-text); }
 .loader-badge { display: inline-flex; align-items: center; justify-content: center; padding: var(--space-1) var(--space-3); border: 1px solid color-mix(in srgb, var(--accent-2) 34%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--accent) 30%, color-mix(in srgb, black 46%, transparent)); color: var(--bn-text); font-size: var(--text-xs); font-weight: 600; }
 .hero-actions { display: flex; width: 100%; margin-top: auto; align-items: flex-end; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
-.hero-secondary-actions { display: flex; align-items: stretch; }
+.hero-secondary-actions, .launch-combo { display: flex; align-items: stretch; }
 .hero-settings, .hero-more {
   display: inline-flex; align-items: center; justify-content: center;
   height: 52px;
@@ -1047,8 +1046,6 @@ onUnmounted(() => {
   .hero-card { min-height: 300px; }
   .hero-actions { gap: var(--space-2); }
   .hero-settings { min-width: 110px; }
-  .picker-kicker { display: none; }
-  .hero-instance-picker { height: 54px; }
   .runtime-strip { grid-template-columns: minmax(0, 1fr); }
   .runtime-item { min-height: var(--row-h); padding: var(--space-2) var(--space-4); }
   .runtime-item + .runtime-item { border-left: 0; border-top: 1px solid var(--border); }
