@@ -970,7 +970,7 @@ async function confirmIsolation() {
           <span class="version-id">{{ id }}</span>
           <span class="muted">上次安装失败</span>
         </div>
-        <button class="btn btn-ghost btn-sm installed-folder" @click="onRetry(id)">重试</button>
+        <button class="btn btn-ghost btn-sm installed-folder row-actions" @click="onRetry(id)">重试</button>
       </div>
 
       <div v-if="!store.installed.length && !installingVersions.length" class="empty installed-empty">
@@ -1002,29 +1002,33 @@ async function confirmIsolation() {
           <!-- 下载未完成的残缺版本：继续下载 / 删除 -->
           <template v-if="v.incomplete">
             <span class="tag tag-danger">下载未完成</span>
-            <button
-              class="btn btn-gold btn-sm installed-folder"
-              :disabled="store.installing.has(v.id)"
-              @click="onRetry(v.id)"
-            >
-              继续下载
-            </button>
-            <button
-              class="btn btn-danger btn-sm installed-remove"
-              @click="removeModal.open = true; removeModal.target = v"
-            >
-              删除残留
-            </button>
+            <div class="row-actions">
+              <button
+                class="btn btn-gold btn-sm installed-folder"
+                :disabled="store.installing.has(v.id)"
+                @click="onRetry(v.id)"
+              >
+                继续下载
+              </button>
+              <button
+                class="btn btn-danger btn-sm installed-remove"
+                @click="removeModal.open = true; removeModal.target = v"
+              >
+                删除残留
+              </button>
+            </div>
           </template>
           <!-- 安装事务失败：清理残留 -->
           <template v-else-if="v.failed">
             <span class="tag tag-danger">安装失败</span>
-            <button
-              class="btn btn-danger btn-sm installed-remove"
-              @click="onCleanup(v.id)"
-            >
-              清理残留
-            </button>
+            <div class="row-actions">
+              <button
+                class="btn btn-danger btn-sm installed-remove"
+                @click="onCleanup(v.id)"
+              >
+                清理残留
+              </button>
+            </div>
           </template>
           <template v-else>
           <span v-if="v.modpackName" class="tag tag-accent">整合包 · {{ v.modpackName }}</span>
@@ -1036,6 +1040,7 @@ async function confirmIsolation() {
           >已隔离</span>
           <span class="tag tag-cyan" :title="v.folder">{{ folderShortName(v.folder) }}</span>
           <span class="muted played-text">最近游玩：{{ fmtLastPlayed(store.lastPlayed[v.id]) }}</span>
+          <div class="row-actions">
           <label
             v-if="!v.modpackName"
             class="iso-switch"
@@ -1068,7 +1073,7 @@ async function confirmIsolation() {
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="3" />
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06-.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1.82.33l.06.06a2 2 0 1 1 2.83 2.83l.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
             </svg>
           </button>
           <button
@@ -1086,6 +1091,7 @@ async function confirmIsolation() {
           >
             删除
           </button>
+          </div>
           </template>
         </div>
       </div>
@@ -1679,19 +1685,20 @@ async function confirmIsolation() {
 }
 .installed-row {
   display: flex;
-  flex-wrap: wrap;
+  /* 三区模型：信息区收缩省略 / 元信息区收缩省略 / 操作区钉右，永不换行 */
+  flex-wrap: nowrap;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding: 10px 4px;
   border-bottom: 1px solid var(--border);
 }
 .installed-row:last-child {
   border-bottom: none;
 }
-/* 实例名称（主名 + 技术 id 副标） */
+/* 实例名称（主名 + 技术 id 副标）：信息区可收缩，超长省略号（完整名在 tooltip） */
 .inst-names {
   display: flex;
-  flex: 1 1 200px;
+  flex: 1 1 0;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
@@ -1707,9 +1714,9 @@ async function confirmIsolation() {
   font-family: ui-monospace, Consolas, monospace;
   word-break: break-all;
 }
-/* 下载源切换按钮 */
-.inst-names .version-id { max-width: 100%; overflow-wrap: anywhere; }
-.installed-row > .tag { max-width: 200px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.inst-names .version-id { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* 元信息区（标签）：可收缩，省略号兜底，不挤压操作区 */
+.installed-row > .tag { max-width: 200px; flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .iso-switch { flex-shrink: 0; white-space: nowrap; }
 .mirror-toggle {
   cursor: pointer;
@@ -1763,9 +1770,22 @@ async function confirmIsolation() {
   margin-left: auto;
 }
 .played-text {
-  margin-left: auto;
   font-size: 12px;
+  /* 元信息区可收缩省略，不再用 auto 外边距推右（操作区统一由 .row-actions 钉右） */
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 行内操作区：隔离/文件夹/管理/启动/删除统一容器，钉右且永不换行 */
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 /* 收藏星标按钮与分组标题 */
@@ -1812,13 +1832,6 @@ async function confirmIsolation() {
 }
 .iso-label {
   font-size: 12px;
-}
-.iso-switch + .installed-folder,
-.iso-switch ~ .installed-folder {
-  margin-left: 0;
-}
-.installed-folder {
-  margin-left: auto;
 }
 .installed-remove {
   flex-shrink: 0;
