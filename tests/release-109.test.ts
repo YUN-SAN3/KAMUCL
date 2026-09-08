@@ -42,6 +42,10 @@ test('skin viewer: cape preview with 64x32 layout regions + swing animation (新
   assert.match(viewer, /capeGroup\.rotation\.x/)
   // cape prop 监听
   assert.match(viewer, /watch\(\(\) => props\.cape/)
+  // 内外面映射（实证）：材质顺序 [+x,-x,+y,-y,+z,-z]，主图案 [1,1] 必须在 -z（外面，背后可见），内面 [12,1] 在 +z
+  const regions = viewer.match(/function capeRegions\(\) \{[\s\S]*?\] as const/)![0]
+  const zFaces = regions.match(/\[1?2?, 1, 10, 16\]/g)!
+  assert.deepEqual(zFaces, ['[12, 1, 10, 16]', '[1, 1, 10, 16]'])
   const skins = read('src/renderer/src/views/SkinsView.vue')
   assert.match(skins, /const activeCapeDataUrl = computed/)
   assert.match(skins, /:cape="activeCapeDataUrl"/)
