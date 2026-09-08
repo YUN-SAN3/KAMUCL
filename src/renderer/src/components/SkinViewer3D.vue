@@ -2,8 +2,10 @@
 /**
  * Minecraft 玩家 3D 查看器（Three.js / WebGL）
  * 参考成熟启动器实现：
- * - HMCL SkinCanvas：部件/UV 全表、外层放大倍率（帽 1.125、其余 1.0625）、拖拽与缩放体验
- * - FCL SkinRenderer：FOV 45° 透视、NEAREST 像素过滤、背面剔除、行走摆臂参数（三角波）
+ * - HMCL SkinCanvas：部件/UV 全表、外层放大倍率（帽 1.125、其余 1.0625）
+ * - FCL SkinRenderer：FOV 45° 透视、NEAREST 像素过滤、背面剔除、行走摆臂参数（三角波）、
+ *   拖动手感（yaw 固定灵敏度 ≈0.5°/px、pitch 直接增减夹紧 ±30°）与「静止即完全静止」
+ *   ——待机无呼吸/环顾/弹跳等微动画，模型始终立在固定高度
  * - 64×64 标准 UV；旧版 64×32 皮肤先经 skin-render 迁移再上 GPU
  * - 按需渲染循环：无动画（暂停）且无交互平滑且 document.hidden 时停止 rAF；
  *   卸载时释放全部几何体/材质/纹理/GL 上下文与监听
@@ -17,7 +19,7 @@ const props = withDefaults(
   defineProps<{
     src?: string
     variant?: 'classic' | 'slim'
-    /** 动画模式：walk = 行走摆臂（FCL 参数），idle = 待机呼吸。默认 walk 保持既有观感 */
+    /** 动画模式：walk = 行走摆臂（FCL 三角波参数），idle = 完全静止站姿（FCL 无待机微动画）。默认 walk 保持既有观感 */
     animation?: 'walk' | 'idle'
     /** 暂停动画（冻结在当前帧，交互仍可平滑响应） */
     paused?: boolean
@@ -60,12 +62,13 @@ let disposed = false
 // ---------------- 相机 / 视角 ----------------
 
 const FOV = 45 // FCL：透视 45°
-const PITCH_MAX = (75 * Math.PI) / 180
+/** FCL 拖动手感：垂直拖动 pitch 直接增减并夹紧在 ±30° 左右 */
+const PITCH_MAX = (30 * Math.PI) / 180
 const ZOOM_MIN = 0.5
 const ZOOM_MAX = 3
 /** 模型几何中心：标准 MC 全身 0~32（头 24~32 / 身 12~24 / 腿 0~12），取景以 y=16 居中 */
 const MODEL_CENTER_Y = 16
-/** 取景半幅：模型半高 16 + 余量（帽层放大 0.5、行走/呼吸起伏 0.3、头部摆动与落地间隙） */
+/** 取景半幅：模型半高 16 + 余量（帽层放大、行走摆臂幅度与落地间隙） */
 const FIT_HALF_HEIGHT = 18
 /** 初始朝向：微侧三分之二视角（经典启动器观感） */
 const INITIAL_YAW = -0.35
@@ -95,7 +98,6 @@ interface WalkJoint {
 /** 对角肢体同相：左臂+右腿一组、右臂+左腿一组；副摆绕 Y 轴内外摆（FCL：仅手臂有副摆） */
 let walkJoints: Record<'armL' | 'armR' | 'legL' | 'legR', WalkJoint> | null = null
 let walkBlend = 0
-let animT = 0
 
 function makeWalkJoints(): Record<'armL' | 'armR' | 'legL' | 'legR', WalkJoint> {
   return {
@@ -282,12 +284,28 @@ function buildModel(): void {
   scene.add(g)
 }
 
-/** 披风：10×16×1，正面 UV (1,1)，枢轴在顶端，翻转朝后并外倾 10°（HMCL 披风参数） */
+/**
+ * 披风：8×16×1，枢轴在顶端，翻转朝后并外倾 10°（HMCL 披风参数）。
+ * 宽度取 8（与躯干同宽）而非原版的 10——「视觉优先于还原度」的取舍：原版 10 宽比躯干（8）宽出
+ * 各 1px，挂在背后任何非正后视角都会从躯干与手臂之间露出彩色边缘穿帮；收窄到 8 后正面/侧前方
+ * 任意 yaw 下都完全隐藏在躯干正后方，背面看依然完整。
+ * 悬挂 z=-2.7：贴图面顶端 z≈-2.21，与外套层背面（8×12×4 × 1.0625 → z=-2.125）留 ~0.08 间隙，
+ * 下摆经 10° 外倾越摆越远，全程不穿模（-2.7 也在 -2.5~-2.8 的候选区间内）。
+ */
 function attachCapeMesh(parent: THREE.Group): void {
   if (!capeTex || fallbackActive) return
-  const geo = new THREE.BoxGeometry(10, 16, 1)
+  const geo = new THREE.BoxGeometry(8, 16, 1)
   geo.translate(0, -8, 0) // 枢轴在披风顶端
-  const regions = faceRegions(1, 1, 10, 16, 1)
+  // 64×32 披风图布局：正面 (1,1,10,16)、背面 (12,1,10,16)、左右侧条 (11,1)/(0,1)、顶 (1,0)、底 (11,0)。
+  // UV 随几何同步收窄：正面/背面/顶/底取各自 10 列区域的居中 8 列（左右各弃 1 列），1px 侧条不动。
+  const regions = [
+    [11, 1, 1, 16], // +x 左侧
+    [0, 1, 1, 16], // -x 右侧
+    [2, 0, 8, 1], // +y 顶
+    [12, 0, 8, 1], // -y 底
+    [2, 1, 8, 16], // +z 正面（10 列居中裁 8）
+    [13, 1, 8, 16] // -z 背面（10 列居中裁 8）
+  ] as const
   const uv = geo.attributes.uv as THREE.BufferAttribute
   const colors: number[] = []
   for (let f = 0; f < 6; f++) {
@@ -466,6 +484,10 @@ function rebuildCape(): void {
 let lastX = 0
 let lastY = 0
 
+/** FCL 拖动灵敏度：水平 2°/dp ≈ 0.5°/px 固定值；垂直同标度直接增减 pitch */
+const DRAG_YAW_PER_PX = 0.5 * D2R
+const DRAG_PITCH_PER_PX = 0.5 * D2R
+
 function onPointerDown(e: PointerEvent) {
   if (e.pointerType === 'mouse' && e.button !== 0) return
   dragging.value = true
@@ -485,10 +507,10 @@ function onPointerMove(e: PointerEvent) {
   const dy = e.clientY - lastY
   lastX = e.clientX
   lastY = e.clientY
-  // 水平拖 → yaw 无限旋转；垂直拖 → pitch 夹紧。模型 rotation 用 YXZ 欧拉序，
-  // 等价于 HMCL 象限分配公式：任意朝向下垂直拖动都朝观察者方向倾倒。
-  yawTarget += dx * 0.01
-  pitchTarget = clamp(pitchTarget + dy * 0.01, -PITCH_MAX, PITCH_MAX)
+  // FCL 手感：水平拖 → yaw 固定灵敏度无限旋转；垂直拖 → pitch 直接增减并夹紧（无象限分配公式）。
+  // 模型 rotation 用 YXZ 欧拉序，任意朝向下垂直拖动都「朝自己倾倒」。
+  yawTarget += dx * DRAG_YAW_PER_PX
+  pitchTarget = clamp(pitchTarget + dy * DRAG_PITCH_PER_PX, -PITCH_MAX, PITCH_MAX)
   requestFrame()
 }
 
@@ -542,7 +564,6 @@ function tick(now: number): void {
   // 动画时钟：暂停或页面隐藏时不推进（冻结当前帧）
   const animating = !props.paused && !document.hidden
   if (animating) {
-    animT += dt
     if (props.animation === 'walk') stepWalk(dt)
     const bt = props.animation === 'walk' ? 1 : 0
     walkBlend += (bt - walkBlend) * Math.min(1, dt * 6)
@@ -570,25 +591,21 @@ function tick(now: number): void {
 function applyPose(): void {
   if (!root || !joints) return
   const b = walkBlend
-  const idle = 1 - b
   const j = walkJoints
-  const idleSwing = Math.sin(animT * 1.6)
   if (j) {
     // 对角同相：左臂+右腿、右臂+左腿（方向符号在 makeWalkJoints 中配置）
-    joints.armL.rotation.x = j.armL.main.a * D2R * b + idleSwing * 0.035 * idle
-    joints.armL.rotation.y = j.armL.sub.a * D2R * b + Math.sin(animT * 1.1) * 0.02 * idle
-    joints.armR.rotation.x = j.armR.main.a * D2R * b - idleSwing * 0.035 * idle
-    joints.armR.rotation.y = j.armR.sub.a * D2R * b - Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armL.rotation.x = j.armL.main.a * D2R * b
+    joints.armL.rotation.y = j.armL.sub.a * D2R * b
+    joints.armR.rotation.x = j.armR.main.a * D2R * b
+    joints.armR.rotation.y = j.armR.sub.a * D2R * b
     // 腿：只有 X 轴前后主摆（FCL 无 Y 轴副摆），rotation.y/z 恒为 0。
     // 待机（b→0）时双腿垂直并拢在 x=±2；行走时仅前后摆，绝无内外八。
     joints.legL.rotation.x = j.legL.main.a * D2R * b
     joints.legR.rotation.x = j.legR.main.a * D2R * b
   }
-  // 头部：行走微点头 + 待机环顾
-  joints.head.rotation.x = Math.sin(animT * 8) * 0.02 * b + Math.sin(animT * 1.3) * 0.03 * idle
-  joints.head.rotation.y = Math.sin(animT * 0.7) * 0.05 * idle
-  // 躯干：行走轻微弹跳 + 待机呼吸起伏
-  root.position.y = Math.abs(Math.sin(animT * 9.42)) * 0.3 * b + idleSwing * 0.18 * idle
+  // 头部与躯干完全静止（FCL 无行走弹跳、待机呼吸/环顾/点头）：待机=完全静止站姿，
+  // 模型始终立在固定高度，「上下颤抖」的根源（root.position.y 动态偏移）已移除。
+  root.position.y = 0
   root.rotation.y = yaw
   root.rotation.x = pitch
 }

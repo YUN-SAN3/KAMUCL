@@ -195,37 +195,72 @@ const javaLabel = (j: { major: number; path: string; version: string; architectu
 const MEM_MIN = 1024
 /** 滑块步长 256MB（0.25GB），比整 GB / 0.5GB 更精细 */
 const MEM_STEP = 256
-/** 上限 = 真实物理内存向下取 256MB 整（系统信息加载前的临时值） */
-const memMax = ref(16384)
+/** 自动分配 = 物理内存的 1/4（512MB 对齐，至少 1GB），与 launch.ts 启动时算法一致 */
+const AUTO_DIVISOR = 4
+/** 手动可调上限 = 空闲内存 − 系统保留，防止把物理内存吃满导致游戏或系统崩溃 */
+const SYS_RESERVE_MB = 1024
+/** 双单位显示：整 G 只显示 G，非整 G 显示「MB（x.x xG）」 */
+const fmtMem = (mb: number) =>
+  mb % 1024 === 0 ? `${mb / 1024}G` : `${mb}MB（${(mb / 1024).toFixed(2)}G）`
 
-onMounted(async () => {
+const memMax = ref(8192)
+const memTotal = ref(0)
+const memFree = ref(0)
+
+const autoMemoryMB = computed(() => {
+  const total = memTotal.value
+  if (!total) return MEM_MIN
+  return Math.max(MEM_MIN, Math.min(Math.floor(total / AUTO_DIVISOR / 512) * 512, memMax.value))
+})
+
+async function refreshSystemInfo(): Promise<void> {
   try {
     const info = await getSystemInfo()
-    memMax.value = Math.max(MEM_MIN, Math.floor(info.totalMemMB / MEM_STEP) * MEM_STEP)
-    // 旧配置可能超出真实内存（换机/降配后），夹回可保存范围
+    memTotal.value = info.totalMemMB
+    memFree.value = info.freeMemMB
+    memMax.value = Math.max(
+      MEM_MIN,
+      Math.floor((info.freeMemMB - SYS_RESERVE_MB) / MEM_STEP) * MEM_STEP
+    )
+    // 旧配置可能超出真实物理内存（换机/降配后）：仅夹回展示范围，不静默落盘，
+    // 待用户下次拖动滑块时才随 change 事件保存
     const s = store.settings
-    if (s && s.memoryMB > memMax.value) {
-      s.memoryMB = memMax.value
-      void save({ memoryMB: memMax.value })
-    }
+    if (s && s.memoryMB > info.totalMemMB) s.memoryMB = info.totalMemMB
   } catch {
     /* 读不到就保持保守上限 */
   }
+}
+
+onMounted(refreshSystemInfo)
+
+const memoryAuto = computed(() => store.settings?.memoryAuto === true)
+/** 手动值超过当前空闲内存：允许保存但给出崩溃风险警告 */
+const memoryOverFree = computed(() => {
+  const mb = store.settings?.memoryMB ?? 0
+  return memFree.value > 0 && mb > memFree.value
 })
 
-const memoryMaxText = computed(() =>
-  memMax.value % 1024 === 0 ? `${memMax.value / 1024} GB` : `${memMax.value} MB`
+const memoryMaxText = computed(() => fmtMem(memMax.value))
+const memoryText = computed(() => {
+  if (memoryAuto.value) return `自动（${fmtMem(autoMemoryMB.value)}）`
+  return fmtMem(store.settings?.memoryMB ?? 0)
+})
+const memoryInfoText = computed(() =>
+  memTotal.value
+    ? `已用 ${fmtMem(Math.max(0, memTotal.value - memFree.value))} · 可用 ${fmtMem(memFree.value)} · 总计 ${fmtMem(memTotal.value)}`
+    : '正在读取本机内存信息…'
 )
 
-const memoryText = computed(() => {
-  const mb = store.settings?.memoryMB ?? 0
-  return mb % 1024 === 0 ? `${mb / 1024} GB` : `${mb} MB`
-})
+function onMemoryAutoChange(on: boolean): void {
+  store.settings!.memoryAuto = on
+  void save({ memoryAuto: on })
+}
 
 /* 已填充段 = accent 渐变 */
 const sliderFill = computed(() => {
   const mb = store.settings?.memoryMB ?? MEM_MIN
-  const pct = Math.max(0, Math.min(100, ((mb - MEM_MIN) / (memMax.value - MEM_MIN)) * 100))
+  const span = Math.max(memMax.value, MEM_MIN + MEM_STEP) - MEM_MIN
+  const pct = Math.max(0, Math.min(100, ((mb - MEM_MIN) / span) * 100))
   return `linear-gradient(90deg, var(--accent-2), var(--accent) ${pct}%, var(--card-2) ${pct}%)`
 })
 
@@ -480,6 +515,20 @@ async function onRemovePlugin(p: PluginInfo) {
           <span class="collapse-arrow" aria-hidden="true"></span>
         </summary>
         <div class="collapse-body">
+          <div class="memory-auto-row">
+            <div>
+              <h4 class="memory-auto-title">自动分配</h4>
+              <p class="muted group-hint">按本机物理内存的 1/4 自动计算（512MB 对齐），启动时实时生效；开启后禁用手动调节</p>
+            </div>
+            <label class="switch">
+              <input
+                :checked="store.settings.memoryAuto === true"
+                type="checkbox"
+                @change="onMemoryAutoChange(($event.target as HTMLInputElement).checked)"
+              />
+              <span class="switch-ui"></span>
+            </label>
+          </div>
           <div class="memory-row">
             <input
               v-model.number="store.settings.memoryMB"
@@ -489,11 +538,19 @@ async function onRemovePlugin(p: PluginInfo) {
               :min="MEM_MIN"
               :max="memMax"
               :step="MEM_STEP"
+              :disabled="memoryAuto"
               @change="save({ memoryMB: store.settings!.memoryMB })"
             />
             <span class="memory-value">{{ memoryText }}</span>
           </div>
-          <p class="muted group-hint">分配给游戏进程的最大内存（1 GB - {{ memoryMaxText }}，按本机物理内存识别）</p>
+          <p class="muted group-hint">手动范围 1G - {{ memoryMaxText }}（上限随当前可用内存浮动，预留 1G 给系统）</p>
+          <p v-if="memoryOverFree && !memoryAuto" class="memory-warn">
+            当前分配超过可用内存，游戏可能启动失败或拖垮系统，建议调低或开启自动分配
+          </p>
+          <p class="muted memory-info">
+            {{ memoryInfoText }}
+            <button class="memory-refresh" type="button" @click="refreshSystemInfo">刷新</button>
+          </p>
         </div>
       </details>
 
@@ -1144,6 +1201,49 @@ async function onRemovePlugin(p: PluginInfo) {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--accent-2);
+}
+.memory-auto-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+.memory-auto-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+.memory-auto-row .group-hint {
+  margin-top: var(--space-1);
+}
+.memory-row .slider:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.memory-warn {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--danger);
+}
+.memory-info {
+  margin-top: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+}
+.memory-refresh {
+  border: none;
+  background: transparent;
+  color: var(--accent-2);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  padding: 0;
+}
+.memory-refresh:hover {
+  text-decoration: underline;
 }
 
 /* 分辨率 */

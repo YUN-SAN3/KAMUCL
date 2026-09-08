@@ -122,7 +122,10 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
 
   // ---------------- 设置 ----------------
   ipcMain.handle(IPC.settingsGet, () => settings.getSettings())
-  ipcMain.handle(IPC.appSystemInfo, () => ({ totalMemMB: Math.floor(os.totalmem() / 1024 / 1024) }))
+  ipcMain.handle(IPC.appSystemInfo, () => ({
+    totalMemMB: Math.floor(os.totalmem() / 1024 / 1024),
+    freeMemMB: Math.floor(os.freemem() / 1024 / 1024)
+  }))
   ipcMain.handle(IPC.directOverview, () => direct.directOverview())
   ipcMain.handle(IPC.directHost, (_e, request: DirectHostRequest) => direct.startDirectHost(request))
   ipcMain.handle(IPC.directStop, () => direct.stopDirectHost())

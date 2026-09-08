@@ -372,6 +372,8 @@ export interface Settings {
   /** 从扫描结果中隐藏的 Java 路径 */
   javaHidden: string[]
   memoryMB: number
+  /** 自动分配内存：开启后按物理内存自动计算并禁用手动调节 */
+  memoryAuto?: boolean
   jvmArgs: string
   resolution: GameResolution
   mirror: 'official' | 'bmclapi'
@@ -1120,4 +1122,6 @@ export interface ServerPingResult {
 export interface SystemInfo {
   /** 物理内存总量（MB，向下取整） */
   totalMemMB: number
+  /** 当前空闲物理内存（MB，向下取整；随系统实时波动） */
+  freeMemMB: number
 }

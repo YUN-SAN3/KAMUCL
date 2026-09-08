@@ -43,6 +43,7 @@ function defaults(): Settings {
     javaCustom: [],
     javaHidden: [],
     memoryMB: 4096,
+    memoryAuto: false,
     jvmArgs: '',
     resolution: { width: 854, height: 480, mode: 'windowed', fullscreen: false },
     mirror: 'bmclapi',

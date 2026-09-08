@@ -501,7 +501,11 @@ async function launchOwned(
   // Xmx 按真实物理内存钳制：配置文件可能被手改或从大内存机器迁移过来，
   // 超出物理内存的分配会让 JVM 起不来或系统整卡死。
   const totalMemMB = Math.floor(os.totalmem() / 1024 / 1024)
-  const mem = Math.min(Math.max(512, settings.memoryMB || 4096), totalMemMB)
+  // 自动分配：物理内存的 1/4（512MB 对齐，至少 1GB），启动时按当下硬件实时计算
+  const effectiveMB = settings.memoryAuto
+    ? Math.max(1024, Math.floor(totalMemMB / 4 / 512) * 512)
+    : settings.memoryMB || 4096
+  const mem = Math.min(Math.max(512, effectiveMB), totalMemMB)
   // forge ignoreList 需精确匹配 -cp 上的原版客户端 jar 文件名：实例自定义命名时
   // ${version_name}.jar 与实际 clientJar 不一致，原版 jar 会被模块系统当作自动模块
   // 与 fml 合成的 minecraft 模块重复导出包（ResolutionException 闪退），补写真实文件名
