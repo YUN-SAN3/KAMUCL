@@ -15,15 +15,26 @@ function u24le(buffer: Buffer, offset: number): number {
   return buffer[offset] | (buffer[offset + 1] << 8) | (buffer[offset + 2] << 16)
 }
 
+const PNG_MAGIC = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
+
+/** 从魔数判断真实容器格式；用于导入前校验扩展名与实际编码一致。 */
+export function sniffImageFormat(buffer: Buffer): 'png' | 'jpeg' | 'webp' | null {
+  if (buffer.length >= 8 && buffer.subarray(0, 8).equals(PNG_MAGIC)) return 'png'
+  if (buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) {
+    return 'jpeg'
+  }
+  if (buffer.length >= 12 && buffer.toString('ascii', 0, 4) === 'RIFF') {
+    if (buffer.toString('ascii', 8, 12) === 'WEBP') return 'webp'
+  }
+  return null
+}
+
 /**
  * 从文件头读取尺寸，先于 Chromium/Electron 解码拒绝超大像素图片。
  * 支持本功能允许导入的 PNG、JPEG、WebP（VP8/VP8L/VP8X）。
  */
 export function readImageDimensions(buffer: Buffer): ImageDimensions | null {
-  if (
-    buffer.length >= 24 &&
-    buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))
-  ) {
+  if (buffer.length >= 24 && buffer.subarray(0, 8).equals(PNG_MAGIC)) {
     return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) }
   }
 

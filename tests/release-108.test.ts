@@ -13,9 +13,9 @@ test('skin viewer auto-detects Alex(slim) from texture pixels, not relying on va
   // 检测结果并入 slim 判定（优先于传递链）
   assert.match(viewer, /autoSlim = detectSlimFromTexture\(tex\)/)
   assert.match(viewer, /const slim = props\.variant === 'slim' \|\| autoSlim/)
-  // slim/classic 手臂宽度与肩部轴心差异保留
+  // slim/classic 手臂宽度与肩部轴心差异保留（臂内缘与 8 宽躯干齐平：classic 4 宽@±6、slim 3 宽@±5.5）
   assert.match(viewer, /slim \? 3 : 4/)
-  assert.match(viewer, /slim \? 5 : 5\.5/)
+  assert.match(viewer, /slim \? 5\.5 : 6/)
 })
 
 test('launch command assembly: no duplicate -cp/library-path/jna.tmpdir, trimmed values, correct order', () => {

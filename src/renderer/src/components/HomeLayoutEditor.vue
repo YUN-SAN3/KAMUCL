@@ -169,8 +169,8 @@ function setLaunchFit(fit: ImageFit) {
   <div class="card group">
     <div class="layout-head">
       <div>
-        <h3 class="group-title" style="margin-bottom: 2px">窗口背景</h3>
-        <p class="muted group-hint" style="margin: 0">默认透出并模糊真实系统桌面；图片模式仅在你主动选择时启用。</p>
+        <h3 class="group-title group-title-tight">窗口背景</h3>
+        <p class="muted group-hint group-hint-flush">默认透出并模糊真实系统桌面；图片模式仅在你主动选择时启用。</p>
       </div>
       <button class="btn btn-ghost btn-sm" @click="resetBg">恢复默认</button>
     </div>
@@ -250,8 +250,7 @@ function setLaunchFit(fit: ImageFit) {
         <span class="muted bg-label">切换间隔</span>
         <input
           type="number"
-          class="input"
-          style="width: 90px"
+          class="input num-input"
           min="30"
           max="7200"
           step="30"
@@ -308,8 +307,8 @@ function setLaunchFit(fit: ImageFit) {
   <div class="card group">
     <div class="layout-head">
       <div>
-        <h3 class="group-title" style="margin-bottom: 2px">首页启动卡</h3>
-        <p class="muted group-hint" style="margin: 0">实例专属图片优先；未设置时使用这里的全局图片，再回退内置轮播。</p>
+        <h3 class="group-title group-title-tight">首页启动卡</h3>
+        <p class="muted group-hint group-hint-flush">实例专属图片优先；未设置时使用这里的全局图片，再回退内置轮播。</p>
       </div>
       <button class="btn btn-ghost btn-sm" @click="resetThumbnail">恢复内置轮播</button>
     </div>
@@ -357,7 +356,7 @@ function setLaunchFit(fit: ImageFit) {
         <button class="btn btn-ghost btn-sm" @click="changeImages(images.filter((_, i) => i !== index))">移除</button>
       </li>
     </ol>
-    <div class="bg-row"><label for="carousel-default-duration">默认停留时间</label><input id="carousel-default-duration" type="number" min="1" max="120" step="0.5" style="width: 90px" :value="carouselDuration(store.settings?.launchThumbnail.intervalSeconds)" @change="setDuration(($event.target as HTMLInputElement).value)" /><span class="muted">秒 · 用于内置轮播及未单独设置的图片</span></div>
+    <div class="bg-row"><label for="carousel-default-duration">默认停留时间</label><input id="carousel-default-duration" type="number" min="1" max="120" step="0.5" class="input num-input" :value="carouselDuration(store.settings?.launchThumbnail.intervalSeconds)" @change="setDuration(($event.target as HTMLInputElement).value)" /><span class="muted">秒 · 用于内置轮播及未单独设置的图片</span></div>
   </div>
 </template>
 
@@ -366,33 +365,45 @@ function setLaunchFit(fit: ImageFit) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.group-title-tight {
+  margin-bottom: var(--space-1);
+}
+.group-hint-flush {
+  margin: 0;
+}
+.num-input {
+  width: 90px;
+  flex: none;
 }
 /* 背景 */
 .bg-modes {
   display: flex;
-  gap: 6px;
-  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
 }
-.capsule { min-height: 36px; padding: 7px 14px; border: 1px solid var(--border); border-radius: 9px; background: var(--card-2); color: var(--text); cursor: pointer; font: inherit; }
+.capsule { display: inline-flex; align-items: center; justify-content: center; min-height: var(--ctl-h); padding: 0 var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--card-2); color: var(--text); cursor: pointer; font: inherit; }
 .capsule.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-2); }
-.carousel-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 10px; }
-.carousel-list li { display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--border); border-radius: 10px; min-width: 0; }
+.carousel-list { list-style: none; padding: 0; margin: var(--space-3) 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: var(--space-2); }
+.carousel-list li { display: flex; align-items: center; gap: var(--space-2); min-height: var(--row-h); padding: var(--space-2); border: 1px solid var(--border); border-radius: var(--radius-md); min-width: 0; }
 .carousel-list li { flex-wrap: wrap; }
-.slide-duration { display: flex; align-items: center; gap: 5px; font-size: 12px; }
-.slide-duration input { width: 65px; min-height: 32px; }
-.carousel-list img { width: 64px; height: 40px; object-fit: cover; border-radius: 5px; }
+.slide-duration { display: flex; align-items: center; gap: var(--space-1); font-size: var(--text-xs); }
+.slide-duration input { width: 65px; min-height: var(--ctl-h); padding: var(--space-1) var(--space-2); }
+.carousel-list img { width: 64px; height: 40px; object-fit: cover; border-radius: var(--radius-sm); }
 .carousel-list span { flex: 1; }
-.carousel-list button { min-width: 36px; min-height: 36px; }
+.carousel-list button { min-width: var(--ctl-h); min-height: var(--ctl-h); }
 .fit-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--space-2);
 }
 .image-preview {
   width: 100%;
   height: 150px;
-  margin: 12px 0 6px;
+  margin: var(--space-3) 0 var(--space-2);
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -407,9 +418,9 @@ function setLaunchFit(fit: ImageFit) {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: var(--space-5) var(--space-4);
   color: var(--text-dim);
-  font-size: 12.5px;
+  font-size: var(--text-xs);
   text-align: center;
 }
 .launch-preview {
@@ -420,12 +431,13 @@ function setLaunchFit(fit: ImageFit) {
 .bg-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 7px 0;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-1) 0;
 }
 .bg-label {
   flex: 0 0 82px;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 .bg-val {
   flex-shrink: 0;
@@ -433,10 +445,10 @@ function setLaunchFit(fit: ImageFit) {
   text-align: right;
   font-weight: 700;
   color: var(--accent-2);
-  font-size: 12.5px;
+  font-size: var(--text-xs);
 }
 .bg-img-path {
-  font-size: 12px;
+  font-size: var(--text-xs);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -448,7 +460,7 @@ function setLaunchFit(fit: ImageFit) {
   height: 32px;
   padding: 0;
   border: 1px solid var(--border);
-  border-radius: 9px;
+  border-radius: var(--radius-sm);
   background: transparent;
   cursor: pointer;
 }
@@ -457,9 +469,9 @@ function setLaunchFit(fit: ImageFit) {
 }
 .color-swatch::-webkit-color-swatch {
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 .mono {
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 </style>

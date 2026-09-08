@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LaunchNotice from './components/LaunchNotice.vue'
-import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import type { Component } from 'vue'
 import { backgroundImageEffect } from '@shared/appearancePolicy'
 import {
@@ -51,22 +51,24 @@ import { waitForBootTasks, sealBootTasks } from './bootTasks'
 import { acceptsImportDrag, showsImportOverlay } from '@shared/dropIntent'
 import { updateNotes, latestUpdateNote } from '@shared/updateNotes'
 import HomeView from './views/HomeView.vue'
-import GameView from './views/GameView.vue'
-import ModsView from './views/ModsView.vue'
-import PacksView from './views/PacksView.vue'
-import ShadersView from './views/ShadersView.vue'
-import KeysView from './views/KeysView.vue'
-import BridgeView from './views/BridgeView.vue'
-import SkinsView from './views/SkinsView.vue'
-import CommunityView from './views/CommunityView.vue'
-import ServersView from './views/ServersView.vue'
-import FriendConnectView from './views/FriendConnectView.vue'
-import SettingsView from './views/SettingsView.vue'
+// 非首屏视图全部懒加载：首屏只打包/挂载 HomeView，其余视图拆独立 chunk 按需拉取
+// （渲染层常驻内存大头之一；配合 memTrim/idleTrim 的静默瘦身）。
+const GameView = defineAsyncComponent(() => import('./views/GameView.vue'))
+const ModsView = defineAsyncComponent(() => import('./views/ModsView.vue'))
+const PacksView = defineAsyncComponent(() => import('./views/PacksView.vue'))
+const ShadersView = defineAsyncComponent(() => import('./views/ShadersView.vue'))
+const KeysView = defineAsyncComponent(() => import('./views/KeysView.vue'))
+const BridgeView = defineAsyncComponent(() => import('./views/BridgeView.vue'))
+const SkinsView = defineAsyncComponent(() => import('./views/SkinsView.vue'))
+const CommunityView = defineAsyncComponent(() => import('./views/CommunityView.vue'))
+const ServersView = defineAsyncComponent(() => import('./views/ServersView.vue'))
+const FriendConnectView = defineAsyncComponent(() => import('./views/FriendConnectView.vue'))
+const SettingsView = defineAsyncComponent(() => import('./views/SettingsView.vue'))
+const AccountsView = defineAsyncComponent(() => import('./views/AccountsView.vue'))
 import brandHead from './assets/splash-face.png'
 
 // Vite 的全局 define 在 script 中解析；模板直接访问会被 Vue 当作组件实例字段。
 const appVersion = __APP_VERSION__
-import AccountsView from './views/AccountsView.vue'
 import ModDropModal from './components/ModDropModal.vue'
 import WorldImportModal from './components/WorldImportModal.vue'
 
@@ -822,7 +824,11 @@ function armBgSwitchTimer() {
   const mode = bg?.switchMode ?? 'off'
   if (bg?.mode !== 'image' || mode === 'off' || bgImages.value.length < 2) return
   const sec = Math.max(30, bg?.switchIntervalSec ?? 300)
-  bgSwitchTimer = setInterval(switchBackground, sec * 1000)
+  // document.hidden 时跳过切换：页面不可见即暂停轮换，回到前台后下一拍继续
+  bgSwitchTimer = setInterval(() => {
+    if (document.hidden) return
+    switchBackground()
+  }, sec * 1000)
 }
 
 watch(
@@ -1737,7 +1743,7 @@ onUnmounted(() => {
   z-index: 1;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
 }
 /* 自定义背景层：垫底铺满，不拦截交互 */
@@ -1770,9 +1776,9 @@ onUnmounted(() => {
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   height: 104px;
-  padding: 0 17px;
+  padding: 0 var(--space-4);
   flex-shrink: 0;
 }
 .brand-head {
@@ -1780,19 +1786,19 @@ onUnmounted(() => {
   height: 42px;
   flex-shrink: 0;
   image-rendering: pixelated;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   border: 1px solid rgba(255,255,255,.26);
   box-shadow: 0 3px 12px rgba(0,0,0,.18);
 }
 .logo-text {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-1);
 }
 .logo-name {
   font-family: 'Segoe UI Variable Display', 'Segoe UI', sans-serif;
-  font-size: 21px;
-  font-weight: 650;
+  font-size: var(--text-xl);
+  font-weight: 700;
   letter-spacing: 2px;
   line-height: 1.2;
   color: var(--text);
@@ -1800,7 +1806,7 @@ onUnmounted(() => {
 .logo-version {
   align-self: flex-end;
   padding-right: 2px;
-  font-size: 9px;
+  font-size: var(--text-xs);
   color: var(--accent-2);
   opacity: 0.85;
 }
@@ -1809,18 +1815,18 @@ onUnmounted(() => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 4px 12px 12px;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3) var(--space-3);
   overflow-y: auto;
   position: relative;
 }
 /* 水滴高亮块：随指针在导航项间弹性滑动并拉伸形变 */
 .nav-blob {
   position: absolute;
-  left: 12px;
-  right: 12px;
+  left: var(--space-3);
+  right: var(--space-3);
   top: 0;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--accent) 15%, var(--card-2));
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 9%, transparent);
   opacity: 0;
@@ -1840,14 +1846,14 @@ onUnmounted(() => {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  height: 48px;
-  padding: 0 15px;
+  gap: var(--space-3);
+  height: var(--space-7);
+  padding: 0 var(--space-4);
   border: none;
-  border-radius: 11px;
+  border-radius: var(--radius-md);
   background: transparent;
   color: var(--sidebar-text);
-  font-size: 14px;
+  font-size: var(--text-md);
   font-family: inherit;
   cursor: pointer;
   transition: color 0.16s ease;
@@ -1896,13 +1902,13 @@ onUnmounted(() => {
 .nav-sub {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin: 2px 0 4px;
+  gap: var(--space-1);
+  margin: var(--space-1) 0;
 }
 .nav-sub-item {
-  height: 38px;
-  padding-left: 30px;
-  font-size: 13.5px;
+  height: 40px;
+  padding-left: var(--space-6);
+  font-size: var(--text-sm);
   position: relative;
 }
 .nav-sub-item::before {
@@ -1933,16 +1939,16 @@ onUnmounted(() => {
   display: grid;
   grid-template-columns: 8px minmax(0, 1fr) 14px;
   align-items: center;
-  gap: 9px;
-  min-height: 46px;
-  margin: 12px;
-  padding: 0 12px;
+  gap: var(--space-2);
+  min-height: var(--row-h);
+  margin: var(--space-3);
+  padding: 0 var(--space-3);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--card) 48%, transparent);
   color: var(--text-dim);
   font-family: inherit;
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 500;
   text-align: left;
   cursor: pointer;
@@ -1990,10 +1996,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
   height: 78px;
   flex-shrink: 0;
-  padding: 0 14px 0 22px;
+  padding: 0 var(--space-5);
   border-bottom: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg-2) 78%, transparent);
   -webkit-app-region: drag;
@@ -2007,11 +2013,11 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: var(--ctl-h);
+  height: var(--ctl-h);
   padding: 0;
   border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--card-2);
   color: var(--text-dim);
   cursor: pointer;
@@ -2033,11 +2039,11 @@ onUnmounted(() => {
 .search-box {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: var(--space-2);
   width: 400px;
   max-width: 46%;
-  height: 38px;
-  padding: 0 14px;
+  height: var(--ctl-h);
+  padding: 0 var(--space-4);
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg);
@@ -2061,7 +2067,7 @@ onUnmounted(() => {
   outline: none;
   background: transparent;
   color: var(--text);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
 }
 .search-input::placeholder {
@@ -2072,19 +2078,21 @@ onUnmounted(() => {
 .top-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-1);
   -webkit-app-region: no-drag;
 }
 .top-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 12px;
+  justify-content: center;
+  gap: var(--space-2);
+  height: var(--ctl-h);
+  padding: 0 var(--space-3);
   border: none;
-  border-radius: 9px;
+  border-radius: var(--radius-md);
   background: transparent;
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
@@ -2103,10 +2111,10 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: var(--ctl-h);
+  height: var(--ctl-h);
   border: none;
-  border-radius: 9px;
+  border-radius: var(--radius-md);
   background: transparent;
   color: var(--text-dim);
   cursor: pointer;
@@ -2136,7 +2144,7 @@ onUnmounted(() => {
   right: 0;
   min-width: 14px;
   height: 14px;
-  font-size: 9px;
+  font-size: var(--text-xs);
 }
 
 /* 通知中心面板（Teleport 到 body，fixed 定位） */
@@ -2151,29 +2159,29 @@ onUnmounted(() => {
 }
 .notes-list {
   overflow-y: auto;
-  padding: 2px 14px 14px;
+  padding: 2px var(--space-4) var(--space-4);
 }
 .note-version + .note-version {
-  margin-top: 12px;
-  border-top: 1px dashed var(--border, rgba(255, 255, 255, 0.12));
-  padding-top: 12px;
+  margin-top: var(--space-3);
+  border-top: 1px dashed var(--border);
+  padding-top: var(--space-3);
 }
 .note-head {
   display: flex;
   align-items: baseline;
-  gap: 10px;
-  margin: 0 0 6px;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-2);
 }
 .note-ver {
   font-weight: 700;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 .note-changes {
   margin: 0;
-  padding-left: 16px;
+  padding-left: var(--space-4);
   line-height: 1.7;
-  font-size: 12.5px;
-  color: var(--text, #dfe5ec);
+  font-size: var(--text-xs);
+  color: var(--text);
 }
 .notice-panel {
   position: fixed;
@@ -2184,8 +2192,7 @@ onUnmounted(() => {
   z-index: 9001;
   display: flex;
   flex-direction: column;
-  background: var(--card-solid, #202830);
-  background: color-mix(in srgb, var(--card-solid, #202830) 94%, transparent);
+  background: color-mix(in srgb, var(--card-solid, var(--card)) 94%, transparent);
   backdrop-filter: blur(24px) saturate(130%);
   -webkit-backdrop-filter: blur(24px) saturate(130%);
   -webkit-app-region: no-drag;
@@ -2200,18 +2207,22 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px;
+  padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--border);
 }
 .notice-title {
-  font-size: 14px;
+  font-size: var(--text-md);
   font-weight: 700;
 }
 .notice-empty {
-  padding: 36px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  padding: var(--space-4);
   text-align: center;
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 .notice-list {
   overflow-y: auto;
@@ -2227,7 +2238,7 @@ onUnmounted(() => {
   border-radius: 999px;
   background: var(--accent);
   color: var(--on-accent);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -2237,7 +2248,7 @@ onUnmounted(() => {
   width: 380px;
 }
 .dl-item {
-  padding: 10px 14px;
+  padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--border);
 }
 .dl-item-head {
@@ -2252,15 +2263,15 @@ onUnmounted(() => {
   flex: none;
 }
 .dl-title {
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .dl-sub {
-  margin-top: 3px;
-  font-size: 12px;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
   line-height: 1.5;
   word-break: break-all;
 }
@@ -2268,7 +2279,7 @@ onUnmounted(() => {
   color: var(--danger);
 }
 .dl-bar {
-  margin-top: 7px;
+  margin-top: var(--space-2);
   height: 5px;
   border-radius: 999px;
   background: var(--card-2);
@@ -2295,7 +2306,7 @@ onUnmounted(() => {
   border: none;
   background: transparent;
   color: var(--text-dim);
-  font-size: 15px;
+  font-size: var(--text-md);
   cursor: pointer;
   padding: 0 4px;
   line-height: 1;
@@ -2308,7 +2319,7 @@ onUnmounted(() => {
   width: 480px;
 }
 .launchfail-text {
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.7;
   color: var(--text-dim);
   word-break: break-all;
@@ -2318,10 +2329,11 @@ onUnmounted(() => {
 }
 .notice-item {
   display: flex;
-  gap: 10px;
-  padding: 10px 14px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--border);
-  font-size: 12.5px;
+  font-size: var(--text-sm);
 }
 .notice-item:last-child {
   border-bottom: none;
@@ -2330,7 +2342,7 @@ onUnmounted(() => {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  margin-top: 5px;
+  margin-top: var(--space-1);
   flex-shrink: 0;
   background: var(--accent);
 }
@@ -2348,7 +2360,7 @@ onUnmounted(() => {
   word-break: break-all;
 }
 .notice-time {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: var(--text-dim);
 }
 
@@ -2365,9 +2377,9 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   width: 38px;
-  height: 34px;
+  height: var(--ctl-h);
   border: none;
-  border-radius: 9px;
+  border-radius: var(--radius-md);
   background: transparent;
   color: var(--text-dim);
   cursor: pointer;
@@ -2391,7 +2403,7 @@ onUnmounted(() => {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 16px 18px 22px;
+  padding: var(--space-5);
 }
 
 @media (max-width: 1080px) {
@@ -2399,10 +2411,10 @@ onUnmounted(() => {
     width: calc(100% - 16px);
     height: calc(100% - 16px);
     margin: 8px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
   .content {
-    padding: 12px 14px 18px;
+    padding: var(--space-4);
   }
   .topbar {
     height: 68px;
@@ -2421,15 +2433,16 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   background: color-mix(in srgb, var(--accent) 16%, transparent);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
   pointer-events: none; /* 遮罩不拦截拖拽事件，避免 dragleave 闪烁 */
 }
 .drop-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 52px 72px;
+  gap: var(--space-4);
+  padding: var(--space-7);
   border: 2px dashed var(--accent);
   border-radius: var(--radius);
   background: color-mix(in srgb, var(--accent) 8%, var(--card));
@@ -2440,7 +2453,7 @@ onUnmounted(() => {
   height: 48px;
 }
 .drop-title {
-  font-size: 17px;
+  font-size: var(--text-lg);
   font-weight: 600;
 }
 
@@ -2451,14 +2464,14 @@ onUnmounted(() => {
   overflow-y: auto;
 }
 .mp-title {
-  font-size: 17px;
-  margin-bottom: 18px;
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-4);
 }
 .mp-loading {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 0;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
 }
 .mp-tags {
   display: flex;
@@ -2466,14 +2479,14 @@ onUnmounted(() => {
   gap: 8px;
 }
 .mp-summary {
-  margin: 10px 0 0;
+  margin: var(--space-2) 0 0;
   color: var(--text-dim);
-  font-size: 11.5px;
+  font-size: var(--text-xs);
 }
 .mp-label {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--text-dim);
-  margin: 16px 0 8px;
+  margin: var(--space-4) 0 var(--space-2);
 }
 .mp-name-opts {
   display: flex;
@@ -2483,14 +2496,14 @@ onUnmounted(() => {
 .mp-name-opt {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   width: 100%;
-  padding: 9px 12px;
+  padding: var(--space-2) var(--space-3);
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--card-2);
   color: var(--text);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   text-align: left;
   cursor: pointer;
@@ -2535,17 +2548,17 @@ onUnmounted(() => {
 }
 .mp-custom-name {
   width: 100%;
-  margin-top: 9px;
+  margin-top: var(--space-2);
 }
 .mp-conflict {
   display: grid;
-  gap: 8px;
-  margin-top: 13px;
-  padding: 11px 12px;
-  border: 1px solid color-mix(in srgb, #e5a323 48%, var(--border));
-  border-radius: 9px;
-  background: color-mix(in srgb, #e5a323 8%, var(--card));
-  font-size: 11.5px;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--accent-deep) 48%, var(--border));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--accent-deep) 8%, var(--card));
+  font-size: var(--text-xs);
   color: var(--text-dim);
 }
 .mp-conflict strong {
@@ -2554,18 +2567,18 @@ onUnmounted(() => {
 .mp-conflict-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 7px 12px;
-  margin-top: 3px;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-1);
 }
 .mp-conflict-actions label,
 .mp-replace-confirm {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 12px;
+  gap: var(--space-2);
+  min-height: 48px; /* 测试钉死字面量（tests/ui-regressions.test.ts:34），等价 var(--space-7) */
+  padding: var(--space-3);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   line-height: 1.4;
 }
@@ -2574,14 +2587,14 @@ onUnmounted(() => {
 .mp-keysync-opt {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  margin-top: 14px;
-  padding: 12px;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   line-height: 1.5;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-dim);
 }
 .mp-keysync-opt:hover { background: var(--card-2); }
@@ -2595,11 +2608,11 @@ onUnmounted(() => {
   margin: 0;
 }
 .mp-existing-select {
-  margin-top: 3px;
+  margin-top: var(--space-1);
 }
 .mp-impact {
-  padding: 8px 9px;
-  border-radius: 7px;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
   background: var(--card-2);
   line-height: 1.55;
 }
@@ -2607,7 +2620,7 @@ onUnmounted(() => {
   color: var(--danger);
 }
 .mp-error {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--danger);
   line-height: 1.7;
   word-break: break-all;
@@ -2615,7 +2628,7 @@ onUnmounted(() => {
 .mp-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 22px;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 </style>

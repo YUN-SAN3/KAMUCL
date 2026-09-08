@@ -1,20 +1,31 @@
 <script setup lang="ts">
 /**
- * NameMC 风格 3D 皮肤查看器（Three.js）
- * - MC 人偶含 hat/外套/衣袖/裤腿外层（各大 0.5px + alphaTest 裁剪透明像素）
- * - 64×64 经典布局 UV：每面一个 MeshBasicMaterial + 克隆 texture 设 offset/repeat
- * - NearestFilter 保持像素风；走路动画（四肢绕顶部轴心摆动、头部微幅点头）
- * - 鼠标拖动旋转视角，松手后缓慢回到初始角度；WebGL 不可用时显示兜底提示
+ * Minecraft 玩家 3D 查看器（Three.js / WebGL）
+ * 参考成熟启动器实现：
+ * - HMCL SkinCanvas：部件/UV 全表、外层放大倍率（帽 1.125、其余 1.0625）、拖拽与缩放体验
+ * - FCL SkinRenderer：FOV 45° 透视、NEAREST 像素过滤、背面剔除、行走摆臂参数（三角波）
+ * - 64×64 标准 UV；旧版 64×32 皮肤先经 skin-render 迁移再上 GPU
+ * - 按需渲染循环：无动画（暂停）且无交互平滑且 document.hidden 时停止 rAF；
+ *   卸载时释放全部几何体/材质/纹理/GL 上下文与监听
  */
 import { beginBootTask } from '../bootTasks'
+import { loadImage, migrateLegacySkin } from '../skin-render'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import * as THREE from 'three'
 
-const props = withDefaults(defineProps<{ src?: string; variant?: 'classic' | 'slim'; cape?: string }>(), {
-  src: '',
-  variant: 'classic',
-  cape: ''
-})
+const props = withDefaults(
+  defineProps<{
+    src?: string
+    variant?: 'classic' | 'slim'
+    /** 动画模式：walk = 行走摆臂（FCL 参数），idle = 待机呼吸。默认 walk 保持既有观感 */
+    animation?: 'walk' | 'idle'
+    /** 暂停动画（冻结在当前帧，交互仍可平滑响应） */
+    paused?: boolean
+    /** 可选披风纹理（64×32 标准披风图），空串/未传则不渲染披风 */
+    cape?: string
+  }>(),
+  { src: '', variant: 'classic', animation: 'walk', paused: false, cape: '' }
+)
 
 const container = ref<HTMLDivElement | null>(null)
 /** WebGL 初始化失败 → 显示兜底提示 */
@@ -25,44 +36,101 @@ const dragging = ref(false)
 let renderer: THREE.WebGLRenderer | null = null
 let scene!: THREE.Scene
 let camera!: THREE.PerspectiveCamera
-let model: THREE.Group | null = null
-/** 参与走路动画的部件组（轴心即组原点） */
-let parts: {
+let root: THREE.Group | null = null
+/** 参与骨骼动画的关节组（枢轴在肢体顶端） */
+let joints: {
   head: THREE.Group
   armL: THREE.Group
   armR: THREE.Group
   legL: THREE.Group
   legR: THREE.Group
 } | null = null
-/** 当前模型占用的几何体/材质/纹理，重建或卸载时统一 dispose */
+/** 当前模型占用的几何体/材质，重建或卸载时统一 dispose（纹理单独管理） */
 let disposables: { dispose(): void }[] = []
-let baseTex: THREE.Texture | null = null
-/** 披风纹理（装备时加载）与披风部件组 */
+let skinTex: THREE.Texture | null = null
 let capeTex: THREE.Texture | null = null
-let capeGroup: THREE.Group | null = null
-/** 披风纹理加载令牌（cape 变化后忽略旧回调） */
-let capeToken = 0
-/** 无皮肤或远端纹理不可用时使用本地生成的像素角色，外层需关闭以免遮住基础层 */
-let fallbackTextureActive = false
-/** 皮肤加载失败回调的过期令牌（src 变化后忽略旧回调） */
+/** 无皮肤或远端纹理不可用时使用本地生成的像素角色，外层/披风需关闭以免遮住基础层 */
+let fallbackActive = false
+/** 皮肤/披风加载的过期令牌（src 变化后忽略旧回调） */
 let loadToken = 0
+let capeToken = 0
 let observer: ResizeObserver | null = null
-let rafId = 0
-let lastTime = 0
-let walkT = 0
+let disposed = false
 
-const INITIAL_ROT_Y = -0.35
-let targetRotY = INITIAL_ROT_Y
-let targetRotX = 0
+// ---------------- 相机 / 视角 ----------------
 
-// ---------------- 模型 ----------------
+const FOV = 45 // FCL：透视 45°
+const PITCH_MAX = (75 * Math.PI) / 180
+const ZOOM_MIN = 0.5
+const ZOOM_MAX = 3
+/** 模型几何中心：标准 MC 全身 0~32（头 24~32 / 身 12~24 / 腿 0~12），取景以 y=16 居中 */
+const MODEL_CENTER_Y = 16
+/** 取景半幅：模型半高 16 + 余量（帽层放大 0.5、行走/呼吸起伏 0.3、头部摆动与落地间隙） */
+const FIT_HALF_HEIGHT = 18
+/** 初始朝向：微侧三分之二视角（经典启动器观感） */
+const INITIAL_YAW = -0.35
+let baseDist = 48
+let yaw = INITIAL_YAW
+let pitch = 0
+let zoom = 1
+let yawTarget = INITIAL_YAW
+let pitchTarget = 0
+let zoomTarget = 1
 
-/**
- * 计算盒子六面在皮肤图上的区域 [x, y, w, h]（皮肤像素，64×64）。
- * 返回顺序 = BoxGeometry 材质顺序 [+x, -x, +y, -y, +z, -z]。
- * 约定角色正面朝 +z、左手边朝 +x（右臂在 -x 侧），故 +x 面取“左侧”区域、-x 面取“右侧”区域。
- * (fx, fy) 为正面区域左上角；slim 手臂传 w=3 时其余各区自然左移，与 MC 实际采样一致。
- */
+// ---------------- 行走动画（FCL 三角波参数：每帧步进 × 60fps → 度/秒） ----------------
+
+const D2R = Math.PI / 180
+interface Osc {
+  a: number
+  dir: 1 | -1
+}
+interface WalkJoint {
+  main: Osc
+  sub: Osc
+  mainRate: number
+  mainAmp: number
+  subRate: number
+  subAmp: number
+}
+/** 对角肢体同相：左臂+右腿一组、右臂+左腿一组；副摆绕 Y 轴内外摆（FCL：仅手臂有副摆） */
+let walkJoints: Record<'armL' | 'armR' | 'legL' | 'legR', WalkJoint> | null = null
+let walkBlend = 0
+let animT = 0
+
+function makeWalkJoints(): Record<'armL' | 'armR' | 'legL' | 'legR', WalkJoint> {
+  return {
+    // 主摆：臂 ±10°@30°/s，腿 ±30°@90°/s；Y 轴副摆只作用于臂（±20°@20°/s）。
+    // 腿的副摆 amp/rate 必须为 0：双腿绕 Y 轴镜像扭转就是「内八/外八」的根源。
+    armL: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 30, mainAmp: 10, subRate: 20, subAmp: 20 },
+    armR: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 30, mainAmp: 10, subRate: 20, subAmp: 20 },
+    legL: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 90, mainAmp: 30, subRate: 0, subAmp: 0 },
+    legR: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 90, mainAmp: 30, subRate: 0, subAmp: 0 }
+  }
+}
+
+function stepOsc(o: Osc, dt: number, rate: number, amp: number): void {
+  o.a += o.dir * rate * dt
+  if (o.a >= amp) {
+    o.a = amp
+    o.dir = -1
+  } else if (o.a <= -amp) {
+    o.a = -amp
+    o.dir = 1
+  }
+}
+
+function stepWalk(dt: number): void {
+  if (!walkJoints) return
+  for (const j of Object.values(walkJoints)) {
+    stepOsc(j.main, dt, j.mainRate, j.mainAmp)
+    stepOsc(j.sub, dt, j.subRate, j.subAmp)
+  }
+}
+
+// ---------------- UV / 建模 ----------------
+
+/** 盒体六面在皮肤图上的区域 [x, y, w, h]（64×64 皮肤像素），顺序 = BoxGeometry 面 [+x,-x,+y,-y,+z,-z]。
+ *  (fx, fy) 为正面区域左上角；约定角色正面朝 +z、角色左侧朝 +x。 */
 function faceRegions(fx: number, fy: number, w: number, h: number, d: number) {
   return [
     [fx + w, fy, d, h], // +x 左侧
@@ -74,202 +142,185 @@ function faceRegions(fx: number, fy: number, w: number, h: number, d: number) {
   ] as const
 }
 
-/**
- * 建一个部件盒子（尺寸单位 = 皮肤像素）：
- * - pivot='top' 几何体下移半高（轴心在肩/髋）；'bottom' 上移半高（轴心在颈部）
- * - overlay=true 时盒子各大 0.5px，并 transparent + alphaTest 裁掉外层透明像素
- */
+/** 原版 Minecraft 面明暗：顶 1.0 / 底 0.5 / 前后 0.8 / 左右 0.6 */
+const FACE_SHADE = [0.6, 0.6, 1.0, 0.5, 0.8, 0.8]
+
+/** 把六面 UV 区域直接写入 BoxGeometry 的 uv 属性（单纹理，免克隆），并写入顶点色明暗 */
+function mapBoxUVs(
+  geo: THREE.BoxGeometry,
+  fx: number,
+  fy: number,
+  w: number,
+  h: number,
+  d: number
+): void {
+  const regions = faceRegions(fx, fy, w, h, d)
+  const uv = geo.attributes.uv as THREE.BufferAttribute
+  const colors: number[] = []
+  for (let f = 0; f < 6; f++) {
+    const [rx, ry, rw, rh] = regions[f]
+    const u0 = rx / 64
+    const u1 = (rx + rw) / 64
+    const vTop = 1 - ry / 64 // 纹理 flipY，皮肤 y 向下 → v 向上翻转
+    const vBot = 1 - (ry + rh) / 64
+    const o = f * 4
+    // BoxGeometry 每面 4 顶点 uv 顺序：(0,1) (1,1) (0,0) (1,0) = 左上/右上/左下/右下
+    uv.setXY(o + 0, u0, vTop)
+    uv.setXY(o + 1, u1, vTop)
+    uv.setXY(o + 2, u0, vBot)
+    uv.setXY(o + 3, u1, vBot)
+    const s = FACE_SHADE[f]
+    for (let v = 0; v < 4; v++) colors.push(s, s, s)
+  }
+  uv.needsUpdate = true
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+}
+
+/** 建一个部件盒（尺寸=皮肤像素）。inflate：外层放大倍率；centerY：盒心相对关节枢轴的偏移。 */
 function buildPart(
   w: number,
   h: number,
   d: number,
   fx: number,
   fy: number,
-  pivot: 'top' | 'bottom' | 'center',
+  inflate: number,
+  centerY: number,
   overlay: boolean
 ): THREE.Mesh {
-  const inflate = overlay ? 0.5 : 0
-  const geo = new THREE.BoxGeometry(w + inflate, h + inflate, d + inflate)
-  if (pivot === 'top') geo.translate(0, -h / 2, 0)
-  else if (pivot === 'bottom') geo.translate(0, h / 2, 0)
-  const materials = faceRegions(fx, fy, w, h, d).map(([x, y, rw, rh]) => {
-    const t = baseTex!.clone()
-    // three.js 纹理 v 轴向上（贴图默认 flipY），皮肤坐标 y 向下 → offset.y 翻转
-    t.offset.set(x / 64, 1 - (y + rh) / 64)
-    t.repeat.set(rw / 64, rh / 64)
-    const m = new THREE.MeshBasicMaterial({
-      map: t,
-      transparent: overlay,
-      alphaTest: overlay ? 0.5 : 0
-    })
-    disposables.push(t, m)
-    return m
+  const geo = new THREE.BoxGeometry(w * inflate, h * inflate, d * inflate)
+  geo.translate(0, centerY, 0)
+  mapBoxUVs(geo, fx, fy, w, h, d)
+  const mat = new THREE.MeshBasicMaterial({
+    map: skinTex!,
+    vertexColors: true,
+    // 原版为 alpha cutout：透明像素剔除（阈值 0.1），外层不写半透明混合
+    alphaTest: 0.1,
+    transparent: overlay
   })
-  disposables.push(geo)
-  return new THREE.Mesh(geo, materials)
+  disposables.push(geo, mat)
+  return new THREE.Mesh(geo, mat)
 }
 
-function at(mesh: THREE.Mesh, x: number, y: number, z: number): THREE.Mesh {
-  mesh.position.set(x, y, z)
-  return mesh
-}
+/** 普通外层放大 1.0625，帽层 1.125（HMCL SkinCanvas） */
+const INFLATE_OVERLAY = 1.0625
+const INFLATE_HAT = 1.125
 
 /**
- * 披风六面在披风图上的区域 [x, y, w, h]（64×32 披风布局，材质顺序 [+x,-x,+y,-y,+z,-z]）。
- * 实证：外面（主图案，背后观众可见）[1,1]；内面（贴身浅图）[12,1]；顶 [1,0]、底 [11,0]、左缘 [0,1]、右缘 [11,1]。
- * 披风挂在背部（z 负侧），故外面 [1,1] 必须贴 -z 面，内面 [12,1] 贴 +z 面（朝角色）。
+ * slim（Alex）像素级自动检测：classic 臂 4 宽，右臂背面 (52..56,20..32) 含 x=54 列；
+ * slim 臂仅 3 宽（52..55），x=54 列全透明。有像素 → classic（false），全透明 → slim（true），
+ * 读取失败 → null（回退 variant prop）。检测结果优先于 props 传递链。
  */
-function capeRegions() {
-  return [
-    [11, 1, 1, 16], // +x 右缘
-    [0, 1, 1, 16], // -x 左缘
-    [1, 0, 10, 1], // +y 顶
-    [11, 0, 10, 1], // -y 底
-    [12, 1, 10, 16], // +z 内面（贴身，朝角色背部）
-    [1, 1, 10, 16] // -z 外面（主图案，从背后可见）
-  ] as const
-}
-
-/** 建披风薄板：10×16×1，顶部轴心（挂在肩部后方），摆动由动画驱动 */
-function buildCape(): THREE.Group | null {
-  if (!capeTex) return null
-  const geo = new THREE.BoxGeometry(10, 16, 1)
-  geo.translate(0, -8, 0) // 顶部轴心
-  const materials = capeRegions().map(([x, y, rw, rh]) => {
-    const t = capeTex!.clone()
-    // 披风图 64×32：v 翻转与皮肤一致
-    t.offset.set(x / 64, 1 - (y + rh) / 32)
-    t.repeat.set(rw / 64, rh / 32)
-    t.magFilter = THREE.NearestFilter
-    t.minFilter = THREE.NearestFilter
-    t.generateMipmaps = false
-    t.colorSpace = THREE.SRGBColorSpace
-    t.needsUpdate = true
-    const m = new THREE.MeshBasicMaterial({ map: t })
-    disposables.push(t, m)
-    return m
-  })
-  disposables.push(geo)
-  const group = new THREE.Group()
-  group.add(new THREE.Mesh(geo, materials))
-  // 背部悬挂：肩部后缘（躯干背面 z=-2），微微后仰
-  group.position.set(0, 24, -2.6)
-  group.rotation.x = 0.08
-  return group
-}
-
-/** 装备/卸下披风：立即重建披风部件 */
-function rebuildCape() {
-  if (capeGroup && model) {
-    model.remove(capeGroup)
-    capeGroup = null
-  }
-  if (!capeTex || !model) return
-  capeGroup = buildCape()
-  if (capeGroup) model.add(capeGroup)
-}
-
-/** 加载披风纹理（cape 变化时调用） */
-function reloadCape() {
-  const token = ++capeToken
-  const src = props.cape
-  if (!src) {
-    capeTex = null
-    rebuildCape()
-    return
-  }
-  new THREE.TextureLoader().load(src, (tex) => {
-    if (token !== capeToken) { tex.dispose(); return }
-    const old = capeTex
-    capeTex = tex
-    rebuildCape()
-    old?.dispose()
-  }, undefined, () => {
-    if (token !== capeToken) return
-    capeTex = null
-    rebuildCape()
-  })
-}
-
-/**
- * 按 variant 重建人偶（64×64 经典布局；左臂/左腿用 1.16+ 第二套区域）。
- * 尺寸：头 8³ 中心 y=28；躯干 8×12×4 中心 y=18；臂 4(3)×12×4 肩 y=24；腿 4×12×4 髋 y=12。
- * slim 判定优先用皮肤图自动检测（Alex 手臂窄 1px，x=54 列全透明），不依赖档案传递链。
- */
-let autoSlim = false
-
-/** Alex（slim）检测：classic 右臂背面右缘列（x=54, y=20..32）有内容，slim 该列全透明。 */
-function detectSlimFromTexture(tex: THREE.Texture): boolean {
-  const image = tex.image as HTMLImageElement | ImageBitmap | undefined
-  if (!image) return false
+function detectSlimFromTexture(tex: HTMLImageElement | HTMLCanvasElement): boolean | null {
   try {
     const canvas = document.createElement('canvas')
     canvas.width = 64
     canvas.height = 64
     const ctx = canvas.getContext('2d', { willReadFrequently: true })
-    if (!ctx) return false
-    ctx.drawImage(image as CanvasImageSource, 0, 0)
+    if (!ctx) return null
+    ctx.imageSmoothingEnabled = false
+    ctx.drawImage(tex, 0, 0, 64, 64)
     const data = ctx.getImageData(54, 20, 1, 12).data
     for (let i = 3; i < data.length; i += 4) {
-      if (data[i] !== 0) return false // 有内容 → classic
+      if (data[i] !== 0) return false // classic：右臂背面铺满 4 宽
     }
-    return true // 全透明 → slim
+    return true
   } catch {
-    return false
+    return null
   }
 }
 
-function buildModel() {
-  disposeModel()
-  if (!baseTex) return
-  const slim = props.variant === 'slim' || autoSlim
-  const armW = slim ? 3 : 4
-  const armX = slim ? 5 : 5.5
+/** 像素检测结果：true=slim / false=classic / null=未知（回退 variant prop） */
+let autoSlim: boolean | null = null
 
-  const root = new THREE.Group()
+function buildModel(): void {
+  disposeModel()
+  if (!skinTex) return
+  const slim = props.variant === 'slim' || autoSlim === true
+  const armW = slim ? 3 : 4
+  const armX = slim ? 5.5 : 6 // 经典臂贴±6、纤细臂贴±5.5（FCL 部件偏移表）
+
+  walkJoints = makeWalkJoints()
+  const g = new THREE.Group()
+  g.rotation.order = 'YXZ' // 先 yaw 后 pitch：任意朝向下垂直拖动都「朝自己倾倒」（HMCL 体验）
 
   const head = new THREE.Group()
-  head.position.set(0, 24, 0) // 颈部
-  head.add(buildPart(8, 8, 8, 8, 8, 'bottom', false))
-  if (!fallbackTextureActive) head.add(buildPart(8, 8, 8, 40, 8, 'bottom', true)) // hat
+  head.position.set(0, 24, 0) // 颈部枢轴
+  head.add(buildPart(8, 8, 8, 8, 8, 1, 4, false))
+  if (!fallbackActive) head.add(buildPart(8, 8, 8, 40, 8, INFLATE_HAT, 4, true)) // 帽层
 
   const body = new THREE.Group()
-  body.add(at(buildPart(8, 12, 4, 20, 20, 'center', false), 0, 18, 0))
-  if (!fallbackTextureActive) {
-    body.add(at(buildPart(8, 12, 4, 20, 36, 'center', true), 0, 18, 0)) // jacket
-  }
-
-  const armR = new THREE.Group()
-  armR.position.set(-armX, 24, 0) // 右肩（角色右手边 = -x）
-  armR.add(buildPart(armW, 12, 4, 44, 20, 'top', false))
-  if (!fallbackTextureActive) armR.add(buildPart(armW, 12, 4, 44, 36, 'top', true)) // 右袖
+  body.position.set(0, 18, 0)
+  body.add(buildPart(8, 12, 4, 20, 20, 1, 0, false))
+  if (!fallbackActive) body.add(buildPart(8, 12, 4, 20, 36, INFLATE_OVERLAY, 0, true)) // 外套
 
   const armL = new THREE.Group()
-  armL.position.set(armX, 24, 0) // 左肩
-  armL.add(buildPart(armW, 12, 4, 36, 52, 'top', false))
-  if (!fallbackTextureActive) armL.add(buildPart(armW, 12, 4, 52, 52, 'top', true)) // 左袖
+  armL.position.set(armX, 24, 0) // 左肩枢轴
+  armL.add(buildPart(armW, 12, 4, 36, 52, 1, -6, false))
+  if (!fallbackActive) armL.add(buildPart(armW, 12, 4, 52, 52, INFLATE_OVERLAY, -6, true)) // 左袖
 
-  const legR = new THREE.Group()
-  legR.position.set(-2, 12, 0) // 右髋
-  legR.add(buildPart(4, 12, 4, 4, 20, 'top', false))
-  if (!fallbackTextureActive) legR.add(buildPart(4, 12, 4, 4, 36, 'top', true)) // 右裤腿
+  const armR = new THREE.Group()
+  armR.position.set(-armX, 24, 0) // 右肩枢轴
+  armR.add(buildPart(armW, 12, 4, 44, 20, 1, -6, false))
+  if (!fallbackActive) armR.add(buildPart(armW, 12, 4, 44, 36, INFLATE_OVERLAY, -6, true)) // 右袖
 
   const legL = new THREE.Group()
-  legL.position.set(2, 12, 0) // 左髋
-  legL.add(buildPart(4, 12, 4, 20, 52, 'top', false))
-  if (!fallbackTextureActive) legL.add(buildPart(4, 12, 4, 4, 52, 'top', true)) // 左裤腿
+  legL.position.set(2, 12, 0) // 左髋枢轴
+  legL.add(buildPart(4, 12, 4, 20, 52, 1, -6, false))
+  if (!fallbackActive) legL.add(buildPart(4, 12, 4, 4, 52, INFLATE_OVERLAY, -6, true)) // 左裤腿
 
-  root.add(head, body, armR, armL, legR, legL)
-  root.rotation.y = INITIAL_ROT_Y
-  model = root
-  parts = { head, armL, armR, legL, legR }
-  scene.add(root)
-  rebuildCape() // 装备的披风挂到模型背部（跟随模型重建）
+  const legR = new THREE.Group()
+  legR.position.set(-2, 12, 0) // 右髋枢轴
+  legR.add(buildPart(4, 12, 4, 4, 20, 1, -6, false))
+  if (!fallbackActive) legR.add(buildPart(4, 12, 4, 4, 36, INFLATE_OVERLAY, -6, true)) // 右裤腿
+
+  g.add(head, body, armL, armR, legL, legR)
+  attachCapeMesh(g)
+  g.rotation.y = yaw
+  g.rotation.x = pitch
+  root = g
+  joints = { head, armL, armR, legL, legR }
+  scene.add(g)
+}
+
+/** 披风：10×16×1，正面 UV (1,1)，枢轴在顶端，翻转朝后并外倾 10°（HMCL 披风参数） */
+function attachCapeMesh(parent: THREE.Group): void {
+  if (!capeTex || fallbackActive) return
+  const geo = new THREE.BoxGeometry(10, 16, 1)
+  geo.translate(0, -8, 0) // 枢轴在披风顶端
+  const regions = faceRegions(1, 1, 10, 16, 1)
+  const uv = geo.attributes.uv as THREE.BufferAttribute
+  const colors: number[] = []
+  for (let f = 0; f < 6; f++) {
+    const [rx, ry, rw, rh] = regions[f]
+    const u0 = rx / 64
+    const u1 = (rx + rw) / 64
+    const vTop = 1 - ry / 32 // 披风纹理 64×32
+    const vBot = 1 - (ry + rh) / 32
+    const o = f * 4
+    uv.setXY(o + 0, u0, vTop)
+    uv.setXY(o + 1, u1, vTop)
+    uv.setXY(o + 2, u0, vBot)
+    uv.setXY(o + 3, u1, vBot)
+    const s = FACE_SHADE[f]
+    for (let v = 0; v < 4; v++) colors.push(s, s, s)
+  }
+  uv.needsUpdate = true
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+  const mat = new THREE.MeshBasicMaterial({ map: capeTex, vertexColors: true, alphaTest: 0.1 })
+  disposables.push(geo, mat)
+  const mesh = new THREE.Mesh(geo, mat)
+  const joint = new THREE.Group()
+  joint.position.set(0, 24, -2.7) // 挂在背部
+  joint.rotation.order = 'YXZ'
+  joint.rotation.y = Math.PI // 正面纹理翻向观察者（HMCL 同款 180° 翻转）
+  joint.rotation.x = -10 * D2R // 下摆外倾
+  joint.add(mesh)
+  parent.add(joint)
 }
 
 /**
  * 生成一张完整的 64×64 本地皮肤纹理。它只用于没有账号皮肤或网络加载失败时，
- * 让首页的可拖动/行走 3D 组件仍可工作；有真实档案后会立即替换。
+ * 让可拖动/动画的 3D 组件仍可工作；有真实档案后会立即替换。
  */
 function createFallbackTexture(): THREE.DataTexture {
   const size = 64
@@ -310,104 +361,246 @@ function createFallbackTexture(): THREE.DataTexture {
   return texture
 }
 
-function useFallbackTexture() {
-  const old = baseTex
-  baseTex = createFallbackTexture()
-  fallbackTextureActive = true
+function makeTexture(src: HTMLImageElement | HTMLCanvasElement): THREE.Texture {
+  const t = new THREE.Texture(src)
+  // 像素风关键：最近邻采样 + 关闭 mipmap；sRGB 保证颜色不发灰
+  t.magFilter = THREE.NearestFilter
+  t.minFilter = THREE.NearestFilter
+  t.generateMipmaps = false
+  t.colorSpace = THREE.SRGBColorSpace
+  t.needsUpdate = true
+  return t
+}
+
+function useFallbackTexture(): void {
+  const old = skinTex
+  skinTex = createFallbackTexture()
+  fallbackActive = true
+  autoSlim = null
   buildModel()
   old?.dispose()
 }
 
-function disposeModel() {
-  if (model) {
-    scene.remove(model)
-    model = null
-    parts = null
+function disposeModel(): void {
+  if (root) {
+    scene.remove(root)
+    root = null
+    joints = null
+    walkJoints = null
   }
   for (const d of disposables) d.dispose()
   disposables = []
-  // 注意：baseTex 不在此处 dispose——buildModel 开头会调用本函数，源纹理由调用方管理
 }
 
-/** 加载皮肤纹理并重建人偶；src / variant 变化时调用 */
+// ---------------- 纹理加载 ----------------
+
 let finishBootTexture = () => {}
-function rebuild() {
+
+/** 加载皮肤纹理并重建人偶；src / variant 变化时调用 */
+function rebuild(): void {
   finishBootTexture()
   finishBootTexture = beginBootTask()
   const src = props.src
   const token = ++loadToken
-  if (!renderer) { finishBootTexture(); return }
-  if (!src) {
-    useFallbackTexture()
+  if (!renderer) {
     finishBootTexture()
     return
   }
-  new THREE.TextureLoader().load(
-    src,
-    (tex) => {
-      if (token !== loadToken) {
-        tex.dispose()
-        return
-      }
-      // 关键：必须在加载完成的回调里建模——提前克隆的空纹理不会随后续加载更新
-      // 像素风关键：最近邻采样 + 关闭 mipmap；sRGB 保证颜色不发灰
-      tex.magFilter = THREE.NearestFilter
-      tex.minFilter = THREE.NearestFilter
-      tex.generateMipmaps = false
-      tex.colorSpace = THREE.SRGBColorSpace
-      const old = baseTex
-      baseTex = tex
-      fallbackTextureActive = false
-      // Alex/Steve 自动检测：皮肤图为准，不依赖档案 variant 传递是否准确
+  if (!src) {
+    useFallbackTexture()
+    finishBootTexture()
+    requestFrame()
+    return
+  }
+  loadImage(src)
+    .then((img) => {
+      if (token !== loadToken || disposed) return
+      // 旧版 64×32 皮肤先迁移为 64×64（HMCL 镜像拷贝法），再做 slim 像素检测
+      const tex = migrateLegacySkin(img)
       autoSlim = detectSlimFromTexture(tex)
+      const old = skinTex
+      skinTex = makeTexture(tex)
+      fallbackActive = false
       buildModel()
       old?.dispose()
-      renderer?.render(scene, camera)
       finishBootTexture()
-    },
-    undefined,
-    () => {
-      if (token !== loadToken) return
+      requestFrame()
+    })
+    .catch(() => {
+      if (token !== loadToken || disposed) return
       useFallbackTexture()
       finishBootTexture()
-    }
-  )
+      requestFrame()
+    })
 }
 
-// ---------------- 拖动旋转 ----------------
+/** 加载披风纹理并挂到模型；cape 变化时调用 */
+function rebuildCape(): void {
+  const src = props.cape
+  const token = ++capeToken
+  if (!renderer) return
+  if (!src) {
+    const old = capeTex
+    capeTex = null
+    if (root) buildModel() // 重建以移除披风
+    old?.dispose()
+    requestFrame()
+    return
+  }
+  loadImage(src)
+    .then((img) => {
+      if (token !== capeToken || disposed) return
+      const old = capeTex
+      capeTex = makeTexture(img)
+      if (root) buildModel() // 重建以挂载新披风
+      old?.dispose()
+      requestFrame()
+    })
+    .catch(() => {
+      if (token !== capeToken || disposed) return
+    })
+}
+
+// ---------------- 交互：拖动旋转 / 滚轮缩放 / 双击回正 ----------------
 
 let lastX = 0
 let lastY = 0
 
 function onPointerDown(e: PointerEvent) {
-  if (e.button !== 0) return
+  if (e.pointerType === 'mouse' && e.button !== 0) return
   dragging.value = true
   lastX = e.clientX
   lastY = e.clientY
-  window.addEventListener('pointermove', onPointerMove)
-  window.addEventListener('pointerup', onPointerUp)
-  window.addEventListener('pointercancel', onPointerUp)
+  try {
+    container.value?.setPointerCapture(e.pointerId)
+  } catch {
+    /* 指针已释放时忽略 */
+  }
+  requestFrame()
 }
 
 function onPointerMove(e: PointerEvent) {
+  if (!dragging.value) return
   const dx = e.clientX - lastX
   const dy = e.clientY - lastY
   lastX = e.clientX
   lastY = e.clientY
-  targetRotY += dx * 0.01
-  targetRotX = THREE.MathUtils.clamp(targetRotX + dy * 0.01, -0.5, 0.5)
+  // 水平拖 → yaw 无限旋转；垂直拖 → pitch 夹紧。模型 rotation 用 YXZ 欧拉序，
+  // 等价于 HMCL 象限分配公式：任意朝向下垂直拖动都朝观察者方向倾倒。
+  yawTarget += dx * 0.01
+  pitchTarget = clamp(pitchTarget + dy * 0.01, -PITCH_MAX, PITCH_MAX)
+  requestFrame()
 }
 
-function onPointerUp() {
+function onPointerUp(e: PointerEvent) {
+  if (!dragging.value) return
   dragging.value = false
-  window.removeEventListener('pointermove', onPointerMove)
-  window.removeEventListener('pointerup', onPointerUp)
-  window.removeEventListener('pointercancel', onPointerUp)
+  try {
+    container.value?.releasePointerCapture(e.pointerId)
+  } catch {
+    /* 已释放时忽略 */
+  }
+  requestFrame() // 让残余的平滑过程播完
 }
 
-// ---------------- 渲染循环 ----------------
+function onWheel(e: WheelEvent) {
+  const step = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 100 : 1)
+  zoomTarget = clamp(zoomTarget * Math.exp(-step * 0.0012), ZOOM_MIN, ZOOM_MAX)
+  requestFrame()
+}
 
-function resize() {
+/** 双击回正：视角与缩放缓动回初始状态 */
+function resetView(): void {
+  yawTarget = INITIAL_YAW
+  pitchTarget = 0
+  zoomTarget = 1
+  requestFrame()
+}
+
+function clamp(v: number, min: number, max: number): number {
+  return v < min ? min : v > max ? max : v
+}
+
+// ---------------- 渲染循环（按需） ----------------
+
+let rafId = 0
+let lastFrame = 0
+
+/** 有任何渲染理由时唤醒循环；循环自己判断何时停 */
+function requestFrame(): void {
+  if (disposed || rafId) return
+  lastFrame = performance.now()
+  rafId = requestAnimationFrame(tick)
+}
+
+function tick(now: number): void {
+  rafId = 0
+  if (disposed) return
+  const dt = clamp((now - lastFrame) / 1000, 0, 0.05)
+  lastFrame = now
+
+  // 动画时钟：暂停或页面隐藏时不推进（冻结当前帧）
+  const animating = !props.paused && !document.hidden
+  if (animating) {
+    animT += dt
+    if (props.animation === 'walk') stepWalk(dt)
+    const bt = props.animation === 'walk' ? 1 : 0
+    walkBlend += (bt - walkBlend) * Math.min(1, dt * 6)
+  }
+
+  // 交互平滑：即使动画暂停也保持跟手
+  const k = 1 - Math.exp(-dt * 14)
+  yaw += (yawTarget - yaw) * k
+  pitch += (pitchTarget - pitch) * k
+  zoom += (zoomTarget - zoom) * k
+  const settled =
+    Math.abs(yaw - yawTarget) < 1e-4 &&
+    Math.abs(pitch - pitchTarget) < 1e-4 &&
+    Math.abs(zoom - zoomTarget) < 1e-3 &&
+    (!animating || Math.abs(walkBlend - (props.animation === 'walk' ? 1 : 0)) < 1e-3)
+
+  applyPose()
+  applyCamera()
+  renderer?.render(scene, camera)
+
+  // 按需渲染：动画播放中 / 交互中 / 平滑未收敛才继续，否则停止 rAF
+  if (animating || dragging.value || !settled) requestFrame()
+}
+
+function applyPose(): void {
+  if (!root || !joints) return
+  const b = walkBlend
+  const idle = 1 - b
+  const j = walkJoints
+  const idleSwing = Math.sin(animT * 1.6)
+  if (j) {
+    // 对角同相：左臂+右腿、右臂+左腿（方向符号在 makeWalkJoints 中配置）
+    joints.armL.rotation.x = j.armL.main.a * D2R * b + idleSwing * 0.035 * idle
+    joints.armL.rotation.y = j.armL.sub.a * D2R * b + Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armR.rotation.x = j.armR.main.a * D2R * b - idleSwing * 0.035 * idle
+    joints.armR.rotation.y = j.armR.sub.a * D2R * b - Math.sin(animT * 1.1) * 0.02 * idle
+    // 腿：只有 X 轴前后主摆（FCL 无 Y 轴副摆），rotation.y/z 恒为 0。
+    // 待机（b→0）时双腿垂直并拢在 x=±2；行走时仅前后摆，绝无内外八。
+    joints.legL.rotation.x = j.legL.main.a * D2R * b
+    joints.legR.rotation.x = j.legR.main.a * D2R * b
+  }
+  // 头部：行走微点头 + 待机环顾
+  joints.head.rotation.x = Math.sin(animT * 8) * 0.02 * b + Math.sin(animT * 1.3) * 0.03 * idle
+  joints.head.rotation.y = Math.sin(animT * 0.7) * 0.05 * idle
+  // 躯干：行走轻微弹跳 + 待机呼吸起伏
+  root.position.y = Math.abs(Math.sin(animT * 9.42)) * 0.3 * b + idleSwing * 0.18 * idle
+  root.rotation.y = yaw
+  root.rotation.x = pitch
+}
+
+function applyCamera(): void {
+  if (!camera) return
+  // 相机平视模型几何中心 y=16：全身 0~32 恒定居中，帽层/起伏不会被上缘裁切
+  camera.position.set(0, MODEL_CENTER_Y, baseDist / zoom)
+  camera.lookAt(0, MODEL_CENTER_Y, 0)
+}
+
+function updateCamera(): void {
   const el = container.value
   if (!el || !renderer || !camera) return
   const w = el.clientWidth
@@ -416,36 +609,22 @@ function resize() {
   renderer.setSize(w, h)
   camera.aspect = w / h
   camera.updateProjectionMatrix()
+  // FCL 取景法：距离 = 半幅 / tan(fov/2)。垂直覆盖半幅 18（全身 32 + 余量）；
+  // 窄容器再保证 ±8 臂展可见；24 为极窄画布下限，避免模型缩得过小。
+  const halfTan = Math.tan(((FOV / 2) * Math.PI) / 180)
+  baseDist = Math.max(FIT_HALF_HEIGHT / halfTan, 10 / (halfTan * camera.aspect), 24)
 }
 
-function animate(now: number) {
-  rafId = requestAnimationFrame(animate)
-  const dt = Math.min((now - lastTime) / 1000, 0.05)
-  lastTime = now
-  walkT += dt
-
-  // 走路动画：左右臂反相摆动，左右腿与对侧臂同相，头部微幅点头
-  if (parts) {
-    const s = Math.sin(walkT * 4)
-    parts.armL.rotation.x = s * 0.55
-    parts.armR.rotation.x = -s * 0.55
-    parts.legL.rotation.x = -s * 0.65
-    parts.legR.rotation.x = s * 0.65
-    parts.head.rotation.x = Math.sin(walkT * 8) * 0.03
-    // 披风跟随走路摆动：基础后仰 + 四肢摆动节奏 + 拖尾感滞后
-    if (capeGroup) {
-      capeGroup.rotation.x = 0.08 + Math.abs(s) * 0.14 + Math.sin(walkT * 4 - 0.6) * 0.05
+function onVisibilityChange(): void {
+  if (document.hidden) {
+    // 页面隐藏立即停 rAF，恢复时由 requestFrame 重新唤醒
+    if (rafId) {
+      cancelAnimationFrame(rafId)
+      rafId = 0
     }
+  } else {
+    requestFrame()
   }
-
-  // 视角：lerp 平滑趋近目标；未拖动时目标缓慢回到初始角度
-  if (model) {
-    if (!dragging.value) targetRotY += (INITIAL_ROT_Y - targetRotY) * 0.02
-    model.rotation.y += (targetRotY - model.rotation.y) * 0.12
-    model.rotation.x += (targetRotX - model.rotation.x) * 0.12
-  }
-
-  renderer?.render(scene, camera)
 }
 
 // ---------------- 生命周期 ----------------
@@ -461,48 +640,69 @@ onMounted(() => {
   }
   // 高 DPI 保持清晰，同时限制像素比，避免大窗口动画造成不必要的 GPU 压力。
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
-  renderer.setClearColor(0x000000, 0) // 透明背景，透出 --card-2 底色
+  renderer.setClearColor(0x000000, 0) // 透明背景，透出卡片底色
   el.appendChild(renderer.domElement)
 
   scene = new THREE.Scene()
-  camera = new THREE.PerspectiveCamera(40, 1, 1, 200)
-  camera.position.set(0, 20, 55)
-  camera.lookAt(0, 15, 0) // 取景覆盖 0~32px 全身，略带俯视
+  camera = new THREE.PerspectiveCamera(FOV, 1, 0.5, 500)
 
-  scene.add(new THREE.AmbientLight(0xffffff, 1.4))
-  const dir = new THREE.DirectionalLight(0xffffff, 1.2)
-  dir.position.set(20, 30, 40)
-  scene.add(dir)
-
-  resize()
-  observer = new ResizeObserver(resize)
+  updateCamera()
+  observer = new ResizeObserver(() => {
+    updateCamera()
+    requestFrame()
+  })
   observer.observe(el)
+  document.addEventListener('visibilitychange', onVisibilityChange)
 
   rebuild()
-  reloadCape()
-  lastTime = performance.now()
-  rafId = requestAnimationFrame(animate)
+  rebuildCape()
+  requestFrame()
 })
 
 onUnmounted(() => {
+  disposed = true
   finishBootTexture()
-  loadToken++ // 丢弃已卸载后才完成的纹理请求，避免重新创建 GPU 资源。
+  loadToken++ // 丢弃已卸载后才完成的纹理请求，避免重新创建 GPU 资源
   capeToken++
-  cancelAnimationFrame(rafId)
+  if (rafId) {
+    cancelAnimationFrame(rafId)
+    rafId = 0
+  }
   observer?.disconnect()
-  onPointerUp() // 防止拖动中卸载残留全局监听
+  observer = null
+  document.removeEventListener('visibilitychange', onVisibilityChange)
   disposeModel()
-  baseTex?.dispose()
-  baseTex = null
+  skinTex?.dispose()
+  skinTex = null
   capeTex?.dispose()
   capeTex = null
-  renderer?.dispose()
-  renderer?.domElement.remove()
-  renderer = null
+  if (renderer) {
+    renderer.dispose()
+    try {
+      renderer.forceContextLoss() // 立即归还 GL 上下文，压榨显存
+    } catch {
+      /* 部分环境无此实现 */
+    }
+    renderer.domElement.remove()
+    renderer = null
+  }
 })
 
-watch([() => props.src, () => props.variant], rebuild)
-watch(() => props.cape, reloadCape)
+watch([() => props.src, () => props.variant], () => {
+  if (renderer) rebuild()
+})
+watch(
+  () => props.cape,
+  () => {
+    if (renderer) rebuildCape()
+  }
+)
+watch([() => props.paused, () => props.animation], () => requestFrame())
+
+defineExpose({
+  /** 视角与缩放回正（双击同样触发） */
+  resetView
+})
 </script>
 
 <template>
@@ -511,6 +711,11 @@ watch(() => props.cape, reloadCape)
     class="viewer3d"
     :class="{ dragging }"
     @pointerdown.prevent="onPointerDown"
+    @pointermove="onPointerMove"
+    @pointerup="onPointerUp"
+    @pointercancel="onPointerUp"
+    @wheel.prevent="onWheel"
+    @dblclick="resetView"
   >
     <p v-if="!supported" class="muted viewer3d-fallback">当前环境不支持 3D 预览</p>
   </div>
@@ -521,7 +726,7 @@ watch(() => props.cape, reloadCape)
   position: relative;
   width: 100%;
   height: var(--sv3d-height, 340px);
-  border-radius: 12px;
+  border-radius: var(--radius-md, 10px);
   background: var(--sv3d-surface, var(--card-2));
   overflow: hidden;
   cursor: grab;
@@ -540,6 +745,6 @@ watch(() => props.cape, reloadCape)
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: var(--text-sm, 13px);
 }
 </style>

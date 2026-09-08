@@ -278,7 +278,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
     </div>
 
     <!-- 未安装任何版本时提示 -->
-    <div v-if="!store.installed.length" class="card empty" style="padding: 40px 20px">
+    <div v-if="!store.installed.length" class="card empty">
       <span>还没有安装任何游戏版本，请先到「游戏版本」页安装</span>
     </div>
 
@@ -390,7 +390,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 .page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--sec-gap);
   max-width: 940px;
   margin: 0 auto;
 }
@@ -399,7 +399,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
   flex-wrap: nowrap; /* 头部永不换行，按钮组位置固定 */
 }
 .fm-head-left {
@@ -420,7 +420,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 .fm-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   flex-shrink: 0; /* 按钮组固定尺寸，永不因文本长度移位 */
 }
 .fm-ver-select {
@@ -429,7 +429,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 }
 
 .fm-card {
-  padding: 8px;
+  padding: var(--space-2);
 }
 .fm-list {
   display: flex;
@@ -438,9 +438,10 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 .fm-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: 10px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
   transition: background 0.15s ease;
 }
 .fm-row:hover {
@@ -467,7 +468,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
   user-select: text;
 }
 .fm-meta {
-  font-size: 12px;
+  font-size: var(--text-xs);
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
 }
@@ -492,21 +493,22 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 
 /* MOD 更新检测面板 */
 .upd-panel {
-  padding: 14px 16px;
+  padding: var(--card-pad);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .upd-head {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
 }
 .upd-head-spacer {
   flex: 1;
 }
 .upd-empty {
-  padding: 16px 0;
+  padding: var(--space-4) 0;
 }
 .upd-list {
   display: flex;
@@ -517,9 +519,10 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 .upd-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 10px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
 }
 .upd-row:hover {
   background: var(--card-2);
@@ -540,8 +543,9 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
   white-space: nowrap;
 }
 .upd-ver {
-  font-size: 12px;
+  font-size: var(--text-xs);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 .upd-ver b {
   color: var(--accent-2);
@@ -552,16 +556,16 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 }
 .upd-err {
   color: var(--danger);
-  font-size: 12px;
+  font-size: var(--text-xs);
   flex-shrink: 0;
 }
 .upd-foot {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 .upd-foot .muted {
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 </style>

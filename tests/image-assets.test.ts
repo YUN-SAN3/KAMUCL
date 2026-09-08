@@ -7,9 +7,14 @@ import {
   boundedImageSize,
   isPathInside,
   readImageDimensions,
+  sniffImageFormat,
   validateImageInput
 } from '../src/main/core/imageAssetPolicy'
-import { encodeManagedImageBuffer } from '../src/main/core/imageAssetProcessor'
+import {
+  encodeManagedImageBuffer,
+  type DecodedImage,
+  type ImageCodec
+} from '../src/main/core/imageAssetProcessor'
 
 function pngHeader(width: number, height: number): Buffer {
   const buffer = Buffer.alloc(24)
@@ -37,6 +42,16 @@ test('图片头读取支持 PNG、JPEG 与 WebP VP8X', () => {
   webp[27] = 0x37
   webp[28] = 0x04
   assert.deepEqual(readImageDimensions(webp), { width: 2048, height: 1080 })
+})
+
+test('魔数嗅探区分 PNG、JPEG、WebP 并拒绝未知格式', async () => {
+  const png = await sharp({ create: { width: 8, height: 8, channels: 3, background: '#123456' } }).png().toBuffer()
+  const jpeg = await sharp({ create: { width: 8, height: 8, channels: 3, background: '#123456' } }).jpeg().toBuffer()
+  const webp = await sharp({ create: { width: 8, height: 8, channels: 3, background: '#123456' } }).webp().toBuffer()
+  assert.equal(sniffImageFormat(png), 'png')
+  assert.equal(sniffImageFormat(jpeg), 'jpeg')
+  assert.equal(sniffImageFormat(webp), 'webp')
+  assert.equal(sniffImageFormat(Buffer.from('not an image')), null)
 })
 
 test('导入策略拒绝伪装格式、空文件、超大文件与解压像素炸弹', () => {
@@ -76,17 +91,43 @@ test('受管文件删除边界拒绝父目录、同前缀目录与目录本身',
   assert.equal(isPathInside(`${root}-other/unsafe.jpg`, root), false)
 })
 
-test('真实 WebP 会异步解码、等比缩小并转换为跨平台缓存', async () => {
-  const source = await sharp({
-    create: {
-      width: 2000,
-      height: 1500,
-      channels: 3,
-      background: { r: 36, g: 160, b: 92 }
+// 测试期编解码器：与生产 createNativeImageCodec 同一接口，用 sharp 实现真实解码/缩放/编码。
+function sharpDecoded(data: Buffer, width: number, height: number, alpha: boolean): DecodedImage {
+  return {
+    width,
+    height,
+    hasAlpha: () => alpha,
+    async resize(w: number, h: number): Promise<DecodedImage> {
+      const resized = await sharp(data).resize(w, h, { fit: 'fill' }).png().toBuffer()
+      return sharpDecoded(resized, w, h, alpha)
+    },
+    async toPNG(): Promise<Buffer> {
+      return sharp(data).png().toBuffer()
+    },
+    async toJPEG(quality: number): Promise<Buffer> {
+      return sharp(data).flatten().jpeg({ quality }).toBuffer()
     }
-  }).webp({ quality: 80 }).toBuffer()
+  }
+}
 
-  const encoded = await encodeManagedImageBuffer(source, 'large.webp', 'launch-thumbnail')
+const sharpCodec: ImageCodec = {
+  async decode(data) {
+    try {
+      const metadata = await sharp(data, { limitInputPixels: 80_000_000 }).metadata()
+      if (!metadata.width || !metadata.height) return null
+      return sharpDecoded(data, metadata.width, metadata.height, metadata.hasAlpha === true)
+    } catch {
+      return null
+    }
+  }
+}
+
+test('大图导入会等比缩小并转为 JPEG 缓存（编码走注入 codec）', async () => {
+  const source = await sharp({
+    create: { width: 2000, height: 1500, channels: 3, background: { r: 36, g: 160, b: 92 } }
+  }).png().toBuffer()
+
+  const encoded = await encodeManagedImageBuffer(source, 'large.png', 'launch-thumbnail', sharpCodec)
   assert.equal(encoded.extension, '.jpg')
   assert.equal(encoded.width, 1440)
   assert.equal(encoded.height, 1080)
@@ -96,17 +137,54 @@ test('真实 WebP 会异步解码、等比缩小并转换为跨平台缓存', as
   assert.equal(metadata.height, 1080)
 })
 
+test('带透明通道的图片保留为 PNG 缓存', async () => {
+  const source = await sharp({
+    create: { width: 64, height: 64, channels: 4, background: { r: 20, g: 30, b: 40, alpha: 0.5 } }
+  }).png().toBuffer()
+
+  const encoded = await encodeManagedImageBuffer(source, 'alpha.png', 'instance-thumbnail', sharpCodec)
+  assert.equal(encoded.extension, '.png')
+  const metadata = await sharp(encoded.data).metadata()
+  assert.equal(metadata.format, 'png')
+  assert.equal(metadata.hasAlpha, true)
+})
+
+test('WebP 导入保留原始字节并按头校验尺寸上限', async () => {
+  const source = await sharp({
+    create: { width: 800, height: 600, channels: 3, background: { r: 12, g: 34, b: 56 } }
+  }).webp({ quality: 80 }).toBuffer()
+
+  const encoded = await encodeManagedImageBuffer(source, 'wide.webp', 'launch-thumbnail', sharpCodec)
+  assert.equal(encoded.extension, '.webp')
+  assert.equal(encoded.data, source)
+  assert.equal(encoded.width, 800)
+  assert.equal(encoded.height, 600)
+})
+
+test('超上限的 WebP 引导改用可缩放的 PNG/JPG', async () => {
+  const source = await sharp({
+    create: { width: 2000, height: 1500, channels: 3, background: { r: 36, g: 160, b: 92 } }
+  }).webp({ quality: 80 }).toBuffer()
+  await assert.rejects(
+    () => encodeManagedImageBuffer(source, 'large.webp', 'launch-thumbnail', sharpCodec),
+    /PNG 或 JPG/
+  )
+})
+
 test('图片扩展名与真实编码不一致时拒绝导入', async () => {
   const source = await sharp({
-    create: {
-      width: 16,
-      height: 16,
-      channels: 3,
-      background: { r: 20, g: 30, b: 40 }
-    }
+    create: { width: 16, height: 16, channels: 3, background: { r: 20, g: 30, b: 40 } }
   }).webp().toBuffer()
   await assert.rejects(
-    () => encodeManagedImageBuffer(source, 'fake.png', 'background'),
+    () => encodeManagedImageBuffer(source, 'fake.png', 'background', sharpCodec),
     /扩展名与实际格式不一致/
+  )
+})
+
+test('头合法但内容损坏的图片在解码阶段拒绝导入', async () => {
+  const corrupted = Buffer.concat([pngHeader(16, 16), Buffer.from('this is not pixel data')])
+  await assert.rejects(
+    () => encodeManagedImageBuffer(corrupted, 'broken.png', 'background', sharpCodec),
+    /解码失败/
   )
 })
