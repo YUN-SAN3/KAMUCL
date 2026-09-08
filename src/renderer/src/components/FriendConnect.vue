@@ -119,7 +119,12 @@ async function join() {
 }
 let poll: ReturnType<typeof setInterval> | undefined
 let polling = false
+// 联机方式弹层 ESC 关闭（落到玩家直连面板）
+function onModeKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape' && mode.value === 'choose') pick('direct')
+}
 onMounted(() => {
+  window.addEventListener('keydown', onModeKeydown)
   void refresh()
   poll = setInterval(async () => {
     if (polling || busy.value || disposed) return
@@ -128,14 +133,17 @@ onMounted(() => {
     finally { polling = false }
   }, 3000)
 })
-onUnmounted(() => { disposed = true; clearInterval(poll) })
+onUnmounted(() => { disposed = true; clearInterval(poll); window.removeEventListener('keydown', onModeKeydown) })
 </script>
 
 <template>
   <div class="connect-page friend-connect">
-    <!-- 联机方式选择弹层 -->
-    <div v-if="mode === 'choose'" class="mode-overlay" role="dialog" aria-label="选择联机方式">
+    <!-- 联机方式选择弹层（× / 遮罩空白 / ESC 均可关闭，关闭后落到玩家直连面板） -->
+    <div v-if="mode === 'choose'" class="mode-overlay" role="dialog" aria-label="选择联机方式" @click.self="pick('direct')" @keydown.esc="pick('direct')">
       <div class="mode-sheet">
+        <button class="mode-close" title="关闭（Esc）" @click="pick('direct')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18" /></svg>
+        </button>
         <header class="mode-head">
           <span class="connection-eyebrow">PLAY TOGETHER</span>
           <h2>选择联机方式</h2>
@@ -232,7 +240,11 @@ onUnmounted(() => { disposed = true; clearInterval(poll) })
 
 /* 联机方式选择弹层 */
 .mode-overlay { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 24px; background: color-mix(in srgb, var(--bg) 62%, transparent); backdrop-filter: blur(14px); }
-.mode-sheet { width: min(880px, 100%); max-height: 100%; overflow: auto; padding: 26px 26px 22px; border-radius: 18px; border: 1px solid var(--border-strong); background: var(--card); box-shadow: var(--shadow-lg); }
+.mode-sheet { position: relative; width: min(880px, 100%); max-height: 100%; overflow: auto; padding: 26px 26px 22px; border-radius: 18px; border: 1px solid var(--border-strong); background: var(--card); box-shadow: var(--shadow-lg); }
+/* 联机方式弹层右上角关闭按钮 */
+.mode-close { position: absolute; top: 14px; right: 14px; display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 8px; background: var(--card-2); color: var(--text-dim); cursor: pointer; transition: color .15s ease, border-color .15s ease; z-index: 1; }
+.mode-close:hover { color: var(--text); border-color: var(--accent); }
+.mode-close svg { width: 14px; height: 14px; }
 .mode-head h2 { font-size: 18px; margin: 4px 0 6px; }
 .mode-head p { color: var(--text-dim); font-size: 12.5px; }
 .mode-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
