@@ -164,11 +164,19 @@ function mapBoxUVs(
     const vTop = 1 - ry / 64 // 纹理 flipY，皮肤 y 向下 → v 向上翻转
     const vBot = 1 - (ry + rh) / 64
     const o = f * 4
-    // BoxGeometry 每面 4 顶点 uv 顺序：(0,1) (1,1) (0,0) (1,0) = 左上/右上/左下/右下
-    uv.setXY(o + 0, u0, vTop)
-    uv.setXY(o + 1, u1, vTop)
-    uv.setXY(o + 2, u0, vBot)
-    uv.setXY(o + 3, u1, vBot)
+    // BoxGeometry 每面 4 顶点 uv 顺序 (0,1) (1,1) (0,0) (1,0) = 左上/右上/左下/右下
+    // 实证（skinview3d setUVs）：-y 底面顶点排布与其他面不同，需按底面约定映射，否则下巴/脚底前后颠倒
+    if (f === 3) {
+      uv.setXY(o + 0, u0, vBot)
+      uv.setXY(o + 1, u1, vBot)
+      uv.setXY(o + 2, u1, vTop)
+      uv.setXY(o + 3, u0, vTop)
+    } else {
+      uv.setXY(o + 0, u0, vTop)
+      uv.setXY(o + 1, u1, vTop)
+      uv.setXY(o + 2, u0, vBot)
+      uv.setXY(o + 3, u1, vBot)
+    }
     const s = FACE_SHADE[f]
     for (let v = 0; v < 4; v++) colors.push(s, s, s)
   }
@@ -297,10 +305,18 @@ function attachCapeMesh(parent: THREE.Group): void {
     const vTop = 1 - ry / 32 // 披风纹理 64×32
     const vBot = 1 - (ry + rh) / 32
     const o = f * 4
-    uv.setXY(o + 0, u0, vTop)
-    uv.setXY(o + 1, u1, vTop)
-    uv.setXY(o + 2, u0, vBot)
-    uv.setXY(o + 3, u1, vBot)
+    // 与 mapBoxUVs 相同：-y 底面按 skinview3d 底面约定映射（披风下缘方向修正）
+    if (f === 3) {
+      uv.setXY(o + 0, u0, vBot)
+      uv.setXY(o + 1, u1, vBot)
+      uv.setXY(o + 2, u1, vTop)
+      uv.setXY(o + 3, u0, vTop)
+    } else {
+      uv.setXY(o + 0, u0, vTop)
+      uv.setXY(o + 1, u1, vTop)
+      uv.setXY(o + 2, u0, vBot)
+      uv.setXY(o + 3, u1, vBot)
+    }
     const s = FACE_SHADE[f]
     for (let v = 0; v < 4; v++) colors.push(s, s, s)
   }
@@ -588,15 +604,19 @@ function applyPose(): void {
   joints.head.rotation.x = Math.sin(animT * 8) * 0.02 * b + Math.sin(animT * 1.3) * 0.03 * idle
   joints.head.rotation.y = Math.sin(animT * 0.7) * 0.05 * idle
   // 躯干：行走轻微弹跳 + 待机呼吸起伏
-  root.position.y = Math.abs(Math.sin(animT * 9.42)) * 0.3 * b + idleSwing * 0.18 * idle
+  // abs(sin) 过零点导数不连续，1.5Hz 下呈上下颤抖；改 sin 平方（平滑曲线，半步双起伏）
+  const stepBob = Math.sin(animT * 9.42)
+  root.position.y = stepBob * stepBob * 0.3 * b + idleSwing * 0.18 * idle
   root.rotation.y = yaw
-  root.rotation.x = pitch
+  // pitch 不再翻倒模型（绕脚部倾倒不符合直觉）；俯仰由相机环绕实现（applyCamera）
 }
 
 function applyCamera(): void {
   if (!camera) return
   // 相机平视模型几何中心 y=16：全身 0~32 恒定居中，帽层/起伏不会被上缘裁切
-  camera.position.set(0, MODEL_CENTER_Y, baseDist / zoom)
+  // 俯仰=相机绕模型几何中心环绕（脚部保持原地，符合直觉；原先把模型绕脚部翻倒）
+  const dist = baseDist / zoom
+  camera.position.set(0, MODEL_CENTER_Y + Math.sin(pitch) * dist, Math.cos(pitch) * dist)
   camera.lookAt(0, MODEL_CENTER_Y, 0)
 }
 

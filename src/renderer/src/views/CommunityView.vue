@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { communityDownload, communityFiles, communitySearch, errText, getManifest, getModTargets } from '../api'
 import { store, toast } from '../store'
 import { instanceKey } from '@shared/modCompatibility'
@@ -176,6 +176,25 @@ async function doSearch(reset: boolean) {
 
 const onSearch = () => void doSearch(true)
 const onLoadMore = () => void doSearch(false)
+
+// ---------------- 无限滚动：列表底部哨兵进入视口即自动加载（保留按钮作兜底） ----------------
+const moreSentinel = ref<HTMLElement | null>(null)
+let moreObserver: IntersectionObserver | null = null
+onMounted(() => {
+  moreObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((e) => e.isIntersecting) && hasMore.value && !loading.value && !loadingMore.value) {
+        onLoadMore()
+      }
+    },
+    { root: null, rootMargin: '240px', threshold: 0 }
+  )
+  watch(moreSentinel, (el) => {
+    moreObserver?.disconnect()
+    if (el) moreObserver?.observe(el)
+  }, { immediate: true })
+})
+onUnmounted(() => moreObserver?.disconnect())
 function useCurrentInstance() {
   query.mcVersion = currentInstance.value?.mcVersion === '未知' ? '' : currentInstance.value?.mcVersion ?? ''
   query.loader = currentInstance.value?.loader ?? ''
@@ -535,6 +554,8 @@ async function confirmDownload() {
             </div>
           </div>
         </div>
+        <!-- 无限滚动哨兵：进入视口自动加载更多（按钮保留作兜底） -->
+        <div v-if="hasMore" ref="moreSentinel" class="more-sentinel"></div>
         <!-- 加载更多 -->
         <div v-if="hasMore" class="more-row">
           <button class="btn btn-ghost" :disabled="loadingMore" @click="onLoadMore">

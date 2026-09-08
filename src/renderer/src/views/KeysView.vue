@@ -164,20 +164,22 @@ onUnmounted(stopCapture)
 </template>
 
 <style scoped>
+/* 间距全部走全局设计令牌：元素与板块边缘保持呼吸感（card-pad 由 .card 提供） */
 .cfg-page { max-width: 760px; }
 .cfg-switch { align-items: flex-start; }
 .cfg-col { display: flex; flex-direction: column; min-height: 0; }
-.cfg-col-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-.cfg-search { width: 100%; margin-bottom: 8px; }
-.cfg-scroll { overflow-y: auto; max-height: calc(100vh - 330px); min-height: 220px; padding-right: 4px; }
-.cfg-group { margin-top: 12px; }
-.cfg-cat { font-size: 13px; color: var(--text-dim); margin: 0 0 6px; font-weight: 650; }
-.cfg-row { display: flex; align-items: center; gap: 10px; padding: 7px 4px; border-radius: 8px; }
+.cfg-col-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); }
+.cfg-search { width: 100%; margin-bottom: var(--space-3); }
+.cfg-scroll { overflow-y: auto; max-height: calc(100vh - 330px); min-height: 220px; padding-right: var(--space-2); }
+.cfg-group { margin-top: var(--space-4); }
+.cfg-group:first-child { margin-top: 0; }
+.cfg-cat { font-size: var(--text-sm); color: var(--text-dim); margin: 0 0 var(--space-2); font-weight: 650; }
+.cfg-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-2); border-radius: var(--radius-sm); }
 .cfg-row:hover { background: var(--card-2); }
-.cfg-label { flex: 1; min-width: 0; font-size: 13px; }
+.cfg-label { flex: 1; min-width: 0; font-size: var(--text-sm); }
 .cfg-bind {
-  min-width: 120px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px;
-  background: var(--card-2); color: var(--text); font-size: 12px; font-family: inherit; cursor: pointer;
+  min-width: 120px; padding: var(--space-2) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--card-2); color: var(--text); font-size: var(--text-xs); font-family: inherit; cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 .cfg-bind:hover { border-color: var(--accent); }
@@ -185,7 +187,7 @@ onUnmounted(stopCapture)
 .cfg-bind.capturing { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); color: var(--accent-2); }
 .cfg-reset {
   display: flex; align-items: center; justify-content: center; width: 26px; height: 26px;
-  border: none; border-radius: 6px; background: transparent; color: var(--text-dim); cursor: pointer; flex-shrink: 0;
+  border: none; border-radius: var(--radius-sm); background: transparent; color: var(--text-dim); cursor: pointer; flex-shrink: 0;
 }
 .cfg-reset:hover { color: var(--accent-2); background: var(--hover); }
 .cfg-reset svg { width: 13px; height: 13px; }

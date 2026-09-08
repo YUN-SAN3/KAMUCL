@@ -33,6 +33,8 @@ export function resolveMinecraftRoot(input: string): {
 } {
   if (!input.trim()) throw new Error('文件夹路径不能为空')
   let selected = canonicalPath(input)
+  // 先检查存在性再给友好错误；否则 statSync 会把 ENOENT 系统报错直接抛给用户
+  if (!fs.existsSync(selected)) throw new Error('文件夹不存在，请检查路径是否正确')
   const stat = fs.statSync(selected)
   if (!stat.isDirectory()) throw new Error('选择的路径不是文件夹')
 
