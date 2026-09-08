@@ -294,6 +294,25 @@ export const setDefaultKey = (id: string, bind: string) =>
   invoke<Record<string, string>>(IPC.keysSetDefault, id, bind)
 export const resetDefaultKeys = () => invoke<Record<string, string>>(IPC.keysReset)
 
+// ---------------- 启动器自更新与版本回退 ----------------
+export const checkUpdate = (force = false) => invoke<import('@shared/types').UpdateCheckResult>(IPC.updateCheck, force)
+export const skipUpdateVersion = (version: string) => invoke<void>(IPC.updateSkip, version)
+export const startUpdateDownload = (release: import('@shared/types').ReleaseInfo, mode: 'upgrade' | 'rollback' = 'upgrade') =>
+  invoke<{ taskId: string }>(IPC.updateStart, release, mode)
+export const applyUpdate = (release: import('@shared/types').ReleaseInfo) => invoke<void>(IPC.updateApply, release)
+export const listUpdateReleases = () => invoke<import('@shared/types').ReleaseInfo[]>(IPC.updateListReleases)
+export const getUpdateState = () => invoke<import('@shared/types').UpdateStateInfo | null>(IPC.updateGetState)
+export const restoreUpdateBackup = () => invoke<void>(IPC.updateRestoreBackup)
+export const pickLocalUpdateFile = () => invoke<import('@shared/types').LocalUpdateCheck | null>(IPC.updatePickLocalFile)
+export const applyLocalUpdate = (check: import('@shared/types').LocalUpdateCheck) => invoke<void>(IPC.updateApplyLocal, check)
+export const getConfigStatus = () =>
+  invoke<{ configVersion: number; current: number; mismatch: 'newer' | null }>(IPC.updateGetConfigStatus)
+export const resetSettingsToDefaults = () => invoke<void>(IPC.updateResetSettings)
+export const onUpdatePrompt = (cb: (r: import('@shared/types').ReleaseInfo & { rollbackNotice?: boolean }) => void) =>
+  subscribe<import('@shared/types').ReleaseInfo & { rollbackNotice?: boolean }>(IPC_EVENT.updatePrompt, cb)
+export const onUpdateSlowHint = (cb: (r: { taskId: string }) => void) =>
+  subscribe<{ taskId: string }>(IPC_EVENT.updateSlowHint, cb)
+
 // ---------------- 桥接 MOD 实时配置面板 ----------------
 export const bridgeStatus = (versionId: string) =>
   invoke<import('@shared/types').BridgeStatus>(IPC.bridgeStatus, versionId)

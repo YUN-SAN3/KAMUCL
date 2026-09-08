@@ -401,6 +401,76 @@ export interface Settings {
   keySync?: boolean
   /** 正版登录使用系统代理：默认直连（安全优先）；直连微软端点失败时用户可开启（CONNECT 隧道+端到端 TLS 校验保持） */
   msUseProxy?: boolean
+  /** 配置格式版本：升级/回退后启动时检查，不兼容时迁移或提示重置，不得直接崩溃 */
+  configVersion?: number
+  /** 跳过提示的版本号（该版本不再弹更新提示，直到更新的版本出现） */
+  skipUpdateVersion?: string
+  /** 更新下载源：auto=直连优先镜像兜底；direct=仅 GitHub 直连；mirror=仅自定义镜像 */
+  updateSource?: 'auto' | 'direct' | 'mirror'
+  /** 自定义镜像前缀（拼接在 GitHub 文件 URL 前，如 https://ghproxy.net/） */
+  updateMirrorUrl?: string
+  /** 内测群号覆盖（免打包临时改；默认取 shared/branding.ts 的 QQ_GROUP_NUMBER） */
+  qqGroupNumber?: string
+}
+
+// ---------------- 启动器自更新 ----------------
+
+/** GitHub Release 信息（检查/列表共用） */
+export interface ReleaseInfo {
+  /** 语义化版本号（tag 去前导 v） */
+  version: string
+  /** 发布日期 ISO 串 */
+  publishedAt: string
+  /** Release body（Markdown 原文，渲染端做轻量渲染） */
+  body: string
+  /** 便携 exe 资产下载地址（空 = 该 Release 无可更新资产） */
+  assetUrl: string
+  /** 资产文件大小（字节） */
+  assetSize: number
+  /** 资产文件名（KAMUCL-x.y.z.exe） */
+  assetName: string
+}
+
+/** 更新检查结果 */
+export interface UpdateCheckResult {
+  /** ok=false 时 reason 仅记日志，不打扰用户 */
+  ok: boolean
+  /** 是否有新版本 */
+  hasUpdate: boolean
+  release?: ReleaseInfo
+  /** 命中限流/网络失败等原因（静默降级） */
+  reason?: string
+  /** 结果来自缓存（离线/限流时的兜底展示） */
+  fromCache?: boolean
+}
+
+/** 更新状态记录（userData/update-state.json）：备份还原入口与失败提示的数据源 */
+export interface UpdateStateInfo {
+  /** 更新前版本 */
+  from: string
+  /** 目标版本 */
+  to: string
+  time: string
+  /** 备份的完整路径（启动器目录 KAMUCL-backup 下） */
+  backupPath: string
+  /** 备份对应版本号 */
+  backupVersion: string
+  /** 结果：applied=已替换待验证；ok=新版已确认存活 */
+  result: 'applied' | 'ok'
+}
+
+/** 本地文件安装更新的校验结果 */
+export interface LocalUpdateCheck {
+  filePath: string
+  fileName: string
+  fileSize: number
+  /** 从文件名解析出的版本号（空 = 无法识别） */
+  version: string
+  /** 版本是否 ≥ 当前版本（无法识别版本时为 false，由用户自担确认） */
+  versionOk: boolean
+  /** SHA256 校验：match=与 Release 一致；mismatch=不一致；unknown=无法联网校验 */
+  sha256: 'match' | 'mismatch' | 'unknown'
+  detail?: string
 }
 
 // ---------------- 首页布局 ----------------
@@ -739,7 +809,20 @@ export const IPC = {
   // 文件/目录（rel 为相对游戏目录的子目录：'mods' | 'resourcepacks' | 'shaderpacks' | ''）
   appOpenDir: 'app:openDir', // (rel?: string) => void  用系统资源管理器打开目录
   fsList: 'fs:list', // (rel: string) => FsEntry[]
-  fsRemove: 'fs:remove' // (rel: string, name: string) => FsEntry[]
+  fsRemove: 'fs:remove', // (rel: string, name: string) => FsEntry[]
+
+  // 启动器自更新与版本回退
+  updateCheck: 'update:check', // (force?: boolean) => UpdateCheckResult  启动自动检查+设置页手动检查
+  updateSkip: 'update:skip', // (version: string) => void  跳过此版本（下下个版本再提示）
+  updateStart: 'update:start', // (release: ReleaseInfo, mode: 'upgrade'|'rollback') => { taskId: string }  后台下载更新包
+  updateApply: 'update:apply', // (release: ReleaseInfo) => void  校验→备份→替换→重启（下载完成后调用）
+  updateListReleases: 'update:listReleases', // () => ReleaseInfo[]  版本回退候选列表
+  updateGetState: 'update:getState', // () => UpdateStateInfo | null  备份还原入口数据源
+  updateRestoreBackup: 'update:restoreBackup', // () => void  还原到更新前的版本并重启
+  updatePickLocalFile: 'update:pickLocalFile', // () => LocalUpdateCheck | null  选择本地安装包并校验
+  updateApplyLocal: 'update:applyLocal', // (check: LocalUpdateCheck) => void  本地包走相同备份-替换-重启
+  updateGetConfigStatus: 'update:getConfigStatus', // () => { configVersion: number; current: number; mismatch: 'newer' | null }
+  updateResetSettings: 'update:resetSettings' // () => void  配置不兼容时重置设置（先备份原文件）
 } as const
 
 export interface FsEntry {
@@ -757,7 +840,9 @@ export const IPC_EVENT = {
   msLoginDone: 'event:msLoginDone', // (account: Account | null)  null = 失败/取消
   installDone: 'event:installDone', // (r: { versionId: string; installedId?: string; ok: boolean; error?: string; taskId?: string; cancelled?: boolean; stage?: string })  installedId = 实际实例 id（含加载器后缀，成功时存在）；stage = 失败阶段；cancelled = 用户取消
   taskDone: 'event:taskDone', // (r: { taskId: string; ok: boolean; error?: string; cancelled?: boolean; stage?: string })  所有后台任务（含普通资源下载）的统一完成通知
-  gameDirDone: 'event:gameDirDone' // (r: { ok: boolean; error?: string; gameDir?: string })  目录迁移结束（配置已切换/失败已回滚）
+  gameDirDone: 'event:gameDirDone', // (r: { ok: boolean; error?: string; gameDir?: string })  目录迁移结束（配置已切换/失败已回滚）
+  updatePrompt: 'event:updatePrompt', // (r: ReleaseInfo)  启动自动检查发现新版本 → 弹窗
+  updateSlowHint: 'event:updateSlowHint' // (r: { taskId: string })  更新下载连续 30s 低于 100KB/s → 进度界面内嵌提示一次
 } as const
 
 /**

@@ -161,6 +161,26 @@ app.whenReady().then(async () => {
       const record = restoreRunningGame((s) => win?.webContents.send('event:launchState', s))
       if (record) launcherLogInfo('main', `检测到运行中游戏已恢复：pid=${record.pid} 实例=${record.versionId}`)
     })
+    // 启动自动检查更新：有新版且未跳过 → 弹窗；失败/限流静默降级仅记日志
+    void (async () => {
+      try {
+        const { checkLatest, shouldPrompt } = await import('./core/selfUpdate')
+        const { consumeUpdateFailedFlag } = await import('./core/applyUpdate')
+        const { getSettings } = await import('./core/settings')
+        if (consumeUpdateFailedFlag()) {
+          win?.webContents.send('event:updatePrompt', { rollbackNotice: true })
+        }
+        const result = await checkLatest(false)
+        if (result.ok && result.hasUpdate && result.release) {
+          const s = getSettings()
+          if (shouldPrompt(result.release, s.skipUpdateVersion, app.getVersion())) {
+            win?.webContents.send('event:updatePrompt', result.release)
+          }
+        }
+      } catch (e) {
+        launcherLogInfo('main', `启动自动检查更新失败（静默降级）：${e instanceof Error ? e.message : String(e)}`)
+      }
+    })()
   })
 
   app.on('activate', () => {
