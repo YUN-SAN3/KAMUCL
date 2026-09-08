@@ -4,9 +4,12 @@ import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from
 import type { Component } from 'vue'
 import { backgroundImageEffect } from '@shared/appearancePolicy'
 import {
+  applyUpdate,
   cancelTask,
   errText,
   exportLaunchLogs,
+  formatSpeed,
+  getConfigStatus,
   getSettings,
   installModpack,
   onGameDirDone,
@@ -15,12 +18,21 @@ import {
   onLaunchState,
   onProgress,
   onTaskDone,
+  onUpdatePrompt,
+  onUpdateReady,
+  onUpdateSlowHint,
   pauseTask,
   probeModpack,
   probeWorld,
+  resetSettingsToDefaults,
   resumeTask,
-  selectFile
+  selectFile,
+  skipUpdateVersion,
+  startUpdateDownload
 } from './api'
+import type { ReleaseInfo } from '@shared/types'
+import { QQ_GROUP_NUMBER } from '@shared/branding'
+import UpdateModal from './components/UpdateModal.vue'
 import { dismissTask, exitEditMode, finalizeTask, markNoticesRead, recordLastPlayed, refreshAccounts, refreshInstalled, resetProgressMono, stageLabel, store, toast, upsertTaskProgress } from './store'
 import type { ViewName } from './store'
 import type {
@@ -201,6 +213,105 @@ const win = (action: 'minimize' | 'maximize' | 'close') => {
     return
   }
   window.kamucl.send(`window:${action}`)
+}
+
+// ---------------- 启动器自更新弹窗 ----------------
+const updateModal = reactive<{
+  open: boolean
+  release: ReleaseInfo | null
+  state: 'found' | 'downloading' | 'done'
+  taskId: string
+  slowHint: boolean
+  rollback: boolean
+}>({ open: false, release: null, state: 'found', taskId: '', slowHint: false, rollback: false })
+
+/** 内测群号：设置覆盖优先，默认 shared/branding 常量 */
+const qqGroup = computed(() => store.settings?.qqGroupNumber?.trim() || QQ_GROUP_NUMBER)
+
+/** 更新下载任务进度（从下载中心任务列表取，含速度） */
+const updateTask = computed(() => store.tasks.find((t) => t.id === updateModal.taskId))
+const updatePercent = computed(() => updateTask.value?.progress ?? 0)
+const updateSpeedText = computed(() => (updateTask.value?.speed ? formatSpeed(updateTask.value.speed) + '/s' : ''))
+
+function openUpdateModal(release: ReleaseInfo, rollback = false) {
+  updateModal.release = release
+  updateModal.state = 'found'
+  updateModal.taskId = ''
+  updateModal.slowHint = false
+  updateModal.rollback = rollback
+  updateModal.open = true
+}
+// 设置页手动检查/任意页面写入 store.updatePrompt → 统一在此打开弹窗
+watch(
+  () => store.updatePrompt,
+  (req) => {
+    if (req) {
+      openUpdateModal(req.release, req.rollback)
+      store.updatePrompt = null
+    }
+  }
+)
+
+async function onUpdateNow() {
+  const release = updateModal.release
+  if (!release) return
+  try {
+    const { taskId } = await startUpdateDownload(release, updateModal.rollback ? 'rollback' : 'upgrade')
+    updateModal.taskId = taskId
+    updateModal.state = 'downloading'
+  } catch (e) {
+    toast('启动更新下载失败：' + errText(e), 'error')
+    updateModal.open = false
+  }
+}
+function onUpdateLater() {
+  updateModal.open = false
+}
+async function onUpdateSkip() {
+  const release = updateModal.release
+  updateModal.open = false
+  if (!release) return
+  try {
+    await skipUpdateVersion(release.version)
+    store.settings = { ...store.settings!, skipUpdateVersion: release.version }
+    toast(`已跳过 v${release.version}，下个版本再提醒`, 'info')
+  } catch (e) {
+    toast('保存失败：' + errText(e), 'error')
+  }
+}
+async function onUpdateCancelDownload() {
+  if (updateModal.taskId) await cancelTask(updateModal.taskId)
+  updateModal.open = false
+}
+async function onUpdateInstallNow() {
+  const release = updateModal.release
+  if (!release) return
+  try {
+    await applyUpdate(release)
+    // 主进程将退出：无需后续处理
+  } catch (e) {
+    toast('安装更新失败：' + errText(e), 'error')
+    updateModal.open = false
+  }
+}
+
+// 配置文件版本不兼容（回退后旧版读到新版配置）：继续尝试 / 重置设置
+const configMismatch = ref(false)
+async function checkConfigStatus() {
+  try {
+    const s = await getConfigStatus()
+    if (s.mismatch === 'newer') configMismatch.value = true
+  } catch { /* 检查失败不打扰 */ }
+}
+async function onConfigReset() {
+  try {
+    await resetSettingsToDefaults()
+    configMismatch.value = false
+    toast('设置已重置为默认值（原配置已备份）', 'success')
+    setTimeout(() => location.reload(), 800)
+  } catch (e) {
+    toast('重置失败：' + errText(e), 'error')
+  }
 }
 
 // 自绘标题栏中的返回按钮使用真实视图历史；不伪造“返回”入口。
@@ -979,7 +1090,30 @@ onMounted(async () => {
     onTaskDone((r) => {
       finalizeTask(r)
       resetProgressMono(r.taskId)
+      // 更新下载完成 → 弹窗切到「下载完成」待安装态
+      if (updateModal.open && updateModal.taskId && r.taskId === updateModal.taskId) {
+        if (r.ok) {
+          updateModal.state = 'done'
+        } else {
+          updateModal.open = false
+          if (!r.cancelled) toast('更新下载失败：' + (r.error || '未知错误'), 'error')
+        }
+      }
       if (r.cancelled) toast('任务已取消', 'info')
+    }),
+    onUpdatePrompt((payload) => {
+      // 回滚通知（更新失败自动还原后备份）
+      if ((payload as { rollbackNotice?: boolean }).rollbackNotice) {
+        toast('更新失败，已自动回滚到当前版本', 'error')
+        return
+      }
+      store.updatePrompt = { release: payload, rollback: false }
+    }),
+    onUpdateSlowHint((r) => {
+      if (updateModal.open && r.taskId === updateModal.taskId) updateModal.slowHint = true
+    }),
+    onUpdateReady((r) => {
+      toast(`新版本 v${r.version} 已下载完成，关闭启动器时将自动安装`, 'success')
     }),
     onInstallDone((r) => {
       store.installing.delete(r.versionId)
@@ -1047,6 +1181,7 @@ onMounted(async () => {
   try {
     store.settings = await getSettings()
     window.kamucl.send('boot:stage', 'settings')
+    void checkConfigStatus()
     await Promise.all([
       refreshAccounts().then(() => window.kamucl.send('boot:stage', 'accounts')),
       refreshInstalled().then(() => window.kamucl.send('boot:stage', 'instances'))
@@ -1365,6 +1500,37 @@ onUnmounted(() => {
 
     <Toasts />
 
+    <!-- 启动器自更新弹窗（发现新版本/下载中/下载完成三态） -->
+    <UpdateModal
+      v-if="updateModal.open && updateModal.release"
+      :release="updateModal.release"
+      :current-version="appVersion"
+      :state="updateModal.state"
+      :percent="updatePercent"
+      :speed-text="updateSpeedText"
+      :slow-hint="updateModal.slowHint"
+      :qq-group="qqGroup"
+      :rollback="updateModal.rollback"
+      @update-now="onUpdateNow"
+      @later="onUpdateLater"
+      @skip="onUpdateSkip"
+      @cancel-download="onUpdateCancelDownload"
+      @install-now="onUpdateInstallNow"
+      @close="updateModal.open = false"
+    />
+
+    <!-- 配置文件版本不兼容（回退后旧版读到新版配置） -->
+    <div v-if="configMismatch" class="menu-overlay cfg-mismatch-mask">
+      <div class="card cfg-mismatch-modal" role="dialog" aria-label="配置不兼容">
+        <h3 class="upd-modal-title">配置文件版本不兼容</h3>
+        <p class="muted">当前配置文件由更新版本的启动器创建，可能包含本版本不认识的格式。可以继续尝试使用（可能异常），或重置为默认设置（原配置会自动备份）。</p>
+        <div class="upd-modal-actions">
+          <button class="btn btn-ghost" @click="configMismatch = false">继续尝试</button>
+          <button class="btn btn-danger" @click="onConfigReset">重置设置</button>
+        </div>
+      </div>
+    </div>
+
     <!-- 个性化编辑模式：右侧滑出编辑面板 -->
     <Transition name="ep-slide">
       <EditPanel v-if="store.editMode" />
@@ -1557,6 +1723,11 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* 配置不兼容弹窗 */
+.cfg-mismatch-mask { z-index: 9600; display: grid; place-items: center; }
+.cfg-mismatch-modal { width: min(460px, 90vw); padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+.upd-modal-title { margin: 0; font-size: 17px; }
+.upd-modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
 .shell {
   display: flex;
   width: 100%;

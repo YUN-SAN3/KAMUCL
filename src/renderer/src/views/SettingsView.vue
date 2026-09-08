@@ -2,24 +2,34 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import {
   addCustomJava,
+  applyLocalUpdate,
+  applyPendingUpdate,
   cancelJavaScan,
+  checkUpdate,
   errText,
+  getPendingUpdate,
   getSystemInfo,
+  getUpdateState,
   hideJava,
   installPlugin,
   listJava,
   listPlugins,
+  listUpdateReleases,
   onProgress,
   openPluginsDir,
   pickAddJava,
+  pickLocalUpdateFile,
   refreshJava,
   removePlugin,
+  restoreUpdateBackup,
   setPluginEnabled
 } from '../api'
 import { enterEditMode, store, toast } from '../store'
 import { DEFAULT_CUSTOM_THEME, THEME_PRESETS } from '@shared/types'
-import type { PluginInfo, Settings, ThemeName } from '@shared/types'
+import type { LocalUpdateCheck, PluginInfo, ReleaseInfo, Settings, ThemeName, UpdateStateInfo } from '@shared/types'
+import { QQ_GROUP_NUMBER } from '@shared/branding'
 import HomeLayoutEditor from '../components/HomeLayoutEditor.vue'
+import UpdateModal from '../components/UpdateModal.vue'
 import { updateSettings } from '../settingsUpdates'
 
 const page = ref<HTMLElement | null>(null)
@@ -43,6 +53,129 @@ async function save(patch: Partial<Settings>) {
     toast('保存设置失败：' + errText(e), 'error')
   }
 }
+
+// ---------------- 关于与更新 ----------------
+const appVersion = __APP_VERSION__
+const updateCheckState = ref<'idle' | 'checking' | 'latest' | 'failed'>('idle')
+let lastManualCheck = 0
+
+async function onCheckUpdate() {
+  const now = Date.now()
+  if (now - lastManualCheck < 5 * 60_000 && updateCheckState.value === 'latest') {
+    toast('5 分钟内已检查过，已是最新', 'info')
+    return
+  }
+  lastManualCheck = now
+  updateCheckState.value = 'checking'
+  try {
+    const r = await checkUpdate(true)
+    if (r.ok && r.hasUpdate && r.release) {
+      updateCheckState.value = 'idle'
+      store.updatePrompt = { release: r.release, rollback: false }
+    } else if (r.ok) {
+      updateCheckState.value = 'latest'
+    } else {
+      updateCheckState.value = 'failed'
+    }
+  } catch {
+    updateCheckState.value = 'failed'
+  }
+}
+
+const updateSource = computed(() => store.settings?.updateSource ?? 'auto')
+function onUpdateSourceChange(e: Event) {
+  void save({ updateSource: (e.target as HTMLSelectElement).value as Settings['updateSource'] })
+}
+function onUpdateMirrorChange(e: Event) {
+  void save({ updateMirrorUrl: (e.target as HTMLInputElement).value.trim() })
+}
+
+// 版本回退
+const rollback = ref<{ open: boolean; loading: boolean; list: ReleaseInfo[]; selected: string }>({
+  open: false, loading: false, list: [], selected: ''
+})
+async function openRollback() {
+  rollback.value.open = true
+  rollback.value.loading = true
+  try {
+    rollback.value.list = (await listUpdateReleases()).filter((r) => r.version !== appVersion)
+    if (!rollback.value.list.length) toast('没有可回退的历史版本', 'info')
+  } catch (e) {
+    toast('获取历史版本失败：' + errText(e), 'error')
+  } finally {
+    rollback.value.loading = false
+  }
+}
+function confirmRollback() {
+  const release = rollback.value.list.find((r) => r.version === rollback.value.selected)
+  rollback.value.open = false
+  if (!release) return
+  store.updatePrompt = { release, rollback: true }
+}
+function releaseSummary(body: string): string {
+  const first = (body || '').split(/\r?\n/).map((s) => s.replace(/^#+\s*/, '').trim()).filter(Boolean)[0] ?? ''
+  return first.length > 60 ? first.slice(0, 60) + '…' : first
+}
+
+// 还原到更新前的版本
+const updateState = ref<UpdateStateInfo | null>(null)
+const restoringBackup = ref(false)
+async function refreshUpdateState() {
+  try {
+    updateState.value = await getUpdateState()
+  } catch {
+    updateState.value = null
+  }
+  try {
+    pendingUpdate.value = await getPendingUpdate()
+  } catch {
+    pendingUpdate.value = null
+  }
+}
+async function onRestoreBackup() {
+  if (!updateState.value) return
+  restoringBackup.value = true
+  try {
+    await restoreUpdateBackup()
+  } catch (e) {
+    restoringBackup.value = false
+    toast('还原失败：' + errText(e), 'error')
+  }
+}
+
+// 已就绪待安装的更新（关闭启动器时自动安装，也可立即安装）
+const pendingUpdate = ref<{ release: ReleaseInfo; file: string } | null>(null)
+async function onApplyPending() {
+  try {
+    await applyPendingUpdate()
+  } catch (e) {
+    toast('安装失败：' + errText(e), 'error')
+  }
+}
+
+// 从本地文件安装更新
+const localUpdate = ref<{ check: LocalUpdateCheck; confirming: boolean } | null>(null)
+async function onPickLocalUpdate() {
+  try {
+    const check = await pickLocalUpdateFile()
+    if (!check) return
+    localUpdate.value = { check, confirming: true }
+  } catch (e) {
+    toast('校验安装包失败：' + errText(e), 'error')
+  }
+}
+async function confirmLocalUpdate() {
+  const lu = localUpdate.value
+  if (!lu) return
+  localUpdate.value = null
+  try {
+    await applyLocalUpdate(lu.check)
+  } catch (e) {
+    toast('安装更新失败：' + errText(e), 'error')
+  }
+}
+
+onMounted(refreshUpdateState)
 
 // ---------------- 功能管理 ----------------
 const featureToggles = [
@@ -683,6 +816,64 @@ async function onRemovePlugin(p: PluginInfo) {
         </label>
       </div>
 
+      <!-- 关于与更新 -->
+      <div class="card group" data-section="update">
+        <h3 class="group-title">关于与更新</h3>
+        <div class="upd-row">
+          <span class="upd-label">当前版本</span>
+          <span class="upd-value">v{{ appVersion }}</span>
+          <button class="btn btn-ghost btn-sm" :disabled="updateCheckState === 'checking'" @click="onCheckUpdate">
+            <span v-if="updateCheckState === 'checking'" class="spin"></span>
+            {{ updateCheckState === 'checking' ? '检查中' : '检查更新' }}
+          </button>
+          <span v-if="updateCheckState === 'latest'" class="upd-latest">已是最新 ✓</span>
+          <span v-else-if="updateCheckState === 'failed'" class="muted">检查失败（已记日志，可稍后再试）</span>
+        </div>
+        <div class="upd-row">
+          <span class="upd-label">自动安装更新</span>
+          <label class="switch">
+            <input
+              :checked="store.settings.autoUpdate !== false"
+              type="checkbox"
+              @change="save({ autoUpdate: ($event.target as HTMLInputElement).checked })"
+            />
+            <span class="switch-ui"></span>
+          </label>
+          <span class="muted upd-auto-hint">发现新版本静默下载，关闭启动器时自动安装；关闭则弹窗询问</span>
+        </div>
+        <div v-if="pendingUpdate" class="upd-row upd-pending-row">
+          <span class="upd-pending-text">v{{ pendingUpdate.release.version }} 已就绪，关闭启动器时自动安装</span>
+          <button class="btn btn-gold btn-sm" @click="onApplyPending">立即重启安装</button>
+        </div>
+        <div class="upd-row">
+          <span class="upd-label">更新下载源</span>
+          <select class="select upd-source" :value="updateSource" @change="onUpdateSourceChange">
+            <option value="auto">自动（直连优先，镜像加速）</option>
+            <option value="direct">仅 GitHub 直连</option>
+            <option value="mirror">仅自定义镜像</option>
+          </select>
+        </div>
+        <div v-if="updateSource !== 'direct'" class="upd-row">
+          <span class="upd-label">自定义镜像</span>
+          <input
+            class="input mono upd-mirror"
+            :value="store.settings.updateMirrorUrl ?? ''"
+            placeholder="https://ghproxy.net/（留空用默认）"
+            @change="onUpdateMirrorChange"
+          />
+        </div>
+        <div class="upd-row upd-actions-row">
+          <button class="btn btn-ghost btn-sm" @click="openRollback">版本回退…</button>
+          <button v-if="updateState" class="btn btn-ghost btn-sm" :disabled="restoringBackup" @click="onRestoreBackup">
+            还原到更新前的版本（v{{ updateState.backupVersion }}）
+          </button>
+          <button class="btn btn-ghost btn-sm" @click="onPickLocalUpdate">从本地文件安装更新…</button>
+        </div>
+        <p class="muted group-hint">
+          更新包发布在 GitHub Releases；下载较慢时可到 KAMUCL 内测群（{{ store.settings.qqGroupNumber?.trim() || QQ_GROUP_NUMBER }}）获取，群内文件与 GitHub 版本一致。
+        </p>
+      </div>
+
       <!-- 插件系统 -->
       <div class="card group">
         <h3 class="group-title">插件</h3>
@@ -721,10 +912,114 @@ async function onRemovePlugin(p: PluginInfo) {
       </div>
     </template>
 
+    <!-- 版本回退：历史版本列表 -->
+    <div v-if="rollback.open" class="menu-overlay upd-modal-mask" @click.self="rollback.open = false">
+      <div class="card upd-modal-card" role="dialog" aria-label="版本回退">
+        <div class="upd-modal-head">
+          <h3 class="upd-modal-title">版本回退</h3>
+          <button class="icon-btn" title="关闭" @click="rollback.open = false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <p class="upd-risk">⚠ 旧版本可能不兼容新配置格式。回退前将自动备份当前版本，可随时还原。</p>
+        <div v-if="rollback.loading" class="empty"><span class="spin"></span></div>
+        <div v-else class="upd-release-list">
+          <label v-for="r in rollback.list" :key="r.version" class="upd-release-item" :class="{ selected: rollback.selected === r.version }">
+            <input v-model="rollback.selected" type="radio" name="rollback-version" :value="r.version" />
+            <span class="upd-release-main">
+              <span class="upd-release-ver">v{{ r.version }}</span>
+              <span class="muted upd-release-date">{{ r.publishedAt.slice(0, 10) }}</span>
+              <span class="muted upd-release-summary">{{ releaseSummary(r.body) }}</span>
+            </span>
+          </label>
+          <div v-if="!rollback.list.length" class="empty"><span>没有可回退的历史版本</span></div>
+        </div>
+        <div class="upd-modal-actions">
+          <button class="btn btn-ghost" @click="rollback.open = false">取消</button>
+          <button class="btn btn-gold" :disabled="!rollback.selected" @click="confirmRollback">回退到选中版本</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 本地文件安装更新确认 -->
+    <div v-if="localUpdate?.confirming" class="menu-overlay upd-modal-mask" @click.self="localUpdate = null">
+      <div class="card upd-modal-card" role="dialog" aria-label="安装本地更新包">
+        <div class="upd-modal-head">
+          <h3 class="upd-modal-title">安装本地更新包</h3>
+          <button class="icon-btn" title="关闭" @click="localUpdate = null">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <p class="upd-local-file">{{ localUpdate.check.fileName }} · {{ (localUpdate.check.fileSize / 1048576).toFixed(1) }} MB</p>
+        <div class="upd-local-check">
+          <span>版本校验</span>
+          <span v-if="localUpdate.check.versionOk" class="upd-ok">v{{ localUpdate.check.version }} ≥ 当前 v{{ appVersion }} ✓</span>
+          <span v-else class="upd-warn">⚠ {{ localUpdate.check.version ? `v${localUpdate.check.version} 低于当前 v${appVersion}` : '无法从文件名识别版本号' }}，继续需自担风险</span>
+        </div>
+        <div class="upd-local-check">
+          <span>完整性校验</span>
+          <span v-if="localUpdate.check.sha256 === 'match'" class="upd-ok">SHA256 与 GitHub Release 一致 ✓</span>
+          <span v-else-if="localUpdate.check.sha256 === 'mismatch'" class="upd-warn">⚠ SHA256 不一致！文件可能被篡改（{{ localUpdate.check.detail }}）</span>
+          <span v-else class="upd-warn">⚠ 无法联网校验，请确认文件来自官方渠道，风险自担</span>
+        </div>
+        <div class="upd-modal-actions">
+          <button class="btn btn-ghost" @click="localUpdate = null">取消</button>
+          <button
+            class="btn"
+            :class="localUpdate.check.versionOk && localUpdate.check.sha256 === 'match' ? 'btn-gold' : 'btn-danger'"
+            @click="confirmLocalUpdate"
+          >确认安装</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <style scoped>
+/* 关于与更新 */
+.upd-row { display: flex; align-items: center; gap: 10px; padding: 5px 0; flex-wrap: wrap; }
+.upd-label { width: 84px; flex-shrink: 0; font-size: 13px; color: var(--text-dim); }
+.upd-value { font-weight: 650; }
+.upd-latest { color: var(--accent-2); font-size: 13px; }
+.upd-source { min-width: 220px; }
+.upd-mirror { flex: 1; min-width: 240px; font-size: 12px; }
+.upd-actions-row { gap: 8px; margin-top: 4px; }
+.upd-auto-hint { font-size: 12px; }
+.upd-pending-row {
+  padding: 8px 12px; border-radius: 10px; background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.upd-pending-text { font-size: 13px; font-weight: 600; }
+/* 回退/本地安装弹窗 */
+.upd-modal-mask { z-index: 9400; display: grid; place-items: center; }
+.upd-modal-card { width: min(560px, 92vw); max-height: 82vh; display: flex; flex-direction: column; gap: 12px; padding: 20px 22px; }
+.upd-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.upd-modal-title { margin: 0; font-size: 17px; }
+.upd-risk {
+  margin: 0; padding: 9px 12px; border-radius: 10px; font-size: 12.5px;
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--danger) 26%, transparent);
+  color: var(--danger);
+}
+.upd-release-list { overflow-y: auto; max-height: 46vh; display: flex; flex-direction: column; gap: 6px; }
+.upd-release-item {
+  display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; cursor: pointer;
+  border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.15s ease, background 0.15s ease;
+}
+.upd-release-item:hover { border-color: var(--accent-deep); }
+.upd-release-item.selected { border-color: var(--accent); background: var(--accent-soft); }
+.upd-release-item input { margin-top: 3px; accent-color: var(--accent); }
+.upd-release-main { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; min-width: 0; }
+.upd-release-ver { font-weight: 650; }
+.upd-release-date { font-size: 12px; }
+.upd-release-summary { font-size: 12px; flex-basis: 100%; }
+.upd-modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.upd-local-file { margin: 0; font-weight: 600; font-size: 13.5px; word-break: break-all; }
+.upd-local-check { display: flex; gap: 10px; font-size: 13px; align-items: baseline; }
+.upd-local-check > span:first-child { width: 72px; flex-shrink: 0; color: var(--text-dim); }
+.upd-ok { color: var(--accent-2); }
+.upd-warn { color: var(--danger); }
 .plugin-list { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 12px; }
 .plugin-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; }
 .plugin-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }

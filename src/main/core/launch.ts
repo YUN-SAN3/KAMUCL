@@ -385,16 +385,6 @@ async function launchOwned(
     }
   }
 
-  // 其他游戏配置同步（独立开关：FOV/灵敏度/亮度/视频/潜行疾跑方式/资源包；按版本适配字段与格式）
-  if (settings.optionsSync) {
-    try {
-      const { syncOptionsToGameDir } = await import('./keybindings')
-      if (syncOptionsToGameDir(effectiveGameDir, undefined, instanceMcVersion)) log('[KAMUCL] 已同步其他游戏配置到 options.txt')
-    } catch (error) {
-      log(`[KAMUCL] 其他游戏配置同步失败（不影响启动）：${error instanceof Error ? error.message : String(error)}`)
-    }
-  }
-
   const clientJar = clientJarPath(baseId)
   if (!fs.existsSync(clientJar)) {
     throw new Error(`客户端文件缺失（${baseId}.jar），请先完整安装版本 ${baseId}`)
