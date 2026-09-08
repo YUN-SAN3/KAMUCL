@@ -4,6 +4,9 @@
  * 参考成熟启动器实现：
  * - HMCL SkinCanvas：部件/UV 全表、外层放大倍率（帽 1.125、其余 1.0625）、拖拽与缩放体验
  * - FCL SkinRenderer：FOV 45° 透视、NEAREST 像素过滤、背面剔除、行走摆臂参数（三角波）
+ * - skinview3d v3.4.2（bs-community，MIT）：底面 UV 顶点序（setUVs uvBottom）、
+ *   行走手臂仅 X 轴摆动 + 0.02π 外张底角（animation.ts WalkAnimation）。
+ *   参考源码：参考/skinview3d-master（仅对照数值与顶点约定，未整段移植）
  * - 64×64 标准 UV；旧版 64×32 皮肤先经 skin-render 迁移再上 GPU
  * - 按需渲染循环：无动画（暂停）且无交互平滑且 document.hidden 时停止 rAF；
  *   卸载时释放全部几何体/材质/纹理/GL 上下文与监听
@@ -80,6 +83,9 @@ let zoomTarget = 1
 // ---------------- 行走动画（FCL 三角波参数：每帧步进 × 60fps → 度/秒） ----------------
 
 const D2R = Math.PI / 180
+/** 手臂恒定外张底角（skinview3d WalkAnimation/IdleAnimation 的 basicArmRotationZ = 0.02π ≈ 3.6°），
+ *  让垂落的手臂自然离开躯干侧壁，行走/待机共用 */
+const ARM_BASE_TILT = Math.PI * 0.02
 interface Osc {
   a: number
   dir: 1 | -1
@@ -92,17 +98,20 @@ interface WalkJoint {
   subRate: number
   subAmp: number
 }
-/** 对角肢体同相：左臂+右腿一组、右臂+左腿一组；副摆绕 Y 轴内外摆（FCL：仅手臂有副摆） */
+/** 对角肢体同相：左臂+右腿一组、右臂+左腿一组；所有肢体均只绕 X 轴前后摆（对齐 skinview3d） */
 let walkJoints: Record<'armL' | 'armR' | 'legL' | 'legR', WalkJoint> | null = null
 let walkBlend = 0
 let animT = 0
 
 function makeWalkJoints(): Record<'armL' | 'armR' | 'legL' | 'legR', WalkJoint> {
   return {
-    // 主摆：臂 ±10°@30°/s，腿 ±30°@90°/s；Y 轴副摆只作用于臂（±20°@20°/s）。
+    // 主摆：臂 ±10°@30°/s，腿 ±30°@90°/s（FCL 参数，保留用户要过的手感）。
+    // 手臂 Y 轴副摆已移除（原 FCL ±20°@20°/s）：臂内缘与躯干侧壁齐平（classic x=±4 贴 ±4），
+    // 任何绕 Y 的内摆都会把手臂内前/内后角切进躯干（20° 时穿透约 0.56px、slim 约 0.63px）；
+    // skinview3d WalkAnimation 手臂同样只有 X 轴摆动，改用 0.02π 恒定外张底角（见 applyPose）。
     // 腿的副摆 amp/rate 必须为 0：双腿绕 Y 轴镜像扭转就是「内八/外八」的根源。
-    armL: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 30, mainAmp: 10, subRate: 20, subAmp: 20 },
-    armR: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 30, mainAmp: 10, subRate: 20, subAmp: 20 },
+    armL: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 30, mainAmp: 10, subRate: 0, subAmp: 0 },
+    armR: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 30, mainAmp: 10, subRate: 0, subAmp: 0 },
     legL: { main: { a: 0, dir: 1 }, sub: { a: 0, dir: -1 }, mainRate: 90, mainAmp: 30, subRate: 0, subAmp: 0 },
     legR: { main: { a: 0, dir: -1 }, sub: { a: 0, dir: 1 }, mainRate: 90, mainAmp: 30, subRate: 0, subAmp: 0 }
   }
@@ -164,13 +173,16 @@ function mapBoxUVs(
     const vTop = 1 - ry / 64 // 纹理 flipY，皮肤 y 向下 → v 向上翻转
     const vBot = 1 - (ry + rh) / 64
     const o = f * 4
-    // BoxGeometry 每面 4 顶点 uv 顺序 (0,1) (1,1) (0,0) (1,0) = 左上/右上/左下/右下
-    // 实证（skinview3d setUVs）：-y 底面顶点排布与其他面不同，需按底面约定映射，否则下巴/脚底前后颠倒
+    // BoxGeometry 每面 4 顶点 uv 顺序 (0,1) (1,1) (0,0) (1,0) = 左上/右上/左下/右下。
+    // 但 -y 底面（ny）由 vdir=-1 构建，几何顶点序是 前左/前右/后左/后右（与其他面相反）。
+    // 对齐 skinview3d setUVs 的 uvBottom = [下左, 下右, 上左, 上右]：
+    // 前缘贴区域下边、后缘贴区域上边、u 方向不镜像 —— 若后缘 u 反接（旧「下巴修复」），
+    // 底面前后边 u 相互反转呈蝶形扭曲，下巴/脚底等不对称纹理左右错位。
     if (f === 3) {
       uv.setXY(o + 0, u0, vBot)
       uv.setXY(o + 1, u1, vBot)
-      uv.setXY(o + 2, u1, vTop)
-      uv.setXY(o + 3, u0, vTop)
+      uv.setXY(o + 2, u0, vTop)
+      uv.setXY(o + 3, u1, vTop)
     } else {
       uv.setXY(o + 0, u0, vTop)
       uv.setXY(o + 1, u1, vTop)
@@ -305,12 +317,12 @@ function attachCapeMesh(parent: THREE.Group): void {
     const vTop = 1 - ry / 32 // 披风纹理 64×32
     const vBot = 1 - (ry + rh) / 32
     const o = f * 4
-    // 与 mapBoxUVs 相同：-y 底面按 skinview3d 底面约定映射（披风下缘方向修正）
+    // 与 mapBoxUVs 相同的 -y 底面约定（skinview3d uvBottom 顶点序），修复披风下摆 UV 蝶形扭曲
     if (f === 3) {
       uv.setXY(o + 0, u0, vBot)
       uv.setXY(o + 1, u1, vBot)
-      uv.setXY(o + 2, u1, vTop)
-      uv.setXY(o + 3, u0, vTop)
+      uv.setXY(o + 2, u0, vTop)
+      uv.setXY(o + 3, u1, vTop)
     } else {
       uv.setXY(o + 0, u0, vTop)
       uv.setXY(o + 1, u1, vTop)
@@ -590,11 +602,14 @@ function applyPose(): void {
   const j = walkJoints
   const idleSwing = Math.sin(animT * 1.6)
   if (j) {
-    // 对角同相：左臂+右腿、右臂+左腿（方向符号在 makeWalkJoints 中配置）
+    // 对角同相：左臂+右腿、右臂+左腿（方向符号在 makeWalkJoints 中配置）；
+    // 手臂只绕 X 轴摆动（Y 副摆穿模已移除），Z 轴恒定外张（skinview3d basicArmRotationZ）
     joints.armL.rotation.x = j.armL.main.a * D2R * b + idleSwing * 0.035 * idle
-    joints.armL.rotation.y = j.armL.sub.a * D2R * b + Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armL.rotation.y = Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armL.rotation.z = ARM_BASE_TILT
     joints.armR.rotation.x = j.armR.main.a * D2R * b - idleSwing * 0.035 * idle
-    joints.armR.rotation.y = j.armR.sub.a * D2R * b - Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armR.rotation.y = -Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armR.rotation.z = -ARM_BASE_TILT
     // 腿：只有 X 轴前后主摆（FCL 无 Y 轴副摆），rotation.y/z 恒为 0。
     // 待机（b→0）时双腿垂直并拢在 x=±2；行走时仅前后摆，绝无内外八。
     joints.legL.rotation.x = j.legL.main.a * D2R * b
