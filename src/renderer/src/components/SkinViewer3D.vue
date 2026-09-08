@@ -598,30 +598,26 @@ function tick(now: number): void {
 function applyPose(): void {
   if (!root || !joints) return
   const b = walkBlend
-  const idle = 1 - b
   const j = walkJoints
-  const idleSwing = Math.sin(animT * 1.6)
   if (j) {
     // 对角同相：左臂+右腿、右臂+左腿（方向符号在 makeWalkJoints 中配置）；
     // 手臂只绕 X 轴摆动（Y 副摆穿模已移除），Z 轴恒定外张（skinview3d basicArmRotationZ）
-    joints.armL.rotation.x = j.armL.main.a * D2R * b + idleSwing * 0.035 * idle
-    joints.armL.rotation.y = Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armL.rotation.x = j.armL.main.a * D2R * b
+    joints.armL.rotation.y = 0
     joints.armL.rotation.z = ARM_BASE_TILT
-    joints.armR.rotation.x = j.armR.main.a * D2R * b - idleSwing * 0.035 * idle
-    joints.armR.rotation.y = -Math.sin(animT * 1.1) * 0.02 * idle
+    joints.armR.rotation.x = j.armR.main.a * D2R * b
+    joints.armR.rotation.y = 0
     joints.armR.rotation.z = -ARM_BASE_TILT
     // 腿：只有 X 轴前后主摆（FCL 无 Y 轴副摆），rotation.y/z 恒为 0。
     // 待机（b→0）时双腿垂直并拢在 x=±2；行走时仅前后摆，绝无内外八。
     joints.legL.rotation.x = j.legL.main.a * D2R * b
     joints.legR.rotation.x = j.legR.main.a * D2R * b
   }
-  // 头部：行走微点头 + 待机环顾
-  joints.head.rotation.x = Math.sin(animT * 8) * 0.02 * b + Math.sin(animT * 1.3) * 0.03 * idle
-  joints.head.rotation.y = Math.sin(animT * 0.7) * 0.05 * idle
-  // 躯干：行走轻微弹跳 + 待机呼吸起伏
-  // abs(sin) 过零点导数不连续，1.5Hz 下呈上下颤抖；改 sin 平方（平滑曲线，半步双起伏）
-  const stepBob = Math.sin(animT * 4.712) // 与腿部摆动同频（腿周期 4/3s），每步一次起伏
-  root.position.y = stepBob * stepBob * 0.3 * b + idleSwing * 0.18 * idle
+  // 头部保持正直：无点头/环顾（用户要求「走就走」——除四肢摆动外一切微动画移除）
+  joints.head.rotation.x = 0
+  joints.head.rotation.y = 0
+  // 躯干零位移：行走弹跳与待机呼吸起伏是「上下抖动」的根源，彻底移除；模型恒定立于原地
+  root.position.y = 0
   root.rotation.y = yaw
   // pitch 不再翻倒模型（绕脚部倾倒不符合直觉）；俯仰由相机环绕实现（applyCamera）
 }

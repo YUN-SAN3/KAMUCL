@@ -6,11 +6,12 @@ import { autoMemoryMB } from '../src/shared/memory'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
 
-test('3D viewer: smooth bob (no abs jitter), chin -y face skinview3d convention, pitch orbits camera', () => {
+test('3D viewer: no vertical bob at all, chin -y face skinview3d convention, pitch orbits camera', () => {
   const v = read('src/renderer/src/components/SkinViewer3D.vue')
-  // 颤抖修复：不再用 abs(sin) 急弯弹跳，改 sin² 平滑
-  assert.doesNotMatch(v, /Math\.abs\(Math\.sin\(animT \* 9\.42\)\)/)
-  assert.match(v, /stepBob \* stepBob \* 0\.3 \* b/)
+  // 用户要求「走就走」：躯干零位移，行走/待机都不允许任何上下弹跳公式存在
+  assert.doesNotMatch(v, /root\.position\.y\s*=\s*[^0\s]/)
+  assert.doesNotMatch(v, /stepBob/)
+  assert.match(v, /root\.position\.y = 0/)
   // 下巴：-y 底面按 skinview3d 约定（ny 面顶点序=前左/前右/后左/后右，前缘贴区域下边、
   // 后缘贴上边、u 不镜像），身体与披风两处 UV 写入都修。
   // （skin3d-parity 专项修正：旧断言的 o+3←u0,vTop 是后缘 u 镜像，会造成底面蝶形扭曲）
