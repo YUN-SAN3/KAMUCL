@@ -39,7 +39,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 3. ✅ 模组禁用/启用：FileManager 模组页每行 .jar 增「禁用/启用」按钮 ↔ 主进程 fs:toggleDisable（改名 .jar.disabled，MC 原生不加载）；实例运行中主进程阻止（隔离查自身/共享目录查所有共享实例）。dev 实例实证禁用+还原往返成功。
 4. ✅ Fabric API：安装弹窗联动 UI/列表/安装链路早已存在（基线 0.4.1 就有），实证可选 36 版本；真实缺陷=installFabricApi 固定写共享 mods，已改为跟随实例隔离状态（versions.ts 解析 instanceDirectoryState 传 modsDir）。
 
-**当前停点**：1.0.30 正在完成最终验证和打包发布。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
+**当前停点**：1.0.30 的 308/308 测试、TypeScript 检查、生产构建及线上接口/真实 Vue 页面验证通过；源码已同步 master/main，正在打包发布。独立 UI 验证容器已校准为可滚动页面，并额外断言实际滚动发生。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
 
 ---
 

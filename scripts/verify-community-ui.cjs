@@ -39,7 +39,7 @@ app.whenReady().then(async () => {
   })
   const css = fs.readFileSync('src/renderer/src/styles.css', 'utf8') + '\n' + parse(fs.readFileSync(sourcePath, 'utf8')).descriptor.styles[0].content
   fs.writeFileSync(path.join(root, 'ui.js'), compiled.outputFiles[0].text)
-  fs.writeFileSync(path.join(root, 'index.html'), `<meta charset="utf-8"><style>${css}\nbody{overflow:auto;padding:24px;height:auto}#app{min-height:100vh}</style><div id="app"></div><script>window.qa={calls:[],files:[],errors:[]};window.addEventListener('error',e=>qa.errors.push(e.message))</script><script src="ui.js"></script>`)
+  fs.writeFileSync(path.join(root, 'index.html'), `<meta charset="utf-8"><style>${css}\nhtml,body,#app{height:auto;overflow:visible}body{padding:24px;background:var(--bg)}#app{min-height:100vh}</style><div id="app"></div><script>window.qa={calls:[],files:[],errors:[]};window.addEventListener('error',e=>qa.errors.push(e.message))</script><script src="ui.js"></script>`)
   const win = new BrowserWindow({ show: false, width: 1140, height: 820, webPreferences: { contextIsolation: true, backgroundThrottling: false, offscreen: true } })
   const run = code => win.webContents.executeJavaScript(code)
   const wait = ms => new Promise(r => setTimeout(r, ms))
@@ -70,6 +70,7 @@ app.whenReady().then(async () => {
   assert(await run(`Array.from(document.querySelectorAll('.pagination button')).find(b=>b.textContent==='下一页').disabled`))
   const beforeScroll = await run('qa.calls.length')
   await run('window.scrollTo(0,document.body.scrollHeight)'); await wait(350)
+  assert(await run('window.scrollY > 0'), 'The fixture must actually scroll to exercise pagination')
   assert.equal(await run('qa.calls.length'), beforeScroll)
   await run(`const select=document.querySelector('.search-card .filter-row:last-child select');select.value='modrinth';select.dispatchEvent(new Event('change',{bubbles:true}))`); await wait(100)
   assert.equal((await last()).offset, 0); assert.equal((await last()).source, 'modrinth')
