@@ -624,9 +624,14 @@ async function confirmDownload() {
                 :class="{ active: modal.fileId === f.fileId }"
                 @click="modal.fileId = f.fileId"
               >
-                <span class="file-version"><MarqueeText :text="f.fileName"/><MarqueeText :text="'MOD ' + f.version"/><MarqueeText :text="'MC ' + f.gameVersions.join(' / ') + ' · Loader ' + f.loaders.join(' / ')"/></span>
-                <span class="tag" :class="releaseTagClass(f.releaseType)">{{ releaseText[f.releaseType] }}</span>
-                <span class="muted file-meta">{{ fmtDate(f.date) }} · {{ fmtSize(f.size) }}</span>
+                <span class="file-main">
+                  <span class="file-name" :title="f.fileName">{{ f.fileName }}</span>
+                  <span class="file-sub">MOD {{ f.version }} · MC {{ f.gameVersions.join(' / ') }} · {{ f.loaders.join(' / ') }}</span>
+                </span>
+                <span class="file-side">
+                  <span class="tag" :class="releaseTagClass(f.releaseType)">{{ releaseText[f.releaseType] }}</span>
+                  <span class="muted file-meta">{{ fmtDate(f.date) }} · {{ fmtSize(f.size) }}</span>
+                </span>
               </button>
             </div>
             <p v-if="modal.filesError" class="files-error">{{ modal.filesError }}</p>
@@ -940,48 +945,71 @@ async function confirmDownload() {
   gap: var(--space-3);
   padding: var(--space-4) 0;
 }
+/* 文件版本列表：卡片化行（主行文件名 + 副行版本兼容信息，右侧标签+日期体积），宽松呼吸 */
 .file-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
-  max-height: 240px;
+  gap: var(--space-2);
+  max-height: 280px;
   overflow-y: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: var(--space-1);
-  background: var(--card-2);
+  padding: var(--space-1) var(--space-1) var(--space-1) 0;
+  /* 内嵌滚动区不再用外框包住（卡片自带边界） */
 }
 .file-row {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  min-height: var(--row-h);
+  gap: var(--space-3);
   width: 100%;
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  background: transparent;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card-2);
   color: var(--text);
-  font-size: var(--text-sm);
   font-family: inherit;
   text-align: left;
   cursor: pointer;
-  transition: background 0.14s ease, border-color 0.14s ease;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease, box-shadow 0.2s ease;
 }
 .file-row:hover {
   background: var(--hover);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
 }
 .file-row.active {
   background: var(--accent-soft);
   border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent), 0 4px 14px var(--accent-soft);
 }
-.file-version {
+/* 左：文件名（主）+ 版本兼容信息（副） */
+.file-main {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.file-name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 600;
+  font-weight: 650;
+  font-size: var(--text-sm);
+  font-family: ui-monospace, Consolas, monospace;
+}
+.file-sub {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+}
+/* 右：发行标签 + 日期·体积 */
+.file-side {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }
 .file-meta {
   font-size: var(--text-xs);

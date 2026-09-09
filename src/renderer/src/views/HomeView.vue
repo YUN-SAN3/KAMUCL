@@ -187,6 +187,25 @@ const launchText = computed(() => {
   if (launching.value) return store.progress?.text || '正在启动…'
   return '开始游戏'
 })
+// ---------------- 快捷行悬浮浮块（跟随指针在三格间平滑滑动） ----------------
+const runtimeHover = ref(-1)
+const runtimeStrip = ref<HTMLElement | null>(null)
+const runtimeBlob = reactive({ left: 0, width: 0 })
+function updateRuntimeBlob() {
+  const strip = runtimeStrip.value
+  if (!strip || runtimeHover.value < 0) return
+  const items = strip.querySelectorAll<HTMLElement>('.runtime-item')
+  const target = items[runtimeHover.value]
+  if (!target) return
+  runtimeBlob.left = target.offsetLeft
+  runtimeBlob.width = target.offsetWidth
+}
+watch(runtimeHover, () => nextTick(updateRuntimeBlob))
+const runtimeBlobStyle = computed(() => ({
+  left: runtimeBlob.left + 'px',
+  width: runtimeBlob.width + 'px'
+}))
+
 const heroStatus = computed(() => {
   const version = currentVersion.value
   if (!version) return { text: '等待选择', tone: 'idle' }
@@ -532,18 +551,19 @@ onUnmounted(() => {
         </div>
       </section>
 
-      <section class="runtime-strip" data-edit="card">
-        <button class="runtime-item" @click="openJavaPicker" title="选择此实例的 Java：自动或手动">
+      <section ref="runtimeStrip" class="runtime-strip" data-edit="card" @mouseleave="runtimeHover = -1">
+        <span class="runtime-blob" :class="{ on: runtimeHover >= 0 }" :style="runtimeBlobStyle" aria-hidden="true"></span>
+        <button class="runtime-item" @mouseenter="runtimeHover = 0" @click="openJavaPicker" title="选择此实例的 Java：自动或手动">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M7 8h10a4 4 0 0 1 4 4v0a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8v0a4 4 0 0 1 4-4Z" /><path d="M8 13h8M9 17h6" /></svg>
           <span><small>运行环境</small><strong>{{ javaText }}</strong></span>
           <svg class="runtime-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6" /></svg>
         </button>
-        <button class="runtime-item" @click="openSettings('memory')">
+        <button class="runtime-item" @mouseenter="runtimeHover = 1" @click="openSettings('memory')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2" /><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4M9 9h6v6H9Z" /></svg>
           <span><small>内存分配</small><strong>{{ memoryText }}</strong></span>
           <svg class="runtime-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6" /></svg>
         </button>
-        <button class="runtime-item runtime-state" :class="heroStatus.tone" @click="logOpen = true">
+        <button class="runtime-item runtime-state" :class="heroStatus.tone" @mouseenter="runtimeHover = 2" @click="logOpen = true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6" /></svg>
           <span><small>运行状态</small><strong><i></i>{{ heroStatus.text }}</strong></span>
           <svg class="runtime-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6" /></svg>
@@ -839,10 +859,20 @@ onUnmounted(() => {
 .launch-arrow svg { width: 22px; height: 22px; transition: transform 0.18s ease; }
 .launch-arrow svg.open { transform: rotate(180deg); }
 
-.runtime-strip { display: grid; grid-template-columns: 1.12fr 0.95fr 0.92fr; min-height: 82px; flex: none; overflow: hidden; border: 1px solid var(--border); border-radius: 15px; background: color-mix(in srgb, var(--card) 80%, transparent); box-shadow: var(--shadow); backdrop-filter: blur(18px) saturate(130%); -webkit-backdrop-filter: blur(18px) saturate(130%); }
-.runtime-item { display: grid; grid-template-columns: 34px minmax(0, 1fr) 15px; align-items: center; gap: 11px; min-width: 0; padding: 0 18px; border: 0; background: transparent; color: var(--text); text-align: left; cursor: pointer; }
+.runtime-strip { position: relative; display: grid; grid-template-columns: 1.12fr 0.95fr 0.92fr; min-height: 82px; flex: none; overflow: hidden; border: 1px solid var(--border); border-radius: 15px; background: color-mix(in srgb, var(--card) 80%, transparent); box-shadow: var(--shadow); backdrop-filter: blur(18px) saturate(130%); -webkit-backdrop-filter: blur(18px) saturate(130%); }
+/* 悬浮浮块：跟随指针在三格间平滑滑动（浮起+落下+格间转移过渡） */
+.runtime-blob {
+  position: absolute; top: 0; bottom: 0; z-index: 0;
+  border-radius: 12px; margin: var(--space-1) 0;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  opacity: 0; transform: scale(0.97);
+  transition: left 0.28s cubic-bezier(0.3, 1.1, 0.4, 1), width 0.28s cubic-bezier(0.3, 1.1, 0.4, 1), opacity 0.18s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+.runtime-blob.on { opacity: 1; transform: scale(1); }
+.runtime-item { position: relative; z-index: 1; display: grid; grid-template-columns: 34px minmax(0, 1fr) 15px; align-items: center; gap: 11px; min-width: 0; padding: 0 18px; border: 0; background: transparent; color: var(--text); text-align: left; cursor: pointer; transition: transform 0.18s cubic-bezier(0.22, 0.9, 0.32, 1.15); }
 .runtime-item + .runtime-item { border-left: 1px solid var(--border); }
-.runtime-item:hover { background: var(--hover); }
+.runtime-item:hover { transform: translateY(-2px); }
 .runtime-item > svg:first-child { width: 27px; height: 27px; color: var(--text); }
 .runtime-item > span { display: flex; min-width: 0; flex-direction: column; gap: 4px; }
 .runtime-item small { color: var(--text-dim); font-size: 10px; }

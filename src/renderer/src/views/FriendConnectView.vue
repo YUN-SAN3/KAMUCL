@@ -87,24 +87,28 @@ function pick(key: ConnectPage) {
         </div>
       </template>
 
-      <!-- 各方式独立页面 -->
+      <!-- 各方式独立页面（切换过渡：右滑渐入，与全局面切换同节奏） -->
       <template v-else>
-        <header class="connection-header">
-          <div>
-            <span class="connection-eyebrow">PLAY TOGETHER</span>
-            <h1>{{ currentCard?.name ?? '联机' }}</h1>
-            <p>{{ currentCard?.desc ?? '' }}</p>
-          </div>
-          <div class="header-side">
-            <ConnectionStatus tone="neutral" :label="page === 'frp' ? 'FRP 隧道' : page === 'voxlink' ? 'VoxLink 房间' : page === 'direct' ? '直连房间' : '陶瓦房间'" />
-            <button class="btn btn-ghost" @click="page = 'choose'">← 更换方式</button>
-          </div>
-        </header>
+        <Transition name="method-slide" mode="out-in" :duration="280">
+          <div :key="page" class="method-page">
+            <header class="connection-header">
+              <div>
+                <span class="connection-eyebrow">PLAY TOGETHER</span>
+                <h1>{{ currentCard?.name ?? '联机' }}</h1>
+                <p>{{ currentCard?.desc ?? '' }}</p>
+              </div>
+              <div class="header-side">
+                <ConnectionStatus tone="neutral" :label="page === 'frp' ? 'FRP 隧道' : page === 'voxlink' ? 'VoxLink 房间' : page === 'direct' ? '直连房间' : '陶瓦房间'" />
+                <button class="btn btn-ghost" @click="page = 'choose'">← 更换方式</button>
+              </div>
+            </header>
 
-        <FrpPanel v-if="page === 'frp'" />
-        <VoxLinkPanel v-else-if="page === 'voxlink'" />
-        <TerracottaPanel v-else-if="page === 'terracotta'" />
-        <DirectPanel v-else-if="page === 'direct'" />
+            <FrpPanel v-if="page === 'frp'" />
+            <VoxLinkPanel v-else-if="page === 'voxlink'" />
+            <TerracottaPanel v-else-if="page === 'terracotta'" />
+            <DirectPanel v-else-if="page === 'direct'" />
+          </div>
+        </Transition>
       </template>
     </div>
   </div>
@@ -113,6 +117,14 @@ function pick(key: ConnectPage) {
 <style scoped>
 .friend-connect-page { max-width: 1120px; margin: 0 auto; }
 .header-side { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+
+/* 方式子页面切换过渡：右滑+淡入（mode out-in） */
+.method-slide-enter-active, .method-slide-leave-active { transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.22, 0.9, 0.32, 1); }
+.method-slide-enter-from { opacity: 0; transform: translateX(22px); }
+.method-slide-leave-to { opacity: 0; transform: translateX(-14px); }
+@media (prefers-reduced-motion: reduce) {
+  .method-slide-enter-active, .method-slide-leave-active { transition: none; }
+}
 
 /* 方式选择页：三张横向大卡片，宽松排布 */
 .pick-head { padding: var(--space-2) 0 var(--space-3); }

@@ -377,6 +377,8 @@ const memoryOverFree = computed(() => {
 const memoryMaxText = computed(() => fmtMem(memMax.value))
 const memoryText = computed(() => {
   if (memoryAuto.value) return `自动（${fmtMem(autoMemMB.value)}）`
+  // 拖动中显示预览值（按 0.5GB 步进预览取整），松手后稳定为生效值
+  if (memPreview.value != null) return fmtMem(Math.round(memPreview.value / MEM_STEP) * MEM_STEP)
   return fmtMem(store.settings?.memoryMB ?? 0)
 })
 const memoryInfoText = computed(() =>
@@ -385,34 +387,43 @@ const memoryInfoText = computed(() =>
     : '正在读取本机内存信息…'
 )
 
-// ---------------- 自定义内存滑块（拇指拖拽，不抢鼠标：点轨道不跳值） ----------------
+// ---------------- 自定义内存滑块（拖动＝预览，松手＝生效；绝不回写生效值，杜绝受控值回环抽搐） ----------------
 const memTrack = ref<HTMLElement | null>(null)
 const memDragging = ref(false)
+/** 拖动预览值（MB，无级原始值；拖动中只驱动它，生效值 store.settings.memoryMB 全程不动） */
+const memPreview = ref<number | null>(null)
 
-function memFromClientX(clientX: number): number {
+/** 指针位置 → 无级原始 MB（不取整不钳制，取整与钳制只在预览显示与最终提交时发生） */
+function memRawFromClientX(clientX: number): number {
   const track = memTrack.value
   if (!track) return store.settings?.memoryMB ?? MEM_MIN
   const rect = track.getBoundingClientRect()
   const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
-  const raw = MEM_MIN + ratio * (memMax.value - MEM_MIN)
-  return Math.round(raw / MEM_STEP) * MEM_STEP
+  return MEM_MIN + ratio * (memMax.value - MEM_MIN)
 }
 
 function onMemThumbDown(e: PointerEvent) {
   e.preventDefault()
   e.stopPropagation()
   memDragging.value = true
+  memPreview.value = store.settings?.memoryMB ?? MEM_MIN
   ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
 }
 function onMemPointerMove(e: PointerEvent) {
   if (!memDragging.value) return
-  const v = memFromClientX(e.clientX)
-  if (store.settings && v !== store.settings.memoryMB) store.settings.memoryMB = v
+  memPreview.value = memRawFromClientX(e.clientX)
 }
 function onMemPointerUp() {
   if (!memDragging.value) return
   memDragging.value = false
-  void save({ memoryMB: store.settings!.memoryMB })
+  // 松手一次性生效：0.5GB 步进取整 + 上下限钳制 + 保存；随后清空预览（生效值校准一次，不产生跳动）
+  const raw = memPreview.value ?? store.settings?.memoryMB ?? MEM_MIN
+  memPreview.value = null
+  const v = Math.max(MEM_MIN, Math.min(Math.round(raw / MEM_STEP) * MEM_STEP, memMax.value))
+  if (store.settings) {
+    store.settings.memoryMB = v
+    void save({ memoryMB: v })
+  }
 }
 
 /** 数值输入（GB，支持 0.25 精度）；失焦/回车保存 */
@@ -433,9 +444,9 @@ function commitMemoryEdit() {
   }
 }
 
-/* 已填充段宽度百分比（自定义滑块填充） */
+/* 已填充段宽度百分比：拖动中跟随预览值（无级），松手后跟随生效值 */
 const memFillPct = computed(() => {
-  const mb = store.settings?.memoryMB ?? MEM_MIN
+  const mb = memPreview.value ?? store.settings?.memoryMB ?? MEM_MIN
   const span = Math.max(memMax.value, MEM_MIN + MEM_STEP) - MEM_MIN
   return Math.max(0, Math.min(100, ((mb - MEM_MIN) / span) * 100))
 })
