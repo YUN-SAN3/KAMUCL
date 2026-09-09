@@ -562,7 +562,15 @@ export async function installVersion(
     )
     // Fabric：可选同时安装 Fabric API 到 mods 文件夹
     if (opts.loader === 'fabric' && opts.fabricApi) {
-      await installFabricApi(versionId, opts.fabricApi, report, signal)
+      // 目标目录必须跟随实例隔离状态：隔离实例 → versions/<id>/mods；共享 → <folder>/mods
+      let modsDir: string | undefined
+      try {
+        const j = readVersionJson(installedId)
+        modsDir = path.join(instanceDirectoryState(installedId, j).path, 'mods')
+      } catch {
+        modsDir = undefined // 读取失败时回落共享目录（installFabricApi 默认）
+      }
+      await installFabricApi(versionId, opts.fabricApi, report, signal, modsDir)
     }
     return installedId
   }

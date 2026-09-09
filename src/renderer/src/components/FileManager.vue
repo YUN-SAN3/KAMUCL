@@ -4,7 +4,7 @@
  * 通过 IPC fs:list / fs:remove / app:openDir 管理游戏目录下的子目录。
  */
 import { computed, onMounted, reactive, ref, watch } from 'vue'
-import { applyModUpdates, checkModUpdates, copyText, errText, listFs, openDir, removeFs } from '../api'
+import { applyModUpdates, checkModUpdates, copyText, errText, listFs, openDir, removeFs, toggleDisableFs } from '../api'
 import { refreshInstalled, store, toast } from '../store'
 import ConfirmModal from './ConfirmModal.vue'
 import DupCleanModal from './DupCleanModal.vue'
@@ -114,6 +114,25 @@ const delModal = reactive({ open: false, target: null as FsEntry | null, busy: f
 function onRemove(entry: FsEntry) {
   delModal.open = true
   delModal.target = entry
+}
+
+// ---------------- 模组禁用/启用（仅模组页；.jar ↔ .jar.disabled，运行中由主进程阻止） ----------------
+const isModEntry = (e: FsEntry) =>
+  props.rel === 'mods' && !e.isDir && /\.jar(\.disabled)?$/i.test(e.name)
+const isDisabledMod = (e: FsEntry) => /\.jar\.disabled$/i.test(e.name)
+const toggling = ref('')
+
+async function onToggleDisable(entry: FsEntry) {
+  if (toggling.value) return
+  toggling.value = entry.name
+  try {
+    entries.value = await toggleDisableFs(effectiveRel.value, entry.name)
+    toast(isDisabledMod(entry) ? `已启用 ${entry.name.replace(/\.disabled$/i, '')}` : `已禁用 ${entry.name}`, 'success')
+  } catch (e) {
+    toast(errText(e), 'error')
+  } finally {
+    toggling.value = ''
+  }
 }
 
 async function onConfirmRemove() {
@@ -346,7 +365,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
         <span>没有匹配「{{ store.searchKeyword }}」的文件</span>
       </div>
       <div v-else class="fm-list">
-        <div v-for="e in filtered" :key="e.name" class="fm-row">
+        <div v-for="e in filtered" :key="e.name" class="fm-row" :class="{ 'fm-row-disabled': isDisabledMod(e) }">
           <span class="fm-file-icon">
             <svg v-if="e.isDir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
@@ -357,8 +376,20 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
             </svg>
           </span>
           <span class="fm-name" :title="e.name">{{ e.name }}</span>
+          <span v-if="isDisabledMod(e)" class="tag fm-disabled-tag">已禁用</span>
           <span class="muted fm-meta">{{ e.isDir ? '文件夹' : fmtSize(e.size) }}</span>
           <span class="muted fm-meta fm-date">{{ fmtDate(e.mtime) }}</span>
+          <button
+            v-if="isModEntry(e)"
+            class="btn btn-sm fm-toggle"
+            :class="isDisabledMod(e) ? 'btn-gold' : 'btn-ghost'"
+            :disabled="toggling === e.name"
+            :title="isDisabledMod(e) ? '恢复为 .jar，重新加载该模组' : '改名为 .jar.disabled，游戏将不再加载该模组'"
+            @click="onToggleDisable(e)"
+          >
+            <span v-if="toggling === e.name" class="spin"></span>
+            {{ isDisabledMod(e) ? '启用' : '禁用' }}
+          </button>
           <button class="btn btn-danger btn-sm fm-remove" @click="onRemove(e)">删除</button>
         </div>
       </div>
@@ -478,6 +509,25 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 }
 .fm-remove {
   flex-shrink: 0;
+}
+.fm-toggle {
+  flex-shrink: 0;
+}
+.fm-row-disabled {
+  opacity: 0.55;
+}
+.fm-row-disabled .fm-name {
+  text-decoration: line-through;
+  text-decoration-color: var(--text-3);
+}
+.fm-disabled-tag {
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--card-2);
+  color: var(--text-3);
+  border: 1px solid var(--line);
 }
 .empty-icon {
   display: flex;

@@ -819,6 +819,7 @@ export const IPC = {
   appOpenDir: 'app:openDir', // (rel?: string) => void  用系统资源管理器打开目录
   fsList: 'fs:list', // (rel: string) => FsEntry[]
   fsRemove: 'fs:remove', // (rel: string, name: string) => FsEntry[]
+  fsToggleDisable: 'fs:toggleDisable', // (rel: string, name: string) => FsEntry[] —— 模组禁用/启用（.jar ↔ .jar.disabled）
 
   // 启动器自更新与版本回退
   updateCheck: 'update:check', // (force?: boolean) => UpdateCheckResult  启动自动检查+设置页手动检查

@@ -92,11 +92,11 @@ export function trackWindowState(win: BrowserWindow): void {
     try {
       const b = capture()
       const payload = b
-        ? { ...b, maximized: win.isMaximized() }
+        ? { ...b, maximized: isEffectivelyMaximized(win) }
         : {
             width: win.getBounds().width,
             height: win.getBounds().height,
-            maximized: win.isMaximized()
+            maximized: isEffectivelyMaximized(win)
           }
       writeFileSync(stateFile(), JSON.stringify(payload))
     } catch {
@@ -115,4 +115,59 @@ export function trackWindowState(win: BrowserWindow): void {
   win.on('maximize', debounce)
   win.on('unmaximize', debounce)
   win.on('close', save)
+}
+
+/* ------------------------------------------------------------------ */
+/* 假最大化：frame:false + thickFrame 的窗口被真实最大化时，Windows 会把   */
+/* 不可见缩放边框（约 7-8px/边）扩出工作区——单屏时正好贴边不可见，多屏     */
+/* 并排时这圈边框（连同 Acrylic 材质与阴影）就溢出到相邻显示器，表现为      */
+/* 「启动器的边边跑到另一个屏幕」。因此最大化改为手动 setBounds(工作区)，   */
+/* 窗口矩形绝不越过本屏工作区。                                           */
+/* ------------------------------------------------------------------ */
+
+let fakeMaximized = false
+let preMaxBounds: NormalBounds | null = null
+
+export function isEffectivelyMaximized(win: BrowserWindow): boolean {
+  return !win.isDestroyed() && (fakeMaximized || win.isMaximized())
+}
+
+/** 最大化/还原切换（渲染层标题栏按钮唯一入口） */
+export function toggleMaximize(win: BrowserWindow): void {
+  if (win.isDestroyed()) return
+  if (win.isMaximized()) {
+    // 理论上不会走到（真实最大化已被 normalizeRealMaximize 收编），兜底还原
+    win.unmaximize()
+    fakeMaximized = false
+    return
+  }
+  if (fakeMaximized) {
+    if (preMaxBounds) win.setBounds(preMaxBounds)
+    fakeMaximized = false
+    preMaxBounds = null
+    return
+  }
+  preMaxBounds = win.getNormalBounds()
+  const display = screen.getDisplayMatching(preMaxBounds)
+  win.setBounds(display.workArea)
+  fakeMaximized = true
+}
+
+/** 启动时按持久化状态恢复最大化（显示器失效时 getDisplayMatching 自动回落主屏） */
+export function applyMaximized(win: BrowserWindow): void {
+  if (win.isDestroyed() || win.isMaximized() || fakeMaximized) return
+  const display = screen.getDisplayMatching(win.getBounds())
+  preMaxBounds = win.getNormalBounds()
+  win.setBounds(display.workArea)
+  fakeMaximized = true
+}
+
+/** 系统吸附（Win+↑ / 拖到屏幕顶）触发的真实最大化 → 收编为假最大化 */
+export function normalizeRealMaximize(win: BrowserWindow): void {
+  if (win.isDestroyed() || !win.isMaximized()) return
+  const display = screen.getDisplayMatching(win.getBounds())
+  win.unmaximize()
+  preMaxBounds = win.getNormalBounds()
+  win.setBounds(display.workArea)
+  fakeMaximized = true
 }

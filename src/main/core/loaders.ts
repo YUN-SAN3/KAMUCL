@@ -557,7 +557,9 @@ export async function installFabricApi(
   mcVersion: string,
   version: string,
   emit: ProgressEmit,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  /** 目标 mods 目录（隔离实例为 versions/<id>/mods）；缺省回落共享 mods */
+  modsDir?: string
 ): Promise<void> {
   emit({ stage: 'fabric-api', progress: 0, text: `查询 Fabric API ${version}` })
   const arr = await fetchFabricApiVersions(mcVersion, signal)
@@ -566,7 +568,7 @@ export async function installFabricApi(
   if (!file?.url || !file.filename) {
     throw new Error(`未找到适配 ${mcVersion} 的 Fabric API ${version} 文件`)
   }
-  const dest = path.join(gameDir(), 'mods', file.filename)
+  const dest = path.join(modsDir ?? path.join(gameDir(), 'mods'), file.filename)
   emit({ stage: 'fabric-api', progress: 0.2, text: `下载 Fabric API ${version}` })
   await downloadFile(file.url, dest, undefined, file.hashes?.sha1, 'official', signal)
   emit({ stage: 'fabric-api', progress: 1, text: `Fabric API 已放入 mods 文件夹` })

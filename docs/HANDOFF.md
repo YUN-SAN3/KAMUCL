@@ -1,0 +1,133 @@
+# KAMUCL 项目交接文档（给 Codex）
+
+> 生成时间：2026-09-09 ｜ 交接时版本：**1.0.25**（已发布并推送 master/main）
+> 工作区：E:\KAMUCL（git 仓库，工作区当前干净）
+
+---
+
+## 0. 必读：项目一句话
+
+KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script setup）+ TypeScript。便携版单 exe 分发，GitHub Releases 自更新。当前由卡慕（产品/前端指令）+ 我（主线开发）+ 物晖（另一条开发线，今后**不再合并其分支**）协作。
+
+---
+
+## 1. 当前进度快照
+
+**最新已交付版本 1.0.25**（master `d66084f` / main `4f7de47` / Release 已发布）。测试 291/291。
+
+**正在进行中的批次（未开始写代码，仅做了排查）——即你接手后的任务清单：**
+
+| # | 任务 | 状态与已知线索 |
+|---|---|---|
+| 1 | **皮肤页无任何元素渲染（P0 回归）** | 复现确认：导航「皮肤」→ 内容区 bodyLen=0。SkinsView.vue 编译通过，所以是**运行时**问题（setup 抛错或异步 chunk 失败）。近期改动史：1.0.18 移除了 `previewPaused` ref 与 `:paused` prop 传递；1.0.20 给 animSeg 加了 ResizeObserver；物晖重写过 SkinViewer3D。优先排查：renderer 控制台错误（CDP `Runtime.evaluate` 抓不到就用 `Log.enable`/`Runtime.consoleAPICalled`），或回退对比 1.0.18 的 SkinsView |
+| 2 | **全屏双屏窗口边缘跑到副屏** | 主屏 3200×2000，副屏 1920×1080。看 `src/main/windowState.ts`（恢复时按相交面积夹紧）与 `windowAppearance.ts`；全屏/最大化路径可能绕过夹紧逻辑 |
+| 3 | **模组禁用/启用**（资源管理-模组页） | 需求：点击按钮把 mod 的 `.jar` 改名 `.jar.disabled`（MC 原生识别），再点恢复。禁用前必须检测实例是否运行中（运行则阻止）。主进程文件操作在 `src/main/core/`（参考 worlds.ts/modinfo.ts 的 fs 模式），IPC 注册在 `src/main/ipc.ts`，渲染在 `src/renderer/src/views/ModsView.vue`（或资源管理下的模组子页）。运行检测：launch.ts 有 `getRunningGamePids` |
+| 4 | **Fabric 安装时附带 Fabric API 下载** | 「选择 API 为模组加载器时，应再显示一个 Fabric API（选项）」：在 Fabric 安装选项区（GameView 下载页 loader 选项/安装弹窗）加「同时下载 Fabric API」勾选项（默认开）。安装链路在 loaders.ts（installLoader），装完加载器后用 community.ts 的下载能力把 Fabric API（Modrinth project id `P7dR8mSH`）最新兼容版投入实例 mods/。注意实物测试要用真实 Fabric 版本 |
+
+---
+
+## 2. 工程命令（全部验证过，PowerShell 环境注意）
+
+```powershell
+# 测试（npx 被本机 PS 策略阻止，用 node 直跑 tsx）
+node node_modules/tsx/dist/cli.mjs --test tests/all.test.ts
+
+# 构建（构建前必须杀进程，否则 WindowMaterial.exe 被锁 CS0016）
+Get-Process electron,java,KAMUCL -ErrorAction SilentlyContinue | Stop-Process -Force
+node node_modules/electron-vite/bin/electron-vite.js build
+
+# 打包（便携 exe + zip）
+node node_modules/electron-builder/cli.js --win portable zip --config.electronDist=node_modules/electron/dist
+
+# 便携路径验证
+node scripts/verify-portable-path.cjs
+
+# 发版（自动算 SHA256SUMS + 建 Release + 传 3 资产；认证走 git 凭据管理器）
+node scripts/release-github.cjs
+```
+
+**版本号节奏**：每个批次 package.json +1，updateNotes.ts 加条目（`date: 'YYYY-MM-DD HH:mm'` 24 小时制）。
+
+**Git 流程（卡慕新规）**：直接提交 master；main 用 sync-main 分支 cherry-pick 后 `push origin sync-main:main`。**永不合并/推送 wuhui 分支**。GitHub TLS 间歇被重置：直连失败时加 `-c http.proxy=http://127.0.0.1:7897`（Clash）或 `-c http.sslBackend=schannel` 重试。
+
+**PowerShell 陷阱（本会话血泪）**：
+- `Set-Content`/`Get-Content` 默认 GBK——读写含中文文件必用 `[System.IO.File]::ReadAllText/WriteAllText` 或 Read/Edit 工具
+- PS 里 `$1`/`${}`/反引号会被吞——复杂替换一律写成临时 .cjs 脚本文件再 `node` 跑
+- npm/npx 被策略阻止→用 `node node_modules/xxx/bin/...` 直跑
+
+---
+
+## 3. 验证工具链（全部入库可用）
+
+| 工具 | 用途 |
+|---|---|
+| `scripts/cdp-eval.mjs "<js>"` | 运行中实例 CDP 求值（先用 `node_modules\electron\dist\electron.exe --remote-debugging-port=9222 .` 起实例） |
+| `scripts/cdp-eval2.mjs <port> <exprfile>` | 带端口的 CDP 求值（表达式写文件避免引号地狱） |
+| `scripts/cdp-shot.mjs out.png` | CDP 整页截图（不受遮挡窗口影响；WebGL 画布 canvas.toDataURL 不可用时用它） |
+| `scripts/desktop-regression.cjs` | QA 隔离环境（需已装 vanilla 26.2） |
+| `scripts/mock-update-server.cjs` | 自更新 mock（v99.0.0；`MOCK_ASSET_FILE=<真实exe>` 可做全链路实证） |
+
+**E2E 实证过的全链路**（方法可复用）：沙盒目录放便携 exe + env `KAMUCL_UPDATE_API_BASE=mock` → 启动 → CDP 检查/下载 → `window:close` 优雅关闭 → 看 `%APPDATA%\kamucl\updater-last.log` 与沙盒目录文件变迁。
+
+---
+
+## 4. 架构地图（最近大改后的现状）
+
+### 自更新（1.0.14 起，1.0.23 修复「只下载不安装」）
+- `main/core/selfUpdate.ts`：GitHub Releases 检查（ETag+6h 缓存+限流静默+失败重试 1 次）
+- `main/core/applyUpdate.ts`：下载（下载中心任务）→ SHA256 强制校验 → `pending-update.json` → before-quit 自动安装 → `spawnDetachedProcess`（**零句柄脱离 CreateProcessW**，gracefulClose.ts）旁路 PowerShell 脚本完成 备份→替换→重启→20s 存活观察→失败回滚；日志在 userData/updater-last.log
+- 小白自动化：默认自动下载+关闭时自动安装；设置页有「自动安装更新」开关+回退+本地文件安装
+- `shared/branding.ts`：QQ_GROUP_NUMBER 内测群号（弹窗常驻备用下载提示）
+
+### 下载引擎（1.0.23 起单连接）
+- `main/core/download.ts`：单连接 + .part 断点续传 + 慢速掐断换源 + 磁盘预检 + HTTP/2 共享连接（httpClient.ts）。**分块引擎已整体移除**（BUG-3 根因：Range 分块全卡死，实测 8 分块 20 秒零进度）
+
+### 3D 皮肤预览（物晖重写 + 多轮修正）
+- `components/SkinViewer3D.vue`：HMCL 部件/UV 骨骼；行走摆动=MC 原版公式（cos(limbSwing×0.6662)×1.4×amount，±45° 四肢同幅对角反相）；行走弹跳全移除（「走就走」）；披风 10×16×1 标准+180° 翻转挂背；-y 底面 UV 按 skinview3d 约定；俯仰=相机环绕（非模型翻倒）；按需渲染；slim 像素级检测（x=54 列全透明）
+- 首页与皮肤页共用；披风由档案 active 披风决定（无开关）
+
+### 联机（物晖多页化，1.0.25 移除玩家直连入口）
+- `views/FriendConnectView.vue` + `components/connection/`：FRP（樱花）/VoxLink（房间码打洞）/陶瓦（Terracotta）三卡独立页+右滑渐入过渡
+- 主进程直连能力保留（VoxLink 内部依赖），directConnect.ts/directProtocol.ts 别动
+
+### 其他关键件
+- `main/core/launch.ts`：启动链（CreateProcessW 脱离式游戏进程+运行状态持久化恢复+options.txt 键位同步 1.13+ 跳过旧版+CWD=实例游戏目录 1.0.24 实证）
+- `main/core/java.ts`：全盘扫描+持久缓存+隐藏列表（**重扫自动解除磁盘上仍存在的隐藏项**，1.0.20）
+- `shared/types.ts`：IPC 频道注册表+全部共享类型（Settings 含 memoryAuto/autoUpdate/updateSource/curseforgeApiKey/qqGroupNumber/configVersion/skipUpdateVersion）
+- `shared/updateNotes.ts`：内置更新日志（版本倒序）
+- 设计令牌（styles.css）：--space-1..7、--radius-sm/md/lg、--text-xs..2xl、--card-pad/--card-gap/--sec-gap、--ctl-h/--row-h
+- 动效模式：导航水滴（nav-blob）/Tab 滑动块（game-tabs-blob/seg-blob/capsule-blob/runtime-blob）/错峰渐入（card-in/pick-card-in/server-row-in/community-card-in）/开关 0.4s ease-in-out
+- 视图切换 Transition：`<Transition name="fade" mode="out-in" :duration="250">`（显式时长兜底——遮挡时 transitionend 不触发会卡死，1.0.18 实证修复）
+
+---
+
+## 5. 反馈闭环（内测群 → 腾讯文档 → AI）
+
+- 桌面 `KamuclHelper.exe`（已解压到 Desktop\KamuclHelper\）：菜单 3 拉取 Bug+需求 → `data\ai_feed\feed.json`
+- **注意**：主工具在 GBK 控制台打印 ⚠ 会崩（合并步前），两个分表 bug_feed.json/req_feed_limited.json 已生成，手工合并成 feed.json 即可
+- 修完后 `KamuclMarkDone.exe --id BUG-3,BUG-5` 回写「修复完成，等待复测」
+- 当前 feed 里的未修条目：BUG-4（1.12.2 按键同步=未支持数字键码）、BUG-7（启动器双击报错偶现）、BUG-8（服务器写入 servers.dat=**1.0.25 新增-1 已实现**）、BUG-10（CF 下载报错=**1.0.23/24 CF 官方通道已修**）；BUG-3/5/6/9 已修或已确认
+
+---
+
+## 6. 协作规约（卡慕定的）
+
+1. **先取证再修**：复现/定位根因写清楚再动手，禁止盲改；根因不明就说「未查明」
+2. 用户指令里的测试证据（「已确认复现」等）优先信；改完用 CDP/沙盒实证
+3. 每批次独立版本号+独立 commit（或按要求合并一个 commit）；测试必须全绿才提交
+4. 不再合并物晖的新分支；我的修改直接作为主分支更新（master 提交+main cherry-pick）
+5. 弹窗文案与布局沿用现有设计语言（btn-gold 主/btn-ghost 次/btn-danger 危险/icon-btn 图标/menu-overlay+card 模态）
+6. 新功能给小白用：能自动就自动，能少点就少点
+
+---
+
+## 7. 交接时的环境注意
+
+- 本机有多台 KAMUCL 测试实例可能残留进程（electron/KAMUCL.exe），改代码前 `Get-Process electron,java,KAMUCL | Stop-Process -Force`
+- GitHub 推送被本机网络间歇重置：多试几次或走代理/改 sslBackend
+- 用户在用的游戏目录：`D:\Snapshot 2.2.10\.minecraft`（14 个版本实例）；默认目录 `%APPDATA%\.kamucl`
+- 用户正登录微软正版 KaMuaMua（皮肤页/首页 3D 预览有真实皮肤+披风数据）
+
+---
+
+**下一位（Codex）从这开始**：先跑 `node node_modules/tsx/dist/cli.mjs --test tests/all.test.ts` 确认 291 全绿 → 按第 1 节的 4 个任务顺序做（皮肤页 P0 优先）→ 完成后版本 1.0.26 → 按第 2 节流程构建/打包/提交/推送/发版。

@@ -1000,4 +1000,33 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     fs.rmSync(target, { recursive: true, force: true })
     return listDir(String(rel ?? ''))
   })
+  /**
+   * 模组禁用/启用：.jar ↔ .jar.disabled（MC 原生识别，禁用后不再加载）。
+   * 禁用前必须确认使用该目录的实例均未运行：
+   * - 隔离实例（versions/<id>/…）→ 只查该实例；
+   * - 共享目录（mods 等）→ 查所有共享实例，任一在运行即阻止。
+   */
+  ipcMain.handle(IPC.fsToggleDisable, (_e, rel: string, name: string) => {
+    const relStr = String(rel ?? '')
+    const running = launch.getRunningVersionIds()
+    const m = /^versions\/([^/]+)\//.exec(relStr)
+    const affected = m
+      ? [m[1]]
+      : versions.listInstalled().filter((v) => !v.isolated).map((v) => v.id)
+    if (affected.some((id) => running.has(id))) {
+      throw new Error('该实例正在运行中，请先退出游戏再禁用/启用模组')
+    }
+    const dir = safeDir(relStr)
+    const base = path.basename(String(name ?? ''))
+    const from = path.join(dir, base)
+    const lower = base.toLowerCase()
+    let to: string
+    if (lower.endsWith('.jar.disabled')) to = path.join(dir, base.slice(0, -'.disabled'.length))
+    else if (lower.endsWith('.jar')) to = path.join(dir, `${base}.disabled`)
+    else throw new Error('仅支持禁用 .jar 模组文件')
+    if (!fs.existsSync(from)) throw new Error('文件不存在，请刷新后重试')
+    if (fs.existsSync(to)) throw new Error('目标文件名已存在，请手动处理后重试')
+    fs.renameSync(from, to)
+    return listDir(relStr)
+  })
 }

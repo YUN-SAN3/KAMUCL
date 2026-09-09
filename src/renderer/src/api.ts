@@ -340,6 +340,7 @@ export const openDir = (rel = '') => invoke<void>(IPC.appOpenDir, rel)
 export const listFs = (rel: string) => invoke<FsEntry[]>(IPC.fsList, rel)
 /** 删除游戏目录下某个子目录中的文件，返回删除后的列表 */
 export const removeFs = (rel: string, name: string) => invoke<FsEntry[]>(IPC.fsRemove, rel, name)
+export const toggleDisableFs = (rel: string, name: string) => invoke<FsEntry[]>(IPC.fsToggleDisable, rel, name)
 
 // ---------------- 事件订阅（返回取消函数） ----------------
 function subscribe<T>(channel: string, cb: (payload: T) => void): () => void {
