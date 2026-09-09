@@ -34,7 +34,7 @@ import {
 import type { ReleaseInfo } from '@shared/types'
 import { QQ_GROUP_NUMBER } from '@shared/branding'
 import UpdateModal from './components/UpdateModal.vue'
-import { dismissTask, exitEditMode, finalizeTask, markNoticesRead, recordLastPlayed, refreshAccounts, refreshInstalled, resetProgressMono, stageLabel, store, toast, upsertTaskProgress } from './store'
+import { applyLaunchState, dismissTask, exitEditMode, finalizeTask, markNoticesRead, recordLastPlayed, refreshAccounts, refreshInstalled, resetProgressMono, stageLabel, store, toast, upsertTaskProgress } from './store'
 import type { ViewName } from './store'
 import type {
   CustomTheme,
@@ -1158,12 +1158,12 @@ onMounted(async () => {
       if (store.logs.length > 1000) store.logs.splice(0, store.logs.length - 1000)
     }),
     onLaunchState((s) => {
-      store.launchState = s
+      const focused = applyLaunchState(s)
       // 启动成功（进入 running）时记录该版本的最近游玩时间
       if (s.status === 'running' && store.launchingVersionId) {
-        recordLastPlayed(store.launchingVersionId)
+        recordLastPlayed(s.versionId || store.launchingVersionId)
       }
-      if (s.status === 'exited' || s.status === 'error') store.progress = null
+      if (focused && (s.status === 'exited' || s.status === 'error')) store.progress = null
       if (s.status === 'error') {
         // 启动失败：弹窗提示并提供「导出错误日志」
         launchFail.open = true
@@ -1179,9 +1179,9 @@ onMounted(async () => {
           toast('游戏已退出', 'info')
         }
         // 游戏退出后只扫描刚运行的实例，避免共享 servers.dat 被错误关联到其他版本。
-        const exitedVersionId = store.launchingVersionId
+        const exitedVersionId = s.versionId || store.launchingVersionId
         const exitedFolder =
-          store.launchingFolder || (store.settings?.activeFolder ?? store.settings?.gameDir)
+          s.folder || store.launchingFolder || (store.settings?.activeFolder ?? store.settings?.gameDir)
         void import('./api').then(({ syncServersFromDat }) =>
           syncServersFromDat(exitedVersionId || undefined, exitedFolder).catch(() => undefined)
         )

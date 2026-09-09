@@ -34,6 +34,7 @@ test('auto update decision: silent download by default, prompt when disabled, no
 test('pending update roundtrip: readable only while file exists, clear removes', () => {
   const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'kamucl-pend-'))
   process.env.KAMUCL_USERDATA_DIR = userData
+  process.env.KAMUCL_UPDATE_API_BASE = 'http://127.0.0.1:8310'
   try {
     assert.equal(getPendingUpdate(), null, 'no pending initially')
     const fakeExe = path.join(userData, 'KAMUCL-9.9.9.exe')
@@ -50,6 +51,7 @@ test('pending update roundtrip: readable only while file exists, clear removes',
     assert.equal(getPendingUpdate(), null)
   } finally {
     delete process.env.KAMUCL_USERDATA_DIR
+    delete process.env.KAMUCL_UPDATE_API_BASE
   }
 })
 

@@ -11,10 +11,11 @@
  *   GET /SHA256SUMS.txt                           → 与测试文件一致的真实校验值
  *
  * 用法：
+ *   $env:KAMUCL_USERDATA_DIR="C:\\Temp\\kamucl-update-test\\userData"  # 必须独立数据目录
  *   $env:KAMUCL_UPDATE_API_BASE="http://127.0.0.1:8310"
  *   $env:KAMUCL_UPDATE_DOWNLOAD_BASE="http://127.0.0.1:8310/download"
  *   $env:KAMUCL_UPDATE_TARGET_EXE="C:\\Temp\\kamucl-update-test\\KAMUCL-1.0.0.exe"  # 沙盒副本
- *   electron .   # 或打包版
+ *   electron .   # 仅开发模式；正式包忽略所有 mock 覆盖
  */
 const http = require('node:http')
 const fs = require('node:fs')

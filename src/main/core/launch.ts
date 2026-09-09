@@ -379,6 +379,11 @@ async function launchOwned(
   const instanceMcVersion = instanceConfig._mcVersion ?? baseId
 
   // 默认按键同步（总开关开启时覆盖实例 options.txt 的 key_* 项，其余行原样保留）
+  if (settings.resourcePackSync) {
+    const { syncDefaultResourcePacks } = await import('./defaultResourcePacks')
+    const count = syncDefaultResourcePacks(effectiveGameDir, instanceMcVersion)
+    if (count) log(`[KAMUCL] 已装载 ${count} 个默认材质包`)
+  }
   if (settings.keySync) {
     try {
       const { syncKeysToGameDir, keySyncSupportedForVersion } = await import('./keybindings')
@@ -698,7 +703,7 @@ async function launchOwned(
     logStream?.end()
     stdoutStream?.end()
     stderrStream?.end()
-    if (lastLaunch) {
+    if (lastLaunch && lastLaunch.pid === proc.pid) {
       lastLaunch.spawnError = err.message
       lastLaunch.endedAt = new Date().toISOString()
     }
@@ -714,11 +719,11 @@ async function launchOwned(
     logStream?.end()
     stdoutStream?.end()
     stderrStream?.end()
-    if (lastLaunch) {
+    if (lastLaunch && lastLaunch.pid === proc.pid) {
       lastLaunch.exitCode = code
       lastLaunch.endedAt = new Date().toISOString()
+      clearRunningGame()
     }
-    clearRunningGame()
     onState({ status: 'exited', code: code ?? 0, intentionalRestart: restartPending?.sessionToken === token, intentionalStop: gameSession.wasIntentionalStop(token), text: `游戏已退出 (code=${code ?? 0})` })
   })
   } finally {

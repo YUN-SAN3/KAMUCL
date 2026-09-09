@@ -68,8 +68,8 @@ const ZOOM_MIN = 0.5
 const ZOOM_MAX = 3
 /** 模型几何中心：标准 MC 全身 0~32（头 24~32 / 身 12~24 / 腿 0~12），取景以 y=16 居中 */
 const MODEL_CENTER_Y = 16
-/** 取景半幅：模型半高 16 + 余量（帽层放大 0.5、行走/呼吸起伏 0.3、头部摆动与落地间隙） */
-const FIT_HALF_HEIGHT = 18
+/** 取景半幅：模型半高 16 + 4 单位留白，默认缩小约 10%，对齐参考预览。 */
+const FIT_HALF_HEIGHT = 20
 /** 初始朝向：微侧三分之二视角（经典启动器观感） */
 const INITIAL_YAW = -0.35
 let baseDist = 48
@@ -633,7 +633,7 @@ function updateCamera(): void {
   renderer.setSize(w, h)
   camera.aspect = w / h
   camera.updateProjectionMatrix()
-  // FCL 取景法：距离 = 半幅 / tan(fov/2)。垂直覆盖半幅 18（全身 32 + 余量）；
+  // FCL 取景法：距离 = 半幅 / tan(fov/2)。垂直覆盖半幅 20（全身 32 + 留白）；
   // 窄容器再保证 ±8 臂展可见；24 为极窄画布下限，避免模型缩得过小。
   const halfTan = Math.tan(((FOV / 2) * Math.PI) / 180)
   baseDist = Math.max(FIT_HALF_HEIGHT / halfTan, 10 / (halfTan * camera.aspect), 24)

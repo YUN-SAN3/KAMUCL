@@ -6,7 +6,7 @@ import { getDefaultKeys, mergeKeysIntoOptions, syncKeysToGameDir } from '../src/
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
 
-test('1.0.12: other game options feature fully removed, only keybinding modification remains', () => {
+test('legacy generic game options remain removed; default packs use their own feature', () => {
   // 共享定义表不再含其他配置项
   const shared = read('src/shared/keybindings.ts')
   assert.doesNotMatch(shared, /VANILLA_OPTIONS/)
@@ -27,7 +27,7 @@ test('1.0.12: other game options feature fully removed, only keybinding modifica
   assert.doesNotMatch(ipc, /optionsGetDefault|optionsSetDefault|optionsImportPacks/)
   // 渲染 API 不再暴露 options 方法
   const api = read('src/renderer/src/api.ts')
-  assert.doesNotMatch(api, /getDefaultOptions|setDefaultOption|importDefaultResourcePacks/)
+  assert.doesNotMatch(api, /getDefaultOptions|setDefaultOption/)
   // 页面不再含其他配置 UI
   const view = read('src/renderer/src/views/KeysView.vue')
   assert.doesNotMatch(view, /其他设置同步|其他游戏配置|toggleOptionsSync|sliderPreview|cfg-pack-zone/)

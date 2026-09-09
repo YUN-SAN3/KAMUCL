@@ -4,6 +4,7 @@
  */
 import { IPC, IPC_EVENT } from '@shared/types'
 import type {
+  DefaultResourcePack,
   Account,
   CommunityFile,
   CommunityKind,
@@ -293,6 +294,11 @@ export const getDefaultKeys = () => invoke<Record<string, string>>(IPC.keysGetDe
 export const setDefaultKey = (id: string, bind: string) =>
   invoke<Record<string, string>>(IPC.keysSetDefault, id, bind)
 export const resetDefaultKeys = () => invoke<Record<string, string>>(IPC.keysReset)
+export const getDefaultResourcePacks = () => invoke<DefaultResourcePack[]>(IPC.defaultPacksGet)
+export const importDefaultResourcePacks = (files: string[]) => invoke<DefaultResourcePack[]>(IPC.defaultPacksImport, files)
+export const pickDefaultResourcePacks = () => invoke<DefaultResourcePack[]>(IPC.defaultPacksPick)
+export const removeDefaultResourcePack = (id: string) => invoke<DefaultResourcePack[]>(IPC.defaultPacksRemove, id)
+export const moveDefaultResourcePack = (id: string, direction: number) => invoke<DefaultResourcePack[]>(IPC.defaultPacksMove, id, direction)
 
 // ---------------- 启动器自更新与版本回退 ----------------
 export const checkUpdate = (force = false) => invoke<import('@shared/types').UpdateCheckResult>(IPC.updateCheck, force)

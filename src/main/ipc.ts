@@ -7,6 +7,7 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import * as defaultPacks from './core/defaultResourcePacks'
 import { DEFAULT_BACKGROUND, DEFAULT_LAUNCH_THUMBNAIL, IPC, IPC_EVENT } from '../shared/types'
 import type {
   CommunityFile,
@@ -711,7 +712,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     if (!config.folders.some(f => pathIdentity(f.path) === pathIdentity(folder))) throw new Error('目标游戏文件夹未注册')
     if (!versions.scanInstalledFolder(folder).versions.some(v => v.id === versionId && !v.failed && !v.incomplete)) throw new Error('目标实例不存在或不完整，请刷新版本列表')
     launcherLogInfo('game', `收到启动请求：version=${String(versionId ?? '')}`)
-    sendState({ status: 'launching', text: '正在准备启动…' })
+    sendState({ status: 'launching', text: '正在准备启动…', versionId, folder })
     void withGameFolder(folder, () => launch
       .launch(
         versionId,
@@ -724,7 +725,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
             if (code === 0) launcherLogInfo('game', `游戏正常退出（code=0）：${s.text}`)
             else launcherLogWarn('game', `游戏异常退出（code=${code}）：${s.text}`)
           } else launcherLogInfo('game', `启动状态 ${s.status}：${s.text}`)
-          sendState(s)
+          sendState({ ...s, versionId, folder })
           // 设置项生效：游戏成功进入运行状态后关闭启动器窗口
           if (s.status === 'running' && settings.getSettings().closeAfterLaunch) {
             setTimeout(() => getWin()?.close(), 1500)
@@ -736,7 +737,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
       .catch((err) => {
         launch.recordLaunchPreparationError(String(versionId ?? ''), errText(err))
         launcherLogError('game', '启动准备失败', err)
-        sendState({ status: 'error', text: errText(err) })
+        sendState({ status: 'error', text: errText(err), versionId, folder })
       }))
   })
   ipcMain.handle(IPC.gameKill, (_e, forceToken?: string) => launch.killGame(forceToken))
@@ -856,6 +857,14 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     keybindings.setDefaultKey(String(id ?? ''), String(bind ?? ''))
   )
   ipcMain.handle(IPC.keysReset, () => keybindings.resetDefaultKeys())
+  ipcMain.handle(IPC.defaultPacksGet, () => defaultPacks.getDefaultResourcePacks())
+  ipcMain.handle(IPC.defaultPacksImport, (_e, files: string[]) => defaultPacks.importDefaultResourcePacks(files))
+  ipcMain.handle(IPC.defaultPacksPick, async () => {
+    const picked = await dialog.showOpenDialog(getWin()!, { title: '添加默认材质包', properties: ['openFile', 'multiSelections'], filters: [{ name: 'Minecraft 材质包', extensions: ['zip'] }] })
+    return picked.canceled ? defaultPacks.getDefaultResourcePacks() : defaultPacks.importDefaultResourcePacks(picked.filePaths)
+  })
+  ipcMain.handle(IPC.defaultPacksRemove, (_e, id: string) => defaultPacks.removeDefaultResourcePack(id))
+  ipcMain.handle(IPC.defaultPacksMove, (_e, id: string, direction: number) => defaultPacks.moveDefaultResourcePack(id, direction))
 
   // ---------------- 启动器自更新与版本回退 ----------------
   applyUpdate.setUpdateEmitter(send)

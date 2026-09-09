@@ -111,7 +111,7 @@ export function mouseButtonToMcKey(button: number): string | null {
 
 /** MC 绑定值 → 简短显示（key.keyboard.left.shift → LShift，key.mouse.left → 鼠标左键） */
 export function mcKeyLabel(bind: string): string {
-  if (!bind || bind === 'key.keyboard.unknown') return '未绑定'
+  if (!bind || bind === 'key.keyboard.unknown') return '未指定'
   if (bind.startsWith('key.mouse.')) {
     const names: Record<string, string> = {
       left: '鼠标左键', middle: '鼠标中键', right: '鼠标右键', 4: '鼠标侧键4', 5: '鼠标侧键5'

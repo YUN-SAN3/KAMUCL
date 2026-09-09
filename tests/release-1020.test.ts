@@ -16,10 +16,10 @@ test('java rescan restores previously hidden runtimes found on disk (指令2)', 
   assert.match(java, /重扫恢复.*个曾被隐藏的 Java/)
 })
 
-test('keys page: blank click during capture clears binding to unknown (指令3)', () => {
+test('keys page: explicit clear button during capture assigns unknown', () => {
   const keys = read('src/renderer/src/views/KeysView.vue')
   assert.match(keys, /clearCapturedKey/)
-  assert.match(keys, /@click="clearCapturedKey"/)
+  assert.match(keys, /data-key-clear[\s\S]*?@click.stop="clearCapturedKey"/)
   assert.match(keys, /key\.keyboard\.unknown/)
 })
 

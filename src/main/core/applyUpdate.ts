@@ -19,6 +19,7 @@ import { downloadFile } from './download'
 import { finishTask, registerTask } from './tasks'
 import { currentVersion, fetchSha256Sums, sha256File } from './selfUpdate'
 import { logScope } from './launcherLog'
+import { isolatedUpdateTest, trustedUpdateRelease } from './updateTrust'
 
 const updateLog = logScope('self-update')
 
@@ -39,7 +40,7 @@ export function setUpdateEmitter(fn: Emitter): void { emit = fn }
  * 测试可用 KAMUCL_UPDATE_TARGET_EXE 指向沙盒副本走全链路。
  */
 export function currentPortableExe(): string | null {
-  return process.env.KAMUCL_UPDATE_TARGET_EXE || process.env.PORTABLE_EXECUTABLE_FILE || null
+  return (isolatedUpdateTest() && process.env.KAMUCL_UPDATE_TARGET_EXE) || process.env.PORTABLE_EXECUTABLE_FILE || null
 }
 
 /** 是否支持自更新（仅便携包运行或测试注入目标时） */
@@ -55,7 +56,7 @@ function backupDirOf(exe: string): string {
 }
 
 function userDataDir(): string {
-  return process.env.KAMUCL_USERDATA_DIR || app.getPath('userData')
+  return isolatedUpdateTest() ? process.env.KAMUCL_USERDATA_DIR! : app.getPath('userData')
 }
 function stateFile(): string {
   return path.join(userDataDir(), 'update-state.json')
@@ -98,9 +99,11 @@ function pendingFile(): string {
 export function getPendingUpdate(): PendingUpdate | null {
   try {
     const j = JSON.parse(fs.readFileSync(pendingFile(), 'utf-8'))
-    if (j?.release?.version && typeof j.file === 'string' && fs.existsSync(j.file)) {
+    if (trustedUpdateRelease(j?.release) && typeof j.file === 'string' && path.basename(j.file) === j.release.assetName && fs.existsSync(j.file)) {
       return j as PendingUpdate
     }
+    // 旧版测试缓存只能隔离，不能继续作为退出时自动安装的依据。
+    fs.renameSync(pendingFile(), pendingFile() + `.rejected-${Date.now()}`)
   } catch { /* 无待装 */ }
   return null
 }
@@ -178,6 +181,7 @@ export interface UpdateDownloadHandle {
  * 完成后强制 SHA256 校验。低速 30s 通过 emit 发一次内测群提示。
  */
 export function startUpdateDownload(release: ReleaseInfo, settings: Pick<Settings, 'updateSource' | 'updateMirrorUrl'>, mode: 'upgrade' | 'rollback'): UpdateDownloadHandle {
+  if (!trustedUpdateRelease(release)) throw new Error('更新来源无效，请重新检查官方版本')
   const exe = currentPortableExe()
   if (!exe) throw new Error('当前运行形态不支持自更新（仅便携版）')
   if (!release.assetUrl) throw new Error('该版本没有可用的安装包资产')
@@ -374,7 +378,8 @@ function spawnUpdater(spec: UpdaterScriptSpec): void {
 }
 
 /** 校验已下载的更新包并执行 备份→替换→重启。调用后进程退出。 */
-export async function applyDownloadedUpdate(release: ReleaseInfo): Promise<void> {
+export async function applyDownloadedUpdate(release: ReleaseInfo, verifiedLocal = false): Promise<void> {
+  if (!verifiedLocal && !trustedUpdateRelease(release)) throw new Error('待安装更新并非官方来源，请重新检查更新')
   const exe = currentPortableExe()
   if (!exe) throw new Error('当前运行形态不支持自更新（仅便携版）')
   const file = path.join(updateDirOf(exe), release.assetName || `KAMUCL-${release.version}.exe`)
@@ -467,5 +472,5 @@ export async function applyLocalUpdateFile(check: LocalUpdateCheck): Promise<voi
     assetUrl: '',
     assetSize: check.fileSize,
     assetName: check.fileName
-  })
+  }, true)
 }

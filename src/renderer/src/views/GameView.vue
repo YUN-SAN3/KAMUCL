@@ -30,7 +30,8 @@ import {
   setVersionJava,
   setVersionResolution
 } from '../api'
-import { displayVersionName, displayVersionSub, fmtLastPlayed, isFavorite, progressMono, refreshInstalled, renameLastPlayed, sortWithFavorite, store, toast, toggleFavorite, versionIconUrl } from '../store'
+import { applyLaunchState, displayVersionName, displayVersionSub, fmtLastPlayed, isFavorite, progressMono, refreshInstalled, renameLastPlayed, sortWithFavorite, store, toast, toggleFavorite, versionIconUrl } from '../store'
+import { instanceLaunchBusy } from '@shared/launchTracking'
 import ConfirmModal from '../components/ConfirmModal.vue'
 import IconPickerModal from '../components/IconPickerModal.vue'
 import SelectMenu from '../components/SelectMenu.vue'
@@ -532,9 +533,13 @@ async function openVersionFolder(v: InstalledVersion) {
 
 /** 版本列表条目的主操作：直接用该版本启动游戏（与首页最近游戏卡片行为一致） */
 async function launchVersion(v: InstalledVersion) {
+  const folder = v.folder ?? store.settings?.activeFolder ?? store.settings?.gameDir
+  if (instanceLaunchBusy(store.launchStates, v.id, folder)) return
+  applyLaunchState({ status: 'launching', text: '正在准备启动…', versionId: v.id, folder })
   try {
     await launchGame(v.id, undefined, v.folder)
   } catch (e) {
+    applyLaunchState({ status: 'error', text: errText(e), versionId: v.id, folder })
     toast('启动失败：' + errText(e), 'error')
   }
 }
@@ -1162,7 +1167,7 @@ async function confirmIsolation() {
           </button>
           <button
             class="btn btn-gold btn-sm installed-launch"
-            :disabled="store.launchState?.status === 'running' || store.launchState?.status === 'launching'"
+            :disabled="instanceLaunchBusy(store.launchStates, v.id, v.folder ?? store.settings?.activeFolder ?? store.settings?.gameDir)"
             :title="`启动 ${v.id}`"
             @click="launchVersion(v)"
           >

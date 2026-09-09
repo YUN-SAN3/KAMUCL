@@ -40,7 +40,7 @@ test('keybind table covers vanilla options.txt keys; DOM code/mouse mapping work
   assert.equal(mouseButtonToMcKey(2), 'key.mouse.right')
   assert.equal(mcKeyLabel('key.keyboard.left.shift'), '左Shift')
   assert.equal(mcKeyLabel('key.mouse.left'), '鼠标左键')
-  assert.equal(mcKeyLabel('key.keyboard.unknown'), '未绑定')
+  assert.equal(mcKeyLabel('key.keyboard.unknown'), '未指定')
 })
 
 test('bridge protocol: loopback only, token required for writes, server-scope params rejected locally', () => {
