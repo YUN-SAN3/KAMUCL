@@ -99,20 +99,28 @@ function toReleaseInfo(j: GhRelease): ReleaseInfo | null {
 }
 
 async function ghFetch(url: string, etag?: string): Promise<Response> {
-  const ctrl = new AbortController()
-  const timer = setTimeout(() => ctrl.abort(), API_TIMEOUT_MS)
-  try {
-    return await httpFetch(url, {
-      signal: ctrl.signal,
-      headers: {
-        Accept: 'application/vnd.github+json',
-        'User-Agent': 'KAMUCL-Launcher',
-        ...(etag ? { 'If-None-Match': etag } : {})
-      }
-    })
-  } finally {
-    clearTimeout(timer)
+  // 国内网络对 GitHub TLS 偶发重置：失败后 1.5s 重试一次（幂等 GET 安全）
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const ctrl = new AbortController()
+    const timer = setTimeout(() => ctrl.abort(), API_TIMEOUT_MS)
+    try {
+      return await httpFetch(url, {
+        signal: ctrl.signal,
+        headers: {
+          Accept: 'application/vnd.github+json',
+          'User-Agent': 'KAMUCL-Launcher',
+          ...(etag ? { 'If-None-Match': etag } : {})
+        }
+      })
+    } catch (e) {
+      if (attempt === 1) throw e
+      updateLog.debug('GitHub 请求失败，1.5s 后重试一次', e)
+      await new Promise((r) => setTimeout(r, 1500))
+    } finally {
+      clearTimeout(timer)
+    }
   }
+  throw new Error('unreachable')
 }
 
 /**

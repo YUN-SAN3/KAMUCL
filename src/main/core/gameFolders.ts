@@ -113,9 +113,15 @@ export function removeGameFolder(input: string): GameFolder[] {
   const current = listGameFolders()
   const target = current.folders.find((folder) => pathIdentity(folder.path) === identity)
   if (!target) throw new Error('文件夹未登记')
-  if (current.folders.length <= 1) throw new Error('至少需要保留一个游戏文件夹')
   folderLog.info(`解除登记游戏文件夹：${target.path}（磁盘文件保留）`)
-  const folders = current.folders.filter((folder) => pathIdentity(folder.path) !== identity)
+  let folders = current.folders.filter((folder) => pathIdentity(folder.path) !== identity)
+  // 失效/最后一个文件夹也允许解除绑定：移除后自动补回内置默认文件夹，不留死锁
+  if (!folders.length) {
+    const { app } = require('electron')
+    const fallback = path.join(app.getPath('appData'), '.kamucl')
+    folders = [{ path: fallback, name: '默认文件夹', isDefault: true }]
+    folderLog.info(`已移除最后一个文件夹，自动重建内置默认文件夹：${fallback}`)
+  }
   if (target.isDefault) folders[0] = { ...folders[0], isDefault: true }
   const nextActive =
     pathIdentity(current.active) === identity

@@ -97,7 +97,7 @@ interface KoffiModule {
 interface Kernel32Api {
   createPipe(): { read: number; write: number } | null
   uninherit(handle: number): void
-  createProcess(cmdline: string, stdOut: number, stdErr: number): { pid: number; hProcess: number; hThread: number } | null
+  createProcess(cmdline: string, stdOut: number, stdErr: number, cwd?: string): { pid: number; hProcess: number; hThread: number } | null
   resumeThread(handle: number): void
   close(handle: number): void
   terminate(handle: number, exitCode: number): boolean
@@ -163,11 +163,13 @@ function loadKernel32(): Promise<Kernel32Api | null> {
       return {
         createPipe: makePipe,
         uninherit: (handle) => { setHandleInformation(handle, HANDLE_FLAG_INHERIT, 0) },
-        createProcess: (cmdline, stdOut, stdErr) => {
+        createProcess: (cmdline, stdOut, stdErr, cwd) => {
           const cmdBuf = Buffer.from(cmdline + '\0', 'utf16le')
           const pi = { hProcess: 0, hThread: 0, dwProcessId: 0, dwThreadId: 0 }
           // bInheritHandles=true：管道写端随创建传入子进程（与 libuv 一致；实测该创建路径不连带死亡）
-          if (!createProcessW(null, cmdBuf, null, null, true, CREATE_NO_WINDOW | CREATE_SUSPENDED, null, null, buildSi(stdOut, stdErr), pi)) return null
+          // lpCurrentDirectory 显式传游戏目录：缺省会继承启动器 runtime 目录（游戏相对路径读取全错）
+          const cwdBuf = cwd ? Buffer.from(cwd + '\0', 'utf16le') : null
+          if (!createProcessW(null, cmdBuf, null, null, true, CREATE_NO_WINDOW | CREATE_SUSPENDED, null, cwdBuf, buildSi(stdOut, stdErr), pi)) return null
           return { pid: pi.dwProcessId, hProcess: pi.hProcess, hThread: pi.hThread }
         },
         resumeThread: (handle) => { resumeThread(handle) },
@@ -296,7 +298,7 @@ export async function spawnGameProcess(
     api.uninherit(outPipe.read)
     api.uninherit(errPipe.read)
     const cmdline = [javaPath, ...args].map(windowsQuote).join(' ')
-    const created = api.createProcess(cmdline, outPipe.write, errPipe.write)
+      const created = api.createProcess(cmdline, outPipe.write, errPipe.write, options.cwd)
     api.close(outPipe.write)
     api.close(errPipe.write)
     if (!created) {
@@ -329,7 +331,7 @@ export async function spawnDetachedProcess(exePath: string, args: string[], opti
   const api = process.platform === 'win32' ? await loadKernel32() : null
   if (api) {
     const cmdline = [exePath, ...args].map(windowsQuote).join(' ')
-    const created = api.createProcess(cmdline, 0, 0)
+    const created = api.createProcess(cmdline, 0, 0, options.cwd ?? '')
     if (!created) {
       closeLog.error(`CreateProcessW 脱离式创建失败：${exePath}`)
       return null

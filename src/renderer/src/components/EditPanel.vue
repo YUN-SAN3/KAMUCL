@@ -259,11 +259,11 @@ function applyCode() {
         </details>
       </template>
 
-      <!-- 底部常驻：主题码 + 恢复默认 -->
-      <div class="ep-sep"></div>
+      <!-- 底部常驻：主题码 + 恢复默认（钉在面板底部，滚动区内容再多也不会把它们推走） -->
+    </div>
+    <div class="ep-foot">
       <section class="ep-group">
         <h3 class="ep-group-title">主题码</h3>
-        <p class="ep-hint">当前配色会实时生成主题码，复制给别人即可一键套用。</p>
         <div class="code-row">
           <input class="input mono code-view" :value="themeCode" readonly spellcheck="false" />
           <button class="btn btn-gold btn-sm code-btn" @click="copyCode">复制</button>
@@ -518,11 +518,18 @@ function applyCode() {
   text-transform: lowercase;
 }
 
-/* 底部分隔与恢复默认 */
-.ep-sep {
-  height: 1px;
-  background: var(--border);
+/* 底部钉住区：主题码 + 恢复默认（始终在面板底部可见可交互，不受滚动区内容多少影响） */
+.ep-foot {
   flex-shrink: 0;
+  padding: var(--space-3) var(--space-4) var(--space-3);
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.ep-foot .ep-group-title {
+  margin-bottom: 0;
 }
 .reset-btn {
   align-self: flex-start;

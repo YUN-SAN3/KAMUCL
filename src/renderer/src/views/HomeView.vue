@@ -327,6 +327,8 @@ async function saveJavaChoice() {
   finally { javaSaving.value = false }
 }
 const memoryText = computed(() => {
+  // 与设置实时同步：开启自动分配显示「自动」，关闭显示手动数值
+  if (store.settings?.memoryAuto === true) return '自动'
   const mb = store.settings?.memoryMB ?? 0
   if (!mb) return '—'
   return mb % 1024 === 0 ? `${mb / 1024} GB` : `${(mb / 1024).toFixed(1)} GB`
@@ -363,6 +365,8 @@ const skinSrc = computed(() => currentSkin.value?.dataUrl ?? '')
 const skinVariant = computed<SkinVariant>(() =>
   currentSkin.value?.variant === 'slim' ? 'slim' : 'classic'
 )
+/** 首页 3D 预览与皮肤页共用披风渲染：有披风则显示，无则不显示（无手动开关） */
+const activeCape = computed(() => skinProfile.value?.capes?.find((c) => c.active)?.dataUrl ?? '')
 
 function reloadSkin(refresh = false) { return trackBootTask(() => reloadSkinImpl(refresh), 800) }
 async function reloadSkinImpl(refresh = false) {
@@ -654,7 +658,7 @@ onUnmounted(() => {
           </button>
         </div>
         <div class="skin-stage" @dblclick="store.currentView = store.selectedAccount ? 'skins' : 'accounts'">
-          <SkinViewer3D :src="skinSrc" :variant="skinVariant" />
+          <SkinViewer3D :src="skinSrc" :variant="skinVariant" :cape="activeCape" />
           <div v-if="skinLoading" class="skin-overlay"><span class="spin"></span><span>正在加载皮肤…</span></div>
           <button v-else-if="!store.selectedAccount" class="skin-overlay action" @click="store.currentView = 'accounts'">登录后加载角色皮肤</button>
           <button v-else-if="skinError" class="skin-overlay action error" :title="skinError" @click="reloadSkin(true)">皮肤加载失败，点击重试</button>

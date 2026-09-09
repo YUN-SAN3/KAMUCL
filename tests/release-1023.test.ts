@@ -21,7 +21,7 @@ test('curseforge: official API with x-api-key when configured, mirror fallback o
   assert.match(c, /const CF_OFFICIAL = 'https:\/\/api\.curseforge\.com\/v1'/)
   assert.match(c, /const CF_MIRROR = 'https:\/\/mod\.mcimirror\.top\/curseforge\/v1'/)
   assert.match(c, /curseforgeApiKey/)
-  assert.match(c, /'x-api-key': key/)
+  assert.match(c, /'x-api-key': ch\.key/)
   // 受限文件现场解析 download-url
   assert.match(c, /download-url/)
   // 设置类型与 UI

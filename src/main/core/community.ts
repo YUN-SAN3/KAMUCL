@@ -177,11 +177,13 @@ function mapMrVersions(arr: MrVersion[], projectId?: string): CommunityFile[] {
 /** 官方 API（需 x-api-key，免费申请见设置页提示）；镜像为无 key 时的降级通道 */
 const CF_OFFICIAL = 'https://api.curseforge.com/v1'
 const CF_MIRROR = 'https://mod.mcimirror.top/curseforge/v1'
+/** 内置默认 Key（卡慕注册的 KAMUCL 官方应用 Key，开箱即用；用户可在设置页换成自己的） */
+const CF_BUILTIN_KEY = '$2a$10$m36VLjTaHEqxr/hO3kMDE.XCDEG90rSu3iGKkoPsj0KdCPWXOASXG'
 
-/** 当前生效的 CurseForge 通道：有 key 走官方；无 key 走镜像；env KAMUCL_CF_API_KEY 供测试 */
-export function cfChannel(): { base: string; official: boolean } {
-  const key = process.env.KAMUCL_CF_API_KEY || getSettings().curseforgeApiKey?.trim() || ''
-  return key ? { base: CF_OFFICIAL, official: true } : { base: CF_MIRROR, official: false }
+/** 当前生效的 CurseForge 通道：有 key（用户设置 > 内置默认）走官方；仅内置失效时才落镜像 */
+export function cfChannel(): { base: string; official: boolean; key: string } {
+  const key = (process.env.KAMUCL_CF_API_KEY || getSettings().curseforgeApiKey?.trim() || CF_BUILTIN_KEY).trim()
+  return key ? { base: CF_OFFICIAL, official: true, key } : { base: CF_MIRROR, official: false, key: '' }
 }
 
 const CF_CLASS_ID: Record<CommunityKind, number> = {
@@ -204,8 +206,7 @@ const LOADER_NAMES = new Set(['forge', 'fabric', 'quilt', 'neoforge'])
 async function cfFetch(p: string): Promise<unknown> {
   const ch = cfChannel()
   if (ch.official) {
-    const key = (process.env.KAMUCL_CF_API_KEY || getSettings().curseforgeApiKey?.trim()) ?? ''
-    return fetchJson(ch.base + p, { 'x-api-key': key })
+    return fetchJson(ch.base + p, { 'x-api-key': ch.key })
   }
   return fetchJson(ch.base + p)
 }
@@ -491,10 +492,9 @@ export async function communityDownload(
   if (file.source === 'curseforge' && !file.url) {
     const ch = cfChannel()
     if (!ch.official) throw new Error('该文件作者限制了直链下载，需要在设置页填入 CurseForge API Key 后才能下载')
-    const key = (process.env.KAMUCL_CF_API_KEY || getSettings().curseforgeApiKey?.trim()) ?? ''
     const data = (await fetchJson(
       `${ch.base}/mods/${encodeURIComponent(file.projectId)}/files/${encodeURIComponent(file.fileId)}/download-url`,
-      { 'x-api-key': key }
+      { 'x-api-key': ch.key }
     )) as { data?: string }
     if (!data.data) throw new Error('CurseForge 未返回下载地址')
     file = { ...file, url: data.data }

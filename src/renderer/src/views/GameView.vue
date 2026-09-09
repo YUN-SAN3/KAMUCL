@@ -112,6 +112,25 @@ const folderRemove = reactive({ open: false, busy: false })
 const currentFolder = computed(() =>
   folders.value.find((folder) => folder.path === activeFolder.value)
 )
+/** 失效文件夹死锁解除：检测到当前绑定文件夹不存在（被删除/重命名）时给「移除绑定/稍后处理」选择 */
+const folderMissingDismissed = ref(false)
+const folderMissing = computed(() => folderScan.value?.structure === 'missing' && !folderMissingDismissed.value)
+/** 移除失效绑定后刷新 */
+async function removeMissingFolder() {
+  if (!activeFolder.value || folderRemove.busy) return
+  folderRemove.busy = true
+  try {
+    await removeFolder(activeFolder.value)
+    folderMissingDismissed.value = false
+    await loadFolderState()
+    store.settings = await getSettings()
+    toast('已移除失效的文件夹绑定', 'success')
+  } catch (error) {
+    toast(`移除失败：${errText(error)}`, 'error')
+  } finally {
+    folderRemove.busy = false
+  }
+}
 
 async function refreshFolderScan(syncList = true) {
   if (!activeFolder.value) return
@@ -850,6 +869,16 @@ async function confirmIsolation() {
       <div class="folder-shortcuts" aria-label="文件夹列表">
         <button v-for="folder in folders" :key="folder.path" class="btn btn-sm" :class="folder.path === activeFolder ? 'btn-gold' : 'btn-ghost'" :disabled="folderBusy" :title="folder.path" @click="chooseFolderPath(folder.path)" @contextmenu.stop.prevent="showFolderContextMenu(folder.path)">{{ folder.name }}</button>
       </div>
+      <div v-if="folderMissing && currentFolder" class="folder-missing-card" role="alert">
+        <div class="folder-missing-text">
+          <strong>检测不到该文件夹</strong>
+          <span class="muted">「{{ currentFolder.name }}」（{{ currentFolder.path }}）可能已被删除或重命名，暂时无法识别其中的版本。</span>
+        </div>
+        <div class="folder-missing-actions">
+          <button class="btn btn-danger btn-sm" :disabled="folderRemove.busy" @click="removeMissingFolder">在启动器内移除该绑定</button>
+          <button class="btn btn-ghost btn-sm" @click="folderMissingDismissed = true">稍后处理</button>
+        </div>
+      </div>
       <div class="folder-scan-state" :class="folderScan?.status">
         <template v-if="folderBusy">
           <span class="spin"></span><span>正在扫描版本与完整性…</span>
@@ -1479,6 +1508,24 @@ async function confirmIsolation() {
   flex: 1;
   flex-wrap: wrap;
 }
+/* 失效文件夹提示卡 */
+.folder-missing-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  margin-top: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, transparent);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  flex-wrap: wrap;
+}
+.folder-missing-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.folder-missing-text strong { color: var(--danger); font-size: var(--text-sm); }
+.folder-missing-text .muted { font-size: var(--text-xs); }
+.folder-missing-actions { display: flex; gap: var(--space-2); flex-shrink: 0; }
+
 .folder-scan-state {
   display: flex;
   align-items: center;

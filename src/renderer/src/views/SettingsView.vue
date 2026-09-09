@@ -75,14 +75,20 @@ async function onCheckUpdate() {
     const r = await checkUpdate(true)
     if (r.ok && r.hasUpdate && r.release) {
       updateCheckState.value = 'idle'
+      // 明确反馈：发现新版本 + 更新入口弹窗
+      toast(`发现新版本 v${r.release.version}，是否更新？`, 'success')
       store.updatePrompt = { release: r.release, rollback: false }
     } else if (r.ok) {
       updateCheckState.value = 'latest'
+      toast('当前版本已是最新！', 'success')
     } else {
+      // 仅真实失败（断网/更新源不可达）才走这里，已记日志
       updateCheckState.value = 'failed'
+      toast('检查失败：断网或更新源不可达（已记日志）', 'error')
     }
   } catch {
     updateCheckState.value = 'failed'
+    toast('检查失败：断网或更新源不可达（已记日志）', 'error')
   }
 }
 
