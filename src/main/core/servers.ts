@@ -12,7 +12,10 @@ import type {
   ServerPingResult,
   ServerSyncResult
 } from '../../shared/types'
-import { parseNbt } from './nbt'
+import { parseNbt, buildServersDat } from './nbt'
+import { logScope } from './launcherLog'
+
+const serverLog = logScope('servers')
 import { listAllInstalled } from './versions'
 import { setActiveGameFolder } from './gameFolders'
 import { canonicalPath, pathIdentity } from './folderPaths'
@@ -172,7 +175,41 @@ export function bindServer(id: string, versionId: string, folder?: string): Serv
     delete s.loaderVersion
   }
   persist(list)
+  // 新增并绑定版本后：按该版本的存储方式把服务器写入其游戏 servers.dat（不动启动链路）
+  if (versionId) writeServerToGameDat(id)
   return list
+}
+
+/**
+ * 把已绑定服务器写入该实例游戏目录的 servers.dat：
+ * 合并进现有列表（已在列表中的同地址条目不重复追加），不覆盖玩家在游戏内维护的其他条目。
+ */
+export function writeServerToGameDat(id: string): void {
+  const list = listServers()
+  const entry = list.find((x) => x.id === id)
+  if (!entry?.versionId) return
+  try {
+    const target = findInstalledTarget(entry.versionId, entry.folder)
+    if (target.failed || target.incomplete) return
+    const dir = canonicalPath(target.gameDirectory || target.folder)
+    const endpoint = entry.normalizedAddress ?? parseServerAddress(entry.address).normalizedAddress
+    const read = readServersDat(dir)
+    const exists = read.list.some((s) => {
+      try {
+        return parseServerAddress(s.ip).normalizedAddress === endpoint
+      } catch {
+        return false
+      }
+    })
+    if (exists) return
+    const next = [...read.list, { name: entry.name, ip: endpoint }]
+    fs.mkdirSync(dir, { recursive: true })
+    fs.writeFileSync(path.join(dir, 'servers.dat'), buildServersDat(next))
+    serverLog.info(`服务器「${entry.name}」已写入实例 ${target.id} 的 servers.dat（共 ${next.length} 条）`)
+  } catch (e) {
+    // 写入失败不影响绑定流程（下次启动同步仍可识别）
+    serverLog.warn('写入 servers.dat 失败', e)
+  }
 }
 
 export function prepareServerLaunch(

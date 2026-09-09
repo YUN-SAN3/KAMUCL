@@ -69,10 +69,20 @@ function updateKindBlob() {
   kindBlob.on = true
 }
 watch(() => query.kind, () => nextTick(updateKindBlob))
+// 背景块不跟随根因：主题切换/字体就绪/容器尺寸变化都会改变胶囊位置，必须持续重算
+let kindBlobObserver: ResizeObserver | null = null
 onMounted(() => {
   nextTick(updateKindBlob)
   setTimeout(updateKindBlob, 200)
+  kindBlobObserver = new ResizeObserver(() => updateKindBlob())
+  watch(kindCapsules, (el) => {
+    kindBlobObserver?.disconnect()
+    if (el) kindBlobObserver?.observe(el)
+  }, { immediate: true })
+  // 主题切换改变配色/字体度量 → 重算
+  watch(() => store.settings?.theme, () => nextTick(() => setTimeout(updateKindBlob, 60)))
 })
+onUnmounted(() => kindBlobObserver?.disconnect())
 const kindBlobStyle = computed(() => ({
   left: kindBlob.left + 'px',
   width: kindBlob.width + 'px',

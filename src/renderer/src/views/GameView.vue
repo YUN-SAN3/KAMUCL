@@ -76,13 +76,20 @@ function updateTabBlob() {
   tabBlob.on = true
 }
 watch(tab, () => nextTick(updateTabBlob))
+// 滑块宽度自适应：已安装数量变化（已安装（14）宽度变）与容器尺寸变化都重算
+watch(() => store.installed.length, () => nextTick(updateTabBlob))
+let tabBlobObserver: ResizeObserver | null = null
 onMounted(() => {
   nextTick(updateTabBlob)
   // 字体/布局就绪后校准一次（首帧 offsetWidth 可能未稳定）
   setTimeout(updateTabBlob, 200)
+  tabBlobObserver = new ResizeObserver(() => updateTabBlob())
+  if (gameTabs.value) tabBlobObserver.observe(gameTabs.value)
 })
-window.addEventListener('resize', updateTabBlob)
-onUnmounted(() => window.removeEventListener('resize', updateTabBlob))
+onUnmounted(() => {
+  window.removeEventListener('resize', updateTabBlob)
+  tabBlobObserver?.disconnect()
+})
 const tabBlobStyle = computed(() => ({
   left: tabBlob.left + 'px',
   width: tabBlob.width + 'px',
@@ -169,6 +176,19 @@ async function chooseFolderPath(selected: string) {
     await refreshFolderScan(false)
     toast(`已切换到「${currentFolder.value?.name ?? '游戏文件夹'}」`, 'success')
   } catch (error) {
+    // 失效文件夹死锁修复：文件夹已不存在（被删除/重命名）→ 直接移除绑定记录，不再弹切换失败
+    if (errText(error).includes('文件夹已不存在')) {
+      try {
+        await removeFolder(selected)
+        await loadFolderState()
+        store.settings = await getSettings()
+        toast('该文件夹已不存在，已从启动器移除其绑定记录', 'info')
+      } catch (e2) {
+        toast(`移除绑定失败：${errText(e2)}`, 'error')
+      }
+      folderBusy.value = false
+      return
+    }
     toast(`切换失败：${errText(error)}`, 'error')
     await loadFolderState()
   } finally {

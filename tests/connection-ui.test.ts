@@ -42,16 +42,15 @@ test('all restructured connection components compile and use theme colors', () =
   assert.match(css, /grid-template-columns: 1fr/)
 })
 
-test('玩家直连已还原为联机第四方式（DirectPanel 独立页），共享基础设施原样保留', () => {
-  // 1.0.18 还原：DirectPanel.vue 为玩家直连独立页组件，NetworkOverview.vue 一并还原
-  assert.ok(fs.existsSync('src/renderer/src/components/connection/DirectPanel.vue'), 'DirectPanel.vue（玩家直连面板）必须存在')
-  assert.ok(fs.existsSync('src/renderer/src/components/connection/NetworkOverview.vue'), 'NetworkOverview.vue 必须存在')
+test('玩家直连入口已移除（冗余功能），共享基础设施原样保留', () => {
+  // 面板组件已删除
+  assert.equal(fs.existsSync('src/renderer/src/components/connection/DirectPanel.vue'), false, 'DirectPanel.vue 应已删除')
+  assert.equal(fs.existsSync('src/renderer/src/components/connection/NetworkOverview.vue'), false, 'NetworkOverview.vue 应已删除')
+  // 渲染层不得残留引用
   const view = read('src/renderer/src/views/FriendConnectView.vue')
-  assert.ok(view.includes("key: 'direct'"), '联机方式列表必须含玩家直连')
-  assert.ok(view.includes('DirectPanel'), 'FriendConnectView 必须渲染 DirectPanel')
-  const panel = read('src/renderer/src/components/connection/DirectPanel.vue')
-  assert.ok(panel.includes('startDirectHost') && panel.includes('getDirectOverview'), 'DirectPanel 必须接入直连主流程')
-  // 共享层保留：主进程直连协议能力与 IPC 常量
+  assert.ok(!view.includes('DirectPanel'), 'FriendConnectView 不得再引用 DirectPanel')
+  assert.ok(!view.includes("'direct'"), '不得残留玩家直连页面态')
+  // 共享层保留：主进程直连协议能力与 IPC 常量（VoxLink 直连后备仍依赖）
   assert.ok(fs.existsSync('src/shared/directConnect.ts'), 'shared/directConnect.ts 必须保留')
   assert.ok(fs.existsSync('src/main/core/directProtocol.ts'), 'main 直连协议能力必须保留')
   const api = read('src/renderer/src/api.ts')

@@ -65,10 +65,15 @@ function updateAnimSegBlob() {
   animSegBlob.on = true
 }
 watch(previewAnim, () => nextTick(updateAnimSegBlob))
+let animSegObserver: ResizeObserver | null = null
 onMounted(() => {
   nextTick(updateAnimSegBlob)
   setTimeout(updateAnimSegBlob, 200)
+  animSegObserver = new ResizeObserver(() => updateAnimSegBlob())
+  if (animSeg.value) animSegObserver.observe(animSeg.value)
+  watch(() => store.settings?.theme, () => nextTick(() => setTimeout(updateAnimSegBlob, 60)))
 })
+onUnmounted(() => animSegObserver?.disconnect())
 const animSegBlobStyle = computed(() => ({
   left: animSegBlob.left + 'px',
   width: animSegBlob.width + 'px',

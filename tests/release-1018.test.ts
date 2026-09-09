@@ -29,17 +29,12 @@ test('home: launch combo back in banner, LaunchFab gone (指令2+3)', () => {
   assert.match(side, /class="skin-panel"/)
 })
 
-test('connection: direct connect restored as fourth method (指令4)', () => {
+test('connection: method cards are the three platforms (direct removed as redundant in 1.0.25)', () => {
   const view = read('src/renderer/src/views/FriendConnectView.vue')
-  assert.ok(view.includes("key: 'direct'"))
-  assert.ok(view.includes('玩家直连'))
-  assert.ok(view.includes('DirectPanel'))
-  assert.ok(fs.existsSync('src/renderer/src/components/connection/DirectPanel.vue'))
-  assert.ok(fs.existsSync('src/renderer/src/components/connection/NetworkOverview.vue'))
-  const panel = read('src/renderer/src/components/connection/DirectPanel.vue')
-  assert.match(panel, /startDirectHost/)
-  assert.match(panel, /创建房间/)
-  assert.match(panel, /加入好友/)
+  assert.ok(!view.includes("key: 'direct'"))
+  assert.ok(!view.includes('DirectPanel'))
+  assert.ok(!fs.existsSync('src/renderer/src/components/connection/DirectPanel.vue'))
+  assert.ok(!fs.existsSync('src/renderer/src/components/connection/NetworkOverview.vue'))
 })
 
 test('keys page: sync switch integrated into card header, no standalone empty card (指令5)', () => {
@@ -63,8 +58,6 @@ test('1.0.18 changed SFCs compile', () => {
     'src/renderer/src/views/HomeView.vue',
     'src/renderer/src/views/FriendConnectView.vue',
     'src/renderer/src/views/KeysView.vue',
-    'src/renderer/src/components/connection/DirectPanel.vue',
-    'src/renderer/src/components/connection/NetworkOverview.vue',
     'src/renderer/src/App.vue',
   ]) {
     const source = read(file)

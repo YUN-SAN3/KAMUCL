@@ -28,25 +28,24 @@ test('联机文案纠错：多页全部文件不得出现「一点即连/一键�
     assert.ok(view.includes(text), `方式选择页缺少：${text}`)
   }
   // 横向卡片各配一句适用场景（含还原的玩家直连）
-  for (const scene of ['适合追求稳定', '适合双方网络尚可', '适合不想配置任何参数', '适合有公网']) {
+  for (const scene of ['适合追求稳定', '适合双方网络尚可', '适合不想配置任何参数']) {
     assert.ok(view.includes(scene), `方式选择页缺少场景标签：${scene}`)
   }
-  // 方式选择页四张卡片（FRP / VoxLink / 陶瓦 / 玩家直连——1.0.18 还原）
-  assert.equal((view.match(/key: '/g) ?? []).length, 4)
+  // 方式选择页恰好三张卡片（玩家直连属冗余已移除，1.0.25）
+  assert.equal((view.match(/key: '/g) ?? []).length, 3)
 })
 
 test('联机多页结构：landing=方式选择，每种方式独立页并保留「← 更换方式」返回', () => {
   const view = read('src/renderer/src/views/FriendConnectView.vue')
   // 页面路由：choose 为 landing，四种方式各自独立页
-  for (const key of ["'choose'", "'frp'", "'voxlink'", "'terracotta'", "'direct'"]) assert.ok(view.includes(key), `缺少页面态 ${key}`)
+  for (const key of ["'choose'", "'frp'", "'voxlink'", "'terracotta'"]) assert.ok(view.includes(key), `缺少页面态 ${key}`)
   assert.ok(view.includes("v-if=\"page === 'choose'\""), 'landing 应为方式选择页')
   assert.ok(view.includes("v-if=\"page === 'frp'\""), 'FRP 应是独立页面')
   assert.ok(view.includes("v-else-if=\"page === 'voxlink'\""), 'VoxLink 应是独立页面')
   assert.ok(view.includes("v-else-if=\"page === 'terracotta'\""), '陶瓦应是独立页面')
-  assert.ok(view.includes("v-else-if=\"page === 'direct'\""), '玩家直连应是独立页面（1.0.18 还原）')
   assert.ok(view.includes('← 更换方式'), '独立页必须保留「← 更换方式」返回')
-  // 玩家直连面板组件存在且接入
-  assert.ok(view.includes('DirectPanel'), '玩家直连面板必须接入')
+  // 玩家直连卡片已移除（冗余，1.0.25）
+  assert.ok(!view.includes("'direct'"), '不得残留玩家直连页面态')
 })
 
 test('FRP 页重排：一键开始 + 状态区/主操作区/参考折叠/日志窄区 + 宽松节点行', () => {

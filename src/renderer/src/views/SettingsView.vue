@@ -1014,7 +1014,11 @@ async function onRemovePlugin(p: PluginInfo) {
               {{ updateCheckState === 'checking' ? '检查中' : '检查更新' }}
             </button>
             <span v-if="updateCheckState === 'latest'" class="upd-latest">已是最新 ✓</span>
-            <span v-else-if="updateCheckState === 'failed'" class="muted">检查失败（已记日志，可稍后再试）</span>
+          </div>
+          <!-- 检查失败：明确是连不上 GitHub 更新源，并提供重试入口（不再误报「无更新」） -->
+          <div v-if="updateCheckState === 'failed'" class="upd-row upd-failed-row">
+            <span class="upd-failed-text">你的网络可能无法连接 GitHub，检查更新失败</span>
+            <button class="btn btn-ghost btn-sm" @click="onCheckUpdate">重试</button>
           </div>
           <div class="upd-row">
             <span class="upd-label">自动安装更新</span>
@@ -1184,6 +1188,12 @@ async function onRemovePlugin(p: PluginInfo) {
   border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
 }
 .upd-pending-text { font-size: var(--text-sm); font-weight: 600; }
+.upd-failed-row {
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--danger) 26%, transparent);
+}
+.upd-failed-text { font-size: var(--text-xs); color: var(--danger); }
 /* 回退/本地安装弹窗 */
 .upd-modal-mask { z-index: 9400; display: grid; place-items: center; }
 .upd-modal-card { width: min(560px, 92vw); max-height: 82vh; display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-5) var(--space-6); }
