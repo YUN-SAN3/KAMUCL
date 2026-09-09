@@ -387,11 +387,21 @@ const memoryInfoText = computed(() =>
     : '正在读取本机内存信息…'
 )
 
-// ---------------- 自定义内存滑块（拖动＝预览，松手＝生效；绝不回写生效值，杜绝受控值回环抽搐） ----------------
+// ---------------- 自定义内存滑块（拖动＝预览+比例基准冻结，松手＝生效+一次性重算校准） ----------------
 const memTrack = ref<HTMLElement | null>(null)
 const memDragging = ref(false)
 /** 拖动预览值（MB，无级原始值；拖动中只驱动它，生效值 store.settings.memoryMB 全程不动） */
 const memPreview = ref<number | null>(null)
+/**
+ * 拖动开始时刻度基准快照：{ 上限 max }。
+ * 整个拖动过程冻结——可用内存浮动、右侧数值宽度变化一律不得影响进度条总长度与比例映射。
+ * （根因实证：拖动中上限随可用内存浮动/数值位数挤压轨道 → 同一位置映射比例前后不一致 = 来回抖动）
+ */
+const memBaseline = ref<{ max: number; span: number } | null>(null)
+
+/** 当前刻度基准：拖动中用冻结快照，其余时候用实时值 */
+const memScaleMax = computed(() => memBaseline.value?.max ?? memMax.value)
+const memScaleSpan = computed(() => memBaseline.value?.span ?? Math.max(memMax.value, MEM_MIN + MEM_STEP) - MEM_MIN)
 
 /** 指针位置 → 无级原始 MB（不取整不钳制，取整与钳制只在预览显示与最终提交时发生） */
 function memRawFromClientX(clientX: number): number {
@@ -399,13 +409,16 @@ function memRawFromClientX(clientX: number): number {
   if (!track) return store.settings?.memoryMB ?? MEM_MIN
   const rect = track.getBoundingClientRect()
   const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
-  return MEM_MIN + ratio * (memMax.value - MEM_MIN)
+  return MEM_MIN + ratio * memScaleSpan.value
 }
 
 function onMemThumbDown(e: PointerEvent) {
   e.preventDefault()
   e.stopPropagation()
   memDragging.value = true
+  // 快照冻结刻度基准：整个拖动期间比例尺不许变
+  const max = memMax.value
+  memBaseline.value = { max, span: Math.max(max, MEM_MIN + MEM_STEP) - MEM_MIN }
   memPreview.value = store.settings?.memoryMB ?? MEM_MIN
   ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
 }
@@ -416,14 +429,18 @@ function onMemPointerMove(e: PointerEvent) {
 function onMemPointerUp() {
   if (!memDragging.value) return
   memDragging.value = false
-  // 松手一次性生效：0.5GB 步进取整 + 上下限钳制 + 保存；随后清空预览（生效值校准一次，不产生跳动）
+  // 松手一次性生效：按冻结基准取整（0.5GB 步进）+钳制 + 保存；随后清预览与快照
   const raw = memPreview.value ?? store.settings?.memoryMB ?? MEM_MIN
+  const frozenMax = memBaseline.value?.max ?? memMax.value
   memPreview.value = null
-  const v = Math.max(MEM_MIN, Math.min(Math.round(raw / MEM_STEP) * MEM_STEP, memMax.value))
+  memBaseline.value = null
+  const v = Math.max(MEM_MIN, Math.min(Math.round(raw / MEM_STEP) * MEM_STEP, frozenMax))
   if (store.settings) {
     store.settings.memoryMB = v
     void save({ memoryMB: v })
   }
+  // 松手后允许以最新可用内存重算刻度并一次性校准（此时两值一致，不产生二次跳动）
+  void refreshSystemInfo()
 }
 
 /** 数值输入（GB，支持 0.25 精度）；失焦/回车保存 */
@@ -444,11 +461,10 @@ function commitMemoryEdit() {
   }
 }
 
-/* 已填充段宽度百分比：拖动中跟随预览值（无级），松手后跟随生效值 */
+/* 已填充段宽度百分比：拖动中跟随预览值（无级）+ 冻结比例基准，松手后跟随生效值 */
 const memFillPct = computed(() => {
   const mb = memPreview.value ?? store.settings?.memoryMB ?? MEM_MIN
-  const span = Math.max(memMax.value, MEM_MIN + MEM_STEP) - MEM_MIN
-  return Math.max(0, Math.min(100, ((mb - MEM_MIN) / span) * 100))
+  return Math.max(0, Math.min(100, ((mb - MEM_MIN) / memScaleSpan.value) * 100))
 })
 
 
@@ -1568,8 +1584,9 @@ async function onRemovePlugin(p: PluginInfo) {
   gap: var(--space-4);
 }
 .memory-value {
-  flex-shrink: 0;
-  min-width: 72px;
+  flex: none;
+  /* 固定宽度：数值位数变化不得挤压/拉伸滑块轨道（双单位最坏情形「128658MB (125.64G)」容纳得下） */
+  width: 172px;
   text-align: right;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -1577,6 +1594,9 @@ async function onRemovePlugin(p: PluginInfo) {
   cursor: text;
   border-radius: var(--radius-sm);
   padding: 2px var(--space-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .memory-value:hover { background: var(--hover); }
 .memory-input { width: 88px; text-align: right; }
