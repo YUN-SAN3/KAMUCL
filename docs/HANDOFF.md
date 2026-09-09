@@ -1,6 +1,6 @@
 # KAMUCL 项目交接文档（给 Codex）
 
-> 更新时间：2026-09-10 ｜ 当前已交付版本：**1.0.28**（源码已推送 master/main，Release 已发布）
+> 更新时间：2026-09-10 ｜ 当前已交付版本：**1.0.29**（源码已推送 master/main，Release 已发布）
 > 工作区：E:\KAMUCL（git 仓库）
 
 ---
@@ -13,11 +13,13 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 
 ## 1. 当前进度快照
 
-**1.0.29 修复记录**：社区整合包压缩文件下载结束时曾将任务总进度置为 100%，后续安装又被 IPC 和前端的单调进度保护锁在 100%。现在压缩包占总进度 0–10%，后续安装映射到 10–100%；游戏本体安装完成只算子阶段完成，整合包文件和覆盖内容落盘后才发出最终完成事件。下载中心仅在任务成功终态显示 100%，运行/暂停状态不会四舍五入到 100%。以实际 mrpack 压缩包、4 个模组文件及 overrides 走本地 HTTP 下载和真实安装流程验证，同时验证本地导入；304/304 测试通过、构建通过。当前正在打包并按默认流程发布 1.0.29。
+**1.0.29 修复记录**：社区整合包压缩文件下载结束时曾将任务总进度置为 100%，后续安装又被 IPC 和前端的单调进度保护锁在 100%。现在压缩包占总进度 0–10%，后续安装映射到 10–100%；游戏本体安装完成只算子阶段完成，整合包文件和覆盖内容落盘后才发出最终完成事件。下载中心仅在任务成功终态显示 100%，运行/暂停状态不会四舍五入到 100%。以实际 mrpack 压缩包、4 个模组文件及 overrides 走本地 HTTP 下载和真实安装流程验证，同时验证本地导入；304/304 测试通过、构建通过。
+
+**1.0.29 已交付**：源码 master `0967b37` / main `8307ef7`，标签 `v1.0.29` 指向 master 修复提交。Release：https://github.com/kamubaba-i/KAMUCL/releases/tag/v1.0.29 。EXE、ZIP、SHA256SUMS.txt 均已上传，远端大小和 SHA256 与本地一致；中文及空格路径下的便携启动验证通过。EXE SHA256：`30011ada7b5b376d1e95f0936c07860587f9296d36aad6f676a94cba1e64d878`；ZIP SHA256：`09df87a9a6291c81c74a0f3ed47b83b8ada6c1183d7a9f64a8301fde812213fd`。
 
 **长期交付约定（用户最新授权）**：每批修改后默认完成版本递增、验证、打包，并将源码及对应 GitHub Release 更新到 `kamubaba-i/KAMUCL`；不再等待额外的打包/发布指令。项目根目录 `AGENTS.md` 保存此规则。
 
-**最新交付 1.0.28**：包含下述 1.0.27 和 1.0.28 修复；源码 master `7dece4a` / main `f73a533`，标签 `v1.0.28` 指向 master 源码提交。Release：https://github.com/kamubaba-i/KAMUCL/releases/tag/v1.0.28 。EXE、ZIP、SHA256SUMS.txt 三份附件上传完成，GitHub 附件大小及 SHA256 均与本地一致；便携 EXE 在中文和空格路径内启动验证通过。打包范围限定 out/main、out/preload、out/renderer，排除测试夹具及验证脚本。302/302 测试通过。
+**上批交付 1.0.28**：包含下述 1.0.27 和 1.0.28 修复；源码 master `7dece4a` / main `f73a533`，标签 `v1.0.28` 指向 master 源码提交。Release：https://github.com/kamubaba-i/KAMUCL/releases/tag/v1.0.28 。EXE、ZIP、SHA256SUMS.txt 三份附件上传完成，GitHub 附件大小及 SHA256 均与本地一致；便携 EXE 在中文和空格路径内启动验证通过。打包范围限定 out/main、out/preload、out/renderer，排除测试夹具及验证脚本。302/302 测试通过。
 
 **此前已交付版本 1.0.26**（master `5dcc9ef` / main `5c24feb` / Release 已发布）。测试 297/297。
 
@@ -33,7 +35,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 3. ✅ 模组禁用/启用：FileManager 模组页每行 .jar 增「禁用/启用」按钮 ↔ 主进程 fs:toggleDisable（改名 .jar.disabled，MC 原生不加载）；实例运行中主进程阻止（隔离查自身/共享目录查所有共享实例）。dev 实例实证禁用+还原往返成功。
 4. ✅ Fabric API：安装弹窗联动 UI/列表/安装链路早已存在（基线 0.4.1 就有），实证可选 36 版本；真实缺陷=installFabricApi 固定写共享 mods，已改为跟随实例隔离状态（versions.ts 解析 instanceDirectoryState 传 modsDir）。
 
-**当前停点**：1.0.28 已完成打包发布，等待下一批需求。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
+**当前停点**：1.0.29 已完成打包发布，等待下一批需求。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
 
 ---
 
