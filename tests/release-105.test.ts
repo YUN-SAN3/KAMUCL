@@ -16,16 +16,15 @@ test('version comparison: 26.x new scheme is newer than all 1.x; unknown treated
   assert(keySyncSupportedForVersion('26.2'))
 })
 
-test('chunked download stall watchdog only aborts when transfers are active (排队块不再被误杀)', () => {
+test('chunked download engine removed: single-connection + .part resume is the only path (多线程分块全网络异常频发，移除)', () => {
   const dl = read('src/main/core/download.ts')
-  // 1.0.9 修正：看门狗只在「有块处于传输中」且全组无字节进展时中止分块；
-  // 旧实现把排队等待全局并发名额的块也计入停滞，导致健康分块组被整组取消、回退单连接。
-  assert.match(dl, /chunkStallWatchdog = \{ stallMs: 45_000/)
-  assert.match(dl, /onTransferBegin\?: \(\) => void/)
-  assert.match(dl, /onTransferEnd\?: \(\) => void/)
-  assert.match(dl, /activeTransfers\+\+/)
-  assert.match(dl, /if \(activeTransfers > 0 && Date\.now\(\) - lastBytesAt >= chunkStallWatchdog\.stallMs\)/)
-  assert.match(dl, /无进展，回退单连接/)
+  assert.ok(!dl.includes('doDownloadChunked'), '分块引擎必须移除')
+  assert.ok(!dl.includes('buildChunkPlan'), '分块计划必须移除')
+  assert.ok(!dl.includes('chunkStallWatchdog'), '分块看门狗必须移除')
+  // startTransfer 永远单连接
+  assert.match(dl, /async function startTransfer\([\s\S]*?return doDownload\(url, dest, onProgress, extSignal, expectedSize, expectedSize == null\)/)
+  // 断点续传保留（.part）
+  assert.match(dl, /\.part/)
 })
 
 test('home recent games: selection no longer pins to top; launch recency drives order; renamed', () => {

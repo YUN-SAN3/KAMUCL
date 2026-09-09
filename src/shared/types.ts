@@ -413,6 +413,8 @@ export interface Settings {
   updateMirrorUrl?: string
   /** 内测群号覆盖（免打包临时改；默认取 shared/branding.ts 的 QQ_GROUP_NUMBER） */
   qqGroupNumber?: string
+  /** CurseForge 官方 API Key（console.curseforge.com 免费申请）；留空走 MCIM 镜像兜底 */
+  curseforgeApiKey?: string
   /** 自动安装更新（默认开启）：发现新版本静默下载，启动器关闭时自动安装；关闭则弹窗询问 */
   autoUpdate?: boolean
 }

@@ -18,6 +18,7 @@ import type {
 import { downloadFile } from './download'
 import { readVersionJson } from './versions'
 import { instanceDirectoryState } from './instances'
+import { getSettings } from './settings'
 import { MOD_ZH, ZH_TO_SLUGS } from './community-zh'
 import { matchesCommunityFilter } from '../../shared/communityPolicy'
 import { logScope } from './launcherLog'
@@ -33,8 +34,8 @@ const TIMEOUT = 30000
 
 // ---------------- 基础请求 ----------------
 
-async function fetchJson(url: string): Promise<unknown> {
-  const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT), headers: UA })
+async function fetchJson(url: string, headers: Record<string, string> = {}): Promise<unknown> {
+  const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT), headers: { ...UA, ...headers } })
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`)
   return res.json()
 }
@@ -171,9 +172,17 @@ function mapMrVersions(arr: MrVersion[], projectId?: string): CommunityFile[] {
   return out
 }
 
-// ---------------- CurseForge（MCIM 镜像） ----------------
+// ---------------- CurseForge（官方 API 优先，MCIM 镜像兜底） ----------------
 
-const CF_BASE = 'https://mod.mcimirror.top/curseforge/v1'
+/** 官方 API（需 x-api-key，免费申请见设置页提示）；镜像为无 key 时的降级通道 */
+const CF_OFFICIAL = 'https://api.curseforge.com/v1'
+const CF_MIRROR = 'https://mod.mcimirror.top/curseforge/v1'
+
+/** 当前生效的 CurseForge 通道：有 key 走官方；无 key 走镜像；env KAMUCL_CF_API_KEY 供测试 */
+export function cfChannel(): { base: string; official: boolean } {
+  const key = process.env.KAMUCL_CF_API_KEY || getSettings().curseforgeApiKey?.trim() || ''
+  return key ? { base: CF_OFFICIAL, official: true } : { base: CF_MIRROR, official: false }
+}
 
 const CF_CLASS_ID: Record<CommunityKind, number> = {
   mod: 6,
@@ -193,7 +202,12 @@ const CF_LOADER_TYPE: Record<LoaderName, number> = {
 const LOADER_NAMES = new Set(['forge', 'fabric', 'quilt', 'neoforge'])
 
 async function cfFetch(p: string): Promise<unknown> {
-  return fetchJson(CF_BASE + p)
+  const ch = cfChannel()
+  if (ch.official) {
+    const key = (process.env.KAMUCL_CF_API_KEY || getSettings().curseforgeApiKey?.trim()) ?? ''
+    return fetchJson(ch.base + p, { 'x-api-key': key })
+  }
+  return fetchJson(ch.base + p)
 }
 
 interface CfMod {
@@ -472,6 +486,19 @@ export async function communityDownload(
       progress: t ? d / t : 0,
       text: `下载 ${fileName} ${(d / 1024 / 1024).toFixed(1)}MB${t ? '/' + (t / 1024 / 1024).toFixed(1) + 'MB' : ''}`
     })
+
+  // CurseForge 受限文件（作者禁止直链，downloadUrl 为 null）：官方 API 现场解析真实下载地址
+  if (file.source === 'curseforge' && !file.url) {
+    const ch = cfChannel()
+    if (!ch.official) throw new Error('该文件作者限制了直链下载，需要在设置页填入 CurseForge API Key 后才能下载')
+    const key = (process.env.KAMUCL_CF_API_KEY || getSettings().curseforgeApiKey?.trim()) ?? ''
+    const data = (await fetchJson(
+      `${ch.base}/mods/${encodeURIComponent(file.projectId)}/files/${encodeURIComponent(file.fileId)}/download-url`,
+      { 'x-api-key': key }
+    )) as { data?: string }
+    if (!data.data) throw new Error('CurseForge 未返回下载地址')
+    file = { ...file, url: data.data }
+  }
 
   if (target.kind === 'modpack') {
     const tmpPath = path.join(os.tmpdir(), `kamucl-pack-${Date.now()}-${fileName}`)

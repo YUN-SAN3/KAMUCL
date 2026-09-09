@@ -678,6 +678,17 @@ async function onRemovePlugin(p: PluginInfo) {
               <input class="input" type="number" min="0" max="1048576" :value="store.settings.downloadSpeedKBps" @change="save({ downloadSpeedKBps: Number(($event.target as HTMLInputElement).value) })" />
             </label>
             <p class="muted group-hint">0 表示不限速。限制对全部下载任务合计生效；减少线程数后，已有连接完成时释放名额。</p>
+            <label class="download-setting download-setting-col">
+              <span>CurseForge API Key<small class="muted">（选填，官方 api.curseforge.com 通道）</small></span>
+              <input
+                class="input mono"
+                type="password"
+                :value="store.settings.curseforgeApiKey ?? ''"
+                placeholder="留空走镜像通道"
+                @change="save({ curseforgeApiKey: ($event.target as HTMLInputElement).value.trim() })"
+              />
+            </label>
+            <p class="muted group-hint">CurseForge 官方 API 需要免费注册申请：<a class="upd-link" href="https://console.curseforge.com/" target="_blank" rel="noreferrer">console.curseforge.com</a>（注册 → 创建应用 → 复制 API Key 粘贴到上方）。填入后社区资源的 CurseForge 搜索与下载走官方通道，不受镜像波动影响。</p>
           </div>
         </details>
         <div class="card group">
@@ -1204,6 +1215,10 @@ async function onRemovePlugin(p: PluginInfo) {
 .plugin-actions { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
 .download-setting { display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); }
 .download-setting .input { width: 160px; }
+.download-setting-col { flex-direction: column; align-items: stretch; gap: var(--space-2); margin-top: var(--space-3); }
+.download-setting-col .input { width: 100%; }
+.download-setting-col small { font-weight: 400; }
+.upd-link { color: var(--accent-2); }
 .setting-target { scroll-margin-top: var(--space-5); }
 .setting-target:focus { outline: 2px solid var(--accent); outline-offset: var(--space-1); }
 .page {

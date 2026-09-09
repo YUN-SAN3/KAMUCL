@@ -1,4 +1,4 @@
-import { join } from 'node:path'
+import { join, basename } from 'node:path'
 import { execFile } from 'node:child_process'
 import type { ChildProcess } from 'node:child_process'
 import { EventEmitter } from 'node:events'
@@ -319,4 +319,29 @@ export async function spawnGameProcess(
     cwd: options.cwd,
     ...(process.platform !== 'win32' ? { detached: true } : {})
   }) as unknown as GameProcessHandle
+}
+
+/**
+ * 完全脱离式创建（无管道回传，零句柄耦合）：供更新脚本这类「点火即走」的进程使用。
+ * spawnGameProcess 的管道回传会让启动器退出时进程对象被句柄悬挂（文件锁/退出延迟根因之一）。
+ */
+export async function spawnDetachedProcess(exePath: string, args: string[], options: { cwd?: string } = {}): Promise<number | null> {
+  const api = process.platform === 'win32' ? await loadKernel32() : null
+  if (api) {
+    const cmdline = [exePath, ...args].map(windowsQuote).join(' ')
+    const created = api.createProcess(cmdline, 0, 0)
+    if (!created) {
+      closeLog.error(`CreateProcessW 脱离式创建失败：${exePath}`)
+      return null
+    }
+    api.resumeThread(created.hThread)
+    api.close(created.hThread)
+    api.close(created.hProcess)
+    closeLog.info(`脱离式进程已创建：pid=${created.pid} ${basename(exePath)}`)
+    return created.pid
+  }
+  const { spawn } = await import('node:child_process')
+  const child = spawn(exePath, args, { cwd: options.cwd, detached: true, stdio: 'ignore', windowsHide: true })
+  child.unref()
+  return child.pid ?? null
 }

@@ -17,18 +17,23 @@
  *   electron .   # 或打包版
  */
 const http = require('node:http')
+const fs = require('node:fs')
 const crypto = require('node:crypto')
 
 const port = Number(process.argv[2] || 8310)
 
-// 测试资产：1MB 伪随机内容（每次启动固定，便于校验复现）
+// 测试资产：1MB 伪随机内容（每次启动固定，便于校验复现）；MOCK_ASSET_FILE 环境变量可指定真实文件做全链路实证
 const assets = new Map()
+const realAssetFile = process.env.MOCK_ASSET_FILE
 for (const ver of ['99.0.0', '1.0.0', '0.9.9']) {
   const name = `KAMUCL-${ver}.exe`
   const buf = crypto.createHash('sha256').update('kamucl-mock-' + ver).digest()
   const file = Buffer.alloc(1024 * 1024)
   for (let i = 0; i < file.length; i += buf.length) buf.copy(file, i)
   assets.set(name, file)
+}
+if (realAssetFile && fs.existsSync(realAssetFile)) {
+  assets.set('KAMUCL-99.0.0.exe', fs.readFileSync(realAssetFile))
 }
 const sumsText = [...assets.entries()]
   .map(([name, buf]) => `${crypto.createHash('sha256').update(buf).digest('hex')}  ${name}`)
@@ -45,7 +50,7 @@ const releases = ['99.0.0', '1.0.0', '0.9.9'].map((ver, i) => ({
     {
       name: `KAMUCL-${ver}.exe`,
       browser_download_url: `http://127.0.0.1:${port}/download/KAMUCL-${ver}.exe`,
-      size: 1024 * 1024
+      size: assets.get(`KAMUCL-${ver}.exe`).length
     },
     {
       name: 'SHA256SUMS.txt',
