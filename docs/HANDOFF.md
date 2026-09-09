@@ -1,6 +1,6 @@
 # KAMUCL 项目交接文档（给 Codex）
 
-> 生成时间：2026-09-09 ｜ 交接时版本：**1.0.25**（已发布并推送 master/main）
+> 更新时间：2026-09-09 深夜 ｜ 交接时版本：**1.0.26**（已发布并推送 master/main）
 > 工作区：E:\KAMUCL（git 仓库，工作区当前干净）
 
 ---
@@ -13,16 +13,15 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 
 ## 1. 当前进度快照
 
-**最新已交付版本 1.0.25**（master `d66084f` / main `4f7de47` / Release 已发布）。测试 291/291。
+**最新已交付版本 1.0.26**（master `5dcc9ef` / main `5c24feb` / Release 已发布）。测试 297/297。
 
-**正在进行中的批次（未开始写代码，仅做了排查）——即你接手后的任务清单：**
+**1.0.26 批次 4 项全部完成**：
+1. ✅ 皮肤页空白回归：根因=1.0.25 加滑动块监听时用 `onUnmounted` 但 import 漏了它 → setup ReferenceError → 整页空白。已补导入+加「用到的组合式 API 必须全部导入」回归测试。
+2. ✅ 双屏最大化溢出：根因=frame:false+thickFrame 真实最大化时 Windows 把不可见缩放边框（~7px/边）扩出工作区到相邻屏。已改「工作区假最大化」（windowState.ts: toggleMaximize/applyMaximized/normalizeRealMaximize，setBounds(workArea)，系统吸附自动收编）。**注意：未在真实双屏环境实测**，如用户反馈仍溢出需现场验证。
+3. ✅ 模组禁用/启用：FileManager 模组页每行 .jar 增「禁用/启用」按钮 ↔ 主进程 fs:toggleDisable（改名 .jar.disabled，MC 原生不加载）；实例运行中主进程阻止（隔离查自身/共享目录查所有共享实例）。dev 实例实证禁用+还原往返成功。
+4. ✅ Fabric API：安装弹窗联动 UI/列表/安装链路早已存在（基线 0.4.1 就有），实证可选 36 版本；真实缺陷=installFabricApi 固定写共享 mods，已改为跟随实例隔离状态（versions.ts 解析 instanceDirectoryState 传 modsDir）。
 
-| # | 任务 | 状态与已知线索 |
-|---|---|---|
-| 1 | **皮肤页无任何元素渲染（P0 回归）** | 复现确认：导航「皮肤」→ 内容区 bodyLen=0。SkinsView.vue 编译通过，所以是**运行时**问题（setup 抛错或异步 chunk 失败）。近期改动史：1.0.18 移除了 `previewPaused` ref 与 `:paused` prop 传递；1.0.20 给 animSeg 加了 ResizeObserver；物晖重写过 SkinViewer3D。优先排查：renderer 控制台错误（CDP `Runtime.evaluate` 抓不到就用 `Log.enable`/`Runtime.consoleAPICalled`），或回退对比 1.0.18 的 SkinsView |
-| 2 | **全屏双屏窗口边缘跑到副屏** | 主屏 3200×2000，副屏 1920×1080。看 `src/main/windowState.ts`（恢复时按相交面积夹紧）与 `windowAppearance.ts`；全屏/最大化路径可能绕过夹紧逻辑 |
-| 3 | **模组禁用/启用**（资源管理-模组页） | 需求：点击按钮把 mod 的 `.jar` 改名 `.jar.disabled`（MC 原生识别），再点恢复。禁用前必须检测实例是否运行中（运行则阻止）。主进程文件操作在 `src/main/core/`（参考 worlds.ts/modinfo.ts 的 fs 模式），IPC 注册在 `src/main/ipc.ts`，渲染在 `src/renderer/src/views/ModsView.vue`（或资源管理下的模组子页）。运行检测：launch.ts 有 `getRunningGamePids` |
-| 4 | **Fabric 安装时附带 Fabric API 下载** | 「选择 API 为模组加载器时，应再显示一个 Fabric API（选项）」：在 Fabric 安装选项区（GameView 下载页 loader 选项/安装弹窗）加「同时下载 Fabric API」勾选项（默认开）。安装链路在 loaders.ts（installLoader），装完加载器后用 community.ts 的下载能力把 Fabric API（Modrinth project id `P7dR8mSH`）最新兼容版投入实例 mods/。注意实物测试要用真实 Fabric 版本 |
+**无待办任务**。下一批次等用户新指令。
 
 ---
 
@@ -130,4 +129,6 @@ node scripts/release-github.cjs
 
 ---
 
-**下一位（Codex）从这开始**：先跑 `node node_modules/tsx/dist/cli.mjs --test tests/all.test.ts` 确认 291 全绿 → 按第 1 节的 4 个任务顺序做（皮肤页 P0 优先）→ 完成后版本 1.0.26 → 按第 2 节流程构建/打包/提交/推送/发版。
+**下一位（Codex）从这开始**：当前无待办。接到新批次后：跑 `node node_modules/tsx/dist/cli.mjs --test tests/all.test.ts` 确认 297 全绿 → 干活 → 版本 +1 → 按第 2 节流程构建/打包/提交/推送/发版。
+
+**Git 操作血泪教训（本次实操翻车记录）**：复合命令里 `git checkout master --quiet; git branch -D sync-main` 若 checkout 静默失败，后续 commit 会落到 sync-main 上；每步后务必 `git branch --show-current` 确认。**含中文文件绝不可用 PowerShell `Get-Content`/`Set-Content` 读写**（GBK 毁灭性乱码），一律用 Read/Edit 工具。
