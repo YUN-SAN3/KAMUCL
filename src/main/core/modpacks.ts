@@ -967,6 +967,9 @@ async function installModpackInFolder(filePath: string, emit: ProgressEmit, opts
       (event) =>
         report({
           ...event,
+          // 游戏本体就绪后还要下载整合包文件、解压和写入清单。
+          stage: event.stage === 'done' ? 'modpack' : event.stage,
+          text: event.stage === 'done' ? '游戏本体与加载器准备完成，继续安装整合包…' : event.text,
           overall: 0.04 + (event.overall ?? event.progress) * 0.44
         }),
       opts?.signal

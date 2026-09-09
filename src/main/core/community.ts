@@ -485,6 +485,11 @@ export async function communityDownload(
     emit({
       stage: 'download',
       progress: t ? d / t : 0,
+      // 压缩包只是整合包任务的第一步；不能先报 100% 再开始安装。
+      overall: target.kind === 'modpack' ? (t ? d / t : 0) * 0.1 : (t ? d / t : 0),
+      bytesDone: d,
+      bytesTotal: t || undefined,
+      indeterminate: !t,
       text: `下载 ${fileName} ${(d / 1024 / 1024).toFixed(1)}MB${t ? '/' + (t / 1024 / 1024).toFixed(1) + 'MB' : ''}`
     })
 
@@ -505,7 +510,11 @@ export async function communityDownload(
     await downloadFile(file.url, tmpPath, dlProgress, file.sha1, undefined, signal)
     // 动态 import 避免与 modpacks.ts 的循环依赖；后台异步安装，进度走 event:progress
     const { installModpack } = await import('./modpacks')
-    void installModpack(tmpPath, emit, { signal, nameSource: 'inner' })
+    const installProgress: ProgressEmit = (event) => emit({
+      ...event,
+      overall: 0.1 + (event.overall ?? event.progress) * 0.9
+    })
+    void installModpack(tmpPath, installProgress, { signal, nameSource: 'inner' })
       .then((id) => {
         fs.rmSync(tmpPath, { force: true })
         onDone?.({ versionId: id, ok: true })

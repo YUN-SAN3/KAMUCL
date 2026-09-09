@@ -3,6 +3,7 @@ import LaunchNotice from './components/LaunchNotice.vue'
 import { computed, defineAsyncComponent, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import type { Component } from 'vue'
 import { backgroundImageEffect } from '@shared/appearancePolicy'
+import { taskProgressPercent } from '@shared/taskProgress'
 import {
   applyUpdate,
   cancelTask,
@@ -1483,9 +1484,9 @@ onUnmounted(() => {
                 </div>
                 <div class="dl-sub muted">
                   <template v-if="t.status === 'running'">
-                    {{ taskSubText(t) }} · {{ t.indeterminate ? '正在计算总量' : Math.round(t.progress * 100) + '%' }}{{ taskEtaText(t.etaSeconds) }}
+                    {{ taskSubText(t) }} · {{ t.indeterminate ? '正在计算总量' : taskProgressPercent(t) + '%' }}{{ taskEtaText(t.etaSeconds) }}
                   </template>
-                  <template v-else-if="t.status === 'paused'">已暂停 · {{ t.indeterminate ? '总量未知' : Math.round(t.progress * 100) + '%' }}</template>
+                  <template v-else-if="t.status === 'paused'">已暂停 · {{ t.indeterminate ? '总量未知' : taskProgressPercent(t) + '%' }}</template>
                   <template v-else-if="t.status === 'cancelling'">正在停止网络与后台任务…</template>
                   <template v-else-if="t.status === 'done'">已完成</template>
                   <template v-else-if="t.status === 'cancelled'">已取消</template>
@@ -1494,7 +1495,7 @@ onUnmounted(() => {
                   </template>
                 </div>
                 <div v-if="t.status === 'running' || t.status === 'paused' || t.status === 'cancelling'" class="dl-bar" :class="{ 'is-indeterminate': t.indeterminate && t.status === 'running' }">
-                  <div class="dl-bar-fill" :style="{ width: t.indeterminate ? '35%' : Math.round(t.progress * 100) + '%' }"></div>
+                  <div class="dl-bar-fill" :style="{ width: t.indeterminate ? '35%' : taskProgressPercent(t) + '%' }"></div>
                 </div>
               </div>
             </div>

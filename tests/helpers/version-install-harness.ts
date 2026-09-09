@@ -6,12 +6,14 @@ import { build } from 'esbuild'
 let bundle: Promise<string> | undefined
 
 /** Run the real install orchestrator with private settings; only Electron and metadata transport are injected. */
-export async function versionInstallHarness(root: string, metadataFetch: typeof fetch = fetch) {
+export async function versionInstallHarness(root: string, metadataFetch: typeof fetch = fetch, downloadUrl = (url: string) => url) {
   bundle ??= build({
     stdin: {
       contents: `export { installVersion, readVersionJson, listInstalled } from './src/main/core/versions';
         export { getSettings } from './src/main/core/settings';
         export { listFabricApiVersions } from './src/main/core/loaders';
+        export { communityDownload } from './src/main/core/community';
+        export { installModpack } from './src/main/core/modpacks';
         export { closeHttpClient } from './src/main/core/httpClient';`,
       resolveDir: process.cwd(), loader: 'ts'
     },
@@ -25,7 +27,9 @@ export async function versionInstallHarness(root: string, metadataFetch: typeof 
     getVersion: () => 'test', getName: () => 'KAMUCL-test', isPackaged: false
   } }
   new Function('require', 'module', 'exports', 'fetch', await bundle)(
-    (name: string) => name === 'electron' ? electron : require(name),
+    (name: string) => name === 'electron' ? electron : name === 'undici'
+      ? { ...require(name), fetch: (url: string, init: unknown) => require(name).fetch(downloadUrl(String(url)), init) }
+      : require(name),
     exported, exported.exports, metadataFetch
   )
   return exported.exports as {
@@ -34,6 +38,8 @@ export async function versionInstallHarness(root: string, metadataFetch: typeof 
     listInstalled: typeof import('../../src/main/core/versions').listInstalled
     getSettings: typeof import('../../src/main/core/settings').getSettings
     listFabricApiVersions: typeof import('../../src/main/core/loaders').listFabricApiVersions
+    communityDownload: typeof import('../../src/main/core/community').communityDownload
+    installModpack: typeof import('../../src/main/core/modpacks').installModpack
     closeHttpClient: () => Promise<void>
   }
 }
