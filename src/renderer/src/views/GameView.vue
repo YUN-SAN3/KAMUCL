@@ -403,39 +403,48 @@ function openInstall(v: RemoteVersion) {  modal.open = true
   modal.instanceEdited = false
 }
 
+const apiRetry = ref(0)
 watch(
-  () => modal.loader,
-  async (loader) => {
+  () => [modal.open, modal.loader, modal.version?.id, apiRetry.value] as const,
+  async ([open, loader, mcVersion], _previous, onCleanup) => {
+    let stale = false
+    onCleanup(() => { stale = true })
     modal.loaderVersions = []
     modal.loaderVersion = ''
     modal.loadLoadersError = ''
     modal.apiVersions = []
     modal.apiVersion = ''
     modal.apiError = ''
-    if (!loader || !modal.version) return
+    modal.loadingLoaders = false
+    modal.loadingApi = false
+    if (!open || !loader || !mcVersion) return
     modal.loadingLoaders = true
+    modal.loadingApi = loader === 'fabric'
     try {
-      const list = await listLoaders(loader, modal.version.id)
+      const list = await listLoaders(loader, mcVersion)
+      if (stale) return
       modal.loaderVersions = list
       modal.loaderVersion = list[0] ?? ''
       if (!list.length) modal.loadLoadersError = '该版本暂无可用的加载器版本'
     } catch (e) {
+      if (stale) return
       modal.loadLoadersError = '获取加载器版本失败：' + errText(e)
     } finally {
-      modal.loadingLoaders = false
+      if (!stale) modal.loadingLoaders = false
     }
     // 选择 Fabric 时联动拉取 Fabric API 版本列表
-    if (loader === 'fabric' && modal.version) {
-      modal.loadingApi = true
+    if (loader === 'fabric' && !stale) {
       try {
-        const list = await listFabricApi(modal.version.id)
+        const list = await listFabricApi(mcVersion)
+        if (stale) return
         modal.apiVersions = list
         modal.apiVersion = list[0]?.version ?? ''
         if (!list.length) modal.apiError = '该版本暂无适配的 Fabric API'
       } catch (e) {
+        if (stale) return
         modal.apiError = '获取 Fabric API 列表失败：' + errText(e)
       } finally {
-        modal.loadingApi = false
+        if (!stale) modal.loadingApi = false
       }
     }
   }
@@ -446,6 +455,8 @@ const canConfirm = computed(
     !!modal.version &&
     !modal.loadingLoaders &&
     (modal.loader === '' || !!modal.loaderVersion) &&
+    (modal.loader !== 'fabric' || !modal.apiOn ||
+      (!modal.loadingApi && !modal.apiError && !!modal.apiVersion)) &&
     !instanceError.value
 )
 
@@ -1449,7 +1460,8 @@ async function confirmIsolation() {
                     </option>
                   </select>
                   <p v-if="modal.apiError" class="loaders-error">{{ modal.apiError }}</p>
-                  <p class="muted fapi-tip">安装完成后将自动放入 mods 文件夹</p>
+                  <button v-if="modal.apiError" class="btn btn-ghost btn-sm" @click="apiRetry++">重试获取 Fabric API</button>
+                  <p class="muted fapi-tip">{{ modal.apiError ? '请重试，或关闭“同时安装”后仅安装加载器' : '安装完成后将自动放入该实例使用的 mods 文件夹' }}</p>
                 </template>
               </template>
             </template>

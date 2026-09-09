@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { DEFAULT_VOXLINK_ROOM_NAME, VOXLINK_ROOM_NAME_MAX, normalizeVoxlinkRoomName, isVoxlinkContentBlocked, VOXLINK_ROOM_BLOCKED_MESSAGE } from '@shared/voxlinkRoom'
 import ConnectionPanel from './ConnectionPanel.vue'
 import ConnectionStatus from './ConnectionStatus.vue'
 import { toast } from '../../store'
@@ -26,7 +27,13 @@ function switchTab(next: 'host' | 'join' | 'lobby'): void {
 }
 
 // 创建房间
-const roomName = ref('KAMUCL 房间')
+const roomName = ref(DEFAULT_VOXLINK_ROOM_NAME)
+const roomNameInput = ref<HTMLInputElement | null>(null)
+const roomNameError = ref('')
+watch(roomName, () => {
+  if (error.value === roomNameError.value) error.value = ''
+  roomNameError.value = ''
+})
 const isPublic = ref(true)
 // 加入房间
 const joinCode = ref('')
@@ -229,10 +236,29 @@ async function call<T>(channel: string, payload?: unknown): Promise<T | undefine
 }
 
 async function startHost(): Promise<void> {
-  busy.value = true; error.value = ''
-  const r = await call<{ ok: boolean }>('voxlink:start', { mode: 'host', roomName: roomName.value, isPublic: isPublic.value })
-  if (r?.ok) await status()
-  busy.value = false
+  if (busy.value) return
+  error.value = ''; roomNameError.value = ''
+  let name: string
+  try { name = normalizeVoxlinkRoomName(roomName.value) } catch (e) {
+    roomNameError.value = (e as Error).message
+    await nextTick(); roomNameInput.value?.focus()
+    return
+  }
+  busy.value = true
+  try {
+    const r = await window.kamucl.invoke('voxlink:start', { mode: 'host', roomName: name, isPublic: isPublic.value }) as { ok: boolean }
+    if (r?.ok) await status()
+  } catch (e) {
+    if (isVoxlinkContentBlocked(e)) {
+      roomNameError.value = VOXLINK_ROOM_BLOCKED_MESSAGE
+      error.value = roomNameError.value
+    } else {
+      error.value = (e as Error).message?.replace(/^Error invoking remote method '[^']*': (Error: )?/, '') ?? '创建房间失败'
+    }
+  } finally {
+    busy.value = false
+    if (roomNameError.value) { await nextTick(); roomNameInput.value?.focus() }
+  }
 }
 async function startJoin(code: string): Promise<void> {
   const c = code.trim().toUpperCase()
@@ -329,7 +355,10 @@ onUnmounted(() => { offEvent?.(); if (tickTimer) clearInterval(tickTimer) })
       <!-- 创建房间 -->
       <div v-if="tab === 'host'" class="tab-body">
         <template v-if="!joined">
-          <label class="connection-field">房间名<input v-model="roomName" class="input" maxlength="32" placeholder="大厅里显示的名字" :disabled="busy" /></label>
+          <label class="connection-field">房间名
+            <input ref="roomNameInput" v-model="roomName" class="input" :maxlength="VOXLINK_ROOM_NAME_MAX" placeholder="大厅里显示的名字" :disabled="busy" :aria-invalid="!!roomNameError" :aria-describedby="roomNameError ? 'voxlink-room-name-error' : undefined" />
+            <small v-if="roomNameError" id="voxlink-room-name-error" role="alert">{{ roomNameError }}</small>
+          </label>
           <label class="connection-toggle"><span>公开房间<small>出现在大厅列表，任何人可通过房间码加入</small></span><input v-model="isPublic" type="checkbox" :disabled="busy" /><span class="connection-toggle-track" aria-hidden="true"></span></label>
           <p class="connection-muted">先启动游戏并对局域网开放世界，VoxLink 会自动探测端口。创建后你会得到 6 位房间码（不含 I、L、O、0、1），显示在上方「连接状态」里。</p>
           <div class="connection-actions"><button class="btn btn-gold" :disabled="busy" @click="startHost">{{ busy ? '创建中…' : '创建房间' }}</button></div>

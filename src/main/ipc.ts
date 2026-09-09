@@ -321,15 +321,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     void versions
         .installVersion(vid, opts ?? {}, taskEmit, task.controller.signal)
         .then((installedId) => {
-          // 设置项生效：新版本默认开启版本隔离（整合包实例本身强制隔离，无需处理）
-          try {
-            if (settings.getSettings().defaultIsolation) {
-              instances.setNewInstanceIsolation(installedId, true)
-            }
-          } catch (e) {
-            console.error('[KAMUCL] 默认隔离设置失败:', e)
-            launcherLogWarn('install', '按默认设置开启新实例隔离失败，不影响安装结果', e)
-          }
+          // installVersion 已在安装附加模组前落实隔离设置；这里仅通知最终结果。
           taskDone(true)
           send(IPC_EVENT.installDone, { versionId: vid, installedId, ok: true, taskId: task.id })
         })

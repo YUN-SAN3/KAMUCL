@@ -25,7 +25,7 @@ import {
 import { getSettings } from './settings'
 import { abortableDelay, throwIfCancelled } from './tasks'
 import { createWeightedProgressEmit, VERSION_INSTALL_STAGE_RANGES } from './progress'
-import { applyIsolation, instanceDirectoryState } from './instances'
+import { applyIsolation, instanceDirectoryState, setNewInstanceIsolation } from './instances'
 import { assertValidResolution, normalizeStoredResolution } from './gameWindow'
 import {
   allVersionsDirs,
@@ -44,7 +44,8 @@ import {
   versionJarPath,
   versionJsonPath,
   versionsDir,
-  virtualLegacyDir
+  virtualLegacyDir,
+  withGameFolder
 } from './paths'
 import { ensureInstanceThumbnail, removeInstanceThumbnail } from './appearanceAssets'
 
@@ -542,7 +543,23 @@ export async function installVersion(
   emit: ProgressEmit,
   signal?: AbortSignal
 ): Promise<string> {
+  // 安装期间切换活动文件夹或默认隔离设置，不能改变本次任务的落盘目标。
+  const isolated = getSettings().defaultIsolation
+  return withGameFolder(gameDir(), () => installVersionInFolder(versionId, opts, emit, signal, isolated))
+}
+
+async function installVersionInFolder(
+  versionId: string,
+  opts: InstallOptions,
+  emit: ProgressEmit,
+  signal: AbortSignal | undefined,
+  isolated: boolean
+): Promise<string> {
   const report = createWeightedProgressEmit(emit, VERSION_INSTALL_STAGE_RANGES)
+  // 子安装器完成并不代表整个任务完成，Fabric API 仍可能在下载。
+  const prepareReport: ProgressEmit = (event) => {
+    if (event.stage !== 'done') report(event)
+  }
   if (opts.loader) {
     // 动态 import 避免与 loaders.ts 的循环依赖
     const { installLoader, listLoaderVersions, installFabricApi } = await import('./loaders')
@@ -556,25 +573,26 @@ export async function installVersion(
       opts.loader,
       versionId,
       loaderVersion,
-      report,
+      prepareReport,
       opts.instanceName,
       signal
     )
+    // 必须先确定最终游戏目录，再安装附加模组；失败时直接报错，不能写入共享目录兜底。
+    if (isolated) setNewInstanceIsolation(installedId, true)
     // Fabric：可选同时安装 Fabric API 到 mods 文件夹
     if (opts.loader === 'fabric' && opts.fabricApi) {
       // 目标目录必须跟随实例隔离状态：隔离实例 → versions/<id>/mods；共享 → <folder>/mods
-      let modsDir: string | undefined
-      try {
-        const j = readVersionJson(installedId)
-        modsDir = path.join(instanceDirectoryState(installedId, j).path, 'mods')
-      } catch {
-        modsDir = undefined // 读取失败时回落共享目录（installFabricApi 默认）
-      }
+      const j = readVersionJson(installedId)
+      const modsDir = path.join(instanceDirectoryState(installedId, j).path, 'mods')
       await installFabricApi(versionId, opts.fabricApi, report, signal, modsDir)
     }
+    report({ stage: 'done', progress: 1, text: `${installedId} 安装完成` })
     return installedId
   }
-  return await installVanilla(versionId, report, 'versions', opts.instanceName, signal)
+  const installedId = await installVanilla(versionId, prepareReport, 'versions', opts.instanceName, signal)
+  if (isolated) setNewInstanceIsolation(installedId, true)
+  report({ stage: 'done', progress: 1, text: `${installedId} 安装完成` })
+  return installedId
 }
 
 /** 链底客户端 jar 的实际位置（versions 区优先，缺省时取 .kamucl/base 依赖原版区） */

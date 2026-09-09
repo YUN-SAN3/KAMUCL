@@ -13,6 +13,7 @@
 import dgram from 'node:dgram'
 import { EventEmitter } from 'node:events'
 import { ApiClient, APIError, CLIENT_TAG, DEFAULT_SERVER_URL, validateRoomCode } from './api'
+import { normalizeVoxlinkRoomName } from '../../../shared/voxlinkRoom'
 import { quickNatType, STUN_SERVERS, StunMappedAddr, stunSampleSeries, stunDeltaFromSamples } from './stun'
 import { Puncher, predictedPortsAround, punchListen } from './punch'
 import { RudpConn, RudpTarget } from './rudp'
@@ -1184,7 +1185,7 @@ export class VoxlinkApp {
 
   // ---- 6. CreateRoom ----
   async createRoom(req: CreateRoomParams): Promise<CreateRoomResult> {
-    if (!req.name.trim()) throw new APIError('INVALID_PARAMS', '房间名不能为空', 0)
+    const name = normalizeVoxlinkRoomName(req.name)
     if (req.hostPort < 1024 || req.hostPort > 65535) throw new APIError('INVALID_PARAMS', 'hostPort 必须在 1024-65535 之间', 0)
     const loader = (req.loader || '').trim() || 'unknown'
     const gameVersion = (req.gameVersion || '').trim() || 'unknown'
@@ -1197,7 +1198,7 @@ export class VoxlinkApp {
 
     const natType = await quickNatType()
     const body: Record<string, unknown> = {
-      name: req.name,
+      name,
       maxPlayers: 20,
       hostPort: req.hostPort,
       natType,

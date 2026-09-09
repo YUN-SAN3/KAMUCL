@@ -82,8 +82,8 @@ function pick(key: ConnectPage) {
       <template v-else>
         <Transition name="method-slide" mode="out-in" :duration="280">
           <div :key="page" class="method-page">
-            <header class="connection-header">
-              <div>
+            <header class="connection-header method-header">
+              <div class="header-copy">
                 <span class="connection-eyebrow">PLAY TOGETHER</span>
                 <h1>{{ currentCard?.name ?? '联机' }}</h1>
                 <p>{{ currentCard?.desc ?? '' }}</p>
@@ -106,7 +106,14 @@ function pick(key: ConnectPage) {
 
 <style scoped>
 .friend-connect-page { max-width: 1120px; margin: 0 auto; }
-.header-side { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.method-header { flex-wrap: nowrap; }
+.header-copy { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.header-side { display: flex; align-items: center; gap: var(--space-2); flex: none; margin-left: auto; white-space: nowrap; }
+@media (max-width: 560px) {
+  .method-header { flex-wrap: wrap; }
+  .header-copy { flex-basis: 100%; }
+  .header-side { justify-content: flex-end; }
+}
 
 /* 方式子页面切换过渡：右滑+淡入（mode out-in） */
 .method-slide-enter-active, .method-slide-leave-active { transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.22, 0.9, 0.32, 1); }
