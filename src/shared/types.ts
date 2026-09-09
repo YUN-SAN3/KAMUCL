@@ -797,7 +797,7 @@ export const IPC = {
   worldImport: 'world:import', // (path: string, options: WorldImportOptions) => WorldImportResult
 
   // 社区资源
-  communitySearch: 'community:search', // (q: CommunityQuery) => CommunityResult[]
+  communitySearch: 'community:search', // (q: CommunityQuery) => CommunitySearchPage
   communityFiles: 'community:files', // (source: 'modrinth'|'curseforge', projectId: string) => CommunityFile[]
   communityDownload: 'community:download', // (file: CommunityFile, target: { versionId: string; kind: CommunityKind }) => string  同步下载完成返回保存路径；kind=modpack 时下载后自动进入整合包安装流程
 
@@ -894,6 +894,14 @@ export interface CommunityResult {
   downloads: number
   updatedAt: string
   categories: string[]
+}
+
+export interface CommunitySearchPage {
+  items: CommunityResult[]
+  total: number
+  offset: number
+  limit: number
+  warnings?: string[]
 }
 
 export interface CommunityFile {

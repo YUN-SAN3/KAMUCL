@@ -1,6 +1,6 @@
 # KAMUCL 项目交接文档（给 Codex）
 
-> 更新时间：2026-09-10 ｜ 当前已交付版本：**1.0.29**（源码已推送 master/main，Release 已发布）
+> 更新时间：2026-09-10 ｜ 当前待交付版本：**1.0.30**（社区资源修复已验证，正在打包发布）
 > 工作区：E:\KAMUCL（git 仓库）
 
 ---
@@ -12,6 +12,10 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 ---
 
 ## 1. 当前进度快照
+
+**1.0.30 本批修复**：社区分类选中块的 watch 在 query 初始化前运行，导致没有订阅分类变化；现调整监听顺序并同时测量 left/top/width/height，支持连续切换和换行。资源包/光影包/数据包不再传 Fabric 等模组加载器条件；Modrinth 文件进一步按 minecraft、shader engine、datapack 类型区分，避免同一数据包项目的模组 JAR 混入。中文 Mod 别名搜索保留版本/加载器筛选，移除未筛选项目插入。卡片显式标注“来源：CurseForge”。三类资源改为每页 20 项和页码/总数，双源按各自总数交错分页，避免原 offset 计算跳项。
+
+**1.0.30 验证**：新增 4 项后端回归测试，覆盖五类资源双源请求、文件兼容性、中文别名、两源数量不均/耗尽/空结果/单源失败及连续分页。`scripts/verify-community-ui.cjs` 在隔离 Electron 中挂载真实 Vue 页面，验证连续分类切换、换行、页码/末页/禁止滚动加载、筛选重置、旧请求丢弃与文件弹窗。`scripts/verify-community-browse.ts` 只读连接真实 Modrinth/CurseForge；26.2 两源四类搜索与首项文件均通过，Fresh Animations 返回 v1.10.5，VeinMiner 数据包返回 ZIP。测试与构建日志见 out/*1.0.30.log。打包、远端提交、标签及附件待本批发布后补记。
 
 **1.0.29 修复记录**：社区整合包压缩文件下载结束时曾将任务总进度置为 100%，后续安装又被 IPC 和前端的单调进度保护锁在 100%。现在压缩包占总进度 0–10%，后续安装映射到 10–100%；游戏本体安装完成只算子阶段完成，整合包文件和覆盖内容落盘后才发出最终完成事件。下载中心仅在任务成功终态显示 100%，运行/暂停状态不会四舍五入到 100%。以实际 mrpack 压缩包、4 个模组文件及 overrides 走本地 HTTP 下载和真实安装流程验证，同时验证本地导入；304/304 测试通过、构建通过。
 
@@ -35,7 +39,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 3. ✅ 模组禁用/启用：FileManager 模组页每行 .jar 增「禁用/启用」按钮 ↔ 主进程 fs:toggleDisable（改名 .jar.disabled，MC 原生不加载）；实例运行中主进程阻止（隔离查自身/共享目录查所有共享实例）。dev 实例实证禁用+还原往返成功。
 4. ✅ Fabric API：安装弹窗联动 UI/列表/安装链路早已存在（基线 0.4.1 就有），实证可选 36 版本；真实缺陷=installFabricApi 固定写共享 mods，已改为跟随实例隔离状态（versions.ts 解析 instanceDirectoryState 传 modsDir）。
 
-**当前停点**：1.0.29 已完成打包发布，等待下一批需求。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
+**当前停点**：1.0.30 正在完成最终验证和打包发布。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
 
 ---
 
@@ -45,8 +49,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 # 测试（npx 被本机 PS 策略阻止，用 node 直跑 tsx）
 node node_modules/tsx/dist/cli.mjs --test tests/all.test.ts
 
-# 构建（构建前必须杀进程，否则 WindowMaterial.exe 被锁 CS0016）
-Get-Process electron,java,KAMUCL -ErrorAction SilentlyContinue | Stop-Process -Force
+# 构建（如辅助文件被占用，仅退出本任务启动的测试启动器；不要结束用户游戏/Java 进程）
 node node_modules/electron-vite/bin/electron-vite.js build
 
 # 打包（便携 exe + zip）

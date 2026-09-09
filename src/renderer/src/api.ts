@@ -8,7 +8,7 @@ import type {
   CommunityFile,
   CommunityKind,
   CommunityQuery,
-  CommunityResult,
+  CommunitySearchPage,
   CommunitySource,
   FabricApiVersion,
   FolderScanResult,
@@ -191,12 +191,12 @@ export const importWorld = (inputPath: string, options: WorldImportOptions) =>
 // ---------------- 社区资源 ----------------
 /** 搜索 Modrinth / CurseForge 社区资源 */
 export const communitySearch = (q: CommunityQuery) =>
-  invoke<CommunityResult[]>(IPC.communitySearch, q)
+  invoke<CommunitySearchPage>(IPC.communitySearch, q)
 /** 项目文件版本列表（可按 mc 版本/加载器过滤） */
 export const communityFiles = (
   source: CommunitySource,
   projectId: string,
-  filter?: { mcVersion?: string; loader?: LoaderName | '' }
+  filter?: { mcVersion?: string; loader?: LoaderName | ''; kind?: CommunityKind }
 ) => invoke<CommunityFile[]>(IPC.communityFiles, source, projectId, filter)
 /** 下载资源文件，返回保存路径；kind=modpack 时自动进入整合包安装流程 */
 export const communityDownload = (

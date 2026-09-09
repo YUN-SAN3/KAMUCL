@@ -3,7 +3,7 @@ import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from
 import { communityDownload, communityFiles, communitySearch, errText, getManifest, getModTargets } from '../api'
 import { store, toast } from '../store'
 import { instanceKey } from '@shared/modCompatibility'
-import { communityFileMatchesInstance } from '@shared/communityPolicy'
+import { communityFileMatchesInstance, usesCommunityLoader } from '@shared/communityPolicy'
 import { mcmodSearchUrl } from '@shared/communityLinks'
 import MarqueeText from '../components/MarqueeText.vue'
 import ModInstallDialog from '../components/ModInstallDialog.vue'
@@ -58,18 +58,19 @@ const kindTabs: Array<{ value: CommunityKind; label: string }> = [
 
 /** 类型筛选胶囊滑动指示块（与导航水滴/游戏 Tab 同款弹簧动效） */
 const kindCapsules = ref<HTMLElement | null>(null)
-const kindBlob = reactive({ left: 0, width: 0, on: false })
+const kindBlob = reactive({ left: 0, top: 0, width: 0, height: 0, on: false })
 function updateKindBlob() {
   const root = kindCapsules.value
   if (!root) return
   const active = root.querySelector<HTMLElement>(`.capsule[data-kind="${query.kind}"]`)
   if (!active) return
   kindBlob.left = active.offsetLeft
+  kindBlob.top = active.offsetTop
   kindBlob.width = active.offsetWidth
+  kindBlob.height = active.offsetHeight
   kindBlob.on = true
 }
-watch(() => query.kind, () => nextTick(updateKindBlob))
-// 背景块不跟随根因：主题切换/字体就绪/容器尺寸变化都会改变胶囊位置，必须持续重算
+// 字体、主题及换行会改变胶囊尺寸，分类切换以外也需要重算。
 let kindBlobObserver: ResizeObserver | null = null
 onMounted(() => {
   nextTick(updateKindBlob)
@@ -85,7 +86,9 @@ onMounted(() => {
 onUnmounted(() => kindBlobObserver?.disconnect())
 const kindBlobStyle = computed(() => ({
   left: kindBlob.left + 'px',
+  top: kindBlob.top + 'px',
   width: kindBlob.width + 'px',
+  height: kindBlob.height + 'px',
   opacity: kindBlob.on ? 1 : 0
 }))
 
@@ -133,8 +136,14 @@ const filteredVersionOptions = computed(() => {
 })
 
 function pickVersion(v: string) {
-  query.mcVersion = v === query.mcVersion ? '' : v
+  query.mcVersion = v
   versionInput.value = query.mcVersion
+  versionDropdownOpen.value = false
+  onFilterChange()
+}
+
+function applyVersionInput() {
+  query.mcVersion = versionInput.value.trim()
   versionDropdownOpen.value = false
   onFilterChange()
 }
@@ -149,6 +158,10 @@ const query = reactive({
   loader: currentInstance.value?.loader ?? '' as '' | LoaderName,
   sort: 'relevance' as 'relevance' | 'downloads' | 'newest'
 })
+// query 必须先初始化。过早运行 getter 会抛错，导致监听未订阅分类变化。
+watch(() => query.kind, () => nextTick(updateKindBlob), { flush: 'post' })
+const supportsLoader = computed(() => usesCommunityLoader(query.kind))
+const usesPagination = computed(() => !supportsLoader.value)
 
 /** 排序选项 */
 const sortOptions = [
@@ -165,36 +178,54 @@ const searched = ref(false) // 是否已发起过搜索（区分初始空态）
 const loadError = ref('')
 const offset = ref(0)
 const hasMore = ref(false)
+const currentPage = ref(1)
+const totalResults = ref(0)
+const searchWarnings = ref<string[]>([])
+const totalPages = computed(() => Math.max(1, Math.ceil(totalResults.value / PAGE_SIZE)))
+const visiblePages = computed(() => {
+  const start = Math.max(1, Math.min(currentPage.value - 2, totalPages.value - 4))
+  return Array.from({ length: Math.min(5, totalPages.value) }, (_, i) => start + i)
+})
+const listCard = ref<HTMLElement | null>(null)
 
 let searchGeneration = 0
-async function doSearch(reset: boolean) {
+async function doSearch(reset: boolean, page = currentPage.value) {
   if (!reset && (loading.value || loadingMore.value)) return
   const generation = ++searchGeneration
   if (reset) {
     offset.value = 0
+    currentPage.value = 1
+    totalResults.value = 0
     results.value = []
+    searchWarnings.value = []
   }
-  const first = reset
+  const paged = usesPagination.value
+  if (paged && !reset) currentPage.value = page
+  const requestedOffset = paged ? (currentPage.value - 1) * PAGE_SIZE : offset.value
+  const first = reset || paged
   if (first) loading.value = true
   else loadingMore.value = true
   loadError.value = ''
   searched.value = true
   try {
-    const list = await communitySearch({
+    const response = await communitySearch({
       keyword: query.keyword.trim(),
       kind: query.kind,
       source: query.source,
       mcVersion: query.mcVersion || undefined,
-      loader: query.loader || undefined,
+      loader: supportsLoader.value ? query.loader || undefined : undefined,
       sort: query.sort,
-      offset: offset.value,
+      offset: requestedOffset,
       limit: PAGE_SIZE
     })
     if (generation !== searchGeneration) return
+    const list = response.items
     if (first) results.value = list
     else results.value = [...results.value, ...list]
-    hasMore.value = list.length >= PAGE_SIZE
-    offset.value += list.length
+    totalResults.value = response.total
+    searchWarnings.value = response.warnings ?? []
+    hasMore.value = requestedOffset + PAGE_SIZE < response.total
+    offset.value = requestedOffset + PAGE_SIZE
   } catch (e) {
     if (generation !== searchGeneration) return
     loadError.value = errText(e)
@@ -209,6 +240,11 @@ async function doSearch(reset: boolean) {
 
 const onSearch = () => void doSearch(true)
 const onLoadMore = () => void doSearch(false)
+async function goToPage(page: number) {
+  if (loading.value || page < 1 || page > totalPages.value || page === currentPage.value) return
+  await doSearch(false, page)
+  listCard.value?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+}
 
 // ---------------- 无限滚动：列表底部哨兵进入视口即自动加载（保留按钮作兜底） ----------------
 const moreSentinel = ref<HTMLElement | null>(null)
@@ -216,7 +252,7 @@ let moreObserver: IntersectionObserver | null = null
 onMounted(() => {
   moreObserver = new IntersectionObserver(
     (entries) => {
-      if (entries.some((e) => e.isIntersecting) && hasMore.value && !loading.value && !loadingMore.value) {
+      if (!usesPagination.value && entries.some((e) => e.isIntersecting) && hasMore.value && !loading.value && !loadingMore.value) {
         onLoadMore()
       }
     },
@@ -317,6 +353,7 @@ const releaseText: Record<CommunityFile['releaseType'], string> = {
 const modal = reactive({
   open: false,
   item: null as CommunityResult | null,
+  kind: 'mod' as CommunityKind,
   files: [] as CommunityFile[],
   loadingFiles: false,
   filesError: '',
@@ -327,11 +364,11 @@ const modal = reactive({
   downloading: false
 })
 
-const isModpack = computed(() => query.kind === 'modpack')
+const isModpack = computed(() => modal.kind === 'modpack')
 const selectedFile = computed(
   () => modal.files.find((f) => f.fileId === modal.fileId) ?? null
 )
-const targetOptions = computed(() => query.kind === 'mod' ? allTargets.value.filter(v => selectedFile.value && communityFileMatchesInstance(selectedFile.value, v)) : store.installed)
+const targetOptions = computed(() => modal.kind === 'mod' ? allTargets.value.filter(v => selectedFile.value && communityFileMatchesInstance(selectedFile.value, v)) : store.installed)
 watch(targetOptions, options => {
   if (!options.some(v => instanceKey(v) === modal.versionId)) {
     const selected = options.find(v => v.id === currentInstance.value?.id && v.folder === currentInstance.value?.folder) ?? options[0]
@@ -344,11 +381,11 @@ async function loadFiles() {
   const generation = ++fileGeneration, item = modal.item
   modal.loadingFiles = true; modal.filesError = ''; modal.files = []; modal.fileId = ''
   try {
-    const files = await communityFiles(item.source, item.projectId, { mcVersion: modal.mcVersion || undefined, loader: modal.loader || undefined })
+    const files = await communityFiles(item.source, item.projectId, { kind: modal.kind, mcVersion: modal.mcVersion || undefined, loader: usesCommunityLoader(modal.kind) ? modal.loader || undefined : undefined })
     if (generation !== fileGeneration || !modal.open) return
     modal.files = files
     modal.fileId = (files.find(f => f.releaseType === 'release') ?? files[0])?.fileId ?? ''
-    if (!files.length) modal.filesError = '当前 Minecraft / Loader 条件下没有文件，可手动调整筛选。'
+    if (!files.length) modal.filesError = usesCommunityLoader(modal.kind) ? '当前 Minecraft / Loader 条件下没有文件，可手动调整筛选。' : '当前 Minecraft 版本下没有文件，可调整版本筛选。'
   } catch (e) { if (generation === fileGeneration) modal.filesError = '获取文件列表失败：' + errText(e) }
   finally { if (generation === fileGeneration) modal.loadingFiles = false }
 }
@@ -356,13 +393,14 @@ async function loadFiles() {
 async function openDownload(item: CommunityResult) {
   modal.open = true
   modal.item = item
+  modal.kind = query.kind
   modal.files = []
   modal.loadingFiles = true
   modal.filesError = ''
   modal.fileId = ''
   modal.versionId = currentInstance.value ? instanceKey(currentInstance.value) : ''
   modal.mcVersion = query.mcVersion
-  modal.loader = query.loader
+  modal.loader = supportsLoader.value ? query.loader : ''
   modal.downloading = false
   try {
     const scanned = await getModTargets()
@@ -388,7 +426,7 @@ async function confirmDownload() {
   const file = selectedFile.value
   if (!file || !canConfirm.value) return
   const target = targetOptions.value.find(v => instanceKey(v) === modal.versionId)
-  if (query.kind === 'mod') {
+  if (modal.kind === 'mod') {
     if (!target) return
     modRequest.value = { target, input: { file } }
     return
@@ -397,10 +435,10 @@ async function confirmDownload() {
   try {
     const res = await communityDownload(file, {
       versionId: target?.id ?? '',
-      kind: query.kind
+      kind: modal.kind
     })
     modal.open = false
-    if (query.kind === 'modpack') {
+    if (modal.kind === 'modpack') {
       toast(res || '已开始安装整合包', 'success')
     } else {
       toast(`下载完成，已保存到：${res}`, 'success')
@@ -424,7 +462,7 @@ async function confirmDownload() {
     <!-- 搜索卡片 -->
     <div class="card search-card">
       <div class="filter-row">
-        <span class="muted">兼容筛选：{{ query.mcVersion || '全部 Minecraft' }} / {{ query.loader || '全部 Loader' }}</span>
+        <span class="muted">兼容筛选：{{ query.mcVersion || '全部 Minecraft' }}<template v-if="supportsLoader"> / {{ query.loader || '全部 Loader' }}</template><template v-else> · 不按模组加载器筛选</template></span>
         <select
           v-if="store.installed.length"
           class="select filter-select instance-filter"
@@ -483,10 +521,12 @@ async function confirmDownload() {
             :placeholder="manifestLoading ? '加载版本列表…' : (query.mcVersion || '全部版本')"
             @focus="versionDropdownOpen = true"
             @input="versionDropdownOpen = true"
+            @change="applyVersionInput"
+            @keydown.enter.prevent="applyVersionInput"
           />
           <div v-if="versionDropdownOpen" class="menu-overlay" @click="versionDropdownOpen = false"></div>
           <div v-if="versionDropdownOpen" class="float-menu ver-filter-menu">
-            <button class="menu-item" :class="{ active: !query.mcVersion }" @click="pickVersion('')">
+            <button class="menu-item" :class="{ active: !query.mcVersion }" @mousedown.prevent @click="pickVersion('')">
               全部版本
             </button>
             <button
@@ -494,6 +534,7 @@ async function confirmDownload() {
               :key="v"
               class="menu-item"
               :class="{ active: query.mcVersion === v }"
+              @mousedown.prevent
               @click="pickVersion(v)"
             >
               {{ v }}
@@ -501,7 +542,7 @@ async function confirmDownload() {
             <div v-if="!filteredVersionOptions.length" class="ver-menu-empty">无匹配版本</div>
           </div>
         </div>
-        <select v-model="query.loader" class="select filter-select" @change="onFilterChange">
+        <select v-if="supportsLoader" v-model="query.loader" class="select filter-select" @change="onFilterChange">
           <option v-for="o in loaderOptions" :key="o.value" :value="o.value">{{ o.label }}</option>
         </select>
         <select v-model="query.sort" class="select filter-select" @change="onFilterChange">
@@ -511,7 +552,8 @@ async function confirmDownload() {
     </div>
 
     <!-- 结果列表 -->
-    <div class="card list-card">
+    <div ref="listCard" class="card list-card">
+      <p v-for="warning in searchWarnings" :key="warning" class="search-warning">{{ warning }}</p>
       <!-- 加载中 -->
       <div v-if="loading" class="empty">
         <span class="spin"></span>
@@ -520,7 +562,7 @@ async function confirmDownload() {
       <!-- 错误态 -->
       <div v-else-if="loadError" class="empty">
         <span>搜索失败：{{ loadError }}</span>
-        <button class="btn btn-ghost btn-sm" @click="onSearch">重试</button>
+        <button class="btn btn-ghost btn-sm" @click="usesPagination ? doSearch(false) : onSearch()">重试</button>
       </div>
       <!-- 空态 -->
       <div v-else-if="!results.length" class="empty">
@@ -550,7 +592,7 @@ async function confirmDownload() {
               <div class="result-head">
                 <MarqueeText class="result-title" :text="r.title"/>
                 <span class="tag" :class="r.source === 'modrinth' ? 'tag-success' : 'tag-cf'">
-                  {{ r.source === 'modrinth' ? 'Modrinth' : 'CurseForge' }}
+                  来源：{{ r.source === 'modrinth' ? 'Modrinth' : 'CurseForge' }}
                 </span>
                 <span v-if="r.author" class="muted result-author">{{ r.author }}</span>
               </div>
@@ -590,15 +632,21 @@ async function confirmDownload() {
           </div>
         </div>
         <!-- 无限滚动哨兵：进入视口自动加载更多（按钮保留作兜底） -->
-        <div v-if="hasMore" ref="moreSentinel" class="more-sentinel"></div>
+        <div v-if="!usesPagination && hasMore" ref="moreSentinel" class="more-sentinel"></div>
         <!-- 加载更多 -->
-        <div v-if="hasMore" class="more-row">
+        <div v-if="!usesPagination && hasMore" class="more-row">
           <button class="btn btn-ghost" :disabled="loadingMore" @click="onLoadMore">
             <span v-if="loadingMore" class="spin"></span>
             {{ loadingMore ? '加载中…' : '加载更多' }}
           </button>
         </div>
       </template>
+      <nav v-if="usesPagination && searched" class="pagination" aria-label="资源分页">
+        <span class="muted">共 {{ totalResults }} 项 · 第 {{ currentPage }} / {{ totalPages }} 页</span>
+        <button class="btn btn-ghost btn-sm" :disabled="loading || currentPage <= 1" @click="goToPage(currentPage - 1)">上一页</button>
+        <button v-for="page in visiblePages" :key="page" class="btn btn-sm" :class="page === currentPage ? 'btn-gold' : 'btn-ghost'" :aria-current="page === currentPage ? 'page' : undefined" :disabled="loading" @click="goToPage(page)">{{ page }}</button>
+        <button class="btn btn-ghost btn-sm" :disabled="loading || currentPage >= totalPages" @click="goToPage(currentPage + 1)">下一页</button>
+      </nav>
     </div>
 
     <!-- 下载模态框 -->
@@ -616,7 +664,7 @@ async function confirmDownload() {
           </div>
           <div class="filter-row">
             <label class="modal-field">Minecraft 版本<input v-model="modal.mcVersion" class="input" list="mod-minecraft-versions" placeholder="全部版本" @change="loadFiles"/></label>
-            <label class="modal-field">Loader<select v-model="modal.loader" class="select" @change="loadFiles"><option v-for="l in loaderOptions" :key="l.value" :value="l.value">{{ l.label }}</option></select></label>
+            <label v-if="usesCommunityLoader(modal.kind)" class="modal-field">Loader<select v-model="modal.loader" class="select" @change="loadFiles"><option v-for="l in loaderOptions" :key="l.value" :value="l.value">{{ l.label }}</option></select></label>
             <datalist id="mod-minecraft-versions"><option v-for="v in manifestVersions" :key="v" :value="v"/></datalist>
           </div>
 
@@ -636,7 +684,7 @@ async function confirmDownload() {
               >
                 <span class="file-main">
                   <span class="file-name" :title="f.fileName">{{ f.fileName }}</span>
-                  <span class="file-sub">MOD {{ f.version }} · MC {{ f.gameVersions.join(' / ') }} · {{ f.loaders.join(' / ') }}</span>
+                  <span class="file-sub">版本 {{ f.version }} · MC {{ f.gameVersions.join(' / ') }}<template v-if="usesCommunityLoader(modal.kind) && f.loaders.length"> · {{ f.loaders.join(' / ') }}</template></span>
                 </span>
                 <span class="file-side">
                   <span class="tag" :class="releaseTagClass(f.releaseType)">{{ releaseText[f.releaseType] }}</span>
@@ -714,12 +762,10 @@ async function confirmDownload() {
 /* 类型筛选滑动指示块：弹簧动效跟随激活胶囊 */
 .capsule-blob {
   position: absolute;
-  top: 3px;
-  bottom: 3px;
   border-radius: 999px;
   background: var(--accent-grad);
   box-shadow: 0 2px 8px var(--accent-soft);
-  transition: left 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), width 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), opacity 0.15s ease;
+  transition: left 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), top 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), width 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), height 0.32s ease, opacity 0.15s ease;
   pointer-events: none;
   z-index: 0;
 }
@@ -788,6 +834,8 @@ async function confirmDownload() {
 .list-card {
   padding: var(--space-3);
 }
+.pagination { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-2); padding: var(--space-4) 0 var(--space-2); }
+.search-warning { color: var(--text-dim); font-size: var(--text-xs); padding: var(--space-2); }
 .result-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
