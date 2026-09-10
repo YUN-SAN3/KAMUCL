@@ -1,6 +1,6 @@
 # KAMUCL 项目交接文档（给 Codex）
 
-> 更新时间：2026-09-10 ｜ 当前版本：**1.0.32**（已验证、打包并发布）
+> 更新时间：2026-09-10 ｜ 当前版本：**1.0.33**（验证通过，正在发布）
 > 工作区：E:\KAMUCL（git 仓库）
 
 ---
@@ -51,7 +51,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 3. ✅ 模组禁用/启用：FileManager 模组页每行 .jar 增「禁用/启用」按钮 ↔ 主进程 fs:toggleDisable（改名 .jar.disabled，MC 原生不加载）；实例运行中主进程阻止（隔离查自身/共享目录查所有共享实例）。dev 实例实证禁用+还原往返成功。
 4. ✅ Fabric API：安装弹窗联动 UI/列表/安装链路早已存在（基线 0.4.1 就有），实证可选 36 版本；真实缺陷=installFabricApi 固定写共享 mods，已改为跟随实例隔离状态（versions.ts 解析 instanceDirectoryState 传 modsDir）。
 
-**当前停点**：1.0.32 已完成交付。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
+**当前停点**：1.0.33 验证通过，正在发布。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
 
 ---
 
@@ -168,3 +168,10 @@ node scripts/release-github.cjs
 **1.0.32 验证**：315/315 测试、TypeScript 和生产构建通过。新增目录隔离、共享目录、同名冲突和同版本并发状态测试；scripts/verify-resource-drop-ui.cjs 在隔离 Electron 中挂载真实 KeysView/FileManager 以及 App capture 处理器，验证默认配置只导入一次、三类资源分流、同名版本选中 B 文件夹、共享/隔离列表对应、整合包处理零触发。证据 out/resource-drop-ui-PDREEZ/result.json。未运行或停止用户游戏。
 
 **1.0.32 已交付**：源码 master cc1666d / main b131bd9，标签 v1.0.32 指向 cc1666d。Release：https://github.com/kamubaba-i/KAMUCL/releases/tag/v1.0.32 。便携 EXE 中文空格路径启动通过；ZIP 与最终 app.asar 一致，主进程构建文件与包内一致。发布前已核对远端三附件大小、SHA256 和标签，发布后经认证 API 确认 latest 为 v1.0.32，误发 v1.0.41 仍为草稿。匿名 API 二次核验返回 403，认证核验正常。EXE SHA256：4d67d20c5eb5f721807a5621bea9a990127e14df7ddff706cdc5a9e81b419bc0；ZIP SHA256：af14410d29f190b891ae36be9ee1ab12fe532b6227ef1a988303aebd3a1ad85b。
+
+
+**1.0.33 启动优化**：旧便携 NSIS 每次启动前解压、退出删除运行环境，导致无反馈数秒。现在 .onInit 先提取并启动小型 WinForms 粒子窗口（同一头像切片、透明且点击穿透、不抢焦点），Electron 粒子窗口显示后通过临时信号文件接替；父 wrapper 退出或超时也会关闭反馈窗口。运行环境存到 EXE 旁 KAMUCL-runtime/<version-buildhash>，哈希包含 main/preload/renderer 全部构建内容与锁文件；解压完成标记及核心文件存在时复用，命名互斥锁串行首次解压，不在退出时删除缓存，避免并发使用冲突。不同构建互不混用。
+
+**1.0.33 日志时间**：当前日志精确到分钟；1.0.32 根据 GitHub published_at 2026-09-10T06:00:21Z 补为本地 2026-09-10 14:00。AGENTS.md 明确后续日志必须 YYYY-MM-DD HH:mm。
+
+**1.0.33 验证**：317/317 测试、TypeScript、生产构建和便携中文空格路径启动通过；ZIP 与已核验的 app.asar 一致。实际便携包隔离测试：1.0.32 Electron 入口冷启动 3965ms / 再次启动 3508ms；1.0.33 粒子首帧冷启动 332ms / 缓存启动 216ms，Electron 入口分别 4419ms / 207ms。首次解压耗时仍在，但粒子覆盖等待；缓存启动复用证据为同一 cache.ready 修改时间不变。测量是本机到首帧绘制/Node 模式 Electron 入口，非完整主界面就绪时间，不代表所有硬件。脚本 scripts/verify-portable-startup.cjs，证据 out/startup-1.0.33.log 与 out/startup-baseline-1.0.32.json。

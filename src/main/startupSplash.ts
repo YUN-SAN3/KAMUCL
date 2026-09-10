@@ -1,5 +1,6 @@
 import { BrowserWindow, ipcMain, screen, dialog } from 'electron'
 import { join } from 'node:path'
+import { writeFileSync } from 'node:fs'
 import { BOOT_STAGES, StartupGate, type BootStage } from '../shared/startup'
 import { launcherLog } from './core/launcherLog'
 
@@ -52,6 +53,9 @@ export function createStartupSplash() {
     splash.showInactive()
     splash.setAlwaysOnTop(true, 'floating')
     splash.moveTop()
+    // Hand off only after Electron's particle window is shown; the native helper owns extraction time.
+    const signal = process.env.KAMUCL_BOOT_SIGNAL
+    if (signal) setTimeout(() => { try { writeFileSync(signal, 'ready') } catch { /* optional portable feedback */ } }, 100)
     publish()
     launcherLog('Startup: desktop pixels visible')
   })

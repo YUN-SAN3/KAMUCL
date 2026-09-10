@@ -8,4 +8,6 @@ if (process.platform === 'win32') {
   const compiler = path.join(process.env.SystemRoot || 'C:/Windows', 'Microsoft.NET/Framework64/v4.0.30319/csc.exe')
   execFileSync(compiler, ['/nologo', '/target:exe', '/platform:anycpu', '/optimize+', `/out:${output}`, path.resolve(`native/${name}.cs`)], { stdio: 'inherit', windowsHide: true })
   }
+  const compiler = path.join(process.env.SystemRoot || 'C:/Windows', 'Microsoft.NET/Framework64/v4.0.30319/csc.exe')
+  execFileSync(compiler, ['/nologo', '/target:winexe', '/platform:anycpu', '/optimize+', '/r:System.Windows.Forms.dll', '/r:System.Drawing.dll', `/out:${path.resolve('out/main/StartupFeedback.exe')}`, `/resource:${path.resolve('src/renderer/src/assets/splash-face.png')},face.png`, path.resolve('native/StartupFeedback.cs')], { stdio: 'inherit', windowsHide: true })
 }
