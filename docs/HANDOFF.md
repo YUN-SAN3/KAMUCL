@@ -1,6 +1,6 @@
 # KAMUCL 项目交接文档（给 Codex）
 
-> 更新时间：2026-09-10 ｜ 当前已交付版本：**1.0.41**（按用户指定版本号从 1.0.30 直接升级，源码与 Release 均已发布）
+> 更新时间：2026-09-10 ｜ 当前已交付版本：**1.0.31**（用户更正版本号为 1.0.31，原误发 1.0.41 已撤回为草稿）
 > 工作区：E:\KAMUCL（git 仓库）
 
 ---
@@ -13,15 +13,15 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 
 ## 1. 当前进度快照
 
-**1.0.41 本批修改**：两处 SkinViewer3D 共用取景半高从 18 调整到 20，默认人物缩小约 10%；键位捕获显示独立 X 清空为 key.keyboard.unknown（未指定），绕过全局鼠标捕获防止误录左键。默认配置新增材质包多文件拖入/选择、去重、优先级排序、移除和同步开关；导入即开启同步。材质包存储在 userData/default-resourcepacks；启动前复制到实际实例 resourcepacks，合并 options.txt 的启用/兼容确认列表，保留其他配置及原文件。移除配置后下次同步取消默认启用，已复制文件保留。
+**1.0.31 本批修改**：两处 SkinViewer3D 共用取景半高从 18 调整到 20，默认人物缩小约 10%；键位捕获显示独立 X 清空为 key.keyboard.unknown（未指定），绕过全局鼠标捕获防止误录左键。默认配置新增材质包多文件拖入/选择、去重、优先级排序、移除和同步开关；导入即开启同步。材质包存储在 userData/default-resourcepacks；启动前复制到实际实例 resourcepacks，合并 options.txt 的启用/兼容确认列表，保留其他配置及原文件。移除配置后下次同步取消默认启用，已复制文件保留。
 
 **v99.0.0 原因及处置**：实查 `C:/Users/ROG/AppData/Roaming/kamucl/pending-update.json`，版本 99.0.0，地址 `http://127.0.0.1:8310/download/KAMUCL-99.0.0.exe`。这是 scripts/mock-update-server.cjs 的模拟更新残留，并非 GitHub 最新版本；已将该记录原地备份为 `.rejected-test-20260910-064701`，保留包文件。正式版禁用测试环境变量覆盖，更新来源须与官方仓库/版本/资产名一致；检查缓存同样验证来源，无效待装记录隔离。开发测试须同时指定独立用户数据目录与模拟 API。
 
-**1.0.41 多开修复**：后端原本已允许多会话，版本页被全局 launchState 禁用。现在按 folder+versionId 跟踪状态，只禁用本实例；IPC 状态事件带实例身份，最近游玩及退出同步使用事件自身目标，旧实例退出不覆盖其他实例状态/最近进程记录。未启动或终止用户游戏；并发状态和目录隔离以模拟会话验证。
+**1.0.31 多开修复**：后端原本已允许多会话，版本页被全局 launchState 禁用。现在按 folder+versionId 跟踪状态，只禁用本实例；IPC 状态事件带实例身份，最近游玩及退出同步使用事件自身目标，旧实例退出不覆盖其他实例状态/最近进程记录。未启动或终止用户游戏；并发状态和目录隔离以模拟会话验证。
 
-**1.0.41 验证**：313/313 测试、TypeScript 检查和生产构建通过；新增真实 ZIP 导入、排序、去重、两个隔离目录及旧格式 options.txt 同步、移除/错误保护、未指定按键持久化、正式包测试缓存隔离及多实例状态测试。隔离 Electron 中实际鼠标点击 X、Esc、拖入多个文件及排序均通过；两种宽度的 WebGL 预览已截图核对。脚本 `scripts/verify-default-config-ui.cjs`，证据 `out/default-config-ui-XzZopM/`。
+**1.0.31 验证**：313/313 测试、TypeScript 检查和生产构建通过；新增真实 ZIP 导入、排序、去重、两个隔离目录及旧格式 options.txt 同步、移除/错误保护、未指定按键持久化、正式包测试缓存隔离及多实例状态测试。隔离 Electron 中实际鼠标点击 X、Esc、拖入多个文件及排序均通过；两种宽度的 WebGL 预览已截图核对。脚本 `scripts/verify-default-config-ui.cjs`，证据 `out/default-config-ui-XzZopM/`。
 
-**1.0.41 已交付**：源码 master `2be6a5a` / main `72348e3`，标签 `v1.0.41` 指向 master 源码提交。Release：https://github.com/kamubaba-i/KAMUCL/releases/tag/v1.0.41 。先以草稿上传全部附件、核对大小和 SHA256 后转为正式发布，独立复核三份附件与标签通过；GitHub latest 返回 v1.0.41。便携 EXE 在中文及空格路径中启动通过；ZIP 内 app.asar 与核验的解包程序一致，未混入测试工具或工作区。EXE SHA256：`b31b5f759e39cc8d51c5c8fede88006c6998fa69e1fc971376df0ff0ea5063b1`；ZIP SHA256：`0f43c805327e790f84dda6654e52643f491513a25697bf06938cdcd3107a3ed0`。发布通过系统 curl/Schannel 传输，日志见 out/*1.0.41.log。
+**1.0.31 版本更正**：本批功能与已验证的原 1.0.41 一致，仅将 package.json、package-lock.json 和内置日志更正为用户指定的 1.0.31。原 1.0.41 Release 已撤回为草稿，保留历史记录；1.0.31 重新构建、打包后发布。已安装误发 1.0.41 的用户需要手动安装 1.0.31，因为正常更新比较不会自动降级。
 
 **1.0.30 本批修复**：社区分类选中块的 watch 在 query 初始化前运行，导致没有订阅分类变化；现调整监听顺序并同时测量 left/top/width/height，支持连续切换和换行。资源包/光影包/数据包不再传 Fabric 等模组加载器条件；Modrinth 文件进一步按 minecraft、shader engine、datapack 类型区分，避免同一数据包项目的模组 JAR 混入。中文 Mod 别名搜索保留版本/加载器筛选，移除未筛选项目插入。卡片显式标注“来源：CurseForge”。三类资源改为每页 20 项和页码/总数，双源按各自总数交错分页，避免原 offset 计算跳项。
 
@@ -51,7 +51,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 3. ✅ 模组禁用/启用：FileManager 模组页每行 .jar 增「禁用/启用」按钮 ↔ 主进程 fs:toggleDisable（改名 .jar.disabled，MC 原生不加载）；实例运行中主进程阻止（隔离查自身/共享目录查所有共享实例）。dev 实例实证禁用+还原往返成功。
 4. ✅ Fabric API：安装弹窗联动 UI/列表/安装链路早已存在（基线 0.4.1 就有），实证可选 36 版本；真实缺陷=installFabricApi 固定写共享 mods，已改为跟随实例隔离状态（versions.ts 解析 instanceDirectoryState 传 modsDir）。
 
-**当前停点**：1.0.41 已完成验证、打包和发布，等待下一批需求。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
+**当前停点**：1.0.31 已完成验证、打包和发布，等待下一批需求。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
 
 ---
 
