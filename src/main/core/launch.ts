@@ -381,7 +381,7 @@ async function launchOwned(
   // 默认按键同步（总开关开启时覆盖实例 options.txt 的 key_* 项，其余行原样保留）
   if (settings.resourcePackSync) {
     const { syncDefaultResourcePacks } = await import('./defaultResourcePacks')
-    const count = syncDefaultResourcePacks(effectiveGameDir, instanceMcVersion)
+    const count = syncDefaultResourcePacks(effectiveGameDir, instanceMcVersion, clientJarPath(baseId))
     if (count) log(`[KAMUCL] 已装载 ${count} 个默认材质包`)
   }
   if (settings.keySync) {

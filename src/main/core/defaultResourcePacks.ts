@@ -52,7 +52,7 @@ export function moveDefaultResourcePack(id: string, direction: number): DefaultR
   return save(packs)
 }
 
-export function mergeResourcePackOptions(text: string, names: string[], previous: string[]): string {
+export function mergeResourcePackOptions(text: string, names: string[], previous: string[], incompatible: string[] = []): string {
   const keys = ['resourcePacks', 'incompatibleResourcePacks'], seen = new Set<string>()
   const lines = text.split(/\r?\n/).filter(Boolean).map(line => {
     const i = line.indexOf(':'), key = line.slice(0, i)
@@ -61,21 +61,57 @@ export function mergeResourcePackOptions(text: string, names: string[], previous
     let existing: unknown
     try { existing = JSON.parse(line.slice(i + 1)) } catch { throw new Error(`options.txt 中的 ${key} 格式无效，未覆盖原配置`) }
     if (!Array.isArray(existing) || existing.some(x => typeof x !== 'string')) throw new Error(`options.txt 中的 ${key} 格式无效`)
-    return key + ':' + JSON.stringify([...new Set([...existing.filter(x => !previous.includes(x) && !names.includes(x)), ...names])])
+    const selected = key === 'resourcePacks' ? names : incompatible
+    return key + ':' + JSON.stringify([...new Set([...existing.filter(x => !previous.includes(x) && !names.includes(x)), ...selected])])
   })
-  for (const key of keys) if (!seen.has(key)) lines.push(key + ':' + JSON.stringify(key === 'resourcePacks' ? ['vanilla', ...names] : names))
+  for (const key of keys) if (!seen.has(key)) lines.push(key + ':' + JSON.stringify(key === 'resourcePacks' ? ['vanilla', ...names] : incompatible))
   return lines.join('\n') + '\n'
 }
 
-export function syncDefaultResourcePacks(gameDir: string, mcVersion: string): number {
+type PackFormat = [number, number]
+function format(value: unknown, upper = false): PackFormat | null {
+  const parts = Array.isArray(value) ? value : [value]
+  return parts.length >= 1 && parts.length <= 2 && parts.every(n => Number.isInteger(n) && n >= 0)
+    ? [parts[0], parts[1] ?? (upper ? Number.MAX_SAFE_INTEGER : 0)] : null
+}
+const compareFormat = (a: PackFormat, b: PackFormat) => a[0] - b[0] || a[1] - b[1]
+
+/** Use the client's own format, including minor versions, instead of guessing from the MC version name. */
+export function readClientResourceFormat(clientJar?: string): PackFormat | null {
+  if (!clientJar) return null
+  try {
+    const version = JSON.parse(new AdmZip(clientJar).readAsText('version.json')).pack_version
+    return format(version.resource_major === undefined ? version.resource : [version.resource_major, version.resource_minor ?? 0])
+  } catch { return null }
+}
+export function resourcePackIncompatible(pack: any, target: PackFormat | null): boolean {
+  if (!target) return false // Do not invent an incompatibility override without evidence.
+  let min: PackFormat | null, max: PackFormat | null
+  if (target[0] >= 65 && pack.min_format !== undefined && pack.max_format !== undefined) {
+    min = format(pack.min_format); max = format(pack.max_format, true)
+  } else {
+    const supported = target[0] >= 18 ? pack.supported_formats : undefined
+    const low = Array.isArray(supported) ? supported[0] : typeof supported === 'object' && supported ? supported.min_inclusive : supported
+    const high = Array.isArray(supported) ? supported[1] : typeof supported === 'object' && supported ? supported.max_inclusive : supported
+    min = format(low ?? pack.pack_format); max = format(high ?? pack.pack_format, true)
+  }
+  return !!min && !!max && (compareFormat(target, min) < 0 || compareFormat(target, max) > 0)
+}
+
+export function syncDefaultResourcePacks(gameDir: string, mcVersion: string, clientJar?: string): number {
   if (!mcVersionAtLeast(mcVersion, '1.6')) return 0
   const packs = getDefaultResourcePacks(), stateFile = path.join(gameDir, '.kamucl-default-resourcepacks.json')
   let previous: string[] = []
   try { const raw = JSON.parse(fs.readFileSync(stateFile, 'utf8')); if (Array.isArray(raw)) previous = raw.filter(x => typeof x === 'string') } catch { /* 首次同步 */ }
   if (!packs.length && !previous.length) return 0
   const names = packs.map(p => (mcVersionAtLeast(mcVersion, '1.13') ? 'file/' : '') + managedName(p))
+  const targetFormat = readClientResourceFormat(clientJar)
+  const incompatible = names.filter((_name, i) => {
+    const meta = JSON.parse(new AdmZip(path.join(root(), packs[i].id + '.zip')).readAsText('pack.mcmeta').replace(/^\uFEFF/, ''))
+    return resourcePackIncompatible(meta.pack, targetFormat)
+  })
   const options = path.join(gameDir, 'options.txt'), before = fs.existsSync(options) ? fs.readFileSync(options, 'utf8') : ''
-  const after = mergeResourcePackOptions(before, names, previous)
+  const after = mergeResourcePackOptions(before, names, previous, incompatible)
   const target = path.join(gameDir, 'resourcepacks'); fs.mkdirSync(target, { recursive: true })
   for (const p of packs) {
     const dest = path.join(target, managedName(p)), source = path.join(root(), p.id + '.zip')

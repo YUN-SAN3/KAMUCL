@@ -63,6 +63,29 @@ test('invalid pack batch and malformed options preserve existing configuration',
   assert.equal(fs.readFileSync(options, 'utf8'), 'resourcePacks:damaged\nlang:en_us\n')
 })
 
+test('compatible defaults are selected on the first launch, clearing old false incompatibility overrides', async t => {
+  const { root, api } = await runtime(t)
+  const client = path.join(root, 'client.jar'), game = path.join(root, 'game'), resource = path.join(root, 'Fullbright.zip')
+  const jar = new AdmZip(); jar.addFile('version.json', Buffer.from(JSON.stringify({ pack_version: { resource_major: 88, resource_minor: 0 } }))); jar.writeZip(client)
+  const zip = new AdmZip(); zip.addFile('pack.mcmeta', Buffer.from(JSON.stringify({ pack: { pack_format: 15, min_format: [15, 0], max_format: [1000, 0], supported_formats: [15, 1000] } }))); zip.writeZip(resource)
+  const [p] = api.importDefaultResourcePacks([resource]), id = `file/KAMUCL-default-${p.id}-${p.name}`
+  fs.mkdirSync(game)
+  fs.writeFileSync(path.join(game, 'options.txt'), `resourcePacks:["vanilla","file/Personal.zip","${id}"]\nincompatibleResourcePacks:["file/Personal.zip","${id}"]\nlang:zh_cn\n`)
+  api.syncDefaultResourcePacks(game, '26.2', client)
+  const lines = fs.readFileSync(path.join(game, 'options.txt'), 'utf8').split('\n')
+  const selected = JSON.parse(lines.find(x => x.startsWith('resourcePacks:'))!.slice(14))
+  const overrides = JSON.parse(lines.find(x => x.startsWith('incompatibleResourcePacks:'))!.slice(26))
+  assert(selected.includes(id)); assert(!overrides.includes(id)); assert(overrides.includes('file/Personal.zip'))
+  const before = fs.readFileSync(path.join(game, 'options.txt'), 'utf8')
+  api.syncDefaultResourcePacks(game, '26.2', client)
+  assert.equal(fs.readFileSync(path.join(game, 'options.txt'), 'utf8'), before)
+  assert(api.resourcePackIncompatible({ min_format: [90, 0], max_format: [1000, 0] }, [88, 0]))
+  assert(!api.resourcePackIncompatible({ min_format: [88, 0], max_format: 88 }, [88, 1]))
+  assert(api.resourcePackIncompatible({ min_format: [88, 0], max_format: [88, 0] }, [88, 1]))
+  assert(!api.resourcePackIncompatible({ pack_format: 15, supported_formats: { min_inclusive: 15, max_inclusive: 34 } }, [34, 0]))
+  assert(api.resourcePackIncompatible({ pack_format: 15, supported_formats: [15, 1000] }, [12, 0]))
+})
+
 test('unassigned key persists and syncs as unknown while other settings survive', async t => {
   const { root, api } = await runtime(t)
   assert.equal(api.setDefaultKey('key_key.forward', 'key.keyboard.unknown')['key_key.forward'], 'key.keyboard.unknown')
