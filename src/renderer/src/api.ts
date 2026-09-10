@@ -341,12 +341,12 @@ export const findModCrossDuplicates = (versionIds: string[]) =>
 
 // ---------------- 文件/目录 ----------------
 /** 用系统资源管理器打开游戏目录下的子目录（'' = 游戏根目录） */
-export const openDir = (rel = '') => invoke<void>(IPC.appOpenDir, rel)
+export const openDir = (rel = '', folder?: string) => invoke<void>(IPC.appOpenDir, rel, folder)
 /** 列出游戏目录下某个子目录的文件 */
-export const listFs = (rel: string) => invoke<FsEntry[]>(IPC.fsList, rel)
+export const listFs = (rel: string, folder?: string) => invoke<FsEntry[]>(IPC.fsList, rel, folder)
 /** 删除游戏目录下某个子目录中的文件，返回删除后的列表 */
-export const removeFs = (rel: string, name: string) => invoke<FsEntry[]>(IPC.fsRemove, rel, name)
-export const toggleDisableFs = (rel: string, name: string) => invoke<FsEntry[]>(IPC.fsToggleDisable, rel, name)
+export const removeFs = (rel: string, name: string, folder?: string) => invoke<FsEntry[]>(IPC.fsRemove, rel, name, folder)
+export const toggleDisableFs = (rel: string, name: string, folder?: string) => invoke<FsEntry[]>(IPC.fsToggleDisable, rel, name, folder)
 
 // ---------------- 事件订阅（返回取消函数） ----------------
 function subscribe<T>(channel: string, cb: (payload: T) => void): () => void {
@@ -423,3 +423,5 @@ export function formatSpeed(bytes?: number): string {
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB/s`
   return `${(bytes / 1024 / 1024).toFixed(1)} MB/s`
 }
+
+export const importResources = (files: string[], id: string, folder: string, kind: string) => invoke<number>(IPC.fsImportResources, files, id, folder, kind)

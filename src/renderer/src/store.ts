@@ -108,6 +108,7 @@ export const store = reactive({
   /** 通知是否有未读（驱动铃铛红点） */
   noticesUnread: false,
   /** 整合包导入处理器（App.vue 注册，供任意页面触发导入确认弹窗） */
+  resourceDropHandler: null as ((event: DragEvent) => void) | null,
   importHandler: null as ((filePath: string) => void) | null,
   /** 启动器更新弹窗触发器（设置页手动检查/启动自动检查写入，App.vue 监听打开弹窗） */
   updatePrompt: null as { release: import('@shared/types').ReleaseInfo; rollback: boolean } | null,

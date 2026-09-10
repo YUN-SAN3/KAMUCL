@@ -3,8 +3,8 @@
  * 通用文件管理视图：模组 / 资源包 / 光影包共用。
  * 通过 IPC fs:list / fs:remove / app:openDir 管理游戏目录下的子目录。
  */
-import { computed, onMounted, reactive, ref, watch } from 'vue'
-import { applyModUpdates, checkModUpdates, copyText, errText, listFs, openDir, removeFs, toggleDisableFs } from '../api'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { importResources, applyModUpdates, checkModUpdates, copyText, errText, listFs, openDir, removeFs, toggleDisableFs } from '../api'
 import { refreshInstalled, store, toast } from '../store'
 import ConfirmModal from './ConfirmModal.vue'
 import DupCleanModal from './DupCleanModal.vue'
@@ -31,8 +31,10 @@ const opening = ref(false)
 
 // ---------------- 版本上下文（模组/资源包/光影包按游戏版本管理） ----------------
 /** 当前选中版本（默认第一个已装版本；store.resourceVersionId 三页共享） */
+const activeFolder = computed(() => store.settings?.activeFolder || store.settings?.gameDir || '')
+const availableVersions = computed(() => store.installed.filter(v => !v.folder || v.folder.toLowerCase() === activeFolder.value.toLowerCase()))
 const currentVersion = computed(() => {
-  const list = store.installed
+  const list = availableVersions.value
   if (!list.length) return null
   return list.find((v) => v.id === store.resourceVersionId) ?? list[0]
 })
@@ -49,7 +51,7 @@ async function load() {
   loading.value = true
   loadError.value = ''
   try {
-    entries.value = await listFs(effectiveRel.value)
+    entries.value = await listFs(effectiveRel.value, currentVersion.value?.folder || activeFolder.value)
   } catch (e) {
     const msg = errText(e)
     // 目录不存在不算错误（新版本还没该子目录）
@@ -60,7 +62,24 @@ async function load() {
   }
 }
 
+const importing = ref(false)
+async function dropResources(event: DragEvent) {
+  const v = currentVersion.value
+  if (!v) { toast('请先选择当前文件夹中的游戏版本', 'error'); return }
+  if (importing.value) return
+  const folder = v.folder || activeFolder.value, kind = props.rel
+  const files = Array.from(event.dataTransfer?.files ?? []).map(f => window.kamucl.getFilePath(f)).filter(Boolean)
+  importing.value = true
+  try {
+    const count = await importResources(files, v.id, folder, kind)
+    toast('已导入 ' + count + ' 项到 ' + v.id + ' / ' + kind, 'success')
+    await load()
+  } catch (e) { toast('导入失败：' + errText(e), 'error') }
+  finally { importing.value = false }
+}
+onUnmounted(() => { if (store.resourceDropHandler === dropResources) store.resourceDropHandler = null })
 onMounted(async () => {
+  store.resourceDropHandler = dropResources
   if (!store.installed.length) await refreshInstalled()
   if (!store.resourceVersionId && store.installed.length) {
     store.resourceVersionId = store.installed[0].id
@@ -68,7 +87,7 @@ onMounted(async () => {
   void load()
 })
 
-watch(effectiveRel, () => void load())
+watch([effectiveRel, activeFolder], () => void load())
 watch(() => store.fsRefreshTick, () => void load())
 
 // ---------------- 路径显示（超长中间省略 + 点击复制） ----------------
@@ -101,7 +120,7 @@ const filtered = computed(() =>
 async function onOpenDir() {
   opening.value = true
   try {
-    await openDir(effectiveRel.value)
+    await openDir(effectiveRel.value, currentVersion.value?.folder || activeFolder.value)
   } catch (e) {
     toast('打开文件夹失败：' + errText(e), 'error')
   } finally {
@@ -126,7 +145,7 @@ async function onToggleDisable(entry: FsEntry) {
   if (toggling.value) return
   toggling.value = entry.name
   try {
-    entries.value = await toggleDisableFs(effectiveRel.value, entry.name)
+    entries.value = await toggleDisableFs(effectiveRel.value, entry.name, currentVersion.value?.folder || activeFolder.value)
     toast(isDisabledMod(entry) ? `已启用 ${entry.name.replace(/\.disabled$/i, '')}` : `已禁用 ${entry.name}`, 'success')
   } catch (e) {
     toast(errText(e), 'error')
@@ -140,7 +159,7 @@ async function onConfirmRemove() {
   if (!entry || delModal.busy) return
   delModal.busy = true
   try {
-    entries.value = await removeFs(effectiveRel.value, entry.name)
+    entries.value = await removeFs(effectiveRel.value, entry.name, currentVersion.value?.folder || activeFolder.value)
     delModal.open = false
     toast(`已删除 ${entry.name}`, 'success')
   } catch (e) {
@@ -259,10 +278,10 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
       </div>
       <div class="fm-actions">
         <SelectMenu
-          v-if="store.installed.length"
+          v-if="availableVersions.length"
           v-model="store.resourceVersionId"
           class="fm-ver-select"
-          :options="store.installed.map(v => ({ value: v.id, label: v.id + (v.isolated ? '（已隔离）' : '（共享）') }))"
+          :options="availableVersions.map(v => ({ value: v.id, label: v.id + (v.isolated ? '（已隔离）' : '（共享）') }))"
           @change="() => {}"
         />
         <button class="btn btn-ghost" :disabled="loading" @click="load">

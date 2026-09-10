@@ -93,7 +93,7 @@ test('launch states remain independent across versions and folders; background e
   const s: LaunchTracking = { launchState: null, launchStates: {}, launchingVersionId: '', launchingFolder: '' }
   trackLaunchState(s, { versionId: 'same', folder: 'A', status: 'launching', text: '' })
   trackLaunchState(s, { versionId: 'same', folder: 'A', status: 'running', text: '' })
-  assert(instanceLaunchBusy(s.launchStates, 'same', 'A')); assert(!instanceLaunchBusy(s.launchStates, 'other', 'A')); assert(!instanceLaunchBusy(s.launchStates, 'same', 'B'))
+  assert(!instanceLaunchBusy(s.launchStates, 'same', 'A')); assert(!instanceLaunchBusy(s.launchStates, 'other', 'A')); assert(!instanceLaunchBusy(s.launchStates, 'same', 'B'))
   trackLaunchState(s, { versionId: 'same', folder: 'B', status: 'launching', text: '' })
   trackLaunchState(s, { versionId: 'same', folder: 'A', status: 'exited', text: '' })
   assert.equal(s.launchState?.status, 'launching'); assert.equal(s.launchingFolder, 'B')

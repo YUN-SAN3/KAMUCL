@@ -1,6 +1,6 @@
 # KAMUCL 项目交接文档（给 Codex）
 
-> 更新时间：2026-09-10 ｜ 当前已交付版本：**1.0.31**（用户更正版本号为 1.0.31，原误发 1.0.41 已撤回为草稿）
+> 更新时间：2026-09-10 ｜ 当前版本：**1.0.32**（验证通过，正在打包发布）
 > 工作区：E:\KAMUCL（git 仓库）
 
 ---
@@ -51,7 +51,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 3. ✅ 模组禁用/启用：FileManager 模组页每行 .jar 增「禁用/启用」按钮 ↔ 主进程 fs:toggleDisable（改名 .jar.disabled，MC 原生不加载）；实例运行中主进程阻止（隔离查自身/共享目录查所有共享实例）。dev 实例实证禁用+还原往返成功。
 4. ✅ Fabric API：安装弹窗联动 UI/列表/安装链路早已存在（基线 0.4.1 就有），实证可选 36 版本；真实缺陷=installFabricApi 固定写共享 mods，已改为跟随实例隔离状态（versions.ts 解析 instanceDirectoryState 传 modsDir）。
 
-**当前停点**：1.0.31 已完成验证、打包和发布，等待下一批需求。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
+**当前停点**：1.0.32 已通过验证，正在交付。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
 
 ---
 
@@ -161,3 +161,8 @@ node scripts/release-github.cjs
 **下一位（Codex）从这开始**：当前无待办。接到新批次后：跑 `node node_modules/tsx/dist/cli.mjs --test tests/all.test.ts` 确认 297 全绿 → 干活 → 版本 +1 → 按第 2 节流程构建/打包/提交/推送/发版。
 
 **Git 操作血泪教训（本次实操翻车记录）**：复合命令里 `git checkout master --quiet; git branch -D sync-main` 若 checkout 静默失败，后续 commit 会落到 sync-main 上；每步后务必 `git branch --show-current` 确认。**含中文文件绝不可用 PowerShell `Get-Content`/`Set-Content` 读写**（GBK 毁灭性乱码），一律用 Read/Edit 工具。
+
+
+**1.0.32**：同版本允许重复运行，仅准备启动期间禁用按钮。每次启动分配 launchId，旧会话退出不会覆盖同版本新会话。默认配置/模组/资源包/光影包页面优先接管全局 capture 拖入，只执行一次页面导入，不触发整合包识别。资源管理按活动文件夹筛选版本，列表/打开/删除/禁用均显式传入文件夹；导入由主进程重新扫描并匹配 folder+id，再使用扫描得到的 gameDirectory 写入 mods/resourcepacks/shaderpacks。同名目标不覆盖，原文件保留。
+
+**1.0.32 验证**：315/315 测试、TypeScript 和生产构建通过。新增目录隔离、共享目录、同名冲突和同版本并发状态测试；scripts/verify-resource-drop-ui.cjs 在隔离 Electron 中挂载真实 KeysView/FileManager 以及 App capture 处理器，验证默认配置只导入一次、三类资源分流、同名版本选中 B 文件夹、共享/隔离列表对应、整合包处理零触发。证据 out/resource-drop-ui-PDREEZ/result.json。未运行或停止用户游戏。

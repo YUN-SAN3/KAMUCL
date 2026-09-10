@@ -1,3 +1,4 @@
+import { importResourceFiles } from './core/resourceFiles'
 /**
  * IPC 注册：types.ts 中 IPC 常量的全部通道
  * 事件统一通过 getWin()?.webContents.send(IPC_EVENT.xxx, payload) 推送
@@ -712,7 +713,8 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     if (!config.folders.some(f => pathIdentity(f.path) === pathIdentity(folder))) throw new Error('目标游戏文件夹未注册')
     if (!versions.scanInstalledFolder(folder).versions.some(v => v.id === versionId && !v.failed && !v.incomplete)) throw new Error('目标实例不存在或不完整，请刷新版本列表')
     launcherLogInfo('game', `收到启动请求：version=${String(versionId ?? '')}`)
-    sendState({ status: 'launching', text: '正在准备启动…', versionId, folder })
+    const launchId = crypto.randomUUID()
+    sendState({ status: 'launching', text: '正在准备启动…', versionId, folder, launchId })
     void withGameFolder(folder, () => launch
       .launch(
         versionId,
@@ -725,7 +727,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
             if (code === 0) launcherLogInfo('game', `游戏正常退出（code=0）：${s.text}`)
             else launcherLogWarn('game', `游戏异常退出（code=${code}）：${s.text}`)
           } else launcherLogInfo('game', `启动状态 ${s.status}：${s.text}`)
-          sendState({ ...s, versionId, folder })
+          sendState({ ...s, versionId, folder, launchId })
           // 设置项生效：游戏成功进入运行状态后关闭启动器窗口
           if (s.status === 'running' && settings.getSettings().closeAfterLaunch) {
             setTimeout(() => getWin()?.close(), 1500)
@@ -737,7 +739,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
       .catch((err) => {
         launch.recordLaunchPreparationError(String(versionId ?? ''), errText(err))
         launcherLogError('game', '启动准备失败', err)
-        sendState({ status: 'error', text: errText(err), versionId, folder })
+        sendState({ status: 'error', text: errText(err), versionId, folder, launchId })
       }))
   })
   ipcMain.handle(IPC.gameKill, (_e, forceToken?: string) => launch.killGame(forceToken))
@@ -957,7 +959,11 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   })
 
   // ---------------- 文件/目录 ----------------
-  const safeDir = (rel: string): string => {
+  ipcMain.handle(IPC.fsImportResources, (_e, files: string[], id: string, folder: string, kind: string) => {
+    const target = selectModTarget(modTargets().versions, id, folder)
+    return importResourceFiles(files, target, kind)
+  })
+  const safeDir = (rel: string, folder?: string): string => {
     // 允许 gameDir 下单级子目录（mods 等）或 versions/<id>/<sub> 三级（版本实例目录），防目录穿越
     const parts = String(rel ?? '')
       .split(/[\\/]+/)
@@ -966,13 +972,14 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     const isVersionPath = parts[0] === 'versions'
     if (parts.length > (isVersionPath ? 3 : 2)) throw new Error('非法目录')
     // versions/<id> 前缀按版本所属文件夹寻址（多文件夹体系）；其余按当前活动文件夹
-    const base = isVersionPath && parts.length >= 2 ? folderOfVersion(parts[1]) : settings.getSettings().gameDir
+    if (folder && !settings.getSettings().folders.some(f => pathIdentity(f.path) === pathIdentity(folder))) throw new Error('游戏文件夹未登记')
+    const base = folder || (isVersionPath && parts.length >= 2 ? folderOfVersion(parts[1]) : settings.getSettings().activeFolder || settings.getSettings().gameDir)
     const dir = parts.length ? path.join(base, ...parts) : base
     if (!path.resolve(dir).startsWith(path.resolve(base))) throw new Error('非法目录')
     return dir
   }
-  const listDir = (rel: string): FsEntry[] => {
-    const dir = safeDir(rel)
+  const listDir = (rel: string, folder?: string): FsEntry[] => {
+    const dir = safeDir(rel, folder)
     try {
       return fs
         .readdirSync(dir, { withFileTypes: true })
@@ -989,17 +996,17 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
       return []
     }
   }
-  ipcMain.handle(IPC.appOpenDir, (_e, rel?: string) => {
-    const dir = safeDir(String(rel ?? ''))
+  ipcMain.handle(IPC.appOpenDir, (_e, rel?: string, folder?: string) => {
+    const dir = safeDir(String(rel ?? ''), folder)
     fs.mkdirSync(dir, { recursive: true })
     void shell.openPath(dir)
   })
-  ipcMain.handle(IPC.fsList, (_e, rel: string) => listDir(String(rel ?? '')))
-  ipcMain.handle(IPC.fsRemove, (_e, rel: string, name: string) => {
-    const dir = safeDir(String(rel ?? ''))
+  ipcMain.handle(IPC.fsList, (_e, rel: string, folder?: string) => listDir(String(rel ?? ''), folder))
+  ipcMain.handle(IPC.fsRemove, (_e, rel: string, name: string, folder?: string) => {
+    const dir = safeDir(String(rel ?? ''), folder)
     const target = path.join(dir, path.basename(String(name ?? '')))
     fs.rmSync(target, { recursive: true, force: true })
-    return listDir(String(rel ?? ''))
+    return listDir(String(rel ?? ''), folder)
   })
   /**
    * 模组禁用/启用：.jar ↔ .jar.disabled（MC 原生识别，禁用后不再加载）。
@@ -1007,7 +1014,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
    * - 隔离实例（versions/<id>/…）→ 只查该实例；
    * - 共享目录（mods 等）→ 查所有共享实例，任一在运行即阻止。
    */
-  ipcMain.handle(IPC.fsToggleDisable, (_e, rel: string, name: string) => {
+  ipcMain.handle(IPC.fsToggleDisable, (_e, rel: string, name: string, folder?: string) => {
     const relStr = String(rel ?? '')
     const running = launch.getRunningVersionIds()
     const m = /^versions\/([^/]+)\//.exec(relStr)
@@ -1017,7 +1024,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     if (affected.some((id) => running.has(id))) {
       throw new Error('该实例正在运行中，请先退出游戏再禁用/启用模组')
     }
-    const dir = safeDir(relStr)
+    const dir = safeDir(relStr, folder)
     const base = path.basename(String(name ?? ''))
     const from = path.join(dir, base)
     const lower = base.toLowerCase()
@@ -1028,6 +1035,6 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     if (!fs.existsSync(from)) throw new Error('文件不存在，请刷新后重试')
     if (fs.existsSync(to)) throw new Error('目标文件名已存在，请手动处理后重试')
     fs.renameSync(from, to)
-    return listDir(relStr)
+    return listDir(relStr, folder)
   })
 }

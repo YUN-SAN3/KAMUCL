@@ -8,8 +8,12 @@ export interface LaunchTracking {
   launchingFolder: string
 }
 export function trackLaunchState(state: LaunchTracking, incoming: LaunchState): boolean {
-  const focused = !incoming.versionId || (incoming.versionId === state.launchingVersionId && (incoming.folder ?? '') === state.launchingFolder)
-  if (incoming.versionId) state.launchStates[instanceKey({ id: incoming.versionId, folder: incoming.folder ?? '' })] = incoming
+  const focused = !incoming.versionId || (incoming.versionId === state.launchingVersionId && (incoming.folder ?? '') === state.launchingFolder && (!incoming.launchId || !state.launchState?.launchId || incoming.launchId === state.launchState.launchId))
+  if (incoming.versionId) {
+    const key = instanceKey({ id: incoming.versionId, folder: incoming.folder ?? '' })
+    if (incoming.launchId) delete state.launchStates[key] // replace optimistic renderer preparation
+    state.launchStates[incoming.launchId ? `${key}#${incoming.launchId}` : key] = incoming
+  }
   if (incoming.status === 'launching' || focused || !state.launchState) {
     let next = incoming
     if (incoming.status === 'exited' || incoming.status === 'error') {
@@ -22,6 +26,5 @@ export function trackLaunchState(state: LaunchTracking, incoming: LaunchState): 
   return focused
 }
 export function instanceLaunchBusy(states: Record<string, LaunchState>, id: string, folder?: string): boolean {
-  const status = states[instanceKey({ id, folder: folder ?? '' })]?.status
-  return status === 'launching' || status === 'running'
+  return Object.values(states).some(s => s.versionId === id && (s.folder ?? '') === (folder ?? '') && s.status === 'launching')
 }

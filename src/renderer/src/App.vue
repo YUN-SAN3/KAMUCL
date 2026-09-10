@@ -390,7 +390,9 @@ const looksLikeYggdrasilProvider = (value: string): boolean => {
   )
 }
 
+const resourceDropPage = () => ['keys', 'mods', 'packs', 'shaders'].includes(store.currentView)
 function onDragEnter(e: DragEvent) {
+  if (resourceDropPage()) { if (dragHasFiles(e)) e.preventDefault(); endDrag(); return }
   if (!dragHasSupportedData(e)) return
   e.preventDefault()
   dragDepth++
@@ -399,6 +401,7 @@ function onDragEnter(e: DragEvent) {
 }
 
 function onDragOver(e: DragEvent) {
+  if (resourceDropPage()) { if (dragHasFiles(e)) e.preventDefault(); endDrag(); return }
   if (!dragHasSupportedData(e)) return
   e.preventDefault() // 必须 preventDefault 才允许 drop
   lastDragoverAt = Date.now()
@@ -413,6 +416,14 @@ function onDragLeave(e: DragEvent) {
 }
 
 function onDrop(e: DragEvent) {
+  if (resourceDropPage()) {
+    endDrag(); e.preventDefault(); e.stopPropagation()
+    if (dragHasFiles(e)) {
+      if (store.resourceDropHandler) store.resourceDropHandler(e)
+      else toast('页面正在加载，请稍后再拖入', 'info')
+    }
+    return
+  }
   // 覆盖层复位先于一切判定：任何 drop 发生都意味着拖拽手势已结束
   dragDepth = 0
   dragActive.value = false

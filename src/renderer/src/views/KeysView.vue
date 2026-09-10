@@ -35,6 +35,9 @@ async function dropPacks(event: DragEvent) {
   await editPacks(() => importDefaultResourcePacks(files.map(file => window.kamucl.getFilePath(file)).filter(Boolean)), true)
 }
 
+onMounted(() => { store.resourceDropHandler = dropPacks })
+onUnmounted(() => { if (store.resourceDropHandler === dropPacks) store.resourceDropHandler = null })
+
 const keySync = computed(() => store.settings?.keySync === true)
 
 async function toggleKeySync(on: boolean) {
