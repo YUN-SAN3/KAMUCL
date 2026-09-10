@@ -372,6 +372,8 @@ export interface Settings {
   /** 从扫描结果中隐藏的 Java 路径 */
   javaHidden: string[]
   memoryMB: number
+  /** 自动分配内存（推荐）：开启后按物理内存 25% 自动计算（2-8GB），忽略 memoryMB 手动值 */
+  memoryAuto?: boolean
   jvmArgs: string
   resolution: GameResolution
   mirror: 'official' | 'bmclapi'
@@ -399,6 +401,7 @@ export interface Settings {
   closeAfterLaunch: boolean
   /** 默认按键同步：开启后启动任何版本时把启动器默认键位写入该实例 options.txt 的 key_* 项 */
   keySync?: boolean
+  resourcePackSync?: boolean
   /** 正版登录使用系统代理：默认直连（安全优先）；直连微软端点失败时用户可开启（CONNECT 隧道+端到端 TLS 校验保持） */
   msUseProxy?: boolean
   /** 配置格式版本：升级/回退后启动时检查，不兼容时迁移或提示重置，不得直接崩溃 */
@@ -411,6 +414,8 @@ export interface Settings {
   updateMirrorUrl?: string
   /** 内测群号覆盖（免打包临时改；默认取 shared/branding.ts 的 QQ_GROUP_NUMBER） */
   qqGroupNumber?: string
+  /** CurseForge 官方 API Key（console.curseforge.com 免费申请）；留空走 MCIM 镜像兜底 */
+  curseforgeApiKey?: string
   /** 自动安装更新（默认开启）：发现新版本静默下载，启动器关闭时自动安装；关闭则弹窗询问 */
   autoUpdate?: boolean
 }
@@ -626,6 +631,9 @@ export interface ProgressEvent {
 }
 
 export interface LaunchState {
+  launchId?: string
+  versionId?: string
+  folder?: string
   status: 'launching' | 'running' | 'exited' | 'error'
   text: string
   code?: number
@@ -704,6 +712,8 @@ export const IPC = {
   voxlinkLobby: 'voxlink:lobby', // () => VoxLinkRoom[]
   voxlinkSettings: 'voxlink:settings', // (partial) => VoxLinkSettings
   voxlinkEvent: 'voxlink:event', // push: {type, data}
+  voxlinkTryDirect: 'voxlink:tryDirect', // () => {ok, err?}  直连探测（app-desktop TryDirect）
+  voxlinkUsePlayerRelay: 'voxlink:usePlayerRelay', // () => {ok, err?}  请求玩家中继（app-desktop UsePlayerRelay）
 
   // 联机 · 陶瓦联机（Terracotta 官方工具驱动）
   tcStart: 'tc:start', // ({mode:'host'|'join', code?, port?}) => TerracottaState
@@ -715,6 +725,7 @@ export const IPC = {
   frpStart: 'frp:start', // ({accessKey, tunnelId, localPort?}) => FrpState
   frpStop: 'frp:stop', // () => FrpState
   frpStatus: 'frp:status', // () => FrpState
+  frpNodes: 'frp:nodes', // ({accessKey?, refresh?}) => FrpNodesResult（api.natfrp.com/v4 节点+隧道，缓存 10 分钟）
   frpEvent: 'frp:event', // push: {type:'log'|'ready'|'error'|'stopped', data}
 
   versionsSetJava: 'versions:setJava', // (id: string, javaPath: string) => void  版本独立指定 Java（空串恢复自动匹配）
@@ -773,6 +784,11 @@ export const IPC = {
   keysGetDefault: 'keys:getDefault', // () => Record<string, string>
   keysSetDefault: 'keys:setDefault', // (id: string, bind: string) => Record<string, string>
   keysReset: 'keys:reset', // () => Record<string, string>  全部恢复 MC 原版默认
+  defaultPacksGet: 'defaultPacks:get',
+  defaultPacksImport: 'defaultPacks:import',
+  defaultPacksPick: 'defaultPacks:pick',
+  defaultPacksRemove: 'defaultPacks:remove',
+  defaultPacksMove: 'defaultPacks:move',
   // 桥接 MOD 实时配置面板（游戏目录 .kamucl-bridge.json 发现 + token 校验，仅本机）
   bridgeStatus: 'bridge:status', // (versionId: string) => BridgeStatus
   bridgeManifest: 'bridge:manifest', // (versionId: string) => { protocol, params: BridgeParam[] }
@@ -790,7 +806,7 @@ export const IPC = {
   worldImport: 'world:import', // (path: string, options: WorldImportOptions) => WorldImportResult
 
   // 社区资源
-  communitySearch: 'community:search', // (q: CommunityQuery) => CommunityResult[]
+  communitySearch: 'community:search', // (q: CommunityQuery) => CommunitySearchPage
   communityFiles: 'community:files', // (source: 'modrinth'|'curseforge', projectId: string) => CommunityFile[]
   communityDownload: 'community:download', // (file: CommunityFile, target: { versionId: string; kind: CommunityKind }) => string  同步下载完成返回保存路径；kind=modpack 时下载后自动进入整合包安装流程
 
@@ -810,8 +826,10 @@ export const IPC = {
 
   // 文件/目录（rel 为相对游戏目录的子目录：'mods' | 'resourcepacks' | 'shaderpacks' | ''）
   appOpenDir: 'app:openDir', // (rel?: string) => void  用系统资源管理器打开目录
+  fsImportResources: 'fs:importResources',
   fsList: 'fs:list', // (rel: string) => FsEntry[]
   fsRemove: 'fs:remove', // (rel: string, name: string) => FsEntry[]
+  fsToggleDisable: 'fs:toggleDisable', // (rel: string, name: string) => FsEntry[] —— 模组禁用/启用（.jar ↔ .jar.disabled）
 
   // 启动器自更新与版本回退
   updateCheck: 'update:check', // (force?: boolean) => UpdateCheckResult  启动自动检查+设置页手动检查
@@ -886,6 +904,16 @@ export interface CommunityResult {
   downloads: number
   updatedAt: string
   categories: string[]
+}
+
+export interface DefaultResourcePack { id: string; name: string; size: number }
+
+export interface CommunitySearchPage {
+  items: CommunityResult[]
+  total: number
+  offset: number
+  limit: number
+  warnings?: string[]
 }
 
 export interface CommunityFile {
@@ -1199,4 +1227,6 @@ export interface ServerPingResult {
 export interface SystemInfo {
   /** 物理内存总量（MB，向下取整） */
   totalMemMB: number
+  /** 当前空闲物理内存（MB，向下取整；随系统实时波动） */
+  freeMemMB: number
 }

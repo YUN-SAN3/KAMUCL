@@ -85,24 +85,37 @@ async function onUpload() {
   max-height: 82vh;
   overflow-y: auto;
 }
+.modal-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0 0 var(--space-4);
+}
 .iconpick-top {
   display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.iconpick-top .btn {
+  flex: 1;
+}
+.modal-label {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  margin: 0 0 var(--space-2);
 }
 .mob-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
-  gap: 6px;
+  gap: var(--space-2);
 }
 .mob-cell {
   aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
+  padding: var(--space-1);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   background: var(--card-2);
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;

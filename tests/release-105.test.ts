@@ -16,14 +16,15 @@ test('version comparison: 26.x new scheme is newer than all 1.x; unknown treated
   assert(keySyncSupportedForVersion('26.2'))
 })
 
-test('chunked download stall watchdog falls back to single connection instead of hanging', () => {
+test('chunked download engine removed: single-connection + .part resume is the only path (多线程分块全网络异常频发，移除)', () => {
   const dl = read('src/main/core/download.ts')
-  assert.match(dl, /CHUNK_STALL_MS = 45_000/)
-  assert.match(dl, /stallWatchdog = setInterval/)
-  assert.match(dl, /lastBytesAt = Date\.now\(\)/)
-  assert.match(dl, /stalledByWatchdog/)
-  assert.match(dl, /分块无进展回退单连接/)
-  assert.match(dl, /clearInterval\(stallWatchdog\)/)
+  assert.ok(!dl.includes('doDownloadChunked'), '分块引擎必须移除')
+  assert.ok(!dl.includes('buildChunkPlan'), '分块计划必须移除')
+  assert.ok(!dl.includes('chunkStallWatchdog'), '分块看门狗必须移除')
+  // startTransfer 永远单连接
+  assert.match(dl, /async function startTransfer\([\s\S]*?return doDownload\(url, dest, onProgress, extSignal, expectedSize, expectedSize == null\)/)
+  // 断点续传保留（.part）
+  assert.match(dl, /\.part/)
 })
 
 test('home recent games: selection no longer pins to top; launch recency drives order; renamed', () => {

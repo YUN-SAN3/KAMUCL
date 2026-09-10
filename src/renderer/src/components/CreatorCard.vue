@@ -5,7 +5,7 @@
       <span class="creator-pixels" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
     </div>
     <p class="creator-intro">由人见人爱，花见花开的 UP 主</p>
-    <p class="creator-signature"><strong>卡慕<span>SaMa</span></strong><span class="creator-made">制作</span></p>
+    <p class="creator-signature"><strong>卡慕<span>SaMa</span></strong><span class="creator-made">制作，和他的粉丝物晖</span></p>
     <a
       class="creator-link"
       href="https://space.bilibili.com/9596327"
@@ -26,32 +26,37 @@
 </template>
 
 <style scoped>
+/* 页面末行整条横卡：单行水平排布（眉题 → 介绍 → 签名靠右 → 链接），窄窗自动换行，高度紧凑不抢视觉 */
 .creator-card {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-5);
   min-width: 0;
-  padding: 17px 18px 14px;
+  padding: var(--space-4) var(--card-pad);
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   background: linear-gradient(135deg, var(--accent-soft), transparent 65%), color-mix(in srgb, var(--card) 88%, transparent);
   color: var(--text);
   box-shadow: var(--shadow);
 }
-.creator-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; }
-.creator-eyebrow { color: var(--text-dim); font-size: 10px; font-weight: 650; letter-spacing: 1px; }
-.creator-eyebrow span { margin-left: 4px; font-size: 9px; letter-spacing: 1.4px; }
+.creator-heading { display: flex; align-items: center; gap: var(--space-2); flex: none; }
+.creator-eyebrow { color: var(--text-dim); font-size: var(--text-xs); font-weight: 600; letter-spacing: 1px; }
+.creator-eyebrow span { margin-left: var(--space-1); letter-spacing: 1.4px; }
 .creator-pixels { display: grid; grid-template-columns: repeat(2, 5px); gap: 3px; transform: rotate(-8deg); }
 .creator-pixels i { width: 5px; height: 5px; border-radius: 1px; background: var(--accent-2); }
 .creator-pixels i:nth-child(2) { opacity: 0.35; transform: translate(2px, -2px); }
 .creator-pixels i:nth-child(3) { opacity: 0.55; }
-.creator-intro { margin: 0; color: var(--text-dim); font-size: 11px; line-height: 1.7; text-wrap: pretty; }
-.creator-signature { display: flex; align-items: baseline; flex-wrap: wrap; gap: 9px; margin: 5px 0 15px; }
-.creator-signature strong { font-size: 23px; font-weight: 750; line-height: 1.3; letter-spacing: 0.2px; }
-.creator-signature strong span { margin-left: 4px; font-size: 20px; font-weight: 600; letter-spacing: -0.6px; }
-.creator-made { color: var(--text-dim); font-size: 11px; }
-.creator-link { display: flex; min-height: 42px; align-items: center; justify-content: space-between; gap: 10px; padding: 0 11px; border: 1px solid var(--border); border-radius: 9px; background: var(--card-2); color: var(--text); text-decoration: none; transition: background 180ms ease, border-color 180ms ease; }
-.creator-link-label { display: inline-flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 600; }
-.bilibili-icon { width: 23px; height: 23px; flex: none; color: var(--accent-2); }
+.creator-intro { margin: 0; color: var(--text-dim); font-size: var(--text-xs); line-height: 1.7; text-wrap: pretty; }
+.creator-signature { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-2); margin: 0 0 0 auto; }
+.creator-signature strong { font-size: var(--text-lg); font-weight: 700; line-height: 1.3; letter-spacing: 0.2px; }
+.creator-signature strong span { margin-left: var(--space-1); font-size: var(--text-md); font-weight: 600; letter-spacing: -0.6px; }
+.creator-made { color: var(--text-dim); font-size: var(--text-xs); }
+.creator-link { display: flex; flex: none; min-height: var(--ctl-h); align-items: center; justify-content: space-between; gap: var(--space-2); padding: 0 var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card-2); color: var(--text); text-decoration: none; transition: background 180ms ease, border-color 180ms ease; }
+.creator-link-label { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); font-weight: 600; }
+.bilibili-icon { width: 22px; height: 22px; flex: none; color: var(--accent-2); }
 .creator-arrow { width: 16px; height: 16px; flex: none; color: var(--text-dim); transition: transform 180ms ease; }
 .creator-link:hover { background: var(--hover); border-color: var(--accent); }
 .creator-link:hover .creator-arrow { transform: translate(1px, -1px); color: var(--text); }

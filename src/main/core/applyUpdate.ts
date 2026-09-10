@@ -11,7 +11,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
-import { spawn } from 'node:child_process'
 import { app } from 'electron'
 import type { LocalUpdateCheck, ProgressEvent, ReleaseInfo, Settings, UpdateStateInfo } from '../../shared/types'
 import { IPC_EVENT } from '../../shared/types'
@@ -20,6 +19,7 @@ import { downloadFile } from './download'
 import { finishTask, registerTask } from './tasks'
 import { currentVersion, fetchSha256Sums, sha256File } from './selfUpdate'
 import { logScope } from './launcherLog'
+import { isolatedUpdateTest, trustedUpdateRelease } from './updateTrust'
 
 const updateLog = logScope('self-update')
 
@@ -40,7 +40,7 @@ export function setUpdateEmitter(fn: Emitter): void { emit = fn }
  * 测试可用 KAMUCL_UPDATE_TARGET_EXE 指向沙盒副本走全链路。
  */
 export function currentPortableExe(): string | null {
-  return process.env.KAMUCL_UPDATE_TARGET_EXE || process.env.PORTABLE_EXECUTABLE_FILE || null
+  return (isolatedUpdateTest() && process.env.KAMUCL_UPDATE_TARGET_EXE) || process.env.PORTABLE_EXECUTABLE_FILE || null
 }
 
 /** 是否支持自更新（仅便携包运行或测试注入目标时） */
@@ -56,7 +56,7 @@ function backupDirOf(exe: string): string {
 }
 
 function userDataDir(): string {
-  return process.env.KAMUCL_USERDATA_DIR || app.getPath('userData')
+  return isolatedUpdateTest() ? process.env.KAMUCL_USERDATA_DIR! : app.getPath('userData')
 }
 function stateFile(): string {
   return path.join(userDataDir(), 'update-state.json')
@@ -99,9 +99,11 @@ function pendingFile(): string {
 export function getPendingUpdate(): PendingUpdate | null {
   try {
     const j = JSON.parse(fs.readFileSync(pendingFile(), 'utf-8'))
-    if (j?.release?.version && typeof j.file === 'string' && fs.existsSync(j.file)) {
+    if (trustedUpdateRelease(j?.release) && typeof j.file === 'string' && path.basename(j.file) === j.release.assetName && fs.existsSync(j.file)) {
       return j as PendingUpdate
     }
+    // 旧版测试缓存只能隔离，不能继续作为退出时自动安装的依据。
+    fs.renameSync(pendingFile(), pendingFile() + `.rejected-${Date.now()}`)
   } catch { /* 无待装 */ }
   return null
 }
@@ -179,6 +181,7 @@ export interface UpdateDownloadHandle {
  * 完成后强制 SHA256 校验。低速 30s 通过 emit 发一次内测群提示。
  */
 export function startUpdateDownload(release: ReleaseInfo, settings: Pick<Settings, 'updateSource' | 'updateMirrorUrl'>, mode: 'upgrade' | 'rollback'): UpdateDownloadHandle {
+  if (!trustedUpdateRelease(release)) throw new Error('更新来源无效，请重新检查官方版本')
   const exe = currentPortableExe()
   if (!exe) throw new Error('当前运行形态不支持自更新（仅便携版）')
   if (!release.assetUrl) throw new Error('该版本没有可用的安装包资产')
@@ -277,6 +280,8 @@ export interface UpdaterScriptSpec {
   backupDir: string
   /** 主进程 pid（脚本等待其退出） */
   mainPid: number
+  /** 便携包外层引导进程 pid（主进程的父进程，持有自身 exe 文件锁且退出有延迟） */
+  wrapperPid?: number
   /** 回滚标记文件目录（userData） */
   stateDir: string
   /** 是否为还原备份操作（还原时不再生成新备份） */
@@ -301,32 +306,53 @@ $backupDir = ${q(spec.backupDir)}
 $stateDir = ${q(spec.stateDir)}
 $doBackup = ${spec.restore ? '$false' : '$true'}
 $mainPid = ${spec.mainPid}
+$wrapperPid = ${spec.wrapperPid ?? 0}
+$logFile = Join-Path $stateDir 'updater-last.log'
 
-# 1. 等待主进程退出（最多 60 秒）
-$t = 0
-while ((Get-Process -Id $mainPid -ErrorAction SilentlyContinue) -and $t -lt 60) { Start-Sleep -Seconds 1; $t++ }
-
+function Log($m) {
+  $line = '[' + (Get-Date -Format 'HH:mm:ss') + '] ' + $m
+  try { Add-Content -LiteralPath $logFile -Value $line -Encoding UTF8 } catch {}
+}
+function Move-WithRetry($from, $to, $what) {
+  # 文件锁（便携包外层/退出清理延迟）可能持续数十秒：重试直到可移动（最多 120 秒）
+  for ($i = 0; $i -lt 120; $i++) {
+    try { Move-Item -LiteralPath $from -Destination $to -Force -ErrorAction Stop; Log \"$what 完成\"; return }
+    catch { if ($i % 15 -eq 0) { Log \"$what 等待解锁（第 $($i+1) 次）：$($_.Exception.Message)\" }; Start-Sleep -Seconds 1 }
+  }
+  throw \"$what 重试 120 次仍失败\"
+}
 function Restore-Backup($reason) {
+  Log \"触发回滚：$reason\"
   $bak = Join-Path $backupDir ${q(oldName)}
   if (Test-Path -LiteralPath $bak) {
-    try { Move-Item -LiteralPath $bak -Destination $oldExe -Force } catch {}
+    Move-WithRetry $bak $oldExe '回滚移动'
     try { Start-Process -FilePath $oldExe } catch {}
   }
   try { Set-Content -LiteralPath (Join-Path $stateDir 'update-failed.flag') -Value $reason -Encoding UTF8 } catch {}
 }
 
+Log \"更新脚本启动：$($newExe) → $($newTarget)\"
+# 等主进程与便携包外层引导进程都退出（外层持有 exe 文件锁；各最多 45 秒，超时由 Move-WithRetry 兜底）
+$t = 0
+while (((Get-Process -Id $mainPid -ErrorAction SilentlyContinue) -or ($wrapperPid -and (Get-Process -Id $wrapperPid -ErrorAction SilentlyContinue))) -and $t -lt 45) { Start-Sleep -Seconds 1; $t++ }
+  Log \"进程等待结束（用时 \${t}s；若仍锁由移动重试兜底）\"
+
 try {
   if ($doBackup -eq $true) {
     New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
     Get-ChildItem -LiteralPath $backupDir -Filter 'KAMUCL-*.exe' -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
-    Move-Item -LiteralPath $oldExe -Destination (Join-Path $backupDir ${q(oldName)}) -Force
+    Move-WithRetry $oldExe (Join-Path $backupDir ${q(oldName)}) '备份旧版'
   } else {
-    Remove-Item -LiteralPath $oldExe -Force -ErrorAction SilentlyContinue
+    for ($i = 0; $i -lt 120 -and (Test-Path -LiteralPath $oldExe); $i++) {
+      try { Remove-Item -LiteralPath $oldExe -Force -ErrorAction Stop; break } catch { Start-Sleep -Seconds 1 }
+    }
   }
-  Move-Item -LiteralPath $newExe -Destination $newTarget -Force
+  Move-WithRetry $newExe $newTarget '放入新版'
   $p = Start-Process -FilePath $newTarget -PassThru
+  Log \"新版已启动 pid=$($p.Id)，观察 20 秒\"
   Start-Sleep -Seconds 20
   if (-not (Get-Process -Id $p.Id -ErrorAction SilentlyContinue)) { throw 'new version exited within 20s' }
+  Log '新版存活确认，更新成功'
 } catch {
   Restore-Backup $_.Exception.Message
 }
@@ -340,27 +366,26 @@ function spawnUpdater(spec: UpdaterScriptSpec): void {
   const scriptFile = path.join(os.tmpdir(), `kamucl-updater-${Date.now()}.ps1`)
   // PowerShell 5.1 按 BOM 识别 UTF-8（路径可能含中文）
   fs.writeFileSync(scriptFile, '﻿' + buildUpdaterScript(spec), 'utf-8')
-  const child = spawn('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', scriptFile], {
-    detached: true,
-    stdio: 'ignore',
-    windowsHide: true
-  })
-  child.unref()
+  // 关键：必须脱离启动器进程树的 Job Object（便携包退出会整树终止子进程），
+  // 且不能带管道回传（管道句柄会让启动器进程对象悬挂、文件锁延迟释放）——spawnDetachedProcess 完全零耦合。
+  void import('./gracefulClose').then(({ spawnDetachedProcess }) =>
+    spawnDetachedProcess('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', scriptFile], { cwd: os.tmpdir() }).then((pid) => {
+      if (pid == null) updateLog.error('更新脚本脱离式创建失败')
+    }).catch((e) => {
+      updateLog.error('更新脚本启动失败', e)
+    })
+  )
 }
 
 /** 校验已下载的更新包并执行 备份→替换→重启。调用后进程退出。 */
-export async function applyDownloadedUpdate(release: ReleaseInfo): Promise<void> {
+export async function applyDownloadedUpdate(release: ReleaseInfo, verifiedLocal = false): Promise<void> {
+  if (!verifiedLocal && !trustedUpdateRelease(release)) throw new Error('待安装更新并非官方来源，请重新检查更新')
   const exe = currentPortableExe()
   if (!exe) throw new Error('当前运行形态不支持自更新（仅便携版）')
   const file = path.join(updateDirOf(exe), release.assetName || `KAMUCL-${release.version}.exe`)
   if (!fs.existsSync(file)) throw new Error('更新包不存在，请先下载')
-  // 应用前再校验一次（防御性：下载后到安装间隔内文件可能被改）
-  const sums = await fetchSha256Sums(release.assetUrl)
-  const expected = sums?.get(release.assetName) ?? null
-  if (expected) {
-    const actual = await sha256File(file)
-    if (actual !== expected) throw new Error('更新包校验失败（SHA256 不一致），请重新下载')
-  }
+  // 不再联网复核 SHA256：下载完成时已强制校验通过并写入待安装状态；
+  // 退出前复核会拖慢退出，导致更新脚本等到超时、在主进程仍存活时抢文件（文件锁冲突根因）。
   // 记录更新状态（设置页「还原到更新前的版本」数据源）
   const backupDir = backupDirOf(exe)
   const state: UpdateStateInfo = {
@@ -379,10 +404,12 @@ export async function applyDownloadedUpdate(release: ReleaseInfo): Promise<void>
     newExe: file,
     backupDir,
     mainPid: process.pid,
+    // 便携包外层引导进程（主进程的父进程）持有自身 exe 的文件锁且退出有延迟——一并等待
+    wrapperPid: process.ppid ?? 0,
     stateDir: userDataDir()
   })
   updateLog.info(`更新脚本已启动，退出启动器进行替换：v${state.from} → v${state.to}`)
-  setTimeout(() => app.quit(), 300)
+  setTimeout(() => app.exit(0), 300)
 }
 
 /** 还原到更新前的版本（反向执行同一脚本）并重启 */
@@ -401,7 +428,7 @@ export async function restoreBackupAndRestart(): Promise<void> {
   })
   try { fs.rmSync(stateFile(), { force: true }) } catch { /* 忽略 */ }
   updateLog.info(`还原脚本已启动：回退到 v${state.backupVersion}`)
-  setTimeout(() => app.quit(), 300)
+  setTimeout(() => app.exit(0), 300)
 }
 
 // ---------------- 本地文件安装更新 ----------------
@@ -445,5 +472,5 @@ export async function applyLocalUpdateFile(check: LocalUpdateCheck): Promise<voi
     assetUrl: '',
     assetSize: check.fileSize,
     assetName: check.fileName
-  })
+  }, true)
 }

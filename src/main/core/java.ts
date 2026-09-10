@@ -770,6 +770,19 @@ export async function scanJavaInstallations(options: JavaScanOptions = {}): Prom
   const list = sortJava(found)
   scanCache = { time: Date.now(), list, complete: true }
   writePersistentCache(list)
+  // 用户点「重新扫描」= 要一份最新真相：曾被「隐藏/删除」但磁盘上真实存在的 Java 自动解除隐藏
+  if (refresh) {
+    const s = getSettings()
+    const hidden = s.javaHidden ?? []
+    if (hidden.length) {
+      const foundKeys = new Set(found.map((j) => pathKey(j.path)))
+      const restore = hidden.filter((p) => foundKeys.has(pathKey(p)))
+      if (restore.length) {
+        javaLog.info(`重扫恢复 ${restore.length} 个曾被隐藏的 Java：${restore.join('、')}`)
+        saveSettings({ javaHidden: hidden.filter((p) => !foundKeys.has(pathKey(p))) })
+      }
+    }
+  }
   javaLog.info(`本机 Java 扫描完成：共 ${list.length} 个可用（验证 ${pending.length} 个候选，耗时 ${((Date.now() - started) / 1000).toFixed(1)}s）`)
   scanProgress(emit, 1, `扫描完成，共找到 ${list.length} 个可用 Java`)
   return mergeCustom(list)

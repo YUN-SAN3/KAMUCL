@@ -175,7 +175,7 @@ onMounted(() => {
           <button class="btn btn-gold btn-sm" :disabled="crossLoading" @click="scanCross">
             {{ crossLoading ? '对比中…' : '开始对比' }}
           </button>
-          <div v-if="crossResults" class="dup-list" style="margin-top: 12px">
+          <div v-if="crossResults" class="dup-list dup-list-cross">
             <div v-if="!crossResults.length" class="dup-empty muted">所选版本间没有重复 MOD ✓</div>
             <div v-for="g in crossResults" :key="g.modId" class="dup-group">
               <div class="dup-group-head">
@@ -200,25 +200,36 @@ onMounted(() => {
   max-height: 84vh;
   overflow-y: auto;
 }
+.modal-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0 0 var(--space-4);
+}
 .dup-tabs {
   display: inline-flex;
-  gap: 4px;
-  padding: 4px;
+  gap: var(--space-1);
+  padding: var(--space-1);
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--card-2);
-  margin-bottom: 12px;
+  margin-bottom: var(--space-3);
+  align-self: flex-start;
 }
 .game-tab {
-  padding: 6px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-4);
+  height: var(--ctl-h);
   border: none;
   border-radius: 999px;
   background: transparent;
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
+  white-space: nowrap;
   transition: background 0.15s ease, color 0.15s ease;
 }
 .game-tab.active {
@@ -228,50 +239,59 @@ onMounted(() => {
 .dup-loading {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 24px 0;
+  gap: var(--space-3);
+  padding: var(--space-5) 0;
   justify-content: center;
 }
 .dup-empty {
-  padding: 28px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) 0;
   text-align: center;
 }
 .dup-hint {
-  font-size: 12.5px;
+  font-size: var(--text-xs);
   line-height: 1.6;
-  margin-bottom: 10px;
+  margin: 0 0 var(--space-3);
 }
 .dup-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
   max-height: 380px;
   overflow-y: auto;
 }
+.dup-list-cross {
+  margin-top: var(--space-3);
+}
 .dup-group {
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background: var(--card-2);
-  padding: 8px 10px;
+  padding: var(--space-2) var(--space-3);
 }
 .dup-group-head {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 4px;
+  gap: var(--space-2);
+  min-height: 28px;
+  margin-bottom: var(--space-1);
 }
 .dup-group-name {
-  font-size: 13.5px;
+  font-size: var(--text-sm);
   font-weight: 700;
 }
 .dup-file {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 6px;
-  border-radius: 8px;
+  gap: var(--space-2);
+  min-height: 32px;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 12.5px;
+  font-size: var(--text-xs);
 }
 .dup-file.keep {
   background: var(--accent-soft);
@@ -284,31 +304,34 @@ onMounted(() => {
   min-width: 0;
   word-break: break-all;
   font-family: ui-monospace, Consolas, monospace;
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 .cross-row {
   cursor: default;
 }
 .del-count {
   margin-right: auto;
-  font-size: 12.5px;
+  font-size: var(--text-xs);
 }
 .cross-versions {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 .ver-chip {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 5px 11px;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-3);
+  min-height: var(--ctl-h);
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--card-2);
-  font-size: 12.5px;
+  font-size: var(--text-xs);
   cursor: pointer;
+  white-space: nowrap;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 .ver-chip.active {
@@ -318,5 +341,10 @@ onMounted(() => {
 }
 .ver-chip input {
   display: none;
+}
+.modal-label {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  margin: 0 0 var(--space-2);
 }
 </style>

@@ -12,6 +12,7 @@
 import { ipcMain, BrowserWindow, type IpcMain } from 'electron'
 import { VoxlinkApp, type CreateRoomParams, type LobbyRoom } from './engine'
 import type { VoxlinkSettings } from './settings'
+import { DEFAULT_VOXLINK_ROOM_NAME, normalizeVoxlinkRoomName } from '../../../shared/voxlinkRoom'
 
 let app: VoxlinkApp | null = null
 
@@ -53,6 +54,7 @@ export function registerVoxlinkIpc(ipcMain: IpcMain): void {
       push('state', snapshot())
       return { ok: true, ...r }
     }
+    const name = normalizeVoxlinkRoomName(payload.roomName ?? DEFAULT_VOXLINK_ROOM_NAME)
     // hostPort 必填：未传则自动探测本机 MC 局域网端口
     let hostPort = Number(payload.hostPort ?? 0)
     if (!(hostPort >= 1024 && hostPort <= 65535)) {
@@ -60,7 +62,7 @@ export function registerVoxlinkIpc(ipcMain: IpcMain): void {
       hostPort = ports.ports[0]?.port ?? 0
     }
     const req: CreateRoomParams = {
-      name: payload.roomName || 'KAMUCL 房间',
+      name,
       visible: payload.isPublic !== false,
       category: payload.category || '',
       hostPort,
@@ -89,6 +91,10 @@ export function registerVoxlinkIpc(ipcMain: IpcMain): void {
     if (typeof partial.theme === 'string' && partial.theme) a.saveSettingsJSON({ theme: partial.theme })
     return a.settings
   })
+
+  // 手动后备（app-desktop 同名能力）：打洞约 20 秒未成功时由用户触发
+  ipcMain.handle('voxlink:tryDirect', () => vapp().tryDirect())
+  ipcMain.handle('voxlink:usePlayerRelay', () => vapp().usePlayerRelay())
 }
 
 /** 应用退出时停掉会话（gracefulClose 里调用）。 */

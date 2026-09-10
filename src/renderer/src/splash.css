@@ -1,6 +1,19 @@
+/* 独立启动窗口：不加载 styles.css，这里镜像其设计令牌子集（与 :root 基准保持同步） */
+:root {
+  --text-xs: 12px;
+  --text-md: 14px;
+  --text-xl: 20px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --card-pad: 20px;
+  --radius-md: 10px;
+}
 html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; pointer-events: none; user-select: none; }
 canvas { position: fixed; inset: 0; width: 100%; height: 100%; }
-#caption { position: fixed; left: 50%; top: calc(50% + 135px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 20px; border: 1px solid #ffffff24; border-radius: 12px; background: #172021b8; color: #f5f8f6; font: 12px/1.5 'Segoe UI', 'Microsoft YaHei', sans-serif; white-space: nowrap; }
-#caption strong { font-size: 19px; letter-spacing: 4px; font-weight: 650; }
-body.leaving { opacity: 0; transition: opacity 120ms ease; }
+#caption { position: fixed; left: 50%; top: calc(50% + 135px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--card-pad); border: 1px solid #ffffff24; border-radius: var(--radius-md); background: #172021b8; color: #f5f8f6; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: var(--text-xs); line-height: 1.5; white-space: nowrap; }
+#caption strong { font-size: var(--text-xl); letter-spacing: 4px; font-weight: 650; }
+#caption { width: 220px; height: 86px; box-sizing: border-box; justify-content: center; border-radius: 14px; }
+#caption strong { letter-spacing: 0; font-weight: 700; }
+body.leaving { opacity: 0; transition: opacity 320ms ease; }
 @media (prefers-reduced-motion: reduce) { body.leaving { transition-duration: 1ms; } }

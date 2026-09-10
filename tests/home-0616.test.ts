@@ -33,6 +33,20 @@ test('hero naming follows selected instance while subtitle reads only real Minec
   assert.ok(!home.includes('<span>Java 版</span>'))
 })
 
+test('launch combo lives in the banner and owns the launch chain (1.0.18 还原旧版设计，悬浮启动球移除)', () => {
+  // 启动按钮回到横幅内：launch-combo（开始游戏大按钮 + ▼ 实例选择）复用同一条启动链路与进度反馈
+  assert.match(home, /class="launch-combo" data-edit="accent"/)
+  assert.match(home, /class="launch-main"/)
+  assert.match(home, /@click="onLaunchClick"/)
+  assert.match(home, /:disabled="launching \|\| !currentVersion"/)
+  assert.match(home, /class="launch-progress" :style="\{ width: percent \+ '%' \}"/)
+  // 实例选择下拉挂在 combo 箭头
+  assert.match(home, /ref="versionMenuButton" class="launch-arrow" title="选择游戏实例" @click="toggleVersionMenu"/)
+  // 悬浮启动球已移除
+  assert.ok(!home.includes('LaunchFab'), 'LaunchFab must be gone from HomeView')
+  assert.ok(!fs.existsSync('src/renderer/src/components/LaunchFab.vue'), 'LaunchFab.vue must be deleted')
+})
+
 test('creator card uses theme tokens, keyboard focus and correct external Bilibili link', () => {
   assert.match(creator, /href="https:\/\/space\.bilibili\.com\/9596327"/)
   assert.match(creator, /target="_blank"/)
@@ -44,7 +58,7 @@ test('creator card uses theme tokens, keyboard focus and correct external Bilibi
   assert.match(creator, /var\(--text\)/)
   assert.ok(!/#[\da-f]{3,8}\b/i.test(creator), 'no hard-coded palette that conflicts with themes')
   assert.match(home, /<CreatorCard class="home-creator" \/>/)
-  assert.match(home, /\.home-creator \{ margin-top: auto; \}/)
+  assert.match(home, /\.home-creator \{ margin-top: auto;/)
 })
 
 test('home and creator templates compile without Vue errors', () => {

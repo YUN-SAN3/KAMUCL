@@ -24,38 +24,26 @@ test('game view: per-version launch button before delete (新增2)', () => {
   assert.match(gv, /@click="launchVersion\(v\)"/)
 })
 
-test('skin viewer: cape preview with 64x32 layout regions + swing animation (新增3)', () => {
+test('skin viewer: cape preview via HMCL-style flip, 64x32 layout, cape prop watch (新增3；1.0.16 起用物晖重写版实现)', () => {
   const viewer = read('src/renderer/src/components/SkinViewer3D.vue')
-  assert.match(viewer, /function capeRegions\(\)/)
-  assert.match(viewer, /function buildCape\(\)/)
-  assert.match(viewer, /function rebuildCape\(\)/)
-  assert.match(viewer, /function reloadCape\(\)/)
-  // 披风随走路摆动
-  assert.match(viewer, /capeGroup\.rotation\.x/)
-  // cape prop 监听
-  assert.match(viewer, /watch\(\(\) => props\.cape/)
-  // 内外面映射（实证）：材质顺序 [+x,-x,+y,-y,+z,-z]，主图案 [1,1] 必须在 -z（外面，背后可见），内面 [12,1] 在 +z
-  const regions = viewer.match(/function capeRegions\(\) \{[\s\S]*?\] as const/)![0]
-  const zFaces = regions.match(/\[1?2?, 1, 10, 16\]/g)!
-  assert.deepEqual(zFaces, ['[12, 1, 10, 16]', '[1, 1, 10, 16]'])
+  assert.match(viewer, /function attachCapeMesh/)
+  // 披风 10×16×1，正面 UV (1,1)，180° 翻转朝后挂背部
+  assert.match(viewer, /faceRegions\(1, 1, 10, 16, 1\)/)
+  assert.match(viewer, /rotation\.y = Math\.PI/)
+  assert.match(viewer, /joint\.position\.set\(0, 24, -2\.7\)/)
+  // cape prop 监听重载
+  assert.match(viewer, /watch\(\s*\(\) => props\.cape/)
   const skins = read('src/renderer/src/views/SkinsView.vue')
-  assert.match(skins, /const activeCapeDataUrl = computed/)
-  assert.match(skins, /:cape="activeCapeDataUrl"/)
+  assert.match(skins, /const activeCape = computed/)
+  assert.match(skins, /:cape="activeCape"/)
 })
 
-test('friend connect: mode overlay closable via mask click, X button and ESC (修复4)', () => {
-  const fc = read('src/renderer/src/components/FriendConnect.vue')
-  assert.match(fc, /class="mode-overlay"[^>]*@click\.self="pick\('direct'\)"/)
-  assert.match(fc, /class="mode-close"/)
-  assert.match(fc, /function onModeKeydown\(e: KeyboardEvent\)/)
-  assert.match(fc, /addEventListener\('keydown', onModeKeydown\)/)
-  assert.match(fc, /removeEventListener\('keydown', onModeKeydown\)/)
-})
-
-test('launch: game process detached from launcher + running state restore (修复5)', () => {
+test('launch: game process survives launcher exit via CreateProcessW detach + running state restore (修复5；1.0.16 起用物晖 gracefulClose 实现)', () => {
   const launch = read('src/main/core/launch.ts')
-  assert.match(launch, /detached: true/)
-  assert.match(launch, /proc\.unref\(\)/)
+  assert.match(launch, /spawnGameProcess\(javaPath, args/)
+  const gc = read('src/main/core/gracefulClose.ts')
+  assert.match(gc, /export async function spawnGameProcess/)
+  // 运行状态持久化与恢复保留
   assert.match(launch, /function persistRunningGame/)
   assert.match(launch, /export function restoreRunningGame/)
   assert.match(launch, /running-game\.json/)
@@ -100,7 +88,6 @@ test('modified SFCs compile', () => {
     'src/renderer/src/App.vue',
     'src/renderer/src/views/GameView.vue',
     'src/renderer/src/views/SkinsView.vue',
-    'src/renderer/src/components/FriendConnect.vue',
     'src/renderer/src/components/SkinViewer3D.vue',
   ]) {
     const source = read(file)

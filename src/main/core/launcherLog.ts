@@ -261,8 +261,8 @@ export function launcherLogError(scope: string, message: string, error?: unknown
 }
 
 export interface ScopedLauncherLog {
-  debug(message: string): void
-  info(message: string): void
+  debug(message: string, error?: unknown): void
+  info(message: string, error?: unknown): void
   warn(message: string, error?: unknown): void
   error(message: string, error?: unknown): void
 }
@@ -270,8 +270,8 @@ export interface ScopedLauncherLog {
 /** 带作用域的便捷入口：const log = logScope('launch') → log.info('...') */
 export function logScope(scope: string): ScopedLauncherLog {
   return {
-    debug: (message: string) => record('debug', scope, message),
-    info: (message: string) => record('info', scope, message),
+    debug: (message: string, error?: unknown) => record('debug', scope, message, error),
+    info: (message: string, error?: unknown) => record('info', scope, message, error),
     warn: (message: string, error?: unknown) => record('warn', scope, message, error),
     error: (message: string, error?: unknown) => record('error', scope, message, error)
   }

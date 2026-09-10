@@ -30,64 +30,6 @@ async function closeServer(server: http.Server): Promise<void> {
   await new Promise<void>((resolve) => server.close(() => resolve()))
 }
 
-interface RangeServerState {
-  base: string
-  requests(): number
-  peakConcurrent(): number
-  close(): Promise<void>
-}
-
-/** 支持 Range 的滴灌服务器：分块请求以 256KB/5ms 逐段发送，便于观察并发连接 */
-async function startRangeServer(payload: Buffer): Promise<RangeServerState> {
-  let requests = 0
-  let active = 0
-  let peak = 0
-  const server = http.createServer((req, res) => {
-    requests++
-    active++
-    peak = Math.max(peak, active)
-    res.on('close', () => active--)
-    const match = /^bytes=(\d+)-(\d*)$/.exec(String(req.headers.range ?? ''))
-    if (!match) {
-      res.writeHead(200, { 'content-length': String(payload.length) })
-      res.end(payload)
-      return
-    }
-    const start = Number(match[1])
-    const end = match[2] ? Math.min(Number(match[2]), payload.length - 1) : payload.length - 1
-    res.writeHead(206, {
-      'content-range': `bytes ${start}-${end}/${payload.length}`,
-      'content-length': String(end - start + 1)
-    })
-    if (end < start) {
-      res.end()
-      return
-    }
-    let offset = start
-    const timer = setInterval(() => {
-      if (res.destroyed || res.writableEnded) {
-        clearInterval(timer)
-        return
-      }
-      const next = Math.min(end + 1, offset + 256 * 1024)
-      res.write(payload.subarray(offset, next))
-      offset = next
-      if (offset >= end + 1) {
-        clearInterval(timer)
-        res.end()
-      }
-    }, 5)
-    res.on('close', () => clearInterval(timer))
-  })
-  const base = await listen(server)
-  return {
-    base,
-    requests: () => requests,
-    peakConcurrent: () => peak,
-    close: () => closeServer(server)
-  }
-}
-
 test('本地文件复用：大小+sha1 命中时零网络请求直接复制', async () => {
   resetHostHealthForTest()
   let requests = 0
@@ -183,130 +125,6 @@ test('本地文件复用：大小相同但内容不符或扩展名不同时回�
     }
   } finally {
     await closeServer(server)
-    await fs.promises.rm(root, { recursive: true, force: true })
-  }
-})
-
-test('大文件分块多线程：并行连接、内容正确、无分块残留', async () => {
-  resetHostHealthForTest()
-  const payload = crypto.randomBytes(9 * 1024 * 1024) // 9MB → 2 块
-  const sha1 = crypto.createHash('sha1').update(payload).digest('hex')
-  const state = await startRangeServer(payload)
-  const root = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'kamucl-chunk-'))
-  try {
-    const dest = path.join(root, 'client.jar')
-    await downloadFile(`${state.base}/client.jar`, dest, undefined, sha1, 'official', undefined, [], {
-      size: payload.length
-    })
-    assert.equal(state.requests(), 2, '应恰好发起两个分块请求')
-    assert.ok(state.peakConcurrent() >= 2, `分块应并行（peak=${state.peakConcurrent()}）`)
-    assert.deepEqual(await fs.promises.readFile(dest), payload)
-    assert.deepEqual(fs.readdirSync(root), ['client.jar'], '不应遗留 .part/.partN')
-  } finally {
-    await state.close()
-    await fs.promises.rm(root, { recursive: true, force: true })
-  }
-})
-
-test('分块断点续传：已完整的 .partN 不再请求', async () => {
-  resetHostHealthForTest()
-  const payload = crypto.randomBytes(9 * 1024 * 1024)
-  const sha1 = crypto.createHash('sha1').update(payload).digest('hex')
-  const state = await startRangeServer(payload)
-  const root = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'kamucl-chunk-resume-'))
-  try {
-    const dest = path.join(root, 'client.jar')
-    // 预置第二个分块（块边界：floor(total*i/chunkCount)，2 块 → 偏移 total/2）
-    const boundary = Math.floor(payload.length / 2)
-    fs.writeFileSync(dest + '.part1', payload.subarray(boundary))
-    await downloadFile(`${state.base}/client.jar`, dest, undefined, sha1, 'official', undefined, [], {
-      size: payload.length
-    })
-    assert.equal(state.requests(), 1, '只有第一个分块需要下载')
-    assert.deepEqual(await fs.promises.readFile(dest), payload)
-    assert.deepEqual(fs.readdirSync(root), ['client.jar'])
-  } finally {
-    await state.close()
-    await fs.promises.rm(root, { recursive: true, force: true })
-  }
-})
-
-test('服务端不支持 Range 时回退单连接下载', async () => {
-  resetHostHealthForTest()
-  const payload = crypto.randomBytes(9 * 1024 * 1024)
-  const sha1 = crypto.createHash('sha1').update(payload).digest('hex')
-  let requests = 0
-  const server = http.createServer((_req, res) => {
-    requests++
-    res.writeHead(200, { 'content-length': String(payload.length) })
-    res.end(payload)
-  })
-  const root = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'kamucl-chunk-fallback-'))
-  try {
-    const base = await listen(server)
-    const dest = path.join(root, 'client.jar')
-    await downloadFile(`${base}/client.jar`, dest, undefined, sha1, 'official', undefined, [], {
-      size: payload.length
-    })
-    assert.equal(requests, 2, '分块验证请求 1 次 + 回退单连接 1 次')
-    assert.deepEqual(await fs.promises.readFile(dest), payload)
-    assert.deepEqual(fs.readdirSync(root), ['client.jar'])
-  } finally {
-    await closeServer(server)
-    await fs.promises.rm(root, { recursive: true, force: true })
-  }
-})
-
-test('未知大小时通过 Range 探测升级分块下载', async () => {
-  resetHostHealthForTest()
-  const payload = crypto.randomBytes(9 * 1024 * 1024)
-  const sha1 = crypto.createHash('sha1').update(payload).digest('hex')
-  const state = await startRangeServer(payload)
-  const root = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'kamucl-chunk-probe-'))
-  try {
-    const dest = path.join(root, 'client.jar')
-    // 不提供 size：探测请求（Range: bytes=0-）发现总长后升级分块
-    await downloadFile(`${state.base}/client.jar`, dest, undefined, sha1)
-    assert.equal(state.requests(), 3, '探测 1 次 + 分块 2 次')
-    assert.ok(state.peakConcurrent() >= 2)
-    assert.deepEqual(await fs.promises.readFile(dest), payload)
-    assert.deepEqual(fs.readdirSync(root), ['client.jar'])
-  } finally {
-    await state.close()
-    await fs.promises.rm(root, { recursive: true, force: true })
-  }
-})
-
-test('取消分块下载会清理全部 .partN 并立即抛出已取消', async () => {
-  resetHostHealthForTest()
-  const payload = crypto.randomBytes(9 * 1024 * 1024)
-  const sha1 = crypto.createHash('sha1').update(payload).digest('hex')
-  const state = await startRangeServer(payload)
-  const root = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'kamucl-chunk-cancel-'))
-  const task = registerTask('分块取消测试', 'download')
-  try {
-    const dest = path.join(root, 'client.jar')
-    const outcome = downloadFile(
-      `${state.base}/client.jar`,
-      dest,
-      undefined,
-      sha1,
-      'official',
-      task.controller.signal,
-      [],
-      { size: payload.length }
-    )
-      .then(() => ({ error: null as unknown }))
-      .catch((error: unknown) => ({ error }))
-      .finally(() => finishTask(task.id))
-    while (!fs.existsSync(dest + '.part0')) await wait(10)
-    await wait(60)
-    await cancelTaskAndWait(task.id)
-    const { error } = await outcome
-    assert.equal(isCancelError(error), true)
-    assert.deepEqual(fs.readdirSync(root), [], '取消后不应遗留任何分块文件')
-  } finally {
-    await state.close()
     await fs.promises.rm(root, { recursive: true, force: true })
   }
 })
@@ -435,7 +253,7 @@ test('磁盘空间预检：≥50MB 且空间不足时零请求直接失败，充
   const root = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'kamucl-disk-'))
   try {
     const base = await listen(server)
-    // 注入仅剩 4MB 可用的 statfs：60MB 文件（分块需 2×size）应直接失败且不发请求
+    // 注入仅剩 4MB 可用的 statfs：60MB 文件应直接失败且不发请求
     setStatfsProbeForTest(() => ({ bavail: 1024, bsize: 4096 }))
     await assert.rejects(
       downloadFile(`${base}/big.jar`, path.join(root, 'big.jar'), undefined, undefined, 'official', undefined, [], {
@@ -453,14 +271,14 @@ test('磁盘空间预检：≥50MB 且空间不足时零请求直接失败，充
       }),
       /下载失败/
     )
-    assert.equal(requests, 2, '分块验证 1 次 + Range 回退单连接 1 次')
+    assert.equal(requests, 1, '单连接校验失败 1 次（分块引擎已移除）')
 
     // <50MB 的文件不做预检：即便可用空间接近 0 也可下载
     setStatfsProbeForTest(() => ({ bavail: 1, bsize: 1 }))
     await downloadFile(`${base}/small.bin`, path.join(root, 'small.bin'), undefined, undefined, 'official', undefined, [], {
       size: small.length
     })
-    assert.equal(requests, 3)
+    assert.equal(requests, 2)
   } finally {
     setStatfsProbeForTest(null)
     await closeServer(server)

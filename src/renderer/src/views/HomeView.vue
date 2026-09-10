@@ -44,9 +44,9 @@ import type {
 } from '@shared/types'
 import { trackBootTask } from '../bootTasks'
 import { managedImageUrl } from '../managedAssets'
-import banner1 from '../assets/banner1.png'
-import banner2 from '../assets/banner2.png'
-import banner3 from '../assets/banner3.png'
+import banner1 from '../assets/banner1.webp'
+import banner2 from '../assets/banner2.webp'
+import banner3 from '../assets/banner3.webp'
 
 const LAST_VERSION_KEY = 'kamucl.lastVersion'
 const builtInBanners = [banner1, banner2, banner3]
@@ -187,6 +187,25 @@ const launchText = computed(() => {
   if (launching.value) return store.progress?.text || '正在启动…'
   return '开始游戏'
 })
+// ---------------- 快捷行悬浮浮块（跟随指针在三格间平滑滑动） ----------------
+const runtimeHover = ref(-1)
+const runtimeStrip = ref<HTMLElement | null>(null)
+const runtimeBlob = reactive({ left: 0, width: 0 })
+function updateRuntimeBlob() {
+  const strip = runtimeStrip.value
+  if (!strip || runtimeHover.value < 0) return
+  const items = strip.querySelectorAll<HTMLElement>('.runtime-item')
+  const target = items[runtimeHover.value]
+  if (!target) return
+  runtimeBlob.left = target.offsetLeft
+  runtimeBlob.width = target.offsetWidth
+}
+watch(runtimeHover, () => nextTick(updateRuntimeBlob))
+const runtimeBlobStyle = computed(() => ({
+  left: runtimeBlob.left + 'px',
+  width: runtimeBlob.width + 'px'
+}))
+
 const heroStatus = computed(() => {
   const version = currentVersion.value
   if (!version) return { text: '等待选择', tone: 'idle' }
@@ -308,6 +327,8 @@ async function saveJavaChoice() {
   finally { javaSaving.value = false }
 }
 const memoryText = computed(() => {
+  // 与设置实时同步：开启自动分配显示「自动」，关闭显示手动数值
+  if (store.settings?.memoryAuto === true) return '自动'
   const mb = store.settings?.memoryMB ?? 0
   if (!mb) return '—'
   return mb % 1024 === 0 ? `${mb / 1024} GB` : `${(mb / 1024).toFixed(1)} GB`
@@ -344,6 +365,8 @@ const skinSrc = computed(() => currentSkin.value?.dataUrl ?? '')
 const skinVariant = computed<SkinVariant>(() =>
   currentSkin.value?.variant === 'slim' ? 'slim' : 'classic'
 )
+/** 首页 3D 预览与皮肤页共用披风渲染：有披风则显示，无则不显示（无手动开关） */
+const activeCape = computed(() => skinProfile.value?.capes?.find((c) => c.active)?.dataUrl ?? '')
 
 function reloadSkin(refresh = false) { return trackBootTask(() => reloadSkinImpl(refresh), 800) }
 async function reloadSkinImpl(refresh = false) {
@@ -532,18 +555,19 @@ onUnmounted(() => {
         </div>
       </section>
 
-      <section class="runtime-strip" data-edit="card">
-        <button class="runtime-item" @click="openJavaPicker" title="选择此实例的 Java：自动或手动">
+      <section ref="runtimeStrip" class="runtime-strip" data-edit="card" @mouseleave="runtimeHover = -1">
+        <span class="runtime-blob" :class="{ on: runtimeHover >= 0 }" :style="runtimeBlobStyle" aria-hidden="true"></span>
+        <button class="runtime-item" @mouseenter="runtimeHover = 0" @click="openJavaPicker" title="选择此实例的 Java：自动或手动">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M7 8h10a4 4 0 0 1 4 4v0a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8v0a4 4 0 0 1 4-4Z" /><path d="M8 13h8M9 17h6" /></svg>
           <span><small>运行环境</small><strong>{{ javaText }}</strong></span>
           <svg class="runtime-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6" /></svg>
         </button>
-        <button class="runtime-item" @click="openSettings('memory')">
+        <button class="runtime-item" @mouseenter="runtimeHover = 1" @click="openSettings('memory')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2" /><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4M9 9h6v6H9Z" /></svg>
           <span><small>内存分配</small><strong>{{ memoryText }}</strong></span>
           <svg class="runtime-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6" /></svg>
         </button>
-        <button class="runtime-item runtime-state" :class="heroStatus.tone" @click="logOpen = true">
+        <button class="runtime-item runtime-state" :class="heroStatus.tone" @mouseenter="runtimeHover = 2" @click="logOpen = true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6" /></svg>
           <span><small>运行状态</small><strong><i></i>{{ heroStatus.text }}</strong></span>
           <svg class="runtime-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6" /></svg>
@@ -634,8 +658,7 @@ onUnmounted(() => {
           </button>
         </div>
         <div class="skin-stage" @dblclick="store.currentView = store.selectedAccount ? 'skins' : 'accounts'">
-          <div class="skin-aura"></div>
-          <SkinViewer3D :src="skinSrc" :variant="skinVariant" />
+          <SkinViewer3D :src="skinSrc" :variant="skinVariant" :cape="activeCape" />
           <div v-if="skinLoading" class="skin-overlay"><span class="spin"></span><span>正在加载皮肤…</span></div>
           <button v-else-if="!store.selectedAccount" class="skin-overlay action" @click="store.currentView = 'accounts'">登录后加载角色皮肤</button>
           <button v-else-if="skinError" class="skin-overlay action error" :title="skinError" @click="reloadSkin(true)">皮肤加载失败，点击重试</button>
@@ -782,13 +805,13 @@ onUnmounted(() => {
 .hero-card {
   position: relative;
   height: var(--banner-h);
-  min-height: 330px;
+  min-height: 348px;
   flex: none;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--border) 95%, white 4%);
-  border-radius: 16px;
+  border-radius: 20px;
   background: #17231f;
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
 }
 .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease; }
 .hero-image.active { opacity: 1; }
@@ -797,7 +820,7 @@ onUnmounted(() => {
   inset: 0;
   background: linear-gradient(90deg, rgba(8, 14, 15, 0.66), rgba(8, 14, 15, 0.24) 54%, rgba(8, 14, 15, 0.08)), linear-gradient(0deg, rgba(5, 10, 9, 0.38), transparent 52%);
 }
-.hero-content { position: relative; z-index: 1; display: flex; height: 100%; padding: 48px 36px 30px; flex-direction: column; align-items: flex-start; color: var(--bn-text); }
+.hero-content { position: relative; z-index: 1; display: flex; height: 100%; padding: 48px 44px 32px 44px; flex-direction: column; align-items: flex-start; color: var(--bn-text); }
 .hero-kicker { display: inline-flex; align-items: center; min-height: 34px; padding: 0 14px; border: 1px solid rgba(255, 255, 255, 0.13); border-radius: 7px; background: rgba(9, 13, 14, 0.48); backdrop-filter: blur(12px); font-size: 13px; font-weight: 650; }
 .hero-content h1 { max-width: 100%; margin-top: 18px; overflow: hidden; color: #fff; font-size: clamp(46px, 5.2vw, 64px); font-weight: 850; line-height: 1.15; letter-spacing: -1px; text-overflow: ellipsis; text-shadow: 0 4px 24px rgba(0, 0, 0, 0.32); white-space: nowrap; }
 .hero-content h1.long-name { font-size: clamp(28px, 3.2vw, 42px); letter-spacing: -0.5px; }
@@ -821,9 +844,15 @@ onUnmounted(() => {
 .hero-more svg { width: 19px; height: 19px; }
 .hero-settings:hover:not(:disabled), .hero-more:hover:not(:disabled) { background: rgba(19, 29, 29, 0.76); }
 .hero-settings:disabled, .hero-more:disabled { opacity: 0.45; cursor: default; }
-.launch-combo { min-width: 310px; height: 70px; border-radius: 11px; box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 30%, transparent); overflow: hidden; }
+.launch-combo {
+  min-width: 310px; height: 76px; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent) 38%, transparent), 0 2px 0 color-mix(in srgb, white 14%, transparent) inset;
+  transition: transform 0.18s cubic-bezier(0.22, 0.9, 0.32, 1.2), box-shadow 0.22s ease;
+}
+.launch-combo:hover { transform: translateY(-2px); box-shadow: 0 16px 40px color-mix(in srgb, var(--accent) 46%, transparent), 0 2px 0 color-mix(in srgb, white 16%, transparent) inset; }
+.launch-combo:active { transform: translateY(0) scale(0.99); }
 .launch-main, .launch-arrow { position: relative; overflow: hidden; border: 0; background: var(--accent-grad); color: var(--on-accent); cursor: pointer; }
-.launch-main { flex: 1; min-width: 0; padding: 0 24px; font-family: inherit; font-size: 20px; font-weight: 750; }
+.launch-main { flex: 1; min-width: 0; padding: 0 26px; font-family: inherit; font-size: 21px; font-weight: 800; letter-spacing: 0.5px; }
 .launch-content { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 12px; }
 .launch-content svg { width: 22px; height: 22px; flex: none; }
 .launch-content span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -834,10 +863,20 @@ onUnmounted(() => {
 .launch-arrow svg { width: 22px; height: 22px; transition: transform 0.18s ease; }
 .launch-arrow svg.open { transform: rotate(180deg); }
 
-.runtime-strip { display: grid; grid-template-columns: 1.12fr 0.95fr 0.92fr; min-height: 78px; flex: none; overflow: hidden; border: 1px solid var(--border); border-radius: 13px; background: color-mix(in srgb, var(--card) 80%, transparent); box-shadow: var(--shadow); }
-.runtime-item { display: grid; grid-template-columns: 34px minmax(0, 1fr) 15px; align-items: center; gap: 11px; min-width: 0; padding: 0 18px; border: 0; background: transparent; color: var(--text); text-align: left; cursor: pointer; }
+.runtime-strip { position: relative; display: grid; grid-template-columns: 1.12fr 0.95fr 0.92fr; min-height: 82px; flex: none; overflow: hidden; border: 1px solid var(--border); border-radius: 15px; background: color-mix(in srgb, var(--card) 80%, transparent); box-shadow: var(--shadow); backdrop-filter: blur(18px) saturate(130%); -webkit-backdrop-filter: blur(18px) saturate(130%); }
+/* 悬浮浮块：跟随指针在三格间平滑滑动（浮起+落下+格间转移过渡） */
+.runtime-blob {
+  position: absolute; top: 0; bottom: 0; z-index: 0;
+  border-radius: 12px; margin: var(--space-1) 0;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  opacity: 0; transform: scale(0.97);
+  transition: left 0.28s cubic-bezier(0.3, 1.1, 0.4, 1), width 0.28s cubic-bezier(0.3, 1.1, 0.4, 1), opacity 0.18s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+.runtime-blob.on { opacity: 1; transform: scale(1); }
+.runtime-item { position: relative; z-index: 1; display: grid; grid-template-columns: 34px minmax(0, 1fr) 15px; align-items: center; gap: 11px; min-width: 0; padding: 0 18px; border: 0; background: transparent; color: var(--text); text-align: left; cursor: pointer; transition: transform 0.18s cubic-bezier(0.22, 0.9, 0.32, 1.15); }
 .runtime-item + .runtime-item { border-left: 1px solid var(--border); }
-.runtime-item:hover { background: var(--hover); }
+.runtime-item:hover { transform: translateY(-2px); }
 .runtime-item > svg:first-child { width: 27px; height: 27px; color: var(--text); }
 .runtime-item > span { display: flex; min-width: 0; flex-direction: column; gap: 4px; }
 .runtime-item small { color: var(--text-dim); font-size: 10px; }
@@ -850,15 +889,26 @@ onUnmounted(() => {
 .runtime-state.error strong { color: var(--danger); }
 .runtime-state.error i { background: var(--danger); box-shadow: 0 0 0 3px var(--danger-soft); }
 
-.instances-block { min-width: 0; margin-top: 28px; }
-.instances-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 11px; }
-.instances-head h2 { font-size: 17px; font-weight: 750; }
+.instances-block { min-width: 0; margin-top: 30px; }
+.instances-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 13px; }
+.instances-head h2 { font-size: 17px; font-weight: 750; display: flex; align-items: center; gap: 9px; }
+/* 区块标题前的主题色短竖线：视觉锚点 */
+.instances-head h2::before { content: ''; width: 4px; height: 17px; border-radius: 2px; background: var(--accent-grad); flex: none; }
 .manage-instances { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 12px; border: 1px solid var(--border); border-radius: 9px; background: var(--card-2); color: var(--text-dim); font-family: inherit; font-size: 12px; font-weight: 550; cursor: pointer; }
 .manage-instances:hover { color: var(--text); border-color: var(--border-strong); }
 .manage-instances svg { width: 15px; height: 15px; }
-.instance-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.instance-card { position: relative; display: grid; grid-template-columns: 36px minmax(0, 1fr); grid-template-rows: 1fr auto; gap: 8px 8px; min-width: 0; height: 130px; min-height: 130px; padding: 17px 14px 13px; border: 1px solid var(--border); border-radius: 13px; background: color-mix(in srgb, var(--card) 82%, transparent); cursor: pointer; transition: border-color 0.18s ease, background 0.18s ease, transform 0.15s ease; }
-.instance-card:hover { border-color: var(--border-strong); background: var(--card-2); transform: translateY(-1px); }
+.instance-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+/* 卡片入场：自下而上渐入 + 按列错落（前 8 张），后续滚动自然 */
+.instance-card { position: relative; display: grid; grid-template-columns: 36px minmax(0, 1fr); grid-template-rows: 1fr auto; gap: 8px 8px; min-width: 0; height: 132px; min-height: 132px; padding: 17px 14px 13px; border: 1px solid var(--border); border-radius: 14px; background: color-mix(in srgb, var(--card) 82%, transparent); cursor: pointer; transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.22s ease; animation: card-in 0.42s cubic-bezier(0.22, 0.9, 0.32, 1) backwards; }
+.instance-card:nth-child(2) { animation-delay: 45ms; }
+.instance-card:nth-child(3) { animation-delay: 90ms; }
+.instance-card:nth-child(4) { animation-delay: 135ms; }
+.instance-card:nth-child(5) { animation-delay: 180ms; }
+.instance-card:nth-child(6) { animation-delay: 225ms; }
+.instance-card:nth-child(7) { animation-delay: 270ms; }
+.instance-card:nth-child(8) { animation-delay: 315ms; }
+@keyframes card-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.instance-card:hover { border-color: var(--border-strong); background: var(--card-2); transform: translateY(-3px); box-shadow: 0 10px 26px color-mix(in srgb, var(--accent) 14%, transparent); }
 .instance-card.selected { border-color: var(--accent-2); box-shadow: inset 0 0 0 1px var(--accent), 0 8px 24px var(--accent-soft); }
 .instance-icon { align-self: center; width: 36px; height: 36px; }
 .instance-icon.image { object-fit: contain; image-rendering: pixelated; }
@@ -876,8 +926,8 @@ onUnmounted(() => {
 .empty-instances { width: 100%; min-height: 110px; border: 1px dashed var(--border-strong); border-radius: 13px; background: var(--card); color: var(--text-dim); cursor: pointer; }
 
 .home-side { display: flex; min-width: 0; flex-direction: column; gap: 12px; }
-.home-creator { margin-top: auto; }
-.account-panel, .skin-panel { border: 1px solid var(--border); border-radius: 14px; background: color-mix(in srgb, var(--card) 78%, transparent); box-shadow: var(--shadow); }
+.home-creator { margin-top: auto; border-color: color-mix(in srgb, var(--accent) 26%, var(--border)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent), var(--shadow); }
+.account-panel, .skin-panel { border: 1px solid var(--border); border-radius: 15px; background: color-mix(in srgb, var(--card) 78%, transparent); box-shadow: var(--shadow); }
 .account-panel { min-height: 146px; padding: 18px; }
 .account-head { display: flex; align-items: center; gap: 13px; }
 .account-head :deep(.mc-avatar) { border-radius: 12px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--text) 8%, transparent); }
@@ -897,16 +947,16 @@ onUnmounted(() => {
 .provider-mark.yggdrasil { background: linear-gradient(135deg, #65bd78, #268e54); }
 .provider-mark.offline { background: var(--card); color: var(--text-dim); }
 
-.skin-panel { min-height: 352px; padding: 15px 14px 12px; }
+.skin-panel { min-height: 400px; padding: 16px 15px 12px; }
 .skin-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 0 2px 8px; }
 .skin-head > div { display: flex; flex-direction: column; gap: 3px; }
 .skin-head h3 { font-size: 14px; font-weight: 700; }
 .skin-head span { color: var(--text-dim); font-size: 10px; }
 .skin-refresh:disabled { opacity: 0.4; cursor: default; }
 .skin-refresh .spinning { animation: spin 0.8s linear infinite; }
-.skin-stage { position: relative; height: 260px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--border) 78%, transparent); border-radius: 11px; background: radial-gradient(circle at 50% 82%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 38%), linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 18%, transparent)); }
+.skin-stage { position: relative; height: 300px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--border) 78%, transparent); border-radius: 12px; background: radial-gradient(circle at 50% 82%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 38%), linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 18%, transparent)); }
 .skin-stage :deep(.viewer3d) { height: 100%; --sv3d-height: 100%; background: transparent; }
-.skin-aura { position: absolute; z-index: 0; left: 50%; bottom: 17px; width: 126px; height: 25px; border: 2px solid color-mix(in srgb, var(--accent-2) 62%, transparent); border-radius: 50%; background: color-mix(in srgb, var(--accent) 18%, transparent); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 46%, transparent), inset 0 0 18px color-mix(in srgb, var(--accent) 25%, transparent); transform: translateX(-50%); }
+
 .skin-overlay { position: absolute; z-index: 2; right: 12px; bottom: 12px; left: 12px; display: flex; min-height: 34px; align-items: center; justify-content: center; gap: 9px; padding: 7px 10px; border: 1px solid var(--border); border-radius: 9px; background: color-mix(in srgb, var(--card) 78%, transparent); color: var(--text-dim); font-family: inherit; font-size: 11px; font-weight: 550; backdrop-filter: blur(12px); }
 .skin-overlay.action { cursor: pointer; }
 .skin-overlay.action:hover { color: var(--text); }

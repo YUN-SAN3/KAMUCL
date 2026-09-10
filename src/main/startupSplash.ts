@@ -1,10 +1,22 @@
 import { BrowserWindow, ipcMain, screen, dialog } from 'electron'
 import { join } from 'node:path'
+import { writeFileSync } from 'node:fs'
 import { BOOT_STAGES, StartupGate, type BootStage } from '../shared/startup'
 import { launcherLog } from './core/launcherLog'
+import { awaitNativeStartup, createNativeStartup, showStartupWindow } from './nativeStartup'
 
 /** Startup-only window coordination. This does not own or terminate Minecraft processes. */
-export function createStartupSplash() {
+export async function createStartupSplash() {
+  const signal = process.env.KAMUCL_BOOT_SIGNAL
+  if (signal) {
+    const pid = await awaitNativeStartup(signal)
+    if (pid) return createNativeStartup(signal, pid)
+    try { writeFileSync(signal, 'fallback') } catch {}
+  }
+  return createElectronStartupSplash()
+}
+
+function createElectronStartupSplash() {
   const gate = new StartupGate()
   const bounds = screen.getPrimaryDisplay().bounds
   let main: BrowserWindow | null = null
@@ -30,8 +42,7 @@ export function createStartupSplash() {
   const reveal = () => {
     if (revealed || !main || main.isDestroyed() || !gate.state.ready || !(gate.assembled || fallback)) return
     revealed = true
-    main.show()
-    main.webContents.setBackgroundThrottling(true)
+    showStartupWindow(main)
     launcherLog('Startup: main window revealed after renderer + compositor + avatar ready')
     if (splash && !splash.isDestroyed()) {
       splash.webContents.send('boot:reveal')

@@ -111,7 +111,7 @@ export function mouseButtonToMcKey(button: number): string | null {
 
 /** MC 绑定值 → 简短显示（key.keyboard.left.shift → LShift，key.mouse.left → 鼠标左键） */
 export function mcKeyLabel(bind: string): string {
-  if (!bind || bind === 'key.keyboard.unknown') return '未绑定'
+  if (!bind || bind === 'key.keyboard.unknown') return '未指定'
   if (bind.startsWith('key.mouse.')) {
     const names: Record<string, string> = {
       left: '鼠标左键', middle: '鼠标中键', right: '鼠标右键', 4: '鼠标侧键4', 5: '鼠标侧键5'
@@ -133,3 +133,60 @@ export function mcKeyLabel(bind: string): string {
   return key.length === 1 ? key.toUpperCase() : key
 }
 
+export function parseSnapshotId(version: string): [number, number] | null {
+  const m = /^(\d{2})w(\d{1,2})[a-e]?$/i.exec(version.trim())
+  return m ? [Number(m[1]), Number(m[2])] : null
+}
+
+/**
+ * 把任意 MC 版本字符串映射为可比较的数值元组（版本族）：
+ * - 正式版按数字段比较（26.x 新版号天然大于所有 1.x）；-pre/-rc/-snapshot 及 "1.14 Pre-Release 2"
+ *   等开发后缀视为其对应正式版（pre1/rc1 的 options.txt 字段已与正式版一致）；
+ * - 快照按「年-周 → 版本族」映射，分界周对齐启动器判定的功能引入点：
+ *   16w20a=autoJump(1.10)、17w43a=新键位系统(1.13)、19w41a=toggleCrouch/toggleSprint(1.15)、
+ *   20w06a=1.16 开发周期（graphicsMode）、25w41a=1.21.11 开发周期（graphicsPreset）、26.x 新版号。
+ *   只需保证对本启动器使用的分界目标（1.10/1.13/1.15/1.16/1.21.11/26.x）单调正确。
+ * 无法解析的非常规 id 按最新处理（与空版本一致的保守方向：宁写新字段不写错旧字段会由字段本身被忽略兜底）。
+ */
+export function mcVersionFamily(version: string): number[] {
+  const v = String(version ?? '').trim()
+  const snap = parseSnapshotId(v)
+  if (snap) {
+    const [yy, ww] = snap
+    if (yy >= 26) return [26, 0]
+    if (yy === 25) return ww >= 41 ? [1, 21, 11] : [1, 21, 10]
+    if (yy === 24) return [1, 21, 4]
+    if (yy === 23) return [1, 20, 4]
+    if (yy === 22) return [1, 19, 3]
+    if (yy === 21) return [1, 18, 2]
+    if (yy === 20) return ww >= 6 ? [1, 16, 5] : [1, 15, 2]
+    if (yy === 19) return ww >= 41 ? [1, 15, 2] : [1, 14, 4]
+    if (yy === 18) return [1, 14, 4]
+    if (yy === 17) return ww >= 43 ? [1, 13] : [1, 12, 2]
+    if (yy === 16) return ww >= 20 ? [1, 10, 2] : [1, 9, 4]
+    if (yy === 15) return [1, 9]
+    return [1, 8]
+  }
+  // 正式版：剥离开发后缀（含 26.2-snapshot-1 / 1.21.11-pre1 / 1.14 Pre-Release 2 三种写法）
+  const base = v.split(/[\s-]/)[0]
+  const parts = base.split('.').map((p) => (/^\d+$/.test(p) ? Number(p) : NaN))
+  if (!parts.length || parts.some((p) => !Number.isFinite(p))) return [999]
+  return parts
+}
+
+/** 版本族元组比较：返回 -1/0/1。26.x > 全部 1.x；1.21.11 > 1.21.9（数字段比较，非字符串） */
+export function compareMcVersions(a: string, b: string): number {
+  const fa = mcVersionFamily(a)
+  const fb = mcVersionFamily(b)
+  for (let i = 0; i < Math.max(fa.length, fb.length); i++) {
+    const d = (fa[i] ?? 0) - (fb[i] ?? 0)
+    if (d) return Math.sign(d)
+  }
+  return 0
+}
+
+/** MC 版本是否 ≥ 目标版本。空版本按最新处理（未知实例不丢同步项）。 */
+export function mcVersionAtLeast(mcVersion: string, target: string): boolean {
+  if (!mcVersion) return true
+  return compareMcVersions(mcVersion, target) >= 0
+}

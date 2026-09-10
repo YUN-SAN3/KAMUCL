@@ -52,7 +52,7 @@ const fontPx = computed(() => `${Math.round(props.size * 0.42)}px`)
 
 <style scoped>
 .mc-avatar {
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   image-rendering: pixelated;
   flex-shrink: 0;
 }

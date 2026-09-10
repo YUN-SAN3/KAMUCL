@@ -4,11 +4,12 @@
  */
 import { IPC, IPC_EVENT } from '@shared/types'
 import type {
+  DefaultResourcePack,
   Account,
   CommunityFile,
   CommunityKind,
   CommunityQuery,
-  CommunityResult,
+  CommunitySearchPage,
   CommunitySource,
   FabricApiVersion,
   FolderScanResult,
@@ -191,12 +192,12 @@ export const importWorld = (inputPath: string, options: WorldImportOptions) =>
 // ---------------- 社区资源 ----------------
 /** 搜索 Modrinth / CurseForge 社区资源 */
 export const communitySearch = (q: CommunityQuery) =>
-  invoke<CommunityResult[]>(IPC.communitySearch, q)
+  invoke<CommunitySearchPage>(IPC.communitySearch, q)
 /** 项目文件版本列表（可按 mc 版本/加载器过滤） */
 export const communityFiles = (
   source: CommunitySource,
   projectId: string,
-  filter?: { mcVersion?: string; loader?: LoaderName | '' }
+  filter?: { mcVersion?: string; loader?: LoaderName | ''; kind?: CommunityKind }
 ) => invoke<CommunityFile[]>(IPC.communityFiles, source, projectId, filter)
 /** 下载资源文件，返回保存路径；kind=modpack 时自动进入整合包安装流程 */
 export const communityDownload = (
@@ -293,6 +294,11 @@ export const getDefaultKeys = () => invoke<Record<string, string>>(IPC.keysGetDe
 export const setDefaultKey = (id: string, bind: string) =>
   invoke<Record<string, string>>(IPC.keysSetDefault, id, bind)
 export const resetDefaultKeys = () => invoke<Record<string, string>>(IPC.keysReset)
+export const getDefaultResourcePacks = () => invoke<DefaultResourcePack[]>(IPC.defaultPacksGet)
+export const importDefaultResourcePacks = (files: string[]) => invoke<DefaultResourcePack[]>(IPC.defaultPacksImport, files)
+export const pickDefaultResourcePacks = () => invoke<DefaultResourcePack[]>(IPC.defaultPacksPick)
+export const removeDefaultResourcePack = (id: string) => invoke<DefaultResourcePack[]>(IPC.defaultPacksRemove, id)
+export const moveDefaultResourcePack = (id: string, direction: number) => invoke<DefaultResourcePack[]>(IPC.defaultPacksMove, id, direction)
 
 // ---------------- 启动器自更新与版本回退 ----------------
 export const checkUpdate = (force = false) => invoke<import('@shared/types').UpdateCheckResult>(IPC.updateCheck, force)
@@ -335,11 +341,12 @@ export const findModCrossDuplicates = (versionIds: string[]) =>
 
 // ---------------- 文件/目录 ----------------
 /** 用系统资源管理器打开游戏目录下的子目录（'' = 游戏根目录） */
-export const openDir = (rel = '') => invoke<void>(IPC.appOpenDir, rel)
+export const openDir = (rel = '', folder?: string) => invoke<void>(IPC.appOpenDir, rel, folder)
 /** 列出游戏目录下某个子目录的文件 */
-export const listFs = (rel: string) => invoke<FsEntry[]>(IPC.fsList, rel)
+export const listFs = (rel: string, folder?: string) => invoke<FsEntry[]>(IPC.fsList, rel, folder)
 /** 删除游戏目录下某个子目录中的文件，返回删除后的列表 */
-export const removeFs = (rel: string, name: string) => invoke<FsEntry[]>(IPC.fsRemove, rel, name)
+export const removeFs = (rel: string, name: string, folder?: string) => invoke<FsEntry[]>(IPC.fsRemove, rel, name, folder)
+export const toggleDisableFs = (rel: string, name: string, folder?: string) => invoke<FsEntry[]>(IPC.fsToggleDisable, rel, name, folder)
 
 // ---------------- 事件订阅（返回取消函数） ----------------
 function subscribe<T>(channel: string, cb: (payload: T) => void): () => void {
@@ -416,3 +423,5 @@ export function formatSpeed(bytes?: number): string {
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB/s`
   return `${(bytes / 1024 / 1024).toFixed(1)} MB/s`
 }
+
+export const importResources = (files: string[], id: string, folder: string, kind: string) => invoke<number>(IPC.fsImportResources, files, id, folder, kind)

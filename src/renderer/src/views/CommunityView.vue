@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { communityDownload, communityFiles, communitySearch, errText, getManifest, getModTargets } from '../api'
 import { store, toast } from '../store'
 import { instanceKey } from '@shared/modCompatibility'
-import { communityFileMatchesInstance } from '@shared/communityPolicy'
+import { communityFileMatchesInstance, usesCommunityLoader } from '@shared/communityPolicy'
 import { mcmodSearchUrl } from '@shared/communityLinks'
 import MarqueeText from '../components/MarqueeText.vue'
 import ModInstallDialog from '../components/ModInstallDialog.vue'
@@ -56,6 +56,42 @@ const kindTabs: Array<{ value: CommunityKind; label: string }> = [
   { value: 'datapack', label: '数据包' }
 ]
 
+/** 类型筛选胶囊滑动指示块（与导航水滴/游戏 Tab 同款弹簧动效） */
+const kindCapsules = ref<HTMLElement | null>(null)
+const kindBlob = reactive({ left: 0, top: 0, width: 0, height: 0, on: false })
+function updateKindBlob() {
+  const root = kindCapsules.value
+  if (!root) return
+  const active = root.querySelector<HTMLElement>(`.capsule[data-kind="${query.kind}"]`)
+  if (!active) return
+  kindBlob.left = active.offsetLeft
+  kindBlob.top = active.offsetTop
+  kindBlob.width = active.offsetWidth
+  kindBlob.height = active.offsetHeight
+  kindBlob.on = true
+}
+// 字体、主题及换行会改变胶囊尺寸，分类切换以外也需要重算。
+let kindBlobObserver: ResizeObserver | null = null
+onMounted(() => {
+  nextTick(updateKindBlob)
+  setTimeout(updateKindBlob, 200)
+  kindBlobObserver = new ResizeObserver(() => updateKindBlob())
+  watch(kindCapsules, (el) => {
+    kindBlobObserver?.disconnect()
+    if (el) kindBlobObserver?.observe(el)
+  }, { immediate: true })
+  // 主题切换改变配色/字体度量 → 重算
+  watch(() => store.settings?.theme, () => nextTick(() => setTimeout(updateKindBlob, 60)))
+})
+onUnmounted(() => kindBlobObserver?.disconnect())
+const kindBlobStyle = computed(() => ({
+  left: kindBlob.left + 'px',
+  top: kindBlob.top + 'px',
+  width: kindBlob.width + 'px',
+  height: kindBlob.height + 'px',
+  opacity: kindBlob.on ? 1 : 0
+}))
+
 const sourceOptions: Array<{ value: 'all' | CommunitySource; label: string }> = [
   { value: 'all', label: '全部来源' },
   { value: 'modrinth', label: 'Modrinth' },
@@ -100,8 +136,14 @@ const filteredVersionOptions = computed(() => {
 })
 
 function pickVersion(v: string) {
-  query.mcVersion = v === query.mcVersion ? '' : v
+  query.mcVersion = v
   versionInput.value = query.mcVersion
+  versionDropdownOpen.value = false
+  onFilterChange()
+}
+
+function applyVersionInput() {
+  query.mcVersion = versionInput.value.trim()
   versionDropdownOpen.value = false
   onFilterChange()
 }
@@ -116,6 +158,10 @@ const query = reactive({
   loader: currentInstance.value?.loader ?? '' as '' | LoaderName,
   sort: 'relevance' as 'relevance' | 'downloads' | 'newest'
 })
+// query 必须先初始化。过早运行 getter 会抛错，导致监听未订阅分类变化。
+watch(() => query.kind, () => nextTick(updateKindBlob), { flush: 'post' })
+const supportsLoader = computed(() => usesCommunityLoader(query.kind))
+const usesPagination = computed(() => !supportsLoader.value)
 
 /** 排序选项 */
 const sortOptions = [
@@ -132,36 +178,54 @@ const searched = ref(false) // 是否已发起过搜索（区分初始空态）
 const loadError = ref('')
 const offset = ref(0)
 const hasMore = ref(false)
+const currentPage = ref(1)
+const totalResults = ref(0)
+const searchWarnings = ref<string[]>([])
+const totalPages = computed(() => Math.max(1, Math.ceil(totalResults.value / PAGE_SIZE)))
+const visiblePages = computed(() => {
+  const start = Math.max(1, Math.min(currentPage.value - 2, totalPages.value - 4))
+  return Array.from({ length: Math.min(5, totalPages.value) }, (_, i) => start + i)
+})
+const listCard = ref<HTMLElement | null>(null)
 
 let searchGeneration = 0
-async function doSearch(reset: boolean) {
+async function doSearch(reset: boolean, page = currentPage.value) {
   if (!reset && (loading.value || loadingMore.value)) return
   const generation = ++searchGeneration
   if (reset) {
     offset.value = 0
+    currentPage.value = 1
+    totalResults.value = 0
     results.value = []
+    searchWarnings.value = []
   }
-  const first = reset
+  const paged = usesPagination.value
+  if (paged && !reset) currentPage.value = page
+  const requestedOffset = paged ? (currentPage.value - 1) * PAGE_SIZE : offset.value
+  const first = reset || paged
   if (first) loading.value = true
   else loadingMore.value = true
   loadError.value = ''
   searched.value = true
   try {
-    const list = await communitySearch({
+    const response = await communitySearch({
       keyword: query.keyword.trim(),
       kind: query.kind,
       source: query.source,
       mcVersion: query.mcVersion || undefined,
-      loader: query.loader || undefined,
+      loader: supportsLoader.value ? query.loader || undefined : undefined,
       sort: query.sort,
-      offset: offset.value,
+      offset: requestedOffset,
       limit: PAGE_SIZE
     })
     if (generation !== searchGeneration) return
+    const list = response.items
     if (first) results.value = list
     else results.value = [...results.value, ...list]
-    hasMore.value = list.length >= PAGE_SIZE
-    offset.value += list.length
+    totalResults.value = response.total
+    searchWarnings.value = response.warnings ?? []
+    hasMore.value = requestedOffset + PAGE_SIZE < response.total
+    offset.value = requestedOffset + PAGE_SIZE
   } catch (e) {
     if (generation !== searchGeneration) return
     loadError.value = errText(e)
@@ -176,6 +240,30 @@ async function doSearch(reset: boolean) {
 
 const onSearch = () => void doSearch(true)
 const onLoadMore = () => void doSearch(false)
+async function goToPage(page: number) {
+  if (loading.value || page < 1 || page > totalPages.value || page === currentPage.value) return
+  await doSearch(false, page)
+  listCard.value?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+}
+
+// ---------------- 无限滚动：列表底部哨兵进入视口即自动加载（保留按钮作兜底） ----------------
+const moreSentinel = ref<HTMLElement | null>(null)
+let moreObserver: IntersectionObserver | null = null
+onMounted(() => {
+  moreObserver = new IntersectionObserver(
+    (entries) => {
+      if (!usesPagination.value && entries.some((e) => e.isIntersecting) && hasMore.value && !loading.value && !loadingMore.value) {
+        onLoadMore()
+      }
+    },
+    { root: null, rootMargin: '240px', threshold: 0 }
+  )
+  watch(moreSentinel, (el) => {
+    moreObserver?.disconnect()
+    if (el) moreObserver?.observe(el)
+  }, { immediate: true })
+})
+onUnmounted(() => moreObserver?.disconnect())
 function useCurrentInstance() {
   query.mcVersion = currentInstance.value?.mcVersion === '未知' ? '' : currentInstance.value?.mcVersion ?? ''
   query.loader = currentInstance.value?.loader ?? ''
@@ -265,6 +353,7 @@ const releaseText: Record<CommunityFile['releaseType'], string> = {
 const modal = reactive({
   open: false,
   item: null as CommunityResult | null,
+  kind: 'mod' as CommunityKind,
   files: [] as CommunityFile[],
   loadingFiles: false,
   filesError: '',
@@ -275,11 +364,11 @@ const modal = reactive({
   downloading: false
 })
 
-const isModpack = computed(() => query.kind === 'modpack')
+const isModpack = computed(() => modal.kind === 'modpack')
 const selectedFile = computed(
   () => modal.files.find((f) => f.fileId === modal.fileId) ?? null
 )
-const targetOptions = computed(() => query.kind === 'mod' ? allTargets.value.filter(v => selectedFile.value && communityFileMatchesInstance(selectedFile.value, v)) : store.installed)
+const targetOptions = computed(() => modal.kind === 'mod' ? allTargets.value.filter(v => selectedFile.value && communityFileMatchesInstance(selectedFile.value, v)) : store.installed)
 watch(targetOptions, options => {
   if (!options.some(v => instanceKey(v) === modal.versionId)) {
     const selected = options.find(v => v.id === currentInstance.value?.id && v.folder === currentInstance.value?.folder) ?? options[0]
@@ -292,11 +381,11 @@ async function loadFiles() {
   const generation = ++fileGeneration, item = modal.item
   modal.loadingFiles = true; modal.filesError = ''; modal.files = []; modal.fileId = ''
   try {
-    const files = await communityFiles(item.source, item.projectId, { mcVersion: modal.mcVersion || undefined, loader: modal.loader || undefined })
+    const files = await communityFiles(item.source, item.projectId, { kind: modal.kind, mcVersion: modal.mcVersion || undefined, loader: usesCommunityLoader(modal.kind) ? modal.loader || undefined : undefined })
     if (generation !== fileGeneration || !modal.open) return
     modal.files = files
     modal.fileId = (files.find(f => f.releaseType === 'release') ?? files[0])?.fileId ?? ''
-    if (!files.length) modal.filesError = '当前 Minecraft / Loader 条件下没有文件，可手动调整筛选。'
+    if (!files.length) modal.filesError = usesCommunityLoader(modal.kind) ? '当前 Minecraft / Loader 条件下没有文件，可手动调整筛选。' : '当前 Minecraft 版本下没有文件，可调整版本筛选。'
   } catch (e) { if (generation === fileGeneration) modal.filesError = '获取文件列表失败：' + errText(e) }
   finally { if (generation === fileGeneration) modal.loadingFiles = false }
 }
@@ -304,13 +393,14 @@ async function loadFiles() {
 async function openDownload(item: CommunityResult) {
   modal.open = true
   modal.item = item
+  modal.kind = query.kind
   modal.files = []
   modal.loadingFiles = true
   modal.filesError = ''
   modal.fileId = ''
   modal.versionId = currentInstance.value ? instanceKey(currentInstance.value) : ''
   modal.mcVersion = query.mcVersion
-  modal.loader = query.loader
+  modal.loader = supportsLoader.value ? query.loader : ''
   modal.downloading = false
   try {
     const scanned = await getModTargets()
@@ -336,7 +426,7 @@ async function confirmDownload() {
   const file = selectedFile.value
   if (!file || !canConfirm.value) return
   const target = targetOptions.value.find(v => instanceKey(v) === modal.versionId)
-  if (query.kind === 'mod') {
+  if (modal.kind === 'mod') {
     if (!target) return
     modRequest.value = { target, input: { file } }
     return
@@ -345,10 +435,10 @@ async function confirmDownload() {
   try {
     const res = await communityDownload(file, {
       versionId: target?.id ?? '',
-      kind: query.kind
+      kind: modal.kind
     })
     modal.open = false
-    if (query.kind === 'modpack') {
+    if (modal.kind === 'modpack') {
       toast(res || '已开始安装整合包', 'success')
     } else {
       toast(`下载完成，已保存到：${res}`, 'success')
@@ -372,7 +462,7 @@ async function confirmDownload() {
     <!-- 搜索卡片 -->
     <div class="card search-card">
       <div class="filter-row">
-        <span class="muted">兼容筛选：{{ query.mcVersion || '全部 Minecraft' }} / {{ query.loader || '全部 Loader' }}</span>
+        <span class="muted">兼容筛选：{{ query.mcVersion || '全部 Minecraft' }}<template v-if="supportsLoader"> / {{ query.loader || '全部 Loader' }}</template><template v-else> · 不按模组加载器筛选</template></span>
         <select
           v-if="store.installed.length"
           class="select filter-select instance-filter"
@@ -405,11 +495,13 @@ async function confirmDownload() {
         <button class="btn btn-ghost" :disabled="loading" @click="onReset">重置条件</button>
       </div>
 
-      <div class="kind-capsules">
+      <div class="kind-capsules" ref="kindCapsules">
+        <span class="capsule-blob" :style="kindBlobStyle" aria-hidden="true"></span>
         <button
           v-for="t in kindTabs"
           :key="t.value"
           class="capsule"
+          :data-kind="t.value"
           :class="{ active: query.kind === t.value }"
           @click="query.kind = t.value; onFilterChange()"
         >
@@ -429,10 +521,12 @@ async function confirmDownload() {
             :placeholder="manifestLoading ? '加载版本列表…' : (query.mcVersion || '全部版本')"
             @focus="versionDropdownOpen = true"
             @input="versionDropdownOpen = true"
+            @change="applyVersionInput"
+            @keydown.enter.prevent="applyVersionInput"
           />
           <div v-if="versionDropdownOpen" class="menu-overlay" @click="versionDropdownOpen = false"></div>
           <div v-if="versionDropdownOpen" class="float-menu ver-filter-menu">
-            <button class="menu-item" :class="{ active: !query.mcVersion }" @click="pickVersion('')">
+            <button class="menu-item" :class="{ active: !query.mcVersion }" @mousedown.prevent @click="pickVersion('')">
               全部版本
             </button>
             <button
@@ -440,6 +534,7 @@ async function confirmDownload() {
               :key="v"
               class="menu-item"
               :class="{ active: query.mcVersion === v }"
+              @mousedown.prevent
               @click="pickVersion(v)"
             >
               {{ v }}
@@ -447,7 +542,7 @@ async function confirmDownload() {
             <div v-if="!filteredVersionOptions.length" class="ver-menu-empty">无匹配版本</div>
           </div>
         </div>
-        <select v-model="query.loader" class="select filter-select" @change="onFilterChange">
+        <select v-if="supportsLoader" v-model="query.loader" class="select filter-select" @change="onFilterChange">
           <option v-for="o in loaderOptions" :key="o.value" :value="o.value">{{ o.label }}</option>
         </select>
         <select v-model="query.sort" class="select filter-select" @change="onFilterChange">
@@ -457,7 +552,8 @@ async function confirmDownload() {
     </div>
 
     <!-- 结果列表 -->
-    <div class="card list-card">
+    <div ref="listCard" class="card list-card">
+      <p v-for="warning in searchWarnings" :key="warning" class="search-warning">{{ warning }}</p>
       <!-- 加载中 -->
       <div v-if="loading" class="empty">
         <span class="spin"></span>
@@ -466,7 +562,7 @@ async function confirmDownload() {
       <!-- 错误态 -->
       <div v-else-if="loadError" class="empty">
         <span>搜索失败：{{ loadError }}</span>
-        <button class="btn btn-ghost btn-sm" @click="onSearch">重试</button>
+        <button class="btn btn-ghost btn-sm" @click="usesPagination ? doSearch(false) : onSearch()">重试</button>
       </div>
       <!-- 空态 -->
       <div v-else-if="!results.length" class="empty">
@@ -481,72 +577,82 @@ async function confirmDownload() {
       <!-- 列表 -->
       <template v-else>
         <div class="result-list">
-          <div v-for="r in results" :key="itemKey(r)" class="result-row">
-            <div class="result-icon">
-              <img
-                v-if="r.iconUrl && !brokenIcons.has(itemKey(r))"
-                :src="r.iconUrl"
-                alt=""
-                loading="lazy"
-                @error="onIconError(r)"
-              />
-              <span v-else class="icon-placeholder">{{ (r.title || '?').charAt(0).toUpperCase() }}</span>
-            </div>
-            <div class="result-info">
+          <div v-for="r in results" :key="itemKey(r)" class="result-card">
+            <div class="result-top">
+              <div class="result-icon">
+                <img
+                  v-if="r.iconUrl && !brokenIcons.has(itemKey(r))"
+                  :src="r.iconUrl"
+                  alt=""
+                  loading="lazy"
+                  @error="onIconError(r)"
+                />
+                <span v-else class="icon-placeholder">{{ (r.title || '?').charAt(0).toUpperCase() }}</span>
+              </div>
               <div class="result-head">
                 <MarqueeText class="result-title" :text="r.title"/>
                 <span class="tag" :class="r.source === 'modrinth' ? 'tag-success' : 'tag-cf'">
-                  {{ r.source === 'modrinth' ? 'Modrinth' : 'CurseForge' }}
+                  来源：{{ r.source === 'modrinth' ? 'Modrinth' : 'CurseForge' }}
                 </span>
                 <span v-if="r.author" class="muted result-author">{{ r.author }}</span>
               </div>
-              <p class="result-desc" :title="r.description">{{ r.description || '暂无简介' }}</p>
-              <div class="result-meta muted">
-                <span>下载量 {{ fmtDownloads(r.downloads) }}</span>
-                <span class="meta-dot">·</span>
-                <span>更新于 {{ fmtDate(r.updatedAt) }}</span>
+            </div>
+            <p class="result-desc" :title="r.description">{{ r.description || '暂无简介' }}</p>
+            <div class="result-meta muted">
+              <span>下载量 {{ fmtDownloads(r.downloads) }}</span>
+              <span class="meta-dot">·</span>
+              <span>更新于 {{ fmtDate(r.updatedAt) }}</span>
+            </div>
+            <div class="result-foot">
+              <div class="result-links">
+                <button
+                  class="icon-btn"
+                  :title="`打开 ${r.source === 'modrinth' ? 'Modrinth' : 'CurseForge'} 源页面（查看完整介绍）`"
+                  @click="openExternal(sourceUrl(r))"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+                </button>
+                <button
+                  class="icon-btn"
+                  title="在 MC 百科查看介绍与教程"
+                  @click="openMcmod(r)"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                </button>
               </div>
-            </div>
-            <div class="result-links">
-              <button
-                class="icon-btn"
-                :title="`打开 ${r.source === 'modrinth' ? 'Modrinth' : 'CurseForge'} 源页面（查看完整介绍）`"
-                @click="openExternal(sourceUrl(r))"
-              >
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
-              </button>
-              <button
-                class="icon-btn"
-                title="在 MC 百科查看介绍与教程"
-                @click="openMcmod(r)"
-              >
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              <button class="btn btn-gold btn-sm result-dl" @click="openDownload(r)">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v11" />
+                  <path d="m7 10 5 5 5-5" />
+                  <path d="M4 21h16" />
+                </svg>
+                下载
               </button>
             </div>
-            <button class="btn btn-gold btn-sm result-dl" @click="openDownload(r)">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 3v11" />
-                <path d="m7 10 5 5 5-5" />
-                <path d="M4 21h16" />
-              </svg>
-              下载
-            </button>
           </div>
         </div>
+        <!-- 无限滚动哨兵：进入视口自动加载更多（按钮保留作兜底） -->
+        <div v-if="!usesPagination && hasMore" ref="moreSentinel" class="more-sentinel"></div>
         <!-- 加载更多 -->
-        <div v-if="hasMore" class="more-row">
+        <div v-if="!usesPagination && hasMore" class="more-row">
           <button class="btn btn-ghost" :disabled="loadingMore" @click="onLoadMore">
             <span v-if="loadingMore" class="spin"></span>
             {{ loadingMore ? '加载中…' : '加载更多' }}
           </button>
         </div>
       </template>
+      <nav v-if="usesPagination && searched" class="pagination" aria-label="资源分页">
+        <span class="muted">共 {{ totalResults }} 项 · 第 {{ currentPage }} / {{ totalPages }} 页</span>
+        <button class="btn btn-ghost btn-sm" :disabled="loading || currentPage <= 1" @click="goToPage(currentPage - 1)">上一页</button>
+        <button v-for="page in visiblePages" :key="page" class="btn btn-sm" :class="page === currentPage ? 'btn-gold' : 'btn-ghost'" :aria-current="page === currentPage ? 'page' : undefined" :disabled="loading" @click="goToPage(page)">{{ page }}</button>
+        <button class="btn btn-ghost btn-sm" :disabled="loading || currentPage >= totalPages" @click="goToPage(currentPage + 1)">下一页</button>
+      </nav>
     </div>
 
     <!-- 下载模态框 -->
     <Teleport to="body">
       <div v-if="modal.open" class="modal-mask" @pointerdown.self="!modal.downloading && (modal.open = false)">
-        <div class="modal" style="width: min(740px, calc(100vw - 40px)); max-height: 88vh; overflow-y: auto">
+        <div class="modal download-modal">
           <h3 class="modal-title"><MarqueeText :text="'下载 ' + modal.item?.title"/></h3>
           <div v-if="modal.item" class="modal-links">
             <button class="btn btn-ghost btn-sm" @click="openExternal(sourceUrl(modal.item))">
@@ -557,8 +663,8 @@ async function confirmDownload() {
             </button>
           </div>
           <div class="filter-row">
-            <label style="flex: 1; min-width: 0">Minecraft 版本<input v-model="modal.mcVersion" class="input" list="mod-minecraft-versions" placeholder="全部版本" @change="loadFiles"/></label>
-            <label style="flex: 1; min-width: 0">Loader<select v-model="modal.loader" class="select" @change="loadFiles"><option v-for="l in loaderOptions" :key="l.value" :value="l.value">{{ l.label }}</option></select></label>
+            <label class="modal-field">Minecraft 版本<input v-model="modal.mcVersion" class="input" list="mod-minecraft-versions" placeholder="全部版本" @change="loadFiles"/></label>
+            <label v-if="usesCommunityLoader(modal.kind)" class="modal-field">Loader<select v-model="modal.loader" class="select" @change="loadFiles"><option v-for="l in loaderOptions" :key="l.value" :value="l.value">{{ l.label }}</option></select></label>
             <datalist id="mod-minecraft-versions"><option v-for="v in manifestVersions" :key="v" :value="v"/></datalist>
           </div>
 
@@ -576,9 +682,14 @@ async function confirmDownload() {
                 :class="{ active: modal.fileId === f.fileId }"
                 @click="modal.fileId = f.fileId"
               >
-                <span class="file-version"><MarqueeText :text="f.fileName"/><MarqueeText :text="'MOD ' + f.version"/><MarqueeText :text="'MC ' + f.gameVersions.join(' / ') + ' · Loader ' + f.loaders.join(' / ')"/></span>
-                <span class="tag" :class="releaseTagClass(f.releaseType)">{{ releaseText[f.releaseType] }}</span>
-                <span class="muted file-meta">{{ fmtDate(f.date) }} · {{ fmtSize(f.size) }}</span>
+                <span class="file-main">
+                  <span class="file-name" :title="f.fileName">{{ f.fileName }}</span>
+                  <span class="file-sub">版本 {{ f.version }} · MC {{ f.gameVersions.join(' / ') }}<template v-if="usesCommunityLoader(modal.kind) && f.loaders.length"> · {{ f.loaders.join(' / ') }}</template></span>
+                </span>
+                <span class="file-side">
+                  <span class="tag" :class="releaseTagClass(f.releaseType)">{{ releaseText[f.releaseType] }}</span>
+                  <span class="muted file-meta">{{ fmtDate(f.date) }} · {{ fmtSize(f.size) }}</span>
+                </span>
               </button>
             </div>
             <p v-if="modal.filesError" class="files-error">{{ modal.filesError }}</p>
@@ -614,7 +725,7 @@ async function confirmDownload() {
 .page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--sec-gap);
   max-width: 940px;
   margin: 0 auto;
 }
@@ -623,11 +734,11 @@ async function confirmDownload() {
 .search-card {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--space-3);
 }
 .search-row {
   display: flex;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .search-row .input {
   flex: 1;
@@ -638,35 +749,55 @@ async function confirmDownload() {
 }
 
 .kind-capsules {
+  position: relative;
   display: flex;
-  gap: 8px;
+  gap: 2px;
   flex-wrap: wrap;
-}
-.capsule {
-  padding: 6px 16px;
+  padding: 3px;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--card-2);
+  width: fit-content;
+}
+/* 类型筛选滑动指示块：弹簧动效跟随激活胶囊 */
+.capsule-blob {
+  position: absolute;
+  border-radius: 999px;
+  background: var(--accent-grad);
+  box-shadow: 0 2px 8px var(--accent-soft);
+  transition: left 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), top 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), width 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), height 0.32s ease, opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.capsule {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--ctl-h) - 6px);
+  padding: 0 var(--space-4);
+  border: none;
+  border-radius: 999px;
+  background: transparent;
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+  transition: color 0.2s ease;
 }
 .capsule:hover {
   color: var(--text);
-  border-color: var(--border-strong);
 }
 .capsule.active {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  color: var(--accent);
+  color: var(--on-accent);
   font-weight: 600;
 }
 
 .filter-row {
   display: flex;
-  gap: 10px;
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 .filter-select {
@@ -685,7 +816,7 @@ async function confirmDownload() {
 }
 .ver-filter-menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + var(--space-1));
   left: 0;
   right: 0;
   max-height: 260px;
@@ -693,46 +824,66 @@ async function confirmDownload() {
   z-index: 9001;
 }
 .ver-menu-empty {
-  padding: 12px;
+  padding: var(--space-3);
   text-align: center;
   color: var(--text-dim);
-  font-size: 12.5px;
+  font-size: var(--text-xs);
 }
 
-/* ---------------- 结果列表 ---------------- */
+/* ---------------- 结果列表（卡片横向网格，窄窗口自动换行） ---------------- */
 .list-card {
-  padding: 8px;
+  padding: var(--space-3);
 }
+.pagination { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-2); padding: var(--space-4) 0 var(--space-2); }
+.search-warning { color: var(--text-dim); font-size: var(--text-xs); padding: var(--space-2); }
 .result-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-3);
+}
+.result-card {
   display: flex;
   flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--card-2);
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.22s ease;
+  /* 入场：自下而上渐入 + 按序错落 */
+  animation: community-card-in 0.4s cubic-bezier(0.22, 0.9, 0.32, 1) backwards;
 }
-.result-row {
+.result-card:nth-child(3n+1) { animation-delay: 0ms; }
+.result-card:nth-child(3n+2) { animation-delay: 50ms; }
+.result-card:nth-child(3n) { animation-delay: 100ms; }
+@keyframes community-card-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.result-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  background: var(--hover);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 13%, transparent);
+}
+
+.result-top {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 12px;
-  border-radius: 10px;
-  transition: background 0.15s ease;
-}
-.result-row + .result-row {
-  border-top: 1px solid var(--border);
-}
-.result-row:hover {
-  background: var(--hover);
+  gap: var(--space-3);
+  min-width: 0;
 }
 
 .result-icon {
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   flex-shrink: 0;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--card-2);
+  background: var(--card);
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 8%, transparent);
 }
 .result-icon img {
   width: 100%;
@@ -741,64 +892,73 @@ async function confirmDownload() {
   display: block;
 }
 .icon-placeholder {
-  font-size: 20px;
+  font-size: var(--text-lg);
   font-weight: 700;
   color: var(--text-dim);
 }
 
-.result-info {
+.result-head {
   flex: 1;
   min-width: 0;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.result-head {
-  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 .result-title {
-  flex: 1 1 220px;
+  flex: 1 1 100%;
   font-weight: 700;
-  font-size: 15px;
+  font-size: var(--text-md);
 }
 /* CurseForge 橙（Modrinth 绿复用 tag-success） */
 .tag-cf {
-  background: rgba(249, 115, 22, 0.12);
+  background: color-mix(in srgb, #f97316 12%, transparent);
   color: #f97316;
 }
 .result-author {
-  font-size: 12px;
+  font-size: var(--text-xs);
+  min-width: 0;
 }
 .result-desc {
-  font-size: 13px;
+  font-size: var(--text-xs);
+  line-height: 1.6;
   color: var(--text-dim);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  /* 固定两行高度，保证网格内卡片对齐不跳动 */
+  min-height: calc(var(--text-xs) * 1.6 * 2);
 }
 .result-meta {
-  font-size: 12px;
+  font-size: var(--text-xs);
   display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: auto;
 }
 .meta-dot {
   opacity: 0.6;
 }
+.result-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
 .result-links {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: var(--space-1);
   flex-shrink: 0;
-  margin-right: 4px;
 }
 .modal-links {
   display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: var(--space-2);
+  flex-wrap: wrap;
 }
 .result-dl {
   flex-shrink: 0;
@@ -807,88 +967,126 @@ async function confirmDownload() {
 .more-row {
   display: flex;
   justify-content: center;
-  padding: 14px 0 8px;
+  padding: var(--space-4) 0 var(--space-2);
 }
 
 /* ---------------- 下载模态框 ---------------- */
+.download-modal {
+  width: min(740px, calc(100vw - 40px));
+  max-height: 88vh;
+  overflow-y: auto;
+}
+.modal-field {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+}
 .modal-title {
-  font-size: 17px;
+  font-size: var(--text-lg);
   font-weight: 700;
-  margin-bottom: 16px;
+  margin: 0 0 var(--space-3);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .modal-label {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--text-dim);
-  margin: 14px 0 8px;
+  margin: var(--space-4) 0 var(--space-2);
 }
 .files-loading {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px 0;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
 }
+/* 文件版本列表：卡片化行（主行文件名 + 副行版本兼容信息，右侧标签+日期体积），宽松呼吸 */
 .file-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  max-height: 240px;
+  gap: var(--space-2);
+  max-height: 280px;
   overflow-y: auto;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 6px;
-  background: var(--card-2);
+  padding: var(--space-1) var(--space-1) var(--space-1) 0;
+  /* 内嵌滚动区不再用外框包住（卡片自带边界） */
 }
 .file-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-3);
   width: 100%;
-  padding: 12px 10px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  background: transparent;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card-2);
   color: var(--text);
-  font-size: 13px;
   font-family: inherit;
   text-align: left;
   cursor: pointer;
-  transition: background 0.14s ease, border-color 0.14s ease;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease, box-shadow 0.2s ease;
 }
 .file-row:hover {
   background: var(--hover);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
 }
 .file-row.active {
   background: var(--accent-soft);
   border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent), 0 4px 14px var(--accent-soft);
 }
-.file-version {
+/* 左：文件名（主）+ 版本兼容信息（副） */
+.file-main {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.file-name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 600;
+  font-weight: 650;
+  font-size: var(--text-sm);
+  font-family: ui-monospace, Consolas, monospace;
+}
+.file-sub {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+}
+/* 右：发行标签 + 日期·体积 */
+.file-side {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }
 .file-meta {
-  font-size: 12px;
+  font-size: var(--text-xs);
   white-space: nowrap;
 }
 .files-error {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--danger);
-  padding: 6px 0;
+  padding: var(--space-1) 0;
 }
 .pack-tip {
-  font-size: 13px;
-  margin-top: 14px;
+  font-size: var(--text-sm);
+  margin: var(--space-4) 0 0;
 }
 .modal-actions {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 </style>

@@ -91,6 +91,8 @@ async function loadManifest() {
 }
 
 async function poll() {
+  // 页面隐藏时暂停轮询，回到页面后下一轮自动恢复，避免后台空转
+  if (document.hidden) return
   const wasConnected = status.value?.connected === true
   await refreshStatus()
   if (status.value?.connected && !wasConnected) await loadManifest()
@@ -217,7 +219,7 @@ function isModified(p: BridgeParam): boolean {
       <div v-if="params.length" class="bridge-toolbar">
         <input v-model="search" class="input bridge-search" placeholder="搜索参数名称、说明、分组…" />
       </div>
-      <div v-if="loadingManifest" class="card empty"><span class="spin"></span></div>
+      <div v-if="loadingManifest" class="card empty"><span class="spin"></span><span>正在读取参数清单…</span></div>
       <template v-else>
         <div v-for="mod in groupedParams" :key="mod.modId" class="bridge-mod">
           <div v-for="group in mod.groups" :key="group.group" class="card bridge-card">
@@ -295,34 +297,44 @@ function isModified(p: BridgeParam): boolean {
 
 <style scoped>
 .bridge-page { max-width: 860px; }
-.bridge-status { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.bridge-status { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--card-pad); flex-wrap: wrap; }
 .bridge-status.connected { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
 .bridge-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--text-dim); flex-shrink: 0; }
-.bridge-dot.on { background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); }
-.bridge-status-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+/* 已连接状态点：呼吸脉冲 */
+.bridge-dot.on { background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); animation: bridge-pulse 2.2s ease-in-out infinite; }
+@keyframes bridge-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--ok-soft); }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--ok) 10%, transparent); }
+}
+/* 观感修正：文字行距/元素间距从 2px 提到令牌档，避免与边框/控件贴死 */
+.bridge-status-text { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: var(--space-1); }
+.bridge-status-text strong { font-size: var(--text-sm); }
+.bridge-status-text .muted { font-size: var(--text-xs); }
 .bridge-toolbar { display: flex; }
 .bridge-search { flex: 1; }
-.bridge-mod { display: flex; flex-direction: column; gap: 16px; }
-.bridge-card { padding: 6px 16px 10px; }
-.bridge-card-head { display: flex; align-items: baseline; gap: 10px; padding: 10px 0 6px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
-.bridge-card-head .muted { font-size: 12px; }
-.bridge-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; }
+.bridge-mod { display: flex; flex-direction: column; gap: var(--card-gap); }
+.bridge-card { padding: var(--space-4) var(--card-pad) var(--space-4); transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.18s ease; }
+.bridge-card:hover { transform: translateY(-2px); box-shadow: 0 10px 26px color-mix(in srgb, var(--accent) 10%, transparent); border-color: var(--border-strong); }
+.bridge-card-head { display: flex; align-items: baseline; gap: var(--space-3); padding: 0 0 var(--space-3); border-bottom: 1px solid var(--border); margin-bottom: var(--space-2); }
+.bridge-card-head strong { font-size: var(--text-sm); font-weight: 700; }
+.bridge-card-head .muted { font-size: var(--text-xs); }
+.bridge-row { display: flex; align-items: center; gap: var(--space-4); min-height: var(--row-h); padding: var(--space-3) 0; }
 .bridge-row + .bridge-row { border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent); }
 .bridge-row.disabled .bridge-row-info { opacity: 0.55; }
-.bridge-row-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-.bridge-label { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.bridge-desc { font-size: 12px; }
-.bridge-error { font-size: 12px; color: var(--danger); }
-.bridge-apply-tag { font-size: 10px; padding: 1px 7px; }
-.bridge-scope-tag { font-size: 10px; padding: 1px 7px; }
-.bridge-control { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.bridge-row-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.bridge-label { font-size: var(--text-sm); font-weight: 600; display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.bridge-desc { font-size: var(--text-xs); }
+.bridge-error { font-size: var(--text-xs); color: var(--danger); }
+.bridge-apply-tag { font-size: var(--text-xs); padding: 1px var(--space-2); }
+.bridge-scope-tag { font-size: var(--text-xs); padding: 1px var(--space-2); }
+.bridge-control { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
 .bridge-slider { width: 150px; accent-color: var(--accent); }
-.bridge-slider-value { min-width: 44px; text-align: right; font-size: 12px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.bridge-slider-value { min-width: 44px; text-align: right; font-size: var(--text-xs); color: var(--text-dim); font-variant-numeric: tabular-nums; }
 .bridge-text { width: 200px; }
 .bridge-select { width: 160px; }
 .bridge-reset {
   display: flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px; border: none; border-radius: 6px;
+  width: 26px; height: 26px; border: none; border-radius: var(--radius-sm);
   background: transparent; color: var(--text-dim); cursor: pointer;
 }
 .bridge-reset:hover { color: var(--accent-2); background: var(--hover); }

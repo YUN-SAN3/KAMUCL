@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import {
   changeCape,
   deleteSkinHistory,
@@ -32,8 +32,8 @@ const currentVariant = computed<SkinVariant>(() =>
   currentSkin.value?.variant === 'slim' ? 'slim' : 'classic'
 )
 const capes = computed(() => profile.value?.capes ?? [])
-/** 当前装备的披风（active=true）纹理，传给 3D 预览实时渲染 */
-const activeCapeDataUrl = computed(() => capes.value.find((c) => c.active)?.dataUrl ?? '')
+/** 使用中的披风直接传给 3D 人偶渲染 */
+const activeCape = computed(() => capes.value.find((c) => c.active)?.dataUrl ?? '')
 
 async function loadProfile() {
   loadingProfile.value = true
@@ -46,6 +46,39 @@ async function loadProfile() {
     loadingProfile.value = false
   }
 }
+
+// ---------------- 3D 预览控制 ----------------
+const viewerRef = ref<InstanceType<typeof SkinViewer3D> | null>(null)
+/** 行走 / 待机动画切换 */
+const previewAnim = ref<'walk' | 'idle'>('walk')
+
+/** 行走/待机分段控件滑动块（与导航水滴/游戏 Tab 同款弹簧动效） */
+const animSeg = ref<HTMLElement | null>(null)
+const animSegBlob = reactive({ left: 0, width: 0, on: false })
+function updateAnimSegBlob() {
+  const root = animSeg.value
+  if (!root) return
+  const active = root.querySelector<HTMLElement>(`.seg-btn[data-seg="${previewAnim.value}"]`)
+  if (!active) return
+  animSegBlob.left = active.offsetLeft
+  animSegBlob.width = active.offsetWidth
+  animSegBlob.on = true
+}
+watch(previewAnim, () => nextTick(updateAnimSegBlob))
+let animSegObserver: ResizeObserver | null = null
+onMounted(() => {
+  nextTick(updateAnimSegBlob)
+  setTimeout(updateAnimSegBlob, 200)
+  animSegObserver = new ResizeObserver(() => updateAnimSegBlob())
+  if (animSeg.value) animSegObserver.observe(animSeg.value)
+  watch(() => store.settings?.theme, () => nextTick(() => setTimeout(updateAnimSegBlob, 60)))
+})
+onUnmounted(() => animSegObserver?.disconnect())
+const animSegBlobStyle = computed(() => ({
+  left: animSegBlob.left + 'px',
+  width: animSegBlob.width + 'px',
+  opacity: animSegBlob.on ? 1 : 0
+}))
 
 // ---------------- 披风 ----------------
 const capeRenders = ref<Record<string, string>>({})
@@ -85,8 +118,9 @@ const historySearch = ref('')
 const filteredHistory = computed(() => {
   const kw = historySearch.value.trim().toLowerCase()
   if (!kw) return historyList.value
-  return historyList.value.filter((item) =>
-    (item.name || '').toLowerCase().includes(kw) || item.id.toLowerCase().includes(kw)
+  return historyList.value.filter(
+    (item) =>
+      (item.name || '').toLowerCase().includes(kw) || item.id.toLowerCase().includes(kw)
   )
 })
 
@@ -293,7 +327,7 @@ watch(
 </script>
 
 <template>
-  <div class="page">
+  <div class="page skins-page">
     <div class="page-head">
       <h1 class="page-title">皮肤与披风</h1>
       <p class="page-sub">
@@ -311,22 +345,57 @@ watch(
     </div>
 
     <template v-else>
-      <!-- ============ 当前皮肤 ============ -->
+      <!-- ============ 第一行：3D 预览 + 当前皮肤（40% / 60%，窄窗自动换行） ============ -->
       <div
-        class="card skin-card"
+        class="row-main"
         :class="{ 'drag-over': dragOver }"
         @dragenter.stop.prevent="onCardDragEnter"
         @dragover.stop.prevent="onCardDragOver"
         @dragleave.stop.prevent="onCardDragLeave"
         @drop.stop.prevent="onCardDrop"
       >
-        <h3 class="section-title">当前皮肤</h3>
-        <div class="skin-main">
-          <!-- 左：3D 人偶预览 -->
+        <!-- 左：3D 人偶预览 -->
+        <section class="card pane pane-preview">
+          <header class="pane-head">
+            <h3 class="pane-title">3D 预览</h3>
+            <div v-if="!loadingProfile && currentSkin?.dataUrl" class="pane-tools">
+              <div class="seg" ref="animSeg" role="group" aria-label="动画模式">
+                <span class="seg-blob" :style="animSegBlobStyle" aria-hidden="true"></span>
+                <button
+                  class="seg-btn"
+                  data-seg="walk"
+                  :class="{ active: previewAnim === 'walk' }"
+                  @click="previewAnim = 'walk'"
+                >
+                  行走
+                </button>
+                <button
+                  class="seg-btn"
+                  data-seg="idle"
+                  :class="{ active: previewAnim === 'idle' }"
+                  @click="previewAnim = 'idle'"
+                >
+                  待机
+                </button>
+              </div>
+              <button class="icon-btn" title="回正视角" @click="viewerRef?.resetView()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="7.5" />
+                  <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3" />
+                </svg>
+              </button>
+            </div>
+          </header>
           <div class="preview-3d">
             <template v-if="!loadingProfile && currentSkin?.dataUrl">
-              <SkinViewer3D :src="currentSkin.dataUrl" :variant="currentVariant" :cape="activeCapeDataUrl" />
-              <p class="muted viewer-tip">拖动可旋转视角 · 正在播放走路动画</p>
+              <SkinViewer3D
+                ref="viewerRef"
+                :src="currentSkin.dataUrl"
+                :variant="currentVariant"
+                :animation="previewAnim"
+                :cape="activeCape"
+              />
+              <p class="muted viewer-tip">拖动旋转 · 滚轮缩放 · 双击回正</p>
             </template>
             <div v-else class="preview-3d-empty">
               <span v-if="loadingProfile" class="spin"></span>
@@ -338,251 +407,320 @@ watch(
                 <span>暂无皮肤</span>
               </div>
             </div>
-            <div v-if="dragOver" class="drag-hint">松开以选择皮肤文件</div>
+          </div>
+        </section>
+
+        <!-- 右：当前皮肤信息与上传 -->
+        <section class="card pane pane-info">
+          <header class="pane-head">
+            <h3 class="pane-title">当前皮肤</h3>
+            <span class="tag" :class="currentVariant === 'slim' ? 'tag-cyan' : 'tag-gold'">
+              {{ currentVariant === 'slim' ? '纤细 Slim' : '经典 Classic' }}
+            </span>
+          </header>
+
+          <div class="skin-name-row">
+            <span class="skin-username">{{ profile?.username || store.selectedAccount?.username }}</span>
           </div>
 
-          <!-- 右：信息与操作 -->
-          <div class="skin-side">
-            <div class="skin-name-row">
-              <span class="skin-username">{{ profile?.username || store.selectedAccount?.username }}</span>
-              <span class="tag" :class="currentVariant === 'slim' ? 'tag-cyan' : 'tag-gold'">
-                {{ currentVariant === 'slim' ? '纤细' : '经典' }}
-              </span>
+          <!-- 待上传文件 -->
+          <div v-if="isMs && pending" class="pending-box">
+            <div class="pending-viewer">
+              <SkinViewer3D v-if="pendingDataUrl" :src="pendingDataUrl" :variant="variant" />
             </div>
-
-            <!-- 待上传文件 -->
-            <div v-if="isMs && pending" class="pending-box">
-              <div class="pending-viewer">
-                <SkinViewer3D v-if="pendingDataUrl" :src="pendingDataUrl" :variant="variant" />
+            <div class="pending-meta">
+              <span class="pending-name" :title="pending.name">{{ pending.name }}</span>
+              <div class="seg">
+                <button
+                  class="seg-btn"
+                  :class="{ active: variant === 'classic' }"
+                  @click="variant = 'classic'"
+                >
+                  经典 Classic
+                </button>
+                <button
+                  class="seg-btn"
+                  :class="{ active: variant === 'slim' }"
+                  @click="variant = 'slim'"
+                >
+                  纤细 Slim
+                </button>
               </div>
-              <div class="pending-meta">
-                <span class="pending-name" :title="pending.name">{{ pending.name }}</span>
-                <div class="seg">
+            </div>
+            <button class="icon-btn" title="移除待上传文件" @click="clearPending">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
+            </button>
+          </div>
+
+          <div v-if="isMs" class="skin-actions">
+            <button class="btn btn-ghost" @click="fileInput?.click()">选择皮肤文件…</button>
+            <button class="btn btn-gold" :disabled="!pending || uploading" @click="doUpload">
+              {{ uploading ? '上传中…' : '上传' }}
+            </button>
+          </div>
+          <p v-if="isMs" class="muted skin-hint">支持 64×64 的 PNG 皮肤文件，也可直接拖拽到本页（旧版 64×32 会自动迁移预览）</p>
+          <div v-else class="external-skin-note">
+            <span class="tag tag-cyan">{{ store.selectedAccount?.providerName }}</span>
+            <p class="muted skin-hint">外置账号的皮肤与披风由所属皮肤站管理；KAMUCL 会读取并在启动时加载当前材质。</p>
+          </div>
+
+          <input
+            ref="fileInput"
+            type="file"
+            accept=".png,image/png"
+            class="hidden-input"
+            @change="onInputChange"
+          />
+        </section>
+
+        <div v-if="dragOver" class="drag-hint">松开以选择皮肤文件</div>
+      </div>
+
+      <!-- ============ 第二行：披风 + 历史皮肤 ============ -->
+      <div class="row-sub">
+        <section class="card pane pane-capes">
+          <header class="pane-head">
+            <h3 class="pane-title">披风（{{ capes.length }}）</h3>
+          </header>
+          <div v-if="loadingProfile" class="empty pane-empty"><span class="spin"></span></div>
+          <div v-else-if="!capes.length" class="empty pane-empty">
+            <span>该账号暂无披风</span>
+          </div>
+          <div v-else class="cape-grid">
+            <button
+              v-for="c in capes"
+              :key="c.id"
+              class="cape-item"
+              :class="{ active: c.active }"
+              :disabled="capeBusy !== null || isExternal"
+              :title="isExternal ? '请在所属皮肤站管理披风' : c.active ? '点击卸下披风' : '点击使用该披风'"
+              @click="onCapeClick(c)"
+            >
+              <div class="cape-preview">
+                <img v-if="capeRenders[c.id]" :src="capeRenders[c.id]" class="cape-img" :alt="c.alias" />
+                <span v-else class="cape-alias">{{ c.alias }}</span>
+              </div>
+              <span class="cape-name">{{ c.alias }}</span>
+              <span class="cape-state">
+                <span v-if="capeBusy === c.id" class="spin"></span>
+                <span v-else-if="c.active" class="tag tag-gold">使用中</span>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <section v-if="isMs" class="card pane pane-history">
+          <header class="pane-head">
+            <h3 class="pane-title">历史皮肤（{{ historyList.length }}）</h3>
+            <input
+              v-if="historyList.length"
+              v-model="historySearch"
+              class="input history-search"
+              placeholder="搜索文件名…"
+              title="按文件名即时筛选历史皮肤"
+            />
+          </header>
+          <div v-if="loadingHistory" class="empty pane-empty"><span class="spin"></span></div>
+          <div v-else-if="!historyList.length" class="empty pane-empty">
+            <span>暂无历史皮肤，上传皮肤后会自动保存到这里，方便随时换回</span>
+          </div>
+          <div v-else-if="!filteredHistory.length" class="empty pane-empty">
+            <span>没有匹配「{{ historySearch }}」的历史皮肤</span>
+          </div>
+          <div v-else class="history-grid">
+            <div v-for="item in filteredHistory" :key="item.id" class="history-item">
+              <div class="history-preview">
+                <img
+                  :src="historyRenders[item.id] || item.dataUrl"
+                  class="history-img"
+                  alt="历史皮肤"
+                />
+                <div class="history-overlay">
                   <button
-                    class="seg-btn"
-                    :class="{ active: variant === 'classic' }"
-                    @click="variant = 'classic'"
+                    class="btn btn-gold btn-sm"
+                    :disabled="historyBusy !== null"
+                    @click="onRestore(item)"
                   >
-                    经典 Classic
+                    {{ historyBusy === item.id ? '处理中…' : '换回' }}
                   </button>
                   <button
-                    class="seg-btn"
-                    :class="{ active: variant === 'slim' }"
-                    @click="variant = 'slim'"
+                    class="btn btn-danger btn-sm"
+                    :disabled="historyBusy !== null"
+                    @click="onDeleteHistory(item)"
                   >
-                    纤细 Slim
+                    删除
                   </button>
                 </div>
               </div>
-              <button class="icon-btn" title="移除待上传文件" @click="clearPending">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                  <path d="M6 6l12 12M18 6 6 18" />
-                </svg>
-              </button>
-            </div>
-
-            <div v-if="isMs" class="skin-actions">
-              <button class="btn btn-ghost" @click="fileInput?.click()">选择皮肤文件…</button>
-              <button class="btn btn-gold" :disabled="!pending || uploading" @click="doUpload">
-                {{ uploading ? '上传中…' : '上传' }}
-              </button>
-            </div>
-            <p v-if="isMs" class="muted skin-hint">支持 64×64 的 PNG 皮肤文件，可直接拖拽到本卡片</p>
-            <div v-else class="external-skin-note">
-              <span class="tag tag-cyan">{{ store.selectedAccount?.providerName }}</span>
-              <p class="muted skin-hint">外置账号的皮肤与披风由所属皮肤站管理；KAMUCL 会读取并在启动时加载当前材质。</p>
-            </div>
-          </div>
-        </div>
-        <input
-          ref="fileInput"
-          type="file"
-          accept=".png,image/png"
-          class="hidden-input"
-          @change="onInputChange"
-        />
-      </div>
-
-      <!-- ============ 披风 ============ -->
-      <div class="card">
-        <h3 class="section-title">披风（{{ capes.length }}）</h3>
-        <div v-if="loadingProfile" class="empty cape-loading"><span class="spin"></span></div>
-        <div v-else-if="!capes.length" class="empty cape-empty">
-          <span>该账号暂无披风</span>
-        </div>
-        <div v-else class="cape-grid">
-          <button
-            v-for="c in capes"
-            :key="c.id"
-            class="cape-item"
-            :class="{ active: c.active }"
-            :disabled="capeBusy !== null || isExternal"
-            :title="isExternal ? '请在所属皮肤站管理披风' : c.active ? '点击卸下披风' : '点击使用该披风'"
-            @click="onCapeClick(c)"
-          >
-            <div class="cape-preview">
-              <img v-if="capeRenders[c.id]" :src="capeRenders[c.id]" class="cape-img" :alt="c.alias" />
-              <span v-else class="cape-alias">{{ c.alias }}</span>
-            </div>
-            <span class="cape-name">{{ c.alias }}</span>
-            <span v-if="capeBusy === c.id" class="spin cape-spin"></span>
-            <span v-else-if="c.active" class="tag tag-gold">使用中</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- ============ 历史皮肤 ============ -->
-      <div v-if="isMs" class="card">
-        <div class="history-head">
-          <h3 class="section-title history-title">历史皮肤（{{ historyList.length }}）</h3>
-          <input
-            v-if="historyList.length"
-            v-model="historySearch"
-            class="input history-search"
-            placeholder="搜索文件名…"
-            title="按文件名即时筛选历史皮肤"
-          />
-        </div>
-        <div v-if="loadingHistory" class="empty cape-loading"><span class="spin"></span></div>
-        <div v-else-if="!historyList.length" class="empty history-empty">
-          <span>暂无历史皮肤，上传皮肤后会自动保存到这里，方便随时换回</span>
-        </div>
-        <div v-else-if="!filteredHistory.length" class="empty history-empty">
-          <span>没有匹配「{{ historySearch }}」的历史皮肤</span>
-        </div>
-        <div v-else class="history-grid">
-          <div v-for="item in filteredHistory" :key="item.id" class="history-item">
-            <div class="history-preview">
-              <img
-                :src="historyRenders[item.id] || item.dataUrl"
-                class="history-img"
-                alt="历史皮肤"
-              />
-              <div class="history-overlay">
-                <button
-                  class="btn btn-gold btn-sm"
-                  :disabled="historyBusy !== null"
-                  @click="onRestore(item)"
-                >
-                  {{ historyBusy === item.id ? '处理中…' : '换回' }}
-                </button>
-                <button
-                  class="btn btn-danger btn-sm"
-                  :disabled="historyBusy !== null"
-                  @click="onDeleteHistory(item)"
-                >
-                  删除
-                </button>
+              <div class="history-meta">
+                <span class="tag" :class="item.variant === 'slim' ? 'tag-cyan' : 'tag-gold'">
+                  {{ item.variant === 'slim' ? '纤细' : '经典' }}
+                </span>
+                <span class="muted history-time">{{ fmtTime(item.time) }}</span>
+              </div>
+              <div class="history-name-row">
+                <input
+                  v-if="historyRenaming === item.id"
+                  v-model="historyRenameText"
+                  class="input history-name-input"
+                  :placeholder="item.id + '.png'"
+                  @keydown.enter="commitHistoryRename(item)"
+                  @keydown.esc="cancelHistoryRename"
+                  @blur="commitHistoryRename(item)"
+                  v-focus
+                />
+                <span
+                  v-else
+                  class="history-name"
+                  :title="`${historyDisplayName(item)}（点击重命名）`"
+                  @click="startHistoryRename(item)"
+                >{{ historyDisplayName(item) }}</span>
               </div>
             </div>
-            <div class="history-meta">
-              <span class="tag" :class="item.variant === 'slim' ? 'tag-cyan' : 'tag-gold'">
-                {{ item.variant === 'slim' ? '纤细' : '经典' }}
-              </span>
-              <span class="muted history-time">{{ fmtTime(item.time) }}</span>
-            </div>
-            <div class="history-name-row">
-              <input
-                v-if="historyRenaming === item.id"
-                v-model="historyRenameText"
-                class="input history-name-input"
-                :placeholder="item.id + '.png'"
-                @keydown.enter="commitHistoryRename(item)"
-                @keydown.esc="cancelHistoryRename"
-                @blur="commitHistoryRename(item)"
-                v-focus
-              />
-              <span
-                v-else
-                class="history-name"
-                :title="`${historyDisplayName(item)}（点击重命名）`"
-                @click="startHistoryRename(item)"
-              >{{ historyDisplayName(item) }}</span>
-            </div>
           </div>
-        </div>
+        </section>
       </div>
     </template>
   </div>
 </template>
 
 <style scoped>
-.page {
+/* ================= 页面骨架：区块排「行」，行内横向分栏，窄窗换行 ================= */
+.skins-page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 860px;
+  gap: var(--sec-gap);
+  max-width: 1080px;
   margin: 0 auto;
 }
-
-.section-title {
-  font-size: 15px;
-  margin-bottom: 14px;
+.skins-page .page-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
 }
-
-/* ---------------- 非微软账号引导 ---------------- */
-.need-ms {
-  padding: 72px 20px;
+.skins-page .page-sub {
+  font-size: var(--text-xs);
+  color: var(--text-dim);
 }
-.need-ms-icon {
-  width: 52px;
-  height: 52px;
-  color: var(--accent);
-  opacity: 0.8;
+/* 毛玻璃卡片：内边距 / 圆角 / 背景模糊统一走令牌 */
+.skins-page .card {
+  padding: var(--card-pad);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
 }
-.need-ms-text {
-  font-size: 14px;
+.row-main,
+.row-sub {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--card-gap);
 }
-
-/* ---------------- 当前皮肤卡片 ---------------- */
-.skin-card {
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+/* 预览区 ≈40%、信息区 ≈60%（FCL 主页比例参考），各自带最小宽度以便窄窗换行 */
+.pane-preview {
+  flex: 1 1 380px;
+  max-width: 40%;
+  min-width: 330px;
 }
-.skin-card.drag-over {
-  border-color: var(--accent);
+.pane-info {
+  flex: 2 1 420px;
+  min-width: 330px;
+}
+.pane-capes {
+  flex: 1 1 380px;
+  max-width: 40%;
+  min-width: 300px;
+}
+.pane-history {
+  flex: 2 1 420px;
+  min-width: 320px;
+}
+.row-main {
+  transition: box-shadow 0.18s ease;
+}
+.row-main.drag-over {
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
-.external-skin-note {
-  display: grid;
-  justify-items: start;
-  gap: 9px;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--card-2);
+@media (max-width: 820px) {
+  .pane-preview,
+  .pane-info,
+  .pane-capes,
+  .pane-history {
+    flex: 1 1 100%;
+    max-width: none;
+  }
 }
-.skin-main {
+
+/* ================= 卡片头：标题行高 ≥ --row-h，控件垂直居中 ================= */
+.pane-head {
   display: flex;
-  gap: 22px;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  margin-bottom: var(--space-2);
 }
+.pane-title {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+.pane-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.pane-tools .icon-btn {
+  width: var(--ctl-h);
+  height: var(--ctl-h);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pane-tools .icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+.pane-empty {
+  padding: var(--space-5);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+/* ================= 3D 预览 ================= */
 .preview-3d {
+  --sv3d-height: 380px;
   position: relative;
-  width: 260px;
-  flex-shrink: 0;
 }
 .preview-3d-empty {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 340px;
+  height: var(--sv3d-height);
   border: 1px dashed var(--border-strong);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
   overflow: hidden;
 }
 .viewer-tip {
-  margin-top: 8px;
-  font-size: 12px;
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
   text-align: center;
 }
 .preview-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   color: var(--text-dim);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 .preview-placeholder svg {
   width: 40px;
@@ -592,31 +730,29 @@ watch(
 .drag-hint {
   position: absolute;
   inset: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--accent) 18%, transparent);
   color: var(--accent-2);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 600;
   text-align: center;
-  padding: 0 12px;
+  padding: 0 var(--space-4);
+  pointer-events: none;
 }
 
-.skin-side {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
+/* ================= 当前皮肤信息 ================= */
 .skin-name-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
+  min-height: var(--row-h);
 }
 .skin-username {
-  font-size: 17px;
+  font-size: var(--text-lg);
   font-weight: 700;
 }
 
@@ -624,10 +760,11 @@ watch(
 .pending-box {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-3);
   border: 1px solid var(--accent);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: var(--accent-soft);
 }
 .pending-viewer {
@@ -640,78 +777,114 @@ watch(
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  align-items: flex-start;
+  gap: var(--space-2);
 }
 .pending-name {
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 600;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 /* 模型分段选择 */
 .seg {
+  position: relative;
   display: inline-flex;
-  align-self: flex-start;
-  gap: 3px;
+  align-items: stretch;
+  gap: 2px;
+  height: var(--ctl-h);
   padding: 3px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
 }
+/* 滑动指示块：弹簧动效跟随激活分段 */
+.seg-blob {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-grad);
+  transition: left 0.3s cubic-bezier(0.3, 1.2, 0.4, 1), width 0.3s cubic-bezier(0.3, 1.2, 0.4, 1), opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 0;
+}
 .seg-btn {
-  padding: 5px 14px;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 var(--space-4);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-xs);
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: color 0.2s ease;
   white-space: nowrap;
 }
 .seg-btn:hover:not(.active) {
   color: var(--text);
 }
 .seg-btn.active {
-  background: var(--accent-grad);
   color: var(--on-accent);
   font-weight: 600;
 }
 
 .skin-actions {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+.skin-actions .btn {
+  min-height: var(--ctl-h);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .skin-hint {
-  font-size: 12px;
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+}
+.external-skin-note {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card-2);
 }
 .hidden-input {
   display: none;
 }
 
-/* ---------------- 披风 ---------------- */
-.cape-loading {
-  padding: 28px;
-}
-.cape-empty {
-  padding: 28px;
-}
+/* ================= 披风 ================= */
 .cape-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
+  gap: var(--space-3);
 }
 .cape-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 14px 10px 12px;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-2);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
   color: var(--text);
   font-family: inherit;
@@ -736,7 +909,7 @@ watch(
   justify-content: center;
   width: 72px;
   height: 112px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--card);
   border: 1px solid var(--border);
   overflow: hidden;
@@ -746,37 +919,48 @@ watch(
   image-rendering: pixelated;
 }
 .cape-alias {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-dim);
   text-align: center;
-  padding: 0 6px;
+  padding: 0 var(--space-2);
   word-break: break-all;
 }
 .cape-name {
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 600;
   max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.cape-spin {
-  margin: 2px 0;
+.cape-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+}
+.cape-state .tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ---------------- 历史皮肤 ---------------- */
-.history-empty {
-  padding: 28px;
+/* ================= 历史皮肤 ================= */
+.history-search {
+  width: 180px;
+  height: var(--ctl-h);
+  padding: 0 var(--space-3);
+  font-size: var(--text-xs);
 }
 .history-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 12px;
+  gap: var(--space-3);
 }
 .history-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .history-preview {
   position: relative;
@@ -785,7 +969,7 @@ watch(
   justify-content: center;
   height: 168px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
   overflow: hidden;
 }
@@ -799,7 +983,7 @@ watch(
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-2);
   background: var(--mask);
   opacity: 0;
   transition: opacity 0.16s ease;
@@ -811,39 +995,30 @@ watch(
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: var(--space-1);
+  min-height: 20px;
+}
+.history-meta .tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .history-time {
-  font-size: 11px;
+  font-size: var(--text-xs);
   white-space: nowrap;
 }
-.history-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-.history-head .history-title {
-  margin-bottom: 0;
-}
-.history-search {
-  width: 180px;
-  padding: 6px 10px;
-  font-size: 12px;
-}
 .history-name-row {
-  margin-top: 4px;
+  min-height: 20px;
 }
 .history-name {
   display: block;
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: var(--text-dim);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: text;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   padding: 1px 3px;
   transition: background 0.12s ease, color 0.12s ease;
 }
@@ -853,7 +1028,34 @@ watch(
 }
 .history-name-input {
   width: 100%;
-  padding: 2px 6px;
-  font-size: 11px;
+  height: var(--ctl-h);
+  padding: 0 var(--space-2);
+  font-size: var(--text-xs);
+}
+
+/* ================= 非微软账号引导 ================= */
+.need-ms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-7) var(--card-pad);
+  text-align: center;
+}
+.need-ms-icon {
+  width: 52px;
+  height: 52px;
+  color: var(--accent);
+  opacity: 0.8;
+}
+.need-ms-text {
+  font-size: var(--text-md);
+}
+.need-ms .btn {
+  min-height: var(--ctl-h);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

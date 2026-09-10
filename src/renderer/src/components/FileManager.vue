@@ -3,8 +3,8 @@
  * 通用文件管理视图：模组 / 资源包 / 光影包共用。
  * 通过 IPC fs:list / fs:remove / app:openDir 管理游戏目录下的子目录。
  */
-import { computed, onMounted, reactive, ref, watch } from 'vue'
-import { applyModUpdates, checkModUpdates, copyText, errText, listFs, openDir, removeFs } from '../api'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { importResources, applyModUpdates, checkModUpdates, copyText, errText, listFs, openDir, removeFs, toggleDisableFs } from '../api'
 import { refreshInstalled, store, toast } from '../store'
 import ConfirmModal from './ConfirmModal.vue'
 import DupCleanModal from './DupCleanModal.vue'
@@ -31,8 +31,10 @@ const opening = ref(false)
 
 // ---------------- 版本上下文（模组/资源包/光影包按游戏版本管理） ----------------
 /** 当前选中版本（默认第一个已装版本；store.resourceVersionId 三页共享） */
+const activeFolder = computed(() => store.settings?.activeFolder || store.settings?.gameDir || '')
+const availableVersions = computed(() => store.installed.filter(v => !v.folder || v.folder.toLowerCase() === activeFolder.value.toLowerCase()))
 const currentVersion = computed(() => {
-  const list = store.installed
+  const list = availableVersions.value
   if (!list.length) return null
   return list.find((v) => v.id === store.resourceVersionId) ?? list[0]
 })
@@ -49,7 +51,7 @@ async function load() {
   loading.value = true
   loadError.value = ''
   try {
-    entries.value = await listFs(effectiveRel.value)
+    entries.value = await listFs(effectiveRel.value, currentVersion.value?.folder || activeFolder.value)
   } catch (e) {
     const msg = errText(e)
     // 目录不存在不算错误（新版本还没该子目录）
@@ -60,7 +62,24 @@ async function load() {
   }
 }
 
+const importing = ref(false)
+async function dropResources(event: DragEvent) {
+  const v = currentVersion.value
+  if (!v) { toast('请先选择当前文件夹中的游戏版本', 'error'); return }
+  if (importing.value) return
+  const folder = v.folder || activeFolder.value, kind = props.rel
+  const files = Array.from(event.dataTransfer?.files ?? []).map(f => window.kamucl.getFilePath(f)).filter(Boolean)
+  importing.value = true
+  try {
+    const count = await importResources(files, v.id, folder, kind)
+    toast('已导入 ' + count + ' 项到 ' + v.id + ' / ' + kind, 'success')
+    await load()
+  } catch (e) { toast('导入失败：' + errText(e), 'error') }
+  finally { importing.value = false }
+}
+onUnmounted(() => { if (store.resourceDropHandler === dropResources) store.resourceDropHandler = null })
 onMounted(async () => {
+  store.resourceDropHandler = dropResources
   if (!store.installed.length) await refreshInstalled()
   if (!store.resourceVersionId && store.installed.length) {
     store.resourceVersionId = store.installed[0].id
@@ -68,7 +87,7 @@ onMounted(async () => {
   void load()
 })
 
-watch(effectiveRel, () => void load())
+watch([effectiveRel, activeFolder], () => void load())
 watch(() => store.fsRefreshTick, () => void load())
 
 // ---------------- 路径显示（超长中间省略 + 点击复制） ----------------
@@ -101,7 +120,7 @@ const filtered = computed(() =>
 async function onOpenDir() {
   opening.value = true
   try {
-    await openDir(effectiveRel.value)
+    await openDir(effectiveRel.value, currentVersion.value?.folder || activeFolder.value)
   } catch (e) {
     toast('打开文件夹失败：' + errText(e), 'error')
   } finally {
@@ -116,12 +135,31 @@ function onRemove(entry: FsEntry) {
   delModal.target = entry
 }
 
+// ---------------- 模组禁用/启用（仅模组页；.jar ↔ .jar.disabled，运行中由主进程阻止） ----------------
+const isModEntry = (e: FsEntry) =>
+  props.rel === 'mods' && !e.isDir && /\.jar(\.disabled)?$/i.test(e.name)
+const isDisabledMod = (e: FsEntry) => /\.jar\.disabled$/i.test(e.name)
+const toggling = ref('')
+
+async function onToggleDisable(entry: FsEntry) {
+  if (toggling.value) return
+  toggling.value = entry.name
+  try {
+    entries.value = await toggleDisableFs(effectiveRel.value, entry.name, currentVersion.value?.folder || activeFolder.value)
+    toast(isDisabledMod(entry) ? `已启用 ${entry.name.replace(/\.disabled$/i, '')}` : `已禁用 ${entry.name}`, 'success')
+  } catch (e) {
+    toast(errText(e), 'error')
+  } finally {
+    toggling.value = ''
+  }
+}
+
 async function onConfirmRemove() {
   const entry = delModal.target
   if (!entry || delModal.busy) return
   delModal.busy = true
   try {
-    entries.value = await removeFs(effectiveRel.value, entry.name)
+    entries.value = await removeFs(effectiveRel.value, entry.name, currentVersion.value?.folder || activeFolder.value)
     delModal.open = false
     toast(`已删除 ${entry.name}`, 'success')
   } catch (e) {
@@ -240,10 +278,10 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
       </div>
       <div class="fm-actions">
         <SelectMenu
-          v-if="store.installed.length"
+          v-if="availableVersions.length"
           v-model="store.resourceVersionId"
           class="fm-ver-select"
-          :options="store.installed.map(v => ({ value: v.id, label: v.id + (v.isolated ? '（已隔离）' : '（共享）') }))"
+          :options="availableVersions.map(v => ({ value: v.id, label: v.id + (v.isolated ? '（已隔离）' : '（共享）') }))"
           @change="() => {}"
         />
         <button class="btn btn-ghost" :disabled="loading" @click="load">
@@ -278,7 +316,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
     </div>
 
     <!-- 未安装任何版本时提示 -->
-    <div v-if="!store.installed.length" class="card empty" style="padding: 40px 20px">
+    <div v-if="!store.installed.length" class="card empty">
       <span>还没有安装任何游戏版本，请先到「游戏版本」页安装</span>
     </div>
 
@@ -346,7 +384,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
         <span>没有匹配「{{ store.searchKeyword }}」的文件</span>
       </div>
       <div v-else class="fm-list">
-        <div v-for="e in filtered" :key="e.name" class="fm-row">
+        <div v-for="e in filtered" :key="e.name" class="fm-row" :class="{ 'fm-row-disabled': isDisabledMod(e) }">
           <span class="fm-file-icon">
             <svg v-if="e.isDir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
@@ -357,8 +395,20 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
             </svg>
           </span>
           <span class="fm-name" :title="e.name">{{ e.name }}</span>
+          <span v-if="isDisabledMod(e)" class="tag fm-disabled-tag">已禁用</span>
           <span class="muted fm-meta">{{ e.isDir ? '文件夹' : fmtSize(e.size) }}</span>
           <span class="muted fm-meta fm-date">{{ fmtDate(e.mtime) }}</span>
+          <button
+            v-if="isModEntry(e)"
+            class="btn btn-sm fm-toggle"
+            :class="isDisabledMod(e) ? 'btn-gold' : 'btn-ghost'"
+            :disabled="toggling === e.name"
+            :title="isDisabledMod(e) ? '恢复为 .jar，重新加载该模组' : '改名为 .jar.disabled，游戏将不再加载该模组'"
+            @click="onToggleDisable(e)"
+          >
+            <span v-if="toggling === e.name" class="spin"></span>
+            {{ isDisabledMod(e) ? '启用' : '禁用' }}
+          </button>
           <button class="btn btn-danger btn-sm fm-remove" @click="onRemove(e)">删除</button>
         </div>
       </div>
@@ -390,7 +440,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 .page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--sec-gap);
   max-width: 940px;
   margin: 0 auto;
 }
@@ -399,7 +449,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
   flex-wrap: nowrap; /* 头部永不换行，按钮组位置固定 */
 }
 .fm-head-left {
@@ -420,7 +470,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 .fm-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   flex-shrink: 0; /* 按钮组固定尺寸，永不因文本长度移位 */
 }
 .fm-ver-select {
@@ -429,7 +479,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 }
 
 .fm-card {
-  padding: 8px;
+  padding: var(--space-2);
 }
 .fm-list {
   display: flex;
@@ -438,9 +488,10 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 .fm-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: 10px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
   transition: background 0.15s ease;
 }
 .fm-row:hover {
@@ -467,7 +518,7 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
   user-select: text;
 }
 .fm-meta {
-  font-size: 12px;
+  font-size: var(--text-xs);
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
 }
@@ -477,6 +528,25 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 }
 .fm-remove {
   flex-shrink: 0;
+}
+.fm-toggle {
+  flex-shrink: 0;
+}
+.fm-row-disabled {
+  opacity: 0.55;
+}
+.fm-row-disabled .fm-name {
+  text-decoration: line-through;
+  text-decoration-color: var(--text-3);
+}
+.fm-disabled-tag {
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--card-2);
+  color: var(--text-3);
+  border: 1px solid var(--line);
 }
 .empty-icon {
   display: flex;
@@ -492,21 +562,22 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 
 /* MOD 更新检测面板 */
 .upd-panel {
-  padding: 14px 16px;
+  padding: var(--card-pad);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 }
 .upd-head {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
 }
 .upd-head-spacer {
   flex: 1;
 }
 .upd-empty {
-  padding: 16px 0;
+  padding: var(--space-4) 0;
 }
 .upd-list {
   display: flex;
@@ -517,9 +588,10 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 .upd-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 10px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
 }
 .upd-row:hover {
   background: var(--card-2);
@@ -540,8 +612,9 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
   white-space: nowrap;
 }
 .upd-ver {
-  font-size: 12px;
+  font-size: var(--text-xs);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 .upd-ver b {
   color: var(--accent-2);
@@ -552,16 +625,16 @@ function toggleUpdateSelect(fileName: string, checked: boolean) {
 }
 .upd-err {
   color: var(--danger);
-  font-size: 12px;
+  font-size: var(--text-xs);
   flex-shrink: 0;
 }
 .upd-foot {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 .upd-foot .muted {
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 </style>

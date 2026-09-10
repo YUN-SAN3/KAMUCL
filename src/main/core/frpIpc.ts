@@ -3,6 +3,7 @@
  *   - invoke 'frp:start'  ({ accessKey, tunnelId, localPort })
  *   - invoke 'frp:stop'
  *   - invoke 'frp:status'
+ *   - invoke 'frp:nodes'  ({ accessKey?, refresh? })  节点列表 + 用户隧道（api.natfrp.com/v4，缓存 10 分钟）
  *   - push   'frp:event'  ({ type:'log'|'ready'|'error'|'stopped'|'status', data })
  */
 import type { IpcMain } from 'electron'
@@ -13,6 +14,7 @@ import {
   type FrpConfig,
   type FrpState
 } from './frp'
+import { fetchFrpNodes } from './frpNodes'
 
 export interface FrpStartPayload {
   accessKey: string
@@ -25,6 +27,7 @@ export const FRP_IPC = {
   start: 'frp:start',
   stop: 'frp:stop',
   status: 'frp:status',
+  nodes: 'frp:nodes',
   event: 'frp:event'
 } as const
 
@@ -52,6 +55,12 @@ export function registerFrpIpc(ipcMain: IpcMain): void {
       if (saved) st.config = saved
     }
     return st
+  })
+
+  // 节点列表（natfrp v4 公开 API）。accessKey 缺省时回退持久化配置里的密钥。
+  ipcMain.handle(FRP_IPC.nodes, async (_event, payload: { accessKey?: string; refresh?: boolean } | undefined) => {
+    const key = String(payload?.accessKey ?? '').trim() || loadFrpConfig()?.accessKey || ''
+    return fetchFrpNodes(key, { refresh: !!payload?.refresh })
   })
 
   // 渲染端订阅事件

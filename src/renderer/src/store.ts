@@ -2,6 +2,7 @@
  * 轻量全局状态（Vue reactive），跨视图共享。
  */
 import { reactive } from 'vue'
+import { trackLaunchState } from '@shared/launchTracking'
 import type {
   Account,
   InstalledVersion,
@@ -89,6 +90,7 @@ export const store = reactive({
   bannerAlign: loadBannerAlign(),
   /** 游戏启动状态（未启动过为 null） */
   launchState: null as LaunchState | null,
+  launchStates: {} as Record<string, LaunchState>,
   /** 最近一次点击启动的版本 id（用于启动成功后记录 lastPlayed） */
   launchingVersionId: '',
   /** 启动时锁定的游戏根目录；游戏运行期间切换目录也不会让退出同步串到别处。 */
@@ -106,6 +108,7 @@ export const store = reactive({
   /** 通知是否有未读（驱动铃铛红点） */
   noticesUnread: false,
   /** 整合包导入处理器（App.vue 注册，供任意页面触发导入确认弹窗） */
+  resourceDropHandler: null as ((event: DragEvent) => void) | null,
   importHandler: null as ((filePath: string) => void) | null,
   /** 启动器更新弹窗触发器（设置页手动检查/启动自动检查写入，App.vue 监听打开弹窗） */
   updatePrompt: null as { release: import('@shared/types').ReleaseInfo; rollback: boolean } | null,
@@ -116,6 +119,8 @@ export const store = reactive({
   tasks: [] as TaskItem[],
   toasts: [] as ToastItem[]
 })
+
+export const applyLaunchState = (state: LaunchState) => trackLaunchState(store, state)
 
 export function openSettings(section: 'java' | 'memory' | 'downloads'): void {
   store.settingsSection = section

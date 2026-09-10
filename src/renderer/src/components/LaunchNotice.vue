@@ -33,10 +33,10 @@ onUnmounted(dismiss)
 </template>
 
 <style scoped>
-.launch-success { position: fixed; top: 100px; left: 50%; transform: translateX(-50%); z-index: 12000; display: flex; gap: 14px; align-items: center; width: max-content; max-width: calc(100vw - 32px); padding: 20px 26px; border: 1px solid var(--border); border-radius: 18px; color: var(--text); background: color-mix(in srgb, var(--bg) 94%, var(--accent)); box-shadow: var(--shadow); backdrop-filter: blur(24px); pointer-events: none; }
-.launch-success-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; color: var(--accent); background: var(--accent-soft); font-size: 24px; }
-.launch-success strong { display: block; font-size: 18px; }
-.launch-success small { display: block; margin-top: 5px; color: var(--text-dim); font-size: 12px; }
+.launch-success { position: fixed; top: 100px; left: 50%; transform: translateX(-50%); z-index: 12000; display: flex; gap: var(--space-4); align-items: center; width: max-content; max-width: calc(100vw - 32px); padding: var(--space-5); border: 1px solid var(--border); border-radius: var(--radius-lg); color: var(--text); background: color-mix(in srgb, var(--bg) 94%, var(--accent)); box-shadow: var(--shadow); backdrop-filter: blur(24px) saturate(130%); -webkit-backdrop-filter: blur(24px) saturate(130%); pointer-events: none; }
+.launch-success-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; color: var(--accent); background: var(--accent-soft); font-size: var(--text-xl); }
+.launch-success strong { display: block; font-size: var(--text-lg); }
+.launch-success small { display: block; margin-top: var(--space-1); color: var(--text-dim); font-size: var(--text-xs); }
 .launch-notice-enter-active, .launch-notice-leave-active { transition: opacity 180ms ease, transform 180ms ease; }
 .launch-notice-enter-from, .launch-notice-leave-to { opacity: 0; transform: translate(-50%, -6px); }
 @media (prefers-reduced-motion: reduce) { .launch-notice-enter-active, .launch-notice-leave-active { transition: none; } }

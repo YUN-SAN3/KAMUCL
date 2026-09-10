@@ -15,6 +15,7 @@ import { compareSemver, isNewerVersion } from '../../shared/semver'
 import type { ReleaseInfo, UpdateCheckResult } from '../../shared/types'
 import { httpFetch } from './httpClient'
 import { logScope } from './launcherLog'
+import { isolatedUpdateTest, trustedUpdateRelease } from './updateTrust'
 
 const updateLog = logScope('self-update')
 
@@ -24,14 +25,15 @@ const API_TIMEOUT_MS = 10_000
 
 /** GitHub API 基地址（env 覆盖供 mock 测试：KAMUCL_UPDATE_API_BASE=http://127.0.0.1:8310） */
 function apiBase(): string {
-  return (process.env.KAMUCL_UPDATE_API_BASE || 'https://api.github.com').replace(/\/+$/, '')
+  return (isolatedUpdateTest() ? process.env.KAMUCL_UPDATE_API_BASE! : 'https://api.github.com').replace(/\/+$/, '')
 }
 /** 文件下载基地址（镜像/mock 用；默认空 = 用 API 返回的 browser_download_url 原样） */
 function downloadBaseOverride(): string {
-  return (process.env.KAMUCL_UPDATE_DOWNLOAD_BASE || '').replace(/\/+$/, '')
+  return (isolatedUpdateTest() ? process.env.KAMUCL_UPDATE_DOWNLOAD_BASE || '' : '').replace(/\/+$/, '')
 }
 
 interface CheckCache {
+  source?: string
   etag?: string
   checkedAt: number
   latest?: ReleaseInfo | null
@@ -39,11 +41,11 @@ interface CheckCache {
 
 /** 当前版本（env 覆盖供测试） */
 export function currentVersion(): string {
-  return process.env.KAMUCL_VERSION_OVERRIDE || app.getVersion()
+  return (isolatedUpdateTest() && process.env.KAMUCL_VERSION_OVERRIDE) || app.getVersion()
 }
 /** userData 目录（env 覆盖供测试） */
 function userDataDir(): string {
-  return process.env.KAMUCL_USERDATA_DIR || app.getPath('userData')
+  return isolatedUpdateTest() ? process.env.KAMUCL_USERDATA_DIR! : app.getPath('userData')
 }
 
 function cacheFile(): string {
@@ -53,7 +55,7 @@ function cacheFile(): string {
 function readCache(): CheckCache | null {
   try {
     const j = JSON.parse(fs.readFileSync(cacheFile(), 'utf-8'))
-    if (j && typeof j === 'object') return j as CheckCache
+    if (j && typeof j === 'object' && (!j.source || j.source === apiBase()) && (!j.latest || trustedUpdateRelease(j.latest))) return j as CheckCache
   } catch { /* 无缓存 */ }
   return null
 }
@@ -61,7 +63,7 @@ function readCache(): CheckCache | null {
 function writeCache(cache: CheckCache): void {
   try {
     fs.mkdirSync(path.dirname(cacheFile()), { recursive: true })
-    fs.writeFileSync(cacheFile(), JSON.stringify(cache), 'utf-8')
+    fs.writeFileSync(cacheFile(), JSON.stringify({ ...cache, source: apiBase() }), 'utf-8')
   } catch (e) {
     updateLog.debug('检查缓存写入失败（不影响功能）', e)
   }
@@ -88,7 +90,7 @@ function toReleaseInfo(j: GhRelease): ReleaseInfo | null {
   const version = String(j.tag_name ?? '').replace(/^v/i, '')
   if (!version) return null
   const asset = pickPortableExe(j.assets)
-  return {
+  const release: ReleaseInfo = {
     version,
     publishedAt: String(j.published_at ?? ''),
     body: String(j.body ?? ''),
@@ -96,23 +98,32 @@ function toReleaseInfo(j: GhRelease): ReleaseInfo | null {
     assetSize: Number(asset?.size ?? 0),
     assetName: asset?.name ?? ''
   }
+  return trustedUpdateRelease(release) ? release : null
 }
 
 async function ghFetch(url: string, etag?: string): Promise<Response> {
-  const ctrl = new AbortController()
-  const timer = setTimeout(() => ctrl.abort(), API_TIMEOUT_MS)
-  try {
-    return await httpFetch(url, {
-      signal: ctrl.signal,
-      headers: {
-        Accept: 'application/vnd.github+json',
-        'User-Agent': 'KAMUCL-Launcher',
-        ...(etag ? { 'If-None-Match': etag } : {})
-      }
-    })
-  } finally {
-    clearTimeout(timer)
+  // 国内网络对 GitHub TLS 偶发重置：失败后 1.5s 重试一次（幂等 GET 安全）
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const ctrl = new AbortController()
+    const timer = setTimeout(() => ctrl.abort(), API_TIMEOUT_MS)
+    try {
+      return await httpFetch(url, {
+        signal: ctrl.signal,
+        headers: {
+          Accept: 'application/vnd.github+json',
+          'User-Agent': 'KAMUCL-Launcher',
+          ...(etag ? { 'If-None-Match': etag } : {})
+        }
+      })
+    } catch (e) {
+      if (attempt === 1) throw e
+      updateLog.debug('GitHub 请求失败，1.5s 后重试一次', e)
+      await new Promise((r) => setTimeout(r, 1500))
+    } finally {
+      clearTimeout(timer)
+    }
   }
+  throw new Error('unreachable')
 }
 
 /**

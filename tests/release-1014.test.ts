@@ -60,8 +60,12 @@ test('updater script: waits for main pid, backups old exe, moves new, watches 20
     stateDir: 'C:\\Users\\x\\AppData\\Roaming\\kamucl'
   })
   assert.match(s, /Get-Process -Id \$mainPid/)
-  assert.match(s, /Move-Item -LiteralPath \$oldExe -Destination \(Join-Path \$backupDir/)
-  assert.match(s, /Move-Item -LiteralPath \$newExe -Destination \$newTarget/)
+  // 移动改为带重试的 Move-WithRetry（便携包外层进程文件锁延迟释放）
+  assert.match(s, /function Move-WithRetry\(/)
+  assert.match(s, /Move-WithRetry \$oldExe \(Join-Path \$backupDir/)
+  assert.match(s, /Move-WithRetry \$newExe \$newTarget/)
+  // 每步写 updater-last.log（可诊断）
+  assert.match(s, /updater-last\.log/)
   assert.match(s, /Start-Sleep -Seconds 20/)
   assert.match(s, /update-failed\.flag/)
   assert.match(s, /Restore-Backup/)

@@ -95,14 +95,15 @@ onBeforeUnmount(close)
 .select-menu-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   width: 100%;
-  padding: 8px 12px;
+  min-height: var(--ctl-h);
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: var(--card-2);
   color: var(--text);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease;
@@ -118,25 +119,27 @@ onBeforeUnmount(close)
   z-index: 11000;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 6px;
+  gap: var(--space-1);
+  padding: var(--space-2);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--card) 92%, transparent);
-  backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
   box-shadow: var(--shadow);
   overflow-y: auto;
 }
 .select-menu-option {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
+  gap: var(--space-2);
+  min-height: var(--row-h);
+  padding: 4px 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--text);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   text-align: left;
   cursor: pointer;
@@ -146,6 +149,6 @@ onBeforeUnmount(close)
 .select-menu-option:hover { background: var(--hover); }
 .select-menu-option.active { background: var(--accent-soft); color: color-mix(in srgb, var(--text) 86%, var(--accent)); font-weight: 600; }
 .select-menu-option-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.select-menu-empty { padding: 12px; color: var(--text-dim); font-size: 12px; text-align: center; }
+.select-menu-empty { display: flex; align-items: center; justify-content: center; min-height: var(--row-h); padding: var(--space-3); color: var(--text-dim); font-size: var(--text-xs); text-align: center; }
 @media (prefers-reduced-motion: reduce) { .select-menu-btn, .select-menu-chevron, .select-menu-option { transition: none; } }
 </style>

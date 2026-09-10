@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import {
   addFolder,
   cleanupPartialInstall,
@@ -30,7 +30,8 @@ import {
   setVersionJava,
   setVersionResolution
 } from '../api'
-import { displayVersionName, displayVersionSub, fmtLastPlayed, isFavorite, progressMono, refreshInstalled, renameLastPlayed, sortWithFavorite, store, toast, toggleFavorite, versionIconUrl } from '../store'
+import { applyLaunchState, displayVersionName, displayVersionSub, fmtLastPlayed, isFavorite, progressMono, refreshInstalled, renameLastPlayed, sortWithFavorite, store, toast, toggleFavorite, versionIconUrl } from '../store'
+import { instanceLaunchBusy } from '@shared/launchTracking'
 import ConfirmModal from '../components/ConfirmModal.vue'
 import IconPickerModal from '../components/IconPickerModal.vue'
 import SelectMenu from '../components/SelectMenu.vue'
@@ -63,6 +64,39 @@ const tab = ref<'download' | 'installed'>(
 )
 watch(tab, (t) => localStorage.setItem(TAB_KEY, t))
 
+// ---------------- Tab 滑动指示块（版本下载 ⇄ 已安装 平滑滑动，与导航水滴同款弹簧动效） ----------------
+const gameTabs = ref<HTMLElement | null>(null)
+const tabBlob = reactive({ left: 0, width: 0, on: false })
+function updateTabBlob() {
+  const root = gameTabs.value
+  if (!root) return
+  const active = root.querySelector<HTMLElement>(`.game-tab[data-tab="${tab.value}"]`)
+  if (!active) return
+  tabBlob.left = active.offsetLeft
+  tabBlob.width = active.offsetWidth
+  tabBlob.on = true
+}
+watch(tab, () => nextTick(updateTabBlob))
+// 滑块宽度自适应：已安装数量变化（已安装（14）宽度变）与容器尺寸变化都重算
+watch(() => store.installed.length, () => nextTick(updateTabBlob))
+let tabBlobObserver: ResizeObserver | null = null
+onMounted(() => {
+  nextTick(updateTabBlob)
+  // 字体/布局就绪后校准一次（首帧 offsetWidth 可能未稳定）
+  setTimeout(updateTabBlob, 200)
+  tabBlobObserver = new ResizeObserver(() => updateTabBlob())
+  if (gameTabs.value) tabBlobObserver.observe(gameTabs.value)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', updateTabBlob)
+  tabBlobObserver?.disconnect()
+})
+const tabBlobStyle = computed(() => ({
+  left: tabBlob.left + 'px',
+  width: tabBlob.width + 'px',
+  opacity: tabBlob.on ? 1 : 0
+}))
+
 async function load(refresh = false) {
   loading.value = true
   loadError.value = ''
@@ -86,6 +120,25 @@ const folderRemove = reactive({ open: false, busy: false })
 const currentFolder = computed(() =>
   folders.value.find((folder) => folder.path === activeFolder.value)
 )
+/** 失效文件夹死锁解除：检测到当前绑定文件夹不存在（被删除/重命名）时给「移除绑定/稍后处理」选择 */
+const folderMissingDismissed = ref(false)
+const folderMissing = computed(() => folderScan.value?.structure === 'missing' && !folderMissingDismissed.value)
+/** 移除失效绑定后刷新 */
+async function removeMissingFolder() {
+  if (!activeFolder.value || folderRemove.busy) return
+  folderRemove.busy = true
+  try {
+    await removeFolder(activeFolder.value)
+    folderMissingDismissed.value = false
+    await loadFolderState()
+    store.settings = await getSettings()
+    toast('已移除失效的文件夹绑定', 'success')
+  } catch (error) {
+    toast(`移除失败：${errText(error)}`, 'error')
+  } finally {
+    folderRemove.busy = false
+  }
+}
 
 async function refreshFolderScan(syncList = true) {
   if (!activeFolder.value) return
@@ -124,6 +177,19 @@ async function chooseFolderPath(selected: string) {
     await refreshFolderScan(false)
     toast(`已切换到「${currentFolder.value?.name ?? '游戏文件夹'}」`, 'success')
   } catch (error) {
+    // 失效文件夹死锁修复：文件夹已不存在（被删除/重命名）→ 直接移除绑定记录，不再弹切换失败
+    if (errText(error).includes('文件夹已不存在')) {
+      try {
+        await removeFolder(selected)
+        await loadFolderState()
+        store.settings = await getSettings()
+        toast('该文件夹已不存在，已从启动器移除其绑定记录', 'info')
+      } catch (e2) {
+        toast(`移除绑定失败：${errText(e2)}`, 'error')
+      }
+      folderBusy.value = false
+      return
+    }
     toast(`切换失败：${errText(error)}`, 'error')
     await loadFolderState()
   } finally {
@@ -338,39 +404,48 @@ function openInstall(v: RemoteVersion) {  modal.open = true
   modal.instanceEdited = false
 }
 
+const apiRetry = ref(0)
 watch(
-  () => modal.loader,
-  async (loader) => {
+  () => [modal.open, modal.loader, modal.version?.id, apiRetry.value] as const,
+  async ([open, loader, mcVersion], _previous, onCleanup) => {
+    let stale = false
+    onCleanup(() => { stale = true })
     modal.loaderVersions = []
     modal.loaderVersion = ''
     modal.loadLoadersError = ''
     modal.apiVersions = []
     modal.apiVersion = ''
     modal.apiError = ''
-    if (!loader || !modal.version) return
+    modal.loadingLoaders = false
+    modal.loadingApi = false
+    if (!open || !loader || !mcVersion) return
     modal.loadingLoaders = true
+    modal.loadingApi = loader === 'fabric'
     try {
-      const list = await listLoaders(loader, modal.version.id)
+      const list = await listLoaders(loader, mcVersion)
+      if (stale) return
       modal.loaderVersions = list
       modal.loaderVersion = list[0] ?? ''
       if (!list.length) modal.loadLoadersError = '该版本暂无可用的加载器版本'
     } catch (e) {
+      if (stale) return
       modal.loadLoadersError = '获取加载器版本失败：' + errText(e)
     } finally {
-      modal.loadingLoaders = false
+      if (!stale) modal.loadingLoaders = false
     }
     // 选择 Fabric 时联动拉取 Fabric API 版本列表
-    if (loader === 'fabric' && modal.version) {
-      modal.loadingApi = true
+    if (loader === 'fabric' && !stale) {
       try {
-        const list = await listFabricApi(modal.version.id)
+        const list = await listFabricApi(mcVersion)
+        if (stale) return
         modal.apiVersions = list
         modal.apiVersion = list[0]?.version ?? ''
         if (!list.length) modal.apiError = '该版本暂无适配的 Fabric API'
       } catch (e) {
+        if (stale) return
         modal.apiError = '获取 Fabric API 列表失败：' + errText(e)
       } finally {
-        modal.loadingApi = false
+        if (!stale) modal.loadingApi = false
       }
     }
   }
@@ -381,6 +456,8 @@ const canConfirm = computed(
     !!modal.version &&
     !modal.loadingLoaders &&
     (modal.loader === '' || !!modal.loaderVersion) &&
+    (modal.loader !== 'fabric' || !modal.apiOn ||
+      (!modal.loadingApi && !modal.apiError && !!modal.apiVersion)) &&
     !instanceError.value
 )
 
@@ -456,9 +533,13 @@ async function openVersionFolder(v: InstalledVersion) {
 
 /** 版本列表条目的主操作：直接用该版本启动游戏（与首页最近游戏卡片行为一致） */
 async function launchVersion(v: InstalledVersion) {
+  const folder = v.folder ?? store.settings?.activeFolder ?? store.settings?.gameDir
+  if (instanceLaunchBusy(store.launchStates, v.id, folder)) return
+  applyLaunchState({ status: 'launching', text: '正在准备启动…', versionId: v.id, folder })
   try {
     await launchGame(v.id, undefined, v.folder)
   } catch (e) {
+    applyLaunchState({ status: 'error', text: errText(e), versionId: v.id, folder })
     toast('启动失败：' + errText(e), 'error')
   }
 }
@@ -824,6 +905,16 @@ async function confirmIsolation() {
       <div class="folder-shortcuts" aria-label="文件夹列表">
         <button v-for="folder in folders" :key="folder.path" class="btn btn-sm" :class="folder.path === activeFolder ? 'btn-gold' : 'btn-ghost'" :disabled="folderBusy" :title="folder.path" @click="chooseFolderPath(folder.path)" @contextmenu.stop.prevent="showFolderContextMenu(folder.path)">{{ folder.name }}</button>
       </div>
+      <div v-if="folderMissing && currentFolder" class="folder-missing-card" role="alert">
+        <div class="folder-missing-text">
+          <strong>检测不到该文件夹</strong>
+          <span class="muted">「{{ currentFolder.name }}」（{{ currentFolder.path }}）可能已被删除或重命名，暂时无法识别其中的版本。</span>
+        </div>
+        <div class="folder-missing-actions">
+          <button class="btn btn-danger btn-sm" :disabled="folderRemove.busy" @click="removeMissingFolder">在启动器内移除该绑定</button>
+          <button class="btn btn-ghost btn-sm" @click="folderMissingDismissed = true">稍后处理</button>
+        </div>
+      </div>
       <div class="folder-scan-state" :class="folderScan?.status">
         <template v-if="folderBusy">
           <span class="spin"></span><span>正在扫描版本与完整性…</span>
@@ -843,19 +934,19 @@ async function confirmIsolation() {
       </div>
     </section>
 
-    <!-- 顶部 Tab：版本下载 / 已安装 -->
-    <div class="game-tabs">
-      <button class="game-tab" :class="{ active: tab === 'download' }" @click="tab = 'download'">
-        版本下载
-      </button>
-      <button class="game-tab" :class="{ active: tab === 'installed' }" @click="tab = 'installed'">
-        已安装<template v-if="store.installed.length">（{{ store.installed.length }}）</template>
-      </button>
-    </div>
+    <!-- 控制行：Tab + 搜索/筛选/刷新/下载源（同一行横向排布，窄窗口自动换行） -->
+    <div class="game-controls">
+      <div class="game-tabs" ref="gameTabs">
+        <span class="game-tabs-blob" :style="tabBlobStyle" aria-hidden="true"></span>
+        <button class="game-tab" data-tab="download" :class="{ active: tab === 'download' }" @click="tab = 'download'">
+          版本下载
+        </button>
+        <button class="game-tab" data-tab="installed" :class="{ active: tab === 'installed' }" @click="tab = 'installed'">
+          已安装<template v-if="store.installed.length">（{{ store.installed.length }}）</template>
+        </button>
+      </div>
 
-    <template v-if="tab === 'download'">
-    <!-- 工具行 -->
-    <div class="toolbar">
+      <div v-if="tab === 'download'" class="toolbar">
       <div class="tool-search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7" />
@@ -893,10 +984,11 @@ async function confirmIsolation() {
       >
         {{ store.settings?.mirror === 'bmclapi' ? 'BMCLAPI 镜像' : '官方源' }}
       </button>
+      </div>
     </div>
 
     <!-- 版本列表 -->
-    <div class="card list-card">
+    <div v-if="tab === 'download'" class="card list-card">
       <div v-if="loading && !manifest.length" class="empty">
         <span class="spin"></span>
         <span>正在获取版本列表…</span>
@@ -940,11 +1032,8 @@ async function confirmIsolation() {
         </div>
       </div>
     </div>
-    </template>
-
     <!-- 已安装区 -->
-    <template v-else>
-    <div class="card installed-card">
+    <div v-else class="card installed-card">
       <!-- 安装中（进度显示） -->
       <div v-if="installingVersions.length" class="installing-block">
         <div v-for="id in installingVersions" :key="id" class="installed-row installing-row">
@@ -1078,7 +1167,7 @@ async function confirmIsolation() {
           </button>
           <button
             class="btn btn-gold btn-sm installed-launch"
-            :disabled="store.launchState?.status === 'running' || store.launchState?.status === 'launching'"
+            :disabled="instanceLaunchBusy(store.launchStates, v.id, v.folder ?? store.settings?.activeFolder ?? store.settings?.gameDir)"
             :title="`启动 ${v.id}`"
             @click="launchVersion(v)"
           >
@@ -1096,7 +1185,6 @@ async function confirmIsolation() {
         </div>
       </div>
     </div>
-    </template>
 
     <!-- 管理快捷菜单（模组/资源包/光影包） -->
     <Teleport to="body">
@@ -1356,7 +1444,7 @@ async function confirmIsolation() {
             <!-- Fabric 联动：Fabric API 自动选择 -->
             <template v-if="modal.loader === 'fabric'">
               <div class="fapi-head">
-                <p class="modal-label" style="margin: 0">Fabric API</p>
+                <p class="modal-label">Fabric API</p>
                 <label class="fapi-switch">
                   <span class="muted">同时安装（大多数 Fabric 模组需要）</span>
                   <span class="switch">
@@ -1377,7 +1465,8 @@ async function confirmIsolation() {
                     </option>
                   </select>
                   <p v-if="modal.apiError" class="loaders-error">{{ modal.apiError }}</p>
-                  <p class="muted fapi-tip">安装完成后将自动放入 mods 文件夹</p>
+                  <button v-if="modal.apiError" class="btn btn-ghost btn-sm" @click="apiRetry++">重试获取 Fabric API</button>
+                  <p class="muted fapi-tip">{{ modal.apiError ? '请重试，或关闭“同时安装”后仅安装加载器' : '安装完成后将自动放入该实例使用的 mods 文件夹' }}</p>
                 </template>
               </template>
             </template>
@@ -1409,34 +1498,34 @@ async function confirmIsolation() {
 .page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--sec-gap);
   max-width: 940px;
   margin: 0 auto;
 }
 
 /* 游戏文件夹统一管理 */
 .folder-manager {
-  scroll-margin-top: 20px;
+  scroll-margin-top: var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 14px;
+  gap: var(--space-3);
+  padding: var(--card-pad);
 }
 .folder-manager-main {
   display: flex;
   align-items: flex-end;
-  gap: 14px;
+  gap: var(--space-4);
 }
-.folder-shortcuts { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.folder-shortcuts { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .folder-select-wrap {
   display: grid;
   grid-template-columns: minmax(210px, 320px);
-  gap: 5px;
+  gap: var(--space-2);
   min-width: 0;
 }
 .folder-caption {
   color: var(--text-dim);
-  font-size: 11.5px;
+  font-size: var(--text-xs);
 }
 .folder-select {
   width: 100%;
@@ -1446,32 +1535,50 @@ async function confirmIsolation() {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: ui-monospace, Consolas, monospace;
-  font-size: 10.5px;
+  font-size: var(--text-xs);
 }
 .folder-manager-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 6px;
+  gap: var(--space-2);
   flex: 1;
   flex-wrap: wrap;
 }
+/* 失效文件夹提示卡 */
+.folder-missing-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  margin-top: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, transparent);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  flex-wrap: wrap;
+}
+.folder-missing-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.folder-missing-text strong { color: var(--danger); font-size: var(--text-sm); }
+.folder-missing-text .muted { font-size: var(--text-xs); }
+.folder-missing-actions { display: flex; gap: var(--space-2); flex-shrink: 0; }
+
 .folder-scan-state {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: var(--space-2);
   min-width: 0;
-  padding-top: 10px;
+  padding-top: var(--space-3);
   border-top: 1px solid var(--border);
   color: var(--text-dim);
-  font-size: 11.5px;
+  font-size: var(--text-xs);
 }
 .folder-state-dot {
   width: 7px;
   height: 7px;
   flex: none;
   border-radius: 50%;
-  background: #3fb950;
+  background: var(--ok);
 }
 .folder-scan-state.warning .folder-state-dot {
   background: #e6a23c;
@@ -1500,21 +1607,30 @@ async function confirmIsolation() {
   }
 }
 
-/* 工具行 */
+/* 控制行：Tab 分段 + 工具（同一行，窄窗口自动换行） */
+.game-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+}
 .toolbar {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   flex-wrap: wrap;
+  flex: 1 1 320px;
+  min-width: 260px;
+  justify-content: flex-end;
 }
 .tool-search {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex: 1;
   min-width: 180px;
-  height: 38px;
-  padding: 0 13px;
+  height: var(--ctl-h);
+  padding: 0 var(--space-3);
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--card-2);
@@ -1537,7 +1653,7 @@ async function confirmIsolation() {
   outline: none;
   background: transparent;
   color: var(--text);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
 }
 .tool-search input::placeholder {
@@ -1547,17 +1663,23 @@ async function confirmIsolation() {
 
 .filter-capsules {
   display: flex;
-  gap: 6px;
+  gap: var(--space-2);
+  flex-wrap: wrap;
 }
 .capsule {
-  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--ctl-h);
+  padding: 0 var(--space-4);
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--card-2);
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   cursor: pointer;
+  white-space: nowrap;
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 .capsule:hover {
@@ -1574,7 +1696,7 @@ async function confirmIsolation() {
 
 /* 列表 */
 .list-card {
-  padding: 8px;
+  padding: var(--space-2);
 }
 .version-list {
   /* 不再限制高度——整页单条外滚动，消灭内层嵌套滚动 */
@@ -1585,9 +1707,10 @@ async function confirmIsolation() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: 10px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
   transition: background 0.15s ease;
 }
 .version-row:hover {
@@ -1596,7 +1719,7 @@ async function confirmIsolation() {
 .version-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   min-width: 0;
 }
 .version-id {
@@ -1622,7 +1745,7 @@ async function confirmIsolation() {
   justify-content: center;
   padding: 4px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--card-2);
   color: var(--text-dim);
   cursor: pointer;
@@ -1639,19 +1762,20 @@ async function confirmIsolation() {
   image-rendering: pixelated;
 }
 .version-date {
-  font-size: 12px;
+  font-size: var(--text-xs);
   flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
 }
 .version-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   flex-shrink: 0;
 }
 .row-progress {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .row-bar {
   width: 90px;
@@ -1667,17 +1791,14 @@ async function confirmIsolation() {
   transition: width 0.25s ease;
 }
 .row-progress-text {
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 /* 已安装 */
-.section-title {
-  font-size: 15px;
-  margin-bottom: 12px;
-}
 .installed-empty {
-  padding: 24px;
+  padding: var(--space-5);
 }
 .installed-list {
   display: flex;
@@ -1688,8 +1809,10 @@ async function confirmIsolation() {
   /* 三区模型：信息区收缩省略 / 元信息区收缩省略 / 操作区钉右，永不换行 */
   flex-wrap: nowrap;
   align-items: center;
-  gap: 8px;
-  padding: 10px 4px;
+  gap: var(--space-3);
+  min-height: var(--row-h);
+  padding: var(--space-2) var(--space-1);
+  border-radius: var(--radius-md);
   border-bottom: 1px solid var(--border);
 }
 .installed-row:last-child {
@@ -1701,7 +1824,7 @@ async function confirmIsolation() {
   flex: 1 1 0;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
+  gap: var(--space-1);
   min-width: 0;
   flex-wrap: wrap;
 }
@@ -1710,7 +1833,7 @@ async function confirmIsolation() {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 11.5px;
+  font-size: var(--text-xs);
   font-family: ui-monospace, Consolas, monospace;
   word-break: break-all;
 }
@@ -1732,45 +1855,63 @@ async function confirmIsolation() {
 
 /* 顶部 Tab 分段 */
 .game-tabs {
+  position: relative;
   display: inline-flex;
-  gap: 4px;
-  padding: 4px;
+  gap: var(--space-1);
+  padding: var(--space-1);
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--card-2);
-  align-self: flex-start;
+  flex-shrink: 0;
+}
+/* 滑动指示块：跟随激活 Tab（弹簧动效，与导航水滴同源） */
+.game-tabs-blob {
+  position: absolute;
+  top: var(--space-1);
+  bottom: var(--space-1);
+  border-radius: 999px;
+  background: var(--accent-grad);
+  box-shadow: 0 2px 8px var(--accent-soft);
+  transition: left 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), width 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 0;
 }
 .game-tab {
-  padding: 7px 20px;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-5);
+  height: var(--ctl-h);
   border: none;
   border-radius: 999px;
   background: transparent;
   color: var(--text-dim);
-  font-size: 13.5px;
+  font-size: var(--text-sm);
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+  transition: color 0.2s ease;
 }
 .game-tab:hover {
   color: var(--text);
 }
 .game-tab.active {
-  background: var(--accent-grad);
   color: var(--on-accent);
-  box-shadow: 0 2px 8px var(--accent-soft);
 }
 
 /* 安装中/失败行 */
 .installing-block {
   border-bottom: 1px solid var(--border);
-  margin-bottom: 4px;
+  margin-bottom: var(--space-1);
 }
 .failed-row .installed-folder {
   margin-left: auto;
 }
 .played-text {
-  font-size: 12px;
+  font-size: var(--text-xs);
   /* 元信息区可收缩省略，不再用 auto 外边距推右（操作区统一由 .row-actions 钉右） */
   flex: 0 1 auto;
   min-width: 0;
@@ -1783,7 +1924,7 @@ async function confirmIsolation() {
 .row-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-1);
   flex-shrink: 0;
   margin-left: auto;
 }
@@ -1796,7 +1937,7 @@ async function confirmIsolation() {
   width: 28px;
   height: 28px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--text-dim);
   cursor: pointer;
@@ -1816,9 +1957,9 @@ async function confirmIsolation() {
 .fav-group-head {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 4px 4px;
-  font-size: 12.5px;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-1) var(--space-1);
+  font-size: var(--text-xs);
   font-weight: 700;
   color: #f5b301;
 }
@@ -1827,11 +1968,11 @@ async function confirmIsolation() {
 .iso-switch {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-1);
   cursor: pointer;
 }
 .iso-label {
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 .installed-remove {
   flex-shrink: 0;
@@ -1839,28 +1980,34 @@ async function confirmIsolation() {
 
 /* 模态框 */
 .modal-title {
-  font-size: 17px;
-  margin-bottom: 18px;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0 0 var(--space-4);
 }
 .modal-label {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--text-dim);
-  margin: 14px 0 8px;
+  margin: var(--space-4) 0 var(--space-2);
 }
 .loader-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .loader-option {
-  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-4);
+  height: var(--ctl-h);
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--card-2);
   color: var(--text);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: inherit;
   cursor: pointer;
+  white-space: nowrap;
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 .loader-option:hover {
@@ -1874,17 +2021,17 @@ async function confirmIsolation() {
 .loaders-loading {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 0;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
 }
 .loaders-error {
-  margin-top: 8px;
-  font-size: 13px;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
   color: var(--danger);
 }
 .inst-hint {
-  margin-top: 6px;
-  font-size: 12px;
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
   line-height: 1.5;
 }
 /* Fabric API 联动区块 */
@@ -1892,42 +2039,46 @@ async function confirmIsolation() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  margin-top: 18px;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.fapi-head .modal-label {
+  margin: 0;
 }
 .fapi-switch {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   cursor: pointer;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 .fapi-tip {
-  margin-top: 6px;
-  font-size: 12px;
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
 }
 .modal-actions {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 22px;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 .instance-resolution-size {
   display: flex;
   align-items: flex-end;
-  gap: 10px;
-  margin-top: 12px;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 .instance-resolution-size label {
   display: grid;
   flex: 1;
-  gap: 6px;
+  gap: var(--space-2);
   min-width: 0;
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 .instance-resolution-tip {
-  margin-top: 10px;
-  font-size: 11.5px;
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
   line-height: 1.55;
 }
 .isolation-modal {
@@ -1939,10 +2090,10 @@ async function confirmIsolation() {
 .isolation-paths {
   display: grid;
   grid-template-columns: 36px minmax(0, 1fr);
-  gap: 7px 10px;
+  gap: var(--space-2) var(--space-3);
   align-items: center;
-  margin-top: 12px;
-  font-size: 11.5px;
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
   color: var(--text-dim);
 }
 .isolation-paths code {
@@ -1953,25 +2104,25 @@ async function confirmIsolation() {
   color: var(--text);
 }
 .isolation-summary {
-  margin-top: 14px;
-  font-size: 12px;
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
   color: var(--text-dim);
 }
 .isolation-items {
   display: grid;
-  gap: 7px;
+  gap: var(--space-2);
   max-height: 230px;
-  margin-top: 9px;
+  margin-top: var(--space-2);
   overflow: auto;
 }
 .isolation-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 9px 10px;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--card-2);
 }
 .isolation-item > div {
@@ -1980,9 +2131,9 @@ async function confirmIsolation() {
   min-width: 0;
 }
 .isolation-item strong {
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 .isolation-item .muted {
-  font-size: 10.5px;
+  font-size: var(--text-xs);
 }
 </style>

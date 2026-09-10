@@ -217,7 +217,7 @@ test('community component actually renders empty-instance filter fallback (not c
     const html = await renderToString(createSSRApp(exported.exports.default))
     assert(html.includes('兼容筛选') && html.includes('全部 Minecraft') && html.includes('全部加载器'))
     // Every route transition has a DOM wrapper even when a view also owns Teleports.
-    assert.match(fs.readFileSync('src/renderer/src/App.vue', 'utf8'), /<Transition name="fade" mode="out-in">\s*<div[^>]*class="route-view"/)
+    assert.match(fs.readFileSync('src/renderer/src/App.vue', 'utf8'), /<Transition name="fade" mode="out-in" :duration="250">\s*<div[^>]*class="route-view"/)
   } finally { Object.defineProperty(globalThis, 'localStorage', { value: previousStorage, configurable: true }) }
 })
 
