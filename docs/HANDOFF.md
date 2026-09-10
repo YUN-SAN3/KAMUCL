@@ -21,7 +21,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 
 **1.0.31 验证**：313/313 测试、TypeScript 检查和生产构建通过；新增真实 ZIP 导入、排序、去重、两个隔离目录及旧格式 options.txt 同步、移除/错误保护、未指定按键持久化、正式包测试缓存隔离及多实例状态测试。隔离 Electron 中实际鼠标点击 X、Esc、拖入多个文件及排序均通过；两种宽度的 WebGL 预览已截图核对。脚本 `scripts/verify-default-config-ui.cjs`，证据 `out/default-config-ui-XzZopM/`。
 
-**1.0.31 版本更正**：本批功能与已验证的原 1.0.41 一致，仅将 package.json、package-lock.json 和内置日志更正为用户指定的 1.0.31。原 1.0.41 Release 已撤回为草稿，保留历史记录；1.0.31 重新构建、打包后发布。已安装误发 1.0.41 的用户需要手动安装 1.0.31，因为正常更新比较不会自动降级。
+**1.0.31 版本更正**：本批功能与已验证的原 1.0.41 一致，仅将 package.json、package-lock.json 和内置日志更正为用户指定的 1.0.31。原 1.0.41 Release 已撤回为草稿，保留历史记录；1.0.31 已重新构建、打包并发布：https://github.com/kamubaba-i/KAMUCL/releases/tag/v1.0.31 。源码 master b9799c3 / main 601ab19，标签 v1.0.31 指向 b9799c3；313/313 测试、便携启动及 ZIP 内容核验通过，三份远端附件大小与 SHA256 均已核对，GitHub latest 确认为 v1.0.31。EXE SHA256：aaa47088761c0cda9873c9c7c2d74fb66038c3e687db0718634660e81a0c2d36；ZIP SHA256：eaa32cd6b31e57ec214b3284c8c95bc8e37f66dd7b411afdfcbd56003926df7f。已安装误发 1.0.41 的用户需要手动安装 1.0.31，因为正常更新比较不会自动降级。
 
 **1.0.30 本批修复**：社区分类选中块的 watch 在 query 初始化前运行，导致没有订阅分类变化；现调整监听顺序并同时测量 left/top/width/height，支持连续切换和换行。资源包/光影包/数据包不再传 Fabric 等模组加载器条件；Modrinth 文件进一步按 minecraft、shader engine、datapack 类型区分，避免同一数据包项目的模组 JAR 混入。中文 Mod 别名搜索保留版本/加载器筛选，移除未筛选项目插入。卡片显式标注“来源：CurseForge”。三类资源改为每页 20 项和页码/总数，双源按各自总数交错分页，避免原 offset 计算跳项。
 
