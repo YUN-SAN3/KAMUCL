@@ -77,7 +77,7 @@ let win: BrowserWindow | null = null
 /** 内存压榨控制器：whenReady 时初始化；createWindow 的窗口事件经此转发（静默瘦身） */
 let memTrim: MemoryTrimController | null = null
 
-function createWindow(startup?: ReturnType<typeof createStartupSplash>): void {
+function createWindow(startup?: Awaited<ReturnType<typeof createStartupSplash>>): void {
   logScope('window').debug('开始创建主窗口')
   applyNativeAppearance(null, getSettings())
   const windowState = loadWindowState()
@@ -144,7 +144,7 @@ function createWindow(startup?: ReturnType<typeof createStartupSplash>): void {
 app.whenReady().then(async () => {
   initializeLauncherLog()
   launcherLogInfo('main', `Electron 就绪（版本 ${app.getVersion()}）`)
-  const startup = createStartupSplash()
+  const startup = await createStartupSplash()
   launcherLogInfo('main', '启动闪屏已创建')
   // 内存压榨控制器：指标日志 + 静默期工作集整理（trim 进程清单来自 getAppMetrics，绝不触碰游戏进程）
   memTrim = await startMemoryTrim(() => win, (message) => launcherLogInfo('memory', message))
