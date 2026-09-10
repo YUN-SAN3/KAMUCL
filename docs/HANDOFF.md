@@ -1,6 +1,6 @@
 # KAMUCL 项目交接文档（给 Codex）
 
-> 更新时间：2026-09-10 ｜ 当前版本：**1.0.34**（验证通过，正在发布）
+> 更新时间：2026-09-10 ｜ 当前版本：**1.0.34**（已完成验证、打包和发布）
 > 工作区：E:\KAMUCL（git 仓库）
 
 ---
@@ -51,7 +51,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 3. ✅ 模组禁用/启用：FileManager 模组页每行 .jar 增「禁用/启用」按钮 ↔ 主进程 fs:toggleDisable（改名 .jar.disabled，MC 原生不加载）；实例运行中主进程阻止（隔离查自身/共享目录查所有共享实例）。dev 实例实证禁用+还原往返成功。
 4. ✅ Fabric API：安装弹窗联动 UI/列表/安装链路早已存在（基线 0.4.1 就有），实证可选 36 版本；真实缺陷=installFabricApi 固定写共享 mods，已改为跟随实例隔离状态（versions.ts 解析 instanceDirectoryState 传 modsDir）。
 
-**当前停点**：1.0.34 已通过验证，正在发布。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
+**当前停点**：1.0.34 已完成交付。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
 
 ---
 
@@ -182,3 +182,5 @@ node scripts/release-github.cjs
 **1.0.34 默认材质包启用修复**：旧 mergeResourcePackOptions 把全部默认包同时加入 resourcePacks 与 incompatibleResourcePacks。Minecraft 26.2 的 Options.loadSelectedResourcePacks 对实际兼容、但带兼容性覆盖的包，移除覆盖标记后直接 continue，导致本次未调用选中；游戏日志中 Fullbright 出现同样信息。现在读取实际客户端 JAR/version.json 的 resource pack major/minor，与 pack.mcmeta 的 min/max_format（65+）、supported_formats（18+）或旧 pack_format 比较，仅真正不兼容的默认包加入覆盖列表，清除旧版默认包错误标记，所有默认包保留启用/优先级列表。玩家其他包和覆盖保留，未知客户端格式不猜测覆盖。
 
 **1.0.34 验证**：318/318 测试、TypeScript 和生产构建通过；新增 Fullbright 元数据回归、旧标记清除、重复启动幂等、格式区间/次版本边界、旧格式兼容测试。另在隔离 Java 进程直接调用本地原版26.2 Options.loadSelectedResourcePacks，mock PackRepository：旧标记不选中，清除标记后选中，PASS；未启动/停止用户游戏，也未改用户 options.txt。证据 out/pack-proof-1.0.34.log、out/PackSelectionProof.java。新格式官方说明：https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-9 。
+
+**1.0.34 已发布**：master 022eebc / main afcff9d，标签 v1.0.34 指向 022eebc。Release：https://github.com/kamubaba-i/KAMUCL/releases/tag/v1.0.34 。便携 EXE 中文空格路径启动、ZIP 内容核验通过；远端三附件大小、SHA256、源码标签核对通过，认证 API 确认 latest 为 v1.0.34。EXE SHA256：42e835ee282ab062fd4d484cd04198866b77e47b7de662c919e49082e942dafb；ZIP SHA256：b5673cc3434b0001781918bad45e855225b015a5447acfbf164d6bf4e0e1a156。
