@@ -1,6 +1,6 @@
 # KAMUCL 项目交接文档（给 Codex）
 
-> 更新时间：2026-09-10 ｜ 当前版本：**1.0.33**（验证通过，正在发布）
+> 更新时间：2026-09-10 ｜ 当前版本：**1.0.33**（已完成验证、打包和发布）
 > 工作区：E:\KAMUCL（git 仓库）
 
 ---
@@ -51,7 +51,7 @@ KAMUCL 是卡慕SaMa 的 Minecraft 启动器：Electron 33+ + Vue 3（script set
 3. ✅ 模组禁用/启用：FileManager 模组页每行 .jar 增「禁用/启用」按钮 ↔ 主进程 fs:toggleDisable（改名 .jar.disabled，MC 原生不加载）；实例运行中主进程阻止（隔离查自身/共享目录查所有共享实例）。dev 实例实证禁用+还原往返成功。
 4. ✅ Fabric API：安装弹窗联动 UI/列表/安装链路早已存在（基线 0.4.1 就有），实证可选 36 版本；真实缺陷=installFabricApi 固定写共享 mods，已改为跟随实例隔离状态（versions.ts 解析 instanceDirectoryState 传 modsDir）。
 
-**当前停点**：1.0.33 验证通过，正在发布。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
+**当前停点**：1.0.33 已完成交付。VoxLink 新默认房间名是否通过线上审核仍未经线上建房验证。
 
 ---
 
@@ -175,3 +175,5 @@ node scripts/release-github.cjs
 **1.0.33 日志时间**：当前日志精确到分钟；1.0.32 根据 GitHub published_at 2026-09-10T06:00:21Z 补为本地 2026-09-10 14:00。AGENTS.md 明确后续日志必须 YYYY-MM-DD HH:mm。
 
 **1.0.33 验证**：317/317 测试、TypeScript、生产构建和便携中文空格路径启动通过；ZIP 与已核验的 app.asar 一致。实际便携包隔离测试：1.0.32 Electron 入口冷启动 3965ms / 再次启动 3508ms；1.0.33 粒子首帧冷启动 332ms / 缓存启动 216ms，Electron 入口分别 4419ms / 207ms。首次解压耗时仍在，但粒子覆盖等待；缓存启动复用证据为同一 cache.ready 修改时间不变。测量是本机到首帧绘制/Node 模式 Electron 入口，非完整主界面就绪时间，不代表所有硬件。脚本 scripts/verify-portable-startup.cjs，证据 out/startup-1.0.33.log 与 out/startup-baseline-1.0.32.json。
+
+**1.0.33 已发布**：master eea1e5f / main 7ea70a7，标签 v1.0.33 指向 eea1e5f。Release：https://github.com/kamubaba-i/KAMUCL/releases/tag/v1.0.33 。发布前核对三附件大小及 SHA256、标签与源码一致；发布后认证 API 确认 latest 为 v1.0.33。EXE SHA256：f0937373f9787ec92843264d2a6146f7a1e54c251ad69a5371ca94ac1cc71acd；ZIP SHA256：56413645f49dca0d0edc3e78993e023458a83120d51b5f42e0657e8c197961ef。
