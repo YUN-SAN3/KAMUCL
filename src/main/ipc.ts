@@ -974,6 +974,10 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     // versions/<id> 前缀按版本所属文件夹寻址（多文件夹体系）；其余按当前活动文件夹
     if (folder && !settings.getSettings().folders.some(f => pathIdentity(f.path) === pathIdentity(folder))) throw new Error('游戏文件夹未登记')
     const base = folder || (isVersionPath && parts.length >= 2 ? folderOfVersion(parts[1]) : settings.getSettings().activeFolder || settings.getSettings().gameDir)
+    if (folder && isVersionPath && parts.length === 3 && ['mods', 'resourcepacks', 'shaderpacks'].includes(parts[2])) {
+      const target = selectModTarget(versions.scanInstalledFolder(folder).versions, parts[1], folder)
+      return path.join(target.gameDirectory!, parts[2])
+    }
     const dir = parts.length ? path.join(base, ...parts) : base
     if (!path.resolve(dir).startsWith(path.resolve(base))) throw new Error('非法目录')
     return dir
