@@ -7,7 +7,7 @@ import { communityFileMatchesInstance } from '../../shared/communityPolicy'
 import { matchesVersionRange, modMatchesInstance, normalizeLoader } from '../../shared/modCompatibility'
 import { parseModFile } from './modinfo'
 import { communityExactFile, communityFiles, communitySearch } from './community'
-import { downloadFile } from './download'
+import { downloadAll } from './download'
 
 export interface DependencyRepository {
   files(source: CommunitySource, projectId: string, target: InstalledVersion): Promise<CommunityFile[]>
@@ -58,7 +58,9 @@ export async function dependencyGraph(roots: CommunityFile[], target: InstalledV
     for (const dep of file.dependencies ?? []) {
       if (!dep.required) continue
       if (!file.source || (!dep.projectId && !dep.fileId)) throw new Error(`无法定位 ${file.fileName} 的必要前置，请手动安装`)
-      const next = dep.fileId ? await repo.exact(file.source, dep.projectId, dep.fileId) : (await repo.files(file.source, dep.projectId!, target))[0]
+      const selected = roots.find(root => root.source === file.source && (dep.projectId ? root.projectId === dep.projectId : root.fileId === dep.fileId))
+      if (selected && dep.fileId && selected.fileId !== dep.fileId) throw new Error(`前置版本冲突：${dep.projectId || dep.fileId}`)
+      const next = selected || (dep.fileId ? await repo.exact(file.source, dep.projectId, dep.fileId) : (await repo.files(file.source, dep.projectId!, target))[0])
       if (!next) throw new Error(`前置 ${dep.projectId} 没有兼容版本`)
       await visit(next)
     }
@@ -89,7 +91,7 @@ export async function prepareModInstall(target: InstalledVersion, input: { paths
       if (!communityFileMatchesInstance(file, target)) throw new Error('所选 MOD 文件与目标实例不兼容')
       const dest = path.join(directory, path.basename(file.fileName))
       emit({ stage: 'download', progress: 0, text: '读取所选 MOD，解析内置前置要求…' })
-      await downloadFile(file.url, dest, undefined, file.sha1, undefined, signal)
+      await downloadAll([{ url:file.url, dest, sha1:file.sha1, size:file.size || undefined }], (_d,_t,speed,detail) => emit({stage:'download', progress:detail.fraction ?? 0, text:'下载所选 MOD', speed, bytesDone:detail.bytesDone, bytesTotal:detail.bytesTotal ?? undefined, etaSeconds:detail.etaSeconds ?? undefined}), 8, 'official', signal)
       plan.roots.push(dest); roots.push(file)
     } else {
       for (const [index, file] of (input.paths ?? []).entries()) {
@@ -135,13 +137,11 @@ export async function executeModPlan(id: string, includeDependencies: boolean, r
     let installed = installedMods(target)
     const rootMods = plan.roots.map(parseModFile)
     const staged = [...rootMods]
-    if (includeDependencies) for (const [index, file] of plan.downloads.entries()) {
+    const dependencies = includeDependencies ? plan.downloads.map((file,index) => ({ ...file, dest:path.join(plan.directory, 'dep-'+index, path.basename(file.fileName)) })) : []
+    await downloadAll(dependencies.map(f => ({url:f.url,dest:f.dest,sha1:f.sha1,size:f.size || undefined})), (_d,_t,speed,detail) => emit({stage:'download',progress:detail.fraction ?? 0,text:'下载必要前置',speed,bytesDone:detail.bytesDone,bytesTotal:detail.bytesTotal ?? undefined,etaSeconds:detail.etaSeconds ?? undefined}), 8, 'official', signal)
+    for (const file of dependencies) {
       signal?.throwIfAborted()
-      const dir = path.join(plan.directory, `dep-${index}`); fs.mkdirSync(dir)
-      const dest = path.join(dir, path.basename(file.fileName))
-      emit({ stage: 'download', progress: index / Math.max(1, plan.downloads.length), text: `下载前置 ${file.fileName}` })
-      await downloadFile(file.url, dest, undefined, file.sha1, undefined, signal)
-      const mod = parseModFile(dest)
+      const mod = parseModFile(file.dest)
       if (!modMatchesInstance(mod, target)) throw new Error(`${file.fileName} 的 JAR 元数据不兼容目标实例：${mod.error ?? ''}`)
       // Keep an installed compatible provider; never install a second copy by filename.
       if (!installed.some(m => provided(m).some(p => p.id === mod.id))) staged.push(mod)

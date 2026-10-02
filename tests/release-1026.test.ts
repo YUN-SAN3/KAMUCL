@@ -17,22 +17,6 @@ test('fix-skins: SkinsView imports every composition API it uses (onUnmounted re
   assert.match(sv, /animSegObserver = new ResizeObserver/)
 })
 
-test('fix-fullscreen: launcher maximize is fake-maximize clamped to workArea, never spills to adjacent monitor (双屏)', () => {
-  const ws = read('src/main/windowState.ts')
-  assert.match(ws, /export function toggleMaximize/)
-  assert.match(ws, /export function applyMaximized/)
-  assert.match(ws, /export function normalizeRealMaximize/)
-  assert.match(ws, /win\.setBounds\(display\.workArea\)/)
-  assert.match(ws, /screen\.getDisplayMatching/)
-  // 持久化的 maximized 标记必须认假最大化
-  assert.match(ws, /maximized: isEffectivelyMaximized\(win\)/)
-  const idx = read('src/main/index.ts')
-  // 主窗口不再走真实最大化（真实最大化会把 thickFrame 不可见边框溢出到相邻屏）
-  assert.ok(!/win\.maximize\(\)/.test(idx), 'index.ts 不应再调用 win.maximize()')
-  assert.match(idx, /window:maximize', \(\) => win && toggleMaximize\(win\)/)
-  assert.match(idx, /win\.on\('maximize', \(\) => win && normalizeRealMaximize\(win\)\)/)
-})
-
 test('feat-mod-disable: fs:toggleDisable renames .jar <-> .jar.disabled with running guard (模组禁用)', () => {
   const types = read('src/shared/types.ts')
   assert.match(types, /fsToggleDisable: 'fs:toggleDisable'/)

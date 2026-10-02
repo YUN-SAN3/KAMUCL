@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { withDeadline } from '@shared/deadline'
 // 服务器页：服务器列表管理 + SLP 实时状态 + 一键进服
+import ContentSkeleton from '../components/ContentSkeleton.vue'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import {
   addServer,
+  favoriteServer,
   editServer,
   copyText,
   bindServer,
@@ -19,7 +22,7 @@ import ConnectionStatus from '../components/connection/ConnectionStatus.vue'
 import ServerListItem from '../components/connection/ServerListItem.vue'
 import ServerDetails from '../components/connection/ServerDetails.vue'
 import '../components/connection/connection.css'
-import { refreshInstalled, store, toast } from '../store'
+import { selectInstance, selectedInstance, refreshInstalled, store, toast } from '../store'
 import type { InstalledVersion, ServerEntry, ServerPingResult } from '@shared/types'
 
 // ---------------- 列表与状态 ----------------
@@ -62,7 +65,7 @@ async function syncNow() {
     toast(`游戏内服务器同步完成：${detail}`, r.errors?.length ? 'error' : 'success')
     if (r.errors?.length) toast(r.errors[0], 'error')
   } catch (e) {
-    toast('同步失败：' + errText(e), 'error')
+    loadError.value = '同步失败：' + errText(e)
   } finally {
     loading.value = false
   }
@@ -189,6 +192,7 @@ async function onDelete() {
 }
 
 // ---------------- 一键进服 ----------------
+function syncJoinSelection(){const t=parseTargetToken(joinModal.versionId);if(t)void selectInstance(t.id,t.folder)}
 const joinModal = reactive({ open: false, target: null as ServerEntry | null, versionId: '' })
 
 const normalizedPath = (value: string) => value.replace(/\\/g, '/').replace(/\/$/, '').toLowerCase()
@@ -249,12 +253,15 @@ async function doLaunch(s: ServerEntry, versionId: string) {
     const target = targets.value.find(
       (item) => item.id === versionId && (!s.folder || normalizedPath(item.folder) === normalizedPath(s.folder))
     )
-    const prepared = await prepareServerLaunch(s.id, versionId, target?.folder ?? s.folder)
+    const prepared = await withDeadline(() => prepareServerLaunch(s.id, versionId, target?.folder ?? s.folder), 15000, '服务器启动准备超时，请检查实例目录是否可访问后重试')
     store.settings = await getSettings()
-    await refreshInstalled()
+    // Preparation already pins the target folder. Reuse the list loaded by this
+    // page instead of blocking launch on another scan of every installed instance.
+    store.installed = targets.value.filter(item => normalizedPath(item.folder) === normalizedPath(prepared.folder))
+    await selectInstance(prepared.versionId, prepared.folder)
     store.launchingVersionId = prepared.versionId
     store.launchingFolder = prepared.folder
-    await launchGame(prepared.versionId, prepared.directJoin ? prepared.address : undefined)
+    await launchGame(prepared.versionId, prepared.directJoin ? prepared.address : undefined, prepared.folder)
     servers.value = await listServers()
     toast(
       prepared.directJoin
@@ -274,6 +281,7 @@ async function onBind(s: ServerEntry, token: string) {
   try {
     const target = parseTargetToken(token)
     servers.value = await bindServer(s.id, target?.id ?? '', target?.folder)
+    if(target)await selectInstance(target.id,target.folder)
     toast(target ? `已关联到 ${target.id}` : '已解除实例关联', 'success')
   } catch (e) {
     toast('绑定失败：' + errText(e), 'error')
@@ -293,7 +301,7 @@ function openJoin(s: ServerEntry) {
     return
   }
   joinModal.target = s
-  joinModal.versionId = targetOf(s) ? boundToken(s) : targetToken(targets.value[0])
+  joinModal.versionId = targetOf(s) ? boundToken(s) : targetToken(selectedInstance.value ?? targets.value[0])
   joinModal.open = true
 }
 
@@ -318,7 +326,7 @@ const pingOf = (s: ServerEntry): ServerPingResult | null =>
 // ---------------- 顶栏搜索联动（过滤名称/地址/MOTD） ----------------
 const keyword = computed(() => store.searchKeyword.trim().toLowerCase())
 const filteredServers = computed(() =>
-  keyword.value
+  (keyword.value
     ? servers.value.filter((s) => {
         const ping = pingOf(s)
         return (
@@ -327,8 +335,12 @@ const filteredServers = computed(() =>
           (ping?.motd.toLowerCase().includes(keyword.value) ?? false)
         )
       })
-    : servers.value
+    : servers.value).slice().sort((a, b) => Number(!!b.favorite) - Number(!!a.favorite))
 )
+async function toggleFavorite(server: ServerEntry) {
+  try { servers.value = await favoriteServer(server.id, !server.favorite) }
+  catch (e) { toast('收藏失败：' + errText(e), 'error') }
+}
 const activeServer = computed(() => filteredServers.value.find(s => s.id === activeId.value) ?? filteredServers.value[0])
 const onlineCount = computed(() => servers.value.filter(s => pingOf(s)?.online).length)
 watch(servers, list => { selected.value = new Set([...selected.value].filter(id => list.some(s => s.id === id))) })
@@ -342,39 +354,39 @@ async function copyAddress(s: ServerEntry) {
 </script>
 
 <template>
-  <div class="connect-page servers-page">
-    <header class="connection-header">
-      <div><span class="connection-eyebrow">YOUR DESTINATIONS</span><h1>服务器</h1><p>收藏常去的世界，为每一次出发选好实例。</p></div>
-      <button class="btn btn-gold" :disabled="loading" @click="openAdd()"><span aria-hidden="true">＋</span> 添加服务器</button>
+  <div data-ui="ServersView:b824bf7cac3c" class="connect-page servers-page">
+    <header data-ui="ServersView:c2edecc77ee3" class="connection-header">
+      <div><h1 data-ui="ServersView:ee8e70e0acab">服务器 <small>{{ servers.length }} 个 · {{ onlineCount }} 个在线</small></h1></div>
+      <button data-ui="ServersView:c8a77fb10c66" class="btn btn-gold" :disabled="loading" @click="openAdd()"><span data-ui="ServersView:12718dc300bd" aria-hidden="true">＋</span> 添加服务器</button>
     </header>
-    <div class="server-toolbar">
-      <label class="server-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input v-model="store.searchKeyword" type="search" placeholder="搜索名称、地址或服务器介绍" aria-label="搜索服务器" /></label>
-      <div class="connection-actions"><button class="btn btn-ghost" :disabled="refreshing || loading || !servers.length" @click="pingAll">{{ refreshing ? '刷新中…' : '刷新状态' }}</button><button class="btn btn-ghost" :disabled="loading || !!bindingId || launchBusy" @click="syncNow">{{ loading ? '同步中…' : '同步游戏列表' }}</button></div>
+    <div data-ui="ServersView:eee6f822ac69" class="server-toolbar">
+      <label data-ui="ServersView:fd69834ac923" class="server-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input data-ui="ServersView:3445c173cb2a" v-model="store.searchKeyword" type="search" placeholder="搜索名称、地址或服务器介绍" aria-label="搜索服务器" /></label>
+      <div data-ui="ServersView:1b941bebf470" class="connection-actions"><button data-ui="ServersView:d1988c769077" class="btn btn-ghost" :disabled="refreshing || loading || !servers.length" @click="pingAll">{{ refreshing ? '刷新中…' : '刷新状态' }}</button><button data-ui="ServersView:976ee42760fa" class="btn btn-ghost" :disabled="loading || !!bindingId || launchBusy" @click="syncNow">{{ loading ? '同步中…' : '同步游戏列表' }}</button><button data-ui="ServersView:6701e62ae081" class="btn btn-ghost" :disabled="!servers.length || loading" @click="toggleSelectMode">{{ selectMode ? '退出多选' : '批量管理' }}</button></div>
     </div>
-    <p v-if="loadError" class="connection-error" role="alert">{{ loadError }} <button class="btn btn-ghost" @click="load">重试</button></p>
-    <div class="server-collection-head"><div><strong>我的服务器 <span>{{ servers.length }}</span></strong><ConnectionStatus :tone="refreshing ? 'pending' : 'neutral'" :label="refreshing ? '检测状态中' : onlineCount + ' 个在线'" /></div><button class="btn btn-ghost" :disabled="!servers.length || loading" @click="toggleSelectMode">{{ selectMode ? '退出多选' : '批量管理' }}</button></div>
-    <div v-if="selectMode" class="server-batch"><label class="check-all"><input type="checkbox" :checked="allChecked" @change="toggleAll" /> 全选搜索结果</label><span>已选 {{ selectedCount }} 项</span><button class="btn btn-danger" :disabled="!selectedCount" @click="openBatchDelete">删除所选</button></div>
-    <div v-if="loading" class="connection-panel connection-empty" role="status"><span class="spin"></span><h3>正在整理服务器列表</h3><p>同步各实例中的收藏，不会覆盖游戏文件。</p></div>
-    <div v-else-if="!servers.length" class="connection-panel connection-empty">
-      <span class="connection-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="8" rx="2"/><rect x="3" y="13" width="18" height="8" rx="2"/><path d="M7 7h2m-2 10h2"/></svg></span><h3>下一站，去哪个世界？</h3><p>添加好友的服务器地址，或同步游戏内的收藏。关联实例后即可快速进入。</p><button class="btn btn-gold" @click="openAdd()">添加第一个服务器</button>
+    <p data-ui="ServersView:de3efa1d5d8c" v-if="loadError" class="connection-error" role="alert">{{ loadError }} <button data-ui="ServersView:99e827f2934b" class="btn btn-ghost" @click="load">重试</button></p>
+
+    <div data-ui="ServersView:f5fd3e224d72" v-if="selectMode" class="server-batch"><label data-ui="ServersView:95d3c099e4dd" class="check-all"><input data-ui="ServersView:ae275f78348c" type="checkbox" :checked="allChecked" @change="toggleAll" /> 全选搜索结果</label><span>已选 {{ selectedCount }} 项</span><button data-ui="ServersView:bfafec35f377" class="btn btn-danger" :disabled="!selectedCount" @click="openBatchDelete">删除所选</button></div>
+    <ContentSkeleton v-if="loading && !servers.length" class="connection-panel" label="正在整理服务器列表…"/>
+    <div data-ui="ServersView:0c74b7b7657d" v-else-if="!servers.length && !loadError" class="connection-panel connection-empty">
+      <span data-ui="ServersView:ace2288ec1cd" class="connection-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="8" rx="2"/><rect x="3" y="13" width="18" height="8" rx="2"/><path d="M7 7h2m-2 10h2"/></svg></span><h3>下一站，去哪个世界？</h3><p>添加好友的服务器地址，或同步游戏内的收藏。关联实例后即可快速进入。</p><button data-ui="ServersView:425560590e46" class="btn btn-gold" @click="openAdd()">添加第一个服务器</button>
     </div>
-    <div v-else-if="!filteredServers.length" class="connection-panel connection-empty"><h3>没有找到匹配的服务器</h3><p>试试其他名称、地址或关键词。</p><button class="btn btn-ghost" @click="store.searchKeyword = ''">清除搜索</button></div>
-    <div v-else class="server-workspace">
-      <section class="server-list" aria-label="服务器列表">
-        <ServerListItem v-for="s in filteredServers" :key="s.id" :server="s" :ping="pingOf(s)" :pending="pings[s.id] === 'loading'" :active="activeServer?.id === s.id" :select-mode="selectMode" :checked="selected.has(s.id)" @select="activeId = s.id" @toggle="toggleSelect(s.id)" @connect="onCardDblClick(s)" />
-        <p class="connection-muted server-list-hint">选择查看详情 · 双击快速连接</p>
+    <div data-ui="ServersView:18026edb487f" v-else-if="!filteredServers.length && !loadError" class="connection-panel connection-empty"><h3>没有找到匹配的服务器</h3><p>试试其他名称、地址或关键词。</p><button data-ui="ServersView:9d3cfed9a775" class="btn btn-ghost" @click="store.searchKeyword = ''">清除搜索</button></div>
+    <div data-ui="ServersView:327a59a2e7d9" v-else-if="servers.length" class="server-workspace" :inert="loading || !!loadError">
+      <section data-ui="ServersView:9f97ae2c334b" class="server-list" aria-label="服务器列表">
+        <ServerListItem v-for="s in filteredServers" :key="s.id" :server="s" :ping="pingOf(s)" :pending="pings[s.id] === 'loading'" :active="activeServer?.id === s.id" :select-mode="selectMode" :checked="selected.has(s.id)" @favorite="toggleFavorite(s)" @select="activeId = s.id" @toggle="toggleSelect(s.id)" @connect="onCardDblClick(s)" />
+        <p data-ui="ServersView:14a890c77df9" class="connection-muted server-list-hint">选择查看详情 · 双击快速连接</p>
       </section>
-      <ServerDetails v-if="activeServer" :server="activeServer" :ping="pingOf(activeServer)" :pending="pings[activeServer.id] === 'loading'" :busy="launchBusy || store.launchState?.status === 'running' || store.launchState?.status === 'launching'" :binding="!!bindingId" :targets="targets" :bound="boundToken(activeServer)" :missing="versionMissing(activeServer)" :last-used="formatLastUsed(activeServer.lastUsedAt)" :target-token="targetToken" :target-label="targetLabel" @bind="onBind(activeServer, $event)" @connect="onCardDblClick(activeServer)" @refresh="pingOne(activeServer)" @edit="openAdd(activeServer)" @remove="requestDelete(activeServer)" @relink="relinkMissing(activeServer)" @versions="store.currentView = 'game'" @copy="copyAddress(activeServer)" />
+      <ServerDetails v-if="activeServer" :server="activeServer" :ping="pingOf(activeServer)" :pending="pings[activeServer.id] === 'loading'" :busy="launchBusy || store.launchState?.status === 'running' || store.launchState?.status === 'launching'" :running="store.launchState?.status === 'running'" :binding="!!bindingId" :targets="targets" :bound="boundToken(activeServer)" :missing="versionMissing(activeServer)" :last-used="formatLastUsed(activeServer.lastUsedAt)" :target-token="targetToken" :target-label="targetLabel" @bind="onBind(activeServer, $event)" @connect="onCardDblClick(activeServer)" @refresh="pingOne(activeServer)" @edit="openAdd(activeServer)" @remove="requestDelete(activeServer)" @relink="relinkMissing(activeServer)" @versions="store.currentView = 'game'" @copy="copyAddress(activeServer)" />
     </div>
     <!-- 添加模态框 -->
     <Teleport to="body">
-      <div v-if="addModal.open" class="modal-mask connection-modal" @pointerdown.self="!addModal.busy && (addModal.open = false)">
-        <div class="modal" role="dialog" aria-modal="true" aria-label="服务器操作">
-          <h3 class="modal-title">{{ addModal.id ? '编辑服务器' : '添加服务器' }}</h3><p class="connection-muted">只修改启动器记录，不会覆盖游戏内服务器列表。</p><p v-if="addModal.error" class="connection-error" role="alert">{{ addModal.error }}</p>
-          <label for="server-edit-name" class="modal-label">服务器名称</label>
-          <input id="server-edit-name" v-model="addModal.name" class="input" placeholder="例如：好友的生存服" maxlength="30" />
-          <label for="server-edit-address" class="modal-label">服务器地址</label>
-          <input
+      <div data-ui="ServersView:9f87bde5903a" v-if="addModal.open" class="modal-mask connection-modal" @pointerdown.self="!addModal.busy && (addModal.open = false)">
+        <div data-ui="ServersView:64843d40b149" class="modal" role="dialog" aria-modal="true" aria-label="服务器操作">
+          <h3 class="modal-title">{{ addModal.id ? '编辑服务器' : '添加服务器' }}</h3><p data-ui="ServersView:0673ab93fcb6" class="connection-muted">只修改启动器记录，不会覆盖游戏内服务器列表。</p><p data-ui="ServersView:ff5270751bc0" v-if="addModal.error" class="connection-error" role="alert">{{ addModal.error }}</p>
+          <label data-ui="ServersView:ef16ee272d28" for="server-edit-name" class="modal-label">服务器名称</label>
+          <input data-ui="ServersView:269e49ea31d8" id="server-edit-name" v-model="addModal.name" class="input" placeholder="例如：好友的生存服" maxlength="30" />
+          <label data-ui="ServersView:7726e21fdba4" for="server-edit-address" class="modal-label">服务器地址</label>
+          <input data-ui="ServersView:96ef483b19f6"
             id="server-edit-address" v-model="addModal.address"
             class="input mono"
             placeholder="例如：mc.example.com 或 1.2.3.4:25565"
@@ -382,8 +394,8 @@ async function copyAddress(s: ServerEntry) {
             @keyup.enter="onAdd"
           />
           <div class="modal-actions">
-            <button class="btn btn-ghost" :disabled="addModal.busy" @click="addModal.open = false">取消</button>
-            <button class="btn btn-gold" :disabled="addModal.busy || !addModal.name.trim() || !addModal.address.trim()" @click="onAdd">
+            <button data-ui="ServersView:c271ffbad47f" class="btn btn-ghost" :disabled="addModal.busy" @click="addModal.open = false">取消</button>
+            <button data-ui="ServersView:597bd1616442" class="btn btn-gold" :disabled="addModal.busy || !addModal.name.trim() || !addModal.address.trim()" @click="onAdd">
               {{ addModal.busy ? '保存中…' : addModal.id ? '保存修改' : '添加服务器' }}
             </button>
           </div>
@@ -391,10 +403,10 @@ async function copyAddress(s: ServerEntry) {
       </div>
 
       <!-- 删除确认 -->
-      <div v-if="delModal.open" class="modal-mask connection-modal" @pointerdown.self="!delModal.busy && (delModal.open = false)">
+      <div data-ui="ServersView:581b4d7ed38f" v-if="delModal.open" class="modal-mask connection-modal" @pointerdown.self="!delModal.busy && (delModal.open = false)">
         <div class="modal">
           <h3 class="modal-title">删除服务器</h3>
-          <p class="confirm-text">
+          <p data-ui="ServersView:76f7cd862f50" class="confirm-text">
             <template v-if="delModal.batch">
               确定要从 KAMUCL 删除所选的 {{ selectedCount }} 个服务器吗？这只会删除启动器记录，不会修改 Minecraft 的 servers.dat；下次同步时，游戏内仍存在的条目可能再次出现。
             </template>
@@ -403,8 +415,8 @@ async function copyAddress(s: ServerEntry) {
             </template>
           </p>
           <div class="modal-actions">
-            <button class="btn btn-ghost" :disabled="delModal.busy" @click="delModal.open = false">取消</button>
-            <button class="btn btn-danger" :disabled="delModal.busy" @click="onDelete">
+            <button data-ui="ServersView:f352d5e4009a" class="btn btn-ghost" :disabled="delModal.busy" @click="delModal.open = false">取消</button>
+            <button data-ui="ServersView:488f14bc3ac2" class="btn btn-danger" :disabled="delModal.busy" @click="onDelete">
               {{ delModal.busy ? '删除中…' : '确认删除' }}
             </button>
           </div>
@@ -412,21 +424,21 @@ async function copyAddress(s: ServerEntry) {
       </div>
 
       <!-- 进入游戏（选版本） -->
-      <div v-if="joinModal.open" class="modal-mask connection-modal" @pointerdown.self="joinModal.open = false">
+      <div data-ui="ServersView:134da6c8d6c9" v-if="joinModal.open" class="modal-mask connection-modal" @pointerdown.self="joinModal.open = false">
         <div class="modal">
           <h3 class="modal-title">进入 {{ joinModal.target?.name }}</h3>
-          <p class="modal-label">选择游戏实例（将保存关联并启动 {{ joinModal.target?.address }}）</p>
-          <select v-model="joinModal.versionId" class="select">
+          <p data-ui="ServersView:86a7b84a1c0f" class="modal-label">选择游戏实例（将保存关联并启动 {{ joinModal.target?.address }}）</p>
+          <select data-ui="ServersView:86d2c55efdd8" v-model="joinModal.versionId" class="select" @change="syncJoinSelection">
             <option v-for="v in targets" :key="`${v.folder}\u0000${v.id}`" :value="targetToken(v)">
               {{ targetLabel(v) }}
             </option>
           </select>
-          <p class="muted join-hint">
+          <p data-ui="ServersView:6b5692aed293" class="muted join-hint">
             Java 1.20 及以上会使用官方 Quick Play 直接进入；更旧版本只启动正确实例，并保留服务器记录。
           </p>
           <div class="modal-actions">
-            <button class="btn btn-ghost" @click="joinModal.open = false">取消</button>
-            <button class="btn btn-gold" @click="onJoin">启动并进入</button>
+            <button data-ui="ServersView:ed11f95a3941" class="btn btn-ghost" @click="joinModal.open = false">取消</button>
+            <button data-ui="ServersView:9bd6d5ab8297" class="btn btn-gold" @click="onJoin">启动并进入</button>
           </div>
         </div>
       </div>
@@ -494,4 +506,26 @@ async function copyAddress(s: ServerEntry) {
 .servers-page .server-batch { padding: var(--space-3) var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--accent-soft); flex-wrap: wrap; }
 .servers-page .server-batch > .btn { margin-left: auto; }
 @media (max-width: 1120px) { .servers-page .server-workspace { grid-template-columns: 1fr; } .servers-page .server-detail { position: static; } }
+.servers-page{gap:16px}.servers-page .connection-header{margin:0;padding:0}.servers-page .connection-header h1 small{font-size:12px;font-weight:400;color:var(--text-dim);margin-left:12px}.server-toolbar{margin:0;gap:12px}.servers-page .server-list-item{border:0;border-bottom:1px solid var(--border);border-radius:0;min-height:80px;box-shadow:none;padding:0 8px;background:transparent}.servers-page .server-list-item.active{background:var(--accent-soft);box-shadow:inset 3px 0 var(--accent)}.servers-page .server-row-button{padding:12px;min-width:0}.servers-page .server-row-copy{min-width:0}.servers-page .server-row-copy strong{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.servers-page .server-row-state{min-width:76px}.servers-page .server-favorite{order:3;margin:0 4px}.servers-page .server-row-button{flex:1}.servers-page .server-detail-title h3{font-size:21px}.servers-page .server-detail{align-self:start}@media(max-width:800px){.server-toolbar{flex-wrap:wrap}.server-toolbar .server-search{flex-basis:100%}.servers-page .connection-header h1 small{display:block;margin:6px 0 0}}
+.servers-page .server-list{gap:0;background:var(--surface-content);padding:0 12px;border:1px solid var(--border);border-radius:var(--radius-lg)}.servers-page .server-list-item{animation:none;overflow:visible}.servers-page .server-list-item:hover,.servers-page .server-list-item:active{transform:none;box-shadow:none}.servers-page .server-list-item:hover .server-monogram{transform:none}@media(min-width:1121px){.servers-page .server-workspace{grid-template-columns:minmax(360px,1.2fr) minmax(320px,1fr);min-height:0;flex:1}.servers-page .server-list,.servers-page .server-detail{max-height:calc(100vh - 270px);overflow:auto;scrollbar-gutter:stable}.content:has(.servers-page){overflow:hidden}.servers-page{height:100%;min-height:0}}
+
+.servers-page .server-workspace { gap:16px; }
+.servers-page .server-list { padding:8px; }
+.servers-page .server-list-item { padding:0 4px; min-height:86px; }
+.servers-page .server-list-item.active { border-bottom-color:var(--border);box-shadow:none;background:var(--accent-soft);border-radius:var(--radius-sm); }
+.servers-page .server-list-item.active .server-row-copy strong { color:var(--accent-2); }
+.servers-page .server-row-button { gap:12px;padding:12px 8px; }
+.servers-page .server-monogram { width:36px;height:36px; }
+.servers-page .server-row-state { min-width:66px; }
+.servers-page .server-favorite { margin:0 4px; }
+.servers-page .server-list > .connection-muted { padding:8px;font-size:12px; }
+.servers-page .server-detail .connection-panel-body { gap:16px;padding:20px; }
+.servers-page .server-detail-title h3 { margin:0;font-size:20px; }
+.servers-page .server-facts { padding:12px 0;border-block:1px solid var(--border); }
+.servers-page .server-facts strong { font-size:18px; }
+.servers-page .server-description { padding:10px 12px;line-height:1.6; }
+.servers-page .server-detail .connection-panel-head { padding:12px 20px; }
+.servers-page .server-detail .connection-panel-head h2 { font-size:14px;color:var(--text-dim);font-weight:500; }
+@media(min-width:1121px) { .servers-page { max-width:1480px;margin-inline:auto;width:100%; }.servers-page .server-detail { position:sticky;top:0; } }
+@media(max-width:1120px) { .servers-page .server-workspace { grid-template-columns:minmax(0,1fr); }.servers-page .server-list{max-height:360px;overflow:auto}.servers-page .server-detail{position:static} }
 </style>

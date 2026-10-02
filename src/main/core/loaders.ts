@@ -5,17 +5,24 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { spawn } from 'node:child_process'
+import { downloadLimiter } from './downloadLimits'
+import { withFileJob } from './fileJobs'
+import { runParallelTasks } from './parallelTasks'
+import { ParallelProgress } from './parallelProgress'
 import { copyRuntimeProfile } from './packRuntime'
 import { fmlArgument, missingNeoRuntime, reuseExternalRuntimeLibraries } from './externalRuntime'
 import type { FabricApiVersion, LoaderName, ProgressEvent } from '../../shared/types'
 import { BMCL_MAVEN_ROOT, downloadAll, downloadFile, fetchSignal } from './download'
 import { isCancelError } from './tasks'
+import { downloadLoaderInstaller } from './installerDownload'
+import { prepareInstallerDependencies } from './installerDependencies'
+import { SmoothedSpeedEstimator } from './downloadProgress'
 import { logScope } from './launcherLog'
 
 const loaderLog = logScope('loader')
 import { getSettings } from './settings'
 import { gameDir, librariesDir, registerVersionFolder, versionDir, versionJsonPath, versionsDir } from './paths'
-import { ensureJava, scanJava } from './java'
+import { ensureJava } from './java'
 import {
   installVanilla,
   libraryTasks,
@@ -136,16 +143,18 @@ export async function listLoaderVersions(
 
 /** 选一个可用 java 运行安装器：优先本机扫描，实在不行用 ensureJava 下载 */
 async function pickJavaForInstaller(mcVersion: string, emit: ProgressEmit): Promise<string> {
-  const found = scanJava()
-  const any = found.find((j) => j.is64Bit) ?? found[0]
-  if (any) return any.path
-  // 本机完全没有 Java，按原版需求下载一个
   const vj = readVersionJson(mcVersion)
   return await ensureJava(vj, emit)
 }
 
 /** 运行 forge/neoforge 安装器：全量输出落盘 installer.log；失败带最后 30 行；--mirror= 等号形式，失败降级去 mirror 重试；signal 取消时杀掉安装器进程 */
 function runInstaller(javaPath: string, jar: string, emit: ProgressEmit, signal?: AbortSignal, target = gameDir()): Promise<void> {
+  // External Java installers rewrite launcher_profiles.json in their target folder.
+  // Only this final installer phase is serialized; version/file downloads remain concurrent.
+  return withFileJob(path.join(target, '.kamucl-installer'), signal, () => runInstallerUnlocked(javaPath, jar, emit, signal, target))
+}
+
+function runInstallerUnlocked(javaPath: string, jar: string, emit: ProgressEmit, signal: AbortSignal | undefined, target: string): Promise<void> {
   const useMirror = getSettings().mirror === 'bmclapi'
 
   const buildArgs = (withMirror: boolean): string[] => {
@@ -182,7 +191,7 @@ function runInstaller(javaPath: string, jar: string, emit: ProgressEmit, signal?
         tail = lines.pop() ?? ''
         for (const l of lines) if (l.trim()) allLines.push(l)
         const shortTail = lines.slice(-2).join(' ').slice(-160)
-        emit({ stage: 'loader', progress: 0.75, text: `安装器: ${shortTail || '运行中…'}` })
+        emit({ stage: 'loader-process', progress: 0, indeterminate: true, text: `生成加载器运行文件: ${shortTail || '处理中…'}` })
       }
       proc.stdout.on('data', onData)
       proc.stderr.on('data', onData)
@@ -248,9 +257,13 @@ export async function repairNeoRuntime(json: VersionJson, clientJar: string, bas
   // Seed declared and generated libraries with copies, not directory junctions.
   reuseExternalRuntimeLibraries(json, [path.dirname(librariesDir()), ...getSettings().folders.map(f => f.path)], path.join(staging, 'libraries'), tasks.map(t => path.join(staging, 'libraries', path.relative(librariesDir(), t.dest))))
   try {
-    await downloadFile(`https://maven.neoforged.net/releases/net/neoforged/neoforge/${neo}/neoforge-${neo}-installer.jar`, jar)
+    const mirror=getSettings().mirror
+    const repairEmit:ProgressEmit=event=>emit({...event,stage:'repair',text:`修复 NeoForge：${event.text}`})
+    await downloadLoaderInstaller(`https://maven.neoforged.net/releases/net/neoforged/neoforge/${neo}/neoforge-${neo}-installer.jar`, jar, mirror,
+      (done,total)=>repairEmit({stage:'repair',progress:total?done/total:0,text:'下载安装器 '+(done/1024/1024).toFixed(1)+'MB',bytesDone:done,bytesTotal:total||undefined}))
     const java = await ensureJava(baseJson, emit)
-    await runInstaller(java, jar, emit, undefined, staging)
+    await prepareInstallerDependencies(jar, staging, mirror, repairEmit)
+    await runInstaller(java, jar, repairEmit, undefined, staging)
     reuseExternalRuntimeLibraries(json, [staging], librariesDir(), tasks.map(t => t.dest))
     const missing = missingNeoRuntime(json, librariesDir())
     if (missing.length) throw new Error(`安装器未生成必要本体库：${missing.join('、')}`)
@@ -319,14 +332,17 @@ async function installLoaderInternal(
   emit({ stage: 'version-json', progress: 0, text: `检查原版 ${mcVersion}` })
   const vanillaPreExisted = fs.existsSync(versionJsonPath(mcVersion))
   const installerBased = loader === 'forge' || loader === 'neoforge'
-  await installVanilla(
+  const prepareVanilla = (report: ProgressEmit, signal?: AbortSignal, runtimeReady?: (signal: AbortSignal) => Promise<void>) => installVanilla(
     mcVersion,
-    emit,
+    report,
     vanillaPreExisted || installerBased ? 'versions' : 'base',
     undefined,
     signal,
-    false
+    false,
+    runtimeReady
   )
+
+  if (!installerBased) await prepareVanilla(emit, signal)
 
   // ---- fabric / quilt：profile json 直写 ----
   if (loader === 'fabric' || loader === 'quilt') {
@@ -362,7 +378,7 @@ async function installLoaderInternal(
           bytesTotal: detail.bytesTotal ?? undefined,
           indeterminate: detail.indeterminate
         }),
-      8,
+      downloadLimiter.maxConcurrent,
       mirror,
       signal
     )
@@ -386,10 +402,6 @@ async function installLoaderInternal(
     loader === 'forge'
       ? `https://maven.minecraftforge.net/net/minecraftforge/forge/${mcVersion}-${loaderVersion}/${fileBase}`
       : `https://maven.neoforged.net/releases/net/neoforged/neoforge/${loaderVersion}/${fileBase}`
-  const mirrorUrlB =
-    loader === 'forge'
-      ? `https://bmclapi2.bangbang93.com/maven/net/minecraftforge/forge/${mcVersion}-${loaderVersion}/${fileBase}`
-      : `https://bmclapi2.bangbang93.com/maven/net/neoforged/neoforge/${loaderVersion}/${fileBase}`
 
   const jarPath = path.join(os.tmpdir(), `kamucl-${loader}-installer-${Date.now()}.jar`)
   try {
@@ -397,50 +409,76 @@ async function installLoaderInternal(
     const reusable = instanceName?.trim() ? findInstalledDir(loader, mcVersion, loaderVersion) : null
     let id: string
     if (reusable && reusable !== instanceName!.trim() && !fs.existsSync(path.join(versionDir(reusable), '.installing'))) {
+      await prepareVanilla(emit, signal)
       id = instanceName!.trim()
       copyRuntimeProfile(versionsDir(), reusable, id)
       registerVersionFolder(id, gameDir())
     } else {
-    emit({ stage: 'loader', progress: 0.2, text: `下载 ${loader} 安装器` })
-    try {
-      await downloadFile(officialUrl, jarPath, (d, t) =>
-        emit({
-          stage: 'loader',
-          progress: 0.2 + (t ? (d / t) * 0.4 : 0),
-          text: `下载安装器 ${(d / 1024 / 1024).toFixed(1)}MB`
-        }), undefined, undefined, signal
-      )
-    } catch {
-      // 官方源失败回退 BMCLAPI（取消除外）
-      if (signal?.aborted) throw new Error('已取消')
-      loaderLog.warn(`${loader} 安装器官方源下载失败，回退 BMCLAPI 镜像`)
-      await downloadFile(mirrorUrlB, jarPath, (d, t) =>
-        emit({
-          stage: 'loader',
-          progress: 0.2 + (t ? (d / t) * 0.4 : 0),
-          text: `下载安装器(镜像) ${(d / 1024 / 1024).toFixed(1)}MB`
-        }), undefined, undefined, signal
-      )
-    }
+      // Installer metadata/libraries do not depend on assets or the client jar.
+      // Java waits for client/libraries and installer dependencies; asset downloads
+      // continue. Every writer is drained before committing or rolling back.
+      const parallel = new ParallelProgress([
+        { id: 'vanilla', label: '原版环境', weight: 0.6 },
+        { id: 'installer', label: '加载器下载', weight: 0.2 },
+        { id: 'processor', label: '生成运行文件', weight: 0.2 }
+      ], emit, '同步准备原版环境与加载器', [0, 0.9])
+      let resolvePrepared!: () => void, rejectPrepared!: (error: unknown) => void
+      const prepared = { promise: new Promise<void>((resolve, reject) => { resolvePrepared = resolve; rejectPrepared = reject }),
+        resolve: () => resolvePrepared(), reject: (error: unknown) => rejectPrepared(error) }
+      void prepared.promise.catch(() => {}) // A sibling can fail before vanilla reaches this barrier.
+      await runParallelTasks([
+        async signal => {
+          await prepareVanilla(e => parallel.update('vanilla', e), signal, async signal => {
+            await prepared.promise
+            signal.throwIfAborted()
+            const processorEmit: ProgressEmit = e => parallel.update('processor', e)
+            const javaPath = await pickJavaForInstaller(mcVersion, processorEmit)
+            // Forge/NeoForge 安装器要求目标目录存在 launcher_profiles.json，否则报错退出
+            const lp = path.join(gameDir(), 'launcher_profiles.json')
+            if (!fs.existsSync(lp)) {
+              fs.writeFileSync(lp, JSON.stringify({ profiles: {}, settings: {}, version: 3 }, null, 2), 'utf-8')
+            }
+            signal?.throwIfAborted()
+            processorEmit({ stage: 'loader-process', progress: 0, indeterminate: true, text: '生成加载器运行文件…' })
+            await runInstaller(javaPath, jarPath, processorEmit, signal)
+            processorEmit({ stage: 'loader-process', progress: 1, text: '加载器运行文件已生成' })
 
-    const javaPath = await pickJavaForInstaller(mcVersion, emit)
-    // Forge/NeoForge 安装器要求目标目录存在 launcher_profiles.json，否则报错退出
-    const lp = path.join(gameDir(), 'launcher_profiles.json')
-    if (!fs.existsSync(lp)) {
-      fs.writeFileSync(lp, JSON.stringify({ profiles: {}, settings: {}, version: 3 }, null, 2), 'utf-8')
-    }
-    emit({ stage: 'loader', progress: 0.7, text: '运行安装器（可能需要几分钟）…' })
-    await runInstaller(javaPath, jarPath, emit, signal)
+            parallel.done('processor')
+          })
+          parallel.done('vanilla')
+        },
+        async signal => {
+          try {
+            const loaderEmit: ProgressEmit = e => parallel.update('installer', e)
+            loaderEmit({ stage: 'loader', progress: 0.2, text: `下载 ${loader} 安装器` })
+            const estimator = new SmoothedSpeedEstimator()
+            let networkBytes = 0
+            await downloadLoaderInstaller(officialUrl, jarPath, getSettings().mirror, (d, t, wire = 0) => {
+              networkBytes += wire
+              const rate = estimator.sample(networkBytes, t ? Math.max(0, t - d) : null, performance.now())
+              loaderEmit({ stage: 'loader', progress: 0.2 + (t ? (d / t) * 0.4 : 0),
+                text: '下载安装器 ' + (d / 1024 / 1024).toFixed(1) + 'MB',
+                speed: rate.speedBps, etaSeconds: rate.etaSeconds ?? undefined, bytesDone: d, bytesTotal: t || undefined })
+            }, signal)
 
-    const id0 = findInstalledDir(loader, mcVersion, loaderVersion)
-    if (!id0) throw new Error('安装器运行结束，但未找到生成的版本目录')
-    // 自定义实例名：重命名安装器生成的目录与 json id
-    id = id0
-    if (instanceName?.trim() && instanceName.trim() !== id0) {
-      const { renameVersion } = await import('./versions')
-      renameVersion(id0, instanceName.trim())
-      id = instanceName.trim()
-    }
+
+            await prepareInstallerDependencies(jarPath, gameDir(), getSettings().mirror, loaderEmit, signal)
+            parallel.done('installer')
+            prepared.resolve()
+          } catch (error) { prepared.reject(error); throw error }
+        }
+      ], signal)
+
+
+      const id0 = findInstalledDir(loader, mcVersion, loaderVersion)
+      if (!id0) throw new Error('安装器运行结束，但未找到生成的版本目录')
+      // 自定义实例名：重命名安装器生成的目录与 json id
+      id = id0
+      if (instanceName?.trim() && instanceName.trim() !== id0) {
+        const { renameVersion } = await import('./versions')
+        renameVersion(id0, instanceName.trim())
+        id = instanceName.trim()
+      }
     }
     tagLoaderJson(id, loader, loaderVersion)
 
@@ -466,7 +504,7 @@ async function installLoaderInternal(
             bytesTotal: detail.bytesTotal ?? undefined,
             indeterminate: detail.indeterminate
           }),
-        8,
+        downloadLimiter.maxConcurrent,
         getSettings().mirror,
         signal
       )

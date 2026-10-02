@@ -1,541 +1,75 @@
 <script setup lang="ts">
-/**
- * 个性化点选编辑面板（编辑模式时固定在右侧滑出）。
- * 内容随 store.editTarget 变化；未选中板块时显示指引 + 全部分组折叠列表。
- */
-import { computed, ref } from 'vue'
-import { copyText, errText, saveSettings } from '../api'
-import { exitEditMode, store, toast } from '../store'
-import { DEFAULT_CUSTOM_THEME } from '@shared/types'
-import type { CustomTheme, Settings } from '@shared/types'
-
-type ColorKey = keyof CustomTheme['colors']
-
-const HEX_RE = /^#[0-9a-fA-F]{6}$/
-
-const colors = computed(() => store.settings?.custom.colors ?? DEFAULT_CUSTOM_THEME.colors)
-
-// ---------------- 板块分组定义（key 对应界面元素的 data-edit） ----------------
-interface GroupDef {
-  key: string
-  title: string
-  hint?: string
-  colors: Array<{ key: ColorKey; label: string }>
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { store, exitEditMode, toast, type ViewName } from '../store'
+import { beginDesign, finishDesign, flushDesign, designDraft, designDirty, designSaveState, designRecovered, designStageReady, previewAppearance, currentDesign, designTargets, designSelected, designSelection, selectedDesign, designScope, changeComponent, checkpoint, resetComponent, resetPage, undoDesign, designHistory, designFuture, reorderComponent, type DesignTarget } from '../visualDesign'
+import { snapped, type ComponentDesign } from '@shared/visualDesign'
+import { DEFAULT_CUSTOM_THEME, DEFAULT_HOME_LAYOUT, DEFAULT_BACKGROUND, DEFAULT_LAUNCH_THUMBNAIL } from '@shared/types'
+import { copyText } from '../api'
+const pages:{value:ViewName;label:string}[]=[{value:'home',label:'首页'},{value:'game',label:'游戏版本'},{value:'mods',label:'模组'},{value:'packs',label:'材质包'},{value:'shaders',label:'光影包'},{value:'keys',label:'默认配置'},{value:'skins',label:'皮肤'},{value:'community',label:'社区资源'},{value:'servers',label:'服务器'},{value:'friends',label:'联机'},{value:'settings',label:'设置'},{value:'accounts',label:'账户'},{value:'bridge',label:'MOD 面板'}]
+const filter=ref(''),folded=ref(new Set<string>()),tab=ref('layout'),mobileTab=ref('properties'),snap=ref(true),browse=ref(false),zoom=ref('fit'),scale=ref(1),viewport=ref<HTMLElement>(),exitOpen=ref(false),busy=ref(false),themeOpen=ref(false),code=ref('')
+const logical=reactive({width:window.innerWidth,height:window.innerHeight}),box=ref({x:0,y:0,width:0,height:0}),insertion=ref<{x:number;y:number;width:number;height:number}>(),guideX=ref<number>(),guideY=ref<number>()
+const baseLayers=computed(()=>designTargets.value.filter(t=>!t.decoration))
+const layers=computed(()=>baseLayers.value.filter(t=>{if(filter.value)return t.label.toLowerCase().includes(filter.value.toLowerCase());let p=t.parentKey;while(p){if(folded.value.has(p))return false;p=designTargets.value.find(x=>x.key===p)?.parentKey}return true}))
+const parent=computed(()=>designTargets.value.find(t=>t.key===designSelected.value?.parentKey))
+const ancestors=computed(()=>{const out:DesignTarget[]=[];let p=parent.value;while(p){out.unshift(p);p=designTargets.value.find(t=>t.key===p!.parentKey)}return out.slice(-3)})
+const free=computed(()=>selectedDesign.value.mode==='free')
+const fields=computed(()=>tab.value==='layout'?[...(free.value?[{key:'x',label:'横向位移',unit:'px',min:-10000,max:10000},{key:'y',label:'纵向位移',unit:'px',min:-10000,max:10000}]:[]),{key:'width',label:'宽度',unit:'px',min:8,max:10000},{key:'height',label:'高度',unit:'px',min:8,max:10000},...(designSelected.value?.container?[{key:'gap',label:'组件间距',unit:'px',min:0,max:200},{key:'padding',label:'内部留白',unit:'px',min:0,max:200}]:[])]:tab.value==='appearance'?[{key:'opacity',label:'透明度',unit:'%',min:0,max:100},{key:'radius',label:'圆角',unit:'px',min:0,max:300},{key:'blur',label:'毛玻璃',unit:'px',min:0,max:80}]:[{key:'fontSize',label:'字号',unit:'px',min:6,max:200},{key:'fontWeight',label:'字重',unit:'',min:100,max:900}])
+function rgba(key:'color'|'background'){const el=designSelected.value?.element,raw=selectedDesign.value[key]||(el?getComputedStyle(el)[key==='color'?'color':'backgroundColor']:'');if(raw.startsWith('#')){let hex=raw.slice(1);if(hex.length===3||hex.length===4)hex=hex.split('').map(x=>x+x).join('');return [parseInt(hex.slice(0,2),16),parseInt(hex.slice(2,4),16),parseInt(hex.slice(4,6),16),hex.length===8?parseInt(hex.slice(6),16)/255:1]}const nums=raw.match(/[\d.]+/g)?.map(Number);return nums?.length?[...nums.slice(0,3),nums[3]??1]:[255,255,255,raw==='transparent'?0:1]}
+function colorHex(key:'color'|'background'){return '#'+rgba(key).slice(0,3).map(x=>Math.round(x).toString(16).padStart(2,'0')).join('')}
+function setColor(key:'color'|'background',value:string){const alpha=rgba(key)[3];changeComponent({[key]:value+Math.round(alpha*255).toString(16).padStart(2,'0')},false)}
+function setAlpha(key:'color'|'background',value:string){const [r,g,b]=rgba(key);changeComponent({[key]:'rgba('+[r,g,b,Number(value)/100].join(',')+')'},false)}
+function value(key:string){const n=selectedDesign.value[key as keyof ComponentDesign];return typeof n==='number'?Math.round(n*(key==='opacity'?100:1)*100)/100:''}
+function numeric(key:string,e:Event){const raw=(e.target as HTMLInputElement).value;changeComponent({[key]:raw===''?undefined:Number(raw)/(key==='opacity'?100:1)})}
+function select(t:DesignTarget){designSelection.value=t.scope+'|'+t.key;mobileTab.value='properties'}
+function fold(t:DesignTarget){const s=new Set(folded.value);s.has(t.key)?s.delete(t.key):s.add(t.key);folded.value=s}
+function style(t:DesignTarget){return currentDesign.value.pages[t.scope]?.components[t.key]||{}}
+function locked(t:DesignTarget){let p:DesignTarget|undefined=t;while(p){if(style(p).locked)return true;p=designTargets.value.find(x=>x.key===p!.parentKey)}return false}
+function layer(action:string){const n=selectedDesign.value.layer||0;changeComponent({layer:action==='top'?99:action==='bottom'?0:Math.max(0,Math.min(99,n+(action==='up'?1:-1)))})}
+function align(axis:'x'|'y',edge:number){const el=designSelected.value?.element,p=el?.parentElement;if(!el||!p)return;const r=el.getBoundingClientRect(),b=p.getBoundingClientRect();changeComponent(axis==='x'?{x:(selectedDesign.value.x||0)+(b.left+(b.width-r.width)*edge-r.left)/scale.value}:{y:(selectedDesign.value.y||0)+(b.top+(b.height-r.height)*edge-r.top)/scale.value})}
+async function close(action:'apply'|'keep'|'discard'){busy.value=true;try{await finishDesign(action);designStageReady.value=false;exitEditMode()}catch(e){toast('保存失败，草稿已保留：'+String(e),'error')}finally{busy.value=false}}
+function requestClose(){if(designDirty.value)exitOpen.value=true;else void close('discard')}
+async function exportTheme(){try{await flushDesign();const result=await window.kamucl.invoke('appearance:exportTheme',designDraft.value);await copyText(String(result));toast('完整主题码已复制','success')}catch(e){toast(String(e),'error')}}
+async function importTheme(){try{previewAppearance(await window.kamucl.invoke('appearance:importTheme',code.value,true) as any);themeOpen.value=false;code.value='';toast('主题已载入草稿，应用后生效','success')}catch(e){toast(String(e),'error')}}
+function defaults(){if(confirm('将默认外观载入草稿？应用前可撤销。'))previewAppearance({theme:'transparent',custom:structuredClone(DEFAULT_CUSTOM_THEME),homeLayout:structuredClone(DEFAULT_HOME_LAYOUT),background:structuredClone(DEFAULT_BACKGROUND),launchThumbnail:structuredClone(DEFAULT_LAUNCH_THUMBNAIL),visualDesign:{version:1,pages:{}}})}
+let raf=0,observer:ResizeObserver|undefined
+function measure(){const r=designSelected.value?.element.getBoundingClientRect();if(r)box.value={x:r.x,y:r.y,width:r.width,height:r.height};raf=requestAnimationFrame(measure)}
+function resizeWindow(){logical.width=window.innerWidth;logical.height=window.innerHeight;fit()}
+function fit(){const r=viewport.value?.getBoundingClientRect();if(!r)return;scale.value=zoom.value==='100'?1:Math.min(1,(r.width-40)/logical.width,(r.height-40)/logical.height)}
+function isTools(e:Event){return !!(e.target as Element)?.closest?.('[data-design-tools]')}
+function navigation(e:Event){return !!(e.target as Element)?.closest?.('.nav-item,.nav-sub-item,.cfg-tabs button,.seg-tabs button,.tabs button,[data-design-nav]')}
+let drag:null|{x:number;y:number;ox:number;oy:number;width:number;height:number;resize:boolean;left:number;top:number;changed:boolean;target:DesignTarget}=null,drop:DesignTarget|undefined,dropBefore=true
+function hit(e:MouseEvent|PointerEvent,deep=false){let el=(e.target as Element).closest<HTMLElement>('[data-ui]');if(!deep){el=(e.target as Element).closest<HTMLElement>('button,label,.card,article,section,h1,h2,h3,h4,p')||el}return designTargets.value.find(t=>t.element===el&&!t.decoration)}
+function down(e:PointerEvent,resize=false){if(e.button!==0||(!resize&&isTools(e)))return;if(browse.value){if(!navigation(e)){e.preventDefault();e.stopImmediatePropagation()}return}if(!resize){const t=hit(e);if(!t)return;select(t)}const target=designSelected.value;if(!target)return;e.preventDefault();e.stopImmediatePropagation();if(locked(target))return;const r=target.element.getBoundingClientRect();drag={x:e.clientX,y:e.clientY,ox:selectedDesign.value.x||0,oy:selectedDesign.value.y||0,width:r.width/scale.value,height:r.height/scale.value,resize,left:r.left,top:r.top,changed:false,target}}
+function move(e:PointerEvent){if(!drag)return;const dx=(e.clientX-drag.x)/scale.value,dy=(e.clientY-drag.y)/scale.value;if(!drag.changed&&Math.abs(dx)+Math.abs(dy)<4)return
+ if(!drag.resize&&!free.value){const candidates=designTargets.value.filter(t=>t!==drag!.target&&t.element.parentElement===drag!.target.element.parentElement&&!t.decoration);drop=candidates.find(t=>{const r=t.element.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom});if(drop){const r=drop.element.getBoundingClientRect(),horizontal=getComputedStyle(drop.element.parentElement!).flexDirection==='row';dropBefore=horizontal?e.clientX<r.left+r.width/2:e.clientY<r.top+r.height/2;insertion.value=horizontal?{x:dropBefore?r.left:r.right,y:r.top,width:3,height:r.height}:{x:r.left,y:dropBefore?r.top:r.bottom,width:r.width,height:3}}else insertion.value=undefined;drag.changed=true;return}
+ if(!drag.changed){checkpoint();drag.changed=true}
+ const p=drag.target.element.parentElement!.getBoundingClientRect(),s=scale.value
+ if(drag.resize){const w=snapped(drag.width+dx,[],snap.value&&!e.altKey),h=snapped(drag.height+dy,[],snap.value&&!e.altKey);changeComponent({width:Math.max(8,Math.min(p.width/s,w.value)),height:Math.max(8,h.value)},false)}
+ else{const targets=designTargets.value.filter(t=>t.element.parentElement===drag!.target.element.parentElement&&t!==drag!.target).map(t=>t.element.getBoundingClientRect());const xs=[p.left,p.right-drag.width*s,...targets.map(r=>r.left)].map(x=>x/s),ys=[p.top,p.bottom-drag.height*s,...targets.map(r=>r.top)].map(y=>y/s);const x=snapped(drag.left/s+dx,xs,snap.value&&!e.altKey),y=snapped(drag.top/s+dy,ys,snap.value&&!e.altKey);guideX.value=x.guide===undefined?undefined:x.guide*s;guideY.value=y.guide===undefined?undefined:y.guide*s;changeComponent({x:drag.ox+(Math.max(p.left/s,Math.min((p.right-drag.width*s)/s,x.value))-drag.left/s),y:drag.oy+(Math.max(p.top/s,Math.min((p.bottom-drag.height*s)/s,y.value))-drag.top/s)},false)}
 }
-
-const GROUPS: GroupDef[] = [
-  {
-    key: 'sidebar',
-    title: '侧栏',
-    colors: [
-      { key: 'sidebarBg', label: '侧栏背景' },
-      { key: 'sidebarText', label: '侧栏文字' }
-    ]
-  },
-  {
-    key: 'topbar',
-    title: '顶栏与界面背景',
-    colors: [
-      { key: 'bg', label: '界面背景' },
-      { key: 'border', label: '边框' }
-    ]
-  },
-  { key: 'banner', title: '启动展示卡', colors: [] },
-  {
-    key: 'bannerText',
-    title: 'Banner 文字',
-    colors: [{ key: 'bannerText', label: 'Banner 文字颜色' }]
-  },
-  {
-    key: 'accent',
-    title: '主色调',
-    hint: '按钮、选中态与链接的强调色，派生渐变色自动计算',
-    colors: [{ key: 'accent', label: '主色调' }]
-  },
-  {
-    key: 'card',
-    title: '卡片',
-    colors: [
-      { key: 'card', label: '卡片背景' },
-      { key: 'border', label: '边框' }
-    ]
-  },
-  {
-    key: 'text',
-    title: '文字',
-    colors: [
-      { key: 'text', label: '主要文字' },
-      { key: 'textDim', label: '次要文字' }
-    ]
-  }
-]
-
-const activeGroup = computed(() => GROUPS.find((g) => g.key === store.editTarget) ?? null)
-
-// ---------------- 保存（局部合并 patch，主进程深合并；拖动时防抖） ----------------
-let saveTimer: ReturnType<typeof setTimeout> | null = null
-let pendingCustom: CustomTheme | null = null
-
-async function save(patch: Partial<Settings>) {
-  try {
-    store.settings = await saveSettings(patch)
-  } catch (e) {
-    toast('保存设置失败：' + errText(e), 'error')
-  }
-}
-
-/** 乐观更新 store.settings.custom（App.vue watch 实时应用），并防抖落盘 */
-function applyCustom(next: CustomTheme) {
-  if (store.settings) store.settings.custom = next
-  pendingCustom = next
-  if (saveTimer) clearTimeout(saveTimer)
-  saveTimer = setTimeout(() => {
-    if (pendingCustom) void save({ custom: pendingCustom })
-    pendingCustom = null
-  }, 200)
-}
-
-// ---------------- 颜色 ----------------
-function setColor(key: ColorKey, value: string) {
-  const c = store.settings?.custom
-  if (!c || !HEX_RE.test(value)) return
-  applyCustom({ ...c, colors: { ...c.colors, [key]: value.toLowerCase() } })
-}
-
-function onPick(key: ColorKey, e: Event) {
-  setColor(key, (e.target as HTMLInputElement).value)
-}
-
-function onHex(key: ColorKey, e: Event) {
-  setColor(key, (e.target as HTMLInputElement).value.trim())
-}
-
-/** hex 文本非法时失焦还原为当前生效值 */
-function onHexBlur(key: ColorKey, e: Event) {
-  const el = e.target as HTMLInputElement
-  if (!HEX_RE.test(el.value.trim())) el.value = colors.value[key]
-}
-
-// ---------------- 恢复默认 ----------------
-function resetAll() {
-  if (saveTimer) {
-    clearTimeout(saveTimer)
-    saveTimer = null
-    pendingCustom = null
-  }
-  void save({ theme: 'custom', custom: structuredClone(DEFAULT_CUSTOM_THEME) })
-  toast('已恢复默认自定义主题', 'success')
-}
-
-// ---------------- 主题码（实时生成 / 粘贴套用） ----------------
-const CODE_PREFIX = 'KAMUCL.'
-
-/** base64url 编解码（内容为纯 ASCII 的 JSON） */
-function encodeCode(payload: unknown): string {
-  return CODE_PREFIX + btoa(JSON.stringify(payload)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
-}
-function decodeCode(code: string): unknown {
-  let s = code.trim()
-  if (s.startsWith(CODE_PREFIX)) s = s.slice(CODE_PREFIX.length)
-  s = s.replace(/-/g, '+').replace(/_/g, '/')
-  while (s.length % 4) s += '='
-  return JSON.parse(atob(s))
-}
-
-/** 当前自定义主题的实时主题码（图一结构固定，只分享颜色）。 */
-const themeCode = computed(() => {
-  const c = store.settings?.custom ?? DEFAULT_CUSTOM_THEME
-  return encodeCode({ colors: c.colors })
-})
-
-async function copyCode() {
-  await copyText(themeCode.value)
-  toast('主题码已复制，发给别人即可分享你的配色', 'success')
-}
-
-const codeInput = ref('')
-
-/** 校验并套用别人分享的主题码 */
-function applyCode() {
-  const raw = codeInput.value.trim()
-  if (!raw) {
-    toast('请先粘贴主题码', 'error')
-    return
-  }
-  try {
-    const parsed = decodeCode(raw) as Partial<{ colors: unknown }>
-    const def = DEFAULT_CUSTOM_THEME
-    // 白名单校验：主题码只能改变颜色，不能改变图一固定结构。
-    const src = (parsed.colors ?? {}) as Record<string, unknown>
-    const colors = { ...def.colors }
-    for (const key of Object.keys(colors) as Array<keyof typeof colors>) {
-      const v = src[key]
-      if (typeof v === 'string' && HEX_RE.test(v)) colors[key] = v.toLowerCase()
-    }
-    void save({ theme: 'custom', custom: { colors, layout: def.layout } })
-    codeInput.value = ''
-    toast('主题码已套用', 'success')
-  } catch {
-    toast('主题码无效，请检查是否复制完整', 'error')
-  }
-}
+function up(){if(drag?.changed&&!drag.resize&&!free.value&&drop)reorderComponent(drop,dropBefore);drag=null;drop=undefined;insertion.value=undefined;guideX.value=undefined;guideY.value=undefined}
+function click(e:MouseEvent){if(!isTools(e)&&!(browse.value&&navigation(e))){e.preventDefault();e.stopImmediatePropagation()}}
+function deepSelect(e:MouseEvent){if(isTools(e)||browse.value)return;const t=hit(e,true);if(t){select(t);e.preventDefault();e.stopImmediatePropagation()}}
+function keys(e:KeyboardEvent){if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();if(exitOpen.value){exitOpen.value=false;return}if(themeOpen.value){themeOpen.value=false;return}if(designSelected.value&&parent.value){select(parent.value);return}requestClose();return}if(isTools(e))return;if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();undoDesign(e.shiftKey)}if(free.value&&designSelected.value&&!locked(designSelected.value)&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();const n=e.shiftKey?10:1;changeComponent({x:(selectedDesign.value.x||0)+(e.key==='ArrowLeft'?-n:e.key==='ArrowRight'?n:0),y:(selectedDesign.value.y||0)+(e.key==='ArrowUp'?-n:e.key==='ArrowDown'?n:0)})}}
+onMounted(async()=>{await beginDesign();await nextTick();designStageReady.value=true;window.addEventListener('resize',resizeWindow);observer=new ResizeObserver(fit);if(viewport.value)observer.observe(viewport.value);fit();raf=requestAnimationFrame(measure);document.addEventListener('pointerdown',down,true);document.addEventListener('pointermove',move,true);document.addEventListener('pointerup',up,true);document.addEventListener('click',click,true);document.addEventListener('dblclick',deepSelect,true);document.addEventListener('keydown',keys,true)})
+onUnmounted(()=>{designStageReady.value=false;window.removeEventListener('resize',resizeWindow);observer?.disconnect();cancelAnimationFrame(raf);document.removeEventListener('pointerdown',down,true);document.removeEventListener('pointermove',move,true);document.removeEventListener('pointerup',up,true);document.removeEventListener('click',click,true);document.removeEventListener('dblclick',deepSelect,true);document.removeEventListener('keydown',keys,true)})
 </script>
-
 <template>
-  <aside class="edit-panel">
-    <!-- 头部 -->
-    <div class="ep-head">
-      <div class="ep-head-text">
-        <h2 class="ep-title">个性化</h2>
-        <p class="ep-sub">
-          {{ activeGroup ? `正在编辑：${activeGroup.title}` : '点击左侧界面中的板块开始自定义' }}
-        </p>
-      </div>
-      <button class="ep-close" title="完成并退出（Esc）" @click="exitEditMode">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M6 6l12 12M18 6 6 18" />
-        </svg>
-      </button>
-    </div>
-
-    <div class="ep-body">
-      <!-- 选中板块：仅显示对应分组 -->
-      <template v-if="activeGroup">
-        <section class="ep-group">
-          <h3 class="ep-group-title">{{ activeGroup.title }}</h3>
-          <p v-if="activeGroup.hint" class="ep-hint">{{ activeGroup.hint }}</p>
-          <div v-for="f in activeGroup.colors" :key="f.key" class="color-row">
-            <span class="color-name">{{ f.label }}</span>
-            <input
-              type="color"
-              class="color-swatch"
-              :value="colors[f.key]"
-              @input="onPick(f.key, $event)"
-            />
-            <input
-              class="input mono hex-input"
-              :value="colors[f.key]"
-              placeholder="#rrggbb"
-              spellcheck="false"
-              @input="onHex(f.key, $event)"
-              @blur="onHexBlur(f.key, $event)"
-            />
-          </div>
-        </section>
-      </template>
-
-      <!-- 未选中：指引 + 全部分组折叠列表（后备） -->
-      <template v-else>
-        <div class="ep-guide">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m4 4 7 17 2.5-7.5L21 11Z" />
-            <path d="M13.5 13.5 19 19" />
-          </svg>
-          <p>用鼠标左键点击界面中的板块（侧栏 / 顶栏 / 启动卡 / 按钮 / 卡片 / 文字），选中后即可调整颜色；全部主题始终沿用图一布局。</p>
-        </div>
-        <details v-for="g in GROUPS" :key="g.key" class="ep-details">
-          <summary class="ep-summary">{{ g.title }}</summary>
-          <div class="ep-details-body">
-            <div v-for="f in g.colors" :key="f.key" class="color-row">
-              <span class="color-name">{{ f.label }}</span>
-              <input
-                type="color"
-                class="color-swatch"
-                :value="colors[f.key]"
-                @input="onPick(f.key, $event)"
-              />
-              <input
-                class="input mono hex-input"
-                :value="colors[f.key]"
-                placeholder="#rrggbb"
-                spellcheck="false"
-                @input="onHex(f.key, $event)"
-                @blur="onHexBlur(f.key, $event)"
-              />
-            </div>
-            <!-- 空分组（如启动展示卡由图片/背景派生）：展开时给提示而不是空白布局异常 -->
-            <p v-if="!g.colors.length" class="ep-hint ep-empty-hint">该板块颜色由界面背景与主色调自动派生，无可单独调整项。</p>
-          </div>
-        </details>
-      </template>
-
-      <!-- 底部常驻：主题码 + 恢复默认（钉在面板底部，滚动区内容再多也不会把它们推走） -->
-    </div>
-    <div class="ep-foot">
-      <section class="ep-group">
-        <h3 class="ep-group-title">主题码</h3>
-        <div class="code-row">
-          <input class="input mono code-view" :value="themeCode" readonly spellcheck="false" />
-          <button class="btn btn-gold btn-sm code-btn" @click="copyCode">复制</button>
-        </div>
-        <div class="code-row">
-          <input
-            v-model="codeInput"
-            class="input mono"
-            placeholder="粘贴别人的主题码…"
-            spellcheck="false"
-            @keyup.enter="applyCode"
-          />
-          <button class="btn btn-ghost btn-sm code-btn" @click="applyCode">套用</button>
-        </div>
-      </section>
-      <button class="btn btn-ghost reset-btn" @click="resetAll">恢复默认</button>
-    </div>
-  </aside>
+<Teleport to="body"><div class="design-workspace">
+ <header class="designer-toolbar" data-design-tools><div><strong>外观工作台</strong><small>{{designSaveState||'修改仅在预览中生效'}}</small></div><button :class="{active:!browse}" @click="browse=!browse">{{browse?'浏览导航':'选择组件'}}</button><label><input v-model="snap" type="checkbox">吸附</label><button :disabled="!designHistory.length" @click="undoDesign()">撤销</button><button :disabled="!designFuture.length" @click="undoDesign(true)">重做</button><select v-model="zoom" aria-label="预览缩放" @change="fit"><option value="fit">适应画布</option><option value="100">100%</option></select><button @click="themeOpen=true">主题与恢复</button><span class="spacer"/><button :disabled="busy" @click="requestClose">退出</button><button class="primary" :disabled="busy" @click="close('apply')">应用外观</button></header>
+ <aside class="designer-layers-panel" :class="{mobile:mobileTab==='layers'}" data-design-tools><div class="mobile-tabs"><button @click="mobileTab='layers'">图层</button><button @click="mobileTab='properties'">属性</button></div><div class="side-head"><strong>页面与图层</strong><select v-model="store.currentView" aria-label="编辑页面"><option v-for="p in pages" :value="p.value">{{p.label}}</option></select><input v-model="filter" placeholder="搜索组件" aria-label="搜索图层"/></div><div class="designer-layers"><div v-for="t in layers" :key="t.scope+t.key" class="layer-row" :class="{active:designSelection===t.scope+'|'+t.key}" :style="{paddingLeft:Math.min(4,(t.depth-1))*12+'px'}"><button class="fold" :aria-label="'展开或折叠 '+t.label" @click="fold(t)">{{baseLayers.some(x=>x.parentKey===t.key)?folded.has(t.key)?'›':'⌄':'·'}}</button><button class="layer-label" :title="t.label" @click="select(t)">{{t.label}}</button><span :title="style(t).locked?'已锁定':style(t).hidden?'已隐藏':''">{{style(t).locked?'▣':style(t).hidden?'○':''}}</span></div></div><small class="side-foot">单击选择组件 · 双击深入子层<br>锁定后不会被拖动或缩放</small></aside>
+ <main ref="viewport" class="designer-viewport"><div class="preview-scroll"><div class="preview-size" :style="{width:logical.width*scale+'px',height:logical.height*scale+'px'}"><div id="design-preview-host" :style="{width:logical.width+'px',height:logical.height+'px',transform:'scale('+scale+')'}"></div></div></div><span class="canvas-caption" data-design-tools>{{logical.width}} × {{logical.height}} · {{Math.round(scale*100)}}%</span></main>
+ <aside class="designer-panel" :class="{mobile:mobileTab==='properties'}" data-design-tools><div class="mobile-tabs"><button @click="mobileTab='layers'">图层</button><button @click="mobileTab='properties'">属性</button></div><div class="property-scroll">
+  <p v-if="designRecovered" class="notice">已恢复未应用的草稿</p><template v-if="designSelected"><nav class="breadcrumbs"><button v-for="t in ancestors" @click="select(t)">{{t.label}}</button></nav><h3>{{designSelected.label}}</h3><div class="actions"><label><input type="checkbox" :checked="selectedDesign.hidden" @change="changeComponent({hidden:($event.target as HTMLInputElement).checked})">隐藏</label><label><input type="checkbox" :checked="selectedDesign.locked" @change="changeComponent({locked:($event.target as HTMLInputElement).checked})">锁定</label><button @click="resetComponent">重置组件</button></div><div class="property-tabs"><button v-for="(label,key) in {layout:'布局',appearance:'外观',text:'文字'}" :class="{active:tab===key}" :disabled="key==='text'&&!designSelected.text" @click="tab=key">{{label}}</button></div>
+  <fieldset :disabled="locked(designSelected)"><template v-if="tab==='layout'"><label class="field">排布方式<select :value="selectedDesign.mode||'flow'" @change="changeComponent({mode:($event.target as HTMLSelectElement).value as any,x:undefined,y:undefined})"><option value="flow">智能排布</option><option value="free">自由定位</option></select></label><p class="help">{{free?'在所属容器中定位，允许叠放。':designSelected.sortable?'拖至同组组件前后排序，尺寸与间距参与布局。':'尺寸参与原有布局；此容器不支持拖动排序，可使用自由定位。'}}</p></template>
+  <div class="designer-grid"><label v-for="f in fields" :key="f.key" class="field"><span>{{f.label}} <small>{{f.unit}}</small><button class="reset" :aria-label="'重置'+f.label" @click.prevent="changeComponent({[f.key]:undefined})">↺</button></span><input type="number" :aria-label="f.label" :min="f.min" :max="f.max" :step="f.key==='fontWeight'?100:1" :value="value(f.key)" placeholder="自动" @change="numeric(f.key,$event)"></label></div>
+  <template v-if="tab==='layout'&&free"><h4>对齐容器</h4><div class="actions"><button @click="align('x',0)">左</button><button @click="align('x',.5)">水平居中</button><button @click="align('x',1)">右</button><button @click="align('y',0)">顶</button><button @click="align('y',.5)">垂直居中</button><button @click="align('y',1)">底</button></div><h4>叠放层级</h4><div class="actions"><button @click="layer('top')">置顶</button><button @click="layer('up')">上一层</button><button @click="layer('down')">下一层</button><button @click="layer('bottom')">置底</button></div></template>
+  <template v-if="tab==='appearance'"><label v-for="(label,key) in {color:'文字颜色',background:'背景颜色'}" class="field">{{label}}<div class="color-row"><input type="color" :aria-label="label" :value="colorHex(key)" @focus="checkpoint" @input="setColor(key,($event.target as HTMLInputElement).value)"><input :aria-label="label+'值'" :value="selectedDesign[key]" placeholder="#RRGGBB 或 rgba(…)，支持透明度" @change="changeComponent({[key]:($event.target as HTMLInputElement).value})"><button :aria-label="'重置'+label" @click="changeComponent({[key]:undefined})">↺</button></div><div class="alpha-row"><input type="range" min="0" max="100" :aria-label="label+'透明度'" :value="Math.round(rgba(key)[3]*100)" @focus="checkpoint" @input="setAlpha(key,($event.target as HTMLInputElement).value)"><small>{{Math.round(rgba(key)[3]*100)}}%</small></div></label></template>
+  <template v-if="tab==='text'"><label class="field">外显文字<textarea :value="selectedDesign.text" aria-label="外显文字" placeholder="保留原文" @change="changeComponent({text:($event.target as HTMLTextAreaElement).value})"/><button @click="changeComponent({text:undefined})">恢复原文</button></label><label class="field">字体<input :value="selectedDesign.fontFamily" aria-label="字体" placeholder="跟随主题" @change="changeComponent({fontFamily:($event.target as HTMLInputElement).value})"/><button @click="changeComponent({fontFamily:undefined})">恢复默认字体</button></label></template></fieldset></template><div v-else class="property-empty"><h3>让启动器成为你的样子</h3><p>点击预览中的卡片或按钮，或者从左侧图层中选择。</p><p>默认智能排布，精细叠放可切换自由定位。</p></div></div></aside>
+ <div v-if="designSelected&&!browse" class="designer-outline" :style="{left:box.x+'px',top:box.y+'px',width:box.width+'px',height:box.height+'px'}" data-design-tools><span>{{Math.round(box.width/scale)}} × {{Math.round(box.height/scale)}}</span><button v-if="!locked(designSelected)" aria-label="拖拽调整尺寸" @pointerdown.stop="down($event,true)"/></div><div v-if="insertion" class="insertion" :style="{left:insertion.x+'px',top:insertion.y+'px',width:insertion.width+'px',height:insertion.height+'px'}" data-design-tools/><div v-if="guideX!==undefined" class="guide vertical" :style="{left:guideX+'px'}" data-design-tools/><div v-if="guideY!==undefined" class="guide horizontal" :style="{top:guideY+'px'}" data-design-tools/>
+ <div v-if="exitOpen||themeOpen" class="designer-dialog-mask" data-design-tools><section class="designer-dialog" role="dialog" aria-modal="true"><template v-if="exitOpen"><h2>如何保留这次修改？</h2><p>预览中的调整还没有应用到正式外观。</p><div class="actions"><button :disabled="busy" @click="close('discard')">放弃修改</button><button :disabled="busy" @click="close('keep')">保留草稿并退出</button><button class="primary" :disabled="busy" @click="close('apply')">应用并退出</button><button @click="exitOpen=false">继续编辑</button></div></template><template v-else><h2>主题与恢复</h2><p>导入与重置先进入草稿，点击应用后生效。</p><div class="actions"><button @click="exportTheme">复制完整主题码</button><button @click="resetPage()">重置当前页</button><button @click="resetPage(true)">重置所有组件</button><button @click="defaults">恢复默认外观</button></div><textarea v-model="code" aria-label="主题码" placeholder="粘贴完整主题码"/><div class="actions"><button class="primary" :disabled="!code.trim()" @click="importTheme">导入到草稿</button><button @click="themeOpen=false">返回编辑</button></div></template></section></div>
+</div></Teleport>
 </template>
-
 <style scoped>
-.edit-panel {
-  position: fixed;
-  /* 避开顶部「个性化编辑中」提示栏（top:14px + 高约40px + ≥12px 间距），不穿提示栏 */
-  top: 72px;
-  right: 0;
-  bottom: 0;
-  width: 320px;
-  z-index: 120;
-  display: flex;
-  flex-direction: column;
-  /* 接近不透明：透明主题的 --card 半透明会透出背景内容；--bg 在六套主题下均不透明 */
-  background: var(--bg);
-  /* 明确视觉边界：左侧描边 + 更强投影，与下方内容分层 */
-  border-left: 1px solid var(--border-strong);
-  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.32);
-}
-
-/* 头部 */
-.ep-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-4) var(--space-3);
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-}
-.ep-head-text {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-.ep-title {
-  font-size: var(--text-lg);
-  font-weight: 700;
-}
-.ep-sub {
-  font-size: var(--text-xs);
-  color: var(--text-dim);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.ep-close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border: none;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--text-dim);
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-.ep-close:hover {
-  background: var(--card-2);
-  color: var(--text);
-}
-.ep-close svg {
-  width: 15px;
-  height: 15px;
-}
-
-/* 滚动主体 */
-.ep-body {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding: var(--space-3) var(--space-4) var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.ep-group-title {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  margin-bottom: var(--space-1);
-}
-.ep-hint {
-  font-size: var(--text-xs);
-  color: var(--text-dim);
-  margin-bottom: var(--space-1);
-  line-height: 1.6;
-}
-
-/* 指引 */
-.ep-guide {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-3);
-  border: 1.5px dashed var(--border);
-  border-radius: var(--radius-md);
-  color: var(--text-dim);
-  font-size: var(--text-xs);
-  line-height: 1.8;
-  text-align: center;
-}
-.ep-guide svg {
-  width: 26px;
-  height: 26px;
-  color: var(--accent-2);
-}
-
-/* 折叠分组（后备列表）：PCL 式标题行 + 箭头，折叠态行高统一 */
-.ep-details {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: var(--card-2);
-  overflow: hidden;
-}
-.ep-summary {
-  padding: var(--space-2) var(--space-3);
-  min-height: var(--row-h);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  line-height: 1.5;
-  white-space: normal;
-  word-break: break-all;
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  transition: background 0.15s ease, color 0.15s ease;
-}
-.ep-summary::-webkit-details-marker {
-  display: none;
-}
-.ep-summary::after {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-right: 1.8px solid var(--text-dim);
-  border-bottom: 1.8px solid var(--text-dim);
-  transform: rotate(45deg);
-  transition: transform 0.18s ease;
-  flex-shrink: 0;
-}
-.ep-details[open] .ep-summary::after {
-  transform: rotate(225deg);
-}
-.ep-summary:hover {
-  color: var(--accent-2);
-}
-.ep-details-body {
-  padding: var(--space-1) var(--space-3) var(--space-3);
-  border-top: 1px solid var(--border);
-}
-/* 空分组（无颜色项）展开时的提示，避免展开后空白导致的布局异常观感 */
-.ep-empty-hint {
-  padding: var(--space-1) 0;
-  margin: 0;
-}
-
-/* 颜色行 */
-.color-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  min-height: var(--ctl-h);
-  padding: var(--space-1) 0;
-  border-bottom: 1px solid var(--border);
-}
-.color-row:last-of-type {
-  border-bottom: none;
-}
-.color-name {
-  flex: 1;
-  min-width: 0;
-  font-size: var(--text-sm);
-  line-height: 1.5;
-  white-space: normal;
-  word-break: break-all;
-}
-
-/* 主题码 */
-.code-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-1) 0;
-}
-.code-row .input {
-  flex: 1;
-  min-width: 0;
-}
-.code-view {
-  color: var(--text-dim);
-  user-select: all;
-}
-.code-btn {
-  flex-shrink: 0;
-}
-.color-swatch {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  padding: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: transparent;
-  cursor: pointer;
-  transition: border-color 0.15s ease, transform 0.12s ease;
-}
-.color-swatch:hover {
-  border-color: var(--accent);
-  transform: scale(1.05);
-}
-.color-swatch::-webkit-color-swatch-wrapper {
-  padding: 3px;
-}
-.color-swatch::-webkit-color-swatch {
-  border: none;
-  border-radius: 4px;
-}
-.hex-input {
-  width: 88px;
-  flex-shrink: 0;
-  padding: var(--space-1) var(--space-2);
-  font-size: var(--text-xs);
-  text-transform: lowercase;
-}
-
-/* 底部钉住区：主题码 + 恢复默认（始终在面板底部可见可交互，不受滚动区内容多少影响） */
-.ep-foot {
-  flex-shrink: 0;
-  padding: var(--space-3) var(--space-4) var(--space-3);
-  border-top: 1px solid var(--border);
-  background: var(--bg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-.ep-foot .ep-group-title {
-  margin-bottom: 0;
-}
-.reset-btn {
-  align-self: flex-start;
-}
-
-.mono {
-  font-size: var(--text-xs);
-}
+.design-workspace{position:fixed;inset:0;z-index:100000;display:grid;grid-template-columns:230px minmax(0,1fr) 310px;grid-template-rows:66px minmax(0,1fr);background:var(--card-solid,#202830);color:var(--text);font:13px/1.5 'Segoe UI','Microsoft YaHei',sans-serif;isolation:isolate}.designer-toolbar{grid-column:1/-1;display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);z-index:4;background:var(--card-solid)}.designer-toolbar>div{display:flex;flex-direction:column;margin-right:12px}.designer-toolbar small,.help,.side-foot,.canvas-caption{color:var(--text-dim);font-size:11px}.spacer{flex:1}.designer-layers-panel,.designer-panel{min-height:0;min-width:0;display:flex;flex-direction:column;background:var(--card-solid);z-index:3}.designer-layers-panel{border-right:1px solid var(--border)}.designer-panel{border-left:1px solid var(--border)}.side-head{padding:16px;display:grid;gap:12px;flex-shrink:0}.designer-layers{flex:1;min-height:0;overflow:auto;padding:4px 8px}.layer-row{display:flex;align-items:center;min-height:36px;flex-shrink:0;border-radius:7px;gap:3px}.layer-row.active,.active{background:var(--accent-soft)!important;color:var(--text)!important}.layer-row .fold{width:24px;flex-shrink:0;padding:4px;border:0;background:transparent}.layer-row .layer-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;border:0;background:transparent}.side-foot{padding:12px 16px;border-top:1px solid var(--border)}.designer-viewport{position:relative;min-width:0;min-height:0;overflow:hidden;background:color-mix(in srgb,var(--bg) 84%,#697687);background-image:radial-gradient(#88929d35 1px,transparent 1px);background-size:16px 16px}.preview-scroll{position:absolute;inset:0;overflow:auto;padding:20px;box-sizing:border-box}.preview-size{margin:auto;position:relative;box-shadow:0 8px 32px #0003}#design-preview-host{transform-origin:top left;position:relative;overflow:hidden;isolation:isolate}.canvas-caption{position:absolute;bottom:4px;left:12px;pointer-events:none}.property-scroll{padding:16px;overflow:auto;min-height:0;flex:1}.breadcrumbs{display:flex;gap:3px;flex-wrap:wrap}.breadcrumbs button{font-size:10px;max-width:130px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.designer-panel h3{font-size:15px;overflow-wrap:anywhere;margin:12px 0}.actions{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:12px 0}.actions label{display:flex;align-items:center;gap:4px}.property-tabs{display:flex;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:14px;gap:6px}.property-tabs button{flex:1}.designer-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin:12px 0;min-width:0}.field>span{display:flex;align-items:center;gap:5px}.reset{margin-left:auto;border:0!important;padding:0 4px!important;background:transparent!important}.alpha-row{display:flex;gap:8px;align-items:center}.alpha-row input{flex:1;min-width:0;padding:0;accent-color:var(--accent)}.alpha-row small{min-width:34px}.color-row{display:flex;gap:5px;align-items:center}.color-row input[type=color]{width:32px;min-width:32px;height:32px;padding:2px}.color-row input:not([type=color]){flex:1;min-width:0}.design-workspace button,.design-workspace input,.design-workspace select,.design-workspace textarea{box-sizing:border-box;font:inherit;color:inherit;border:1px solid var(--border);border-radius:8px;background:var(--card-2);padding:7px 9px;min-width:0}.design-workspace button{cursor:pointer;white-space:nowrap}.design-workspace button:hover:not(:disabled){border-color:var(--accent)}.design-workspace button:disabled,.design-workspace fieldset:disabled{opacity:.5;cursor:default}.design-workspace input[type=checkbox]{accent-color:var(--accent)}.design-workspace .primary{background:var(--accent);color:var(--on-accent);border-color:transparent;font-weight:600}.design-workspace textarea{width:100%;min-height:95px;resize:vertical}.design-workspace fieldset{border:0;padding:0;margin:0;min-width:0}.property-empty{color:var(--text-dim);padding:30px 4px}.notice{padding:8px;border-radius:8px;background:var(--accent-soft)}.designer-outline{position:fixed;z-index:2;pointer-events:none;border:2px solid var(--accent);box-sizing:border-box}.designer-outline span{position:absolute;top:-22px;left:0;background:var(--accent);color:var(--on-accent);font-size:10px;padding:1px 5px}.designer-outline button{pointer-events:auto;position:absolute;bottom:-6px;right:-6px;width:12px;height:12px;padding:0;background:var(--accent);border:2px solid white;cursor:nwse-resize}.insertion,.guide{position:fixed;background:var(--accent);pointer-events:none;z-index:2}.vertical{width:1px;top:66px;bottom:0}.horizontal{height:1px;left:230px;right:310px}.designer-dialog-mask{position:fixed;inset:0;display:grid;place-items:center;background:var(--mask);backdrop-filter:blur(8px);z-index:10}.designer-dialog{width:min(570px,calc(100vw - 48px));padding:24px;border:1px solid var(--border);border-radius:18px;background:var(--card-solid);box-shadow:var(--shadow-lg)}.mobile-tabs{display:none}@media(max-width:1150px){.design-workspace{grid-template-columns:minmax(0,1fr) 290px}.designer-layers-panel{display:none}.designer-layers-panel.mobile{display:flex;grid-column:2;grid-row:2}.designer-viewport{grid-column:1;grid-row:2}.designer-panel{grid-column:2;grid-row:2}.designer-layers-panel.mobile~.designer-panel:not(.mobile){display:none}.mobile-tabs{display:flex;gap:8px;padding:10px}.designer-toolbar{gap:5px;padding:8px}.designer-toolbar>div small{display:none}.designer-toolbar strong{font-size:12px}.designer-toolbar button,.designer-toolbar select{font-size:11px;padding:6px}.horizontal{left:0;right:290px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 </style>

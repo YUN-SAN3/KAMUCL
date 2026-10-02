@@ -10,6 +10,7 @@ import { getSkinAvatar } from '../api'
 import { renderSkinHead } from '../skin-render'
 import { trackBootTask } from '../bootTasks'
 import { store } from '../store'
+import { skinRevision } from '../skinRevision'
 
 const props = withDefaults(defineProps<{ size?: number; account?: Account | null }>(), { size: 48 })
 const account = computed(() => props.account === undefined ? store.selectedAccount : props.account)
@@ -36,7 +37,7 @@ async function loadImpl() {
   if (request === generation) head.value = rendered
 }
 
-watch(() => account.value?.id, load, { immediate: true })
+watch([() => account.value?.id, skinRevision], load, { immediate: true })
 
 const letter = computed(() => account.value?.username.charAt(0).toUpperCase() ?? '?')
 const px = computed(() => `${props.size}px`)

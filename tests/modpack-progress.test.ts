@@ -47,7 +47,7 @@ test('社区 mrpack 从压缩包下载到模组及覆盖文件落盘，总进度
     const normalized = guard.normalize(event)
     events.push(normalized)
     if (event.stage === 'done') {
-      assert.equal(downloads, 4)
+      assert.equal(downloads, 1, '相同哈希的四个文件只下载一次，再分别复制到实例')
       assert.equal(fs.readFileSync(path.join(game, 'versions', id, 'config/test.txt'), 'utf8'), 'config proof')
     } else {
       assert(normalized.overall! < 1, `${event.stage}: prematurely reached 100%`)
@@ -70,10 +70,10 @@ test('社区 mrpack 从压缩包下载到模组及覆盖文件落盘，总进度
     assert.equal(events.at(-1)?.overall, 1)
     const archiveEvents = events.filter(e => e.stage === 'download')
     assert.equal(archiveEvents.at(-1)?.overall, 0.1)
-    const fileEvents = events.filter(e => e.text.startsWith('下载整合包文件'))
+    const fileEvents = events.filter(e => e.parallelStages?.some(lane => lane.text.startsWith('下载整合包文件')))
     assert(fileEvents.length >= 2)
     assert(fileEvents.at(-1)!.overall! > fileEvents[0].overall!)
-    assert(fileEvents.every(e => e.overall! >= 0.568 && e.overall! <= 0.956))
+    assert(fileEvents.every(e => e.overall! >= 0.136 && e.overall! <= 0.956))
     events.forEach((event, index) => { if (index) assert(event.overall! >= events[index - 1].overall!) })
     for (let i = 0; i < 4; i++) assert.equal(sha1(fs.readFileSync(path.join(game, 'versions', id, `mods/mod-${i}.jar`))), sha1(data))
 

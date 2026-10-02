@@ -1,0 +1,921 @@
+{
+  "version": "1.1.7",
+  "motionPreference": {
+    "fixture": "prefers-reduced-motion: no-preference",
+    "system": {
+      "native": {
+        "isVisible": true,
+        "isMinimized": false,
+        "focused": true,
+        "bounds": {
+          "x": 0,
+          "y": 25,
+          "width": 1024,
+          "height": 684
+        },
+        "backgroundThrottling": true,
+        "platform": "darwin",
+        "electron": "33.4.11"
+      },
+      "renderer": {
+        "documentHidden": false,
+        "visibilityState": "visible",
+        "motion": "reduced",
+        "reduceMotion": false,
+        "systemReduced": true,
+        "nativeVisibility": true,
+        "stageHidden": null,
+        "images": 7,
+        "timers": null
+      }
+    },
+    "restored": {
+      "native": {
+        "isVisible": true,
+        "isMinimized": false,
+        "focused": true,
+        "bounds": {
+          "x": 0,
+          "y": 25,
+          "width": 1024,
+          "height": 684
+        },
+        "backgroundThrottling": true,
+        "platform": "darwin",
+        "electron": "33.4.11"
+      },
+      "renderer": {
+        "documentHidden": false,
+        "visibilityState": "visible",
+        "motion": "reduced",
+        "reduceMotion": false,
+        "systemReduced": true,
+        "nativeVisibility": true,
+        "stageHidden": null,
+        "images": 7,
+        "timers": 1
+      }
+    }
+  },
+  "motionReadiness": [
+    {
+      "label": "after gallery reload",
+      "before": {
+        "native": {
+          "isVisible": true,
+          "isMinimized": false,
+          "focused": true,
+          "bounds": {
+            "x": 0,
+            "y": 25,
+            "width": 1024,
+            "height": 684
+          },
+          "backgroundThrottling": true,
+          "platform": "darwin",
+          "electron": "33.4.11"
+        },
+        "renderer": {
+          "documentHidden": false,
+          "visibilityState": "visible",
+          "motion": "full",
+          "reduceMotion": false,
+          "systemReduced": false,
+          "nativeVisibility": true,
+          "stageHidden": null,
+          "images": 9,
+          "timers": 0
+        }
+      },
+      "samples": [
+        {
+          "native": {
+            "isVisible": true,
+            "isMinimized": false,
+            "focused": true,
+            "bounds": {
+              "x": 0,
+              "y": 25,
+              "width": 1024,
+              "height": 684
+            },
+            "backgroundThrottling": true,
+            "platform": "darwin",
+            "electron": "33.4.11"
+          },
+          "renderer": {
+            "documentHidden": false,
+            "visibilityState": "visible",
+            "motion": "full",
+            "reduceMotion": false,
+            "systemReduced": false,
+            "nativeVisibility": true,
+            "stageHidden": null,
+            "images": 9,
+            "timers": 0
+          }
+        }
+      ]
+    },
+    {
+      "label": "multiple enabled images",
+      "before": {
+        "native": {
+          "isVisible": true,
+          "isMinimized": false,
+          "focused": true,
+          "bounds": {
+            "x": 0,
+            "y": 25,
+            "width": 1024,
+            "height": 684
+          },
+          "backgroundThrottling": true,
+          "platform": "darwin",
+          "electron": "33.4.11"
+        },
+        "renderer": {
+          "documentHidden": false,
+          "visibilityState": "visible",
+          "motion": "full",
+          "reduceMotion": false,
+          "systemReduced": false,
+          "nativeVisibility": true,
+          "stageHidden": null,
+          "images": 8,
+          "timers": 1
+        }
+      },
+      "samples": [
+        {
+          "native": {
+            "isVisible": true,
+            "isMinimized": false,
+            "focused": true,
+            "bounds": {
+              "x": 0,
+              "y": 25,
+              "width": 1024,
+              "height": 684
+            },
+            "backgroundThrottling": true,
+            "platform": "darwin",
+            "electron": "33.4.11"
+          },
+          "renderer": {
+            "documentHidden": false,
+            "visibilityState": "visible",
+            "motion": "full",
+            "reduceMotion": false,
+            "systemReduced": false,
+            "nativeVisibility": true,
+            "stageHidden": null,
+            "images": 8,
+            "timers": 1
+          }
+        }
+      ]
+    }
+  ],
+  "favoriteReadiness": [
+    {
+      "label": "both external cards collected",
+      "expectedKeys": [
+        "curseforge:987654",
+        "modrinth:galleryMr"
+      ],
+      "writes": 2,
+      "samples": [
+        {
+          "at": 1790889082067,
+          "renderer": {
+            "buttons": [
+              {
+                "key": "modrinth:galleryMr",
+                "label": "收藏 外置收藏 MR",
+                "pressed": false,
+                "busy": true
+              },
+              {
+                "key": "curseforge:987654",
+                "label": "收藏 外置收藏 CF",
+                "pressed": false,
+                "busy": true
+              }
+            ],
+            "persistentKeys": [
+              "sha1:1111111111111111111111111111111111111111",
+              "modrinth:fixtureProject"
+            ],
+            "failureNotice": false,
+            "downloadModal": false
+          },
+          "fixture": {
+            "writes": 1,
+            "pending": 1,
+            "trace": [
+              {
+                "type": "start",
+                "at": 1790889081974,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              }
+            ]
+          },
+          "diskKeys": [
+            "sha1:1111111111111111111111111111111111111111",
+            "modrinth:fixtureProject"
+          ]
+        },
+        {
+          "at": 1790889082154,
+          "renderer": {
+            "buttons": [
+              {
+                "key": "modrinth:galleryMr",
+                "label": "取消收藏 外置收藏 MR",
+                "pressed": true,
+                "busy": false
+              },
+              {
+                "key": "curseforge:987654",
+                "label": "收藏 外置收藏 CF",
+                "pressed": false,
+                "busy": true
+              }
+            ],
+            "persistentKeys": [
+              "sha1:1111111111111111111111111111111111111111",
+              "modrinth:fixtureProject",
+              "modrinth:galleryMr"
+            ],
+            "failureNotice": false,
+            "downloadModal": false
+          },
+          "fixture": {
+            "writes": 2,
+            "pending": 1,
+            "trace": [
+              {
+                "type": "start",
+                "at": 1790889081974,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082068,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082070,
+                "write": 2,
+                "key": "curseforge:987654",
+                "enabled": true
+              }
+            ]
+          },
+          "diskKeys": [
+            "sha1:1111111111111111111111111111111111111111",
+            "modrinth:fixtureProject",
+            "modrinth:galleryMr"
+          ]
+        },
+        {
+          "at": 1790889082241,
+          "renderer": {
+            "buttons": [
+              {
+                "key": "modrinth:galleryMr",
+                "label": "取消收藏 外置收藏 MR",
+                "pressed": true,
+                "busy": false
+              },
+              {
+                "key": "curseforge:987654",
+                "label": "取消收藏 外置收藏 CF",
+                "pressed": true,
+                "busy": false
+              }
+            ],
+            "persistentKeys": [
+              "sha1:1111111111111111111111111111111111111111",
+              "modrinth:fixtureProject",
+              "modrinth:galleryMr",
+              "curseforge:987654"
+            ],
+            "failureNotice": false,
+            "downloadModal": false
+          },
+          "fixture": {
+            "writes": 2,
+            "pending": 0,
+            "trace": [
+              {
+                "type": "start",
+                "at": 1790889081974,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082068,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082070,
+                "write": 2,
+                "key": "curseforge:987654",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082155,
+                "write": 2,
+                "key": "curseforge:987654",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr",
+                  "curseforge:987654"
+                ]
+              }
+            ]
+          },
+          "diskKeys": [
+            "sha1:1111111111111111111111111111111111111111",
+            "modrinth:fixtureProject",
+            "modrinth:galleryMr",
+            "curseforge:987654"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "detail removal synchronized",
+      "expectedKeys": [
+        "curseforge:987654"
+      ],
+      "writes": 3,
+      "samples": [
+        {
+          "at": 1790889082509,
+          "renderer": {
+            "buttons": [
+              {
+                "key": "modrinth:galleryMr",
+                "label": "取消收藏 外置收藏 MR",
+                "pressed": true,
+                "busy": true
+              },
+              {
+                "key": "curseforge:987654",
+                "label": "取消收藏 外置收藏 CF",
+                "pressed": true,
+                "busy": false
+              }
+            ],
+            "persistentKeys": [
+              "sha1:1111111111111111111111111111111111111111",
+              "modrinth:fixtureProject",
+              "modrinth:galleryMr",
+              "curseforge:987654"
+            ],
+            "failureNotice": false,
+            "downloadModal": true
+          },
+          "fixture": {
+            "writes": 3,
+            "pending": 1,
+            "trace": [
+              {
+                "type": "start",
+                "at": 1790889081974,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082068,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082070,
+                "write": 2,
+                "key": "curseforge:987654",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082155,
+                "write": 2,
+                "key": "curseforge:987654",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr",
+                  "curseforge:987654"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082422,
+                "write": 3,
+                "key": "modrinth:galleryMr",
+                "enabled": false
+              }
+            ]
+          },
+          "diskKeys": [
+            "sha1:1111111111111111111111111111111111111111",
+            "modrinth:fixtureProject",
+            "modrinth:galleryMr",
+            "curseforge:987654"
+          ]
+        },
+        {
+          "at": 1790889082596,
+          "renderer": {
+            "buttons": [
+              {
+                "key": "modrinth:galleryMr",
+                "label": "收藏 外置收藏 MR",
+                "pressed": false,
+                "busy": false
+              },
+              {
+                "key": "curseforge:987654",
+                "label": "取消收藏 外置收藏 CF",
+                "pressed": true,
+                "busy": false
+              }
+            ],
+            "persistentKeys": [
+              "sha1:1111111111111111111111111111111111111111",
+              "modrinth:fixtureProject",
+              "curseforge:987654"
+            ],
+            "failureNotice": false,
+            "downloadModal": true
+          },
+          "fixture": {
+            "writes": 3,
+            "pending": 0,
+            "trace": [
+              {
+                "type": "start",
+                "at": 1790889081974,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082068,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082070,
+                "write": 2,
+                "key": "curseforge:987654",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082155,
+                "write": 2,
+                "key": "curseforge:987654",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr",
+                  "curseforge:987654"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082422,
+                "write": 3,
+                "key": "modrinth:galleryMr",
+                "enabled": false
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082509,
+                "write": 3,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "curseforge:987654"
+                ]
+              }
+            ]
+          },
+          "diskKeys": [
+            "sha1:1111111111111111111111111111111111111111",
+            "modrinth:fixtureProject",
+            "curseforge:987654"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "failed write preserves confirmed favorites",
+      "expectedKeys": [
+        "curseforge:987654"
+      ],
+      "writes": 4,
+      "samples": [
+        {
+          "at": 1790889082795,
+          "renderer": {
+            "buttons": [
+              {
+                "key": "modrinth:galleryMr",
+                "label": "收藏 外置收藏 MR",
+                "pressed": false,
+                "busy": false
+              },
+              {
+                "key": "curseforge:987654",
+                "label": "取消收藏 外置收藏 CF",
+                "pressed": true,
+                "busy": false
+              }
+            ],
+            "persistentKeys": [
+              "sha1:1111111111111111111111111111111111111111",
+              "modrinth:fixtureProject",
+              "curseforge:987654"
+            ],
+            "failureNotice": true,
+            "downloadModal": false
+          },
+          "fixture": {
+            "writes": 4,
+            "pending": 0,
+            "trace": [
+              {
+                "type": "start",
+                "at": 1790889081974,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082068,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082070,
+                "write": 2,
+                "key": "curseforge:987654",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082155,
+                "write": 2,
+                "key": "curseforge:987654",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr",
+                  "curseforge:987654"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082422,
+                "write": 3,
+                "key": "modrinth:galleryMr",
+                "enabled": false
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082509,
+                "write": 3,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "curseforge:987654"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082709,
+                "write": 4,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "failed",
+                "at": 1790889082709,
+                "write": 4,
+                "key": "modrinth:galleryMr",
+                "error": "隔离验证：收藏写入失败"
+              }
+            ]
+          },
+          "diskKeys": [
+            "sha1:1111111111111111111111111111111111111111",
+            "modrinth:fixtureProject",
+            "curseforge:987654"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "retry synchronizes both cards",
+      "expectedKeys": [
+        "curseforge:987654",
+        "modrinth:galleryMr"
+      ],
+      "writes": 5,
+      "samples": [
+        {
+          "at": 1790889082888,
+          "renderer": {
+            "buttons": [
+              {
+                "key": "modrinth:galleryMr",
+                "label": "收藏 外置收藏 MR",
+                "pressed": false,
+                "busy": true
+              },
+              {
+                "key": "curseforge:987654",
+                "label": "取消收藏 外置收藏 CF",
+                "pressed": true,
+                "busy": false
+              }
+            ],
+            "persistentKeys": [
+              "sha1:1111111111111111111111111111111111111111",
+              "modrinth:fixtureProject",
+              "curseforge:987654"
+            ],
+            "failureNotice": true,
+            "downloadModal": false
+          },
+          "fixture": {
+            "writes": 5,
+            "pending": 1,
+            "trace": [
+              {
+                "type": "start",
+                "at": 1790889081974,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082068,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082070,
+                "write": 2,
+                "key": "curseforge:987654",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082155,
+                "write": 2,
+                "key": "curseforge:987654",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr",
+                  "curseforge:987654"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082422,
+                "write": 3,
+                "key": "modrinth:galleryMr",
+                "enabled": false
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082509,
+                "write": 3,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "curseforge:987654"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082709,
+                "write": 4,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "failed",
+                "at": 1790889082709,
+                "write": 4,
+                "key": "modrinth:galleryMr",
+                "error": "隔离验证：收藏写入失败"
+              },
+              {
+                "type": "start",
+                "at": 1790889082802,
+                "write": 5,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              }
+            ]
+          },
+          "diskKeys": [
+            "sha1:1111111111111111111111111111111111111111",
+            "modrinth:fixtureProject",
+            "curseforge:987654"
+          ]
+        },
+        {
+          "at": 1790889082977,
+          "renderer": {
+            "buttons": [
+              {
+                "key": "modrinth:galleryMr",
+                "label": "取消收藏 外置收藏 MR",
+                "pressed": true,
+                "busy": false
+              },
+              {
+                "key": "curseforge:987654",
+                "label": "取消收藏 外置收藏 CF",
+                "pressed": true,
+                "busy": false
+              }
+            ],
+            "persistentKeys": [
+              "sha1:1111111111111111111111111111111111111111",
+              "modrinth:fixtureProject",
+              "curseforge:987654",
+              "modrinth:galleryMr"
+            ],
+            "failureNotice": true,
+            "downloadModal": false
+          },
+          "fixture": {
+            "writes": 5,
+            "pending": 0,
+            "trace": [
+              {
+                "type": "start",
+                "at": 1790889081974,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082068,
+                "write": 1,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082070,
+                "write": 2,
+                "key": "curseforge:987654",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082155,
+                "write": 2,
+                "key": "curseforge:987654",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "modrinth:galleryMr",
+                  "curseforge:987654"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082422,
+                "write": 3,
+                "key": "modrinth:galleryMr",
+                "enabled": false
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082509,
+                "write": 3,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "curseforge:987654"
+                ]
+              },
+              {
+                "type": "start",
+                "at": 1790889082709,
+                "write": 4,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "failed",
+                "at": 1790889082709,
+                "write": 4,
+                "key": "modrinth:galleryMr",
+                "error": "隔离验证：收藏写入失败"
+              },
+              {
+                "type": "start",
+                "at": 1790889082802,
+                "write": 5,
+                "key": "modrinth:galleryMr",
+                "enabled": true
+              },
+              {
+                "type": "confirmed",
+                "at": 1790889082889,
+                "write": 5,
+                "key": "modrinth:galleryMr",
+                "keys": [
+                  "sha1:1111111111111111111111111111111111111111",
+                  "modrinth:fixtureProject",
+                  "curseforge:987654",
+                  "modrinth:galleryMr"
+                ]
+              }
+            ]
+          },
+          "diskKeys": [
+            "sha1:1111111111111111111111111111111111111111",
+            "modrinth:fixtureProject",
+            "curseforge:987654",
+            "modrinth:galleryMr"
+          ]
+        }
+      ]
+    }
+  ]
+}

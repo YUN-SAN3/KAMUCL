@@ -1,0 +1,31 @@
+{
+  "version": "1.1.7",
+  "synchronizedFields": true,
+  "invalidDrafts": true,
+  "noColourDirty": true,
+  "sameHalfTransparentPixelClean": true,
+  "textUndoPreserved": true,
+  "basePixels": [
+    [
+      12,
+      12
+    ]
+  ],
+  "outerPixels": [
+    [
+      44,
+      12
+    ]
+  ],
+  "outerRgba": [
+    18,
+    120,
+    237,
+    128
+  ],
+  "pickedHex": "#1278ed",
+  "pickAlpha": 0.5019607843137255,
+  "preferenceReadback": true,
+  "reopen": true,
+  "customDelete": true
+}

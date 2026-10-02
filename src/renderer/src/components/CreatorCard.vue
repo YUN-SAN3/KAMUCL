@@ -1,68 +1,33 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useMotion } from '../motion'
+const names = ['BAI_ZHU', 'AeZz', '物晖', '牛肉', '好好', 'hun_Bk', 'J39', '略略略', '鸦猫', 'sheri', '书九叶', 'yansan', '(x_x;)', '小坎坷', 'MuxYang', '八千代', 'Henry', '月を見ていた', 'Hiro', '摇滚高手']
+const expanded = ref(false)
+const drift = names.map(() => ({ x: (Math.random() * 12 - 6).toFixed(1) + 'px', y: (Math.random() * 8 - 4).toFixed(1) + 'px', duration: (3.8 + Math.random() * 3).toFixed(2) + 's' }))
+const { decorativeActive } = useMotion()
+function onFocusOut(event: FocusEvent) { if (!(event.currentTarget as HTMLElement).contains(event.relatedTarget as Node | null)) expanded.value = false }
+</script>
 <template>
-  <section class="creator-card" aria-label="启动器创作者">
-    <div class="creator-heading">
-      <span class="creator-eyebrow">创作者 <span aria-hidden="true">/ CREATOR</span></span>
-      <span class="creator-pixels" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-    </div>
-    <p class="creator-intro">由人见人爱，花见花开的 UP 主</p>
-    <p class="creator-signature"><strong>卡慕<span>SaMa</span></strong><span class="creator-made">制作，和他的粉丝物晖</span></p>
-    <a
-      class="creator-link"
-      href="https://space.bilibili.com/9596327"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="访问卡慕SaMa的哔哩哔哩主页（在浏览器中打开）"
-    >
-      <span class="creator-link-label">
-        <svg class="bilibili-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="m7 3 3 3m7-3-3 3" /><rect x="3" y="6" width="18" height="14" rx="4" />
-          <path d="M8 11v3m8-3v3m-5 2 1 1 1-1M7 20v1m10-1v1" />
-        </svg>
-        <span>来 B 站找我</span>
-      </span>
-      <svg class="creator-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18 18 6M7 6h11v11" /></svg>
-    </a>
-  </section>
+ <section class="creator-card" data-ui="home:creators" @pointerenter="expanded=true" @pointerleave="expanded=false" @focusin="expanded=true" @focusout="onFocusOut">
+  <div data-ui="CreatorCard:3b0bd35ff2cd" class="creator-heading"><button data-ui="CreatorCard:b838c4453411" class="creator-toggle" :aria-expanded="expanded" aria-controls="creator-names" @click="expanded=true">参与测试及创作者<small data-ui="CreatorCard:d9b60520217e" lang="en">TESTERS &amp; CREATORS</small></button><a data-ui="CreatorCard:86b4c178a448" href="https://space.bilibili.com/9596327" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="访问卡慕的哔哩哔哩空间">↗</a></div>
+  <div class="creator-message"><p data-ui="CreatorCard:5031cfb3dd7e" class="creator-intro">好想做卡慕的狗啊，别的狗至少还图口饭，我不一样，我只希望他发视频的时候能允许我在评论区汪两声。卡慕但凡回我一个“？”我都能截图裱起来当传家宝。</p></div>
+  <div class="creator-reveal" :class="{expanded}"><div class="creator-reveal-inner"><div :inert="!expanded" id="creator-names" class="creator-name-layer" :class="{moving:decorativeActive && expanded}" data-ui="home:creator-names"><span data-ui="CreatorCard:7cd0fbc9196c" v-for="(name,i) in names" :key="name" class="creator-bubble" :style="{'--delay':i*40+'ms','--drift-x':drift[i].x,'--drift-y':drift[i].y,'--duration':drift[i].duration}"><span data-ui="CreatorCard:587246bec0b9">{{name}}</span></span></div></div></div>
+ </section>
 </template>
-
 <style scoped>
-/* 页面末行整条横卡：单行水平排布（眉题 → 介绍 → 签名靠右 → 链接），窄窗自动换行，高度紧凑不抢视觉 */
-.creator-card {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-5);
-  min-width: 0;
-  padding: var(--space-4) var(--card-pad);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--accent-soft), transparent 65%), color-mix(in srgb, var(--card) 88%, transparent);
-  color: var(--text);
-  box-shadow: var(--shadow);
-}
-.creator-heading { display: flex; align-items: center; gap: var(--space-2); flex: none; }
-.creator-eyebrow { color: var(--text-dim); font-size: var(--text-xs); font-weight: 600; letter-spacing: 1px; }
-.creator-eyebrow span { margin-left: var(--space-1); letter-spacing: 1.4px; }
-.creator-pixels { display: grid; grid-template-columns: repeat(2, 5px); gap: 3px; transform: rotate(-8deg); }
-.creator-pixels i { width: 5px; height: 5px; border-radius: 1px; background: var(--accent-2); }
-.creator-pixels i:nth-child(2) { opacity: 0.35; transform: translate(2px, -2px); }
-.creator-pixels i:nth-child(3) { opacity: 0.55; }
-.creator-intro { margin: 0; color: var(--text-dim); font-size: var(--text-xs); line-height: 1.7; text-wrap: pretty; }
-.creator-signature { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-2); margin: 0 0 0 auto; }
-.creator-signature strong { font-size: var(--text-lg); font-weight: 700; line-height: 1.3; letter-spacing: 0.2px; }
-.creator-signature strong span { margin-left: var(--space-1); font-size: var(--text-md); font-weight: 600; letter-spacing: -0.6px; }
-.creator-made { color: var(--text-dim); font-size: var(--text-xs); }
-.creator-link { display: flex; flex: none; min-height: var(--ctl-h); align-items: center; justify-content: space-between; gap: var(--space-2); padding: 0 var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card-2); color: var(--text); text-decoration: none; transition: background 180ms ease, border-color 180ms ease; }
-.creator-link-label { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); font-weight: 600; }
-.bilibili-icon { width: 22px; height: 22px; flex: none; color: var(--accent-2); }
-.creator-arrow { width: 16px; height: 16px; flex: none; color: var(--text-dim); transition: transform 180ms ease; }
-.creator-link:hover { background: var(--hover); border-color: var(--accent); }
-.creator-link:hover .creator-arrow { transform: translate(1px, -1px); color: var(--text); }
-.creator-link:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
-@media (prefers-reduced-motion: reduce) {
-  .creator-link, .creator-arrow { transition: none; }
-  .creator-link:hover .creator-arrow { transform: none; }
-}
+.creator-card { min-width:0; overflow:hidden; padding:var(--card-pad); border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface-content); }
+.creator-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.creator-toggle { color:var(--text); background:none; border:0; padding:0; text-align:left; font-size:14px; font-weight:600; cursor:pointer; }
+.creator-toggle small { display:block; font-size:11px; letter-spacing:1px; color:var(--text-dim); margin-top:4px; }
+.creator-intro { font-size:12px; line-height:1.7; color:var(--text-dim); margin:12px 0 0; }
+.creator-name-layer { display:flex; flex-wrap:wrap; gap:8px; padding:12px 2px 4px; max-height:240px; overflow:auto; contain:layout paint; }
+.creator-bubble { font-size:12px; border-radius:999px; background:var(--card-2); padding:5px 9px; }
+.moving .creator-bubble { animation:reveal 220ms both; animation-delay:var(--delay); }
+.moving .creator-bubble span { display:block; animation:drift var(--duration) ease-in-out infinite alternate; animation-delay:var(--delay); }
+@keyframes reveal { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
+@keyframes drift { from { transform:translate(calc(var(--drift-x) * -1),calc(var(--drift-y) * -1)); } to { transform:translate(var(--drift-x),var(--drift-y)); } }
+.creator-reveal { display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows 240ms var(--ease-out),opacity 200ms ease; }
+.creator-reveal.expanded { grid-template-rows:1fr; opacity:1; }
+.creator-reveal-inner { min-height:0; overflow:hidden; }
+.creator-name-layer { padding:16px 8px 12px; }
 </style>

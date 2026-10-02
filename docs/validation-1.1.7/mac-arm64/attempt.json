@@ -1,0 +1,30 @@
+{
+  "complete": true,
+  "error": null,
+  "startedAt": "2026-10-01T21:10:32.156Z",
+  "executable": "/Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/MacOS/KAMUCL",
+  "copied": [
+    "extension-ui-black-orange.json",
+    "skin-palette-ui-black-orange.json",
+    "mascot-header-ui-black-orange.json",
+    "gallery-favorites-ui-black-orange.json",
+    "mascot-header-layout-live.json",
+    "mascot-header-visibility-live.json",
+    "mascot-header-persistence-live.json",
+    "gallery-favorites-motion-live.json",
+    "mascot-slap-117.wav",
+    "mascot-sweep-117.webm",
+    "extension-117-community-external-favorites.png",
+    "extension-117-gallery-all-disabled.png",
+    "extension-117-gallery-settings.png",
+    "extension-117-mascot-1360-1.png",
+    "extension-117-mascot-960-1.png",
+    "extension-117-mascot-980-1.5.png",
+    "extension-117-mascot-header.png",
+    "extension-117-skin-palette-117.png",
+    "extension-favorites.png",
+    "extension-projections.png",
+    "extension-skin-editor.png",
+    "extension-tickets.png"
+  ]
+}

@@ -3,7 +3,7 @@
 // 2. 解压目录：模板优先走 "$TEMP\${UNPACK_DIR_NAME}"（unpackDirName 即使为 false 也会
 //    被 electron-builder 填成随机 ksuid），否则才落 $PLUGINSDIR\app——两条路径都在系统 TEMP，
 //    用户不可见且占用系统盘；统一改为解压到 exe 所在目录的固定子目录 KAMUCL-runtime
-//    缓存按完整构建内容隔离，完整解压后复用；首次解压前先显示轻量粒子。
+//    缓存按完整构建内容隔离，完整解压后复用；首次解压前先显示轻量玻璃碎片。
 // 在构建时变换模板，不修改 node_modules；升级模板后无法识别则阻止错误出包。
 const OLD_UNPACK_PLUGINS = 'StrCpy $INSTDIR "$PLUGINSDIR\\app"'
 const OLD_UNPACK_TEMP = 'StrCpy $INSTDIR "$TEMP\\${UNPACK_DIR_NAME}"'
@@ -21,7 +21,7 @@ function repairPortableScript(script, options = {}) {
   const old = 'ExecWait "$INSTDIR\\${APP_EXECUTABLE_FILENAME} $R0" $0'
   const fixed = `ExecWait '\"$INSTDIR\\\${APP_EXECUTABLE_FILENAME}\" $R0' $0`
   if (script.split(old).length !== 2) throw new Error('Portable NSIS template changed: review quoted launch command before release')
-  script = script.replace(old, `ClearErrors\n\t${fixed}\n\tIfErrors 0 +3\n\tMessageBox MB_OK|MB_ICONSTOP 'KAMUCL could not start. Please extract the Windows ZIP package and run KAMUCL.exe.'\n\tStrCpy $0 1\n  FileOpen $R8 "$PLUGINSDIR\\startup.done" w\n  FileClose $R8`)
+  script = script.replace(old, `ClearErrors\n\t${fixed}\n\tIfErrors 0 +3\n\tMessageBox MB_OK|MB_ICONSTOP 'KAMUCL could not start. Please extract the Windows unpacked ZIP package and run KAMUCL.exe.'\n\tStrCpy $0 1\n  FileOpen $R8 "$PLUGINSDIR\\startup.done" w\n  FileClose $R8`)
   const key = options.cacheKey || 'test-cache'
   const feedback = options.feedback || require('node:path').resolve(__dirname, '../out/main/StartupFeedback.exe')
   script = `; KAMUCL_EARLY_FEEDBACK\n!define KAMUCL_CACHE_KEY "${key}"\nVar runtimeMutex\n${script}`
@@ -66,11 +66,30 @@ function runtimeCacheKey(root = require('node:path').resolve(__dirname, '..')) {
 }
 
 module.exports = function beforePack() {
+  require('./check-licenses.cjs').checkLicenses({ release: true })
   const { NsisTarget } = require('app-builder-lib/out/targets/nsis/NsisTarget')
   if (NsisTarget.prototype.__kamuclQuotedPortable) return
   const original = NsisTarget.prototype.computeFinalScript
   NsisTarget.prototype.computeFinalScript = function (script, ...args) {
     return original.call(this, this.isPortable ? repairPortableScript(script, { cacheKey: runtimeCacheKey() }) : script, ...args)
+  }
+  // Lossless archive tuning only: all runtime files, codecs, GPU fallbacks and
+  // notices remain byte-identical. The dictionary is used only during first
+  // extraction; the existing warm runtime cache is unchanged.
+  const buildPackage = NsisTarget.prototype.buildAppPackage
+  NsisTarget.prototype.buildAppPackage = async function (appOutDir, arch) {
+    if (!this.isPortable || this.options.useZip || this.packager.compression === 'store') {
+      return buildPackage.call(this, appOutDir, arch)
+    }
+    const path = require('node:path'), fs = require('node:fs/promises')
+    const { Arch } = require('builder-util')
+    const { archive } = require('app-builder-lib/out/targets/archive')
+    const { hashFile } = require('app-builder-lib/out/util/hash')
+    const info = this.packager.appInfo
+    const file = path.join(this.outDir, `${info.sanitizedName}-${info.version}-${Arch[arch]}.nsis.7z`)
+    const excluded = this.getPreCompressedFileExtensions()?.map(extension => `*${extension}`)
+    await archive('7z', file, appOutDir, { withoutDir: true, compression: this.packager.compression, dictSize: 128, method: 'LZMA2:fb=273', excluded })
+    return { path: file, size: (await fs.stat(file)).size, sha512: await hashFile(file) }
   }
   NsisTarget.prototype.__kamuclQuotedPortable = true
 }

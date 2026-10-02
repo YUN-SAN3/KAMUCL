@@ -5,17 +5,12 @@ import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
 
-test('fix-1: edit panel footer pinned at bottom, body pure scrollable (个性化面板溢出)', () => {
-  const ep = read('src/renderer/src/components/EditPanel.vue')
-  // 主题码+恢复默认移出滚动区，钉在底部
-  assert.match(ep, /class="ep-foot"/)
-  const footIdx = ep.indexOf('ep-foot')
-  const bodyIdx = ep.indexOf('ep-body')
-  assert.ok(footIdx > bodyIdx, 'ep-foot 必须在 ep-body 之后（底部）')
-  assert.match(ep, /\.ep-foot \{[\s\S]*?flex-shrink: 0/)
-  assert.match(ep, /border-top: 1px solid var\(--border\)/)
-  // 滚动区保持 overflow-y auto
-  assert.match(ep, /\.ep-body \{[\s\S]*?overflow-y: auto/)
+test('visual editor controls remain inside a bounded scrollable panel', () => {
+ const ep=read('src/renderer/src/components/EditPanel.vue')
+ assert.match(ep,/grid-template-columns:230px minmax\(0,1fr\) 310px/)
+ assert.match(ep,/overflow:auto/)
+ assert.match(ep,/class="designer-toolbar"/)
+ assert.match(ep,/复制完整主题码/)
 })
 
 test('fix-2: game process CWD wired through CreateProcessW lpCurrentDirectory (启动 CWD)', () => {
@@ -31,8 +26,10 @@ test('fix-3: manual update check retries once + explicit 3-state feedback (手�
   assert.match(su, /for \(let attempt = 0; attempt < 2; attempt\+\+\)/)
   assert.match(su, /1\.5s 后重试一次/)
   const sv = read('src/renderer/src/views/SettingsView.vue')
-  assert.match(sv, /发现新版本 v\$\{r\.release\.version\}，是否更新？/)
-  assert.match(sv, /当前版本已是最新！/)
+  assert.match(sv, /store\.updatePrompt = \{ release: r\.release, rollback: false \}/)
+  assert.doesNotMatch(sv, /toast\(`发现新版本/)
+  assert.match(sv, /updateCheckState\.value = 'latest'/)
+  assert.match(sv, /class="upd-latest">已是最新/)
   assert.match(sv, /检查失败：断网或更新源不可达（已记日志）/)
 })
 
@@ -64,7 +61,8 @@ test('fix-6: missing folder deadlock resolved — prompt card + remove works eve
 
 test('fix-7: builtin CurseForge API key wired as default (CF 下载)', () => {
   const c = read('src/main/core/community.ts')
-  assert.match(c, /CF_BUILTIN_KEY = '\$2a\$10\$m36VLjTaHEqxr/)
+  assert.match(c, /import \{ CF_BUILTIN_KEY \} from '\.\/curseforgeKey'/)
+  assert.match(read('src/main/core/curseforgeKey.ts'), /export const CF_BUILTIN_KEY = /)
   assert.match(c, /curseforgeApiKey\?\.trim\(\) \|\| CF_BUILTIN_KEY/)
   assert.match(c, /'x-api-key': ch\.key/)
 })

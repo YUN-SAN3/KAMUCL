@@ -52,7 +52,7 @@ test('五套固定色板齐全且正文、次要文字具有可读对比度', ()
   assert.equal(THEME_PRESETS['black-orange'].label, '橙黑')
   assert.equal(THEME_PRESETS['black-pink'].label, '粉黑')
   assert.equal(THEME_PRESETS['white-pink'].label, '粉白')
-  assert.equal(THEME_PRESETS.transparent.label, '默认 · 透明')
+  assert.equal(THEME_PRESETS.transparent.label, '默认·黑紫')
 })
 
 test('个性化旧色板低对比与明暗混用仅在渲染时修正，不覆盖原始配置', () => {

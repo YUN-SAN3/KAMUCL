@@ -5,8 +5,8 @@ const root=fs.mkdtempSync(path.resolve('out/default-config-ui-'))
 app.setPath('userData',path.join(root,'userData'))
 app.commandLine.appendSwitch('enable-unsafe-swiftshader')
 app.whenReady().then(async()=>{
-  const sources=['src/renderer/src/views/KeysView.vue','src/renderer/src/components/SkinViewer3D.vue']
-  const mockApi=`export const errText=String;
+  const sources=['src/renderer/src/views/KeysView.vue','src/renderer/src/components/SkinViewer3D.vue','src/renderer/src/components/DefaultGameOptions.vue']
+  const mockApi=`export const getDefaultGameOptions=async()=>qa.game; export const setDefaultGameOptions=async p=>{if(p.id){if(p.value===null)delete qa.game.values[p.id];else qa.game.values[p.id]=p.value;}if(p.enabled!==undefined)qa.game.enabled=p.enabled;return {...qa.game,values:{...qa.game.values}}};export const errText=String;
     export const getSettings=async()=>qa.store.settings;
     export const saveSettings=async p=>({...qa.store.settings,...p});
     export const getDefaultKeys=async()=>({'key_key.forward':'key.keyboard.w'});
@@ -19,13 +19,13 @@ app.whenReady().then(async()=>{
     export const moveDefaultResourcePack=async(id,d)=>{const a=[...qa.packs],i=a.findIndex(p=>p.id===id);[a[i],a[i+d]]=[a[i+d],a[i]];return qa.packs=a};`
   const compiled=await build({stdin:{contents:`import {createApp,h} from 'vue';import Keys from './${sources[0]}';import Skin from './${sources[1]}';createApp(Keys).mount('#keys');createApp({render:()=>h('div',{class:'previews'},[h('div',{style:'width:300px'},[h(Skin,{paused:true})]),h('div',{style:'width:420px'},[h(Skin,{paused:true})])])}).mount('#skins')`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife',platform:'browser',define:{__VUE_OPTIONS_API__:'true',__VUE_PROD_DEVTOOLS__:'false',__VUE_PROD_HYDRATION_MISMATCH_DETAILS__:'false','process.env.NODE_ENV':'"development"'},plugins:[{name:'sfc',setup(b){
     b.onResolve({filter:/^[.]{1,2}\/(api|store)$/},args=>({path:args.path.endsWith('api')?'api':'store',namespace:'mock'}))
-    b.onLoad({filter:/.*/,namespace:'mock'},args=>({contents:args.path==='api'?mockApi:`import {reactive} from 'vue';export const store=reactive({settings:{keySync:true,resourcePackSync:false}});qa.store=store;export const toast=(text,type)=>qa.toasts.push({text,type})`,loader:'js',resolveDir:process.cwd()}))
+    b.onLoad({filter:/.*/,namespace:'mock'},args=>({contents:args.path==='api'?mockApi:`import {reactive} from 'vue';export const store=reactive({installed:[],settings:{keySync:true,resourcePackSync:false}});qa.store=store;export const toast=(text,type)=>qa.toasts.push({text,type})`,loader:'js',resolveDir:process.cwd()}))
     b.onResolve({filter:/^@shared\//},args=>({path:path.resolve('src/shared',args.path.slice(8)+'.ts')}))
     b.onLoad({filter:/\.vue$/},args=>({contents:compileScript(parse(fs.readFileSync(args.path,'utf8')).descriptor,{id:'qa-'+path.basename(args.path),inlineTemplate:true}).content,loader:'ts',resolveDir:path.dirname(args.path)}))
   }}]})
   fs.writeFileSync(path.join(root,'ui.js'),compiled.outputFiles[0].text)
   const css=fs.readFileSync('src/renderer/src/styles.css','utf8')+sources.map(s=>parse(fs.readFileSync(s,'utf8')).descriptor.styles[0].content).join('\n')
-  fs.writeFileSync(path.join(root,'index.html'),`<meta charset="utf-8"><style>${css}html,body,#app{height:auto;overflow:visible}body{padding:20px;background:var(--bg)}#keys{max-width:760px;margin:auto}#skins{max-width:760px;margin:30px auto}.previews{display:flex;gap:20px}.viewer3d{--sv3d-height:374px}</style><div id="keys"></div><div id="skins"></div><script>window.qa={binds:[],packs:[],imports:[],toasts:[],errors:[]};window.kamucl={getFilePath:f=>f.name};window.addEventListener('error',e=>qa.errors.push(e.message))</script><script src="ui.js"></script>`)
+  fs.writeFileSync(path.join(root,'index.html'),`<meta charset="utf-8"><style>${css}html,body,#app{height:auto;overflow:visible}body{padding:20px;background:var(--bg)}#keys{max-width:1040px;margin:auto}#skins{max-width:760px;margin:30px auto}.previews{display:flex;gap:20px}.viewer3d{--sv3d-height:374px}</style><div id="keys"></div><div id="skins"></div><script>window.qa={game:{enabled:false,values:{}},binds:[],packs:[],imports:[],toasts:[],errors:[]};window.kamucl={getFilePath:f=>f.name};window.addEventListener('error',e=>qa.errors.push(e.message))</script><script src="ui.js"></script>`)
   const win=new BrowserWindow({show:false,width:1100,height:900,webPreferences:{contextIsolation:true,backgroundThrottling:false,offscreen:true}})
   const run=code=>win.webContents.executeJavaScript(code).catch(error=>{throw new Error(error.message+'\nCommand: '+code)}),wait=ms=>new Promise(r=>setTimeout(r,ms))
   async function click(selector){
@@ -35,6 +35,14 @@ app.whenReady().then(async()=>{
     win.webContents.sendInputEvent({type:'mouseDown',x:p.x,y:p.y,button:'left',clickCount:1});win.webContents.sendInputEvent({type:'mouseUp',x:p.x,y:p.y,button:'left',clickCount:1});await wait(120)
   }
   await win.loadFile(path.join(root,'index.html'));await wait(600)
+  await run("document.querySelector('[aria-label=\"视场角\"]').value=90;document.querySelector('[aria-label=\"视场角\"]').dispatchEvent(new Event('change',{bubbles:true}))");await wait(100);
+  assert.equal(await run('qa.game.values.fov'),90);
+  await click('.options-sync input');assert.equal(await run('qa.game.enabled'),true);
+  fs.writeFileSync(path.join(root,'game-options.png'),(await win.webContents.capturePage()).toPNG());
+  await click('.options-entrances .option-entry:nth-child(4)');
+  await click('[aria-label="疾跑"]');assert.equal(await run('qa.game.values.toggleSprint'),true);
+  fs.writeFileSync(path.join(root,'controls.png'),(await win.webContents.capturePage()).toPNG());
+  await click('.cfg-sections button:nth-child(2)');
   await click('.cfg-bind');assert.equal(await run('document.querySelectorAll("[data-key-clear]").length'),1)
   await click('[data-key-clear]');assert.deepEqual(await run('qa.binds'),[{id:'key_key.forward',bind:'key.keyboard.unknown'}])
   assert.equal(await run('document.querySelector(".cfg-bind").textContent.trim()'),'未指定')

@@ -18,7 +18,7 @@ function save(packs: DefaultResourcePack[]): DefaultResourcePack[] {
 export function getDefaultResourcePacks(): DefaultResourcePack[] {
   try {
     const packs = JSON.parse(fs.readFileSync(manifest(), 'utf8'))
-    return Array.isArray(packs) ? packs.filter(p => /^[a-f0-9]{64}$/.test(p?.id) && typeof p.name === 'string' && path.basename(p.name) === p.name && fs.existsSync(path.join(root(), p.id + '.zip'))) : []
+    return Array.isArray(packs) ? packs.filter(p => /^[a-f0-9]{64}$/.test(p?.id) && typeof p.name === 'string' && path.basename(p.name) === p.name && fs.existsSync(path.join(root(), p.id + '.zip'))).map(p => ({ ...p, enabled: p.enabled !== false })) : []
   } catch { return [] }
 }
 export function importDefaultResourcePacks(files: string[]): DefaultResourcePack[] {
@@ -31,7 +31,7 @@ export function importDefaultResourcePacks(files: string[]): DefaultResourcePack
     let meta: any
     try { meta = JSON.parse(entry.getData().toString('utf8').replace(/^\uFEFF/, '')) } catch { throw new Error(`${path.basename(file)} 的 pack.mcmeta 无法读取`) }
     if (!meta?.pack || typeof meta.pack !== 'object') throw new Error(`${path.basename(file)} 不是有效材质包`)
-    return { data, pack: { id: crypto.createHash('sha256').update(data).digest('hex'), name: path.basename(file).replace(/[<>:"/\\|?*]/g, '_'), size: data.length } }
+    return { data, pack: { id: crypto.createHash('sha256').update(data).digest('hex'), name: path.basename(file).replace(/[<>:"/\\|?*]/g, '_'), size: data.length, enabled: true } }
   })
   const packs = getDefaultResourcePacks()
   fs.mkdirSync(root(), { recursive: true })
@@ -45,6 +45,13 @@ export function importDefaultResourcePacks(files: string[]): DefaultResourcePack
 export function removeDefaultResourcePack(id: string): DefaultResourcePack[] {
   // 仅从默认配置移除；已复制到实例和原始文件均保留。
   return save(getDefaultResourcePacks().filter(p => p.id !== id))
+}
+export function setDefaultResourcePackEnabled(id: string, enabled: boolean): DefaultResourcePack[] {
+  if (typeof enabled !== 'boolean') throw new Error('材质包启用状态无效')
+  const packs = getDefaultResourcePacks(), pack = packs.find(p => p.id === id)
+  if (!pack) throw new Error('材质包不存在，请刷新后重试')
+  pack.enabled = enabled
+  return save(packs)
 }
 export function moveDefaultResourcePack(id: string, direction: number): DefaultResourcePack[] {
   const packs = getDefaultResourcePacks(), i = packs.findIndex(p => p.id === id), j = i + (direction < 0 ? -1 : 1)
@@ -100,10 +107,12 @@ export function resourcePackIncompatible(pack: any, target: PackFormat | null): 
 
 export function syncDefaultResourcePacks(gameDir: string, mcVersion: string, clientJar?: string): number {
   if (!mcVersionAtLeast(mcVersion, '1.6')) return 0
-  const packs = getDefaultResourcePacks(), stateFile = path.join(gameDir, '.kamucl-default-resourcepacks.json')
+  const allPacks = getDefaultResourcePacks(), packs = allPacks.filter(p => p.enabled), stateFile = path.join(gameDir, '.kamucl-default-resourcepacks.json')
   let previous: string[] = []
   try { const raw = JSON.parse(fs.readFileSync(stateFile, 'utf8')); if (Array.isArray(raw)) previous = raw.filter(x => typeof x === 'string') } catch { /* 首次同步 */ }
-  if (!packs.length && !previous.length) return 0
+  if (!allPacks.length && !previous.length) return 0
+  // Disabled defaults remain managed: remove their selection even after repeated launches.
+  const managed = allPacks.map(p => (mcVersionAtLeast(mcVersion, '1.13') ? 'file/' : '') + managedName(p))
   const names = packs.map(p => (mcVersionAtLeast(mcVersion, '1.13') ? 'file/' : '') + managedName(p))
   const targetFormat = readClientResourceFormat(clientJar)
   const incompatible = names.filter((_name, i) => {
@@ -111,7 +120,7 @@ export function syncDefaultResourcePacks(gameDir: string, mcVersion: string, cli
     return resourcePackIncompatible(meta.pack, targetFormat)
   })
   const options = path.join(gameDir, 'options.txt'), before = fs.existsSync(options) ? fs.readFileSync(options, 'utf8') : ''
-  const after = mergeResourcePackOptions(before, names, previous, incompatible)
+  const after = mergeResourcePackOptions(before, names, [...new Set([...previous, ...managed])], incompatible)
   const target = path.join(gameDir, 'resourcepacks'); fs.mkdirSync(target, { recursive: true })
   for (const p of packs) {
     const dest = path.join(target, managedName(p)), source = path.join(root(), p.id + '.zip')

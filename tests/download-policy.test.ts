@@ -45,12 +45,13 @@ test('BMCL URL 只按已知资源规则转换，且路径前缀正确', () => {
   assert.equal(BMCL_MAVEN_ROOT, 'https://bmclapi2.bangbang93.com/maven/')
 })
 
-test('元数据真实 URL 在 BMCL 备用 URL 之前', () => {
+test('下载源遵循用户选择，已知镜像优先并保留官方回退', () => {
   const official = 'https://libraries.minecraft.net/com/example/a.jar'
   assert.deepEqual(downloadCandidates([official], 'bmclapi'), [
-    official,
-    'https://bmclapi2.bangbang93.com/maven/com/example/a.jar'
+    'https://bmclapi2.bangbang93.com/maven/com/example/a.jar',
+    official
   ])
+  assert.deepEqual(downloadCandidates([official], 'official'), [official])
   assert.deepEqual(downloadCandidates(['https://example.com/a.jar'], 'bmclapi'), [
     'https://example.com/a.jar'
   ])

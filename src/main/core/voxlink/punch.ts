@@ -1,274 +1,181 @@
-/**
- * voxlink/punch.ts — UDP 打洞控制包（移植自 voxlink/app-desktop/punch.go）
- *
- *   明文 5 字节格式：56 4C <type> <nonce_hi> <nonce_lo>    type: 1=PUNCH, 2=PUNCH_ACK
- * 判赢单向：收到 PUNCH 或 ACK 任一即成功。
- * 节奏：每 200ms 一轮、每轮 3 个 PUNCH；总超时 12s。
- * Windows：向未映射端口发 UDP 会触发 WSAECONNRESET，写错误必须忽略并重试。
- */
+// SPDX-License-Identifier: LGPL-3.0-only
+// UdpHolePuncher.java, VoxLink 924845e. Node UDP events replace Java NIO selectors.
 import dgram from 'node:dgram'
-import crypto from 'node:crypto'
-
-const PUNCH_MAGIC0 = 0x56
-const PUNCH_MAGIC1 = 0x4c
-const PUNCH_TYPE_PUNCH = 1
-const PUNCH_TYPE_PUNCH_ACK = 2
-
-export const PUNCH_INTERVAL_MS = 200
-export const PUNCH_PER_ROUND = 3
-export const PUNCH_TOTAL_TIMEOUT_MS = 12_000
-export const PUNCH_RECV_POLL_MS = 500
-
+import net from 'node:net'
+import { randomBytes } from 'node:crypto'
+import { setTimeout as delay } from 'node:timers/promises'
+import { signPunchFrame, verifyPunchFrame } from './punchAuth'
+import { DEFAULT, type PunchProfile } from './punchProfiles'
+import { fromProfile, type PunchParams, type PunchResult } from './punchPolicy'
+export type Address = { address: string; port: number }
 export function punchBuildControl(type: number, nonce: number): Buffer {
-  const out = Buffer.alloc(5)
-  out[0] = PUNCH_MAGIC0
-  out[1] = PUNCH_MAGIC1
-  out[2] = type
-  out[3] = (nonce >> 8) & 0xff
-  out[4] = nonce & 0xff
-  return out
+  const b = Buffer.from([86,76,type,0,0]) // UdpHolePuncher.java: MAGIC, CONTROL_PLAIN_LEN
+  b.writeUInt16BE(nonce & 65535,3); return b
 }
-
-/** 校验魔数与类型，返回 type。 */
-export function punchParseControl(buf: Buffer): { type: number; nonce: number } | null {
-  if (buf.length < 5 || buf[0] !== PUNCH_MAGIC0 || buf[1] !== PUNCH_MAGIC1) return null
-  const t = buf[2]!
-  if (t !== PUNCH_TYPE_PUNCH && t !== PUNCH_TYPE_PUNCH_ACK) return null
-  const nonce = (buf[3]! << 8) | buf[4]!
-  return { type: t, nonce }
+export function punchParseControl(b: Buffer): { type: number; nonce: number } | null {
+  return b.length >= 5 && b[0] === 86 && b[1] === 76 && (b[2] === 1 || b[2] === 2) ? {type:b[2],nonce:b.readUInt16BE(3)} : null
 }
-
-/** 对收到的控制包构造 ACK 回包（回显 nonce）。 */
-export function punchAckFor(received: Buffer): Buffer {
-  let nonce = 0
-  if (received.length >= 5) nonce = (received[3]! << 8) | received[4]!
-  return punchBuildControl(PUNCH_TYPE_PUNCH_ACK, nonce)
+export const punchRandomNonce = () => randomBytes(2).readUInt16BE() // UdpHolePuncher.java: sessionNonce
+export function punchAcceptSource(expected: {address:string}|null, actual: {address:string}|null, authenticated=false): boolean {
+  if (!expected || !actual) return false
+  if (expected.address === actual.address) return true
+  // UdpHolePuncher.java: acceptAddress /16 CGNAT drift only for unauthenticated control.
+  return !authenticated && net.isIPv4(expected.address) && net.isIPv4(actual.address) && expected.address.split('.').slice(0,2).join('.') === actual.address.split('.').slice(0,2).join('.')
 }
-
-/** 每个 socket 一个随机 nonce。 */
-export function punchRandomNonce(): number {
-  const b = crypto.randomBytes(2)
-  return (b[0]! << 8) | b[1]!
+export async function udpSendTo(socket:dgram.Socket|null, data:Buffer, remote:Address|null):Promise<void> {
+  if(socket && remote) await new Promise<void>((resolve,reject)=>{try{socket.send(data,remote.port,remote.address,error=>error?reject(error):resolve())}catch(error){reject(error)}})
 }
-
-/** 尽力发送：失败立即重试 3 次，错误全部吞掉。 */
-export async function udpSendTo(conn: dgram.Socket | null, buf: Buffer, addr: { address: string; port: number } | null): Promise<void> {
-  if (!conn || !addr) return
-  for (let i = 0; i < 3; i++) {
-    try {
-      await new Promise<void>((resolve, reject) => {
-        conn.send(buf, 0, buf.length, addr.port, addr.address, (err) => (err ? reject(err) : resolve()))
-      })
-      return
-    } catch {
-      // WSAECONNRESET 等：重试
-    }
+async function sendPkt(socket:dgram.Socket, packet:Buffer, remote:Address):Promise<void> {
+  for(let attempt=0;attempt<3;attempt++){ // UdpHolePuncher.java: sendPkt ICMP/WSAECONNRESET retries
+    try{await udpSendTo(socket,packet,remote);return}catch{/* retry clears Windows ICMP latch */}
   }
 }
-
-/** 是否接受该来源（同 IP / IPv4 前 16 位一致）。 */
-export function punchAcceptSource(expected: { address: string } | null, from: { address: string } | null): boolean {
-  if (!expected || !from || !from.address) return false
-  if (expected.address === from.address) return true
-  const e4 = ipv4Prefix(expected.address)
-  const f4 = ipv4Prefix(from.address)
-  if (e4 && f4) return e4[0] === f4[0] && e4[1] === f4[1]
-  return false
-}
-
-function ipv4Prefix(addr: string): number[] | null {
-  const parts = addr.split('.')
-  if (parts.length !== 4) return null
-  const a = parseInt(parts[0]!, 10)
-  const b = parseInt(parts[1]!, 10)
-  if (Number.isNaN(a) || Number.isNaN(b)) return null
-  return [a, b]
-}
-
-/** 以 base 为中心、按 delta 步长生成 ±64 范围内的预测端口表。 */
-export function predictedPortsAround(base: number, delta: number): number[] {
-  if (base <= 0 || delta === 0) return []
-  let step = delta
-  if (step < 0) step = -step
-  if (step > 64) step = 64
-  if (step < 1) return []
-  const seen = new Set<number>([base])
-  const out: number[] = []
-  for (let off = step; off <= 64; off += step) {
-    for (const cand of [base + off, base - off]) {
-      if (cand >= 1 && cand <= 65535 && !seen.has(cand)) {
-        seen.add(cand)
-        out.push(cand)
-      }
-    }
+export class PpsLimiter {
+  private start:number;private sent=0
+  constructor(readonly maxPps:number,private now=()=>performance.now()){this.start=now()}
+  beforeSendDelay():number {
+    // UdpHolePuncher.java: PpsLimiter.beforeSend cumulative monotonic budget.
+    this.sent++
+    const allowed=Math.floor((this.now()-this.start)*Math.max(1,this.maxPps)/1000)
+    return this.sent>allowed?(this.sent-allowed)*1000/Math.max(1,this.maxPps):0
   }
-  return out
 }
-
+const shuffle=(values:number[],random:()=>number)=>{
+  for(let i=values.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[values[i],values[j]]=[values[j],values[i]]}return values
+}
+export function controlPorts(center:number,range:number,window:number,random=Math.random):number[] {
+  // UdpHolePuncher.java: sendControlMultiPort. Retain the source's duplicate center
+  // in the random branch; sample the full range (fixes the old upstream endless loop).
+  const ports=[center]
+  if(range>20){ // UdpHolePuncher.java: useRandomScan threshold
+    const lo=Math.max(1,center-range),hi=Math.min(65535,center+range),max=Math.min(window,hi-lo),chosen=new Set([center])
+    while(chosen.size<max+1)chosen.add(lo+Math.floor(random()*(hi-lo+1)))
+    ports.push(...shuffle([...chosen],random))
+  }else for(let offset=1;offset<=range;offset++){if(center-offset>0)ports.push(center-offset);if(center+offset<=65535)ports.push(center+offset)}
+  return ports
+}
 export interface PuncherOptions {
-  conn: dgram.Socket
-  timeoutMs?: number
+  conn:dgram.Socket;timeoutMs?:number;authKey?:Buffer|null;profile?:PunchProfile;params?:PunchParams
+  sockets?:dgram.Socket[];mode?:'prediction'|'ports'|'group';range?:number;fixedRange?:boolean
+  skipFirewall?:boolean;sweepSpread?:number;random?:()=>number
 }
-
-/** 单 socket 打洞器。 */
+export class PunchFailure extends Error {constructor(readonly result:PunchResult){super(result.firewallDetected?'本轮未收到 UDP 回包':'本轮打洞未命中');this.name='PunchFailure'}}
 export class Puncher {
-  readonly conn: dgram.Socket
-  readonly nonce: number
-  timeoutMs: number
-
-  private target: { address: string; port: number } | null = null
-  private predicted: { address: string; port: number }[] = []
-  private won = false
-  private actual: { address: string; port: number } | null = null
-  private onPeer: ((addr: { address: string; port: number }) => void) | null = null
-  private peerFired = false
-  private wonCh: NodeJS.Timeout | null = null
-  private wonResolvers: Array<() => void> = []
-  private stopFlag = false
-  private recvTimer: NodeJS.Timeout | null = null
-  private onMsg: ((buf: Buffer, rinfo: dgram.RemoteInfo) => void) | null = null
-
-  constructor(opts: PuncherOptions) {
-    this.conn = opts.conn
-    this.nonce = punchRandomNonce()
-    this.timeoutMs = opts.timeoutMs ?? PUNCH_TOTAL_TIMEOUT_MS
+  conn:dgram.Socket
+  readonly nonce=punchRandomNonce()
+  readonly profile:PunchProfile;readonly params:PunchParams;readonly stats:PunchResult
+  timeoutMs:number
+  private remote:Address|null=null;private ports:number[]=[];private timeout?:NodeJS.Timeout
+  private controller=new AbortController();private active=false;private settled=false;private startedAt=0
+  private notify?:(address:Address)=>void;private resolve!:(address:Address)=>void;private reject!:(error:Error)=>void
+  private result:Promise<Address>;private receivers=new Map<dgram.Socket,(b:Buffer,from:dgram.RemoteInfo)=>void>()
+  private sprayTable?:number[];private sprayCursor=0
+  constructor(private options:PuncherOptions){
+    this.conn=options.conn;this.profile=options.profile??DEFAULT;this.params={...(options.params??fromProfile(this.profile))}
+    this.timeoutMs=options.timeoutMs??this.params.timeoutMs
+    // UdpHolePuncher.java: prediction path and punchEasySymDual wrapper mark failed
+    // results; generic punchMultiSocket and punchMultiPort do not mark prediction.
+    this.stats={socketsTried:options.sockets?.length||1,socketsReceivedPunch:0,socketsReceivedAck:0,predictionDelta:0,elapsedMs:0,firewallDetected:false,portPredictionActive:options.mode==='group'?this.params.easySymBomb:options.mode!=='ports'&&(options.range??0)>0,success:false}
+    this.result=new Promise((resolve,reject)=>{this.resolve=resolve;this.reject=reject});void this.result.catch(()=>{})
   }
-
-  setOnPeer(fn: (addr: { address: string; port: number }) => void): void {
-    this.onPeer = fn
+  get sockets():dgram.Socket[]{return this.options.sockets?.length?this.options.sockets:[this.options.conn]}
+  setOnPeer(callback:(address:Address)=>void):void{this.notify=callback}
+  setTarget(address:Address|null):void{this.remote=address}
+  setPredictedPorts(ports:number[]):void{this.ports=[...new Set(ports)].filter(p=>Number.isInteger(p)&&p>0&&p<=65535)}
+  private message(socket:dgram.Socket,packet:Buffer,from:dgram.RemoteInfo):void {
+    if(!this.active||this.settled)return
+    const verified=verifyPunchFrame(packet,this.options.authKey),frame=verified&&punchParseControl(verified)
+    if(!frame||!punchAcceptSource(this.remote,from,!!this.options.authKey))return
+    if(frame.type===1)this.stats.socketsReceivedPunch++;else this.stats.socketsReceivedAck++
+    const actual={address:from.address,port:from.port};this.remote=actual
+    // UdpHolePuncher.java: sendControlTo(TYPE_ACK) uses OUR nonce for PUNCH and ACK.
+    void sendPkt(socket,signPunchFrame(punchBuildControl(2,this.nonce),this.options.authKey),actual)
+    this.stats.success=true;this.stats.elapsedMs=performance.now()-this.startedAt
+    this.conn=socket;this.settled=true;this.cleanup();this.notify?.(actual);this.resolve(actual)
   }
-
-  setTarget(addr: { address: string; port: number } | null): void {
-    this.target = addr
+  private async sleep(ms:number):Promise<void>{await delay(ms,undefined,{signal:this.controller.signal})}
+  private async send(socket:dgram.Socket,port:number,limiter?:PpsLimiter):Promise<void>{
+    if(!this.active||!this.remote||port<1||port>65535)return
+    if(limiter){const ms=limiter.beforeSendDelay();if(ms>0)await this.sleep(ms)}
+    if(!this.active||!this.remote)return
+    await sendPkt(socket,signPunchFrame(punchBuildControl(1,this.nonce),this.options.authKey),{address:this.remote.address,port})
   }
-
-  setPredictedPorts(ports: number[]): void {
-    if (!ports.length || !this.target) {
-      this.predicted = []
-      return
+  private fail(firewall=false):void{
+    if(this.settled)return
+    this.stats.elapsedMs=performance.now()-this.startedAt;this.stats.firewallDetected=firewall
+    this.settled=true;this.cleanup();this.reject(new PunchFailure({...this.stats}))
+  }
+  private async spray(round:number,limiter:PpsLimiter):Promise<void>{
+    const p=this.params,random=this.options.random??Math.random
+    // UdpHolePuncher.java: sprayRound Fisher-Yates over all ports, persistent cursor.
+    this.sprayTable??=shuffle(Array.from({length:65535},(_,i)=>i+1),random)
+    for(let r=0;r<p.sprayPacketsPerPort&&this.active;r++)await this.send(this.options.conn,this.remote!.port,limiter)
+    const base=p.sprayPortCountMin+Math.floor(random()*Math.max(1,p.sprayPortCountMax-p.sprayPortCountMin+1))
+    const count=round>2?Math.max(Math.trunc(base*p.sprayDecayNumerator/round),p.sprayDecayFloor):base // UdpHolePuncher.java: sprayRound decay starts after round 2
+    for(let i=0;i<count&&this.active;i++){
+      const port=this.sprayTable[this.sprayCursor++%this.sprayTable.length],socket=this.sockets[i%this.sockets.length]
+      for(let r=0;r<p.sprayPacketsPerPort&&this.active;r++)await this.send(socket,port,limiter)
+      await this.sleep(Math.max(0,p.sprayPortIntervalMs))
     }
-    const seen = new Set<string>([`${this.target.address}:${this.target.port}`])
-    const out: { address: string; port: number }[] = []
-    for (const p of ports) {
-      if (p < 1 || p > 65535) continue
-      const a = { address: this.target.address, port: p }
-      const k = `${a.address}:${a.port}`
-      if (!seen.has(k)) {
-        seen.add(k)
-        out.push(a)
+  }
+  private async sendLoop():Promise<void>{
+    const p=this.params,s=this.profile.send,group=this.options.mode==='group'
+    const interval=group&&p.easySymBomb?Math.min(p.sendInterval,Math.max(1,p.bombRoundIntervalMs)):p.sendInterval
+    const maxCycles=Math.trunc(this.timeoutMs/interval),limiter=new PpsLimiter(this.profile.sym.maxPps)
+    for(let cycle=0;cycle<maxCycles&&this.active;cycle++){
+      if(!this.remote){await this.sleep(interval);continue}
+      if(group){
+        if(this.sockets.length>1&&!this.options.skipFirewall&&cycle>=this.profile.firewallDetectCycles&&!this.stats.socketsReceivedPunch){this.fail(true);return}
+        if(p.hardSymSpray){await this.spray(cycle+1,limiter);continue}
+        if(p.easySymBomb){
+          for(const socket of this.sockets)for(let off=-p.bombWindow;off<=p.bombWindow&&this.active;off++)await this.send(socket,Math.max(1,Math.min(65535,this.remote.port+off)),limiter)
+        }else{
+          const spread=this.options.sweepSpread??0
+          for(let i=0;i<this.sockets.length&&this.active;i++){
+            const port=this.remote.port+(spread>0?i%(spread*2+1)-spread:0)
+            for(let r=0;r<3&&this.active;r++)await this.send(this.sockets[i],port) // UdpHolePuncher.java: classic group 3 packets/socket
+          }
+        }
+        await this.sleep(p.easySymBomb&&performance.now()-this.startedAt<p.bombDurationMs?p.bombRoundIntervalMs:p.sendInterval)
+      }else if(this.options.mode==='ports'){
+        for(const port of this.ports){if(!this.active)break;await this.send(this.conn,port)}await this.sleep(p.sendInterval)
+      }else{
+        const range=this.options.range??0
+        if(range>0){
+          const progressive=this.profile.progressiveRanges[Math.min(Math.trunc(cycle/this.profile.cyclesPerRange),this.profile.progressiveRanges.length-1)]
+          const currentRange=this.options.fixedRange?range:Math.min(range||p.portRange,progressive)
+          const ports=controlPorts(this.remote.port,currentRange,s.sweepWindowSize,this.options.random)
+          for(let pass=0;pass<(p.sendMinRounds||s.minRounds)&&this.active;pass++){
+            for(let i=0;i<ports.length&&this.active;i++){
+              for(let r=0;r<(p.sendMinPass||s.minPass)&&this.active;r++)await this.send(this.conn,ports[i])
+              if(i<ports.length-1)await this.sleep(s.sleepShortMs)
+            }
+            if(pass<2)await this.sleep(s.sleepLongMs) // UdpHolePuncher.java: roundPass < 2
+          }
+        }else await this.send(this.conn,this.remote.port)
+        await this.sleep(p.sendInterval)
       }
     }
-    this.predicted = out
+    this.fail()
   }
-
-  /** 启动接收循环。 */
-  start(): void {
-    const onMsg = (buf: Buffer, rinfo: dgram.RemoteInfo): void => {
-      if (this.stopFlag) return
-      const ctrl = punchParseControl(buf)
-      if (!ctrl) return
-      const from = { address: rinfo.address, port: rinfo.port }
-      if (!this.target || !punchAcceptSource(this.target, from)) return
-      // 回 ACK
-      void udpSendTo(this.conn, punchAckFor(buf), from)
-      if (!this.peerFired && this.onPeer) {
-        this.peerFired = true
-        try { this.onPeer(from) } catch { /* ignore */ }
-      }
-      if (this.won) return
-      this.won = true
-      this.actual = from
-      this.target = from
-      this.signalWon()
-    }
-    this.onMsg = onMsg
-    this.conn.on('message', onMsg)
-
-    const poll = (): void => {
-      if (this.stopFlag) return
-      this.recvTimer = setTimeout(poll, PUNCH_RECV_POLL_MS)
-    }
-    poll()
-
-    // 主动发送循环
-    const pkt = punchBuildControl(PUNCH_TYPE_PUNCH, this.nonce)
-    const blast = (): void => {
-      if (this.stopFlag || this.won) return
-      const t = this.target
-      if (t) {
-        for (let r = 0; r < PUNCH_PER_ROUND; r++) void udpSendTo(this.conn, pkt, t)
-      }
-      for (const a of this.predicted) {
-        for (let r = 0; r < PUNCH_PER_ROUND; r++) void udpSendTo(this.conn, pkt, a)
-      }
-      setTimeout(blast, PUNCH_INTERVAL_MS)
-    }
-    setTimeout(blast, PUNCH_INTERVAL_MS)
-
-    // 总超时
-    setTimeout(() => this.stop(), this.timeoutMs)
+  start():void{
+    if(this.active||this.settled)return
+    this.active=true;this.startedAt=performance.now()
+    for(const socket of this.sockets){const receiver=(b:Buffer,from:dgram.RemoteInfo)=>this.message(socket,b,from);this.receivers.set(socket,receiver);socket.on('message',receiver)}
+    // UdpHolePuncher.java: per-attempt guard, NOT a session deadline.
+    this.timeout=setTimeout(()=>this.fail(),this.timeoutMs+(this.options.mode==='ports'?this.profile.send.extraWaitLongMs:this.profile.send.extraWaitMs))
+    void this.sendLoop().catch(error=>{if(!this.controller.signal.aborted){this.settled=true;this.cleanup();this.reject(error)}})
   }
-
-  /** 阻塞直到打洞成功 / 超时 / 外部取消。成功返回对端实际源地址。 */
-  wait(): Promise<{ address: string; port: number }> {
-    if (this.won && this.actual) return Promise.resolve(this.actual)
-    return new Promise((resolve, reject) => {
-      const finish = (): void => {
-        if (this.actual) resolve(this.actual)
-        else reject(new Error('punch: 已取消'))
-      }
-      this.wonResolvers.push(finish)
-    })
-  }
-
-  private signalWon(): void {
-    const list = this.wonResolvers
-    this.wonResolvers = []
-    for (const fn of list) fn()
-  }
-
-  /**
-   * 停止打洞（幂等）。不关闭 socket —— socket 归调用方所有：
-   * 多轮重试要在同一 socket 上继续打洞，成功后 socket 交给 RudpConn 接管，
-   * 由调用方/RudpConn 负责最终 close（Go 版 stop 同样不 close fd）。
-   */
-  stop(): void {
-    if (this.stopFlag) return
-    this.stopFlag = true
-    if (this.recvTimer) clearTimeout(this.recvTimer)
-    if (this.onMsg) {
-      try { this.conn.removeListener('message', this.onMsg) } catch { /* ignore */ }
-      this.onMsg = null
-    }
-    try { this.conn.setRecvBufferSize?.(0) } catch { /* ignore */ }
-    this.signalWon()
-  }
+  wait():Promise<Address>{return this.result}
+  private cleanup():void{this.active=false;clearTimeout(this.timeout);this.controller.abort();for(const[socket,receiver]of this.receivers)socket.off('message',receiver);this.receivers.clear()}
+  stop():void{this.cleanup();if(!this.settled){this.settled=true;this.reject(new Error('打洞已取消'))}}
 }
-
-/** 创建打洞 socket；preferredPort>0 时优先绑定（失败退随机）。 */
-export async function punchListen(preferredPort: number): Promise<dgram.Socket> {
-  if (preferredPort > 0 && preferredPort <= 65535) {
-    try {
-      const uc = dgram.createSocket('udp4')
-      await new Promise<void>((resolve, reject) => {
-        uc.once('error', reject)
-        uc.bind(preferredPort, '0.0.0.0', () => {
-          uc.removeListener('error', reject)
-          resolve()
-        })
-      })
-      return uc
-    } catch {
-      // 绑定失败，退随机
-    }
+export async function punchListen(preferredPort:number):Promise<dgram.Socket>{
+  async function bind(port:number):Promise<dgram.Socket>{
+    const socket=dgram.createSocket('udp4')
+    try{await new Promise<void>((resolve,reject)=>{socket.once('error',reject);socket.bind(port,()=>{socket.off('error',reject);resolve()})});socket.on('error',()=>{});return socket}
+    catch(e){try{socket.close()}catch{}throw e}
   }
-  const uc = dgram.createSocket('udp4')
-  await new Promise<void>((resolve, reject) => {
-    uc.once('error', reject)
-    uc.bind(0, '0.0.0.0', () => {
-      uc.removeListener('error', reject)
-      resolve()
-    })
-  })
-  return uc
+  if(Number.isInteger(preferredPort)&&preferredPort>0&&preferredPort<=65535)try{return await bind(preferredPort)}catch{}
+  return bind(0)
 }

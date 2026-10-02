@@ -1,0 +1,118 @@
+{
+  "version": "1.0.97",
+  "pack": "Mechanomania-1.1.12.0.zip",
+  "packSHA256": "2672612ba7f111d728c8bb546d7e45c3311cc3dad32e5759d80a85dc198549a3",
+  "mc": "1.21.1",
+  "loader": "NeoForge 21.1.248",
+  "environment": {
+    "platform": "Windows x64",
+    "java": "local Java 21.0.12",
+    "threads": 16,
+    "speedLimit": 0,
+    "source": "BMCLAPI preference with official fallback",
+    "network": "Machine configured with an existing OS proxy; new downloads honor that route immediately",
+    "cold": "New empty game directory and profile. Existing local Java. No Minecraft launch.",
+    "warm": "Same private profile and verified payload cache, new instance."
+  },
+  "baseline": {
+    "version": "1.0.96",
+    "completed": false,
+    "failedAfterSeconds": 230.018,
+    "error": "Redirect was cancelled",
+    "note": "Failed baseline cannot yield a valid full-install speedup ratio."
+  },
+  "developmentRunsSeconds": [
+    68.607,
+    69.654
+  ],
+  "finalPortable": {
+    "exeSHA256": "4ef5b04237891ad54ebb5ee44444f199ee1bb663c4a2ba53634d7c7aef7da9b6",
+    "cold": {
+      "complete": true,
+      "packSHA256": "2672612ba7f111d728c8bb546d7e45c3311cc3dad32e5759d80a85dc198549a3",
+      "mods": 195,
+      "modBytes": 328640421,
+      "uniqueAssets": 3888,
+      "assetBytes": 824689225,
+      "clientBytes": 26836906,
+      "verifiedLibraries": 106,
+      "libraryBytes": 74070243,
+      "minimumPayloadBytes": 1254236795,
+      "installSeconds": 45.417,
+      "observedPeakBytesPerSecond": 115386590,
+      "timeline": {
+        "runtime:waiting": 0.058,
+        "pack:running": 0.058,
+        "runtime:running": 0.062,
+        "runtime/vanilla:waiting": 0.062,
+        "runtime/installer:running": 0.062,
+        "runtime/processor:waiting": 0.062,
+        "runtime/vanilla:running": 0.166,
+        "pack:done": 8.39,
+        "runtime/vanilla/libraries:running": 8.85,
+        "runtime/vanilla/client:waiting": 8.85,
+        "runtime/vanilla/assets:waiting": 8.85,
+        "runtime/vanilla/client:running": 8.992,
+        "runtime/vanilla/assets:running": 8.992,
+        "runtime/installer:done": 12.137,
+        "runtime/vanilla/client:done": 12.387,
+        "runtime/vanilla/libraries:done": 13.238,
+        "runtime/processor:running": 13.696,
+        "runtime/vanilla/assets:done": 39.989,
+        "runtime:done": 42.224
+      }
+    },
+    "warm": {
+      "complete": true,
+      "packSHA256": "2672612ba7f111d728c8bb546d7e45c3311cc3dad32e5759d80a85dc198549a3",
+      "mods": 195,
+      "modBytes": 328640421,
+      "uniqueAssets": 3888,
+      "assetBytes": 824689225,
+      "clientBytes": 26836906,
+      "verifiedLibraries": 106,
+      "libraryBytes": 74070243,
+      "minimumPayloadBytes": 1254236795,
+      "installSeconds": 8.894,
+      "observedPeakBytesPerSecond": 0,
+      "timeline": {
+        "runtime:waiting": 0.06,
+        "pack:running": 0.06,
+        "runtime:running": 0.068,
+        "pack:done": 2.699,
+        "runtime/libraries:running": 3.299,
+        "runtime/client:waiting": 3.299,
+        "runtime/assets:waiting": 3.299,
+        "runtime/client:running": 3.549,
+        "runtime/assets:running": 3.549,
+        "runtime/libraries:done": 3.799,
+        "runtime/client:done": 4.095,
+        "runtime:done": 5.05
+      }
+    }
+  },
+  "theory": {
+    "bandwidthExampleMbps": 350,
+    "idealBytesPerSecond": 43750000,
+    "minimumPayloadSeconds": 28.6682696,
+    "modOnlySeconds": 7.511781051428572,
+    "exclusions": "Installer JAR, additional processing dependencies, HTTP/TLS overhead, metadata, checksum, disk and CPU work. CPU can partially overlap network. Not a promised elapsed time."
+  },
+  "validation": {
+    "tests": 507,
+    "passed": 507,
+    "typescript": true,
+    "licenses": true,
+    "build": true,
+    "nativeTransport": [
+      "redirect",
+      "Range",
+      "HEAD",
+      "streaming",
+      "cancellation",
+      "SHA1",
+      "current OS proxy"
+    ],
+    "comparisonLimit": "Video PCL workload cache/hardware/network not controlled; no claim of 2x PCL."
+  }
+}

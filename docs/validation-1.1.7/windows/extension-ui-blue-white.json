@@ -1,0 +1,56 @@
+{
+  "version": "1.1.7",
+  "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 TuMPTP",
+  "skinPixels": [
+    [
+      4,
+      12
+    ],
+    [
+      12,
+      12
+    ],
+    [
+      28,
+      12
+    ],
+    [
+      44,
+      12
+    ]
+  ],
+  "legacySkinImport": true,
+  "skinHistory": true,
+  "skinUpload": "isolated failure/success fixtures; profile refresh observed",
+  "tickets": "isolated fixtures; selection no submission; rate countdown",
+  "projectionSourceUnchanged": true,
+  "multiRoot": true,
+  "modern26": true,
+  "mascots": {
+    "counts": {},
+    "order": [
+      "q3",
+      "qiqi",
+      "biyuehu",
+      "hongshu",
+      "kamu",
+      "milo",
+      "muchuanbei"
+    ],
+    "sound": {
+      "muted": false,
+      "volume": 0.45
+    }
+  },
+  "memory": {
+    "applicable": true,
+    "beforeMB": 94327,
+    "afterMB": 95540,
+    "processed": 284,
+    "skipped": 360,
+    "failures": {
+      "打开进程失败（Windows 5）": 230
+    },
+    "elapsedMs": 1062
+  }
+}

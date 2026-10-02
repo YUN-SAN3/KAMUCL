@@ -1,0 +1,468 @@
+{
+  "version": "1.1.6",
+  "implementation": "f5ae0fe2479c8b9002c79b8ee745d370eb220a0f",
+  "tests": {
+    "total": 560,
+    "pass": 560,
+    "failed": 0
+  },
+  "typecheck": true,
+  "productionBuild": true,
+  "licenseCheck": true,
+  "package": {
+    "complete": true,
+    "sizes": {
+      "exe": 91926725,
+      "zip": 91958189,
+      "unpackedZip": 138025371
+    },
+    "asarSHA256": "20f5a1300d629a7fc2dd5644093b95245b4fe11c7ac1019eb4f79f5e0ca3f9cf",
+    "portable": [
+      {
+        "phase": "cold",
+        "firstPaintMs": 599,
+        "electronEntryMs": 11893
+      },
+      {
+        "phase": "warm",
+        "firstPaintMs": 378,
+        "electronEntryMs": 193
+      }
+    ],
+    "zip": [
+      {
+        "phase": "cold",
+        "firstPaintMs": 530,
+        "electronEntryMs": 5703
+      },
+      {
+        "phase": "warm",
+        "firstPaintMs": 276,
+        "electronEntryMs": 167
+      }
+    ]
+  },
+  "themes": [
+    {
+      "version": "1.1.6",
+      "complete": true,
+      "exeSHA256": "bf50a21dbefada44834d8270605c6ec2a64b2f65fe7790a948ceb669fba9be9f",
+      "catalogReentry": true,
+      "disclosureBothDirections": true,
+      "dropdownMotion": true,
+      "methodEntryMotion": true,
+      "settingsScopes": true,
+      "compactRuntime": true,
+      "settingsScrollRestored": true,
+      "asyncLatestWins": true,
+      "errorRetry": true,
+      "emptySearch": true,
+      "modalKeyboard": true,
+      "runningState": true,
+      "confinedAnimation": true,
+      "issues": [],
+      "settingsTargets": 16,
+      "reducedMotion": true,
+      "legacyConfig": true,
+      "rapidNavigation": true,
+      "themes": "black-orange",
+      "windows": [
+        [
+          960,
+          620,
+          1
+        ],
+        [
+          1280,
+          900,
+          1.25
+        ],
+        [
+          1440,
+          960,
+          1.5
+        ],
+        [
+          980,
+          720,
+          1.5
+        ],
+        "maximized"
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "complete": true,
+      "exeSHA256": "bf50a21dbefada44834d8270605c6ec2a64b2f65fe7790a948ceb669fba9be9f",
+      "catalogReentry": true,
+      "disclosureBothDirections": true,
+      "dropdownMotion": true,
+      "methodEntryMotion": true,
+      "settingsScopes": true,
+      "compactRuntime": true,
+      "settingsScrollRestored": true,
+      "asyncLatestWins": true,
+      "errorRetry": true,
+      "emptySearch": true,
+      "modalKeyboard": true,
+      "runningState": true,
+      "confinedAnimation": true,
+      "issues": [],
+      "settingsTargets": 16,
+      "reducedMotion": true,
+      "legacyConfig": true,
+      "rapidNavigation": true,
+      "themes": "blue-white",
+      "windows": [
+        [
+          960,
+          620,
+          1
+        ],
+        [
+          1280,
+          900,
+          1.25
+        ],
+        [
+          1440,
+          960,
+          1.5
+        ],
+        [
+          980,
+          720,
+          1.5
+        ],
+        "maximized"
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "complete": true,
+      "exeSHA256": "bf50a21dbefada44834d8270605c6ec2a64b2f65fe7790a948ceb669fba9be9f",
+      "catalogReentry": true,
+      "disclosureBothDirections": true,
+      "dropdownMotion": true,
+      "methodEntryMotion": true,
+      "settingsScopes": true,
+      "compactRuntime": true,
+      "settingsScrollRestored": true,
+      "asyncLatestWins": true,
+      "errorRetry": true,
+      "emptySearch": true,
+      "modalKeyboard": true,
+      "runningState": true,
+      "confinedAnimation": true,
+      "issues": [],
+      "settingsTargets": 16,
+      "reducedMotion": true,
+      "legacyConfig": true,
+      "rapidNavigation": true,
+      "themes": "custom",
+      "windows": [
+        [
+          960,
+          620,
+          1
+        ],
+        [
+          1280,
+          900,
+          1.25
+        ],
+        [
+          1440,
+          960,
+          1.5
+        ],
+        [
+          980,
+          720,
+          1.5
+        ],
+        "maximized"
+      ]
+    }
+  ],
+  "extensions": [
+    {
+      "theme": "black-orange",
+      "version": "1.1.6",
+      "skinPixels": [
+        [
+          4,
+          12
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          28,
+          12
+        ],
+        [
+          44,
+          12
+        ]
+      ],
+      "legacySkinImport": true,
+      "skinHistory": true,
+      "skinUpload": "isolated failure/success fixtures; profile refresh observed",
+      "tickets": "isolated fixtures; selection no submission; rate countdown",
+      "projectionSourceUnchanged": true,
+      "multiRoot": true,
+      "modern26": true,
+      "mascots": {
+        "counts": {
+          "q3": 1,
+          "qiqi": 1,
+          "biyuehu": 0,
+          "hongshu": 0,
+          "kamu": 0,
+          "milo": 0,
+          "muchuanbei": 0
+        },
+        "order": [
+          "qiqi",
+          "q3",
+          "biyuehu",
+          "hongshu",
+          "kamu",
+          "milo",
+          "muchuanbei"
+        ]
+      },
+      "memory": {
+        "applicable": true,
+        "beforeMB": 96482,
+        "afterMB": 98037,
+        "processed": 253,
+        "skipped": 332,
+        "failures": {
+          "打开进程失败（Windows 5）": 229
+        },
+        "elapsedMs": 1233
+      }
+    },
+    {
+      "theme": "blue-white",
+      "version": "1.1.6",
+      "skinPixels": [
+        [
+          4,
+          12
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          28,
+          12
+        ],
+        [
+          44,
+          12
+        ]
+      ],
+      "legacySkinImport": true,
+      "skinHistory": true,
+      "skinUpload": "isolated failure/success fixtures; profile refresh observed",
+      "tickets": "isolated fixtures; selection no submission; rate countdown",
+      "projectionSourceUnchanged": true,
+      "multiRoot": true,
+      "modern26": true,
+      "mascots": {
+        "counts": {
+          "q3": 1,
+          "qiqi": 1,
+          "biyuehu": 0,
+          "hongshu": 0,
+          "kamu": 0,
+          "milo": 0,
+          "muchuanbei": 0
+        },
+        "order": [
+          "qiqi",
+          "q3",
+          "biyuehu",
+          "hongshu",
+          "kamu",
+          "milo",
+          "muchuanbei"
+        ]
+      },
+      "memory": {
+        "applicable": true,
+        "beforeMB": 95265,
+        "afterMB": 96795,
+        "processed": 257,
+        "skipped": 333,
+        "failures": {
+          "打开进程失败（Windows 5）": 230
+        },
+        "elapsedMs": 1611
+      }
+    },
+    {
+      "theme": "custom",
+      "version": "1.1.6",
+      "skinPixels": [
+        [
+          4,
+          12
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          28,
+          12
+        ],
+        [
+          44,
+          12
+        ]
+      ],
+      "legacySkinImport": true,
+      "skinHistory": true,
+      "skinUpload": "isolated failure/success fixtures; profile refresh observed",
+      "tickets": "isolated fixtures; selection no submission; rate countdown",
+      "projectionSourceUnchanged": true,
+      "multiRoot": true,
+      "modern26": true,
+      "mascots": {
+        "counts": {
+          "q3": 1,
+          "qiqi": 1,
+          "biyuehu": 0,
+          "hongshu": 0,
+          "kamu": 0,
+          "milo": 0,
+          "muchuanbei": 0
+        },
+        "order": [
+          "qiqi",
+          "q3",
+          "biyuehu",
+          "hongshu",
+          "kamu",
+          "milo",
+          "muchuanbei"
+        ]
+      },
+      "memory": {
+        "applicable": true,
+        "beforeMB": 96299,
+        "afterMB": 97386,
+        "processed": 256,
+        "skipped": 333,
+        "failures": {
+          "打开进程失败（Windows 5）": 229
+        },
+        "elapsedMs": 1044
+      }
+    }
+  ],
+  "skinSurfaces": {
+    "version": "1.1.6",
+    "models": {
+      "classic": [
+        [
+          5,
+          25
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          46,
+          25
+        ],
+        [
+          22,
+          57
+        ],
+        [
+          37,
+          57
+        ]
+      ],
+      "slim": [
+        [
+          5,
+          25
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          45,
+          25
+        ],
+        [
+          22,
+          57
+        ],
+        [
+          37,
+          57
+        ]
+      ]
+    },
+    "layout": [
+      {
+        "w": 960,
+        "h": 620,
+        "zoom": 1,
+        "width": 962,
+        "height": 622,
+        "left": 28.850000381469727,
+        "right": 932.7500247955322,
+        "top": 31.125,
+        "bottom": 591.2750244140625,
+        "scroll": 894,
+        "client": 894
+      },
+      {
+        "w": 1280,
+        "h": 900,
+        "zoom": 1.25,
+        "width": 1024,
+        "height": 720,
+        "left": 42,
+        "right": 982,
+        "top": 45.959999084472656,
+        "bottom": 674.0399551391602,
+        "scroll": 939,
+        "client": 939
+      },
+      {
+        "w": 980,
+        "h": 720,
+        "zoom": 1.5,
+        "width": 653,
+        "height": 480,
+        "left": 19.600000381469727,
+        "right": 633.733362197876,
+        "top": 24.000001907348633,
+        "bottom": 456.00003242492676,
+        "scroll": 605,
+        "client": 605
+      }
+    ]
+  },
+  "cleanExtraction": {
+    "npmCi": true,
+    "JDK": "17",
+    "bridgeBuild": true,
+    "productionBuild": true,
+    "typecheck": true,
+    "byteIdenticalRebuild": false
+  }
+}

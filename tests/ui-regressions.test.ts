@@ -18,9 +18,9 @@ test('favorites render once with full controls; list and switch targets cannot c
   const game = fs.readFileSync('src/renderer/src/views/GameView.vue', 'utf8')
   assert(!game.includes('v-for="v in favoriteInstalled"'))
   assert(game.includes('v-for="v in sortedInstalled"'))
-  // 1.0.11 三区模型：信息区可收缩省略（flex 1 1 0），行容器 nowrap，操作区 .row-actions 钉右
-  assert.match(game, /\.inst-names \{[^}]*flex: 1 1 0/)
-  assert.match(game, /\.installed-row \{[^}]*flex-wrap: nowrap/)
+  // 1.0.88：跨文件夹列表保留完整路径信息行，操作区仍钉右。
+  assert.match(game, /\.inst-names \{[^}]*flex: 1 1 calc\(100% - 110px\)/)
+  assert.match(game, /\.installed-row \{[^}]*flex-wrap: wrap/)
   const css = fs.readFileSync('src/renderer/src/styles.css', 'utf8')
   assert.match(css, /\.switch input\s*\{[^}]*width: 100%/)
   assert.match(css, /\.switch-ui\s*\{[^}]*pointer-events: none/)

@@ -1,0 +1,115 @@
+{
+  "source": "real scrollIntoView and repeated viewport/canvas measurements before and after the complete visible frame",
+  "samples": [
+    {
+      "captureAttempt": 0,
+      "sample": 0,
+      "visible": true,
+      "stable": 0,
+      "bounds": {
+        "x": 1055,
+        "y": 305,
+        "width": 254,
+        "height": 228
+      },
+      "viewport": {
+        "width": 1360,
+        "height": 860,
+        "offsetLeft": 0,
+        "offsetTop": 0,
+        "innerWidth": 1360,
+        "innerHeight": 860,
+        "devicePixelRatio": 1
+      },
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "scroll": {
+        "top": 0,
+        "height": 786,
+        "scrollHeight": 786
+      }
+    },
+    {
+      "captureAttempt": 0,
+      "sample": 1,
+      "visible": true,
+      "stable": 1,
+      "bounds": {
+        "x": 1055,
+        "y": 305,
+        "width": 254,
+        "height": 228
+      },
+      "viewport": {
+        "width": 1360,
+        "height": 860,
+        "offsetLeft": 0,
+        "offsetTop": 0,
+        "innerWidth": 1360,
+        "innerHeight": 860,
+        "devicePixelRatio": 1
+      },
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "scroll": {
+        "top": 0,
+        "height": 786,
+        "scrollHeight": 786
+      }
+    }
+  ],
+  "captures": [
+    {
+      "captureAttempt": 0,
+      "before": {
+        "bounds": {
+          "x": 1055,
+          "y": 305,
+          "width": 254,
+          "height": 228
+        },
+        "viewport": {
+          "width": 1360,
+          "height": 860,
+          "offsetLeft": 0,
+          "offsetTop": 0,
+          "innerWidth": 1360,
+          "innerHeight": 860,
+          "devicePixelRatio": 1
+        },
+        "documentHidden": false,
+        "visibilityState": "visible",
+        "scroll": {
+          "top": 0,
+          "height": 786,
+          "scrollHeight": 786
+        }
+      },
+      "after": {
+        "bounds": {
+          "x": 1055,
+          "y": 305,
+          "width": 254,
+          "height": 228
+        },
+        "viewport": {
+          "width": 1360,
+          "height": 860,
+          "offsetLeft": 0,
+          "offsetTop": 0,
+          "innerWidth": 1360,
+          "innerHeight": 860,
+          "devicePixelRatio": 1
+        },
+        "documentHidden": false,
+        "visibilityState": "visible",
+        "scroll": {
+          "top": 0,
+          "height": 786,
+          "scrollHeight": 786
+        }
+      },
+      "matched": true
+    }
+  ]
+}

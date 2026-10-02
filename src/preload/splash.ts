@@ -5,6 +5,11 @@ contextBridge.exposeInMainWorld('kamuclSplash', {
   assembled: () => ipcRenderer.send('boot:assembled'),
   finished: () => ipcRenderer.send('boot:finished'),
   failed: (message: string) => ipcRenderer.send('boot:splash-failed', message),
+  onPointer: (callback: (point: { x: number; y: number }) => void) => {
+    const listener = (_event: Electron.IpcRendererEvent, point: { x: number; y: number }) => callback(point)
+    ipcRenderer.on('boot:pointer', listener)
+    return () => ipcRenderer.removeListener('boot:pointer', listener)
+  },
   onState: (callback: (state: BootState) => void) => {
     const listener = (_event: Electron.IpcRendererEvent, state: BootState) => callback(state)
     ipcRenderer.on('boot:state', listener)

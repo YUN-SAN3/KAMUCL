@@ -1,6 +1,6 @@
 import { BrowserWindow, ipcMain, dialog } from 'electron'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { StartupGate, BOOT_STAGES, type BootStage } from '../shared/startup'
+import { StartupGate, BOOT_STAGES, canAssembleBoot, type BootStage } from '../shared/startup'
 import { launcherLog } from './core/launcherLog'
 
 export function showStartupWindow(window: BrowserWindow, animated = true) {
@@ -11,7 +11,11 @@ export function showStartupWindow(window: BrowserWindow, animated = true) {
   const fade = setInterval(() => {
     if (window.isDestroyed()) { clearInterval(fade); return }
     const p = Math.min(1, (Date.now() - started) / 260)
-    window.setOpacity(p * p * (3 - 2 * p)); if (p === 1) clearInterval(fade)
+    window.setOpacity(p * p * (3 - 2 * p))
+    if (p === 1) {
+      clearInterval(fade)
+      window.emit('kamucl:startup-opacity-complete')
+    }
   }, 16)
 }
 
@@ -27,7 +31,7 @@ export function createNativeStartup(signal: string, pid: number) {
   const update = () => {
     if (disposed || revealed) return
     if (gate.state.ready) { readySent = true; send('ready') }
-    else if (!readySent) send('loading\n' + labels[Math.min(4, gate.completed.size)])
+    else if (!readySent) send((canAssembleBoot(gate.state) ? 'assembling\n' : 'loading\n') + labels[Math.min(4, gate.completed.size)])
   }
   const reveal = (animated: boolean) => {
     if (revealed || !main || main.isDestroyed() || !gate.state.ready) return

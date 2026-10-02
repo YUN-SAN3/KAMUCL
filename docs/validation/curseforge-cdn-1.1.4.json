@@ -1,0 +1,250 @@
+{
+  "version": "1.1.4",
+  "checkedAt": "2026-09-22T10:09:29.862Z",
+  "complete": true,
+  "scope": "Four real reported files imported with a minimal local vanilla runtime; original full packs unavailable.",
+  "manualSupplementRequested": false,
+  "files": [
+    {
+      "projectID": 1325071,
+      "fileID": 8671039,
+      "dir": "mods",
+      "fileName": "tcrcore-2.8.7.jar",
+      "size": 39120708,
+      "sha1": "0dd78e2f983de1f03d1516536df9ef1d8f824268",
+      "metadataUrl": null,
+      "installedPath": "mods/tcrcore-2.8.7.jar",
+      "verified": true
+    },
+    {
+      "projectID": 542294,
+      "fileID": 7453586,
+      "dir": "mods",
+      "fileName": "ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "size": 54453322,
+      "sha1": "fd9fc82fbdca5364992ec1b6518e3eb8d5bdc8ab",
+      "metadataUrl": null,
+      "installedPath": "mods/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "verified": true
+    },
+    {
+      "projectID": 1359195,
+      "fileID": 8066785,
+      "dir": "resourcepacks",
+      "fileName": "Vulmoons calaclysm remake_0.5.zip",
+      "size": 73627,
+      "sha1": "036bbf7e16796645dc3d73ff68c4233f18ca62d5",
+      "metadataUrl": null,
+      "installedPath": "resourcepacks/Vulmoons calaclysm remake_0.5.zip",
+      "verified": true
+    },
+    {
+      "projectID": 941802,
+      "fileID": 6168001,
+      "dir": "resourcepacks",
+      "fileName": "Create Style for Refined Storage.zip",
+      "size": 1596551,
+      "sha1": "31bbc546eec354201b6cc99438d1adc4621e1672",
+      "metadataUrl": null,
+      "installedPath": "resourcepacks/Create Style for Refined Storage.zip",
+      "verified": true
+    }
+  ],
+  "cdnRequests": [
+    {
+      "url": "https://edge.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "HEAD",
+      "status": 302
+    },
+    {
+      "url": "https://edge.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "HEAD",
+      "status": 302
+    },
+    {
+      "url": "https://edge.forgecdn.net/files/8066/785/Vulmoons%20calaclysm%20remake_0.5.zip",
+      "method": "HEAD",
+      "status": 302
+    },
+    {
+      "url": "https://edge.forgecdn.net/files/6168/1/Create%20Style%20for%20Refined%20Storage.zip",
+      "method": "HEAD",
+      "status": 302
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/6168/1/Create%20Style%20for%20Refined%20Storage.zip",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8066/785/Vulmoons%20calaclysm%20remake_0.5.zip",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/6168/1/Create%20Style%20for%20Refined%20Storage.zip",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/8671/39/tcrcore-2.8.7.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    },
+    {
+      "url": "https://mediafilez.forgecdn.net/files/7453/586/ba_bt-1.20.1-3.0.0-beta3.2.1.jar",
+      "method": "GET",
+      "status": 206
+    }
+  ]
+}

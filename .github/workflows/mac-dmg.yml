@@ -1,0 +1,59 @@
+name: macOS installable DMG
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: ['.github/workflows/mac-dmg.yml']
+permissions:
+  contents: read
+jobs:
+  dmg:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wrap verified release application in DMG
+        env:
+          ARCH: ${{ matrix.arch }}
+        run: |
+          set -euo pipefail
+          VERSION=$(node -p "require('./package.json').version")
+          BASE="https://github.com/kamubaba-i/KAMUCL/releases/download/v${VERSION}"
+          ZIP="KAMUCL-${VERSION}-mac-${ARCH}.zip"
+          mkdir -p release "$RUNNER_TEMP/dmg-stage" "$RUNNER_TEMP/dmg-mount"
+          curl --fail --location --retry 3 "$BASE/$ZIP" -o "$ZIP"
+          curl --fail --location --retry 3 "$BASE/SHA256SUMS.txt" -o sums.txt
+          grep "  $ZIP$" sums.txt | shasum -a 256 -c -
+          ditto -x -k "$ZIP" "$RUNNER_TEMP/dmg-stage"
+          codesign --verify --deep --strict "$RUNNER_TEMP/dmg-stage/KAMUCL.app"
+          ln -s /Applications "$RUNNER_TEMP/dmg-stage/Applications"
+          printf '将 KAMUCL.app 拖入 Applications，然后从应用程序中打开。\n此应用尚未进行 Apple 开发者签名及公证，首次运行可能需要在系统设置中确认。\n' > "$RUNNER_TEMP/dmg-stage/安装说明.txt"
+          DMG="release/KAMUCL-${VERSION}-mac-${ARCH}.dmg"
+          hdiutil create -volname "KAMUCL ${ARCH}" -srcfolder "$RUNNER_TEMP/dmg-stage" -format UDZO -fs HFS+ "$DMG"
+          hdiutil verify "$DMG"
+          hdiutil attach "$DMG" -readonly -nobrowse -mountpoint "$RUNNER_TEMP/dmg-mount"
+          node scripts/verify-mac.cjs "$RUNNER_TEMP/dmg-mount/KAMUCL.app" "$ARCH"
+          sleep 3
+          hdiutil detach "$RUNNER_TEMP/dmg-mount"
+          cd release
+          shasum -a 256 "KAMUCL-${VERSION}-mac-${ARCH}.dmg" > "SHA256SUMS-dmg-${ARCH}.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dmg-${{ matrix.arch }}
+          path: |
+            release/*.dmg
+            release/SHA256SUMS-dmg-*.txt
+            release/mac-proof-*
+          if-no-files-found: error

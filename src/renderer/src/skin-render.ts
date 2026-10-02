@@ -1,7 +1,7 @@
+import { loadSkinToCanvas } from 'skinview-utils'
 /**
  * 皮肤渲染工具：用 canvas 把 64×64 皮肤 PNG 渲染为 2D 人偶正面图。
  * 含外层 hat/装甲层叠加，最近邻缩放保持像素风；失败返回空字符串由 UI 兜底。
- * 另含旧版 64×32 皮肤 → 64×64 自动迁移（HMCL SkinHelper 分区镜像拷贝法）
  * 与 slim/classic 模型自动检测，供 3D 查看器与 2D 渲染共用。
  */
 
@@ -16,7 +16,6 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
   })
 }
 
-// ---------------- 旧版皮肤迁移（HMCL SkinHelper.x32Tox64 等价实现） ----------------
 
 /**
  * 旧版皮肤判定：宽为 64 的整数倍且高为宽的一半（如 64×32 / 128×64 HD）。
@@ -25,73 +24,11 @@ export function isLegacySkin(width: number, height: number): boolean {
   return width > 0 && width % 64 === 0 && height === width / 2
 }
 
-/**
- * 把源图上一个矩形区域水平镜像后绘制到目标位置。
- * 坐标均为已换算到目标画布的像素值。
- */
-function copyMirrored(
-  ctx: CanvasRenderingContext2D,
-  img: CanvasImageSource,
-  sx: number,
-  sy: number,
-  sw: number,
-  sh: number,
-  dx: number,
-  dy: number
-): void {
-  ctx.save()
-  ctx.translate(dx + sw, dy)
-  ctx.scale(-1, 1)
-  ctx.imageSmoothingEnabled = false
-  ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh)
-  ctx.restore()
-}
-
-/**
- * 迁移一个肢体：把旧版右肢（源块起点 sx,sy）镜像复制为新版左肢（目标块起点 dx,dy）。
- * 盒体 w×h×d（皮肤像素）。镜像时内外侧面互换（outer↔inner），与 HMCL 一致。
- */
-function migrateLimb(
-  ctx: CanvasRenderingContext2D,
-  img: CanvasImageSource,
-  sx: number,
-  sy: number,
-  dx: number,
-  dy: number,
-  w: number,
-  h: number,
-  d: number
-): void {
-  // 顶 / 底（水平镜像）
-  copyMirrored(ctx, img, sx + d, sy, w, d, dx + d, dy)
-  copyMirrored(ctx, img, sx + d + w, sy, w, d, dx + d + w, dy)
-  // 外侧 ← 源内侧（镜像）；内侧 ← 源外侧（镜像）
-  copyMirrored(ctx, img, sx, sy + d, d, h, dx, dy + d)
-  copyMirrored(ctx, img, sx + d + w, sy + d, d, h, dx + w + d, dy + d)
-  // 正面 / 背面（水平镜像）
-  copyMirrored(ctx, img, sx + d, sy + d, w, h, dx + d, dy + d)
-  copyMirrored(ctx, img, sx + w + d * 2, sy + d, w, h, dx + w + d * 2, dy + d)
-}
-
-/**
- * 旧版 64×32（或 HD 等比）皮肤迁移为 64×64 布局。
- * 头/帽/身体/右肢位于上半区原样保留，左肢由右肢分区镜像拷贝生成。
- * 新版皮肤原样返回。
- */
+/** Legacy conversion delegated to skinview-utils 0.7.1 (MIT). */
 export function migrateLegacySkin(img: HTMLImageElement): HTMLImageElement | HTMLCanvasElement {
-  const w = img.naturalWidth || img.width
-  const h = img.naturalHeight || img.height
-  if (!isLegacySkin(w, h)) return img
+  if (!isLegacySkin(img.naturalWidth || img.width, img.naturalHeight || img.height)) return img
   const canvas = document.createElement('canvas')
-  canvas.width = w
-  canvas.height = h * 2
-  const ctx = canvas.getContext('2d')
-  if (!ctx) return img
-  ctx.imageSmoothingEnabled = false
-  ctx.drawImage(img, 0, 0)
-  const k = w / 64
-  migrateLimb(ctx, img, 0, 16 * k, 16 * k, 48 * k, 4 * k, 12 * k, 4 * k) // 左腿 ← 右腿
-  migrateLimb(ctx, img, 40 * k, 16 * k, 32 * k, 48 * k, 4 * k, 12 * k, 4 * k) // 左臂 ← 右臂
+  loadSkinToCanvas(canvas, img)
   return canvas
 }
 

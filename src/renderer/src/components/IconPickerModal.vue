@@ -9,6 +9,7 @@ import { MOB_ICONS } from '../mobIcons'
 
 const props = defineProps<{
   open: boolean
+  folder?: string
   versionId: string
   currentIcon?: string
 }>()
@@ -20,7 +21,7 @@ async function pick(icon: string) {
   if (busy.value) return
   busy.value = true
   try {
-    await setVersionIcon(props.versionId, icon)
+    await setVersionIcon(props.versionId, icon, props.folder)
     await refreshInstalled()
     toast(icon ? '实例图标已更新' : '已恢复默认图标', 'success')
     emit('close')
@@ -35,7 +36,7 @@ async function onUpload() {
   if (busy.value) return
   busy.value = true
   try {
-    const icon = await uploadVersionIcon(props.versionId)
+    const icon = await uploadVersionIcon(props.versionId, props.folder)
     if (icon) {
       await refreshInstalled()
       toast('自定义图标已应用', 'success')

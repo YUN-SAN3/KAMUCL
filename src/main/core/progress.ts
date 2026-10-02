@@ -44,6 +44,8 @@ export const VERSION_INSTALL_STAGE_RANGES: Readonly<Record<string, StageRange>> 
   client: [0.38, 0.55],
   assets: [0.55, 0.82],
   loader: [0.82, 0.96],
+  'loader-dependencies': [0.905, 0.94],
+  'loader-process': [0.94, 0.95],
   'fabric-api': [0.96, 0.995],
   done: [1, 1]
 }

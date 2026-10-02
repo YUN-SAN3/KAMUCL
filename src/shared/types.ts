@@ -160,6 +160,8 @@ export interface IsolationMigrationPlan {
 export type LoaderName = 'forge' | 'fabric' | 'quilt' | 'neoforge'
 
 export interface InstallOptions {
+  favoriteMods?: import('./modFavorites').FavoriteSelection[]
+  recordingMod?: { kind: import("./recordings").RecordingKind; fileId: string }
   loader?: LoaderName
   loaderVersion?: string
   /** Fabric 专用：同时安装的 Fabric API 版本号（不传 = 不装） */
@@ -316,18 +318,19 @@ export const THEME_PRESETS: Record<
       bannerText: '#ffffff'
     }
   },
+  // Keep the persisted key so existing default-theme users migrate without losing customization.
   transparent: {
-    label: '默认 · 透明',
-    description: '蒂芙尼蓝重点色的系统桌面磨砂玻璃',
+    label: '默认·黑紫',
+    description: '中性炭黑界面与柔和紫色强调，保留轻盈玻璃层次',
     colors: {
-      accent: '#81d8d0',
-      bg: '#10191b',
-      card: '#172225',
-      text: '#f4f8f5',
-      textDim: '#abb8b0',
-      border: '#52615a',
-      sidebarBg: '#10191d',
-      sidebarText: '#c2ccc5',
+      accent: '#9475ed',
+      bg: '#212121',
+      card: '#292929',
+      text: '#f5f5f5',
+      textDim: '#b4b4b4',
+      border: '#414141',
+      sidebarBg: '#171717',
+      sidebarText: '#c7c7c7',
       bannerText: '#ffffff'
     }
   }
@@ -358,6 +361,9 @@ export function normalizeThemeName(value: unknown): ThemeName {
 }
 
 export interface Settings {
+  /** Explicit reduction is additive to the operating system preference; absent means follow system. */
+  reduceMotion?: boolean
+  visualDesign?: import('./visualDesign').VisualDesign
   gameDir: string
   /** 游戏文件夹登记列表（每个文件夹独立 versions/；libraries/assets/runtimes 共享于默认文件夹） */
   folders: GameFolder[]
@@ -374,6 +380,8 @@ export interface Settings {
   memoryMB: number
   /** 自动分配内存（推荐）：开启后按物理内存 25% 自动计算（2-8GB），忽略 memoryMB 手动值 */
   memoryAuto?: boolean
+  /** Windows only; default off. One working set pass per accepted launch. */
+  memoryOrganizeBeforeLaunch?: boolean
   jvmArgs: string
   resolution: GameResolution
   mirror: 'official' | 'bmclapi'
@@ -392,12 +400,15 @@ export interface Settings {
   disabledFeatures: string[]
   /** 收藏的版本 id 列表（各列表置顶） */
   favoriteVersions: string[]
+  favoriteInstanceOverrides?: Record<string, boolean>
   /** 首页布局：模块顺序与显隐（main=主列，side=右栏，数组顺序即渲染顺序） */
   homeLayout: HomeLayout
   /** 背景自定义 */
   background: BackgroundSettings
   /** 首页启动卡的全局默认缩略图（实例专属缩略图优先）。 */
   launchThumbnail: LaunchThumbnailSettings
+  /** Skin painter colors are local preferences; changing them does not edit the skin. */
+  skinEditorPalette?: SkinEditorPaletteSettings
   closeAfterLaunch: boolean
   /** 默认按键同步：开启后启动任何版本时把启动器默认键位写入该实例 options.txt 的 key_* 项 */
   keySync?: boolean
@@ -545,10 +556,21 @@ export interface LaunchThumbnailSettings {
   image: string
   /** Ordered managed carousel images; absent means migrate legacy `image`. */
   images?: string[]
+  /** Mixed ordering: stable builtin:<id> keys and managed custom image paths. */
+  order?: string[]
+  /** Disabled slides remain in the managed image library until explicitly deleted. */
+  disabled?: string[]
   /** Default/per-image dwell time, in seconds (1..120). */
   intervalSeconds?: number
   durations?: Record<string, number>
   fit: ImageFit
+}
+
+export interface SkinEditorPaletteSettings {
+  custom: string[]
+  recent: string[]
+  color: string
+  alpha: number
 }
 
 export const DEFAULT_BACKGROUND: BackgroundSettings = {
@@ -605,7 +627,29 @@ export interface SkinHistoryItem {
 export interface SkinHistoryEntry extends SkinHistoryItem {
   dataUrl: string
 }
+export interface ParallelStage {
+  id: string
+  label: string
+  text: string
+  progress: number
+  state: 'waiting' | 'running' | 'done'
+  speed?: number
+  indeterminate?: boolean
+}
+export interface ManualModpackFile {
+  projectID: number
+  fileID: number
+  fileName: string
+  size: number
+  sha1: string
+}
+export interface ManualModpackRequest { token: string; files: ManualModpackFile[] }
 export interface ProgressEvent {
+  manualFiles?: ManualModpackRequest | null
+  /** Concurrent preparation lanes; absent once the task enters its final commit stage. */
+  parallelStages?: ParallelStage[]
+  /** 版本安装任务的原始 Minecraft 版本；列表按任务独立展示进度。 */
+  versionId?: string
   /** 当前阶段，如 'version-json' | 'client' | 'libraries' | 'assets' | 'java' | 'loader' */
   stage: string
   /** 0-1 */
@@ -639,10 +683,21 @@ export interface LaunchState {
   code?: number
   intentionalRestart?: boolean
   intentionalStop?: boolean
+  exitKind?: import('./gameExit').GameExitKind
 }
 
 // ---------------- IPC 通道（invoke: 前端 await 调用） ----------------
 export const IPC = {
+  centerOverview: 'center:overview',
+  centerWorlds: 'center:worlds',
+  centerScreenshots: 'center:screenshots',
+  centerBackups: 'center:backups',
+  centerOperation: 'center:operation',
+  centerDiagnose: 'center:diagnose',
+  centerFile: 'center:file',
+  exitHistoryList: 'exitHistory:list',
+  exitHistoryAck: 'exitHistory:ack',
+  exitHistoryClear: 'exitHistory:clear',
   // 设置
   settingsGet: 'settings:get',
   settingsSet: 'settings:set', // (patch: Partial<Settings>) => Settings
@@ -681,6 +736,7 @@ export const IPC = {
   accountsRefresh: 'accounts:refresh', // (id) => Account
 
   // 版本
+  versionsCatalog: 'versions:catalog',
   versionsManifest: 'versions:manifest', // (refresh?: boolean) => RemoteVersion[]
   versionsInstalled: 'versions:installed', // () => InstalledVersion[]
   versionsInstall: 'versions:install', // (versionId: string, opts?: InstallOptions) => void
@@ -763,6 +819,7 @@ export const IPC = {
   serversList: 'servers:list', // () => ServerEntry[]
   serversAdd: 'servers:add', // (name: string, address: string) => ServerEntry[]
   serversEdit: 'servers:edit', // (id: string, name: string, address: string) => ServerEntry[]
+  serversFavorite: 'servers:favorite',
   serversRemove: 'servers:remove', // (id: string) => ServerEntry[]
   serversPing: 'servers:ping', // (address: string) => ServerPingResult  6 秒超时
   serversBind: 'servers:bind', // (id: string, versionId: string, folder?: string) => ServerEntry[]  绑定/解绑具体实例
@@ -770,6 +827,10 @@ export const IPC = {
   serversPrepareLaunch: 'servers:prepareLaunch', // (id: string, versionId?: string, folder?: string) => ServerLaunchPreparation
 
   // MOD 拖入即装
+  appearanceResetTheme: 'appearance:resetTheme',
+  appearanceExportTheme: 'appearance:exportTheme',
+  appearanceImportTheme: 'appearance:importTheme',
+  modsIcons: 'mods:icons',
   modsTargets: 'mods:targets', // Scan all registered folders; folder + id identify each target.
   modsParse: 'mods:parse', // (paths: string[]) => ModInfo[]  支持文件/文件夹路径，静默解析元数据
   modsPrepare: 'mods:prepare',
@@ -778,10 +839,14 @@ export const IPC = {
   modsInstall: 'mods:install', // (files: string[], targetVersionId: string) => ModInstallResult[]  装入目标版本 mods 目录（遵循版本隔离）
   modsDuplicates: 'mods:duplicates', // (versionId: string) => ModDuplicateGroup[]  单版本查重
   modsCrossDuplicates: 'mods:crossDuplicates', // (versionIds: string[]) => ModCrossDuplicate[]  跨版本查重
+  modsMigrationPlan: 'mods:migrationPlan',
+  modsMigrationApply: 'mods:migrationApply',
   modsCheckUpdates: 'mods:checkUpdates', // (versionId: string) => ModUpdateReport  按 sha1 反查 Modrinth 可更新项
   modsApplyUpdates: 'mods:applyUpdates', // (versionId: string, items: ModUpdateTarget[]) => { fileName, ok, error? }[]
   // 默认按键（启动时同步进实例 options.txt）
   keysGetDefault: 'keys:getDefault', // () => Record<string, string>
+  gameOptionsGet: 'gameOptions:get',
+  gameOptionsSet: 'gameOptions:set',
   keysSetDefault: 'keys:setDefault', // (id: string, bind: string) => Record<string, string>
   keysReset: 'keys:reset', // () => Record<string, string>  全部恢复 MC 原版默认
   defaultPacksGet: 'defaultPacks:get',
@@ -789,6 +854,7 @@ export const IPC = {
   defaultPacksPick: 'defaultPacks:pick',
   defaultPacksRemove: 'defaultPacks:remove',
   defaultPacksMove: 'defaultPacks:move',
+  defaultPacksSetEnabled: 'defaultPacks:setEnabled',
   // 桥接 MOD 实时配置面板（游戏目录 .kamucl-bridge.json 发现 + token 校验，仅本机）
   bridgeStatus: 'bridge:status', // (versionId: string) => BridgeStatus
   bridgeManifest: 'bridge:manifest', // (versionId: string) => { protocol, params: BridgeParam[] }
@@ -798,7 +864,10 @@ export const IPC = {
   bridgeInstalled: 'bridge:installed', // (versionId: string) => boolean
 
   // 整合包
+  importProbe: 'import:probe', // (inputPath: string) => ImportProbeResult
   modpackProbe: 'modpack:probe', // (filePath: string) => ModpackInfo  只解析不安装（供导入确认弹窗）
+  modpackSupplyFiles: 'modpack:supplyFiles',
+  modpackOpenFile: 'modpack:openFile',
   modpackInstall: 'modpack:install', // (filePath: string, opts?: { nameSource?: 'file' | 'inner' }) => void  nameSource 默认 'file'（以压缩包文件名命名实例）；异步：进度走 event:progress，完成走 event:installDone（versionId = 实例 id）
 
   // 世界存档拖拽导入
@@ -807,6 +876,7 @@ export const IPC = {
 
   // 社区资源
   communitySearch: 'community:search', // (q: CommunityQuery) => CommunitySearchPage
+  communityProject: 'community:project', // (source, projectId, kind: 'mod') => CommunityModProject  校验来源与项目类型
   communityFiles: 'community:files', // (source: 'modrinth'|'curseforge', projectId: string) => CommunityFile[]
   communityDownload: 'community:download', // (file: CommunityFile, target: { versionId: string; kind: CommunityKind }) => string  同步下载完成返回保存路径；kind=modpack 时下载后自动进入整合包安装流程
 
@@ -906,7 +976,21 @@ export interface CommunityResult {
   categories: string[]
 }
 
-export interface DefaultResourcePack { id: string; name: string; size: number }
+/** An identity can open download/metadata without inventing absent search metrics. */
+export type CommunityProjectReference = Pick<CommunityResult, 'source' | 'projectId' | 'title'> & Partial<Pick<CommunityResult, 'slug' | 'originalTitle'>>
+export interface CommunityModProject extends CommunityProjectReference {
+  kind: 'mod'
+  description?: string
+  author?: string
+  license?: string
+  categories: string[]
+  downloads?: number
+  followers?: number
+  updatedAt?: string
+  webpage?: string
+}
+
+export interface DefaultResourcePack { id: string; name: string; size: number; enabled: boolean }
 
 export interface CommunitySearchPage {
   items: CommunityResult[]
@@ -1021,6 +1105,12 @@ export interface WorldImportInfo {
   warnings: string[]
 }
 
+export type ImportProbeResult =
+  | { kind: 'modpack'; info: ModpackInfo }
+  | { kind: 'world'; info: WorldImportInfo }
+  | { kind: 'mod' }
+  | { kind: 'unsupported'; message: string }
+
 export interface WorldImportOptions {
   candidateId: string
   worldName: string
@@ -1045,6 +1135,7 @@ export interface WorldImportResult {
 
 // ---------------- 服务器 ----------------
 export interface ServerEntry {
+  favorite?: boolean
   id: string
   name: string
   /** 交给 Minecraft 的规范化地址（默认端口省略）。 */
@@ -1169,6 +1260,7 @@ export interface ModUpdateReport {
 
 /** 应用更新的单项：旧文件 + 新文件下载信息 */
 export interface ModUpdateTarget {
+  oldSha1?: string
   fileName: string
   url: string
   targetName: string
@@ -1225,6 +1317,8 @@ export interface ServerPingResult {
 }
 
 export interface SystemInfo {
+  /** macOS 系统辅助功能“降低透明度”；仅用于说明，不修改系统偏好。 */
+  reducedTransparency?: boolean
   /** 物理内存总量（MB，向下取整） */
   totalMemMB: number
   /** 当前空闲物理内存（MB，向下取整；随系统实时波动） */

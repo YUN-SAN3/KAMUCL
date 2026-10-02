@@ -3,17 +3,21 @@ import fs from 'node:fs'
 import test from 'node:test'
 import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 
-test('friend connection is independently routed after servers and keeps the existing functional component', () => {
+test('friend connection is a top-level route and recordings belongs to resources', () => {
   const app = fs.readFileSync('src/renderer/src/App.vue', 'utf8')
   const servers = fs.readFileSync('src/renderer/src/views/ServersView.vue', 'utf8')
   const friends = fs.readFileSync('src/renderer/src/views/FriendConnectView.vue', 'utf8')
   assert.match(app, /friends: FriendConnectView/)
-  assert(app.indexOf("key: 'friends'") > app.indexOf("key: 'servers'"))
+  const mainNav = app.slice(app.indexOf("const navItems:"), app.indexOf("const resourceSubItems:"))
+  const resources = app.slice(app.indexOf("const resourceSubItems:"), app.indexOf("const resourceExpanded"))
+  assert(mainNav.includes("key: 'friends'"))
+  assert(!resources.includes("key: 'friends'"))
+  assert(resources.includes("key: 'recordings'"))
   assert(!servers.includes('FriendConnect'))
   // 联机改为多页结构：视图内含方式选择 landing 与独立页返回入口，不再挂 FriendConnect 面板
   assert.match(friends, /选择联机方式/)
   assert.match(friends, /← 更换方式/)
-  assert.ok(!friends.includes('FriendConnect'), 'FriendConnectView 不得再引用 FriendConnect 组件')
+  assert.ok(!friends.includes("import FriendConnect from"), 'FriendConnectView 不得再引用 FriendConnect 组件')
   assert.match(fs.readFileSync('src/renderer/src/views/SettingsView.vue', 'utf8'), /key: 'friends'/)
   for (const source of [app, servers, friends]) {
     const { descriptor, errors } = parse(source)

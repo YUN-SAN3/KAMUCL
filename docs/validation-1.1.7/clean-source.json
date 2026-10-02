@@ -1,0 +1,133 @@
+{
+  "verificationVersion": "1.1.7",
+  "directory": "E:\\KAMUCL\\out\\clean-source-117-bf37aa8-20261002-040854-cf213b85",
+  "archive": "E:\\KAMUCL\\out\\clean-source-117-bf37aa8-20261002-040854-cf213b85.zip",
+  "archiveSHA256": "333bf255f45c57717957980646b0f9b3bbbfd91657852ff306c445b7c8cf4269",
+  "sourceCommit": "bf37aa8953fde9bdc53620b7915486ad1305ed20",
+  "sourceFiles": 781,
+  "sourceExclusionsPassed": true,
+  "sourceSymlinkScanPassed": true,
+  "nodeVersion": "v24.16.0",
+  "npmVersion": "11.13.0",
+  "jdkPath": "C:\\Program Files\\Java\\jdk-17",
+  "jdkVersion": "17.0.12+8-LTS-286",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "archive",
+        "--format=zip",
+        "--output=E:\\KAMUCL\\out\\clean-source-117-bf37aa8-20261002-040854-cf213b85.zip",
+        "bf37aa8953fde9bdc53620b7915486ad1305ed20"
+      ],
+      "cwd": "E:\\KAMUCL",
+      "exitCode": 0,
+      "result": "781 tracked files exported without workspace dependencies, outputs or unrelated user files"
+    },
+    {
+      "command": [
+        "Expand-Archive",
+        "-LiteralPath",
+        "E:\\KAMUCL\\out\\clean-source-117-bf37aa8-20261002-040854-cf213b85.zip",
+        "-DestinationPath",
+        "E:\\KAMUCL\\out\\clean-source-117-bf37aa8-20261002-040854-cf213b85"
+      ],
+      "exitCode": 0,
+      "result": "New unique extraction under the original workspace out; not reused from earlier verification"
+    },
+    {
+      "command": [
+        "npm",
+        "ci"
+      ],
+      "exitCode": 0,
+      "log": "E:\\KAMUCL\\out\\clean-source-117-bf37aa8-npm-ci.log",
+      "result": "437 packages installed; npm audit reported 7 vulnerabilities (3 moderate, 4 high); dependency versions unchanged"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/build-bridge.cjs"
+      ],
+      "env": {
+        "JAVA_HOME": "C:\\Program Files\\Java\\jdk-17"
+      },
+      "exitCode": 0,
+      "log": "E:\\KAMUCL\\out\\clean-source-117-bf37aa8-bridge.log",
+      "result": "Fresh bridge rebuilt with complete JDK 17 and checksum-verified compile dependencies"
+    },
+    {
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "log": "E:\\KAMUCL\\out\\clean-source-117-bf37aa8-tsc.log",
+      "result": "TypeScript passed without diagnostics"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-licenses.cjs"
+      ],
+      "exitCode": 0,
+      "log": "E:\\KAMUCL\\out\\clean-source-117-bf37aa8-licenses.log",
+      "result": "License check passed"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "env": {
+        "JAVA_HOME": "C:\\Program Files\\Java\\jdk-17"
+      },
+      "exitCode": 0,
+      "log": "E:\\KAMUCL\\out\\clean-source-117-bf37aa8-build.log",
+      "result": "Electron main, preload and renderer production bundles built independently"
+    }
+  ],
+  "sourceContentScan": {
+    "textFilesScanned": 667,
+    "patterns": [
+      "private-key",
+      "OpenAI-style-token",
+      "GitHub-token",
+      "AWS-access-key"
+    ],
+    "problems": []
+  },
+  "verified": true,
+  "recordedAt": "2026-10-01T20:11:49.524Z",
+  "scope": "Independent clean-source build for the final audio visibility revision; full automated suite and packaged platform UI are separate parent validations.",
+  "sourceExclusionChecks": [
+    "pelican-bicycle.html",
+    "node_modules",
+    "out",
+    ".git",
+    "release",
+    "live accounts/settings/credentials/auth/token files",
+    "live .env files",
+    "private key and keystore files"
+  ],
+  "sourceByteComparison": {
+    "sourceFilesChecked": 781,
+    "changed": [],
+    "allUnchangedAfterBuild": true
+  },
+  "freshBridgeSHA256": "d33b9fd92e5efa2dac2e52af0e0b9e2640a8e306d5088bef251c6e4b2acb8f6a",
+  "freshBuildOutputs": [
+    "out/main/index.js",
+    "out/preload/index.js",
+    "out/renderer/index.html"
+  ],
+  "dependencyReuse": {
+    "copiedWorkspaceNodeModules": false,
+    "copiedWorkspaceOut": false,
+    "copiedWorkspaceBridgeCache": false,
+    "KAMUCL_BUILD_LIBS": null,
+    "npmCiMayUseMachineDownloadCache": true
+  }
+}

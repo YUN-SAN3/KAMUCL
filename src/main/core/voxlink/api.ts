@@ -1,177 +1,50 @@
-/**
- * voxlink/api.ts — VoxLink HTTP API 客户端（移植自 voxlink/app-desktop/api.go）
- *
- *  服务器默认基址：https://p2p.wuhui.icu
- *  请求格式：{base}/?route=<route>&<query>
- *  响应统一信封：{ success, data, error, message }
- */
-import { URL } from 'node:url'
-
-export const APP_VERSION = '1.1.4-beta'
+// SPDX-License-Identifier: MIT
+// KAMUCL HTTP adapter. Endpoint/envelope contract: VoxLink SignalingClient.java 6b11d93.
+import { version } from '../../../../package.json'
+export const APP_VERSION = version
 export const DEFAULT_SERVER_URL = 'https://p2p.wuhui.icu'
 export const HTTP_TIMEOUT_MS = 10_000
 export const MAX_RESPONSE_LEN = 4 << 20
-
-/** 来源标记字段（任务约束：创建房间请求必须带上 client_tag: 'kamucl'）。 */
 export const CLIENT_TAG = 'kamucl'
-
-export class APIError extends Error {
-  readonly code: string
-  readonly status: number
-  constructor(code: string, message: string, status = 0) {
-    super(message ? `${code}: ${message}` : code)
-    this.code = code
-    this.status = status
-    this.name = 'APIError'
-  }
-}
-
-export interface Envelope {
-  success: boolean
-  data?: unknown
-  error?: string
-  message?: string
-}
-
 export type QueryValue = string | number | boolean | undefined | null
-
-function buildRequestUrl(baseURL: string, route: string, query: Record<string, QueryValue | QueryValue[]>): string {
-  const u = new URL(baseURL)
-  if (u.protocol !== 'http:' && u.protocol !== 'https:') {
-    throw new APIError('NETWORK', '服务器地址必须以 http:// 或 https:// 开头')
-  }
-  if (!u.host) {
-    throw new APIError('NETWORK', '服务器地址缺少主机名')
-  }
-  u.searchParams.set('route', route)
-  for (const [k, v] of Object.entries(query)) {
-    if (v === undefined || v === null) continue
-    if (Array.isArray(v)) {
-      for (const item of v) {
-        if (item === undefined || item === null) continue
-        u.searchParams.append(k, String(item))
-      }
-    } else {
-      u.searchParams.set(k, String(v))
-    }
-  }
-  return u.toString()
+export interface Envelope { success: boolean; data?: unknown; error?: string; message?: string }
+export interface ApiClientOptions { userAgent?: string; timeoutMs?: number }
+export class APIError extends Error {
+  constructor(readonly code: string, message: string, readonly status = 0) { super(`${code}: ${message}`); this.name = 'APIError' }
 }
-
-export interface ApiClientOptions {
-  userAgent?: string
-  timeoutMs?: number
+export function validateServerURL(value: string): boolean {
+  try { const u = new URL(value); return ['https:', 'http:'].includes(u.protocol) && !!u.hostname && !u.username && !u.password } catch { return false }
 }
-
+export const validateRoomCode = (value: string) => /^[A-HJ-NP-Z2-9]{6}$/.test(value)
 export class ApiClient {
   readonly userAgent: string
   readonly timeoutMs: number
-
-  constructor(opts: ApiClientOptions = {}) {
-    this.userAgent = opts.userAgent ?? `KAMUCL-App/${APP_VERSION}`
-    this.timeoutMs = opts.timeoutMs ?? HTTP_TIMEOUT_MS
-  }
-
-  async do(
-    baseURL: string,
-    method: 'GET' | 'POST',
-    route: string,
-    query: Record<string, QueryValue | QueryValue[]>,
-    body: unknown
-  ): Promise<unknown> {
-    let url: string
+  private deadlines = new Map<string, number>()
+  constructor(options: ApiClientOptions = {}) { this.userAgent = options.userAgent ?? `KAMUCL-App/${APP_VERSION}`; this.timeoutMs = options.timeoutMs ?? HTTP_TIMEOUT_MS }
+  async do(base: string, method: 'GET' | 'POST', route: string, query: Record<string, QueryValue | QueryValue[]>, body: unknown, signal?: AbortSignal): Promise<unknown> {
+    if (!validateServerURL(base)) throw new APIError('NETWORK', '服务器地址无效')
+    const key = route === '/room/update' ? `${base}|${String((body as { code?: string })?.code ?? '')}` : ''
+    if (key && (this.deadlines.get(key) ?? 0) > Date.now()) throw new APIError('RATE_LIMITED', '请稍后再修改房间', 429)
+    const url = new URL(base); url.searchParams.set('route', route)
+    for (const [name, values] of Object.entries(query)) for (const value of Array.isArray(values) ? values : [values]) if (value != null) url.searchParams.append(name, String(value))
     try {
-      url = buildRequestUrl(baseURL, route, query)
-    } catch (e) {
-      throw e instanceof APIError ? e : new APIError('NETWORK', (e as Error).message)
-    }
-
-    const init: RequestInit = {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': this.userAgent,
-        'X-VoxLink-Version': APP_VERSION
-      },
-      signal: AbortSignal.timeout(this.timeoutMs)
-    }
-    if (body !== undefined && body !== null) {
-      init.body = JSON.stringify(body)
-    }
-
-    let resp: Response
-    try {
-      resp = await fetch(url, init)
-    } catch (e) {
-      throw new APIError('NETWORK', `网络请求失败: ${(e as Error).message}`)
-    }
-
-    let text: string
-    try {
-      text = await resp.text()
-    } catch (e) {
-      throw new APIError('NETWORK', `读取响应失败: ${(e as Error).message}`)
-    }
-    if (text.length > MAX_RESPONSE_LEN) text = text.slice(0, MAX_RESPONSE_LEN)
-
-    let env: Envelope
-    try {
-      env = JSON.parse(text) as Envelope
-    } catch {
-      throw new APIError(
-        `HTTP_${resp.status}`,
-        `响应解析失败（HTTP ${resp.status}）`,
-        resp.status
-      )
-    }
-
-    if (resp.status === 429) {
-      const code = env.error || 'RATE_LIMITED'
-      let msg = env.message || '请求过于频繁，请稍后重试'
-      const ra = resp.headers.get('Retry-After')
-      if (ra) msg += `（请 ${ra} 秒后重试）`
-      throw new APIError(code, msg, resp.status)
-    }
-
-    if (!env.success) {
-      const code = env.error || `HTTP_${resp.status}`
-      const msg = env.message || `服务器返回错误（HTTP ${resp.status}）`
-      throw new APIError(code, msg, resp.status)
-    }
-    return env.data ?? null
+      const response = await fetch(url, { method, signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(this.timeoutMs)]) : AbortSignal.timeout(this.timeoutMs), headers: { 'User-Agent': this.userAgent, 'X-VoxLink-Version': APP_VERSION, 'Content-Type': 'application/json' }, ...(method === 'POST' ? { body: JSON.stringify(body ?? {}) } : {}) })
+      const reader = response.body?.getReader(); const chunks: Uint8Array[] = []; let size = 0
+      try {
+        if (reader) while (true) { const part = await reader.read(); if (part.done) break; size += part.value.byteLength; if (size > MAX_RESPONSE_LEN) throw new APIError('RESPONSE_LIMIT', '服务器响应过大', response.status); chunks.push(part.value) }
+      } finally { await reader?.cancel().catch(() => {}) }
+      let envelope: Envelope
+      try { envelope = JSON.parse(Buffer.concat(chunks).toString('utf8')) } catch { throw new APIError(`HTTP_${response.status}`, '服务器未返回有效 JSON', response.status) }
+      if (response.status === 429 && key) {
+        const retry = response.headers.get('retry-after'); const seconds = Number(retry)
+        const delay = retry && Number.isFinite(seconds) ? seconds * 1000 : Date.parse(retry ?? '') - Date.now()
+        this.deadlines.set(key, Date.now() + Math.max(1000, Number.isFinite(delay) ? delay : 30000))
+      }
+      if (!response.ok || envelope.success !== true) throw new APIError(envelope.error ?? (response.status === 429 ? 'RATE_LIMITED' : `HTTP_${response.status}`), envelope.message ?? '请求失败', response.status)
+      return envelope.data ?? null
+    } catch (error) { if (error instanceof APIError) throw error; throw new APIError('NETWORK', (error as Error).message) }
   }
-
-  async post(baseURL: string, route: string, body: unknown, parseTo?: unknown): Promise<unknown> {
-    const raw = await this.do(baseURL, 'POST', route, {}, body)
-    if (parseTo !== undefined && raw !== null) {
-      Object.assign(parseTo as object, raw as object)
-    }
-    return raw
-  }
-
-  async get(baseURL: string, route: string, query: Record<string, QueryValue | QueryValue[]>, parseTo?: unknown): Promise<unknown> {
-    const raw = await this.do(baseURL, 'GET', route, query, null)
-    if (parseTo !== undefined && raw !== null) {
-      Object.assign(parseTo as object, raw as object)
-    }
-    return raw
-  }
+  async post(base: string, route: string, body: unknown, target?: unknown, signal?: AbortSignal): Promise<unknown> { const result = await this.do(base, 'POST', route, {}, body, signal); if (target && result) Object.assign(target, result); return result }
+  async get(base: string, route: string, query: Record<string, QueryValue | QueryValue[]>, target?: unknown, signal?: AbortSignal): Promise<unknown> { const result = await this.do(base, 'GET', route, query, null, signal); if (target && result) Object.assign(target, result); return result }
 }
-
-export const newAPIClient = (): ApiClient => new ApiClient()
-
-/** URL 校验（仅允许 http/https）。 */
-export function validateServerURL(u: string): boolean {
-  const t = u.trim()
-  if (!t) return false
-  const low = t.toLowerCase()
-  return low.startsWith('http://') || low.startsWith('https://')
-}
-
-/** 6 位房间码字符集校验：A-Z 去掉 I/O、2-9 去掉 0/1。 */
-export function validateRoomCode(code: string): boolean {
-  if (code.length !== 6) return false
-  const charset = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
-  for (const c of code) if (!charset.includes(c)) return false
-  return true
-}
+export const newAPIClient = () => new ApiClient()

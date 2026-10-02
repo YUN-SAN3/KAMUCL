@@ -1,0 +1,43 @@
+{
+  "source": "Page.captureScreenshot full visible compositor frame, cropped with sharp",
+  "frame": "default-skin-frame.png",
+  "readiness": "default-skin-readiness.json",
+  "bounds": {
+    "x": 638,
+    "y": 396,
+    "width": 343,
+    "height": 228
+  },
+  "viewport": {
+    "width": 1024,
+    "height": 681,
+    "offsetLeft": 0,
+    "offsetTop": 0,
+    "innerWidth": 1024,
+    "innerHeight": 681,
+    "devicePixelRatio": 1
+  },
+  "frameSize": {
+    "width": 1024,
+    "height": 681
+  },
+  "scale": {
+    "x": 1,
+    "y": 1
+  },
+  "rawCrop": {
+    "left": 638,
+    "top": 396,
+    "right": 981,
+    "bottom": 624
+  },
+  "crop": {
+    "left": 638,
+    "top": 396,
+    "width": 343,
+    "height": 228
+  },
+  "clamped": false,
+  "facePixels": 2883,
+  "shirtPixels": 4712
+}

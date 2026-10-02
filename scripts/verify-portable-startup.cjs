@@ -3,7 +3,7 @@ const fs=require('node:fs'),os=require('node:os'),path=require('node:path'),asse
 const version=require('../package.json').version
 const root=fs.mkdtempSync(path.join(os.tmpdir(),'kamucl startup 中文-'))
 const exe=path.join(root,`KAMUCL ${version}.exe`)
-fs.copyFileSync(path.resolve(`release/KAMUCL-${version}.exe`),exe)
+fs.copyFileSync(path.resolve(process.argv[2] || `release/KAMUCL-${version}.exe`),exe)
 const results=[]
 for(const phase of ['cold','warm']){
  const marker=path.join(root,phase+'.json'),probe=path.join(root,phase+'-paint.txt'),start=Date.now()

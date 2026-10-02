@@ -32,7 +32,6 @@ test('community/friend/bridge/servers pages: entrance stagger + hover polish (æŒ
   const cv = read('src/renderer/src/views/CommunityView.vue')
   assert.match(cv, /@keyframes community-card-in/)
   assert.match(cv, /capsule-blob/)
-  assert.match(cv, /result-card:hover \{[\s\S]*?translateY\(-3px\)/)
   const fc = read('src/renderer/src/views/FriendConnectView.vue')
   assert.match(fc, /@keyframes pick-card-in/)
   assert.match(fc, /pick-card:nth-child\(2\)/)

@@ -7,6 +7,8 @@ interface SessionEntry {
   child?: GameProcessHandle
   stopping: boolean
   stopApproval?: string
+  exited?: boolean
+  onExit?: () => void
 }
 
 /**
@@ -44,19 +46,20 @@ export class GameSession {
 
   /** 全部运行中的版本 id（改名/写操作的占用校验用） */
   runningIds(): Set<string> {
-    return new Set([...this.sessions.values()].map((s) => s.versionId))
+    return new Set([...this.sessions.values()].filter(s => !s.exited).map((s) => s.versionId))
   }
 
   /** 运行中游戏的 PID 列表（仅供退出日志等观测用途；清理流程绝不据此终止进程） */
   runningPids(): number[] {
     return [...this.sessions.values()]
+      .filter(s => !s.exited)
       .map((s) => s.child?.pid)
       .filter((p): p is number => typeof p === 'number')
   }
 
   /** 指定版本是否正在运行 */
   isRunning(versionId: string): boolean {
-    return [...this.sessions.values()].some((s) => s.versionId === versionId)
+    return [...this.sessions.values()].some((s) => s.versionId === versionId && !s.exited)
   }
 
   /** 找到指定版本最近会话的 token（无则 undefined） */
@@ -145,11 +148,18 @@ export class GameSession {
     const entry = this.sessions.get(token)
     if (!entry) throw new Error('启动会话已失效')
     entry.child = child
+    // The owned JVM's OS exit releases its file handles. Pipe drainage can finish
+    // later (or a descendant can retain stdout); keep diagnostic ownership until
+    // close, but do not continue blocking resource operations in that interval.
+    // killed/signalCode only record a request, not confirmation of process exit.
+    entry.onExit = () => { entry.exited = true }
+    child.once('exit', entry.onExit)
   }
 
   release(token: symbol): boolean {
     const entry = this.sessions.get(token)
     if (!entry) return false
+    if (entry.onExit) entry.child?.off('exit', entry.onExit)
     if (entry.stopping) this.stoppedIntent.add(token)
     this.sessions.delete(token)
     if (this.lastToken === token) {

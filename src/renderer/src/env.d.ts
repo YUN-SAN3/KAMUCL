@@ -25,6 +25,7 @@ interface Window {
     assembled(): void
     finished(): void
     failed(message: string): void
+    onPointer(callback: (point: { x: number; y: number }) => void): () => void
     onState(callback: (state: import('../../shared/startup').BootState) => void): () => void
     onReveal(callback: () => void): () => void
   }

@@ -139,6 +139,53 @@ export async function encodeManagedImage(
   return encodeManagedImageBuffer(data, inspected.path, purpose)
 }
 
+/** Theme assets are already optimized: validate a fixed snapshot without re-encoding or losing ICC. */
+export async function validateManagedImageSnapshot(
+  input: Buffer,
+  purpose: ManagedImagePurpose,
+  codec: ImageCodec = getDefaultImageCodec()
+): Promise<EncodedManagedImage> {
+  const data = Buffer.from(input)
+  const format = sniffImageFormat(data)
+  if (!format) throw new Error('主题图片格式无效')
+  const extension: EncodedManagedImage['extension'] = format === 'jpeg' ? '.jpg' : format === 'png' ? '.png' : '.webp'
+  const declared = validateImageInput('theme' + extension, data.length, readImageDimensions(data))
+  const target = boundedImageSize(declared, purpose)
+  if (target.width !== declared.width || target.height !== declared.height) {
+    throw new Error('主题图片超过该用途的尺寸上限，请先在原启动器中重新导入图片')
+  }
+  if (format === 'webp') {
+    // Electron's decoder does not support WebP; verify the complete bounded RIFF chunk container.
+    if (data.length < 20 || data.readUInt32LE(4) !== data.length - 8) throw new Error('主题 WebP 文件已损坏')
+    const chunks = (start: number, end: number, insideFrame = false): boolean => {
+      let image = false
+      while (start < end) {
+        if (start + 8 > end) throw new Error('主题 WebP 数据块已损坏')
+        const tag = data.toString('ascii', start, start + 4)
+        const size = data.readUInt32LE(start + 4)
+        const next = start + 8 + size + (size & 1)
+        if (next > end) throw new Error('主题 WebP 数据块已截断')
+        if (tag === 'VP8 ' || tag === 'VP8L') {
+          if (size < (tag === 'VP8L' ? 5 : 10)) throw new Error('主题 WebP 图像数据已损坏')
+          image = true
+        } else if (tag === 'ANMF') {
+          if (insideFrame || size < 16 || !chunks(start + 24, start + 8 + size, true)) throw new Error('主题 WebP 动画帧已损坏')
+          image = true
+        } else if (tag === 'VP8X' && size !== 10) throw new Error('主题 WebP 扩展头已损坏')
+        start = next
+      }
+      return image
+    }
+    if (!chunks(12, data.length)) throw new Error('主题 WebP 缺少图像数据')
+  } else {
+    const decoded = await codec.decode(data)
+    if (!decoded || decoded.width !== declared.width || decoded.height !== declared.height) {
+      throw new Error('主题图片解码失败，文件可能已损坏')
+    }
+  }
+  return { data, extension, width: declared.width, height: declared.height }
+}
+
 /** Buffer 入口用于把输入固定为一次快照，也便于在 Node 测试中注入编解码器验证真实编解码。 */
 export async function encodeManagedImageBuffer(
   data: Buffer,

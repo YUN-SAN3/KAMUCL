@@ -35,7 +35,7 @@ export class DownloadProgressTracker {
   add(expected?: number): number {
     if (this.lastFraction >= 1) throw new Error('已完成的进度任务不能再添加文件')
     const wasDeterminate = this.isDeterminate()
-    const doneBefore = this.bytesDone()
+    const doneBefore = this.sealed ? this.bytesDone() : 0
     if (this.sealed && wasDeterminate) this.snapshot()
     const index = this.entries.push({
       expected: validSize(expected) ? expected : null,
@@ -60,6 +60,12 @@ export class DownloadProgressTracker {
   }
 
   update(index: number, transferred: number, discoveredTotal?: number): DownloadProgressSnapshot {
+    this.record(index, transferred, discoveredTotal)
+    return this.snapshot()
+  }
+
+  /** Hot path: defer full aggregation to the reporting timer. */
+  record(index: number, transferred: number, discoveredTotal?: number): void {
     const entry = this.entry(index)
     if (entry.expected == null && validSize(discoveredTotal) && discoveredTotal > 0) {
       entry.expected = discoveredTotal
@@ -68,18 +74,19 @@ export class DownloadProgressTracker {
       const capped = entry.expected == null ? transferred : Math.min(transferred, entry.expected)
       entry.transferred = Math.max(entry.transferred, capped)
     }
-    this.ensureEpoch()
-    return this.snapshot()
   }
 
   complete(index: number, actualSize: number): DownloadProgressSnapshot {
+    this.recordComplete(index, actualSize)
+    return this.snapshot()
+  }
+
+  recordComplete(index: number, actualSize: number): void {
     const entry = this.entry(index)
     if (entry.expected == null && validSize(actualSize)) entry.expected = actualSize
     if (entry.expected != null) entry.transferred = Math.max(entry.transferred, entry.expected)
     else if (validSize(actualSize)) entry.transferred = Math.max(entry.transferred, actualSize)
     entry.complete = true
-    this.ensureEpoch()
-    return this.snapshot()
   }
 
   snapshot(): DownloadProgressSnapshot {
@@ -163,49 +170,27 @@ export interface SpeedSnapshot {
   etaSeconds: number | null
 }
 
-/** 指数平滑速度 + 限幅 ETA，避免瞬时网络波动制造负数、Infinity 或数量级跳变。 */
+/** Time-window rate: samples count wire bytes, never cache hits or resumed bytes. */
 export class SmoothedSpeedEstimator {
-  private lastAt: number | null = null
-  private lastBytes = 0
-  private ema = 0
-  private lastEta: number | null = null
-
-  sample(
-    transferredBytes: number,
-    remainingBytes: number | null,
-    now = Date.now(),
-    paused = false
-  ): SpeedSnapshot {
-    if (this.lastAt == null) {
-      this.lastAt = now
-      this.lastBytes = transferredBytes
-      return { speedBps: 0, etaSeconds: null }
+  private points: Array<{ at: number; bytes: number }> = []
+  private lastProgress = 0
+  private last: SpeedSnapshot = { speedBps: 0, etaSeconds: null }
+  sample(bytes: number, remaining: number | null, now = performance.now(), paused = false): SpeedSnapshot {
+    const end = this.points.at(-1)
+    if (paused || !Number.isFinite(bytes) || !Number.isFinite(now) || (end && (bytes < end.bytes || now < end.at))) {
+      this.points = []; this.last = { speedBps: 0, etaSeconds: null }; return this.last
     }
-    const elapsed = Math.max(0.001, (now - this.lastAt) / 1000)
-    const delta = Math.max(0, transferredBytes - this.lastBytes)
-    this.lastAt = now
-    this.lastBytes = transferredBytes
-
-    if (paused) return { speedBps: 0, etaSeconds: null }
-
-    const instant = delta / elapsed
-    if (delta > 0) this.ema = this.ema > 0 ? this.ema * 0.72 + instant * 0.28 : instant
-    else if (elapsed >= 1) this.ema *= 0.82
-    const speedBps = Number.isFinite(this.ema) ? Math.max(0, Math.round(this.ema)) : 0
-
-    if (remainingBytes == null || remainingBytes <= 0 || speedBps <= 0) {
-      this.lastEta = null
-      return { speedBps, etaSeconds: null }
-    }
-    let eta = remainingBytes / speedBps
-    if (!Number.isFinite(eta) || eta < 0) eta = 0
-    eta = Math.min(eta, 30 * 24 * 60 * 60)
-    if (this.lastEta != null) {
-      const lower = Math.max(0, Math.min(this.lastEta - 2, this.lastEta * 0.65))
-      const upper = Math.max(this.lastEta + 5, this.lastEta * 1.35)
-      eta = Math.max(lower, Math.min(upper, eta))
-    }
-    this.lastEta = eta
-    return { speedBps, etaSeconds: Math.round(eta) }
+    if (!end) { this.points.push({ at: now, bytes }); this.lastProgress = now; return this.last }
+    if (bytes > end.bytes) this.lastProgress = now
+    // Call frequency is independent of rate; keep the last published value between ticks.
+    if (now - end.at < 250) return this.last
+    this.points.push({ at: now, bytes })
+    while (this.points.length > 2 && this.points[1].at <= now - 6000) this.points.shift()
+    const start = this.points[0], duration = now - start.at
+    const stalled = now - this.lastProgress >= 4000
+    const rate = duration >= 1000 && !stalled ? (bytes - start.bytes) * 1000 / duration : 0
+    const eta = remaining != null && remaining > 0 && rate > 0 && duration >= 3000 ? Math.ceil(remaining / rate) : null
+    this.last = { speedBps: Math.max(0, Math.round(rate)), etaSeconds: eta }
+    return this.last
   }
 }

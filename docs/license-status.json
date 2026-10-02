@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "scope": "Current replacement sources only; historical releases are not cleared",
+  "unresolved": [],
+  "resolved": [
+    {
+      "id": "pcl-download",
+      "resolution": "Replaced implementation; behavioral tests retain range, integrity, retry and cancellation contracts"
+    },
+    {
+      "id": "voxlink-desktop",
+      "resolution": "Historical Go ports replaced; Java protocol-derived files explicitly LGPL-3.0-only"
+    },
+    {
+      "id": "skin-renderer",
+      "resolution": "MIT skinview3d model verified against upstream; MIT skinview-utils conversion; original preview adapter"
+    }
+  ]
+}

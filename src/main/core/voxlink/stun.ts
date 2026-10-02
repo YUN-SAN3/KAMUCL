@@ -1,231 +1,73 @@
-/**
- * voxlink/stun.ts — RFC5389 STUN Binding 的最小实现（移植自 voxlink/app-desktop/stun.go）
- *
- * 帧格式：请求 20B：00 01 00 00 + magic cookie (21 12 A4 42) + 随机 12B txid（SOFTWARE 留空）
- * 响应解析 XOR-MAPPED-ADDRESS(0x0020/0x8020) / MAPPED-ADDRESS(0x0001)，
- * 端口 XOR 0x2112、IPv4 XOR 0x2112A44D（与 StunProbe.java 完全一致）。
- */
+// SPDX-License-Identifier: LGPL-3.0-only
+// RFC 5389 client with StunProbe.java sequential sampling/resend policy, VoxLink 924845e.
 import dgram from 'node:dgram'
-import crypto from 'node:crypto'
-
-export const STUN_MAGIC_COOKIE = 0x2112a44d
-export const STUN_REQ_TYPE = 0x0001
-export const STUN_RESP_TYPE = 0x0101
-export const STUN_HEADER_LEN = 20
-
-/** 内嵌公共 STUN 服务器（与模组默认列表风格一致，4-6 个）。 */
-export const STUN_SERVERS: string[] = [
-  'stun.qq.com:3478',
-  'stun.miwifi.com:3478',
-  'stun1.l.google.com:19302',
-  'stun2.l.google.com:19302',
-  'stun.cloudflare.com:3478',
-  'stun.syncthing.net:3478'
-]
-
-/** 一次 STUN 探测得到的映射地址。 */
-export interface StunMappedAddr {
-  ip: string
-  port: number
-}
-
-export function validMappedAddr(a: StunMappedAddr | null | undefined): boolean {
-  return !!a && a.ip !== '' && a.port > 0
-}
-
-/** 构造 Binding Request（txid 嵌入 [8..20)）。 */
-export function stunBuildRequest(): Buffer {
-  const req = Buffer.alloc(STUN_HEADER_LEN)
-  req.writeUInt16BE(STUN_REQ_TYPE, 0)
-  req.writeUInt16BE(0, 2) // msg length = 0
-  req.writeUInt32BE(STUN_MAGIC_COOKIE, 4)
-  const rnd = crypto.randomBytes(12)
-  rnd.copy(req, 8)
-  return req
-}
-
-/** 校验响应：返回响应类型 + txid（[4..20)）；格式异常返回 null。 */
-function stunParseResponseHeader(data: Buffer): { respType: number; txid: Buffer } | null {
-  if (data.length < STUN_HEADER_LEN) return null
-  const respType = data.readUInt16BE(0)
-  const txid = data.subarray(4, 20)
-  return { respType, txid }
-}
-
-/** 解析 XOR-MAPPED-ADDRESS。family=1 IPv4，family=2 IPv6。 */
-function stunParseXorMapped(
-  data: Buffer,
-  off: number,
-  attrLen: number,
-  req: Buffer
-): StunMappedAddr | null {
-  if (attrLen < 8 || off + 8 > data.length) return null
-  const family = data[off + 5]
-  const xorPort = data.readUInt16BE(off + 6)
-  const port = xorPort ^ (STUN_MAGIC_COOKIE >> 16)
-  if (family === 1) {
-    if (off + 12 > data.length) return null
-    const xorIp = data.readUInt32BE(off + 8)
-    const ip = xorIp ^ STUN_MAGIC_COOKIE
-    return {
-      ip: `${(ip >>> 24) & 0xff}.${(ip >>> 16) & 0xff}.${(ip >>> 8) & 0xff}.${ip & 0xff}`,
-      port
-    }
-  }
-  if (family === 2) {
-    if (attrLen < 20 || off + 24 > data.length) return null
-    const bytes = Buffer.alloc(16)
-    for (let i = 0; i < 16; i++) bytes[i] = data[off + 8 + i] ^ req[4 + i]
-    const parts: string[] = []
-    for (let i = 0; i < 16; i += 2) {
-      parts.push((bytes[i]! << 8 | bytes[i + 1]!).toString(16))
-    }
-    return { ip: parts.join(':'), port }
-  }
-  return null
-}
-
-/** 解析 MAPPED-ADDRESS（IPv4 only）。 */
-function stunParseMapped(data: Buffer, off: number, attrLen: number): StunMappedAddr | null {
-  if (attrLen < 8 || off + 12 > data.length) return null
-  if (data[off + 5] !== 1) return null
-  return {
-    ip: `${data[off + 8]}.${data[off + 9]}.${data[off + 10]}.${data[off + 11]}`,
-    port: data.readUInt16BE(off + 6)
-  }
-}
-
-/** 解析一条响应，返回首个 MAPPED 类属性。 */
-function stunParseResponse(data: Buffer, req: Buffer): StunMappedAddr | null {
-  const hdr = stunParseResponseHeader(data)
-  if (!hdr || hdr.respType !== STUN_RESP_TYPE) return null
-  // txid 必须匹配
-  for (let i = 0; i < 16; i++) {
-    if (hdr.txid[i] !== req[4 + i]) return null
-  }
-  const msgLen = data.readUInt16BE(2)
-  let offset = 20
-  const max = data.length - 20
-  let remain = Math.min(msgLen, max)
-  while (offset + 4 <= data.length && offset - 20 < remain) {
-    const attrType = data.readUInt16BE(offset)
-    const attrLen = data.readUInt16BE(offset + 2)
-    if (offset + 4 + attrLen > data.length) break
-    if (attrType === 0x0020 || attrType === 0x8020) {
-      const r = stunParseXorMapped(data, offset, attrLen, req)
-      if (r) return r
-    } else if (attrType === 0x0001) {
-      const r = stunParseMapped(data, offset, attrLen)
-      if (r) return r
-    }
-    offset += 4 + attrLen
-    if (attrLen % 4 !== 0) offset += 4 - (attrLen % 4)
-  }
-  return null
-}
-
-/** 对单个 STUN 服务器发送请求，带重试，返回映射地址。 */
-export async function stunQuery(
-  uc: dgram.Socket,
-  server: string,
-  attempts: number,
-  timeoutMs: number
-): Promise<StunMappedAddr | null> {
-  const [host, portStr] = server.split(':')
-  const port = parseInt(portStr ?? '3478', 10)
-  let lastErr: Error | null = null
-  for (let i = 0; i < attempts; i++) {
-    const req = stunBuildRequest()
-    try {
-      await udpWriteTo(uc, req, host!, port)
-    } catch (e) {
-      lastErr = e as Error
-      continue
-    }
-    const deadline = Date.now() + timeoutMs
-    while (Date.now() < deadline) {
-      const remain = Math.max(50, deadline - Date.now())
-      try {
-        const msg = await udpReadFrom(uc, remain)
-        const addr = stunParseResponse(msg.data, req)
-        if (addr) return addr
-        // txid 不匹配（迟到的旧响应）继续读
-      } catch (e) {
-        lastErr = e as Error
-        break
+import { randomBytes } from 'node:crypto'
+import { lookup } from 'node:dns/promises'
+import { setTimeout as delay } from 'node:timers/promises'
+export const STUN_MAGIC_COOKIE = 0x2112a442, STUN_REQ_TYPE = 1, STUN_RESP_TYPE = 0x101, STUN_HEADER_LEN = 20
+export const STUN_SERVERS = ['stun.qq.com:3478','stun.miwifi.com:3478','stun.cloudflare.com:3478','stun.l.google.com:19302']
+export interface StunMappedAddr { ip: string; port: number }
+export const validMappedAddr = (value: StunMappedAddr | null | undefined): boolean => !!value && !!value.ip && Number.isInteger(value.port) && value.port > 0 && value.port <= 65535
+export function stunBuildRequest(): Buffer { const request = Buffer.alloc(20); request.writeUInt16BE(1); request.writeUInt32BE(STUN_MAGIC_COOKIE,4); randomBytes(12).copy(request,8); return request }
+const preferred = new Set<string>()
+export async function stunQuery(socket: dgram.Socket, server: string, attempts: number, timeoutMs: number, signal?:AbortSignal, resends=0): Promise<StunMappedAddr | null> {
+  let remote: { address: string; port: number }
+  try { const uri = new URL(`udp://${server}`); remote = { address: (await lookup(uri.hostname,{family:4})).address, port: Number(uri.port || 3478) } } catch { return null }
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    if(signal?.aborted)return null
+    const request = stunBuildRequest()
+    const answer = await new Promise<StunMappedAddr | null>(resolve => {
+      let resendTimer:ReturnType<typeof setTimeout>|undefined,finished=false
+      const finish = (value: StunMappedAddr | null) => {if(finished)return;finished=true;clearTimeout(timer);clearTimeout(resendTimer);signal?.removeEventListener('abort',failed); socket.off('message',message); socket.off('error',failed); socket.off('close',failed); resolve(value) }
+      const failed = () => finish(null)
+      const message = (packet: Buffer, from: dgram.RemoteInfo) => {
+        if (from.address !== remote.address || from.port !== remote.port || packet.length < 20 || packet.readUInt16BE() !== STUN_RESP_TYPE || !packet.subarray(4,20).equals(request.subarray(4))) return
+        const end = 20 + packet.readUInt16BE(2); if (end > packet.length) return
+        for (let cursor = 20; cursor + 4 <= end;) {
+          const type = packet.readUInt16BE(cursor), size = packet.readUInt16BE(cursor+2), start = cursor+4
+          if (start + size > end) return
+          if ((type === 1 || type === 0x20 || type === 0x8020) && size >= 8 && packet[start+1] === 1) {
+            const mask = type === 1 ? 0 : STUN_MAGIC_COOKIE; const ip = (packet.readUInt32BE(start+4) ^ mask) >>> 0
+            const value = { ip: [ip>>>24,(ip>>>16)&255,(ip>>>8)&255,ip&255].join('.'), port: packet.readUInt16BE(start+2) ^ (mask>>>16) }
+            if (validMappedAddr(value)) finish(value); return
+          }
+          cursor = start + ((size + 3) & ~3)
+        }
       }
-    }
+      const timer = setTimeout(failed,timeoutMs)
+      socket.on('message',message); socket.once('error',failed); socket.once('close',failed)
+      signal?.addEventListener('abort',failed,{once:true})
+      try { socket.send(request,remote.port,remote.address,error => { if (error) failed() }) } catch { failed() }
+      const resend=(n:number)=>{if(finished||n>resends)return;resendTimer=setTimeout(()=>{if(finished)return;try{socket.send(request,remote.port,remote.address,()=>{})}catch{}resend(n+1)},stunResendDelay(n))}
+      resend(1)
+    })
+    if (answer) return answer
   }
   return null
 }
-
-/** 在同一 socket 上对最多 n 个可达服务器采样映射地址。 */
-export async function stunSampleSeries(
-  uc: dgram.Socket,
-  servers: string[],
-  n: number,
-  tries: number,
-  timeoutMs: number
-): Promise<StunMappedAddr[]> {
-  const limit = Math.max(0, Math.min(n, servers.length))
-  const out: StunMappedAddr[] = []
-  for (let i = 0; i < limit; i++) {
-    const a = await stunQuery(uc, servers[i]!, tries, timeoutMs)
-    if (a && validMappedAddr(a)) out.push(a)
+export async function stunSampleSeries(socket: dgram.Socket, servers: string[], count: number, tries: number, timeoutMs: number, signal?:AbortSignal): Promise<StunMappedAddr[]> {
+  const samples: StunMappedAddr[] = []
+  for (const server of [...servers].sort((a,b) => Number(preferred.has(b))-Number(preferred.has(a)))) { if (samples.length >= count||signal?.aborted) break; const result = await stunQuery(socket,server,tries,timeoutMs,signal); if (result) { preferred.add(server); samples.push(result) } else preferred.delete(server) }
+  return samples
+}
+export const stunDeltaFromSamples = (samples: StunMappedAddr[]) => samples.length > 1 ? samples[samples.length-1].port - samples[0].port : 0
+export function stunResendDelay(retransmissions:number,random=Math.random):number {
+  const rto=Math.min(200<<retransmissions,800),jitter=Math.trunc(rto*0.2) // StunProbe.java: resendDelay 200, 800, 0.2
+  return rto-jitter+Math.floor(random()*(2*jitter+1))
+}
+/** StunProbe.java: samplePortsSequential; race servers, then reuse the selected destination. */
+export async function samplePortsSequential(socket:dgram.Socket,servers:string[],count:number,intervalMs:number,signal:AbortSignal):Promise<StunMappedAddr[]> {
+  if(!servers.length||count<=0)return[]
+  const race=new AbortController(),abort=()=>race.abort();signal.addEventListener('abort',abort,{once:true})
+  let selected:{server:string;result:StunMappedAddr}
+  try{selected=await Promise.any(servers.map(async server=>{const result=await stunQuery(socket,server,1,800,race.signal,1);if(!result)throw new Error('STUN timeout');return{server,result}}))}catch{return[]}finally{race.abort();signal.removeEventListener('abort',abort)}
+  const samples=[selected.result]
+  for(let i=1;i<count;i++){
+    signal.throwIfAborted()
+    const result=await stunQuery(socket,selected.server,1,800,signal,2) // StunProbe.java: sample deadline 800ms, resend count 2
+    if(result)samples.push(result)
+    if(i<count-1)await delay(intervalMs,undefined,{signal})
   }
-  return out
+  return samples
 }
-
-/** 同一 socket 多次采样的端口增量（末次 - 首次）。 */
-export function stunDeltaFromSamples(samples: StunMappedAddr[]): number {
-  if (samples.length < 2) return 0
-  const first = samples[0]!.port
-  const last = samples[samples.length - 1]!.port
-  return last - first
-}
-
-/** 建房时的轻量探测：cone / symmetric / unknown。 */
-export async function quickNatType(): Promise<string> {
-  const uc = dgram.createSocket('udp4')
-  try {
-    const samples = await stunSampleSeries(uc, STUN_SERVERS, 2, 1, 1200)
-    if (samples.length === 0) return 'unknown'
-    if (stunDeltaFromSamples(samples) === 0) return 'cone'
-    return 'symmetric'
-  } catch {
-    return 'unknown'
-  } finally {
-    uc.close()
-  }
-}
-
-// ---- node:dgram 异步封装 ----
-
-function udpWriteTo(uc: dgram.Socket, buf: Buffer, host: string, port: number): Promise<void> {
-  return new Promise((resolve, reject) => {
-    uc.send(buf, 0, buf.length, port, host, (err) => (err ? reject(err) : resolve()))
-  })
-}
-
-function udpReadFrom(uc: dgram.Socket, timeoutMs: number): Promise<{ data: Buffer; rinfo: dgram.RemoteInfo }> {
-  return new Promise((resolve, reject) => {
-    let timer: NodeJS.Timeout | null = null
-    const onMsg = (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-      if (timer) clearTimeout(timer)
-      uc.removeListener('error', onErr)
-      resolve({ data: msg, rinfo })
-    }
-    const onErr = (err: Error): void => {
-      if (timer) clearTimeout(timer)
-      uc.removeListener('message', onMsg)
-      reject(err)
-    }
-    uc.once('message', onMsg)
-    uc.once('error', onErr)
-    timer = setTimeout(() => {
-      uc.removeListener('message', onMsg)
-      uc.removeListener('error', onErr)
-      reject(new Error('stun: timeout'))
-    }, timeoutMs)
-  })
-}
+export async function quickNatType(): Promise<string> { const socket = dgram.createSocket('udp4'); try { const samples = await stunSampleSeries(socket,STUN_SERVERS,2,1,1200); return samples.length < 2 ? 'unknown' : stunDeltaFromSamples(samples) ? 'symmetric' : 'cone' } finally { try { socket.close() } catch {} } }

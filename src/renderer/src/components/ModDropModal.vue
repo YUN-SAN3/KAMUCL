@@ -7,7 +7,7 @@ import { computed, reactive, ref, watch } from 'vue'
 import ModInstallDialog from './ModInstallDialog.vue'
 import MarqueeText from './MarqueeText.vue'
 import { errText, installVersion, onInstallDone, parseMods, getModTargets } from '../api'
-import { displayVersionName, refreshInstalled, store, toast } from '../store'
+import { selectInstance, selectedInstance, displayVersionName, refreshInstalled, store, toast } from '../store'
 import { matchesVersionRange as matchRange, modMatchesInstance as modMatchesVersion, instanceKey, modMismatchReasons } from '@shared/modCompatibility'
 import type { InstalledVersion, LoaderName, ModInfo } from '@shared/types'
 
@@ -24,6 +24,7 @@ const scanErrors = ref<string[]>([])
 let scanGeneration = 0
 const mods = ref<ModInfo[]>([])
 const selectedVersion = ref('')
+function syncDropSelection(){const t=allTargets.value.find(v=>instanceKey(v)===selectedVersion.value);if(t)void selectInstance(t.id,t.folder)}
 const installing = ref(false)
 const modRequest = ref<{ target: InstalledVersion; input: { paths: string[] } } | null>(null)
 
@@ -93,7 +94,7 @@ watch(
       allTargets.value = scanned.versions
       scanErrors.value = scanned.errors
       // 默认选中交集第一个
-      const first = commonVersions.value[0] ?? bestEffortVersions.value[0]?.v
+      const first = commonVersions.value.find(v => selectedInstance.value && instanceKey(v) === instanceKey(selectedInstance.value)) ?? commonVersions.value[0] ?? bestEffortVersions.value[0]?.v
       selectedVersion.value = first ? instanceKey(first) : ''
     } catch (e) {
       toast('MOD 识别失败：' + errText(e), 'error')
@@ -272,7 +273,7 @@ const modCompatOf = (m: ModInfo): string[] => matchMap.value[m.filePath] ?? []
             <p class="modal-label">选择装入版本（{{ commonVersions.length }} 个版本可装入全部 {{ validMods.length }} 个 MOD）</p>
             <div class="ver-list">
               <label v-for="v in commonVersions" :key="instanceKey(v)" class="ver-option" :class="{ active: selectedVersion === instanceKey(v) }">
-                <input v-model="selectedVersion" type="radio" :value="instanceKey(v)" />
+                <input v-model="selectedVersion" @change="syncDropSelection" type="radio" :value="instanceKey(v)" />
                 <span class="ver-name">{{ displayVersionName(v) }}<small>{{ v.mcVersion }} · {{ v.loader }} {{ v.loaderVersion || '版本未知' }}<br />{{ v.folder }}</small></span>
                 <span v-if="v.isolated" class="tag">已隔离</span>
               </label>

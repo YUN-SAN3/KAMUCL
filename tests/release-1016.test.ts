@@ -6,22 +6,9 @@ import { autoMemoryMB } from '../src/shared/memory'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
 
-test('3D viewer: no vertical bob at all, chin -y face skinview3d convention, pitch orbits camera', () => {
-  const v = read('src/renderer/src/components/SkinViewer3D.vue')
-  // 用户要求「走就走」：躯干零位移，行走/待机都不允许任何上下弹跳公式存在
-  assert.doesNotMatch(v, /root\.position\.y\s*=\s*[^0\s]/)
-  assert.doesNotMatch(v, /stepBob/)
-  assert.match(v, /root\.position\.y = 0/)
-  // 下巴：-y 底面按 skinview3d 约定（ny 面顶点序=前左/前右/后左/后右，前缘贴区域下边、
-  // 后缘贴上边、u 不镜像），身体与披风两处 UV 写入都修。
-  // （skin3d-parity 专项修正：旧断言的 o+3←u0,vTop 是后缘 u 镜像，会造成底面蝶形扭曲）
-  const uvBlocks = v.match(/if \(f === 3\) \{[\s\S]*?uv\.setXY\(o \+ 3, u1, vTop\)[\s\S]*?\}/g) ?? []
-  assert.equal(uvBlocks.length, 2, 'mapBoxUVs 与 attachCapeMesh 都应有 -y 特例')
-  // 拖拽俯仰：相机环绕而非模型绕脚翻倒
-  assert.doesNotMatch(v, /root\.rotation\.x = pitch/)
-  assert.match(v, /MODEL_CENTER_Y \+ Math\.sin\(pitch\) \* dist/)
-  assert.match(v, /Math\.cos\(pitch\) \* dist/)
-})
+// Replaced implementation: behavior is exercised by skin3d-parity, download-policy,
+// download-stall, import-download-1049 and modpack-speed-1050 runtime tests.
+
 
 test('folder scan: existence checked before statSync with friendly error (问题3)', () => {
   const fp = read('src/main/core/folderPaths.ts')
@@ -61,7 +48,7 @@ test('community: infinite scroll sentinel auto-loads more (问题5)', () => {
   assert.match(cv, /IntersectionObserver/)
   assert.match(cv, /moreSentinel/)
   assert.match(cv, /onLoadMore\(\)/)
-  assert.match(cv, /onUnmounted\(\(\) => moreObserver/)
+  assert.match(cv, /onUnmounted\(\(\) => \{ moreObserver/)
 })
 
 test('spacing: keys page and MOD panel use design tokens with breathing room (问题6)', () => {

@@ -6,6 +6,7 @@ defineProps<{
   message: string
   confirmText?: string
   busy?: boolean
+  error?: string
 }>()
 
 const emit = defineEmits<{
@@ -16,12 +17,13 @@ const emit = defineEmits<{
 
 <template>
   <Teleport to="body">
-    <div v-if="open" class="modal-mask" @pointerdown.self="emit('cancel')">
+    <div v-if="open" class="modal-mask" @pointerdown.self="!busy && emit('cancel')">
       <div class="modal">
         <h3 class="modal-title">{{ title }}</h3>
         <p class="confirm-text">{{ message }}</p>
+        <p v-if="error" class="confirm-error" role="alert">{{ error }}</p>
         <div class="modal-actions">
-          <button class="btn btn-ghost" @click="emit('cancel')">取消</button>
+          <button class="btn btn-ghost" :disabled="busy" @click="emit('cancel')">取消</button>
           <button class="btn btn-danger" :disabled="busy" @click="emit('confirm')">
             {{ busy ? '处理中…' : (confirmText ?? '确认删除') }}
           </button>
@@ -37,4 +39,5 @@ const emit = defineEmits<{
   line-height: 1.7;
   word-break: break-all;
 }
+.confirm-error { color:var(--danger);font-size:var(--text-sm);line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0; }
 </style>

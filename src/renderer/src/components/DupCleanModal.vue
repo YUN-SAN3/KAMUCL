@@ -13,6 +13,7 @@ const props = defineProps<{
   versionId: string
   /** 当前版本 mods 相对目录（用于删除文件） */
   rel: string
+  folder: string
 }>()
 const emit = defineEmits<{ (e: 'close'): void; (e: 'deleted'): void }>()
 
@@ -37,10 +38,11 @@ const deleteList = computed(() => {
 })
 
 async function scanSingle() {
+  if (!props.versionId) { toast('请先安装或选择一个游戏版本', 'info'); return }
   loading.value = true
   groups.value = []
   try {
-    const list = await findModDuplicates(props.versionId)
+    const list = await findModDuplicates(props.versionId, props.folder)
     groups.value = list
     for (const g of list) {
       keepMap[g.modId] = g.files.find((f) => f.latest)?.fileName ?? g.files[0]?.fileName ?? ''
@@ -57,18 +59,20 @@ async function onConfirmDelete() {
   if (deleting.value || !deleteList.value.length) return
   deleting.value = true
   let ok = 0
+  const failed: string[] = []
   try {
     for (const item of deleteList.value) {
       try {
-        await removeFs(props.rel, item.fileName)
+        await removeFs(props.rel, item.fileName, props.folder)
         ok++
       } catch {
         /* 单文件失败继续 */
       }
     }
-    toast(`已删除 ${ok} 个重复 MOD 文件`, 'success')
+    toast(`已移入回收站 ${ok} 个重复 MOD 文件` + (failed.length ? `；${failed.length} 个失败：${failed.join('；')}` : ''), failed.length ? 'error' : 'success')
     emit('deleted')
-    emit('close')
+    if (failed.length) await scanSingle()
+    else emit('close')
   } finally {
     deleting.value = false
   }
@@ -87,7 +91,7 @@ async function scanCross() {
   crossLoading.value = true
   crossResults.value = null
   try {
-    crossResults.value = await findModCrossDuplicates(crossSel.value)
+    crossResults.value = await findModCrossDuplicates(crossSel.value, props.folder)
   } catch (e) {
     toast('对比失败：' + errText(e), 'error')
   } finally {
@@ -111,7 +115,7 @@ onMounted(() => {
   <Teleport to="body">
     <div v-if="open" class="modal-mask" @pointerdown.self="emit('close')">
       <div class="modal dup-modal">
-        <h3 class="modal-title">清理重复 MOD</h3>
+        <div class="dup-header"><h3 class="modal-title">清理重复 MOD</h3><button type="button" class="btn btn-ghost" aria-label="关闭清理重复模组" title="关闭" @click="emit('close')">✕</button></div>
 
         <div class="dup-tabs">
           <button class="game-tab" :class="{ active: tab === 'single' }" @click="tab = 'single'">本版本清理</button>
@@ -123,7 +127,7 @@ onMounted(() => {
           <div v-if="loading" class="dup-loading"><span class="spin"></span><span class="muted">正在解析 MOD 文件…</span></div>
           <div v-else-if="!groups.length" class="dup-empty muted">该版本没有重复的 MOD ✓</div>
           <template v-else>
-            <p class="muted dup-hint">发现 {{ groups.length }} 组重复 MOD（同一 mod id 多文件共存）。每组选择一个保留版本，其余将删除：</p>
+            <p class="muted dup-hint">发现 {{ groups.length }} 组重复 MOD（同一 mod id 多文件共存）。每组选择一个保留版本，其余将移入系统回收站：</p>
             <div class="dup-list">
               <div v-for="g in groups" :key="g.modId" class="dup-group">
                 <div class="dup-group-head">
@@ -163,7 +167,7 @@ onMounted(() => {
           <p class="modal-label">勾选要对比的版本（≥2 个）</p>
           <div class="cross-versions">
             <label
-              v-for="v in store.installed"
+              v-for="v in store.installed.filter(v => !v.folder || v.folder.toLowerCase() === props.folder.toLowerCase())"
               :key="v.id"
               class="ver-chip"
               :class="{ active: crossSel.includes(v.id) }"
@@ -195,6 +199,8 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.dup-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-4); }
+.dup-header .modal-title { margin: 0; }
 .dup-modal {
   width: 560px;
   max-height: 84vh;

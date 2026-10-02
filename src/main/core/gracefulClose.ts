@@ -26,6 +26,7 @@ export interface GameProcessHandle extends EventEmitter {
 export function requestGameWindowClose(child: GameProcessHandle): Promise<void> {
   const pid = child.pid
   if (!Number.isSafeInteger(pid) || !pid || child.exitCode !== null || child.signalCode !== null) return Promise.resolve()
+  if (process.platform === 'darwin') return macGameWindow(child, 'close', 6000)
   if (process.platform !== 'win32') return Promise.reject(new Error('请先在 Minecraft 内保存并退出，然后重试；当前平台不支持自动正常关窗'))
   closeLog.info(`向游戏进程 pid=${pid} 发送正常关闭消息（WM_CLOSE）`)
   const script = `$ErrorActionPreference='Stop'; $gameProcess=[System.Diagnostics.Process]::GetProcessById(${pid}); if (-not $gameProcess.CloseMainWindow()) { throw 'Minecraft has no responsive main window; exit from inside the game.' }`
@@ -43,9 +44,10 @@ export function requestGameWindowClose(child: GameProcessHandle): Promise<void> 
 }
 
 /** QuickPlay 直达场景：仅激活本次启动的 JVM，确认前台结果，退出时取消等待。 */
-export function focusGameWindow(child: GameProcessHandle, timeoutMs = 90000): Promise<void> {
+export function focusGameWindow(child: GameProcessHandle, timeoutMs = 30000): Promise<void> {
   const pid = child.pid
   if (!Number.isSafeInteger(pid) || !pid || child.exitCode !== null || child.signalCode !== null) return Promise.resolve()
+  if (process.platform === 'darwin') return macGameWindow(child, 'focus', timeoutMs)
   if (process.platform !== 'win32') return Promise.resolve()
   closeLog.debug(`拉起游戏窗口聚焦助手：pid=${pid}，超时 ${timeoutMs}ms`)
   const helper = join(__dirname, 'GameWindowFocus.exe').replace('app.asar', 'app.asar.unpacked')
@@ -63,12 +65,26 @@ export function focusGameWindow(child: GameProcessHandle, timeoutMs = 90000): Pr
   })
 }
 
+function macGameWindow(child: GameProcessHandle, action: 'focus' | 'close', timeoutMs: number): Promise<void> {
+  const helper = join(__dirname, 'MacGameWindow').replace('app.asar', 'app.asar.unpacked')
+  return new Promise((resolve, reject) => {
+    const worker = execFile(helper, [action, String(child.pid), String(timeoutMs)], { timeout: timeoutMs + 2000 }, (error, _stdout, stderr) => {
+      child.off('exit', cancel)
+      if (child.exitCode !== null || child.signalCode !== null) return resolve()
+      if (error) reject(new Error(stderr.trim() || '游戏窗口操作未完成，请在游戏内保存并退出'))
+      else resolve()
+    })
+    const cancel = () => worker.kill()
+    child.once('exit', cancel)
+  })
+}
+
 // ---------------- 脱离式游戏进程创建（关闭启动器不杀游戏） ----------------
 // 根因（本机 Electron 33 / Win11 实测复现）：Electron 退出时，node child_process.spawn（libuv）
 // 创建的子进程会被连带终止（job object 树杀）；detached:true、cmd start 包装均不能在保留
 // stdout 管道的前提下逃逸。实测 koffi 直调 CreateProcessW 创建的进程（stdio 接匿名管道、
 // bInheritHandles=TRUE）在启动器 app.exit 后继续运行且管道数据完整——因此游戏进程改由
-// CreateProcessW 创建，父子生命周期完全解耦；stdout/stderr 经 koffi 异步 ReadFile 泵回。
+// CreateProcessW 创建，父子生命周期完全解耦；stdout/stderr 仅在管道已有数据时读取，不占用共享异步线程池。
 // koffi 缺失/非 Windows 时回退 node spawn（macOS/Linux 子进程本就不随父进程退出而死）。
 
 const CREATE_NO_WINDOW = 0x08000000
@@ -83,8 +99,6 @@ interface KoffiLibrary {
 }
 interface KoffiFunc {
   (...args: unknown[]): unknown
-  /** koffi 异步调用：末位为回调 (err, retval, ...outParams)，在线程池执行不阻塞主线程 */
-  async(...args: unknown[]): void
 }
 interface KoffiModule {
   load(name: string): KoffiLibrary
@@ -103,7 +117,7 @@ interface Kernel32Api {
   terminate(handle: number, exitCode: number): boolean
   waitForExit(handle: number): Promise<void>
   getExitCode(handle: number): number
-  pumpStream(handle: number, push: (chunk: Buffer) => void, end: () => void): void
+  pumpStream(handle: number, push: (chunk: Buffer) => void, end: () => void): (() => void) | void
 }
 
 let kernel32Promise: Promise<Kernel32Api | null> | null = null
@@ -145,6 +159,7 @@ function loadKernel32(): Promise<Kernel32Api | null> {
       const terminateProcess = k32.func('TerminateProcess', 'bool', ['uintptr', 'uint32'])
       const getExitCodeProcess = k32.func('GetExitCodeProcess', 'bool', ['uintptr', koffi.out(koffi.pointer('uint32'))])
       const readFile = k32.func('ReadFile', 'bool', ['uintptr', 'void *', 'uint32', koffi.out(koffi.pointer('uint32')), 'void *'])
+      const peekNamedPipe = k32.func('PeekNamedPipe', 'bool', ['uintptr', 'void *', 'uint32', 'void *', koffi.out(koffi.pointer('uint32')), 'void *'])
       const waitForSingleObject = k32.func('WaitForSingleObject', 'uint32', ['uintptr', 'uint32'])
 
       const makePipe = (): { read: number; write: number } | null => {
@@ -157,7 +172,7 @@ function loadKernel32(): Promise<Kernel32Api | null> {
       const buildSi = (stdOut: number, stdErr: number): Record<string, unknown> => ({
         cb: koffi.sizeof(SI), lpReserved: null, lpDesktop: null, lpTitle: null,
         dwX: 0, dwY: 0, dwXSize: 0, dwYSize: 0, dwXCountChars: 0, dwYCountChars: 0,
-        dwFillAttribute: 0, dwFlags: STARTF_USESTDHANDLES, wShowWindow: 0, wCbReserved2: 0,
+        dwFillAttribute: 0, dwFlags: stdOut || stdErr ? STARTF_USESTDHANDLES : 0, wShowWindow: 0, wCbReserved2: 0,
         lpReserved2: null, hStdInput: 0, hStdOutput: stdOut, hStdError: stdErr
       })
       return {
@@ -166,18 +181,25 @@ function loadKernel32(): Promise<Kernel32Api | null> {
         createProcess: (cmdline, stdOut, stdErr, cwd) => {
           const cmdBuf = Buffer.from(cmdline + '\0', 'utf16le')
           const pi = { hProcess: 0, hThread: 0, dwProcessId: 0, dwThreadId: 0 }
-          // bInheritHandles=true：管道写端随创建传入子进程（与 libuv 一致；实测该创建路径不连带死亡）
+          // Game log pipes must be inherited; detached helpers must inherit NO
+          // handles (including Chromium sockets/file locks owned by the old app).
           // lpCurrentDirectory 显式传游戏目录：缺省会继承启动器 runtime 目录（游戏相对路径读取全错）
           const cwdBuf = cwd ? Buffer.from(cwd + '\0', 'utf16le') : null
-          if (!createProcessW(null, cmdBuf, null, null, true, CREATE_NO_WINDOW | CREATE_SUSPENDED, null, cwdBuf, buildSi(stdOut, stdErr), pi)) return null
+          if (!createProcessW(null, cmdBuf, null, null, !!(stdOut || stdErr), CREATE_NO_WINDOW | CREATE_SUSPENDED, null, cwdBuf, buildSi(stdOut, stdErr), pi)) return null
           return { pid: pi.dwProcessId, hProcess: pi.hProcess, hThread: pi.hThread }
         },
         resumeThread: (handle) => { resumeThread(handle) },
         close: (handle) => { if (handle) closeHandle(handle) },
         terminate: (handle, exitCode) => terminateProcess(handle, exitCode) === true,
         waitForExit: (handle) => new Promise((resolve) => {
-          // 线程池阻塞等待，不占用主线程；INFINITE 只等这一个游戏进程
-          waitForSingleObject.async(handle, 0xffffffff, () => resolve())
+          // Infinite FFI waits and idle ReadFile calls exhaust the shared worker pool:
+          // a second JVM then blocks writing its very first mod-discovery messages.
+          // A zero-timeout probe never occupies a worker while the game is alive.
+          const check = (): void => {
+            if (waitForSingleObject(handle, 0) === 0x00000102) setTimeout(check, 250)
+            else resolve()
+          }
+          check()
         }),
         getExitCode: (handle) => {
           const out = Buffer.alloc(4)
@@ -186,16 +208,44 @@ function loadKernel32(): Promise<Kernel32Api | null> {
         pumpStream: (handle, push, end) => {
           const buf = Buffer.alloc(64 * 1024)
           const got = Buffer.alloc(4)
-          const step = (): void => {
-            readFile.async(handle, buf, buf.length, got, null, (err: unknown, retval: unknown) => {
-              if (err) { end(); return }
-              const n = got.readUInt32LE(0)
-              if (retval === false || n === 0) { end(); return } // broken pipe = 对端关闭，EOF
-              push(Buffer.from(buf.subarray(0, n)))
-              step()
-            })
+          const available = Buffer.alloc(4)
+          let stopped = false
+          let timer: ReturnType<typeof setTimeout> | undefined
+          let immediate: ReturnType<typeof setImmediate> | undefined
+          let idleDelay = 10
+          const finish = (): void => {
+            if (stopped) return
+            stopped = true
+            clearTimeout(timer)
+            clearImmediate(immediate)
+            end()
           }
-          step()
+          const step = (): void => {
+            if (stopped) return
+            const started = performance.now()
+            let drained = 0
+            while (drained < 1024 * 1024 && performance.now() - started < 4) {
+              // This handle has exactly one reader. Never ask ReadFile for more
+              // than PeekNamedPipe reports: an empty anonymous pipe would block.
+              if (!peekNamedPipe(handle, null, 0, null, available, null)) { finish(); return }
+              const count = Math.min(available.readUInt32LE(0), buf.length)
+              if (!count) {
+                timer = setTimeout(step, idleDelay)
+                idleDelay = Math.min(100, idleDelay + 10)
+                return
+              }
+              if (!readFile(handle, buf, count, got, null)) { finish(); return }
+              const n = got.readUInt32LE(0)
+              if (!n) { finish(); return }
+              drained += n
+              idleDelay = 10
+              push(Buffer.from(buf.subarray(0, n)))
+            }
+            // Yield after each bounded burst so heavy mod logging cannot starve UI/IPC.
+            immediate = setImmediate(step)
+          }
+          immediate = setImmediate(step)
+          return finish
         }
       }
     } catch (error) {
@@ -220,7 +270,9 @@ export function windowsQuote(arg: string): string {
   return out + '\\'.repeat(backslashes * 2) + '"'
 }
 
-class DetachedGameProcess extends EventEmitter implements GameProcessHandle {
+export class DetachedGameProcess extends EventEmitter implements GameProcessHandle {
+  private outputClosed: Promise<void>[] = []
+  private stopOutput: Array<() => void> = []
   pid: number | undefined
   exitCode: number | null = null
   signalCode: string | null = null
@@ -239,26 +291,37 @@ class DetachedGameProcess extends EventEmitter implements GameProcessHandle {
     this.pid = pid
     this.stdout = this.pump(api, outRead)
     this.stderr = this.pump(api, errRead)
-    void api.waitForExit(hProcess).then(() => {
+    void api.waitForExit(hProcess).then(async () => {
       const code = api.getExitCode(hProcess)
       this.exitCode = code === STILL_ACTIVE ? null : code
       api.close(hProcess)
       this.emit('exit', this.exitCode, this.signalCode)
+      // Match ChildProcess: final diagnostics may still be in the stdout/stderr pipes.
+      // A descendant retaining a pipe must not leave launcher state stuck forever.
+      await new Promise<void>(resolve => {
+        const timer = setTimeout(resolve, 2000)
+        void Promise.all(this.outputClosed).then(() => { clearTimeout(timer); resolve() })
+      })
+      for (const stop of this.stopOutput) stop()
       this.emit('close', this.exitCode, this.signalCode)
     })
   }
 
-  /** koffi 异步 ReadFile 泵：数据到达 push 进流；broken pipe（对端关闭）→ 关读端并结束流 */
+  /** Read available output only; EOF or bounded post-exit cleanup closes our read handle. */
   private pump(api: Kernel32Api, readHandle: number): Readable {
     const stream = new Readable({ read() { /* 推模式：数据到达即 push */ } })
-    api.pumpStream(
+    let finish!: () => void
+    this.outputClosed.push(new Promise<void>(resolve => { finish = resolve }))
+    const stop = api.pumpStream(
       readHandle,
       (chunk) => { stream.push(chunk) },
       () => {
         api.close(readHandle)
         stream.push(null)
+        finish()
       }
     )
+    if (typeof stop === 'function') this.stopOutput.push(stop)
     return stream
   }
 
@@ -283,9 +346,10 @@ class DetachedGameProcess extends EventEmitter implements GameProcessHandle {
 export async function spawnGameProcess(
   javaPath: string,
   args: string[],
-  options: { cwd: string }
+  options: { cwd: string; signal?: AbortSignal }
 ): Promise<GameProcessHandle> {
   const api = process.platform === 'win32' ? await loadKernel32() : null
+  options.signal?.throwIfAborted()
   if (api) {
     const outPipe = api.createPipe()
     const errPipe = api.createPipe()
@@ -317,10 +381,16 @@ export async function spawnGameProcess(
   }
   // 回退：node spawn。POSIX 平台 detached 让进程组独立；Windows 仅在 koffi 缺失时走到这里（已记日志）
   const { spawn } = await import('node:child_process')
-  return spawn(javaPath, args, {
+  options.signal?.throwIfAborted()
+  const proc = spawn(javaPath, args, {
     cwd: options.cwd,
     ...(process.platform !== 'win32' ? { detached: true } : {})
-  }) as unknown as GameProcessHandle
+  })
+  await new Promise<void>((resolve, reject) => {
+    proc.once('error', reject)
+    proc.once('spawn', () => { proc.removeListener('error', reject); resolve() })
+  })
+  return proc as unknown as GameProcessHandle
 }
 
 /**

@@ -1,3 +1,6 @@
+import { scanManagedModDirectory } from './modScan'
+import { resolveResourceDirectory } from './resourceDirectory'
+import { folderOfVersion } from './paths'
 /**
  * MOD 更新检测：按 jar 的 sha1 在 Modrinth version_files 批量反查项目，
  * 以实例真实的 MC 版本与加载器为约束取最新兼容版本，支持单个/批量下载替换。
@@ -5,18 +8,22 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import crypto from 'node:crypto'
-import { parseModFile } from './modinfo'
 import { readVersionJson } from './versions'
-import { instanceDirectoryState } from './instances'
 import { resolveInstanceMetadata } from './instanceMetadata'
-import { downloadFile } from './download'
+import { getSettings } from './settings'
+import { httpFetch } from './httpClient'
+import { logScope } from './launcherLog'
+import { withFileJob } from './fileJobs'
+import { modHash, replaceModFiles, validateModFile } from './modTransaction'
+import { isModLocked, rememberModIdentity, transferModLock } from './modState'
 
 const MR_BASES = ['https://api.modrinth.com/v2', 'https://mod.mcimirror.top/modrinth/v2']
-const UA = { 'User-Agent': 'KAMUCL-Launcher (github.com/kamicl)' }
+const UA = { 'User-Agent': 'KAMUCL-Launcher (github.com/kamubaba-i/KAMUCL)' }
 const TIMEOUT = 15_000
+const updateLog=logScope('mod-updates')
 
 export interface ModUpdateTarget {
+  oldSha1?: string
   /** 本地旧文件名（更新成功后删除） */
   fileName: string
   /** 新文件下载地址 */
@@ -70,14 +77,20 @@ interface MrVersion {
 /** Modrinth POST（主备双域名互备，与 community.ts 的 GET 互备同源策略） */
 async function mrPost(pathname: string, body: unknown): Promise<unknown> {
   let lastErr: unknown = null
-  for (const base of MR_BASES) {
+  const bases=getSettings().mirror==='bmclapi'?[...MR_BASES].reverse():MR_BASES
+  for (const base of bases) {
     try {
-      const res = await fetch(base + pathname, {
+      const init = {
         method: 'POST',
         signal: AbortSignal.timeout(TIMEOUT),
         headers: { ...UA, 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
-      })
+      }
+      let res:Response
+      try{res=await httpFetch(base+pathname,init)}catch(error){
+        if(!process.versions.electron||!(error instanceof TypeError))throw error
+        res=await httpFetch(base+pathname,{...init,signal:AbortSignal.timeout(TIMEOUT),systemProxy:true})
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       return await res.json()
     } catch (error) {
@@ -87,12 +100,8 @@ async function mrPost(pathname: string, body: unknown): Promise<unknown> {
   throw lastErr instanceof Error ? lastErr : new Error(String(lastErr))
 }
 
-function modsDirOf(versionId: string): string {
-  return path.join(instanceDirectoryState(versionId, readVersionJson(versionId)).path, 'mods')
-}
-
-async function sha1Of(file: string): Promise<string> {
-  return crypto.createHash('sha1').update(await fs.promises.readFile(file)).digest('hex')
+function modsDirOf(versionId: string): Promise<string> {
+  return resolveResourceDirectory(folderOfVersion(versionId), versionId, 'mods')
 }
 
 /** 把 Modrinth version_files/update 的响应映射为更新项（纯函数，可测试）：
@@ -129,37 +138,21 @@ export function mapUpdateEntries(
 
 /** 检测实例 mods 目录内全部 jar 的可用更新（只读网络查询，不改动任何本地文件） */
 export async function checkModUpdates(versionId: string): Promise<ModUpdateReport> {
-  const dir = modsDirOf(versionId)
-  let jars: string[] = []
-  try {
-    jars = fs.readdirSync(dir).filter((name) => name.toLowerCase().endsWith('.jar'))
-  } catch {
-    jars = []
-  }
+  const dir = await modsDirOf(versionId)
+  const scanned = await scanManagedModDirectory(dir)
   const meta = resolveInstanceMetadata(readVersionJson(versionId), (id) => {
     try { return readVersionJson(id) } catch { return undefined }
   })
   const loader = meta.loader
   const report: ModUpdateReport = { mcVersion: meta.mcVersion || '', loader: loader ?? '', entries: [] }
-  if (!jars.length) return report
+  if (!scanned.length) return report
   if (!meta.mcVersion || !loader) throw new Error('实例缺少加载器或 Minecraft 版本元数据，无法检测更新')
 
-  const entries = await Promise.all(
-    jars.map(async (fileName): Promise<ModUpdateEntry> => {
-      const file = path.join(dir, fileName)
-      const info = parseModFile(file)
-      return {
-        fileName,
-        name: info.name || info.id || fileName,
-        modId: info.id || '',
-        currentVersion: info.version || '',
-        sha1: await sha1Of(file),
-        source: null,
-        alreadyLatest: false,
-        update: null
-      }
-    })
-  )
+  const entries: ModUpdateEntry[] = scanned.filter(info => !info.error && info.sha1).map(info => ({
+    fileName: info.fileName, name: info.name || info.id || info.fileName,
+    modId: info.id || '', currentVersion: info.version || '', sha1: info.sha1,
+    source: null, alreadyLatest: false, update: null
+  }))
 
   const byHash = (await mrPost('/version_files/update', {
     hashes: entries.map((e) => e.sha1),
@@ -169,39 +162,36 @@ export async function checkModUpdates(versionId: string): Promise<ModUpdateRepor
   })) as Record<string, MrVersion | undefined>
 
   report.entries = mapUpdateEntries(entries, byHash)
+  for(const e of report.entries)if(e.update?.projectId)rememberModIdentity(dir,e.sha1,'modrinth:'+e.update.projectId)
   return report
 }
 
-/** 应用更新：下载到临时文件并校验 sha1，成功后删除旧文件再落位；单项失败不影响其他项。 */
+/** 应用更新：按所选下载源校验临时文件，保存备份后替换；单项失败不影响其他项。 */
 export async function applyModUpdates(
   versionId: string,
   items: ModUpdateTarget[],
   onItem?: (fileName: string, state: 'start' | 'ok' | 'error', message?: string) => void
 ): Promise<Array<{ fileName: string; ok: boolean; error?: string }>> {
-  const dir = modsDirOf(versionId)
+  const dir = await modsDirOf(versionId)
   fs.mkdirSync(dir, { recursive: true })
+  const { assertModsIdle } = await import('./modManagement')
+  return withFileJob(dir,undefined,async()=>{
   const results: Array<{ fileName: string; ok: boolean; error?: string }> = []
   for (const item of items) {
-    const oldPath = path.join(dir, path.basename(item.fileName))
-    const targetName = path.basename(item.targetName || item.fileName)
-    const newPath = path.join(dir, targetName)
-    const tmpPath = newPath + '.update'
-    onItem?.(item.fileName, 'start')
+    updateLog.info(`开始更新 ${item.fileName} → ${item.targetName}（实例 ${versionId}，目录 ${dir}）`)
+    onItem?.(item.fileName,'start')
     try {
-      if (!/^https:\/\//.test(item.url)) throw new Error('非法下载地址')
-      await downloadFile(item.url, tmpPath, undefined, item.sha1, 'official', undefined, [], { size: item.size })
-      // 校验通过才替换：删除旧文件与可能占用目标名的文件，再落位
-      if (path.resolve(oldPath) !== path.resolve(newPath) && fs.existsSync(newPath)) fs.rmSync(newPath, { force: true })
-      if (fs.existsSync(oldPath)) fs.rmSync(oldPath, { force: true })
-      fs.renameSync(tmpPath, newPath)
-      onItem?.(item.fileName, 'ok')
-      results.push({ fileName: item.fileName, ok: true })
-    } catch (error) {
-      fs.rmSync(tmpPath, { force: true })
-      const message = error instanceof Error ? error.message : String(error)
-      onItem?.(item.fileName, 'error', message)
-      results.push({ fileName: item.fileName, ok: false, error: message })
-    }
+      await assertModsIdle(dir)
+      await validateModFile(dir,item.fileName,item.oldSha1)
+      const oldHash=await modHash(path.join(dir,item.fileName))
+      if(isModLocked(dir,oldHash))throw new Error('此模组已锁定，请解除锁定后更新')
+      const name=item.targetName.replace(/\.disabled$/i,'')+(/\.disabled$/i.test(item.fileName)?'.disabled':'')
+      await replaceModFiles(dir,[{oldName:item.fileName,oldSha1:oldHash,name,sha1:item.sha1||'',url:item.url,size:item.size}],async()=>{await assertModsIdle(dir);if(isModLocked(dir,oldHash))throw new Error('此模组已锁定')})
+      transferModLock(dir,oldHash,item.sha1!)
+      updateLog.info(`模组更新完成：${item.fileName} → ${name}`)
+      onItem?.(item.fileName,'ok');results.push({fileName:item.fileName,ok:true})
+    }catch(error){const message=error instanceof Error?error.message:String(error);updateLog.error(`模组更新失败：${item.fileName}（实例 ${versionId}）`,error);onItem?.(item.fileName,'error',message);results.push({fileName:item.fileName,ok:false,error:message})}
   }
   return results
+  })
 }

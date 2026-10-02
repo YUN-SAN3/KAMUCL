@@ -36,7 +36,7 @@ export function installBridge(versionId: string): { ok: boolean; already?: boole
     if (!fs.existsSync(src)) return { ok: false, error: '内置桥接 MOD 文件缺失，请重新安装启动器' }
     const modsDir = path.join(gameDirOf(versionId), 'mods')
     fs.mkdirSync(modsDir, { recursive: true })
-    fs.copyFileSync(src, path.join(modsDir, 'kamucl-bridge-1.0.0.jar'))
+    fs.copyFileSync(src, path.join(modsDir, 'kamucl-bridge-1.0.1.jar'))
     return { ok: true }
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) }

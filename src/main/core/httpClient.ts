@@ -24,6 +24,8 @@ const sharedAgent = new Agent({ ...AGENT_BASE_OPTIONS, bodyTimeout: 30_000 })
 
 /** bodyTimeoutMs → 派生 Agent 缓存。键空间恒定（下载路径只用一个常量值），不会无限增长。 */
 const bodyTimeoutAgents = new Map<number, Agent>()
+// Range workers need separate TCP connections, rather than streams on one throttled H2 connection.
+const rangeAgent = new Agent({ ...AGENT_BASE_OPTIONS, allowH2: false, bodyTimeout: 120_000 })
 
 function agentWithBodyTimeout(bodyTimeoutMs: number): Agent {
   let agent = bodyTimeoutAgents.get(bodyTimeoutMs)
@@ -38,8 +40,19 @@ function agentWithBodyTimeout(bodyTimeoutMs: number): Agent {
  *  bodyTimeoutMs 为可选增量参数：不传时行为与旧版完全一致。 */
 export function httpFetch(
   url: string,
-  init: { signal?: AbortSignal; headers?: Record<string, string>; redirect?: 'follow' | 'manual' | 'error'; method?: string; body?: string; bodyTimeoutMs?: number } = {}
+  init: { signal?: AbortSignal; headers?: Record<string, string>; redirect?: 'follow' | 'manual' | 'error'; method?: string; body?: string; bodyTimeoutMs?: number; separateConnection?: boolean; systemProxy?: boolean } = {}
 ): Promise<Response> {
+  // Runtime downloads must use the same OS proxy/PAC and certificate store as
+  // the desktop app. Node fetch/undici do not inherit macOS system proxy settings.
+  if (init.systemProxy && process.versions.electron) {
+    const { systemProxy, bodyTimeoutMs, separateConnection, ...request } = init
+    if (request.redirect === 'manual') return import('./systemDownload').then(({ systemDownload }) => systemDownload(url, request))
+    return import('electron').then(({ net }) => net.fetch(url, request)) as Promise<Response>
+  }
+  if (init.separateConnection) {
+    const { separateConnection, bodyTimeoutMs, ...rest } = init
+    return undiciFetch(url, { ...rest, dispatcher: rangeAgent }) as unknown as Promise<Response>
+  }
   if (init.bodyTimeoutMs != null) {
     const { bodyTimeoutMs, ...rest } = init
     return undiciFetch(url, { ...rest, dispatcher: agentWithBodyTimeout(bodyTimeoutMs) }) as unknown as Promise<Response>
@@ -49,5 +62,5 @@ export function httpFetch(
 
 /** 进程退出时关闭连接池（Electron 退出由主进程生命周期管理，这里仅防御性提供）。 */
 export async function closeHttpClient(): Promise<void> {
-  await Promise.all([sharedAgent.close(), ...[...bodyTimeoutAgents.values()].map((agent) => agent.close())])
+  await Promise.all([sharedAgent.close(), rangeAgent.close(), ...[...bodyTimeoutAgents.values()].map((agent) => agent.close())])
 }

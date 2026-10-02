@@ -7,7 +7,7 @@ import {
   isPathInside,
   type ManagedImagePurpose
 } from './imageAssetPolicy'
-import { encodeManagedImage, inspectImageFile } from './imageAssetProcessor'
+import { encodeManagedImage, inspectImageFile, validateManagedImageSnapshot, type EncodedManagedImage } from './imageAssetProcessor'
 import { sniffImageFormat } from './imageAssetPolicy'
 
 export interface ManagedImage {
@@ -35,7 +35,10 @@ async function importImage(
   destinationDirectory: string
 ): Promise<ManagedImage> {
   const encoded = await encodeManagedImage(sourcePath, purpose)
+  return writeManagedImage(encoded, destinationDirectory)
+}
 
+async function writeManagedImage(encoded: EncodedManagedImage, destinationDirectory: string): Promise<ManagedImage> {
   await fs.promises.mkdir(destinationDirectory, { recursive: true })
   const destinationStat = await fs.promises.lstat(destinationDirectory)
   if (!destinationStat.isDirectory() || destinationStat.isSymbolicLink()) {
@@ -64,6 +67,12 @@ export async function importGlobalImage(
   purpose: 'background' | 'launch-thumbnail'
 ): Promise<ManagedImage> {
   return importImage(sourcePath, purpose, globalAppearanceDir(purpose))
+}
+
+/** Only validated embedded theme snapshots use this path; normal image imports retain optimization. */
+export async function importGlobalImageSnapshot(data: Buffer, purpose: 'background' | 'launch-thumbnail'): Promise<ManagedImage> {
+  const encoded = await validateManagedImageSnapshot(data, purpose)
+  return writeManagedImage(encoded, globalAppearanceDir(purpose))
 }
 
 export async function importInstanceThumbnail(

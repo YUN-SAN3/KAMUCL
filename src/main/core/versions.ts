@@ -1,8 +1,14 @@
 /**
  * 版本管理：版本清单缓存、rules 评估、原版安装、已装列表、删除
  */
+import { fetchVersionCatalog } from './versionCatalog'
 import { resolveInstanceMetadata } from './instanceMetadata'
-import { app } from 'electron'
+import { mavenIdentity } from './mavenIdentity'
+import { withFileJob } from './fileJobs'
+import { downloadLimiter } from './downloadLimits'
+import { app, shell } from 'electron'
+import { recycleVersion } from './versionRemoval'
+import { samePath } from './folderPaths'
 import fs from 'node:fs'
 import path from 'node:path'
 import type {
@@ -14,21 +20,21 @@ import type {
   RemoteVersion
 } from '../../shared/types'
 import {
-  classifyHttpStatus,
   downloadAll,
-  downloadCandidates,
   downloadFile,
-  fetchSignal,
   type DownloadTask,
   type MirrorPref
 } from './download'
 import { getSettings } from './settings'
-import { abortableDelay, throwIfCancelled } from './tasks'
+import { throwIfCancelled } from './tasks'
 import { createWeightedProgressEmit, VERSION_INSTALL_STAGE_RANGES } from './progress'
+import { runParallelTasks } from './parallelTasks'
+import { ParallelProgress } from './parallelProgress'
 import { applyIsolation, instanceDirectoryState, setNewInstanceIsolation } from './instances'
 import { assertValidResolution, normalizeStoredResolution } from './gameWindow'
 import {
   allVersionsDirs,
+  allFolders,
   assetIndexPath,
   assetObjectPath,
   baseVersionDir,
@@ -39,6 +45,7 @@ import {
   installMarkPath,
   instanceIconsDir,
   libraryPath,
+  librariesDir,
   registerVersionFolder,
   versionDir,
   versionJarPath,
@@ -159,92 +166,22 @@ export function rulesAllow(rules?: VersionRule[]): boolean {
 
 // ---------------- 版本清单 ----------------
 
-const MANIFEST_URL = 'https://piston-meta.mojang.com/mc/game/version_manifest.json'
-const CACHE_TTL = 60 * 60 * 1000 // 缓存 1 小时
-
-function manifestCacheFile(): string {
-  return path.join(app.getPath('userData'), 'version_manifest.json')
+export async function getVersionCatalog(refresh = false, signal?: AbortSignal) {
+  return fetchVersionCatalog(path.join(app.getPath('userData'), 'version_manifest.json'), refresh, signal)
 }
 
-function readManifestCache(): RemoteVersion[] | null {
-  try {
-    const c = JSON.parse(fs.readFileSync(manifestCacheFile(), 'utf-8'))
-    return Array.isArray(c.versions) ? (c.versions as RemoteVersion[]) : null
-  } catch {
-    return null
-  }
-}
-
-/** 拉取远程版本清单，带 1 小时本地缓存；refresh=true 强制刷新；signal 用于任务取消 */
-export async function fetchVersionManifest(
-  mirror: MirrorPref,
-  refresh = false,
-  signal?: AbortSignal
-): Promise<RemoteVersion[]> {
-  if (!refresh) {
-    try {
-      const c = JSON.parse(fs.readFileSync(manifestCacheFile(), 'utf-8'))
-      if (Date.now() - c.fetchedAt < CACHE_TTL && Array.isArray(c.versions)) {
-        return c.versions as RemoteVersion[]
-      }
-    } catch {
-      /* 无缓存或损坏则联网拉取 */
-    }
-  }
-  try {
-    // 元数据官方地址优先，BMCL 仅作受支持的备用源；404/410 不重试同址。
-    let data: { versions?: unknown[] } | null = null
-    let lastErr: unknown = null
-    sourceLoop: for (const source of downloadCandidates([MANIFEST_URL], mirror)) {
-      for (let attempt = 0; attempt < 3; attempt++) {
-        if (signal?.aborted) throw new Error('已取消')
-        try {
-          const res = await fetch(source, { signal: fetchSignal(signal) })
-          if (!res.ok) {
-            lastErr = new Error(`HTTP ${res.status}: ${source}`)
-            if (classifyHttpStatus(res.status) !== 'transient') break
-            throw lastErr
-          }
-          data = (await res.json()) as { versions?: unknown[] }
-          break sourceLoop
-        } catch (e) {
-          if (signal?.aborted) throw new Error('已取消')
-          lastErr = e
-          if (attempt < 2) await abortableDelay(800 * (attempt + 1), signal)
-        }
-      }
-    }
-    if (!data) throw lastErr instanceof Error ? lastErr : new Error(String(lastErr))
-    const versions: RemoteVersion[] = (data.versions ?? []).map((v) => {
-      const it = v as Record<string, string>
-      return {
-        id: it.id,
-        type: it.type as RemoteVersion['type'],
-        url: it.url,
-        releaseTime: it.releaseTime
-      }
-    })
-    fs.mkdirSync(path.dirname(manifestCacheFile()), { recursive: true })
-    fs.writeFileSync(
-      manifestCacheFile(),
-      JSON.stringify({ fetchedAt: Date.now(), versions }),
-      'utf-8'
-    )
-    return versions
-  } catch (e) {
-    // 网络失败时回退到过期缓存
-    const stale = readManifestCache()
-    if (stale) return stale
-    throw e
-  }
+export async function fetchVersionManifest(_mirror: MirrorPref, refresh = false, signal?: AbortSignal): Promise<RemoteVersion[]> {
+  return (await getVersionCatalog(refresh, signal)).versions
 }
 
 // ---------------- 版本 json ----------------
 
 /** 同步读取本地版本 json（容错 BOM 头）；versions/ 没有时回退到 .kamucl/base 依赖原版区 */
 export function readVersionJson(id: string): VersionJson {
+  if(typeof id!=='string'||!id||id==='.'||id==='..'||/[\\/:\x00]/.test(id))throw new Error('无效的版本 ID')
   let p = versionJsonPath(id)
   if (!fs.existsSync(p) && fs.existsSync(baseVersionJsonPath(id))) p = baseVersionJsonPath(id)
+  if(fs.lstatSync(p).isSymbolicLink()||fs.lstatSync(path.dirname(p)).isSymbolicLink())throw new Error('版本文件不能使用符号链接')
   const raw = fs.readFileSync(p, 'utf-8')
   return JSON.parse(raw.replace(/^﻿/, '')) as VersionJson
 }
@@ -287,22 +224,25 @@ interface LibEntry {
 function collectLibraries(vj: VersionJson): LibEntry[] {
   const out: LibEntry[] = []
   const seen = new Set<string>()
-  const push = (art: (Pick<LibraryArtifact, 'path'> & Partial<LibraryArtifact>) | undefined, isNative: boolean): void => {
+  const coordinates = new Set<string>()
+  const push = (art: (Pick<LibraryArtifact, 'path'> & Partial<LibraryArtifact>) | undefined, isNative: boolean, coordinate?: string): void => {
     if (!art?.path) return
     const dest = libraryPath(art.path)
-    // Installer-generated libraries have no download URL; keep a verified local
-    // path on the classpath, but never create an impossible network task for it.
-    if (!art.url && !fs.existsSync(dest)) return
+    // Retain installer-generated entries even when missing, so launch validation
+    // can report them instead of silently constructing an incomplete classpath.
+    if (coordinate && coordinates.has(coordinate)) return
+    if (coordinate) coordinates.add(coordinate)
     if (seen.has(dest)) return
     seen.add(dest)
     out.push({ path: dest, url: art.url, sha1: art.sha1, size: art.size, isNative })
   }
   /** maven 坐标（group:artifact:version[:classifier]）→ 仓库相对路径 */
   const mavenPath = (name: string): string | null => {
-    const p = name.split(':')
+    const [coordinate, extension = 'jar'] = name.split('@')
+    const p = coordinate.split(':')
     if (p.length < 3) return null
     const [g, a, v, classifier] = p
-    const file = `${a}-${v}${classifier ? `-${classifier}` : ''}.jar`
+    const file = `${a}-${v}${classifier ? `-${classifier}` : ''}.${extension}`
     return `${g.replace(/\./g, '/')}/${a}/${v}/${file}`
   }
   /** 仅声明 maven 坐标（无 downloads/url，典型为安装器注入的 forge 语言提供器）时按组织推断下载源 */
@@ -314,39 +254,43 @@ function collectLibraries(vj: VersionJson): LibEntry[] {
   for (const lib of vj.libraries ?? []) {
     if (!rulesAllow(lib.rules)) continue
     if (lib.downloads?.artifact) {
-      push(lib.downloads.artifact, false)
+      push(lib.downloads.artifact, false, mavenIdentity(lib.name))
     } else if (lib.name && lib.url) {
       // Fabric/Quilt 等 profile 的 maven 坐标形式：无内联 downloads，需按仓库基址拼接
       const rel = mavenPath(lib.name)
       if (rel) {
         const base = lib.url.endsWith('/') ? lib.url : lib.url + '/'
-        push({ path: rel, url: base + rel }, false)
+        push({ path: rel, url: base + rel }, false, mavenIdentity(lib.name))
       }
     } else if (lib.name) {
       // forge 安装器注入库（fmlcore/javafmllanguage/mclanguage/lowcodelanguage 等）：
       // json 仅给 maven 坐标，本地有则直接收编，缺失按组织推断 maven 源下载
       const rel = mavenPath(lib.name)
-      if (rel && fs.existsSync(libraryPath(rel))) {
-        push({ path: rel }, false)
-      } else if (rel) {
+      if (rel) {
         const base = mavenRepoBase(lib.name)
-        if (base) push({ path: rel, url: base + rel }, false)
+        push({ path: rel, url: base ? base + rel : undefined }, false, mavenIdentity(lib.name))
       }
     }
     const nativesKey = lib.natives?.[OS_NAME]?.replace(
       '${arch}',
       process.arch === 'ia32' ? '32' : '64'
     )
-    if (nativesKey) push(lib.downloads?.classifiers?.[nativesKey], true)
+    if (nativesKey) push(lib.downloads?.classifiers?.[nativesKey], true, mavenIdentity(lib.name, nativesKey))
   }
   return out
 }
 
 /** 依赖库下载任务（供 installVersion 与 loaders 复用） */
 export function libraryTasks(vj: VersionJson): DownloadTask[] {
+  const folders = allFolders()
   return collectLibraries(vj)
     .filter((e) => e.url)
-    .map((e) => ({ url: e.url as string, dest: e.path, sha1: e.sha1, size: e.size }))
+    .map((e) => {
+      const relative = path.relative(librariesDir(), e.path)
+      return { url: e.url as string, dest: e.path, sha1: e.sha1, size: e.size,
+        reuseFiles: !relative.startsWith('..') && !path.isAbsolute(relative)
+          ? folders.map(folder => path.join(folder, 'libraries', relative)) : [] }
+    })
 }
 
 /** 启动用：classpath 中的 artifact 路径与 natives jar 路径 */
@@ -370,12 +314,21 @@ function fmtMB(bytes: number): string {
  * dest='base'：作为加载器实例的内部依赖装进 .kamucl/base/（不进版本列表，json/jar 仅供链解析）
  */
 export async function installVanilla(
+  ...args: Parameters<typeof installVanillaUnlocked>
+): Promise<string> {
+  const [id, , dest = 'versions', name, signal] = args
+  const dir = dest === 'base' ? baseVersionDir(id) : versionDir(name?.trim() || id)
+  return withFileJob(dir, signal, () => installVanillaUnlocked(...args))
+}
+
+async function installVanillaUnlocked(
   versionId: string,
   emit: ProgressEmit,
   dest: 'versions' | 'base' = 'versions',
   instanceName?: string,
   signal?: AbortSignal,
-  finalEvent = true
+  finalEvent = true,
+  runtimeReady?: (signal: AbortSignal) => Promise<void>
 ): Promise<string> {
   const finalId = dest === 'versions' ? instanceName?.trim() || versionId : versionId
   const dir = dest === 'base' ? baseVersionDir(versionId) : versionDir(finalId)
@@ -399,125 +352,145 @@ export async function installVanilla(
       fs.writeFileSync(jsonPath, JSON.stringify(vj, null, 2), 'utf-8')
     }
 
-    // 1. 依赖库（含 natives classifiers）
-    const libTasks = libraryTasks(vj)
-    await downloadAll(
-      libTasks,
-      (d, t, speed, detail) =>
-        emit({
-          stage: 'libraries',
-          progress: detail.fraction ?? 0,
-          text: `下载依赖库 ${d}/${t}`,
-          speed,
-          etaSeconds: detail.etaSeconds ?? undefined,
-          bytesDone: detail.bytesDone,
-          bytesTotal: detail.bytesTotal ?? undefined,
-          indeterminate: detail.indeterminate,
-          source: sourceText
-        }),
-      8,
-      mirror,
-      signal
-    )
+    const parallel = new ParallelProgress([
+      { id: 'libraries', label: '依赖库', weight: 0.34 },
+      { id: 'client', label: '游戏本体', weight: 0.17 },
+      { id: 'assets', label: '资源文件', weight: 0.27 }
+    ], emit, '同步下载游戏本体、依赖库与资源', [0.04, 0.82])
+    await runParallelTasks([
+      async signal => {
+        await runParallelTasks([
+          async (signal) => {
+            const emit: ProgressEmit = event => parallel.update('libraries', event)
+            // 1. 依赖库（含 natives classifiers）
+            const libTasks = libraryTasks(vj)
+            await downloadAll(
+              libTasks,
+              (d, t, speed, detail) =>
+                emit({
+                  stage: 'libraries',
+                  progress: detail.fraction ?? 0,
+                  text: `下载依赖库 ${d}/${t}`,
+                  speed,
+                  etaSeconds: detail.etaSeconds ?? undefined,
+                  bytesDone: detail.bytesDone,
+                  bytesTotal: detail.bytesTotal ?? undefined,
+                  indeterminate: detail.indeterminate,
+                  source: sourceText
+                }),
+              downloadLimiter.maxConcurrent,
+              mirror,
+              signal
+            )
 
-    // 2. 客户端 jar
-    const client = vj.downloads?.client
-    if (client?.url) {
-      // PCL2 本地复用优化：客户端 jar 优先从其他游戏文件夹的 versions 与 .kamucl/base
-      // 里按 大小+sha1 查找相同文件直接复制（多文件夹/加载器依赖原版间不再重复下载）
-      const versionDirs = allVersionsDirs()
-      const reuseDirs = versionDirs
-        .map((v) => v.dir)
-        .concat(versionDirs.map((v) => path.join(v.folder, '.kamucl', 'base')))
-        .filter((dir) => path.resolve(dir) !== path.resolve(path.dirname(jarPath)))
-      await downloadFile(
-        client.url,
-        jarPath,
-        (d, t) =>
-          emit({
-            stage: 'client',
-            progress: t ? d / t : 0,
-            text: `下载游戏本体 ${fmtMB(d)}${t ? '/' + fmtMB(t) : ''}`,
-            source: sourceText
-          }),
-        client.sha1,
-        mirror,
-        signal,
-        [],
-        { size: client.size, reuseDirs }
-      )
-    }
-
-    // 3. 资源索引与资源文件
-    if (vj.assetIndex?.url) {
-      const idxPath = assetIndexPath(vj.assetIndex.id)
-      await downloadFile(
-        vj.assetIndex.url,
-        idxPath,
-        undefined,
-        vj.assetIndex.sha1,
-        mirror,
-        signal,
-        [],
-        { size: vj.assetIndex.size }
-      )
-
-      const idx = JSON.parse(fs.readFileSync(idxPath, 'utf-8')) as {
-        virtual?: boolean
-        map_to_resources?: boolean
-        objects?: Record<string, { hash: string; size?: number }>
-      }
-      const objects = idx.objects ?? {}
-
-      // 按 hash 去重生成下载任务
-      const seen = new Set<string>()
-      const tasks: DownloadTask[] = []
-      for (const o of Object.values(objects)) {
-        if (!o?.hash || seen.has(o.hash)) continue
-        seen.add(o.hash)
-        tasks.push({
-          url: `https://resources.download.minecraft.net/${o.hash.slice(0, 2)}/${o.hash}`,
-          dest: assetObjectPath(o.hash),
-          sha1: o.hash,
-          size: o.size
-        })
-      }
-      await downloadAll(
-        tasks,
-        (d, t, speed, detail) =>
-          emit({
-            stage: 'assets',
-            progress: detail.fraction ?? 0,
-            text: `下载资源文件 ${d}/${t}`,
-            speed,
-            etaSeconds: detail.etaSeconds ?? undefined,
-            bytesDone: detail.bytesDone,
-            bytesTotal: detail.bytesTotal ?? undefined,
-            indeterminate: detail.indeterminate,
-            source: sourceText
-          }),
-        8,
-        mirror,
-        signal
-      )
-
-      // legacy 版本需要把资源复制到 assets/virtual/legacy 下
-      if (idx.virtual === true || idx.map_to_resources === true) {
-        emit({ stage: 'assets', progress: 1, text: '复制 legacy 资源' })
-        let copied = 0
-        for (const [name, o] of Object.entries(objects)) {
-          throwIfCancelled(signal)
-          if (!o?.hash) continue
-          const from = assetObjectPath(o.hash)
-          const to = path.join(virtualLegacyDir(), ...name.split('/'))
-          if (fs.existsSync(from) && !fs.existsSync(to)) {
-            fs.mkdirSync(path.dirname(to), { recursive: true })
-            fs.copyFileSync(from, to)
+            parallel.done('libraries')
+          },
+          async (signal) => {
+            const emit: ProgressEmit = event => parallel.update('client', event)
+            // 2. 客户端 jar
+            const client = vj.downloads?.client
+            if (client?.url) {
+              // PCL2 本地复用优化：客户端 jar 优先从其他游戏文件夹的 versions 与 .kamucl/base
+              // 里按 大小+sha1 查找相同文件直接复制（多文件夹/加载器依赖原版间不再重复下载）
+              const versionDirs = allVersionsDirs()
+              const reuseDirs = versionDirs
+                .map((v) => v.dir)
+                .concat(versionDirs.map((v) => path.join(v.folder, '.kamucl', 'base')))
+                .filter((dir) => path.resolve(dir) !== path.resolve(path.dirname(jarPath)))
+              await downloadAll(
+                [{ url: client.url, dest: jarPath, sha1: client.sha1, size: client.size, reuseDirs }],
+                (_done, _total, speed, detail) => emit({stage:'client', progress:detail.fraction ?? 0,
+                  bytesDone:detail.bytesDone, bytesTotal:detail.bytesTotal ?? undefined, indeterminate:detail.indeterminate,
+                  speed, etaSeconds:detail.etaSeconds ?? undefined, text:'下载游戏本体 '+fmtMB(detail.bytesDone), source:sourceText}),
+                getSettings().downloadThreads, mirror, signal
+              )
           }
-          if (++copied % 64 === 0) await new Promise<void>((resolve) => setImmediate(resolve))
-        }
+
+            parallel.done('client')
+          }
+            ], signal)
+        // Installer processors only need client/libraries; assets keep downloading.
+        await runtimeReady?.(signal)
+      },
+      async (signal) => {
+        const emit: ProgressEmit = event => parallel.update('assets', event)
+        emit({ stage: 'assets', progress: 0, text: '获取资源索引' })
+        // 3. 资源索引与资源文件
+        if (vj.assetIndex?.url) {
+          const idxPath = assetIndexPath(vj.assetIndex.id)
+          await downloadFile(
+            vj.assetIndex.url,
+            idxPath,
+            undefined,
+            vj.assetIndex.sha1,
+            mirror,
+            signal,
+            [],
+            { size: vj.assetIndex.size, reuseFiles: allFolders().map(folder => path.join(folder, 'assets', 'indexes', `${vj.assetIndex!.id}.json`)) }
+          )
+
+          const idx = JSON.parse(fs.readFileSync(idxPath, 'utf-8')) as {
+            virtual?: boolean
+            map_to_resources?: boolean
+            objects?: Record<string, { hash: string; size?: number }>
+          }
+          const objects = idx.objects ?? {}
+
+          // 按 hash 去重生成下载任务
+          const seen = new Set<string>()
+          const tasks: DownloadTask[] = []
+          const resourceFolders = allFolders()
+          for (const o of Object.values(objects)) {
+            if (!o?.hash || seen.has(o.hash)) continue
+            seen.add(o.hash)
+            tasks.push({
+              url: `https://resources.download.minecraft.net/${o.hash.slice(0, 2)}/${o.hash}`,
+              dest: assetObjectPath(o.hash),
+              sha1: o.hash,
+              size: o.size,
+              reuseFiles: resourceFolders.map(folder => path.join(folder, 'assets', 'objects', o.hash.slice(0, 2), o.hash))
+            })
+          }
+          await downloadAll(
+            tasks,
+            (d, t, speed, detail) =>
+              emit({
+                stage: 'assets',
+                progress: detail.fraction ?? 0,
+                text: `下载资源文件 ${d}/${t}`,
+                speed,
+                etaSeconds: detail.etaSeconds ?? undefined,
+                bytesDone: detail.bytesDone,
+                bytesTotal: detail.bytesTotal ?? undefined,
+                indeterminate: detail.indeterminate,
+                source: sourceText
+              }),
+            downloadLimiter.maxConcurrent,
+            mirror,
+            signal
+          )
+
+          // legacy 版本需要把资源复制到 assets/virtual/legacy 下
+          if (idx.virtual === true || idx.map_to_resources === true) {
+            emit({ stage: 'assets', progress: 1, text: '复制 legacy 资源' })
+            let copied = 0
+            for (const [name, o] of Object.entries(objects)) {
+              throwIfCancelled(signal)
+              if (!o?.hash) continue
+              const from = assetObjectPath(o.hash)
+              const to = path.join(virtualLegacyDir(), ...name.split('/'))
+              if (fs.existsSync(from) && !fs.existsSync(to)) {
+                fs.mkdirSync(path.dirname(to), { recursive: true })
+                fs.copyFileSync(from, to)
+              }
+              if (++copied % 64 === 0) await new Promise<void>((resolve) => setImmediate(resolve))
+            }
+          }
       }
-    }
+
+        parallel.done('assets')
+      }
+    ], signal)
 
     emit(
       finalEvent
@@ -544,8 +517,12 @@ export async function installVersion(
   signal?: AbortSignal
 ): Promise<string> {
   // 安装期间切换活动文件夹或默认隔离设置，不能改变本次任务的落盘目标。
-  const isolated = getSettings().defaultIsolation
+  const isolated = !!opts.recordingMod || !!opts.favoriteMods?.length || getSettings().defaultIsolation
   return withGameFolder(gameDir(), () => installVersionInFolder(versionId, opts, emit, signal, isolated))
+}
+
+export function launchLibraryFiles(vj: VersionJson) {
+  return collectLibraries(vj).map(e => ({ dest: e.path, url: e.url, sha1: e.sha1, size: e.size }))
 }
 
 async function installVersionInFolder(
@@ -555,6 +532,10 @@ async function installVersionInFolder(
   signal: AbortSignal | undefined,
   isolated: boolean
 ): Promise<string> {
+  const { installRecordingMods } = await import("./recordingMods")
+  const { prepareInstallMods } = await import('./modFavorites')
+  const recordingFiles = await prepareInstallMods(versionId, opts,signal)
+  signal?.throwIfAborted()
   const report = createWeightedProgressEmit(emit, VERSION_INSTALL_STAGE_RANGES)
   // 子安装器完成并不代表整个任务完成，Fabric API 仍可能在下载。
   const prepareReport: ProgressEmit = (event) => {
@@ -580,11 +561,16 @@ async function installVersionInFolder(
     // 必须先确定最终游戏目录，再安装附加模组；失败时直接报错，不能写入共享目录兜底。
     if (isolated) setNewInstanceIsolation(installedId, true)
     // Fabric：可选同时安装 Fabric API 到 mods 文件夹
-    if (opts.loader === 'fabric' && opts.fabricApi) {
+    if (opts.loader === 'fabric' && opts.fabricApi && !recordingFiles.length) {
       // 目标目录必须跟随实例隔离状态：隔离实例 → versions/<id>/mods；共享 → <folder>/mods
       const j = readVersionJson(installedId)
       const modsDir = path.join(instanceDirectoryState(installedId, j).path, 'mods')
       await installFabricApi(versionId, opts.fabricApi, report, signal, modsDir)
+    }
+    if (recordingFiles.length) {
+      const mods = path.join(instanceDirectoryState(installedId, readVersionJson(installedId)).path, 'mods')
+      try { await installRecordingMods(mods, recordingFiles, signal, fraction => report({ stage: 'download', progress: fraction, text: '下载并校验所选模组与必要前置' })) }
+      catch(e) { if(signal?.aborted)throw e;const {recordSupplementalFailure}=await import('./supplementalMods');recordSupplementalFailure({folder:gameDir(),id:installedId},versionId,opts,e);throw new Error(`${installedId} 基础实例已保留；附加模组安装失败，请选择重试或保留基础实例：${e instanceof Error ? e.message : e}`) }
     }
     report({ stage: 'done', progress: 1, text: `${installedId} 安装完成` })
     return installedId
@@ -611,7 +597,10 @@ export function clientJarPath(id: string): string {
 export function resolveVersionChain(id: string): { merged: VersionJson; baseId: string } {
   const chain: VersionJson[] = []
   let cur: VersionJson | null = readVersionJson(id)
+  const seen = new Set<string>()
   while (cur) {
+    if (seen.has(cur.id) || chain.length >= 32) throw new Error('版本继承链循环或过长')
+    seen.add(cur.id)
     chain.push(cur)
     cur = cur.inheritsFrom ? readVersionJson(cur.inheritsFrom) : null
   }
@@ -705,7 +694,7 @@ export async function migrateFlattenedInstances(
 }
 
 /** flatten 实例自愈：json 自包含不缺，仅补客户端 jar（不重写 json） */
-export async function installClientJarOnly(id: string, emit: ProgressEmit): Promise<void> {
+export async function installClientJarOnly(id: string, emit: ProgressEmit, signal?: AbortSignal): Promise<void> {
   const j = readVersionJson(id)
   const client = j.downloads?.client
   if (!client?.url) throw new Error('实例 json 缺少客户端下载信息，无法自动补全')
@@ -720,7 +709,10 @@ export async function installClientJarOnly(id: string, emit: ProgressEmit): Prom
         text: `下载游戏本体 ${(d / 1024 / 1024).toFixed(1)}MB${t ? '/' + (t / 1024 / 1024).toFixed(1) + 'MB' : ''}`
       }),
     client.sha1,
-    mirror
+    mirror,
+    signal,
+    [],
+    { size: client.size }
   )
 }
 
@@ -759,7 +751,7 @@ function versionJsonInFolder(folder: string, id: string): string {
 }
 
 /** 扫描指定 Minecraft 根目录；损坏条目不会静默消失，而以 incomplete + errors 返回。 */
-export function scanInstalledFolder(folder: string): {
+export function scanInstalledFolder(folder: string, onlyId?: string): {
   versions: InstalledVersion[]
   errors: string[]
 } {
@@ -770,7 +762,7 @@ export function scanInstalledFolder(folder: string): {
   if (!fs.existsSync(dir)) return { versions: out, errors }
   let entries: fs.Dirent[]
   try {
-    entries = fs.readdirSync(dir, { withFileTypes: true }).filter((entry) => entry.isDirectory())
+    entries = fs.readdirSync(dir, { withFileTypes: true }).filter((entry) => entry.isDirectory() && (!onlyId || entry.name === onlyId))
   } catch (error) {
     return {
       versions: out,
@@ -917,18 +909,24 @@ export function renameVersion(id: string, newName: string): void {
     throw e
   }
 }
-export function removeVersion(id: string): void {
-  // 自定义图标与启动卡缩略图随实例删除（内置资源无文件落地）。
-  try {
-    const j = readVersionJson(id)
-    if (j._icon?.startsWith('file:')) {
-      fs.rmSync(path.join(instanceIconsDir(), j._icon.slice(5)), { force: true })
-    }
-    if (j._thumbnail) removeInstanceThumbnail(j._thumbnail, folderOfVersion(id))
-  } catch {
-    /* 清理图标失败不阻断删除 */
-  }
-  fs.rmSync(versionDir(id), { recursive: true, force: true })
+export async function removeVersion(id: string, requestedFolder?: string): Promise<void> {
+  const folder = requestedFolder || folderOfVersion(id)
+  if (!getSettings().folders.some(f => samePath(f.path, folder))) throw new Error('游戏文件夹尚未登记')
+  await withGameFolder(folder, async () => {
+    const { assertInstanceIdle } = await import('./instanceCenter')
+    const { getRunningVersionIds } = await import('./launch')
+    // Also cover a preparing JVM and shared/custom game directories.
+    if (getRunningVersionIds().has(id)) throw new Error('该版本的游戏仍在运行或正在退出，请等待结束后重试')
+    let json: VersionJson | undefined
+    try { json = readVersionJson(id) } catch { /* Incomplete installations can also be removed. */ }
+    await recycleVersion(folder, id, {
+      assertIdle: async target => {
+        await assertInstanceIdle(target)
+        if (json) await assertInstanceIdle(instanceDirectoryState(id, json, folder).path)
+      },
+      trash: target => shell.trashItem(target)
+    })
+  })
 }
 
 /** 设置实例图标：'mob:<内置id>' / 'file:<文件名>' / '' 恢复默认；更换时清理旧的自定义图标文件 */
@@ -993,7 +991,7 @@ export function resetVersionThumbnail(id: string): void {
  * 清理安装失败的残留（.installing 标记存在时调用）：
  * 删除整个版本目录（该标记只在安装开始时创建，目录必然是不完整产物）
  */
-export function cleanupPartialInstall(id: string): boolean {
+export async function cleanupPartialInstall(id: string): Promise<boolean> {
   if (!fs.existsSync(installMarkPath(id))) return false
   fs.rmSync(versionDir(id), { recursive: true, force: true })
   return true

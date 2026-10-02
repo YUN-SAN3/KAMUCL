@@ -3,7 +3,7 @@ import type { Settings } from '../shared/types'
 import { launcherLog } from './core/launcherLog'
 import { trackMaterialLifecycle } from './materialLifecycle'
 import { createDwmFrameRestorer } from './dwmFrame'
-const appliedMaterial = new WeakSet<BrowserWindow>()
+const appliedMaterial = new WeakMap<BrowserWindow, () => void>()
 
 /** DWM 的染色也要跟随应用主题，否则浅色系统会在暗色页面下叠一层白灰色。 */
 export function applyNativeAppearance(window: BrowserWindow | null, settings: Settings): void {
@@ -13,14 +13,15 @@ export function applyNativeAppearance(window: BrowserWindow | null, settings: Se
       parseInt(settings.custom.colors.bg.slice(3, 5), 16) * .587 +
       parseInt(settings.custom.colors.bg.slice(5, 7), 16) * .114 > 128)
   const theme = light ? 'light' : 'dark'
-  if (nativeTheme.themeSource !== theme) nativeTheme.themeSource = theme
+  const changed = nativeTheme.themeSource !== theme
+  if (changed) nativeTheme.themeSource = theme
   if (!window || window.isDestroyed()) return
   if (process.platform === 'win32' && !appliedMaterial.has(window)) {
     try {
       window.setBackgroundMaterial('acrylic')
-      appliedMaterial.add(window)
-      trackMaterialLifecycle(window, launcherLog, createDwmFrameRestorer(window))
+      appliedMaterial.set(window, trackMaterialLifecycle(window, launcherLog, createDwmFrameRestorer(window)))
     }
     catch (error) { launcherLog(`Desktop acrylic unavailable: ${String(error)}`) }
   }
+  else if (changed) appliedMaterial.get(window)?.()
 }

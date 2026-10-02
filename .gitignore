@@ -13,3 +13,5 @@ bridge/dist/
 *.rar
 *.jar.log
 scripts/*.log
+
+bridge/.cache/

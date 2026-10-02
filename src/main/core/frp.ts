@@ -12,7 +12,8 @@ import { spawn, type ChildProcess } from 'node:child_process'
 import { app } from 'electron'
 import fs from 'node:fs'
 import path from 'node:path'
-import { downloadFile } from './download'
+import { downloadAll } from './download'
+import { parseFrpLine, frpLineReader } from './frpLog'
 
 /** 默认本地转发目标（MC 局域网开放端口） */
 export const DEFAULT_LOCAL_HOST = '127.0.0.1'
@@ -20,6 +21,14 @@ export const DEFAULT_LOCAL_HOST = '127.0.0.1'
 /** 官方 frpc 直链（amd64 Windows；用户可在管理面板自行替换为对应架构）。 */
 export const FRPC_OFFICIAL_URL_WIN_AMD64 =
   'https://nya.globalslb.net/natfrp/client/frpc/0.51.0-sakura-14/frpc_windows_amd64.exe'
+
+export function frpcAsset(platform = process.platform, arch = process.arch): { url: string; sha256?: string } {
+  if (platform === 'win32') return { url: FRPC_OFFICIAL_URL_WIN_AMD64 }
+  const sha256 = arch === 'arm64' ? '465db9daea0e14e3adaa89926640afa8b44737dadc1cf0b75f9b091850d2e331'
+    : arch === 'x64' ? '74ee362350314dd5ac8936fbe2299fc76671051e10beb46c8dd37c36a4503935' : undefined
+  if (platform !== 'darwin' || !sha256) throw new Error(`樱花穿透暂不支持 ${platform}/${arch}`)
+  return { url: `https://nya.globalslb.net/natfrp/client/frpc/0.51.0-sakura-14/frpc_darwin_${arch === 'x64' ? 'amd64' : 'arm64'}`, sha256 }
+}
 
 export interface FrpConfig {
   accessKey: string
@@ -137,27 +146,27 @@ export function saveFrpConfig(cfg: FrpConfig): FrpConfig {
   return next
 }
 
+let installingFrpc: Promise<string> | null = null
 export function ensureFrpcInstalled(onLog?: (line: string) => void): Promise<string> {
+  if (installingFrpc) return installingFrpc
   const target = frpcPath()
-  if (fs.existsSync(target)) return Promise.resolve(target)
-  if (process.platform !== 'win32') {
-    return Promise.reject(
-      new Error('当前平台未提供自动下载 frpc，请前往 natfrp.com/frpc/usage.html 手动下载 frpc 可执行文件并放到 ' + frpcDir())
-    )
-  }
+  if (fs.existsSync(target) && process.platform === 'win32') return Promise.resolve(target)
+  const asset = frpcAsset()
   fs.mkdirSync(frpcDir(), { recursive: true })
-  onLog?.('未检测到 frpc.exe，开始从官方下载…')
-  return downloadFile(FRPC_OFFICIAL_URL_WIN_AMD64, target, undefined, undefined, 'official')
+  onLog?.('正在准备樱花穿透官方客户端…')
+  installingFrpc = downloadAll([{ ...asset, dest: target }], undefined, 1, 'official')
     .then(() => {
-      onLog?.('frpc.exe 下载完成')
+      if (process.platform !== 'win32') fs.chmodSync(target, 0o755)
+      onLog?.('frpc 下载完成')
       return target
     })
     .catch((err: unknown) => {
       const msg = err instanceof Error ? err.message : String(err)
       throw new Error(
-        `frpc.exe 下载失败：${msg}。请前往 https://natfrp.com/ 手动下载 frpc_windows_amd64.exe 放到 ${frpcDir()} 后重试`
+        `frpc 下载失败：${msg}。请检查网络后重试，官方下载地址：${asset.url}`
       )
-    })
+    }).finally(() => { installingFrpc = null })
+  return installingFrpc
 }
 
 function killProcessTree(pid: number): void {
@@ -184,7 +193,7 @@ interface RunningSession {
   status: FrpStatus
 }
 
-let session: RunningSession | null = null
+
 const MAX_LOGS = 200
 
 export interface StartOptions {
@@ -204,25 +213,9 @@ function appendLog(state: RunningSession, entry: FrpLogEntry): void {
   if (state.logs.length > MAX_LOGS) state.logs.splice(0, state.logs.length - MAX_LOGS)
 }
 
-/** 从 frpc 日志中识别远程地址：常见形式 `xxx.natfrp.cloud:12345`。 */
-const REMOTE_RE = /([a-zA-Z0-9][a-zA-Z0-9-]*\.(?:natfrp\.cloud|nyatwork\.cn|frp\.com|frp\.net)\s*:\s*\d{2,5})/
-
-/** 识别 frpc 启动错误。 */
-function classifyLine(text: string): FrpStatus | null {
-  const lower = text.toLowerCase()
-  if (lower.includes('invalid token') || lower.includes('login to server failed') || lower.includes('authorization failed')) {
-    return 'auth_failed'
-  }
-  if (lower.includes('tunnel not exists') || lower.includes('tunnel offline') || lower.includes('proxy not found')) {
-    return 'tunnel_offline'
-  }
-  if (lower.includes('proxy success') || lower.includes('start proxy success')) {
-    return 'running'
-  }
-  return null
-}
-
 export class FrpController {
+  private session: RunningSession | null = null
+  private epoch = 0
   private sink: FrpEventSink | null = null
   private detach: (() => void) | null = null
 
@@ -231,7 +224,7 @@ export class FrpController {
   }
 
   status(): FrpState {
-    if (!session) {
+    if (!this.session) {
       return {
         status: 'idle',
         config: null,
@@ -243,13 +236,13 @@ export class FrpController {
       }
     }
     return {
-      status: session.status,
-      config: session.config,
-      remoteAddress: session.remoteAddress,
-      pid: session.pid,
-      startedAt: session.startedAt,
-      message: this.statusMessage(session),
-      logs: session.logs.slice()
+      status: this.session.status,
+      config: this.session.config,
+      remoteAddress: this.session.remoteAddress,
+      pid: this.session.pid,
+      startedAt: this.session.startedAt,
+      message: this.statusMessage(this.session),
+      logs: this.session.logs.slice()
     }
   }
 
@@ -273,7 +266,8 @@ export class FrpController {
   }
 
   async start(req: FrpConfig & { localPort: number }): Promise<StartResult> {
-    if (session) throw new Error('frpc 已在运行中，请先停止')
+    if (this.session) throw new Error('frpc 已在运行中，请先停止')
+    const epoch = ++this.epoch
     this.detachedByUser = false
 
     const accessKey = String(req.accessKey ?? '').trim()
@@ -283,7 +277,8 @@ export class FrpController {
     if (!tunnelId) throw new Error('请填写隧道 ID')
 
     const target = await ensureFrpcInstalled()
-    const saved = saveFrpConfig({ accessKey, tunnelId, localPort })
+    if (epoch !== this.epoch) throw new Error("启动已取消")
+    const saved = { accessKey, tunnelId, localPort }
 
     const args: string[] = ['-f', `${accessKey}:${tunnelId}`, '--disable_log_color']
     const startedAt = new Date().toISOString()
@@ -302,7 +297,7 @@ export class FrpController {
       logs: [],
       status: 'starting'
     }
-    session = newSession
+    this.session = newSession
 
     const emit = (event: FrpEvent): void => this.sink?.(event)
 
@@ -316,57 +311,43 @@ export class FrpController {
       }
     })
 
+    let addressPriority = 0
     const handleLine = (stream: 'stdout' | 'stderr', text: string): void => {
       const cleaned = sanitize(text, accessKey)
       const entry: FrpLogEntry = { ts: new Date().toISOString(), stream, text: cleaned }
       appendLog(newSession, entry)
       emit({ type: 'log', data: entry })
 
-      const classified = classifyLine(cleaned)
-      if (classified && classified !== newSession.status) {
-        newSession.status = classified
-        emit({ type: 'status', status: classified, message: this.statusMessage(newSession) })
+      const parsed = parseFrpLine(cleaned)
+      if (parsed.address && parsed.priority >= addressPriority && parsed.address !== newSession.remoteAddress) {
+        newSession.remoteAddress = parsed.address
+        addressPriority = parsed.priority
+        emit({ type: 'ready', remoteAddress: parsed.address })
       }
-
-      const remoteMatch = cleaned.match(REMOTE_RE)
-      if (remoteMatch && !newSession.remoteAddress) {
-        newSession.remoteAddress = remoteMatch[1].replace(/\s+/g, '')
-        emit({ type: 'ready', remoteAddress: newSession.remoteAddress })
-        if (newSession.status !== 'running') {
-          newSession.status = 'running'
-          emit({ type: 'status', status: 'running', remoteAddress: newSession.remoteAddress, message: this.statusMessage(newSession) })
-        }
+      if (parsed.status && parsed.status !== newSession.status) {
+        newSession.status = parsed.status
+        emit({ type: 'status', status: parsed.status, remoteAddress: newSession.remoteAddress ?? undefined, message: this.statusMessage(newSession) })
       }
     }
 
-    const dataToLines = (stream: 'stdout' | 'stderr'): (chunk: Buffer | string) => void => {
-      let buf = ''
-      return (chunk) => {
-        buf += typeof chunk === 'string' ? chunk : chunk.toString('utf8')
-        let nl = buf.indexOf('\n')
-        while (nl !== -1) {
-          const line = buf.slice(0, nl).replace(/\r$/, '')
-          buf = buf.slice(nl + 1)
-          if (line.trim()) handleLine(stream, line)
-          nl = buf.indexOf('\n')
-        }
-      }
+    for (const stream of ['stdout', 'stderr'] as const) {
+      const reader = frpLineReader(line => handleLine(stream, line))
+      proc[stream]?.on('data', reader.write)
+      proc[stream]?.on('end', reader.end)
     }
-
-    proc.stdout?.on('data', dataToLines('stdout'))
-    proc.stderr?.on('data', dataToLines('stderr'))
 
     proc.on('error', (err) => {
-      const entry: FrpLogEntry = { ts: new Date().toISOString(), stream: 'system', text: `进程错误：${err.message}` }
+      const message = sanitize(err.message, accessKey)
+      const entry: FrpLogEntry = { ts: new Date().toISOString(), stream: 'system', text: `进程错误：${message}` }
       appendLog(newSession, entry)
       emit({ type: 'log', data: entry })
-      if (session === newSession) {
+      if (this.session === newSession) {
         newSession.status = 'error'
-        emit({ type: 'error', status: 'error', message: err.message })
+        emit({ type: 'error', status: 'error', message: message })
         // spawn 失败（pid=0）时不会再触发 exit，必须释放会话，否则后续 start 永远报"已在运行中"
         if (!newSession.pid) {
-          emit({ type: 'stopped', status: 'error', message: err.message })
-          session = null
+          emit({ type: 'stopped', status: 'error', message: message })
+          this.session = null
         }
       }
     })
@@ -377,14 +358,14 @@ export class FrpController {
       const entry: FrpLogEntry = { ts: new Date().toISOString(), stream: 'system', text }
       appendLog(newSession, entry)
       emit({ type: 'log', data: entry })
-      if (session === newSession) {
+      if (this.session === newSession) {
         if (wasStoppedByUser || code === 0) {
           newSession.status = 'stopped'
         } else if (newSession.status !== 'auth_failed' && newSession.status !== 'tunnel_offline') {
           newSession.status = 'error'
         }
         emit({ type: 'stopped', status: newSession.status, message: text })
-        session = null
+        this.session = null
       }
     })
 
@@ -394,7 +375,8 @@ export class FrpController {
   private detachedByUser = false
 
   async stop(): Promise<void> {
-    const s = session
+    ++this.epoch
+    const s = this.session
     if (!s) return
     this.detachedByUser = true
     try {
@@ -424,9 +406,8 @@ export class FrpController {
 
   /** 同步内部状态以让事件监听器被销毁。 */
   dispose(): void {
-    if (session) void this.stop()
+    if (this.session) void this.stop()
     this.sink = null
   }
 }
 
-export const frpController = new FrpController()

@@ -27,6 +27,7 @@
 | 🧩 版本安装 | 安装原版、Fabric、Forge、NeoForge、Quilt |
 | 🪪 账号中心 | 微软账号、离线账号、Yggdrasil 自定义认证 |
 | 📦 资源管理 | 管理模组、资源包、光影、世界和服务器 |
+| 🛠️ 实例管理中心 | 复制、备份、恢复实例，并查看运行诊断 |
 | 🔎 社区资源 | 搜索并导入 Modrinth / CurseForge 资源 |
 | 🧁 皮肤衣柜 | 角色预览、皮肤与披风上传、历史记录 |
 | 🤝 联机 | FRP、VoxLink、Terracotta 和好友直连 |
@@ -48,6 +49,8 @@
 | [Yggdrasil 提供商格式](docs/auth/yggdrasil-provider-card.md) | 接入或排查外置认证服务器 |
 | [诊断记录](docs/diagnostics/) | 排查启动器、整合包和运行时问题 |
 | [发布验收记录](docs/releases/) | 查看历史版本变更与回归结果 |
+| [对应源码](docs/CORRESPONDING_SOURCE.md) | 从发布包重建并核对源码 |
+| [第三方许可](THIRD_PARTY_NOTICES.md) | 查看依赖许可证与源码说明 |
 
 ## 🚀 快速开始
 
@@ -59,7 +62,7 @@ Windows 便携版是单个 EXE，文件名会跟随 `package.json` 的版本号�
 release/KAMUCL-<version>.exe
 ```
 
-也可以运行 `release/win-unpacked/KAMUCL.exe`，但需要保留同目录下的全部文件。首次启动 Minecraft 前，请准备 Windows 10/11 64 位、与目标 Minecraft 版本匹配的 Java（现代版本通常需要 Java 17+）和网络连接。
+首次启动 Minecraft 前，请准备 Windows 10/11 64 位或支持的 macOS、与目标 Minecraft 版本匹配的 Java（现代版本通常需要 Java 17+）和网络连接。Windows ZIP 包解压后需保留同目录下的全部文件。
 
 ### 从源码运行
 
@@ -81,6 +84,7 @@ npm run dev
 | `npm run dist:win` | 构建 Windows 便携版与 ZIP |
 | `npm run dist:mac` | 构建 macOS ZIP |
 | `npm run dist:all` | 构建全部已配置平台 |
+| `npm run license:check` | 校验第三方依赖许可证文件 |
 
 只生成 Windows 单文件 EXE：
 
@@ -105,7 +109,7 @@ $env:JAVA_HOME = 'C:\Program Files\Java\jdk-17'
 node scripts/build-bridge.cjs
 ```
 
-成功后会生成 `bridge/dist/kamucl-bridge-1.0.0.jar`。未生成时主程序仍可构建，只是 Bridge 页面无法自动提供内置 MOD。
+成功后会生成 `bridge/dist/kamucl-bridge-1.0.0.jar`。构建脚本会从固定的 Fabric Maven 和 Maven Central 地址下载并校验编译依赖；未生成时主程序仍可构建，只是 Bridge 页面无法自动提供内置 MOD。
 
 ## 🗂️ 项目地图
 
@@ -115,15 +119,15 @@ src/preload/    渲染进程安全桥接 API
 src/renderer/   Vue 页面、组件与主题
 src/shared/     共用类型、协议和常量
 bridge/         KAMUCL Bridge MOD（Fabric）
-native/         Windows 原生辅助程序
+native/         Windows 原生辅助程序（材质、聚焦、启动反馈）
 scripts/        构建、发布与回归测试脚本
 tests/          自动化测试
-docs/           功能说明与版本验证记录
+docs/           功能说明、构建说明与版本验证记录
 ```
 
 ## 💾 数据、日志与隐私
 
-启动器运行数据默认保存在 `%APPDATA%\.kamucl`，包括账号、设置、缓存和日志。反馈问题时，请先隐藏账号令牌、个人路径和公网 IP。
+启动器运行数据默认保存在 Windows 的 `%APPDATA%\KAMUCL`（macOS 为 `~/Library/Application Support/KAMUCL`），包括账号、设置、缓存和日志。反馈问题时，请先隐藏账号令牌、个人路径和公网 IP。
 
 ## ❓ 常见问题
 

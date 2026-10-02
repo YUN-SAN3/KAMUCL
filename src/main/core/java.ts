@@ -15,6 +15,11 @@ import type { VersionJson } from './versions'
 import { waitIfTaskPaused, isCancelError } from './tasks'
 import { logScope } from './launcherLog'
 import { JavaProbeCache } from './javaProbeCache'
+import { mapLaunchFiles, SharedPreparation } from './launchPreparation'
+import { macJavaArchitecture } from './javaArchitecture'
+import { provisionJava, javaPackageSize } from './javaSources'
+import { httpFetch } from './httpClient'
+import { validateJavaRuntime } from './javaRuntimeHealth'
 const probeCache = new JavaProbeCache(() => path.join(app.getPath('userData'), 'java-probe-cache.json'))
 
 const javaLog = logScope('java')
@@ -157,7 +162,7 @@ function runTextProcess(
   })
 }
 
-async function probeJavaAsync(exe: string, signal?: AbortSignal): Promise<JavaInfo | null> {
+export async function probeJavaAsync(exe: string, signal?: AbortSignal): Promise<JavaInfo | null> {
   const cached = probeCache.get(exe)
   if (cached) return cached
   try {
@@ -396,6 +401,32 @@ export function scanJava(refresh = false): JavaInfo[] {
   }
   scanCache = { time: Date.now(), list: sortJava(out), complete: false }
   return mergeCustom(scanCache.list)
+}
+
+/** Same discovery/selection as scanJava, without serial child processes blocking
+ * the renderer or the other launch preparation branches. */
+export async function scanJavaForLaunch(): Promise<JavaInfo[]> {
+  if (scanCache && Date.now() - scanCache.time < SCAN_TTL) return mergeCustom(scanCache.list)
+  const persisted = cachedCompleteList(PERSISTENT_SCAN_TTL)
+  if (persisted) return mergeCustom(persisted)
+  const candidates = quickCandidates(false)
+  try {
+    const output = await runTextProcess(IS_WIN ? 'where.exe' : 'which', ['java'], undefined, 10000)
+    for (const executable of output.split(/\r?\n/).filter(Boolean)) candidates.push({ executable: executable.trim(), sourceDetail: 'PATH' })
+  } catch { /* PATH discovery may legitimately find no Java. */ }
+  const seen = new Set<string>()
+  const unique = candidates.filter(candidate => {
+    const real = realExecutable(candidate.executable)
+    if (!real || seen.has(pathKey(real))) return false
+    seen.add(pathKey(real)); return true
+  })
+  const found = await mapLaunchFiles(unique, async candidate => {
+    const info = await probeJavaAsync(realExecutable(candidate.executable) ?? candidate.executable)
+    return info ? { ...info, path: path.resolve(candidate.executable), source: 'auto' as const, sourceDetail: candidate.sourceDetail } : null
+  })
+  const list = sortJava(found.filter((info): info is NonNullable<typeof info> => info !== null))
+  scanCache = { time: Date.now(), list, complete: false }
+  return mergeCustom(list)
 }
 
 let summaryPending: Promise<JavaInfo[]> | undefined
@@ -791,8 +822,8 @@ export async function scanJavaInstallations(options: JavaScanOptions = {}): Prom
 /** 合并手动添加的 Java，并过滤隐藏项 */
 function mergeCustom(list: JavaInfo[]): JavaInfo[] {
   const s = getSettings()
-  const hidden = new Set((s.javaHidden ?? []).map(pathKey))
-  const auto = list.filter((j) => !hidden.has(pathKey(j.path)))
+  const hidden = new Set((s.javaHidden ?? []).flatMap(p => [pathKey(p), pathKey(realExecutable(p) ?? p)]))
+  const auto = list.filter((j) => !hidden.has(pathKey(j.path)) && !hidden.has(pathKey(realExecutable(j.path) ?? j.path)))
   const manual: JavaInfo[] = []
   for (const p of s.javaCustom ?? []) {
     const real = realExecutable(p)
@@ -846,13 +877,9 @@ export function requiredMajor(versionJson: VersionJson): number {
   return 8
 }
 
-interface AdoptiumAsset {
-  binary?: { package?: { link?: string } }
-}
-
 /** 最低版本 + 向上兼容选择：优先推荐版本（==need），否则取满足条件的最高版本（纯函数，可测试）。 */
-export function selectJavaByMajor<T extends { major: number; is64Bit: boolean }>(available: T[], need: number): T | null {
-  const ok = available.filter((j) => j.major >= need && j.is64Bit)
+export function selectJavaByMajor<T extends { major: number; is64Bit: boolean; architecture?: string }>(available: T[], need: number, architecture?: string): T | null {
+  const ok = available.filter((j) => j.major >= need && j.is64Bit && (!architecture || j.architecture === architecture))
   return ok.find((j) => j.major === need) ?? [...ok].sort((a, b) => b.major - a.major)[0] ?? null
 }
 
@@ -864,10 +891,34 @@ export function selectJavaByMajor<T extends { major: number; is64Bit: boolean }>
  * Windows 为 zip（adm-zip 解压）；macOS/Linux 为 tar.gz（系统 tar 解压）。
  * 返回 java 可执行文件绝对路径。
  */
-export async function ensureJava(versionJson: VersionJson, emit: ProgressEmit): Promise<string> {
+const javaPreparations = new SharedPreparation<string>()
+export function ensureJava(versionJson: VersionJson, emit: ProgressEmit): Promise<string> {
+  // NeoForge repair and game launch may need the same JRE concurrently. Never
+  // let two downloads/extractions replace the same runtime under one another.
+  const key = `${pathKey(path.resolve(runtimesDir()))}:${requiredMajor(versionJson)}:${macJavaArchitecture(versionJson) ?? process.arch}`
+  return javaPreparations.run(key, () => ensureJavaInternal(versionJson, emit))
+}
+
+export async function selectHealthyJava(available: JavaInfo[], need: number, architecture?: string): Promise<JavaInfo | null> {
+  let remaining = [...available]
+  while (remaining.length) {
+    const candidate = selectJavaByMajor(remaining, need, architecture)
+    if (!candidate) return null
+    remaining = remaining.filter(item => item !== candidate)
+    try {
+      const exe = await resolveJavaExecutable(candidate.path)
+      await validateJavaRuntime(exe, candidate.major)
+      return { ...candidate, path: exe }
+    } catch (error) { javaLog.warn('跳过不完整的 Java：' + candidate.path + '；' + String(error)) }
+  }
+  return null
+}
+
+async function ensureJavaInternal(versionJson: VersionJson, emit: ProgressEmit): Promise<string> {
   const need = requiredMajor(versionJson)
   const started = Date.now()
-  const local = selectJavaByMajor(scanJava(), need)
+  const architecture = macJavaArchitecture(versionJson)
+  const local = await selectHealthyJava(await scanJavaForLaunch(), need, architecture)
   if (local) {
     if (local.major === need) javaLog.debug(`本机已有 Java ${need}（64位）：${local.path}`)
     else javaLog.info(`本机没有 Java ${need}，向上兼容选用 Java ${local.major}（${local.version}，64位）：${local.path}`)
@@ -875,7 +926,7 @@ export async function ensureJava(versionJson: VersionJson, emit: ProgressEmit): 
   }
   javaLog.info(`本机没有 Java ${need} 或更高版本（64位），开始从 Adoptium 自动下载`)
   try {
-    const exe = await downloadAndExtractJava(need, emit)
+    const exe = await downloadAndExtractJava(need, emit, architecture)
     javaLog.info(`Java ${need} 自动下载完成：${exe}（耗时 ${((Date.now() - started) / 1000).toFixed(1)}s）`)
     return exe
   } catch (error) {
@@ -884,80 +935,52 @@ export async function ensureJava(versionJson: VersionJson, emit: ProgressEmit): 
   }
 }
 
-async function downloadAndExtractJava(need: number, emit: ProgressEmit): Promise<string> {
-  emit({ stage: 'java', progress: 0, text: `本机没有 Java ${need} 或更高版本（64位），开始自动下载…` })
-
-  // 查询 Adoptium 最新 JRE（平台与架构按当前系统）
-  const osName = IS_WIN ? 'windows' : IS_MAC ? 'mac' : 'linux'
-  const arch = process.arch === 'arm64' ? 'aarch64' : 'x64'
-  const api =
-    `https://api.adoptium.net/v3/assets/latest/${need}/hotspot` +
-    `?architecture=${arch}&image_type=jre&os=${osName}&vendor=eclipse`
-  const res = await fetch(api, { signal: AbortSignal.timeout(30000) })
-  if (!res.ok) throw new Error(`查询 Adoptium 失败: HTTP ${res.status}`)
-  const assets = (await res.json()) as AdoptiumAsset[]
-  const link = assets?.[0]?.binary?.package?.link
-  if (!link) throw new Error(`Adoptium 没有提供 Java ${need} 的下载`)
-
-  // 下载到临时文件（Windows=zip，其他=tar.gz）
-  const ext = IS_WIN ? 'zip' : 'tar.gz'
-  const tmpPkg = path.join(os.tmpdir(), `kamucl-jre-${need}-${Date.now()}.${ext}`)
-  await downloadFile(link, tmpPkg, (d, t) =>
-    emit({
-      stage: 'java',
-      progress: t ? (d / t) * 0.9 : 0,
-      text: `下载 Java ${need} ${(d / 1024 / 1024).toFixed(1)}MB${t ? '/' + (t / 1024 / 1024).toFixed(1) + 'MB' : ''}`
-    })
-  )
-
-  // 解压（包内有一层顶层目录，解压后平移为 jre-<major>/）
-  emit({ stage: 'java', progress: 0.9, text: `解压 Java ${need}…` })
-  const extractTmp = path.join(runtimesDir(), `.extract-${need}-${Date.now()}`)
-  const target = path.join(runtimesDir(), `jre-${need}`)
-  fs.rmSync(extractTmp, { recursive: true, force: true })
-  fs.rmSync(target, { recursive: true, force: true })
-  fs.mkdirSync(extractTmp, { recursive: true })
-  try {
-    if (IS_WIN) {
-      new AdmZip(tmpPkg).extractAllTo(extractTmp, true)
-    } else {
-      const r = spawnSync('tar', ['-xzf', tmpPkg, '-C', extractTmp], { timeout: 120000 })
-      if (r.status !== 0) throw new Error(`tar 解压失败: ${r.stderr?.toString() ?? r.status}`)
-    }
-    const entries = fs.readdirSync(extractTmp)
-    const src =
-      entries.length === 1 && fs.statSync(path.join(extractTmp, entries[0])).isDirectory()
-        ? path.join(extractTmp, entries[0])
-        : extractTmp
+async function downloadAndExtractJava(need: number, emit: ProgressEmit, architecture?: 'arm64' | 'x64'): Promise<string> {
+  const arch = (architecture ?? process.arch) === 'arm64' ? 'aarch64' : 'x64'
+  const report = (text: string): void => { javaLog.info(text); emit({ stage: 'java', progress: 0, text }) }
+  const read = async (url: string): Promise<unknown> => {
+    const response = await httpFetch(url, { systemProxy: true, signal: AbortSignal.timeout(12000) })
+    if (!response.ok) { await response.body?.cancel(); throw new Error(`${new URL(url).hostname} HTTP ${response.status}`) }
+    return response.json()
+  }
+  return provisionJava({ major: need, os: IS_WIN ? 'windows' : IS_MAC ? 'mac' : 'linux', arch }, read, async pkg => {
+    const root = path.resolve(runtimesDir())
+    fs.mkdirSync(root, { recursive: true })
+    const staging = fs.mkdtempSync(path.join(root, '.java-'))
+    const archive = path.join(staging, IS_WIN ? 'runtime.zip' : 'runtime.tar.gz')
+    const extracted = path.join(staging, 'unpacked')
     try {
-      fs.renameSync(src, target)
-    } catch {
-      // 跨盘等情况 rename 失败则复制
-      fs.cpSync(src, target, { recursive: true })
-      fs.rmSync(src, { recursive: true, force: true })
+      const size = await javaPackageSize(pkg, url => httpFetch(url, { method: 'HEAD', systemProxy: true, signal: AbortSignal.timeout(10000) }))
+      await downloadFile(pkg.url, archive, (done, total) => emit({ stage: 'java', progress: total ? done / total * .85 : 0, bytesDone: done, text: `下载 Java ${need} · ${pkg.provider} ${(done / 1048576).toFixed(1)}${total ? '/' + (total / 1048576).toFixed(1) : ''} MB` }), undefined, 'official', undefined, [], { sha256: pkg.sha256, size, systemProxy: true, maxAttempts: 2 })
+      emit({ stage: 'java', progress: .9, text: `校验通过，正在解压 Java ${need} · ${pkg.provider}` })
+      fs.mkdirSync(extracted)
+      if (IS_WIN) new AdmZip(archive).extractAllTo(extracted, true)
+      else await new Promise<void>((resolve, reject) => execFile('/usr/bin/tar', ['-xzf', archive, '-C', extracted], { timeout: 120000 }, error => error ? reject(error) : resolve()))
+      const entries = fs.readdirSync(extracted)
+      const source = entries.length === 1 && fs.statSync(path.join(extracted, entries[0])).isDirectory() ? path.join(extracted, entries[0]) : extracted
+      const candidates = IS_MAC ? [path.join(source, 'Contents/Home/bin/java'), path.join(source, 'bin/java')] : [path.join(source, 'bin', JAVA_EXE)]
+      const exe = candidates.find(file => fs.existsSync(file))
+      if (!exe || !fs.realpathSync(exe).startsWith(fs.realpathSync(extracted) + path.sep)) throw new Error('Java 解压失败：未找到有效的 bin/java')
+      if (!IS_WIN) fs.chmodSync(exe, 0o755)
+      emit({ stage: 'java', progress: .95, text: `正在验证 Java ${need} · ${pkg.provider}（${arch}）` })
+      const verified = await probeJavaAsync(exe)
+      if (!verified || verified.major !== need || verified.architecture !== (arch === 'aarch64' ? 'arm64' : 'x64')) throw new Error(`Java ${need} 无法运行或架构不匹配${IS_MAC && process.arch === 'arm64' && arch === 'x64' ? '；旧版游戏需要 Intel Java，请确认系统已安装 Rosetta' : ''}`)
+      await validateJavaRuntime(exe, verified.major)
+      // Publish a fresh directory only after verification. Never remove or replace
+      // a runtime that an already-running game may still be using.
+      const target = path.join(root, `jre-${need}-${arch}-${path.basename(staging).slice(6)}`)
+      const relativeExe = path.relative(source, exe)
+      fs.renameSync(source, target)
+      const installedPath = path.join(target, relativeExe)
+      const info = probeCache.put(installedPath, { ...verified, path: installedPath, source: 'auto', sourceDetail: `KAMUCL Runtime · ${pkg.provider}` })
+      const persisted = readPersistentCache()
+      scanCache = { time: Date.now(), list: sortJava([...(scanCache?.list ?? persisted?.list ?? []), info]), complete: scanCache?.complete ?? !!persisted }
+      if (persisted) writePersistentCache(sortJava([...persisted.list, info]))
+      emit({ stage: 'java', progress: 1, text: `Java ${need} 就绪 · ${pkg.provider}（${arch}）` })
+      return installedPath
+    } finally {
+      // staging is a unique mkdtemp child of the managed runtime root.
+      await fs.promises.rm(staging, { recursive: true, force: true })
     }
-  } finally {
-    fs.rmSync(extractTmp, { recursive: true, force: true })
-    fs.rmSync(tmpPkg, { force: true })
-  }
-
-  // Windows: bin/java.exe；macOS: Contents/Home/bin/java；Linux: bin/java
-  const candidates = IS_MAC
-    ? [path.join(target, 'Contents', 'Home', 'bin', JAVA_EXE), path.join(target, 'bin', JAVA_EXE)]
-    : [path.join(target, 'bin', JAVA_EXE)]
-  const exe = candidates.find((p) => fs.existsSync(p))
-  if (!exe) {
-    fs.rmSync(target, { recursive: true, force: true })
-    throw new Error('Java 解压失败：未找到 bin/java')
-  }
-  // macOS/Linux 确保可执行权限
-  if (!IS_WIN) {
-    try {
-      fs.chmodSync(exe, 0o755)
-    } catch {
-      /* 忽略 */
-    }
-  }
-  emit({ stage: 'java', progress: 1, text: `Java ${need} 就绪` })
-  return exe
+  }, report)
 }

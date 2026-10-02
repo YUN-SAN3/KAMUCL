@@ -1,3 +1,5 @@
+import { recycleFile } from './recycleFile'
+import { withFileJob } from './fileJobs'
 /**
  * 皮肤/披风模块：官方 Minecraft Services API + 本地历史皮肤存储
  * 存储：userData/skins/<id>.png + userData/skins.json [{id,variant,time}]（新→旧）
@@ -350,19 +352,16 @@ export async function history(): Promise<SkinHistoryEntry[]> {
 
 /** 删除某条历史（文件 + 记录），返回最新历史列表 */
 export async function historyDelete(id: string): Promise<SkinHistoryEntry[]> {
-  const safe = path.basename(String(id ?? ''))
-  const list = loadHistory()
-  const idx = list.findIndex((i) => i.id === safe)
-  if (idx >= 0) {
-    list.splice(idx, 1)
+  return withFileJob(skinsDir(), undefined, async () => {
+    const list = loadHistory()
+    const idx = list.findIndex(item => item.id === id)
+    if (idx < 0) throw new Error('历史皮肤不存在，请刷新后重试')
+    await recycleFile(skinsDir(), id + '.png')
+    const currentIndex = list.findIndex(item => item.id === id)
+    if (currentIndex >= 0) list.splice(currentIndex, 1)
     persistHistory()
-  }
-  try {
-    fs.rmSync(path.join(skinsDir(), `${safe}.png`), { force: true })
-  } catch {
-    /* 忽略 */
-  }
-  return history()
+    return history()
+  })
 }
 
 /** 重命名历史记录（仅改显示名，不动文件），返回最新历史列表 */

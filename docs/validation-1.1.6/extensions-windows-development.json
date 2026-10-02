@@ -1,0 +1,59 @@
+{
+  "version": "1.1.6",
+  "skinPixels": [
+    [
+      4,
+      12
+    ],
+    [
+      12,
+      12
+    ],
+    [
+      28,
+      12
+    ],
+    [
+      44,
+      12
+    ]
+  ],
+  "legacySkinImport": true,
+  "skinHistory": true,
+  "skinUpload": "isolated failure/success fixtures; profile refresh observed",
+  "tickets": "isolated fixtures; selection no submission; rate countdown",
+  "projectionSourceUnchanged": true,
+  "multiRoot": true,
+  "modern26": true,
+  "mascots": {
+    "counts": {
+      "q3": 1,
+      "qiqi": 1,
+      "biyuehu": 0,
+      "hongshu": 0,
+      "kamu": 0,
+      "milo": 0,
+      "muchuanbei": 0
+    },
+    "order": [
+      "qiqi",
+      "q3",
+      "biyuehu",
+      "hongshu",
+      "kamu",
+      "milo",
+      "muchuanbei"
+    ]
+  },
+  "memory": {
+    "applicable": true,
+    "beforeMB": 97324,
+    "afterMB": 98778,
+    "processed": 237,
+    "skipped": 328,
+    "failures": {
+      "打开进程失败（Windows 5）": 237
+    },
+    "elapsedMs": 1243
+  }
+}

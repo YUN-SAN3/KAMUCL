@@ -1,0 +1,2119 @@
+{
+  "version": "1.0.98",
+  "pack": "方可梦：炽白真形 客户端-0.1.15-BETA-2ef268eae429.zip",
+  "packSHA256": "01cd0e9975811c875f3f5fe3e32fe57eafd6e13de939e8a143235dbd28ea4ca5",
+  "exeSHA256": "644319af6463e35a6e9f6e98524a11bc25c0c4ba7f69a35f8478a88e309a9927",
+  "environment": "Windows x64 / Electron 44.3.0; isolated empty game directory and profile; existing Java 21",
+  "installSeconds": 68.993,
+  "manualSupplementRequested": false,
+  "manifestFiles": 262,
+  "uniqueAssets": 3888,
+  "verifiedLibraries": 106,
+  "summary": "[2026-09-21T11:20:03.983Z] [INFO] [modpack] CurseForge 清单 262 个文件：复用包内 10 个、本地 0 个，备用源补全 6 个，自动下载 246 个，待补充 0 个",
+  "locations": [
+    {
+      "fileID": 8614153,
+      "projectID": 1395542,
+      "fileName": "CobblemonTrialsEdition-neoforge-2.1.0.jar",
+      "installedPath": "mods/CobblemonTrialsEdition-neoforge-2.1.0.jar",
+      "size": 282010,
+      "sha1": "f09ab5c252fdc456cc704957f42b12ef04f453a9"
+    },
+    {
+      "fileID": 7913180,
+      "projectID": 1009534,
+      "fileName": "rctmod-neoforge-1.21.1-0.18.1-beta.jar",
+      "installedPath": "mods/rctmod-neoforge-1.21.1-0.18.1-beta.jar",
+      "size": 7536984,
+      "sha1": "98afe295a4ac17dc6fd1427df623b721fbf11b50"
+    },
+    {
+      "fileID": 8494533,
+      "projectID": 1427527,
+      "fileName": "cobblemarks+-1.2.2-release.jar",
+      "installedPath": "mods/cobblemarks+-1.2.2-release.jar",
+      "size": 52062,
+      "sha1": "4e4cbda3c0c7a2ebe3aed2fd42109b3073015d52"
+    },
+    {
+      "fileID": 8614899,
+      "projectID": 1349231,
+      "fileName": "cobblemonraiddens-neoforge-0.11.6+1.21.1.jar",
+      "installedPath": "mods/cobblemonraiddens-neoforge-0.11.6+1.21.1.jar",
+      "size": 2716955,
+      "sha1": "1ba5fed7a9ead4fc8525ad1a990d41c12e4cd1e8"
+    },
+    {
+      "fileID": 7221528,
+      "projectID": 689467,
+      "fileName": "packetfixer-3.3.1-1.20.5-1.21.X-merged.jar",
+      "installedPath": "mods/packetfixer-3.3.1-1.20.5-1.21.X-merged.jar",
+      "size": 46623,
+      "sha1": "a8bb6e25807682e72c23bf4065f3cd5f6373ece3"
+    },
+    {
+      "fileID": 5579007,
+      "projectID": 481655,
+      "fileName": "Female-Gender-Mod-neoforge-1.21-3.2.2.jar",
+      "installedPath": "mods/Female-Gender-Mod-neoforge-1.21-3.2.2.jar",
+      "size": 835948,
+      "sha1": "f2e4027d0943c04700173a97c88aaebb1f1777ad"
+    },
+    {
+      "fileID": 8754470,
+      "projectID": 1649198,
+      "fileName": "Explorer's Compass Enhance-1.21.1-neoforge-1.5.2.jar",
+      "installedPath": "mods/Explorer's Compass Enhance-1.21.1-neoforge-1.5.2.jar",
+      "size": 431606,
+      "sha1": "1248d27bd867805a8130bdef26dfb66466297677"
+    },
+    {
+      "fileID": 7854442,
+      "projectID": 248787,
+      "fileName": "appleskin-neoforge-mc1.21-3.0.9.jar",
+      "installedPath": "mods/appleskin-neoforge-mc1.21-3.0.9.jar",
+      "size": 75804,
+      "sha1": "81cf0e668f991f83ac8820c386fbd6c9c3602246"
+    },
+    {
+      "fileID": 7346553,
+      "projectID": 532286,
+      "fileName": "jeed-1.21-2.3.2.jar",
+      "installedPath": "mods/jeed-1.21-2.3.2.jar",
+      "size": 164003,
+      "sha1": "144ffaf459b58db14614a7e1ef3425c2594e30b6"
+    },
+    {
+      "fileID": 8498229,
+      "projectID": 232131,
+      "fileName": "defaultoptions-neoforge-1.21.1-21.1.8.jar",
+      "installedPath": "mods/defaultoptions-neoforge-1.21.1-21.1.8.jar",
+      "size": 105507,
+      "sha1": "d682687ec41236092c5206a21e2ed34bdb7f6b79"
+    },
+    {
+      "fileID": 5831692,
+      "projectID": 858542,
+      "fileName": "Searchables-neoforge-1.21.1-1.0.2.jar",
+      "installedPath": "mods/Searchables-neoforge-1.21.1-1.0.2.jar",
+      "size": 77326,
+      "sha1": "5b8a0b43a474c066371b2e16f9bfb88622552a74"
+    },
+    {
+      "fileID": 8177588,
+      "projectID": 915902,
+      "fileName": "EuphoriaPatcher-1.9.3-r5.8.1-neoforge.jar",
+      "installedPath": "mods/EuphoriaPatcher-1.9.3-r5.8.1-neoforge.jar",
+      "size": 4210708,
+      "sha1": "a8e8a45390d30b82f722acc669d5cb2a5d9fff79"
+    },
+    {
+      "fileID": 7828515,
+      "projectID": 970671,
+      "fileName": "better_structure_block-neoforge1.21.1-2.1.0.jar",
+      "installedPath": "mods/better_structure_block-neoforge1.21.1-2.1.0.jar",
+      "size": 12619,
+      "sha1": "8b37b01a9361a18f3c5065ffa3606703b051fdf5"
+    },
+    {
+      "fileID": 7568439,
+      "projectID": 900238,
+      "fileName": "counter-neoforge-1.7.3-1.9.0.jar",
+      "installedPath": "mods/counter-neoforge-1.7.3-1.9.0.jar",
+      "size": 165401,
+      "sha1": "77e7605ac31ee3b261d100fb54da25cae1896707"
+    },
+    {
+      "fileID": 8645538,
+      "projectID": 245755,
+      "fileName": "waystones-neoforge-1.21.1-21.1.41.jar",
+      "installedPath": "mods/waystones-neoforge-1.21.1-21.1.41.jar",
+      "size": 1217415,
+      "sha1": "ce8f17600506c2a201c6eb5ff50e16d39f775ad6"
+    },
+    {
+      "fileID": 5591015,
+      "projectID": 521590,
+      "fileName": "Highlighter-1.21-neoforge-1.1.11.jar",
+      "installedPath": "mods/Highlighter-1.21-neoforge-1.1.11.jar",
+      "size": 30417,
+      "sha1": "22d29eba774530b40a540fdf5ce2d14d89bbe036"
+    },
+    {
+      "fileID": 8232444,
+      "projectID": 462128,
+      "fileName": "TaxFreeLevels-1.4.23-neoforge-1.21.1.jar",
+      "installedPath": "mods/TaxFreeLevels-1.4.23-neoforge-1.21.1.jar",
+      "size": 36871,
+      "sha1": "d9d49262eb83c40bb823ab077afb14a1ce6291d4"
+    },
+    {
+      "fileID": 7760593,
+      "projectID": 482378,
+      "fileName": "ParCool-1.21.1-3.4.3.3-NF.jar",
+      "installedPath": "mods/ParCool-1.21.1-3.4.3.3-NF.jar",
+      "size": 1146864,
+      "sha1": "d0ce92c2583875977919de722923abf18985c738"
+    },
+    {
+      "fileID": 8636544,
+      "projectID": 1456394,
+      "fileName": "AioStructures-4.8.1.1.jar",
+      "installedPath": "mods/AioStructures-4.8.1.1.jar",
+      "size": 422898,
+      "sha1": "f7b69c4f62d85ecd8f91a40ef02e592ec4a9740b"
+    },
+    {
+      "fileID": 7583320,
+      "projectID": 938917,
+      "fileName": "accessories-neoforge-1.1.0-beta.53+1.21.1.jar",
+      "installedPath": "mods/accessories-neoforge-1.1.0-beta.53+1.21.1.jar",
+      "size": 1078697,
+      "sha1": "77d75c2e13cfdf56a45cdd29806c1c97c3d250fc"
+    },
+    {
+      "fileID": 8705083,
+      "projectID": 618298,
+      "fileName": "sophisticatedcore-1.21.1-1.4.90.2299.jar",
+      "installedPath": "mods/sophisticatedcore-1.21.1-1.4.90.2299.jar",
+      "size": 1687195,
+      "sha1": "b4d4252514f38224cab5d932baff66278bd84ff4"
+    },
+    {
+      "fileID": 8251525,
+      "projectID": 495476,
+      "fileName": "PuzzlesLib-v21.1.52-1.21.1-NeoForge.jar",
+      "installedPath": "mods/PuzzlesLib-v21.1.52-1.21.1-NeoForge.jar",
+      "size": 1425176,
+      "sha1": "66182c3affb9f99624d1d770ca168d2a63af83f6"
+    },
+    {
+      "fileID": 8061947,
+      "projectID": 841890,
+      "fileName": "athena-neoforge-1.21.1-4.0.6.jar",
+      "installedPath": "mods/athena-neoforge-1.21.1-4.0.6.jar",
+      "size": 99944,
+      "sha1": "4bcbdf388bd5e387beca7c627224aac33584b55b"
+    },
+    {
+      "fileID": 7952419,
+      "projectID": 1152792,
+      "fileName": "rctapi-neoforge-1.21.1-0.15.2-beta.jar",
+      "installedPath": "mods/rctapi-neoforge-1.21.1-0.15.2-beta.jar",
+      "size": 235207,
+      "sha1": "06914d0d3dde9e92d14b5944db4e494527d89df0"
+    },
+    {
+      "fileID": 8063559,
+      "projectID": 844662,
+      "fileName": "entity_model_features-3.2.4-1.21-neoforge.jar",
+      "installedPath": "mods/entity_model_features-3.2.4-1.21-neoforge.jar",
+      "size": 567827,
+      "sha1": "fcc0d7cfee5ace4dba159225edd151d90dd924b9"
+    },
+    {
+      "fileID": 7251787,
+      "projectID": 610844,
+      "fileName": "Bliss_v2.1.2_(Chocapic13_Shaders_edit).zip",
+      "installedPath": "shaderpacks/Bliss_v2.1.2_(Chocapic13_Shaders_edit).zip",
+      "size": 1791406,
+      "sha1": "ded6c8a98305f8aff90ef781e7585b33b8452cfd"
+    },
+    {
+      "fileID": 8702150,
+      "projectID": 1015100,
+      "fileName": "YungsApi-1.21.1-NeoForge-5.1.8.jar",
+      "installedPath": "mods/YungsApi-1.21.1-NeoForge-5.1.8.jar",
+      "size": 389834,
+      "sha1": "eb5757e5cb387553ed4d342e7aecf5b7dcb384a0"
+    },
+    {
+      "fileID": 8772528,
+      "projectID": 1189523,
+      "fileName": "mega_showdown-neoforge-1.9.6+1.7.3+1.21.1.jar",
+      "installedPath": "mods/mega_showdown-neoforge-1.9.6+1.7.3+1.21.1.jar",
+      "size": 20333408,
+      "sha1": "6248134d046e12790ea883c3c83335a578b5f0e8"
+    },
+    {
+      "fileID": 8771217,
+      "projectID": 250702,
+      "fileName": "jecharacters-1.21.1-neoforge-4.5.29.jar",
+      "installedPath": "mods/jecharacters-1.21.1-neoforge-4.5.29.jar",
+      "size": 254111,
+      "sha1": "2325c72eadfb19c9feb3901435ca5a9cebc7a46c"
+    },
+    {
+      "fileID": 7293249,
+      "projectID": 1290170,
+      "fileName": "MaxRepel-neoforge-1.3.1.jar",
+      "installedPath": "mods/MaxRepel-neoforge-1.3.1.jar",
+      "size": 78460,
+      "sha1": "5f569073bdc8bcc9dd233b124f87e783fe7b43ae"
+    },
+    {
+      "fileID": 8338959,
+      "projectID": 1372086,
+      "fileName": "preloading-tricks-3.7.3.jar",
+      "installedPath": "mods/preloading-tricks-3.7.3.jar",
+      "size": 1759406,
+      "sha1": "bc8e412214a676d6c42b98037f01837928e605a8"
+    },
+    {
+      "fileID": 8654089,
+      "projectID": 890127,
+      "fileName": "connector-2.0.0-beta.17+1.21.1-full.jar",
+      "installedPath": "mods/connector-2.0.0-beta.17+1.21.1-full.jar",
+      "size": 4573244,
+      "sha1": "ba08b534af7982d0bd25a25b45cb654c09ffec8f"
+    },
+    {
+      "fileID": 5873258,
+      "projectID": 401648,
+      "fileName": "BetterF3-11.0.3-NeoForge-1.21.1.jar",
+      "installedPath": "mods/BetterF3-11.0.3-NeoForge-1.21.1.jar",
+      "size": 481646,
+      "sha1": "8fa17df26d3650416bc124be7a264bc1566a3b26"
+    },
+    {
+      "fileID": 8287097,
+      "projectID": 448233,
+      "fileName": "entityculling-neoforge-1.10.5-mc1.21.1.jar",
+      "installedPath": "mods/entityculling-neoforge-1.10.5-mc1.21.1.jar",
+      "size": 1585287,
+      "sha1": "420d0006dbc0a20b1c2dd0b3c7c20ddb5cc51fcf"
+    },
+    {
+      "fileID": 7957421,
+      "projectID": 1441260,
+      "fileName": "cobblemon_battle_tower-neoforge-1.10.22.jar",
+      "installedPath": "mods/cobblemon_battle_tower-neoforge-1.10.22.jar",
+      "size": 52074677,
+      "sha1": "90a48ce1e827967637763b864705e81f70be21b7"
+    },
+    {
+      "fileID": 8681188,
+      "projectID": 1588510,
+      "fileName": "GEO-v0.3.5-NeoForge-1.21.1.jar",
+      "installedPath": "mods/GEO-v0.3.5-NeoForge-1.21.1.jar",
+      "size": 26517815,
+      "sha1": "f72b115941b22233393b12cb9a01f281832c252e"
+    },
+    {
+      "fileID": 7524151,
+      "projectID": 429235,
+      "fileName": "ferritecore-7.0.3-neoforge.jar",
+      "installedPath": "mods/ferritecore-7.0.3-neoforge.jar",
+      "size": 121559,
+      "sha1": "9563692efb708b6b568df27a01ec52f6311928ef"
+    },
+    {
+      "fileID": 8341460,
+      "projectID": 342584,
+      "fileName": "collective-1.21.1-8.39.jar",
+      "installedPath": "mods/collective-1.21.1-8.39.jar",
+      "size": 1061931,
+      "sha1": "b1153f03c97bccaa6bc11d6199f07f16ef4318ff"
+    },
+    {
+      "fileID": 8643996,
+      "projectID": 431203,
+      "fileName": "MakeUp-UltraFast-9.5d.zip",
+      "installedPath": "shaderpacks/MakeUp-UltraFast-9.5d.zip",
+      "size": 400386,
+      "sha1": "b8705a6871930c801959d103949fcc28281622db"
+    },
+    {
+      "fileID": 8528892,
+      "projectID": 969937,
+      "fileName": "respawningstructures-1.21.1-4.4.jar",
+      "installedPath": "mods/respawningstructures-1.21.1-4.4.jar",
+      "size": 71851,
+      "sha1": "0a9de154de5ae3831527935475b5dc5b46db8d1c"
+    },
+    {
+      "fileID": 7714806,
+      "projectID": 1478303,
+      "fileName": "BotanyPots - Cobblemon Integrations.zip",
+      "installedPath": "global_packs/datapacks/BotanyPots - Cobblemon Integrations.zip",
+      "size": 394646,
+      "sha1": "be81c7eb8b590fd4b62d738dc7cd63a72a45b9ea"
+    },
+    {
+      "fileID": 8340192,
+      "projectID": 1188698,
+      "fileName": "CobbleFurnies-neoforge-1.2.jar",
+      "installedPath": "mods/CobbleFurnies-neoforge-1.2.jar",
+      "size": 2343464,
+      "sha1": "451c445ff636c1e5821f13e3a3f40ee16ecb3342"
+    },
+    {
+      "fileID": 8442866,
+      "projectID": 410811,
+      "fileName": "ftb-essentials-neoforge-2101.1.10.jar",
+      "installedPath": "mods/ftb-essentials-neoforge-2101.1.10.jar",
+      "size": 217288,
+      "sha1": "fa7b3d1b06c0285dcbe8e53a27d44cd7f8d15726"
+    },
+    {
+      "fileID": 8460762,
+      "projectID": 1244682,
+      "fileName": "KotlinLangForge-2.12.2-k2.4.10-3.0+neoforge.jar",
+      "installedPath": "mods/KotlinLangForge-2.12.2-k2.4.10-3.0+neoforge.jar",
+      "size": 7982542,
+      "sha1": "7063330338a7a3ee0cbeb94cf8b55a9caecb4642"
+    },
+    {
+      "fileID": 8595478,
+      "projectID": 1202617,
+      "fileName": "cobblemon_smartphone-neoforge-1.1.3.jar",
+      "installedPath": "mods/cobblemon_smartphone-neoforge-1.1.3.jar",
+      "size": 1520868,
+      "sha1": "c272405597cfc0afb39140625a48f358a1a8e2a5"
+    },
+    {
+      "fileID": 8420966,
+      "projectID": 243121,
+      "fileName": "Quark-4.1-482.jar",
+      "installedPath": "mods/Quark-4.1-482.jar",
+      "size": 15576704,
+      "sha1": "f73c3008321a9fb2da1151be9b49f0dfd006b6b5"
+    },
+    {
+      "fileID": 7568897,
+      "projectID": 1005914,
+      "fileName": "fzzy_config-0.7.6+1.21+neoforge.jar",
+      "installedPath": "mods/fzzy_config-0.7.6+1.21+neoforge.jar",
+      "size": 2369895,
+      "sha1": "c0910f9b975aaab8545ce950539748fb33d704d1"
+    },
+    {
+      "fileID": 6530094,
+      "projectID": 1034908,
+      "fileName": "badgebox-neoforge-1.3.0.jar",
+      "installedPath": "mods/badgebox-neoforge-1.3.0.jar",
+      "size": 75733,
+      "sha1": "12b04689e12523c0f689775c68a628f1cf65eef2"
+    },
+    {
+      "fileID": 8496396,
+      "projectID": 1445681,
+      "fileName": "horizoncobblemonitems-2.0.jar",
+      "installedPath": "mods/horizoncobblemonitems-2.0.jar",
+      "size": 245542,
+      "sha1": "883d794bb9ba8323ff1f358033a685f5f8acb11b"
+    },
+    {
+      "fileID": 8646924,
+      "projectID": 1586020,
+      "fileName": "cobblemon_incubator-neoforge-1.0.5.jar",
+      "installedPath": "mods/cobblemon_incubator-neoforge-1.0.5.jar",
+      "size": 344580,
+      "sha1": "9bd5b96c0bb118337e7fbf91fe27433c90a1a3a9"
+    },
+    {
+      "fileID": 5812553,
+      "projectID": 1015149,
+      "fileName": "YungsBridges-1.21.1-NeoForge-5.1.1.jar",
+      "installedPath": "mods/YungsBridges-1.21.1-NeoForge-5.1.1.jar",
+      "size": 136820,
+      "sha1": "18099c2d54acd16bb8ab90a66f40fa16496d065e"
+    },
+    {
+      "fileID": 7886114,
+      "projectID": 1261726,
+      "fileName": "playerxp-neoforge-1.0.9+1.21.1.jar",
+      "installedPath": "mods/playerxp-neoforge-1.0.9+1.21.1.jar",
+      "size": 10974,
+      "sha1": "6812cb62b249eb2d011a79c0010f531d4339286d"
+    },
+    {
+      "fileID": 8445597,
+      "projectID": 1499680,
+      "fileName": "MoogsBountifulStructures-1.21-1.0.10.jar",
+      "installedPath": "mods/MoogsBountifulStructures-1.21-1.0.10.jar",
+      "size": 698606,
+      "sha1": "e5b63c19e78be484a1dffb6d170addf8672caf6c"
+    },
+    {
+      "fileID": 5694215,
+      "projectID": 308989,
+      "fileName": "caelus-neoforge-7.0.1+1.21.1.jar",
+      "installedPath": "mods/caelus-neoforge-7.0.1+1.21.1.jar",
+      "size": 50235,
+      "sha1": "e4c2e1af4e3082d68f7df75f7c8ce30116d71515"
+    },
+    {
+      "fileID": 7985488,
+      "projectID": 1326436,
+      "fileName": "fancytoasts-neoforge-1.21.1-1.4.7.jar",
+      "installedPath": "mods/fancytoasts-neoforge-1.21.1-1.4.7.jar",
+      "size": 372782,
+      "sha1": "f484d2aa960475fddd2c15a276c3328ea8feb62e"
+    },
+    {
+      "fileID": 7844709,
+      "projectID": 551151,
+      "fileName": "EnchantingInfuser-v21.1.4-1.21.1-NeoForge.jar",
+      "installedPath": "mods/EnchantingInfuser-v21.1.4-1.21.1-NeoForge.jar",
+      "size": 200056,
+      "sha1": "62bfa1cf50abeb3034cd4477e6c995e16ab7965c"
+    },
+    {
+      "fileID": 8371305,
+      "projectID": 1559491,
+      "fileName": "cobblemon-quick-item-switcher-1.2.0.jar",
+      "installedPath": "mods/cobblemon-quick-item-switcher-1.2.0.jar",
+      "size": 88362,
+      "sha1": "239d7d768471a27b1746c3fe1433df42dbc6ef65"
+    },
+    {
+      "fileID": 7967633,
+      "projectID": 1340029,
+      "fileName": "ezactions-neoforge-1.21.1-2.0.3.5.jar",
+      "installedPath": "mods/ezactions-neoforge-1.21.1-2.0.3.5.jar",
+      "size": 498920,
+      "sha1": "df2234c19d6a0df369c8954c6282ecf71d60dc77"
+    },
+    {
+      "fileID": 8463693,
+      "projectID": 283644,
+      "fileName": "Placebo-1.21.1-9.9.2.jar",
+      "installedPath": "mods/Placebo-1.21.1-9.9.2.jar",
+      "size": 324058,
+      "sha1": "d44335094cf2db64998cb3ee31e58d8c01e80b4a"
+    },
+    {
+      "fileID": 8698659,
+      "projectID": 317780,
+      "fileName": "xaeroworldmap-neoforge-1.21.1-1.45.0.jar",
+      "installedPath": "mods/xaeroworldmap-neoforge-1.21.1-1.45.0.jar",
+      "size": 1422531,
+      "sha1": "f243d6877ab32333f27bf27ad1e9eb600361e6aa"
+    },
+    {
+      "fileID": 8648344,
+      "projectID": 1652483,
+      "fileName": "cobblemon-riders-call-neoforge-1.0.1+1.21.1.jar",
+      "installedPath": "mods/cobblemon-riders-call-neoforge-1.0.1+1.21.1.jar",
+      "size": 610090,
+      "sha1": "fce141a35cc8afd96c2e98a8f1a2571648756766"
+    },
+    {
+      "fileID": 6786683,
+      "projectID": 923755,
+      "fileName": "0Pack2Reload-NeoForge-1.21.1-1.0.1.jar",
+      "installedPath": "mods/0Pack2Reload-NeoForge-1.21.1-1.0.1.jar",
+      "size": 5561,
+      "sha1": "9654ef43899b5f1e18defdd1eaffc5062e48f39b"
+    },
+    {
+      "fileID": 8645517,
+      "projectID": 531761,
+      "fileName": "balm-neoforge-1.21.1-21.0.65.jar",
+      "installedPath": "mods/balm-neoforge-1.21.1-21.0.65.jar",
+      "size": 783793,
+      "sha1": "69e0b3b69dd23c132e85b7e82310f45ae96b263d"
+    },
+    {
+      "fileID": 7530361,
+      "projectID": 549225,
+      "fileName": "framework-neoforge-1.21.1-0.13.11.jar",
+      "installedPath": "mods/framework-neoforge-1.21.1-0.13.11.jar",
+      "size": 387334,
+      "sha1": "e46eb138fbb13a12f37154fb4ec407d64b326475"
+    },
+    {
+      "fileID": 8696992,
+      "projectID": 1570822,
+      "fileName": "cobblebash-0.1.5.jar",
+      "installedPath": "mods/cobblebash-0.1.5.jar",
+      "size": 2386083,
+      "sha1": "6a3fd190504ca575e19086c31263d4064989a7d2"
+    },
+    {
+      "fileID": 7602598,
+      "projectID": 1457893,
+      "fileName": "tumblestonelegends-neoforge-0.1.1-beta.jar",
+      "installedPath": "mods/tumblestonelegends-neoforge-0.1.1-beta.jar",
+      "size": 36263,
+      "sha1": "a715f59b07d5dbc718cc8c46e4111ce771177c08"
+    },
+    {
+      "fileID": 8642626,
+      "projectID": 1118199,
+      "fileName": "RCT Trainers+ [1.7] v2.2.zip",
+      "installedPath": "resourcepacks/RCT Trainers+ [1.7] v2.2.zip",
+      "size": 4893539,
+      "sha1": "059b2585974230def7253a7384ce45a0b4568abd"
+    },
+    {
+      "fileID": 8109792,
+      "projectID": 955399,
+      "fileName": "GlitchCore-neoforge-1.21.1-2.1.0.2.jar",
+      "installedPath": "mods/GlitchCore-neoforge-1.21.1-2.1.0.2.jar",
+      "size": 90717,
+      "sha1": "a31c3f36330f19aa538add3d727782a62c9c30ad"
+    },
+    {
+      "fileID": 8231400,
+      "projectID": 386134,
+      "fileName": "ftb-ultimine-neoforge-2101.1.15.jar",
+      "installedPath": "mods/ftb-ultimine-neoforge-2101.1.15.jar",
+      "size": 177109,
+      "sha1": "c96a7cc0b52bf919660ea61c1536cebd9d5773b3"
+    },
+    {
+      "fileID": 7930620,
+      "projectID": 568563,
+      "fileName": "entity_texture_features_1.21-neoforge-7.1.jar",
+      "installedPath": "mods/entity_texture_features_1.21-neoforge-7.1.jar",
+      "size": 752334,
+      "sha1": "56de40b237ff44dbf1bb68844e0f118607902684"
+    },
+    {
+      "fileID": 8190687,
+      "projectID": 308769,
+      "fileName": "fabric-language-kotlin-1.13.12+kotlin.2.4.0.jar",
+      "installedPath": "mods/fabric-language-kotlin-1.13.12+kotlin.2.4.0.jar",
+      "size": 8076848,
+      "sha1": "2bc17bb4275cc70a12e4ac35d139a71a30845720"
+    },
+    {
+      "fileID": 8693034,
+      "projectID": 250419,
+      "fileName": "enchdesc-neoforge-1.21.1-21.1.11.jar",
+      "installedPath": "mods/enchdesc-neoforge-1.21.1-21.1.11.jar",
+      "size": 82648,
+      "sha1": "4d453df785ac21e0e7389cba949f4fa460c3e267"
+    },
+    {
+      "fileID": 7673549,
+      "projectID": 913400,
+      "fileName": "cobblemonintegrations-neoforge-1.21.1-1.1.6.jar",
+      "installedPath": "mods/cobblemonintegrations-neoforge-1.21.1-1.1.6.jar",
+      "size": 366734,
+      "sha1": "25468a1bb884998a0ebf7c061c32641fa0909841"
+    },
+    {
+      "fileID": 6054947,
+      "projectID": 940057,
+      "fileName": "TerraBlender-neoforge-1.21.1-4.1.0.8.jar",
+      "installedPath": "mods/TerraBlender-neoforge-1.21.1-4.1.0.8.jar",
+      "size": 120364,
+      "sha1": "2016eed89eac0eb0510d2190c3b0b80bf4346191"
+    },
+    {
+      "fileID": 8404745,
+      "projectID": 1168140,
+      "fileName": "fightorflight-neoforge-0.10.9.jar",
+      "installedPath": "mods/fightorflight-neoforge-0.10.9.jar",
+      "size": 1427757,
+      "sha1": "96218ac07f938669bb6e5b57e6d5aca1cdbb30a6"
+    },
+    {
+      "fileID": 7938283,
+      "projectID": 1295910,
+      "fileName": "timcore-neoforge-1.7.3-1.32.0.jar",
+      "installedPath": "mods/timcore-neoforge-1.7.3-1.32.0.jar",
+      "size": 306328,
+      "sha1": "741eb2aeac006f87d0d413965b2d965118ddae22"
+    },
+    {
+      "fileID": 8335665,
+      "projectID": 351264,
+      "fileName": "kotlinforforge-5.12.0-all.jar",
+      "installedPath": "mods/kotlinforforge-5.12.0-all.jar",
+      "size": 7279276,
+      "sha1": "a2032c921e93a0ccb0db5d742167e3139c2de01b"
+    },
+    {
+      "fileID": 8659597,
+      "projectID": 1643642,
+      "fileName": "enchanted_outlines-0.1.8.jar",
+      "installedPath": "mods/enchanted_outlines-0.1.8.jar",
+      "size": 104632,
+      "sha1": "77d1980d5a2b4b2de06bce1d632a31dedf7f82fd"
+    },
+    {
+      "fileID": 8541815,
+      "projectID": 1454873,
+      "fileName": "lost_lore-neoforge-3.0.0.jar",
+      "installedPath": "mods/lost_lore-neoforge-3.0.0.jar",
+      "size": 4912068,
+      "sha1": "57a8d3b09dedb74247e9a9238924376531cff35f"
+    },
+    {
+      "fileID": 8691041,
+      "projectID": 1652625,
+      "fileName": "cobblemon_dreamweaving_prism_ball-neoforge1.21.1-1.0.2.jar",
+      "installedPath": "mods/cobblemon_dreamweaving_prism_ball-neoforge1.21.1-1.0.2.jar",
+      "size": 95645,
+      "sha1": "22fe26e659c82a7f75b57006046f8ee51be13869"
+    },
+    {
+      "fileID": 7568508,
+      "projectID": 901059,
+      "fileName": "capturexp-neoforge-1.7.3-1.3.0.jar",
+      "installedPath": "mods/capturexp-neoforge-1.7.3-1.3.0.jar",
+      "size": 22895,
+      "sha1": "49bd6e318afc2d9f99d1bbd753012738ecc3c7ed"
+    },
+    {
+      "fileID": 8646414,
+      "projectID": 1380105,
+      "fileName": "duplicationless-1.21.1-1.2.1.jar",
+      "installedPath": "mods/duplicationless-1.21.1-1.2.1.jar",
+      "size": 230919,
+      "sha1": "c3f8e32ee4239bb14c11940518085b66ca1cd5f5"
+    },
+    {
+      "fileID": 7493644,
+      "projectID": 910766,
+      "fileName": "mafglib-0.4.3+mc1.21.1.jar",
+      "installedPath": "mods/mafglib-0.4.3+mc1.21.1.jar",
+      "size": 1314767,
+      "sha1": "9f62df832b1d5c9fe1aead873bd65cb8defacac7"
+    },
+    {
+      "fileID": 8681033,
+      "projectID": 1504338,
+      "fileName": "Cosmetic Forms [v1.4].jar",
+      "installedPath": "mods/Cosmetic Forms [v1.4].jar",
+      "size": 365568,
+      "sha1": "4086fc2ac69efe0821becf50f41eb015f4db2283"
+    },
+    {
+      "fileID": 5572364,
+      "projectID": 557076,
+      "fileName": "freecam-neoforge-1.3.0+mc1.21.jar",
+      "installedPath": "mods/freecam-neoforge-1.3.0+mc1.21.jar",
+      "size": 1137632,
+      "sha1": "428eee42f39e6f4c36a3fed2fc127ee9cbd5fa0c"
+    },
+    {
+      "fileID": 5812193,
+      "projectID": 1015096,
+      "fileName": "YungsBetterMineshafts-1.21.1-NeoForge-5.1.1.jar",
+      "installedPath": "mods/YungsBetterMineshafts-1.21.1-NeoForge-5.1.1.jar",
+      "size": 493967,
+      "sha1": "6a14e1d8201f068ca87ef8333e471c5378955906"
+    },
+    {
+      "fileID": 7763532,
+      "projectID": 1337474,
+      "fileName": "beltborne_lanterns-1.2.5-neoforge+1.21.1.jar",
+      "installedPath": "mods/beltborne_lanterns-1.2.5-neoforge+1.21.1.jar",
+      "size": 140861,
+      "sha1": "3a30923e4ec5db8fd6838d20ce2743b24feb212d"
+    },
+    {
+      "fileID": 8591319,
+      "projectID": 324717,
+      "fileName": "Jade-1.21.1-NeoForge-15.10.6.jar",
+      "installedPath": "mods/Jade-1.21.1-NeoForge-15.10.6.jar",
+      "size": 726853,
+      "sha1": "88ee316e68900080b017f60c12162e2731924cf8"
+    },
+    {
+      "fileID": 8569579,
+      "projectID": 404465,
+      "fileName": "ftb-library-neoforge-2101.1.35.jar",
+      "installedPath": "mods/ftb-library-neoforge-2101.1.35.jar",
+      "size": 1439018,
+      "sha1": "9922fa358983120edeed22194bf02bcf9c859fbb"
+    },
+    {
+      "fileID": 8687896,
+      "projectID": 619320,
+      "fileName": "sophisticatedstorage-1.21.1-1.5.91.2127.jar",
+      "installedPath": "mods/sophisticatedstorage-1.21.1-1.5.91.2127.jar",
+      "size": 1869204,
+      "sha1": "74d5c0a411edfdd521c800fd8813f53c0f9a6f30"
+    },
+    {
+      "fileID": 8428212,
+      "projectID": 1580523,
+      "fileName": "cobblemonpcplus-neoforge-1.2.0+1.21.1.jar",
+      "installedPath": "mods/cobblemonpcplus-neoforge-1.2.0+1.21.1.jar",
+      "size": 455125,
+      "sha1": "834907902414e455a70d44ac54c2bbcf0f2781b6"
+    },
+    {
+      "fileID": 8315940,
+      "projectID": 1563403,
+      "fileName": "curviercobblemon.zip",
+      "installedPath": "resourcepacks/curviercobblemon.zip",
+      "size": 349187,
+      "sha1": "d132779897d88e0d847ad2f6ff1513bc9120b57c"
+    },
+    {
+      "fileID": 7561731,
+      "projectID": 1197824,
+      "fileName": "MissingMon_v3.6.1 [Floral Awakening ].zip",
+      "installedPath": "datapacks/MissingMon_v3.6.1 [Floral Awakening ].zip",
+      "size": 1271067,
+      "sha1": "791e99c6e6eee6eac8cfc11ced17abd1e2098eb5"
+    },
+    {
+      "fileID": 8098775,
+      "projectID": 1544836,
+      "fileName": "aowneo-1.21.1-1.0.0.jar",
+      "installedPath": "mods/aowneo-1.21.1-1.0.0.jar",
+      "size": 2814,
+      "sha1": "420a96c7d80920cff9181d0bfdfa7580b32515da"
+    },
+    {
+      "fileID": 8243851,
+      "projectID": 353928,
+      "fileName": "botanypots-neoforge-1.21.1-21.1.44.jar",
+      "installedPath": "mods/botanypots-neoforge-1.21.1-21.1.44.jar",
+      "size": 1068816,
+      "sha1": "fcb58dfa5f52819c85da40025fa50d0ddccbbb47"
+    },
+    {
+      "fileID": 8621677,
+      "projectID": 1401130,
+      "fileName": "better_trident_model-neoforge1.21.1-1.2.0.jar",
+      "installedPath": "mods/better_trident_model-neoforge1.21.1-1.2.0.jar",
+      "size": 890762,
+      "sha1": "6acd048c59ff942d58406427073830055128243b"
+    },
+    {
+      "fileID": 8189474,
+      "projectID": 1553404,
+      "fileName": "DesignerRaid-neoforge-3.0.jar",
+      "installedPath": "mods/DesignerRaid-neoforge-3.0.jar",
+      "size": 14913,
+      "sha1": "ef1ba1b79cd2fe0fe360045cfd9620cfccf7706f"
+    },
+    {
+      "fileID": 8683747,
+      "projectID": 312353,
+      "fileName": "artifacts-neoforge-13.2.3.jar",
+      "installedPath": "mods/artifacts-neoforge-13.2.3.jar",
+      "size": 1086882,
+      "sha1": "8247516201418bda17ef76d5ba02a3d71698477c"
+    },
+    {
+      "fileID": 7276577,
+      "projectID": 457570,
+      "fileName": "configured-neoforge-1.21.1-2.6.3.jar",
+      "installedPath": "mods/configured-neoforge-1.21.1-2.6.3.jar",
+      "size": 428793,
+      "sha1": "e977d86eec39d49295df4e2c4265d6710ae065e8"
+    },
+    {
+      "fileID": 6926815,
+      "projectID": 459701,
+      "fileName": "catalogue-neoforge-1.21.1-1.11.2.jar",
+      "installedPath": "mods/catalogue-neoforge-1.21.1-1.11.2.jar",
+      "size": 302750,
+      "sha1": "6d67f855c20bc6392763cfb22e1152da4e8015b4"
+    },
+    {
+      "fileID": 8151323,
+      "projectID": 1457672,
+      "fileName": "cobbledollars-villagers-overhaul-rca-neoforge-0.3.0.jar",
+      "installedPath": "mods/cobbledollars-villagers-overhaul-rca-neoforge-0.3.0.jar",
+      "size": 284286,
+      "sha1": "fe63a8bef64bed5034811c453db56ebaa5484ba9"
+    },
+    {
+      "fileID": 5973188,
+      "projectID": 570073,
+      "fileName": "resourcefullib-neoforge-1.21-3.0.12.jar",
+      "installedPath": "mods/resourcefullib-neoforge-1.21-3.0.12.jar",
+      "size": 484332,
+      "sha1": "24389c8e48ff0e8594e4686b750c494c66a5f8df"
+    },
+    {
+      "fileID": 6640970,
+      "projectID": 580689,
+      "fileName": "lootintegrations-1.21.1-4.7.jar",
+      "installedPath": "mods/lootintegrations-1.21.1-4.7.jar",
+      "size": 36966,
+      "sha1": "ba601fe630f444d974838bfd80a185a0e3e0309c"
+    },
+    {
+      "fileID": 7389814,
+      "projectID": 658587,
+      "fileName": "player-animation-lib-forge-2.0.4+1.21.1.jar",
+      "installedPath": "mods/player-animation-lib-forge-2.0.4+1.21.1.jar",
+      "size": 203149,
+      "sha1": "05be8ddcc78532b9a5520c718edc6c971cd0057c"
+    },
+    {
+      "fileID": 8785052,
+      "projectID": 1477275,
+      "fileName": "ares_hud-1.7.5.jar",
+      "installedPath": "mods/ares_hud-1.7.5.jar",
+      "size": 891436,
+      "sha1": "a0ca08d5bc284d43574c28122dfe2fea1f01b025"
+    },
+    {
+      "fileID": 8520550,
+      "projectID": 1627724,
+      "fileName": "GenerousDrops-LegendaryMonuments.zip",
+      "installedPath": "global_packs/datapacks/GenerousDrops-LegendaryMonuments.zip",
+      "size": 449811,
+      "sha1": "5fbd74b199aacde1809f05726bb7c1289b980689"
+    },
+    {
+      "fileID": 8169176,
+      "projectID": 1437573,
+      "fileName": "bettercampfirepot-1.7.3+1.21.1-neoforge.jar",
+      "installedPath": "mods/bettercampfirepot-1.7.3+1.21.1-neoforge.jar",
+      "size": 444425,
+      "sha1": "39a63c029f9ee82fb11f12f45940159c5dcb5dc6"
+    },
+    {
+      "fileID": 8430037,
+      "projectID": 1142875,
+      "fileName": "flerovium-neoforge-1.21.1-1.1.2-all.jar",
+      "installedPath": "mods/flerovium-neoforge-1.21.1-1.1.2-all.jar",
+      "size": 182579,
+      "sha1": "31491e08947da57d4af6c48e8d3237cc6d4009c1"
+    },
+    {
+      "fileID": 7593359,
+      "projectID": 1082538,
+      "fileName": "MoreCobblemonTweaks-neoforge-1.3.3.jar",
+      "installedPath": "mods/MoreCobblemonTweaks-neoforge-1.3.3.jar",
+      "size": 138756,
+      "sha1": "dcfce07ad4604a2a8a3a97f6c505ae6e015210d9"
+    },
+    {
+      "fileID": 7488072,
+      "projectID": 1376024,
+      "fileName": "biomespy-neoforge-1.21.1-1.3.3.jar",
+      "installedPath": "mods/biomespy-neoforge-1.21.1-1.3.3.jar",
+      "size": 38566,
+      "sha1": "079f612d2b3eed5502896c7cd691969f33b7ab1c"
+    },
+    {
+      "fileID": 7765662,
+      "projectID": 1342341,
+      "fileName": "bl_accessories_layer-1.2.2-neoforge+1.21.1.jar",
+      "installedPath": "mods/bl_accessories_layer-1.2.2-neoforge+1.21.1.jar",
+      "size": 55944,
+      "sha1": "f376a46fe48c61c9dacf76831253463354b73324"
+    },
+    {
+      "fileID": 8055151,
+      "projectID": 1020759,
+      "fileName": "visual_keybinder-1.21.1-0.1.13-neoforge.jar",
+      "installedPath": "mods/visual_keybinder-1.21.1-0.1.13-neoforge.jar",
+      "size": 353558,
+      "sha1": "58204c60c8f8b983dcb184b6104193ebf488b79f"
+    },
+    {
+      "fileID": 8657120,
+      "projectID": 626761,
+      "fileName": "t_and_t-fabric-neoforge-1.13.11.jar",
+      "installedPath": "mods/t_and_t-fabric-neoforge-1.13.11.jar",
+      "size": 3553006,
+      "sha1": "8f00e36a11568c0b66bbdf5c0e9ee492e511b303"
+    },
+    {
+      "fileID": 7585673,
+      "projectID": 1315611,
+      "fileName": "accessories_compat_layer-neoforge-0.1.12+1.21.1.jar",
+      "installedPath": "mods/accessories_compat_layer-neoforge-0.1.12+1.21.1.jar",
+      "size": 405416,
+      "sha1": "59dd35650925d72f5158816caf895f3d9fa0edf4"
+    },
+    {
+      "fileID": 8751672,
+      "projectID": 1630644,
+      "fileName": "pokemon_ultra_space-neoforge1.21.1-1.0.5.jar",
+      "installedPath": "mods/pokemon_ultra_space-neoforge1.21.1-1.0.5.jar",
+      "size": 172807,
+      "sha1": "d33c86678b295b8d5c4cb161573f4eadc4ae409b"
+    },
+    {
+      "fileID": 6300968,
+      "projectID": 1015127,
+      "fileName": "YungsBetterEndIsland-1.21.1-NeoForge-3.1.2.jar",
+      "installedPath": "mods/YungsBetterEndIsland-1.21.1-NeoForge-3.1.2.jar",
+      "size": 398130,
+      "sha1": "832f2c17425debe74a9f267f4136f1a0f0221d19"
+    },
+    {
+      "fileID": 7966681,
+      "projectID": 417645,
+      "fileName": "JustEnoughProfessions-neoforge-1.21.1-4.0.5.jar",
+      "installedPath": "mods/JustEnoughProfessions-neoforge-1.21.1-4.0.5.jar",
+      "size": 24879,
+      "sha1": "439ea1baa5e3065e36e0e57422f22403918bb59f"
+    },
+    {
+      "fileID": 8399041,
+      "projectID": 1129397,
+      "fileName": "smsn-neoforge-1.4.3-1.21.1.jar",
+      "installedPath": "mods/smsn-neoforge-1.4.3-1.21.1.jar",
+      "size": 116160,
+      "sha1": "168834dc0bcc8286ad3fd408dbc97c5faa1fedd5"
+    },
+    {
+      "fileID": 8042522,
+      "projectID": 1507108,
+      "fileName": "[Chilli´s] punchy! cobblemon.zip",
+      "installedPath": "resourcepacks/[Chilli´s] punchy! cobblemon.zip",
+      "size": 2666928,
+      "sha1": "41a1a04713d15f5c15be1445128678a6f3f8a021"
+    },
+    {
+      "fileID": 8492726,
+      "projectID": 419699,
+      "fileName": "architectury-13.0.11-neoforge.jar",
+      "installedPath": "mods/architectury-13.0.11-neoforge.jar",
+      "size": 584734,
+      "sha1": "008656a0702801174b8ec245ed7aad1921d6e9f1"
+    },
+    {
+      "fileID": 7606240,
+      "projectID": 228525,
+      "fileName": "bookshelf-neoforge-1.21.1-21.1.81.jar",
+      "installedPath": "mods/bookshelf-neoforge-1.21.1-21.1.81.jar",
+      "size": 328813,
+      "sha1": "efc4cda6da4dd879f24d057ed0a6413764c9ba40"
+    },
+    {
+      "fileID": 8606375,
+      "projectID": 1263645,
+      "fileName": "legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar",
+      "installedPath": "mods/legendarymonuments-neoforge-1.21.1-8.1-Love_for_All.jar",
+      "size": 16600936,
+      "sha1": "ac26efbe785d56cfc4f76dcbe4901b2e1c7c9da4"
+    },
+    {
+      "fileID": 7892954,
+      "projectID": 252848,
+      "fileName": "NaturesCompass-1.21.1-3.4.0-neoforge.jar",
+      "installedPath": "mods/NaturesCompass-1.21.1-3.4.0-neoforge.jar",
+      "size": 224657,
+      "sha1": "e19721873bebc4dbc1674bb101af39d0ea406b95"
+    },
+    {
+      "fileID": 8123287,
+      "projectID": 627557,
+      "fileName": "ComplementaryReimagined_r5.8.1.zip",
+      "installedPath": "shaderpacks/ComplementaryReimagined_r5.8.1.zip",
+      "size": 546925,
+      "sha1": "5a021081f0178ed91dd911194071465ab0a4348b"
+    },
+    {
+      "fileID": 7461802,
+      "projectID": 1269169,
+      "fileName": "krypton_fnp-neoforge-1.21.1-0.2.28.1-1.21.1.jar",
+      "installedPath": "mods/krypton_fnp-neoforge-1.21.1-0.2.28.1-1.21.1.jar",
+      "size": 1015871,
+      "sha1": "3b9253fcfaa11586ce528fbc0a26175991c9408f"
+    },
+    {
+      "fileID": 8448200,
+      "projectID": 1314021,
+      "fileName": "acceleratedrendering-1.0.14-1.21.1-alpha.jar",
+      "installedPath": "mods/acceleratedrendering-1.0.14-1.21.1-alpha.jar",
+      "size": 684365,
+      "sha1": "b5c9cf25e6aab6b8b9912fbf45e44b4bb4e7df43"
+    },
+    {
+      "fileID": 6141005,
+      "projectID": 939603,
+      "fileName": "cobble_cats.zip",
+      "installedPath": "global_packs/both/cobble_cats.zip",
+      "size": 495058,
+      "sha1": "cdfb61dcb8d6866d0be1d77be77297b85c2f0a42"
+    },
+    {
+      "fileID": 5891138,
+      "projectID": 387365,
+      "fileName": "lanserverproperties-1.13.2-neoforge.jar",
+      "installedPath": "mods/lanserverproperties-1.13.2-neoforge.jar",
+      "size": 44799,
+      "sha1": "be35dc531943b64e66295198276a0fcb38be0784"
+    },
+    {
+      "fileID": 8323152,
+      "projectID": 1012211,
+      "fileName": "lootintegrations_yungs-1.6.jar",
+      "installedPath": "mods/lootintegrations_yungs-1.6.jar",
+      "size": 5991,
+      "sha1": "a0a2a57cb89435048819be14666c2a9f8d956828"
+    },
+    {
+      "fileID": 8662561,
+      "projectID": 1055925,
+      "fileName": "ScalableLux-neoforge-0.3.0-alpha.0.8-all.jar",
+      "installedPath": "mods/ScalableLux-neoforge-0.3.0-alpha.0.8-all.jar",
+      "size": 197423,
+      "sha1": "27d602b2aa6b371ceeb6af9b967f95bafb7d51a9"
+    },
+    {
+      "fileID": 8657904,
+      "projectID": 1611457,
+      "fileName": "cobblemon-hug-fabric-1.0.0.jar",
+      "installedPath": "mods/cobblemon-hug-fabric-1.0.0.jar",
+      "size": 241700,
+      "sha1": "42942b0e52481dd504ca2dfab487bf5ac20ed536"
+    },
+    {
+      "fileID": 8707212,
+      "projectID": 1645662,
+      "fileName": "cobblemonautobattle-1.4.3-neoforge.jar",
+      "installedPath": "mods/cobblemonautobattle-1.4.3-neoforge.jar",
+      "size": 79045,
+      "sha1": "373a84f6b045e8400a2e9e326928bebeb0129091"
+    },
+    {
+      "fileID": 8350073,
+      "projectID": 388172,
+      "fileName": "geckolib-neoforge-1.21.1-4.9.2.jar",
+      "installedPath": "mods/geckolib-neoforge-1.21.1-4.9.2.jar",
+      "size": 630584,
+      "sha1": "14c64013cadee7d28f3685f94350f9a4d2ec6d86"
+    },
+    {
+      "fileID": 8449819,
+      "projectID": 263420,
+      "fileName": "xaerominimap-neoforge-1.21.1-26.4.2.jar",
+      "installedPath": "mods/xaerominimap-neoforge-1.21.1-26.4.2.jar",
+      "size": 2185409,
+      "sha1": "21b3232e62dabcbb5bf28866481e8de2c0ccb780"
+    },
+    {
+      "fileID": 6294123,
+      "projectID": 1015155,
+      "fileName": "TravelersTitles-1.21.1-NeoForge-5.1.3.jar",
+      "installedPath": "mods/TravelersTitles-1.21.1-NeoForge-5.1.3.jar",
+      "size": 235345,
+      "sha1": "166cba4d367c6dd103d1d5dcab7a31174bec799e"
+    },
+    {
+      "fileID": 7588844,
+      "projectID": 322506,
+      "fileName": "BSL_v10.1.1.zip",
+      "installedPath": "shaderpacks/BSL_v10.1.1.zip",
+      "size": 1125052,
+      "sha1": "6975d0161f22a5f6abf01a51fd9eedbd50c96cc3"
+    },
+    {
+      "fileID": 6880047,
+      "projectID": 738663,
+      "fileName": "Not Enough Recipe Book-NEOFORGE-0.4.3+1.21.jar",
+      "installedPath": "mods/Not Enough Recipe Book-NEOFORGE-0.4.3+1.21.jar",
+      "size": 23830,
+      "sha1": "e0c36cd85d3d31cc2afb1bfc6b885f505245252f"
+    },
+    {
+      "fileID": 8652912,
+      "projectID": 827093,
+      "fileName": "HumanEraVillagersIllagers[3.91.6].zip",
+      "installedPath": "resourcepacks/HumanEraVillagersIllagers[3.91.6].zip",
+      "size": 11292169,
+      "sha1": "c63d36e8eb099cf1add98c5a39a1cf9d67f6ada9"
+    },
+    {
+      "fileID": 5729127,
+      "projectID": 348521,
+      "fileName": "cloth-config-15.0.140-neoforge.jar",
+      "installedPath": "mods/cloth-config-15.0.140-neoforge.jar",
+      "size": 1163890,
+      "sha1": "c3e5733ba4503b102589a026000fd5ce0212f6f2"
+    },
+    {
+      "fileID": 8376908,
+      "projectID": 892086,
+      "fileName": "chatanimation-neoforge-1.3.1+mc1.21.jar",
+      "installedPath": "mods/chatanimation-neoforge-1.3.1+mc1.21.jar",
+      "size": 1031865,
+      "sha1": "52a07c701aa877a1b158cc235ec5aed93e5819a9"
+    },
+    {
+      "fileID": 7213611,
+      "projectID": 547434,
+      "fileName": "ForgeConfigAPIPort-v21.1.6-1.21.1-NeoForge.jar",
+      "installedPath": "mods/ForgeConfigAPIPort-v21.1.6-1.21.1-NeoForge.jar",
+      "size": 104654,
+      "sha1": "14f2dd9f43254b8c06af04b6f0c8ae5192f658b5"
+    },
+    {
+      "fileID": 8660310,
+      "projectID": 936015,
+      "fileName": "lithostitched-1.8.0+beta4-neoforge-21.1.jar",
+      "installedPath": "mods/lithostitched-1.8.0+beta4-neoforge-21.1.jar",
+      "size": 954028,
+      "sha1": "0edda78ec8500143cca898881c476b2b04dac75a"
+    },
+    {
+      "fileID": 7776381,
+      "projectID": 848534,
+      "fileName": "CobbleBadges-neoforge-4.0.0+Beta-1+1.21.1.jar",
+      "installedPath": "mods/CobbleBadges-neoforge-4.0.0+Beta-1+1.21.1.jar",
+      "size": 849419,
+      "sha1": "cfe5e4630edd60e26edf374335de222949c59541"
+    },
+    {
+      "fileID": 8674792,
+      "projectID": 1283899,
+      "fileName": "PlayerAnimationLibNeoforge-1.1.6+mc.1.21.1.jar",
+      "installedPath": "mods/PlayerAnimationLibNeoforge-1.1.6+mc.1.21.1.jar",
+      "size": 1156673,
+      "sha1": "856b2e281b405dab7ca1584a7e9d053e76cc268b"
+    },
+    {
+      "fileID": 6060565,
+      "projectID": 1173260,
+      "fileName": "Cobblemon 3D Poké Rods 1.0.zip",
+      "installedPath": "resourcepacks/Cobblemon 3D Poké Rods 1.0.zip",
+      "size": 167546,
+      "sha1": "c5a92bf0d82abba72eb3a93f6e8bd40560d1c247"
+    },
+    {
+      "fileID": 8329461,
+      "projectID": 1152731,
+      "fileName": "lootintegrations_tlc-1.1.jar",
+      "installedPath": "mods/lootintegrations_tlc-1.1.jar",
+      "size": 5184,
+      "sha1": "b649988c16192ea809f9009cbe29699876e84f5a"
+    },
+    {
+      "fileID": 7765020,
+      "projectID": 1478863,
+      "fileName": "wild_battle_api-neoforge-1.1.2.jar",
+      "installedPath": "mods/wild_battle_api-neoforge-1.1.2.jar",
+      "size": 253890,
+      "sha1": "422e07b9748a6168b15d9fb5e3ccc6d8ac8df981"
+    },
+    {
+      "fileID": 8394512,
+      "projectID": 1592779,
+      "fileName": "cobblemon_riding_tweaks-neoforge-1.21.1-1.1.0.jar",
+      "installedPath": "mods/cobblemon_riding_tweaks-neoforge-1.21.1-1.1.0.jar",
+      "size": 117764,
+      "sha1": "ca3e0ba80cdee0fae19b9afd00951d2b1c943ead"
+    },
+    {
+      "fileID": 8459650,
+      "projectID": 790626,
+      "fileName": "modernfix-neoforge-5.27.20+mc1.21.1.jar",
+      "installedPath": "mods/modernfix-neoforge-5.27.20+mc1.21.1.jar",
+      "size": 599474,
+      "sha1": "bc1a70e72e7dba8a3ff41404765fdd03a7ac6575"
+    },
+    {
+      "fileID": 7073931,
+      "projectID": 1359891,
+      "fileName": "cobblemon_pots-neoforge-1.0.1.jar",
+      "installedPath": "mods/cobblemon_pots-neoforge-1.0.1.jar",
+      "size": 44936,
+      "sha1": "a1232a4b7aec332c69645c9be62ac66d62fd5ad8"
+    },
+    {
+      "fileID": 6506298,
+      "projectID": 240630,
+      "fileName": "JustEnoughResources-NeoForge-1.21.1-1.6.0.17.jar",
+      "installedPath": "mods/JustEnoughResources-NeoForge-1.21.1-1.6.0.17.jar",
+      "size": 292088,
+      "sha1": "e739d69b2de31ca8c0cb4691ab08e823f153bc44"
+    },
+    {
+      "fileID": 5513549,
+      "projectID": 882495,
+      "fileName": "gpumemleakfix-1.21-1.8.jar",
+      "installedPath": "mods/gpumemleakfix-1.21-1.8.jar",
+      "size": 6574,
+      "sha1": "1894d2f0dd0c275aea0f1a6265ebd5715569c208"
+    },
+    {
+      "fileID": 8675196,
+      "projectID": 1648669,
+      "fileName": "Stronger-Greninja-1.0.1.zip",
+      "installedPath": "global_packs/datapacks/Stronger-Greninja-1.0.1.zip",
+      "size": 958479,
+      "sha1": "0c6812e445c91e6d75ae9d92ca7a2cb325a4d4af"
+    },
+    {
+      "fileID": 7961062,
+      "projectID": 1410893,
+      "fileName": "cobblemon_party_extras-neoforge-1.8.15.jar",
+      "installedPath": "mods/cobblemon_party_extras-neoforge-1.8.15.jar",
+      "size": 397021,
+      "sha1": "8e169784e73bf8cbbb2e858aa4bedded018bcfad"
+    },
+    {
+      "fileID": 8652468,
+      "projectID": 1385997,
+      "fileName": "tcrmodfilter-1.1.0.jar",
+      "installedPath": "mods/tcrmodfilter-1.1.0.jar",
+      "size": 7474,
+      "sha1": "40dc2ddb344dd87d6ee263195d6106c54a50b774"
+    },
+    {
+      "fileID": 7889154,
+      "projectID": 1497526,
+      "fileName": "cobblemon_wild_extras-neoforge-1.1.1.jar",
+      "installedPath": "mods/cobblemon_wild_extras-neoforge-1.1.1.jar",
+      "size": 474441,
+      "sha1": "23d8def85ddfe3072d6c7705c9b8f25104ef3cb8"
+    },
+    {
+      "fileID": 8634057,
+      "projectID": 1458447,
+      "fileName": "cobbledex-rei-emi-jei-neoforge-2.0.4.jar",
+      "installedPath": "mods/cobbledex-rei-emi-jei-neoforge-2.0.4.jar",
+      "size": 5044249,
+      "sha1": "f778151618e98d399af630cdd8dda0ca36f76803"
+    },
+    {
+      "fileID": 7855396,
+      "projectID": 1469993,
+      "fileName": "fsweep-neoforge-1.21.1-1.5.0.jar",
+      "installedPath": "mods/fsweep-neoforge-1.21.1-1.5.0.jar",
+      "size": 119134,
+      "sha1": "1e1ff6be36fb51860d947bda0e43c6735bedb9fe"
+    },
+    {
+      "fileID": 5812546,
+      "projectID": 1015146,
+      "fileName": "YungsExtras-1.21.1-NeoForge-5.1.1.jar",
+      "installedPath": "mods/YungsExtras-1.21.1-NeoForge-5.1.1.jar",
+      "size": 198183,
+      "sha1": "62833733aaf407f36bdacf648ed4b2ef9940662b"
+    },
+    {
+      "fileID": 8484919,
+      "projectID": 859232,
+      "fileName": "CobbleDollars-neoforge-2.0.0+Beta-6.1+1.21.1.jar",
+      "installedPath": "mods/CobbleDollars-neoforge-2.0.0+Beta-6.1+1.21.1.jar",
+      "size": 504569,
+      "sha1": "3d4559f77fc47d10ccac7079dbaefd1c414636c3"
+    },
+    {
+      "fileID": 8286174,
+      "projectID": 393442,
+      "fileName": "lambdynamiclights-4.8.10+1.21.1.jar",
+      "installedPath": "mods/lambdynamiclights-4.8.10+1.21.1.jar",
+      "size": 2022585,
+      "sha1": "7d2e36037c88d24e40e0fdd4bf2bed9f8c2dd092"
+    },
+    {
+      "fileID": 7725599,
+      "projectID": 1425541,
+      "fileName": "cobblemon_wonder_trade-neoforge-1.2.2.jar",
+      "installedPath": "mods/cobblemon_wonder_trade-neoforge-1.2.2.jar",
+      "size": 2366628,
+      "sha1": "17a2e6474353baf13329ba87b1e3356d4f96bbe4"
+    },
+    {
+      "fileID": 7257646,
+      "projectID": 1190578,
+      "fileName": "CobblemonSizeVariationNeoforge-1.4.0+1.7.0.jar",
+      "installedPath": "mods/CobblemonSizeVariationNeoforge-1.4.0+1.7.0.jar",
+      "size": 96112,
+      "sha1": "077fb58fc8b36e285c7225d0d96ffc5c7a83f03a"
+    },
+    {
+      "fileID": 5924487,
+      "projectID": 1015115,
+      "fileName": "YungsBetterOceanMonuments-1.21.1-NeoForge-4.1.2.jar",
+      "installedPath": "mods/YungsBetterOceanMonuments-1.21.1-NeoForge-4.1.2.jar",
+      "size": 1025571,
+      "sha1": "fba629defdb92ad99ec4f411895afb6e19555a18"
+    },
+    {
+      "fileID": 7842375,
+      "projectID": 1037611,
+      "fileName": "cobbleloots-neoforge-2.3.0.jar",
+      "installedPath": "mods/cobbleloots-neoforge-2.3.0.jar",
+      "size": 270038,
+      "sha1": "bf8695af32bb6c47922fa3d33f33ea6420b3314b"
+    },
+    {
+      "fileID": 7730942,
+      "projectID": 306770,
+      "fileName": "Patchouli-1.21.1-93-NEOFORGE.jar",
+      "installedPath": "mods/Patchouli-1.21.1-93-NEOFORGE.jar",
+      "size": 646777,
+      "sha1": "5413bb9b8fc35ebe46b06b48bf9afafbd8471140"
+    },
+    {
+      "fileID": 7609364,
+      "projectID": 1459814,
+      "fileName": "CobblemonMoreCosmetics Release v1.1.1-1.21.x.zip",
+      "installedPath": "global_packs/both/CobblemonMoreCosmetics Release v1.1.1-1.21.x.zip",
+      "size": 1133975,
+      "sha1": "97db48bab0931ce2c1982a3b7ea6ebd3da3eff4d"
+    },
+    {
+      "fileID": 8594010,
+      "projectID": 1642969,
+      "fileName": "almost_perfect_legendary_ivs-neoforge-1.21.1-1.0.4.jar",
+      "installedPath": "mods/almost_perfect_legendary_ivs-neoforge-1.21.1-1.0.4.jar",
+      "size": 14380,
+      "sha1": "1ba5cfaff68eb8038c2ecd68b9f5aaf121e39968"
+    },
+    {
+      "fileID": 8713668,
+      "projectID": 678384,
+      "fileName": "Solas Shader V3.7b.zip",
+      "installedPath": "shaderpacks/Solas Shader V3.7b.zip",
+      "size": 1252311,
+      "sha1": "abf2e33feae040cc91894aea11e6d30750d50ee9"
+    },
+    {
+      "fileID": 7722759,
+      "projectID": 1451998,
+      "fileName": "overlapless-1.21.1-1.2.0.jar",
+      "installedPath": "mods/overlapless-1.21.1-1.2.0.jar",
+      "size": 16585,
+      "sha1": "972d00883bde994b3adc05614acd0f251fdb86ce"
+    },
+    {
+      "fileID": 8737203,
+      "projectID": 1222890,
+      "fileName": "beyonddimensions-1.21.1-neoforge-0.7.28.jar",
+      "installedPath": "mods/beyonddimensions-1.21.1-neoforge-0.7.28.jar",
+      "size": 3547377,
+      "sha1": "df85bb6a1efd03091d00fdbb8106b8d49f81667a"
+    },
+    {
+      "fileID": 8590618,
+      "projectID": 1490123,
+      "fileName": "cobblemonexpall-neoforge-0.0.2.jar",
+      "installedPath": "mods/cobblemonexpall-neoforge-0.0.2.jar",
+      "size": 55467,
+      "sha1": "0a1757af7937adc6553ed7747a91ab21513f038d"
+    },
+    {
+      "fileID": 8388247,
+      "projectID": 1456308,
+      "fileName": "artifactsmerging-1.21.1-1.1.1.jar",
+      "installedPath": "mods/artifactsmerging-1.21.1-1.1.1.jar",
+      "size": 28997,
+      "sha1": "ce1139729954048f30651466264488d991a91877"
+    },
+    {
+      "fileID": 7976670,
+      "projectID": 533104,
+      "fileName": "yuushya-1.21.0-neoforge-2.3.0.jar",
+      "installedPath": "mods/yuushya-1.21.0-neoforge-2.3.0.jar",
+      "size": 28197448,
+      "sha1": "060f0961b08031d8054bebcf5328ce03797babb5"
+    },
+    {
+      "fileID": 5813117,
+      "projectID": 456956,
+      "fileName": "chipped-neoforge-1.21.1-4.0.2.jar",
+      "installedPath": "mods/chipped-neoforge-1.21.1-4.0.2.jar",
+      "size": 15020578,
+      "sha1": "6f5395f58139802edfde7cb9170279f92f291971"
+    },
+    {
+      "fileID": 6225208,
+      "projectID": 361579,
+      "fileName": "spark-1.10.124-neoforge.jar",
+      "installedPath": "mods/spark-1.10.124-neoforge.jar",
+      "size": 3642581,
+      "sha1": "9430cc2ab64ff89d698be593769fb9f9ee4efae6"
+    },
+    {
+      "fileID": 8472896,
+      "projectID": 1128055,
+      "fileName": "lootintegrations_vanilla-1.7.jar",
+      "installedPath": "mods/lootintegrations_vanilla-1.7.jar",
+      "size": 6280,
+      "sha1": "c545c5177ac6a7d49b88a80f2706da7085d7708d"
+    },
+    {
+      "fileID": 8653134,
+      "projectID": 1452045,
+      "fileName": "zamega-neoforge-1.7.6.jar",
+      "installedPath": "mods/zamega-neoforge-1.7.6.jar",
+      "size": 1081856,
+      "sha1": "b6ead367e26c6ece87df15da027c8446a1a1c009"
+    },
+    {
+      "fileID": 5623731,
+      "projectID": 256717,
+      "fileName": "Clumps-neoforge-1.21.1-19.0.0.1.jar",
+      "installedPath": "mods/Clumps-neoforge-1.21.1-19.0.0.1.jar",
+      "size": 18382,
+      "sha1": "fa2576297c7bd12b28aa7070e8141792bd66da4c"
+    },
+    {
+      "fileID": 8623569,
+      "projectID": 326652,
+      "fileName": "cupboard-1.21.1-4.0.jar",
+      "installedPath": "mods/cupboard-1.21.1-4.0.jar",
+      "size": 29598,
+      "sha1": "c9632e29158447d514663f230a734bed1aec0068"
+    },
+    {
+      "fileID": 8353208,
+      "projectID": 1296055,
+      "fileName": "cobbleworkers-neoforge-2.0.5+1.7.0.jar",
+      "installedPath": "mods/cobbleworkers-neoforge-2.0.5+1.7.0.jar",
+      "size": 272724,
+      "sha1": "1baf760c9cfd35e3fc41337c38540dfc0364cee3"
+    },
+    {
+      "fileID": 8217154,
+      "projectID": 1520661,
+      "fileName": "CqsAnimation.zip",
+      "installedPath": "resourcepacks/CqsAnimation.zip",
+      "size": 4460191,
+      "sha1": "1ceb77b5b5a8ce7d1ccaa9a23b8704e52fb983fe"
+    },
+    {
+      "fileID": 7553231,
+      "projectID": 687131,
+      "fileName": "Cobblemon-neoforge-1.7.3+1.21.1.jar",
+      "installedPath": "mods/Cobblemon-neoforge-1.7.3+1.21.1.jar",
+      "size": 128748941,
+      "sha1": "580ea363bbc391c98e548962a47c683155522f38"
+    },
+    {
+      "fileID": 7064206,
+      "projectID": 1358405,
+      "fileName": "ultimine_cobblemon_harvest-1.0.0.jar",
+      "installedPath": "mods/ultimine_cobblemon_harvest-1.0.0.jar",
+      "size": 4995,
+      "sha1": "6d18796c3b4d36dc4eec6726c275f61bfeb9c109"
+    },
+    {
+      "fileID": 7631041,
+      "projectID": 1203085,
+      "fileName": "cobblemonalphas-1.4.1.jar",
+      "installedPath": "mods/cobblemonalphas-1.4.1.jar",
+      "size": 510316,
+      "sha1": "d68af5b3b2a6384ffb5a577545917bd62e7bac5b"
+    },
+    {
+      "fileID": 8185697,
+      "projectID": 1374622,
+      "fileName": "acceleratedrecoiling-21.1.13-alpha.jar",
+      "installedPath": "mods/acceleratedrecoiling-21.1.13-alpha.jar",
+      "size": 877907,
+      "sha1": "257442ff8186cb7f11b25f513a96588078349c3b"
+    },
+    {
+      "fileID": 8241767,
+      "projectID": 856996,
+      "fileName": "cristellib-neoforge-1.21.1-3.1.7.jar",
+      "installedPath": "mods/cristellib-neoforge-1.21.1-3.1.7.jar",
+      "size": 583525,
+      "sha1": "d250804b7ecea365bc736ec36ec6fc3f933917f1"
+    },
+    {
+      "fileID": 8687533,
+      "projectID": 1581251,
+      "fileName": "cobblemon-picnic-neoforge-2.3.0.jar",
+      "installedPath": "mods/cobblemon-picnic-neoforge-2.3.0.jar",
+      "size": 1029875,
+      "sha1": "413bd158896437dc2f00cf174f6926e08bac17ab"
+    },
+    {
+      "fileID": 8064581,
+      "projectID": 687118,
+      "fileName": "tlc-neoforge-1.21.1-2.1.0.jar",
+      "installedPath": "mods/tlc-neoforge-1.21.1-2.1.0.jar",
+      "size": 551284,
+      "sha1": "419b6f9c19da9dac1602b98dc8a93ce4d02d9eda"
+    },
+    {
+      "fileID": 6368976,
+      "projectID": 250398,
+      "fileName": "Controlling-neoforge-1.21.1-19.0.5.jar",
+      "installedPath": "mods/Controlling-neoforge-1.21.1-19.0.5.jar",
+      "size": 77555,
+      "sha1": "8a34424fc1428778be2fdbfa4da67b21b70bcbfe"
+    },
+    {
+      "fileID": 7489091,
+      "projectID": 1115285,
+      "fileName": "Almanac-1.21.1-2-neoforge-1.5.2.jar",
+      "installedPath": "mods/Almanac-1.21.1-2-neoforge-1.5.2.jar",
+      "size": 25593,
+      "sha1": "d613dbc38ca5bcc718408db432385c2e67ac763f"
+    },
+    {
+      "fileID": 8036398,
+      "projectID": 686435,
+      "fileName": "LeavesBeGone-v21.1.1-1.21.1-NeoForge.jar",
+      "installedPath": "mods/LeavesBeGone-v21.1.1-1.21.1-NeoForge.jar",
+      "size": 55937,
+      "sha1": "1d8eec39ed44414af14d14c0dfb5abd097e77491"
+    },
+    {
+      "fileID": 7437845,
+      "projectID": 667299,
+      "fileName": "yet_another_config_lib_v3-3.8.2+1.21.1-neoforge.jar",
+      "installedPath": "mods/yet_another_config_lib_v3-3.8.2+1.21.1-neoforge.jar",
+      "size": 1118651,
+      "sha1": "fe270c9f6e0a8142cf316944087f5109cef08bbb"
+    },
+    {
+      "fileID": 5637846,
+      "projectID": 60089,
+      "fileName": "MouseTweaks-neoforge-mc1.21-2.26.1.jar",
+      "installedPath": "mods/MouseTweaks-neoforge-mc1.21-2.26.1.jar",
+      "size": 73938,
+      "sha1": "6dae57f4f50f7808d2ed9a18f6cd1c0d4640c6bc"
+    },
+    {
+      "fileID": 7253016,
+      "projectID": 1274742,
+      "fileName": "PathToLegends-1.1.1-release.zip",
+      "installedPath": "global_packs/both/PathToLegends-1.1.1-release.zip",
+      "size": 492682,
+      "sha1": "e7ed61ee6f7e80187559781126438be7e0e9dbe0"
+    },
+    {
+      "fileID": 7821105,
+      "projectID": 1490711,
+      "fileName": "dtmd-neoforge1.21.1-1.0.0.jar",
+      "installedPath": "mods/dtmd-neoforge1.21.1-1.0.0.jar",
+      "size": 9717,
+      "sha1": "2a34102165e348dcc29622491883b30254400eb2"
+    },
+    {
+      "fileID": 7671054,
+      "projectID": 1459660,
+      "fileName": "CobbleRods-neoforge-1.0.1+1.21.1.jar",
+      "installedPath": "mods/CobbleRods-neoforge-1.0.1+1.21.1.jar",
+      "size": 28254,
+      "sha1": "82ae39b227f223d74d0a9cfc93a4aa7e4f2e3ee5"
+    },
+    {
+      "fileID": 8635732,
+      "projectID": 1333295,
+      "fileName": "CR - Biome Expanded Spawns.zip",
+      "installedPath": "global_packs/datapacks/CR - Biome Expanded Spawns.zip",
+      "size": 978717,
+      "sha1": "f1f14d73d6108a76411f4b44de364368bf31edfe"
+    },
+    {
+      "fileID": 8688394,
+      "projectID": 368293,
+      "fileName": "repurposed_structures-7.5.22+1.21.1-neoforge.jar",
+      "installedPath": "mods/repurposed_structures-7.5.22+1.21.1-neoforge.jar",
+      "size": 8246760,
+      "sha1": "a64f6b2d331d5c3a5feefcd18d23f4585a42b097"
+    },
+    {
+      "fileID": 5924482,
+      "projectID": 1015123,
+      "fileName": "YungsBetterJungleTemples-1.21.1-NeoForge-3.1.2.jar",
+      "installedPath": "mods/YungsBetterJungleTemples-1.21.1-NeoForge-3.1.2.jar",
+      "size": 795839,
+      "sha1": "d6b7ce6cf351b09cbd23147ff166c35cfdc572e8"
+    },
+    {
+      "fileID": 8359378,
+      "projectID": 1293892,
+      "fileName": "CCCwLegendSpawns_2.1.zip",
+      "installedPath": "global_packs/both/CCCwLegendSpawns_2.1.zip",
+      "size": 18791641,
+      "sha1": "46f3caf642c660e964cca714d63732792ac3ca9e"
+    },
+    {
+      "fileID": 7940651,
+      "projectID": 976014,
+      "fileName": "cobblenav-neoforge-2.3.3.jar",
+      "installedPath": "mods/cobblenav-neoforge-2.3.3.jar",
+      "size": 1098652,
+      "sha1": "329349ecd8dd08130d967a4706374571cf193119"
+    },
+    {
+      "fileID": 5615267,
+      "projectID": 409733,
+      "fileName": "EasyEmeraldTools-NeoForge-1.21.1-1.6.33.jar",
+      "installedPath": "mods/EasyEmeraldTools-NeoForge-1.21.1-1.6.33.jar",
+      "size": 351098,
+      "sha1": "46bf492f9d9561ef9358e574939e78bc7af5e0ab"
+    },
+    {
+      "fileID": 8009886,
+      "projectID": 1420679,
+      "fileName": "tiab-entity-fix-1.0.3.jar",
+      "installedPath": "mods/tiab-entity-fix-1.0.3.jar",
+      "size": 39310,
+      "sha1": "60d4dd0c9bcdabf029a78e94efab01726b2aacb7"
+    },
+    {
+      "fileID": 6529130,
+      "projectID": 309927,
+      "fileName": "curios-neoforge-9.5.1+1.21.1.jar",
+      "installedPath": "mods/curios-neoforge-9.5.1+1.21.1.jar",
+      "size": 410690,
+      "sha1": "418fcd42e3a7844c9bdc71c9b6401fdb3894e0c4"
+    },
+    {
+      "fileID": 8746155,
+      "projectID": 238222,
+      "fileName": "jei-1.21.1-neoforge-19.44.0.406.jar",
+      "installedPath": "mods/jei-1.21.1-neoforge-19.44.0.406.jar",
+      "size": 1699950,
+      "sha1": "19268a9a7eec95806e199d3c2812d9c140970726"
+    },
+    {
+      "fileID": 8662638,
+      "projectID": 1651721,
+      "fileName": "cobblebash_screen-0.1.2.jar",
+      "installedPath": "mods/cobblebash_screen-0.1.2.jar",
+      "size": 106081,
+      "sha1": "017274200d55ed26e816320a88c10f5f48aff3f6"
+    },
+    {
+      "fileID": 5591010,
+      "projectID": 513769,
+      "fileName": "ItemBorders-1.21-neoforge-1.2.5.jar",
+      "installedPath": "mods/ItemBorders-1.21-neoforge-1.2.5.jar",
+      "size": 23511,
+      "sha1": "b5ae56007c0bbb86b9a05f9f12b522ed485d7884"
+    },
+    {
+      "fileID": 6515879,
+      "projectID": 1135664,
+      "fileName": "beyondenchant-1.5.0.jar",
+      "installedPath": "mods/beyondenchant-1.5.0.jar",
+      "size": 199031,
+      "sha1": "512a0c2bb7c2b9565c7a4eec31914c6edeea240d"
+    },
+    {
+      "fileID": 8242804,
+      "projectID": 455508,
+      "fileName": "iris-neoforge-1.8.14-beta.1+mc1.21.1.jar",
+      "installedPath": "mods/iris-neoforge-1.8.14-beta.1+mc1.21.1.jar",
+      "size": 2540723,
+      "sha1": "1bd129cf7bce65d6b1c0543045f0620c98a0f885"
+    },
+    {
+      "fileID": 8682869,
+      "projectID": 412082,
+      "fileName": "supplementaries-1.21.1-3.9.1-neoforge.jar",
+      "installedPath": "mods/supplementaries-1.21.1-3.9.1-neoforge.jar",
+      "size": 13531881,
+      "sha1": "d7684ee80a2760380e4561802dd452737b2693ce"
+    },
+    {
+      "fileID": 8609092,
+      "projectID": 1585031,
+      "fileName": "followme-2.1.3.jar",
+      "installedPath": "mods/followme-2.1.3.jar",
+      "size": 534726,
+      "sha1": "cfe5c8365a6166a834805f9fa1638a6ca105a068"
+    },
+    {
+      "fileID": 7585194,
+      "projectID": 958737,
+      "fileName": "E19 Cobblemon Minimap Icons.zip",
+      "installedPath": "resourcepacks/E19 Cobblemon Minimap Icons.zip",
+      "size": 19398814,
+      "sha1": "1aefc7a313b3c6f719d2fa53916afff18cd0792f"
+    },
+    {
+      "fileID": 8288121,
+      "projectID": 220318,
+      "fileName": "BiomesOPlenty-neoforge-1.21.1-21.1.0.14.jar",
+      "installedPath": "mods/BiomesOPlenty-neoforge-1.21.1-21.1.0.14.jar",
+      "size": 22338157,
+      "sha1": "6a12e1a249d074fb18f07d1f141b80ca2885e2be"
+    },
+    {
+      "fileID": 8504432,
+      "projectID": 1601068,
+      "fileName": "pokebelt-0.0.91.jar",
+      "installedPath": "mods/pokebelt-0.0.91.jar",
+      "size": 1112508,
+      "sha1": "70633f2a4b39ca85e5dc27d954f8499b93ea11a2"
+    },
+    {
+      "fileID": 7768445,
+      "projectID": 890755,
+      "fileName": "jearchaeology-1.21.1-1.2.0.jar",
+      "installedPath": "mods/jearchaeology-1.21.1-1.2.0.jar",
+      "size": 53509,
+      "sha1": "385e4937144b20c6cbf103945a73066f8dc1bc74"
+    },
+    {
+      "fileID": 6276955,
+      "projectID": 1015114,
+      "fileName": "YungsBetterDesertTemples-1.21.1-NeoForge-4.1.5.jar",
+      "installedPath": "mods/YungsBetterDesertTemples-1.21.1-NeoForge-4.1.5.jar",
+      "size": 905839,
+      "sha1": "90529257dbd92558998c65178294bc7b2fd16a64"
+    },
+    {
+      "fileID": 8753740,
+      "projectID": 1431734,
+      "fileName": "mine_chat-1.2.2-NeoForge-1.21.1.jar",
+      "installedPath": "mods/mine_chat-1.2.2-NeoForge-1.21.1.jar",
+      "size": 7218243,
+      "sha1": "831dbab2d59f7ff7ba0913f0c2b24d0118afad82"
+    },
+    {
+      "fileID": 7652512,
+      "projectID": 1405644,
+      "fileName": "lootrmon-neoforge-1.21.1-0.0.0.3.jar",
+      "installedPath": "mods/lootrmon-neoforge-1.21.1-0.0.0.3.jar",
+      "size": 43426,
+      "sha1": "6aaea2de5eedb7cb1a3aab39136fed78265b8c6b"
+    },
+    {
+      "fileID": 7555622,
+      "projectID": 895919,
+      "fileName": "tiab-neoforge-6.5.4.jar",
+      "installedPath": "mods/tiab-neoforge-6.5.4.jar",
+      "size": 77755,
+      "sha1": "3e6beaac5dbc48627263fee0a864db16eda53529"
+    },
+    {
+      "fileID": 8463709,
+      "projectID": 1337167,
+      "fileName": "moogs_structures-neoforge-1.21.1-3.0.3.jar",
+      "installedPath": "mods/moogs_structures-neoforge-1.21.1-3.0.3.jar",
+      "size": 336607,
+      "sha1": "5ceebc8b13cc02feb881fd8f09c95b60f732dc95"
+    },
+    {
+      "fileID": 7050635,
+      "projectID": 1349843,
+      "fileName": "Poké Costume 3.1.1 [Overtime!].zip",
+      "installedPath": "global_packs/both/Poké Costume 3.1.1 [Overtime!].zip",
+      "size": 213719,
+      "sha1": "617e2a9eb66595caf74d1195e4327fd6e649b9b4"
+    },
+    {
+      "fileID": 7583800,
+      "projectID": 1246510,
+      "fileName": "berrypouch-neoforge-1.21.1-0.5.4-beta.jar",
+      "installedPath": "mods/berrypouch-neoforge-1.21.1-0.5.4-beta.jar",
+      "size": 300604,
+      "sha1": "7e00885e79065c7c7a7f923e504c646d6ac020a7"
+    },
+    {
+      "fileID": 8756580,
+      "projectID": 394468,
+      "fileName": "sodium-neoforge-0.8.13+mc1.21.1.jar",
+      "installedPath": "mods/sodium-neoforge-0.8.13+mc1.21.1.jar",
+      "size": 1292934,
+      "sha1": "1757289be21ed18db5b0d90703fa3db1b2de5693"
+    },
+    {
+      "fileID": 7882625,
+      "projectID": 1487245,
+      "fileName": "cobblemon_ultra_wormholes-neoforge-1.1.1.jar",
+      "installedPath": "mods/cobblemon_ultra_wormholes-neoforge-1.1.1.jar",
+      "size": 264169,
+      "sha1": "03fd8618057a7d775168539fd2b4cf7dec7b43bb"
+    },
+    {
+      "fileID": 6423863,
+      "projectID": 520110,
+      "fileName": "Iceberg-1.21.1-neoforge-1.3.2.jar",
+      "installedPath": "mods/Iceberg-1.21.1-neoforge-1.3.2.jar",
+      "size": 213853,
+      "sha1": "f6014d198be9503573cd9cb41cc789d282768ad8"
+    },
+    {
+      "fileID": 6961457,
+      "projectID": 1023259,
+      "fileName": "prickle-neoforge-1.21.1-21.1.11.jar",
+      "installedPath": "mods/prickle-neoforge-1.21.1-21.1.11.jar",
+      "size": 84812,
+      "sha1": "5174059ecf97340a0de5ef211b938de26c4eaa36"
+    },
+    {
+      "fileID": 8123288,
+      "projectID": 385587,
+      "fileName": "ComplementaryUnbound_r5.8.1.zip",
+      "installedPath": "shaderpacks/ComplementaryUnbound_r5.8.1.zip",
+      "size": 546928,
+      "sha1": "af656a33be2cbd217ea08986ad2cdd76f6bbfe1c"
+    },
+    {
+      "fileID": 8466494,
+      "projectID": 1585805,
+      "fileName": "aetheria_pokespawn-neoforge-1.21.1-1.1.1.jar",
+      "installedPath": "mods/aetheria_pokespawn-neoforge-1.21.1-1.1.1.jar",
+      "size": 106822,
+      "sha1": "b619a89dd1b5bc5d6b93dc77eef20b4a620e2a0a"
+    },
+    {
+      "fileID": 8438936,
+      "projectID": 229523,
+      "fileName": "armourersworkshop-forge-1.21.1-3.4.0-beta.3.jar",
+      "installedPath": "mods/armourersworkshop-forge-1.21.1-3.4.0-beta.3.jar",
+      "size": 6525367,
+      "sha1": "7b1b46880205764247b7450236f827523f9bde5e"
+    },
+    {
+      "fileID": 8206075,
+      "projectID": 352491,
+      "fileName": "ModernUI-NeoForge-1.21.1-3.13.0.1-universal.jar",
+      "installedPath": "mods/ModernUI-NeoForge-1.21.1-3.13.0.1-universal.jar",
+      "size": 25228113,
+      "sha1": "d6dc4131595f6b38274e5c16ef13895ab2125010"
+    },
+    {
+      "fileID": 7980010,
+      "projectID": 968868,
+      "fileName": "Zeta-1.1-40.jar",
+      "installedPath": "mods/Zeta-1.1-40.jar",
+      "size": 763725,
+      "sha1": "72f6efe421cfc0547c774ae8241d727b7d996754"
+    },
+    {
+      "fileID": 6372979,
+      "projectID": 638111,
+      "fileName": "Prism-1.21.1-neoforge-1.0.11.jar",
+      "installedPath": "mods/Prism-1.21.1-neoforge-1.0.11.jar",
+      "size": 62031,
+      "sha1": "1ae6f7be2ba8f963344dbf27e552920a7bc7a35f"
+    },
+    {
+      "fileID": 7821174,
+      "projectID": 1122207,
+      "fileName": "fast_tpa-neoforge1.21.1-1.3.0.jar",
+      "installedPath": "mods/fast_tpa-neoforge1.21.1-1.3.0.jar",
+      "size": 27724,
+      "sha1": "18d8d47a9b90644378c91a56408640d764be6674"
+    },
+    {
+      "fileID": 7963363,
+      "projectID": 328085,
+      "fileName": "create-1.21.1-6.0.10.jar",
+      "installedPath": "mods/create-1.21.1-6.0.10.jar",
+      "size": 19123767,
+      "sha1": "0e97e49837bed766e6f28a4c95b04885d6acc353"
+    },
+    {
+      "fileID": 5609571,
+      "projectID": 950746,
+      "fileName": "nofeathertrample-1.21.1-1.3.jar",
+      "installedPath": "mods/nofeathertrample-1.21.1-1.3.jar",
+      "size": 23512,
+      "sha1": "4b534ac2922b0b74e767181eccb0d8f9e5ea1d33"
+    },
+    {
+      "fileID": 7772551,
+      "projectID": 1488760,
+      "fileName": "pasturelootnf-0.1.0+1.21.1.jar",
+      "installedPath": "mods/pasturelootnf-0.1.0+1.21.1.jar",
+      "size": 33347,
+      "sha1": "008f4790a954191bd2dce540b6832b01cb54b9b0"
+    },
+    {
+      "fileID": 8330365,
+      "projectID": 360438,
+      "fileName": "lithium-neoforge-0.15.4+mc1.21.1.jar",
+      "installedPath": "mods/lithium-neoforge-0.15.4+mc1.21.1.jar",
+      "size": 774220,
+      "sha1": "97212e45c963730bbfc7c44780df99317814c21b"
+    },
+    {
+      "fileID": 8682854,
+      "projectID": 499980,
+      "fileName": "moonlight-1.21.1-3.4.1-neoforge.jar",
+      "installedPath": "mods/moonlight-1.21.1-3.4.1-neoforge.jar",
+      "size": 2167608,
+      "sha1": "9d7d5b0c60c916bec2a514d387c220c2a73753be"
+    },
+    {
+      "fileID": 8606447,
+      "projectID": 1382688,
+      "fileName": "constructionwand-kots-1.21.1-2.16.12.jar",
+      "installedPath": "mods/constructionwand-kots-1.21.1-2.16.12.jar",
+      "size": 204794,
+      "sha1": "25a0c436f6dd081987c9c24deb63644899c3c0d9"
+    },
+    {
+      "fileID": 7821118,
+      "projectID": 1478308,
+      "fileName": "lang_amend-1.0.0-mc1.21.1-neoforge.jar",
+      "installedPath": "mods/lang_amend-1.0.0-mc1.21.1-neoforge.jar",
+      "size": 7726,
+      "sha1": "016ddfce435703ef65397038143eae562c2edc86"
+    },
+    {
+      "fileID": 8481327,
+      "projectID": 1603095,
+      "fileName": "cobblemon-raiddens-addon-1.1.2.jar",
+      "installedPath": "mods/cobblemon-raiddens-addon-1.1.2.jar",
+      "size": 54741,
+      "sha1": "540ce2536d49f3dedcfb63b3ecba8e3bbd378089"
+    },
+    {
+      "fileID": 7968869,
+      "projectID": 1396525,
+      "fileName": "cobblemon-battle-extras-neoforge-1.13.45.jar",
+      "installedPath": "mods/cobblemon-battle-extras-neoforge-1.13.45.jar",
+      "size": 1651388,
+      "sha1": "eb446be193bdd4981d16c86bb40410be3f0cb693"
+    },
+    {
+      "fileID": 5812532,
+      "projectID": 1015144,
+      "fileName": "YungsBetterWitchHuts-1.21.1-NeoForge-4.1.1.jar",
+      "installedPath": "mods/YungsBetterWitchHuts-1.21.1-NeoForge-4.1.1.jar",
+      "size": 174789,
+      "sha1": "bbf6c91f4a2829c58bc024eaaab821986bc93de6"
+    },
+    {
+      "fileID": 8462029,
+      "projectID": 931925,
+      "fileName": "chloride-NEOFORGE-mc1.21.1-v1.8.1.jar",
+      "installedPath": "mods/chloride-NEOFORGE-mc1.21.1-v1.8.1.jar",
+      "size": 527889,
+      "sha1": "50454011525e2862678b15d94484fd32a5a54dfb"
+    },
+    {
+      "fileID": 8479452,
+      "projectID": 1560514,
+      "fileName": "cobblemoncharms-1.2.0-neoforge.jar",
+      "installedPath": "mods/cobblemoncharms-1.2.0-neoforge.jar",
+      "size": 282067,
+      "sha1": "470516b940761f2dfb6caa0c2d91d83650cf5ad9"
+    },
+    {
+      "fileID": 8594020,
+      "projectID": 1538074,
+      "fileName": "cobblemonminigames-neoforge-3.0.2.jar",
+      "installedPath": "mods/cobblemonminigames-neoforge-3.0.2.jar",
+      "size": 7365572,
+      "sha1": "eab5a76f709c6f5aaa4f47784079d1a5ec103524"
+    },
+    {
+      "fileID": 6785734,
+      "projectID": 532610,
+      "fileName": "owo-lib-neoforge-0.12.15.5-beta.1+1.21.jar",
+      "installedPath": "mods/owo-lib-neoforge-0.12.15.5-beta.1+1.21.jar",
+      "size": 1221583,
+      "sha1": "48dda11a6710591cf162bdbedf982ea21dd1f2ed"
+    },
+    {
+      "fileID": 6467772,
+      "projectID": 714059,
+      "fileName": "resourcefulconfig-neoforge-1.21-3.0.11.jar",
+      "installedPath": "mods/resourcefulconfig-neoforge-1.21-3.0.11.jar",
+      "size": 341009,
+      "sha1": "6bf2b6ea9c071c00a2abcdc552667fb6f7d21031"
+    },
+    {
+      "fileID": 6606621,
+      "projectID": 1015118,
+      "fileName": "YungsBetterNetherFortresses-1.21.1-NeoForge-3.1.5.jar",
+      "installedPath": "mods/YungsBetterNetherFortresses-1.21.1-NeoForge-3.1.5.jar",
+      "size": 609639,
+      "sha1": "4061ece2141475227646649046fc14c2da505922"
+    },
+    {
+      "fileID": 5514197,
+      "projectID": 655619,
+      "fileName": "better_climbing-neoforge-4.jar",
+      "installedPath": "mods/better_climbing-neoforge-4.jar",
+      "size": 7127,
+      "sha1": "3e5f07639bab5084b492cd7d66b9bfea740ec244"
+    },
+    {
+      "fileID": 5954804,
+      "projectID": 1015112,
+      "fileName": "YungsBetterDungeons-1.21.1-NeoForge-5.1.4.jar",
+      "installedPath": "mods/YungsBetterDungeons-1.21.1-NeoForge-5.1.4.jar",
+      "size": 782160,
+      "sha1": "73a660c13063450e555e5e2c015ae24d606b32b4"
+    },
+    {
+      "fileID": 8680346,
+      "projectID": 889079,
+      "fileName": "forgified-fabric-api-0.116.15+2.3.4+1.21.1.jar",
+      "installedPath": "mods/forgified-fabric-api-0.116.15+2.3.4+1.21.1.jar",
+      "size": 5613423,
+      "sha1": "ae8463d59cab8218ea68da5608d2af4a86e9b169"
+    },
+    {
+      "fileID": 7319641,
+      "projectID": 959184,
+      "fileName": "SimpleTMs-neoforge-2.3.3.jar",
+      "installedPath": "mods/SimpleTMs-neoforge-2.3.3.jar",
+      "size": 825317,
+      "sha1": "f30723c57a72ff9c9f4b54fe1652430273355607"
+    },
+    {
+      "fileID": 7274069,
+      "projectID": 1388959,
+      "fileName": "pokopia-1.1.zip",
+      "installedPath": "global_packs/both/pokopia-1.1.zip",
+      "size": 109784,
+      "sha1": "572a341a84652f611586cb889c486f667bb9a825"
+    },
+    {
+      "fileID": 8695784,
+      "projectID": 361276,
+      "fileName": "lootr-neoforge-1.21.1-1.11.38.124.jar",
+      "installedPath": "mods/lootr-neoforge-1.21.1-1.11.38.124.jar",
+      "size": 994918,
+      "sha1": "e31c1ec4604ce2c902e8abe64dd3a7ee18860ddc"
+    },
+    {
+      "fileID": 8787039,
+      "projectID": 1657980,
+      "fileName": "arc_quest-neoforge1.21.1-1.0.7.jar",
+      "installedPath": "mods/arc_quest-neoforge1.21.1-1.0.7.jar",
+      "size": 5002204,
+      "sha1": "30dab2d2f444cf0f50267654fac26459c6aefa25"
+    },
+    {
+      "fileID": 6790331,
+      "projectID": 593958,
+      "fileName": "UniversalEnchants-v21.1.6-1.21.1-NeoForge.jar",
+      "installedPath": "mods/UniversalEnchants-v21.1.6-1.21.1-NeoForge.jar",
+      "size": 96733,
+      "sha1": "54ab65d697b416278f0abf716a71fd18652af128"
+    },
+    {
+      "fileID": 8451198,
+      "projectID": 1613808,
+      "fileName": "Aeos Dunkers Resourcepack 1.7.zip",
+      "installedPath": "datapacks/Aeos Dunkers Resourcepack 1.7.zip",
+      "size": 635072,
+      "sha1": "d0e705b75472dd55f23d2a2389e066005aeeb854"
+    },
+    {
+      "fileID": 8712371,
+      "projectID": 1660769,
+      "fileName": "preloading_dlc-1.0.4.jar",
+      "installedPath": "mods/preloading_dlc-1.0.4.jar",
+      "size": 44579,
+      "sha1": "1020577e15be3e912ac0508113b5bc32ce351259"
+    },
+    {
+      "fileID": 8040848,
+      "projectID": 916747,
+      "fileName": "OctoLib-NEOFORGE-0.6.2+1.21.jar",
+      "installedPath": "mods/OctoLib-NEOFORGE-0.6.2+1.21.jar",
+      "size": 544378,
+      "sha1": "f4f66d677b104c6af7f5c0f7e3c08d8e4370ecad"
+    },
+    {
+      "fileID": 5966530,
+      "projectID": 286098,
+      "fileName": "clearwater-neoforge-1.21-3.0.0.jar",
+      "installedPath": "mods/clearwater-neoforge-1.21-3.0.0.jar",
+      "size": 22674,
+      "sha1": "e95c82a455cdb9a3795fd7b17cfff03feb06b4ce"
+    }
+  ],
+  "automatedChecks": {
+    "passed": 511,
+    "failed": 0
+  },
+  "limitations": [
+    "Installation verified; Minecraft gameplay not launched",
+    "Sources are live services; availability and elapsed time may vary"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-01T17:12:57.146Z",
+  "roomCreated": true,
+  "roomJoined": true,
+  "standard": {
+    "bytes": 5000,
+    "sha256": "9415a79f8d378081c37be06e09d8e81027c450d1ae4bf96b5a2e09c638e72bfa"
+  },
+  "legacy": {
+    "bytes": 5000,
+    "sha256": "3aacbb8e0f677cf5f14e6e10449ac42e7c45166399830156b9e8c04a5bed5045"
+  },
+  "cleanup": [
+    "legacy allocation released",
+    "guest left",
+    "host left"
+  ]
+}

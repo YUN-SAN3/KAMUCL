@@ -10,14 +10,17 @@ app.whenReady().then(async()=>{
  const wait=ms=>new Promise(r=>setTimeout(r,ms))
  async function until(fn,timeout=7000){const end=Date.now()+timeout;while(!fn()){if(Date.now()>end)throw new Error('Timed out');await wait(15)}}
  try {
-  await until(()=>fs.existsSync(signal+'.visible'))
+  await until(()=>fs.existsSync(signal+'.visible')&&fs.existsSync(probe)&&fs.statSync(probe).size>0)
   const firstPaintMs=Number(fs.readFileSync(probe,'utf8'))-start
   const pid=await mod.exports.awaitNativeStartup(signal);assert.equal(pid,child.pid)
   const startup=mod.exports.createNativeStartup(signal,pid)
-  const win=new BrowserWindow({width:600,height:400,show:false,webPreferences:{nodeIntegration:true,contextIsolation:false}})
+  const win=new BrowserWindow({x:-10000,y:-10000,width:600,height:400,show:false,webPreferences:{nodeIntegration:true,contextIsolation:false}})
   startup.attach(win)
+  // PowerShell launches this helper with SW_HIDE. Consume that first-show hint
+  // offscreen so it cannot suppress the coordinator's subsequent real reveal.
   await win.loadURL('data:text/html,<body style="background:%23172021;color:white;font:24px sans-serif"><p>KAMUCL startup verification</p></body>')
   await wait(1100);assert(!win.isVisible());assert(!fs.existsSync(signal+'.assembled'),'paint alone must not complete boot')
+  win.showInactive();win.hide();win.setPosition(20,20)
   await win.webContents.executeJavaScript("require('electron').ipcRenderer.send('boot:renderer-ready')")
   const readyAt=Date.now();await until(()=>fs.existsSync(signal+'.assembled'));const assembledMs=Date.now()-readyAt
   assert(assembledMs>=600,'must retain convergence/hold before main reveal')

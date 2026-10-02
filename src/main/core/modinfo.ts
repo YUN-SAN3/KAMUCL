@@ -1,3 +1,6 @@
+import { scanModDirectory } from './modScan'
+import { resolveResourceDirectory } from './resourceDirectory'
+import { folderOfVersion } from './paths'
 /**
  * MOD 元数据解析：读取 jar 内 fabric.mod.json / quilt.mod.json /
  * neoforge.mods.toml / mods.toml / mcmod.info，提取名称、版本、
@@ -53,8 +56,8 @@ export function expandJarPaths(paths: string[]): { files: string[]; skipped: str
 // ---------------- �ظ� MOD ���� ----------------
 
 /** �汾 mods Ŀ¼����ѭ�汾���룩 */
-function modsDirOf(versionId: string): string {
-  return path.join(instanceDirectoryState(versionId, readVersionJson(versionId)).path, 'mods')
+function modsDirOf(versionId: string): Promise<string> {
+  return resolveResourceDirectory(folderOfVersion(versionId), versionId, 'mods')
 }
 
 /** MOD �汾�űȽϣ����ֶαȽϣ����Ժ�׺�� */
@@ -74,20 +77,10 @@ function compareModVersion(a: string, b: string): number {
 }
 
 /** ���汾���أ�ͬ mod id ���ļ����棬���汾�����������°� */
-export function findDuplicates(versionId: string): ModDuplicateGroup[] {
-  const dir = modsDirOf(versionId)
-  let jars: string[] = []
-  try {
-    jars = fs
-      .readdirSync(dir)
-      .filter((n) => n.toLowerCase().endsWith('.jar'))
-      .map((n) => path.join(dir, n))
-  } catch {
-    return []
-  }
+export async function findDuplicates(versionId: string): Promise<ModDuplicateGroup[]> {
+  const infos = await scanModDirectory(await modsDirOf(versionId))
   const groups = new Map<string, ModDuplicateGroup>()
-  for (const jar of jars) {
-    const info = parseModFile(jar)
+  for (const info of infos) {
     if (info.error || !info.id) continue
     const key = info.id.toLowerCase()
     if (!groups.has(key)) {
@@ -106,21 +99,11 @@ export function findDuplicates(versionId: string): ModDuplicateGroup[] {
 }
 
 /** ��汾���أ�ͬһ mod id ͬʱ�����ڶ����ѡ�汾 */
-export function findCrossDuplicates(versionIds: string[]): ModCrossDuplicate[] {
+export async function findCrossDuplicates(versionIds: string[]): Promise<ModCrossDuplicate[]> {
   const map = new Map<string, ModCrossDuplicate>()
   for (const vid of versionIds) {
-    const dir = modsDirOf(vid)
-    let jars: string[] = []
-    try {
-      jars = fs
-        .readdirSync(dir)
-        .filter((n) => n.toLowerCase().endsWith('.jar'))
-        .map((n) => path.join(dir, n))
-    } catch {
-      continue
-    }
-    for (const jar of jars) {
-      const info = parseModFile(jar)
+    const infos = await scanModDirectory(await modsDirOf(vid))
+    for (const info of infos) {
       if (info.error || !info.id) continue
       const key = info.id.toLowerCase()
       if (!map.has(key)) {

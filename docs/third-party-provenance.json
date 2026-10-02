@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "skinview3d": {
+    "version": "3.4.2",
+    "url": "https://raw.githubusercontent.com/bs-community/skinview3d/v3.4.2/src/model.ts",
+    "file": "src/renderer/src/vendor/skinview3d/model.ts",
+    "normalizedSha256": "57592697929fad5dad47a2ab1a1bb7e220cabec342e51fe218f72bb1c45c84fc",
+    "modifications": "Attribution header only"
+  },
+  "skinviewUtils": {
+    "version": "0.7.1",
+    "license": "MIT",
+    "integrity": "package-lock.json"
+  },
+  "voxlink": {
+    "revision": "c475faa98cca16d4a2eeef4422c862c36091e1fc",
+    "license": "LGPL-3.0-only",
+    "files": [
+      "punchAuth.ts",
+      "turn.ts",
+      "rudp.ts",
+      "punch.ts",
+      "session.ts",
+      "engine.ts",
+      "modsync.ts",
+      "modsyncService.ts",
+      "tcpPunch.ts",
+      "turnTcp.ts",
+      "connectionLog.ts",
+      "punchProfiles.ts",
+      "punchPolicy.ts",
+      "punchRounds.ts",
+      "stun.ts",
+      "stdTurn.ts",
+      "turnRelay.ts",
+      "turnBackground.ts",
+      "tickets.ts"
+    ],
+    "history": "Old Go port replaced; no retroactive license assertion",
+    "previousRevision": "924845e897d8fb36dca2474ade30e675278559d0",
+    "contract": "docs/launcher-integration.md",
+    "sharedFiles": [
+      "src/shared/voxlinkNat.ts"
+    ]
+  },
+  "projectionRegistry": {
+    "source": "PrismarineJS minecraft-data 3.117.0 + Mojang 26.2/26.3 server data reports",
+    "license": "MIT package declaration / factual registry data",
+    "files": [
+      "src/main/core/projectionRegistries.json",
+      "src/main/core/projectionOfficialSchemas.json"
+    ],
+    "generator": "scripts/extract-projection-registries.cjs"
+  },
+  "ws": {
+    "version": "8.22.0",
+    "license": "MIT",
+    "file": "licenses/ws.txt"
+  }
+}

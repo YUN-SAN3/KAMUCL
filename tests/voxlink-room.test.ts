@@ -46,6 +46,8 @@ test('VoxLink create flow preserves rejected names, focuses the field, and submi
   )
   const scope = vue.effectScope()
   const state = scope.run(() => module.exports.default.setup({}, { expose: () => {} }))
+  state.instances.value = [{ id: 'fixture', folder: 'C:/fixture', mcVersion: '1.20.1' }]
+  state.instanceKey.value = JSON.stringify(['C:/fixture', 'fixture'])
   state.roomNameInput.value = { focus: () => { focusCount++ } }
   try {
     state.roomName.value = '  '

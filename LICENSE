@@ -1,5 +1,9 @@
 MIT License
 
+Scope: original KAMUCL contributions only. Third-party code retains its own
+license; see THIRD_PARTY_NOTICES.md and licenses/. This notice does not grant
+rights in upstream code whose historical permission remains unresolved.
+
 Copyright (c) 2026 kamubaba-i
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

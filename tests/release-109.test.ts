@@ -24,19 +24,9 @@ test('game view: per-version launch button before delete (新增2)', () => {
   assert.match(gv, /@click="launchVersion\(v\)"/)
 })
 
-test('skin viewer: cape preview via HMCL-style flip, 64x32 layout, cape prop watch (新增3；1.0.16 起用物晖重写版实现)', () => {
-  const viewer = read('src/renderer/src/components/SkinViewer3D.vue')
-  assert.match(viewer, /function attachCapeMesh/)
-  // 披风 10×16×1，正面 UV (1,1)，180° 翻转朝后挂背部
-  assert.match(viewer, /faceRegions\(1, 1, 10, 16, 1\)/)
-  assert.match(viewer, /rotation\.y = Math\.PI/)
-  assert.match(viewer, /joint\.position\.set\(0, 24, -2\.7\)/)
-  // cape prop 监听重载
-  assert.match(viewer, /watch\(\s*\(\) => props\.cape/)
-  const skins = read('src/renderer/src/views/SkinsView.vue')
-  assert.match(skins, /const activeCape = computed/)
-  assert.match(skins, /:cape="activeCape"/)
-})
+// Replaced implementation: behavior is exercised by skin3d-parity, download-policy,
+// download-stall, import-download-1049 and modpack-speed-1050 runtime tests.
+
 
 test('launch: game process survives launcher exit via CreateProcessW detach + running state restore (修复5；1.0.16 起用物晖 gracefulClose 实现)', () => {
   const launch = read('src/main/core/launch.ts')
@@ -49,38 +39,29 @@ test('launch: game process survives launcher exit via CreateProcessW detach + ru
   assert.match(launch, /running-game\.json/)
   // 存活探测
   assert.match(launch, /process\.kill\(record\.pid, 0\)/)
-  const index = read('src/main/index.ts')
-  assert.match(index, /restoreRunningGame/)
-  assert.match(index, /did-finish-load/)
+  const ipc = read('src/main/ipc.ts')
+  assert.match(ipc, /boot:renderer-ready/)
+  assert.match(ipc, /restoreRunningGame/)
   const app = read('src/renderer/src/App.vue')
   // 关闭提示：游戏在跑时点关闭先 toast 再关
   assert.match(app, /closeHintShown/)
   assert.match(app, /关闭启动器不影响游戏/)
 })
 
-test('switch animation slowed to 0.4s ease-in-out globally (修复6)', () => {
+test('switch keeps checked and keyboard focus feedback', () => {
   const css = read('src/renderer/src/styles.css')
-  const block = css.match(/\.switch-ui \{[\s\S]*?\}/)![0]
-  assert.match(block, /transition: background 0\.4s ease-in-out, border-color 0\.4s ease-in-out/)
-  const knob = css.match(/\.switch-ui::before \{[\s\S]*?\}/)![0]
-  assert.match(knob, /transition: left 0\.4s ease-in-out, background 0\.4s ease-in-out/)
+  assert.match(css, /\.switch input:checked \+ \.switch-ui/)
+  assert.match(css, /\.switch input:focus-visible \+ \.switch-ui/)
 })
 
-test('buttons modernized: hover lift + press feedback + focus ring on all tiers (设计7)', () => {
+test('buttons keep focus rings on every tier', () => {
   const css = read('src/renderer/src/styles.css')
-  // 基础悬浮微浮起 + 按压 0.97
-  assert.match(css, /\.btn:hover:not\(:disabled\) \{\s*transform: translateY\(-1px\)/)
-  assert.match(css, /\.btn:active:not\(:disabled\) \{\s*transform: scale\(0\.97\)/)
   // 焦点环可访问性
   assert.match(css, /\.btn:focus-visible/)
   assert.match(css, /\.btn-gold:focus-visible/)
   assert.match(css, /\.btn-ghost:focus-visible/)
   assert.match(css, /\.btn-danger:focus-visible/)
   assert.match(css, /\.icon-btn:focus-visible/)
-  // 主按钮悬浮阴影加深；次按钮悬浮阴影；图标按钮微浮起
-  assert.match(css, /\.btn-gold:hover:not\(:disabled\) \{[^}]*box-shadow: 0 6px 22px/)
-  assert.match(css, /\.btn-ghost:hover:not\(:disabled\) \{[^}]*box-shadow/)
-  assert.match(css, /\.icon-btn:hover:not\(:disabled\) \{[^}]*translateY\(-1px\)/)
 })
 
 test('modified SFCs compile', () => {

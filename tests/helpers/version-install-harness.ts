@@ -9,11 +9,12 @@ let bundle: Promise<string> | undefined
 export async function versionInstallHarness(root: string, metadataFetch: typeof fetch = fetch, downloadUrl = (url: string) => url) {
   bundle ??= build({
     stdin: {
-      contents: `export { installVersion, readVersionJson, listInstalled } from './src/main/core/versions';
+      contents: `export { installVanilla, installVersion, readVersionJson, listInstalled, libraryTasks, resolvedLibraries, resolveVersionChain, launchLibraryFiles } from './src/main/core/versions';
         export { getSettings } from './src/main/core/settings';
         export { listFabricApiVersions } from './src/main/core/loaders';
         export { communityDownload, communitySearchPage, communityFiles } from './src/main/core/community';
-        export { installModpack } from './src/main/core/modpacks';
+        export { installModpack, extractOverrides } from './src/main/core/modpacks';
+        export { supplyModpackFiles } from './src/main/core/modpackManualFiles';
         export { closeHttpClient } from './src/main/core/httpClient';`,
       resolveDir: process.cwd(), loader: 'ts'
     },
@@ -33,15 +34,21 @@ export async function versionInstallHarness(root: string, metadataFetch: typeof 
     exported, exported.exports, metadataFetch
   )
   return exported.exports as {
+    installVanilla: typeof import('../../src/main/core/versions').installVanilla
     installVersion: typeof import('../../src/main/core/versions').installVersion
     readVersionJson: typeof import('../../src/main/core/versions').readVersionJson
     listInstalled: typeof import('../../src/main/core/versions').listInstalled
     getSettings: typeof import('../../src/main/core/settings').getSettings
+    libraryTasks: typeof import('../../src/main/core/versions').libraryTasks
+    resolvedLibraries: typeof import('../../src/main/core/versions').resolvedLibraries
+    resolveVersionChain: typeof import('../../src/main/core/versions').resolveVersionChain
+    launchLibraryFiles: typeof import('../../src/main/core/versions').launchLibraryFiles
     listFabricApiVersions: typeof import('../../src/main/core/loaders').listFabricApiVersions
     communityDownload: typeof import('../../src/main/core/community').communityDownload
     communitySearchPage: typeof import('../../src/main/core/community').communitySearchPage
     communityFiles: typeof import('../../src/main/core/community').communityFiles
     installModpack: typeof import('../../src/main/core/modpacks').installModpack
+    supplyModpackFiles: typeof import('../../src/main/core/modpackManualFiles').supplyModpackFiles
     closeHttpClient: () => Promise<void>
   }
 }

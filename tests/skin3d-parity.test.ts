@@ -1,48 +1,43 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import fs from 'node:fs'
+import { Box3, BoxGeometry, Mesh, Texture, Vector3, PerspectiveCamera } from 'three'
+import { PreviewPlayer } from '../src/renderer/src/skinModel'
 
-/**
- * 3D 人物渲染对齐 skinview3d v3.4.2（参考/skinview3d-master，MIT）的专项回归：
- * 锁定本次审计修复的三处真实渲染瑕疵，防止后续回退。
- */
-const read = (file: string) => fs.readFileSync(file, 'utf8')
-
-test('skin3d parity: -y bottom face UV follows skinview3d uvBottom vertex order (no bowtie twist)', () => {
-  const viewer = read('src/renderer/src/components/SkinViewer3D.vue')
-  // three.js BoxGeometry 的 ny 面顶点序 = 前左/前右/后左/后右（vdir=-1，与其他面相反）；
-  // skinview3d setUVs：uvBottom = [bottom[0], bottom[1], bottom[3], bottom[2]]
-  // → 前缘贴区域下边、后缘贴区域上边、u 不镜像。后缘 u 反接会让底面前后边 u 相互反转（蝶形扭曲）。
-  const m = viewer.match(/if \(f === 3\) \{[\s\S]*?\} else \{/)
-  assert.ok(m, 'mapBoxUVs 底面分支存在')
-  assert.match(m[0], /setXY\(o \+ 0, u0, vBot\)/)
-  assert.match(m[0], /setXY\(o \+ 1, u1, vBot\)/)
-  // 对照 skinview3d setUVs 原文：uvBottom=[bl,br,tl,tr] → o+2=tl=(u0,vTop)、o+3=tr=(u1,vTop)
-  assert.match(m[0], /setXY\(o \+ 2, u0, vTop\)/)
-  assert.match(m[0], /setXY\(o \+ 3, u1, vTop\)/)
-  // 披风（64×32 纹理）的底面（下摆）同一约定
-  const cape = viewer.match(/\/\/ 与 mapBoxUVs 相同的 -y 底面约定[\s\S]*?\} else \{/)
-  assert.ok(cape, '披风底面分支存在')
-  assert.match(cape[0], /setXY\(o \+ 2, u0, vTop\)/)
-  assert.match(cape[0], /setXY\(o \+ 3, u1, vTop\)/)
+test('changing cape preserves upright pose, camera and zoom during walking and idle', () => {
+  const player = new PreviewPlayer(), camera = new PerspectiveCamera(40,1,.1,200)
+  camera.position.set(20,27,50); camera.zoom=1.4
+  const before=camera.position.clone()
+  for(const walk of [0,1])for(const yaw of [-.6,2.5])for(const texture of [new Texture(),new Texture(),null]) {
+    player.pose(.4,walk,yaw);player.setCape(texture);player.updateMatrixWorld(true)
+    assert(new Vector3(0,1,0).transformDirection(player.matrixWorld).distanceTo(new Vector3(0,1,0))<1e-12)
+    assert(camera.position.equals(before));assert.equal(camera.zoom,1.4)
+    assert.equal(player.rotation.y,yaw);assert.equal(player.cape.visible,!!texture)
+    player.pose(.5,walk,yaw);assert.equal(player.rotation.x,0);assert.equal(player.rotation.z,0)
+  }
+  player.dispose()
+})
+test('walking arms have opposite X swings, constant outward tilt and no Y twist',()=>{
+  const player=new PreviewPlayer();player.pose(0,1,0)
+  assert.equal(player.skin.leftArm.rotation.x,Math.PI/4);assert.equal(player.skin.rightArm.rotation.x,-Math.PI/4)
+  assert.equal(player.skin.leftArm.rotation.y,0);assert.equal(player.skin.rightArm.rotation.y,0)
+  assert.equal(player.skin.leftArm.rotation.z,Math.PI*.02);assert.equal(player.skin.rightArm.rotation.z,-Math.PI*.02)
+  assert.equal(player.skin.leftLeg.rotation.x,-Math.PI/4);assert.equal(player.skin.rightLeg.rotation.x,Math.PI/4)
+  player.pose(0,0,0);assert.equal(Math.abs(player.skin.leftArm.rotation.x),0);player.dispose()
+})
+test('cape dimensions and all box bottom UVs remain rectangular without bowtie distortion',()=>{
+  const player=new PreviewPlayer();let capeFound=false,count=0
+  player.traverse(object=>{if(!(object instanceof Mesh)||!(object.geometry instanceof BoxGeometry))return
+    const geometry=object.geometry,uv=geometry.getAttribute('uv');count++
+    const points=[12,13,14,15].map(i=>[uv.getX(i),uv.getY(i)])
+    assert.equal(points[0][0],points[2][0]);assert.equal(points[1][0],points[3][0]);assert.equal(points[0][1],points[1][1]);assert.equal(points[2][1],points[3][1])
+    if(geometry.parameters.width===10&&geometry.parameters.height===16&&geometry.parameters.depth===1)capeFound=true
+  })
+  assert(count>=13);assert(capeFound);assert.equal(player.cape.rotation.y,Math.PI);player.dispose()
 })
 
-test('skin3d parity: walking arms swing on X only + constant 0.02π outward Z tilt (skinview3d WalkAnimation)', () => {
-  const viewer = read('src/renderer/src/components/SkinViewer3D.vue')
-  // FCL 的臂 Y 轴副摆（±20°@20°/s）会把内前/内后角切进与躯干齐平的手臂（穿透 0.56~0.63px）
-  assert.ok(!/subRate: 20/.test(viewer), '手臂 Y 副摆已移除')
-  assert.match(viewer, /const ARM_BASE_TILT = Math\.PI \* 0\.02/)
-  assert.match(viewer, /joints\.armL\.rotation\.z = ARM_BASE_TILT/)
-  assert.match(viewer, /joints\.armR\.rotation\.z = -ARM_BASE_TILT/)
-  // MC 原版公式（HumanoidModel.setupAnim）：cos × 1.4 × amount，行走 ±45°、四肢同幅、对角反相（用户要求与 MC 游戏完全一致）
-  assert.match(viewer, /Math\.cos\(animT \* WALK_RATE\) \* j\.mainAmp/)
-  assert.match(viewer, /mainAmp: 45/)
-  assert.ok(!/mainAmp: 10|mainAmp: 30/.test(viewer), '旧 FCL 幅度（±10°/±30°）已替换为 MC ±45°')
-})
-
-test('skin3d parity: cape keeps skinview3d standard 10x16x1 with flip mount (no 8-wide regression)', () => {
-  const viewer = read('src/renderer/src/components/SkinViewer3D.vue')
-  assert.match(viewer, /new THREE\.BoxGeometry\(10, 16, 1\)/)
-  assert.match(viewer, /faceRegions\(1, 1, 10, 16, 1\)/)
-  assert.match(viewer, /rotation\.y = Math\.PI/)
+test('texture alpha detects slim while the model switches shoulder width without rebuilding',async()=>{
+ const {detectSkinVariant}=await import('../src/renderer/src/skin-render')
+ const previous=Object.getOwnPropertyDescriptor(globalThis,'document');let alpha=0
+ Object.defineProperty(globalThis,'document',{configurable:true,value:{createElement:()=>({getContext:()=>({drawImage(){},getImageData(){return{data:new Uint8ClampedArray([0,0,0,alpha])}}})})}})
+ try{assert.equal(detectSkinVariant({} as HTMLCanvasElement),'slim');alpha=255;assert.equal(detectSkinVariant({} as HTMLCanvasElement),'classic');const player=new PreviewPlayer();player.skin.modelType='slim';const slim=new Box3().setFromObject(player.skin.leftArm).getSize(new Vector3()).x;player.skin.modelType='default';const classic=new Box3().setFromObject(player.skin.leftArm).getSize(new Vector3()).x;assert(Math.abs(classic-slim-1)<.01);player.dispose()}finally{if(previous)Object.defineProperty(globalThis,'document',previous);else Reflect.deleteProperty(globalThis,'document')}
 })

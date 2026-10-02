@@ -1,7 +1,7 @@
 {
   "name": "kamucl",
   "productName": "KAMUCL",
-  "version": "1.0.35",
+  "version": "1.1.9",
   "description": "KAMUCL - 简约美观的一键式 Minecraft 启动器",
   "main": "out/main/index.js",
   "scripts": {
@@ -9,10 +9,11 @@
     "build": "electron-vite build",
     "test": "tsx --test tests/all.test.ts",
     "start": "electron-vite preview",
-    "dist": "npm run build && electron-builder --win portable zip",
-    "dist:win": "npm run build && electron-builder --win portable zip",
-    "dist:mac": "electron-vite build && electron-builder --mac zip --x64 --arm64",
-    "dist:all": "electron-vite build && electron-builder --win portable zip --mac zip --x64 --arm64"
+    "dist": "npm run dist:win",
+    "dist:win": "npm run build && electron-builder --win portable --x64 --publish never && node scripts/pack-windows-zip.cjs",
+    "dist:mac": "node scripts/pack-mac.mjs",
+    "dist:all": "node scripts/dist-platform.cjs",
+    "license:check": "node scripts/check-licenses.cjs"
   },
   "build": {
     "appId": "com.kamucl.launcher",
@@ -25,7 +26,11 @@
       "out/preload/**",
       "out/renderer/**",
       "package.json",
-      "!out/**/*.map"
+      "!out/**/*.map",
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md",
+      "licenses/**",
+      "docs/CORRESPONDING_SOURCE.md"
     ],
     "asar": true,
     "compression": "maximum",
@@ -36,10 +41,28 @@
     "asarUnpack": [
       "out/main/WindowMaterial.exe",
       "out/main/GameWindowFocus.exe",
+      "out/main/MacGameWindow",
       "out/main/kamucl-bridge.jar"
     ],
     "beforePack": "scripts/portable-build-hook.cjs",
+    "afterPack": "scripts/verify-windows-runtime.cjs",
     "win": {
+      "files": [
+        "out/main/**",
+        "out/preload/**",
+        "out/renderer/**",
+        "package.json",
+        "!out/**/*.map",
+        "LICENSE",
+        "THIRD_PARTY_NOTICES.md",
+        "licenses/**",
+        "docs/CORRESPONDING_SOURCE.md",
+        "!node_modules/koffi/doc{,/**}",
+        "!node_modules/koffi/lib{,/**}",
+        "!node_modules/koffi/vendor{,/**}",
+        "!node_modules/koffi/cnoke.cjs",
+        "!node_modules/undici/docs{,/**}"
+      ],
       "target": [
         "portable",
         "zip"
@@ -52,31 +75,38 @@
       "artifactName": "KAMUCL-${version}.exe"
     },
     "mac": {
+      "minimumSystemVersion": "11.0.0",
       "target": [
         "zip"
       ],
       "category": "public.app-category.games",
       "icon": "build/icon-512.png",
       "identity": null,
-      "artifactName": "KAMUCL-${version}-mac.${ext}"
+      "artifactName": "KAMUCL-${version}-mac-${arch}.${ext}"
     }
   },
   "dependencies": {
     "@iarna/toml": "2.2.5",
     "adm-zip": "^0.6.0",
     "koffi": "^3.2.1",
-    "undici": "^6.28.0"
+    "undici": "^6.28.0",
+    "ws": "8.22.0"
   },
   "devDependencies": {
     "@electron/packager": "^20.3.0",
     "@types/adm-zip": "^0.5.7",
     "@types/node": "^22.9.0",
+    "@types/three": "0.185.0",
+    "@types/ws": "8.18.1",
+    "@types/yauzl": "^3.4.0",
     "@vitejs/plugin-vue": "^5.2.0",
     "asar": "^3.2.0",
-    "electron": "^33.2.0",
+    "electron": "44.3.0",
     "electron-builder": "^26.15.3",
     "electron-vite": "^2.3.0",
+    "minecraft-data": "3.117.0",
     "sharp": "^0.35.4",
+    "skinview-utils": "0.7.1",
     "three": "^0.185.1",
     "tsx": "^4.23.13",
     "typescript": "^5.6.3",
@@ -84,5 +114,6 @@
     "vue": "^3.5.13",
     "yauzl": "^3.4.0",
     "yazl": "^3.3.1"
-  }
+  },
+  "license": "SEE LICENSE IN LICENSE"
 }

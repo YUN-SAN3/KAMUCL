@@ -9,6 +9,8 @@ import { getSettings } from './settings'
 import { gameDir } from './paths'
 import { readVersionJson, listAllInstalled } from './versions'
 import { getLastLaunch } from './launch'
+import { samePath } from './folderPaths'
+import { exitHistory } from './exitHistory'
 import { instanceDirectoryState } from './instances'
 import { selectedAccount } from './accounts'
 import { launcherLogPath } from './launcherLog'
@@ -148,7 +150,7 @@ export async function exportLaunchLogs(
   }
   const last = getLastLaunch()
   const vid = versionId || last?.versionId || 'unknown'
-  const item = installed.find((value) => value.id === vid)
+  const item = installed.find((value) => value.id === vid && samePath(value.folder, gameDir()))
   const folder = item?.folder || gameDir()
   let directoryState = item
     ? {
@@ -183,7 +185,7 @@ export async function exportLaunchLogs(
     account?.clientToken ?? '',
     account?.loginIdentifier ?? ''
   ].filter(Boolean)
-  const currentLaunch = last?.versionId === vid ? last : null
+  const currentLaunch = last?.versionId === vid && last.effectiveGameDir && samePath(last.effectiveGameDir,effectiveGameDir) ? last : exitHistory().list().find(e=>e.kind==='game'&&e.context?.versionId===vid&&e.context?.effectiveGameDir&&samePath(String(e.context.effectiveGameDir),effectiveGameDir))?.context as unknown as typeof last
   const manifest: DiagnosticManifest = {
     schemaVersion: 1,
     exportedAt: now.toISOString(),

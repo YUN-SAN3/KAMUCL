@@ -78,6 +78,7 @@ KAMUCL
    ├─ 默认 Java、分辨率、窗口模式
    ├─ 启动后行为与功能开关
    ├─ Java 自动扫描、手动添加、隐藏
+   ├─ 实例管理中心：复制、备份、恢复与运行诊断
    ├─ 插件安装、启用 / 禁用、移除
    ├─ 更新检查、下载、应用与回滚
    └─ 诊断、日志、本地更新包
@@ -90,6 +91,7 @@ KAMUCL
 ├─ src/main/index.ts             Electron 生命周期、窗口、协议
 ├─ src/main/ipc.ts               IPC 注册与输入校验
 ├─ src/main/core/launch.ts       Java / Minecraft 启动、结束、重启
+├─ src/main/core/launchPreparation.ts 启动前资源准备与完整性检查
 ├─ src/main/core/gameSession.ts  运行会话与进程状态
 └─ src/main/core/gameWindow.ts   游戏窗口辅助
 
@@ -97,6 +99,8 @@ KAMUCL
 ├─ src/main/core/versions.ts     版本清单、继承链、实例安装
 ├─ src/main/core/loaders.ts      各类加载器与 Fabric API
 ├─ src/main/core/instances.ts    实例目录与隔离迁移
+├─ src/main/core/instanceCenter.ts 实例复制、备份、恢复与诊断
+├─ src/main/core/backupStore.ts 备份存储与事务恢复
 ├─ src/main/core/gameFolders.ts  游戏文件夹扫描与管理
 ├─ src/main/core/download.ts     下载、校验、断点与并发
 └─ src/main/core/tasks.ts        后台任务暂停、继续、取消
@@ -110,9 +114,12 @@ KAMUCL
 
 资源与联机
 ├─ src/main/core/community.ts    Modrinth / CurseForge
+├─ src/main/core/communityPaging.ts 社区资源分页与缓存
 ├─ src/main/core/modinfo.ts      JAR 元数据与兼容性
 ├─ src/main/core/modpacks.ts     整合包探测与安装
 ├─ src/main/core/modUpdates.ts   模组更新
+├─ src/main/core/modManagement.ts 模组启用、禁用、锁定与版本管理
+├─ src/main/core/resourceFiles.ts 资源包、光影包、数据包管理
 ├─ src/main/core/worlds.ts       世界导入
 ├─ src/main/core/servers.ts      服务器记录与同步
 ├─ src/main/core/directConnect.ts 好友直连与网络诊断
@@ -142,6 +149,9 @@ KAMUCL
 | [`releases/`](releases/) | 历史版本发布与验收记录 |
 | [`../FEATURE_AUDIT.md`](../FEATURE_AUDIT.md) | 功能审计记录 |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Commit 与 Pull Request 提交规范 |
+| [`CORRESPONDING_SOURCE.md`](CORRESPONDING_SOURCE.md) | 发布包对应源码与重建步骤 |
+| [`VOXLINK-UPSTREAM.md`](VOXLINK-UPSTREAM.md) | VoxLink 协议来源、同步范围与验证边界 |
+| [`../THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md) | 第三方依赖许可证与对应源码 |
 
 ## 维护规则
 

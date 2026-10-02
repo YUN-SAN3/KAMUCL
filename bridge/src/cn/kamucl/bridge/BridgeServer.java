@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 /**
  * 桥接 HTTP 服务：仅监听 127.0.0.1 随机端口，启动时生成一次性 token 写入
@@ -35,8 +39,36 @@ public final class BridgeServer {
         server.createContext("/kamucl/v1/manifest", exchange -> respond(exchange, null, BridgeServer::manifest));
         server.createContext("/kamucl/v1/set", exchange -> respond(exchange, token, () -> setParam(exchange)));
         server.createContext("/kamucl/v1/reset", exchange -> respond(exchange, token, () -> resetParam(exchange)));
-        server.setExecutor(null);
-        server.start();
+        // HttpServer's dispatcher inherits daemon status from the thread calling
+        // start(). Starting on Fabric's render thread kept the JVM alive after
+        // Minecraft returned from main (Client shutdown from post-main watchdog).
+        // A shutdown hook alone cannot fix that: the JVM never reaches shutdown.
+        ExecutorService requests = Executors.newSingleThreadExecutor(task -> {
+            Thread thread = new Thread(task, "kamucl-bridge-request");
+            thread.setDaemon(true);
+            return thread;
+        });
+        server.setExecutor(requests);
+        FutureTask<Void> start = new FutureTask<>(() -> { server.start(); return null; });
+        Thread bootstrap = new Thread(start, "kamucl-bridge-start");
+        bootstrap.setDaemon(true);
+        bootstrap.start();
+        try {
+            start.get();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            requests.shutdownNow();
+            server.stop(0);
+            throw new IOException("Bridge startup interrupted", e);
+        } catch (ExecutionException e) {
+            requests.shutdownNow();
+            server.stop(0);
+            throw new IOException("Bridge startup failed", e.getCause());
+        }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            requests.shutdownNow();
+            server.stop(0);
+        }, "kamucl-bridge-stop"));
         int port = server.getAddress().getPort();
         writeDiscovery(gameDir, port, token, modVersion);
         System.out.println("[KAMUCL Bridge] 桥接服务已就绪，端口 " + port + "（仅本机，需 token）");

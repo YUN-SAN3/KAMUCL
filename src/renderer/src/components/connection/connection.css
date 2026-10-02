@@ -109,3 +109,7 @@
   .connection-panel-head, .connection-panel-body { padding: var(--space-4); }
 }
 @media (prefers-reduced-motion: reduce) { .connect-page *, .connect-page *::after { transition: none !important; } }
+
+/* Compact working panels, retaining the theme's native glass surface. */
+.connection-panel-head{padding:12px 20px}.connection-panel-head h2{font-size:16px}.connection-panel-body{padding:20px;gap:16px}.connection-panel-action{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.connect-page .btn{font-size:13px}.connection-log-viewport{max-height:220px}.connection-details>summary{font-size:13px}.connection-field{min-width:0}.connection-field small{font-size:12px}
+@media(max-width:700px){.connection-panel-head,.connection-panel-body{padding:14px}.connection-panel-head{flex-wrap:wrap}}

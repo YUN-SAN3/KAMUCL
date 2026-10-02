@@ -78,25 +78,19 @@ test('renderer plugin loader executes only enabled plugins via the CSP-scoped pl
   assert.match(plugins, /if \(!readEnabled\(\)\.includes\(id\)\) return new Response\('plugin disabled', \{ status: 403 \}\)/)
 })
 
-test('nav blob follows pointer between buttons with elastic stretch, disabled under reduced motion', () => {
+test('navigation identifies the active page independently of hover', () => {
   const app = read('src/renderer/src/App.vue')
-  assert.match(app, /class="nav-blob"/)
   assert.match(app, /data-nav="resources"/)
-  assert.match(app, /@mouseenter="navHoverKey = item\.key"/)
-  assert.match(app, /scale\(\$\{navBlob\.stretch/)
-  assert.match(app, /cubic-bezier\(0\.3, 1\.5, 0\.4, 1\)/)
-  assert.match(app, /prefers-reduced-motion: reduce[\s\S]*?\.nav-blob \{ transition: none/)
-  // active 背景由 blob 承担，按钮自身不再绘制静态背景块
-  const activeRule = app.match(/\.nav-item\.active \{([\s\S]*?)\}/)
-  assert(activeRule)
-  assert(!activeRule![1].includes('background'), 'active rule must not paint its own background')
+  assert.match(app, /:aria-current="store.currentView === item.key \? 'page' : undefined"/)
+  assert.match(app, /:aria-current="store.currentView === sub.key \? 'page' : undefined"/)
+  assert.doesNotMatch(app, /navHoverKey/)
 })
 
 test('splash holds the assembled avatar for two seconds before revealing', () => {
   const startup = read('src/shared/startup.ts')
   assert.match(startup, /ASSEMBLED_HOLD_MS = 2000/)
   const splash = read('src/renderer/src/splash.ts')
-  assert.match(splash, /setTimeout\(\(\) => bridge\.assembled\(\), reduced \? 0 : ASSEMBLED_HOLD_MS\)/)
+  assert.match(splash, /reduced \|\| elapsed - convergence >= CONVERGE_DURATION \+ ASSEMBLED_HOLD_MS/)
 })
 
 test('java picker save button uses the gold accent style and actions row is laid out', () => {

@@ -1,0 +1,76 @@
+{
+  "version": "1.1.7",
+  "arch": "arm64",
+  "binary": "/Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/MacOS/KAMUCL: Mach-O 64-bit executable arm64\n",
+  "mainUI": true,
+  "macUI": {
+    "platform": "darwin",
+    "customButtons": 0,
+    "logoTop": 39,
+    "folderStatus": "ready",
+    "folderPath": "/Users/runner/Library/Application Support/.kamucl"
+  },
+  "skin": {
+    "facePixels": 2883,
+    "shirtPixels": 4712,
+    "capture": {
+      "source": "Page.captureScreenshot full visible compositor frame, cropped with sharp",
+      "frame": "default-skin-frame.png",
+      "readiness": "default-skin-readiness.json",
+      "bounds": {
+        "x": 638,
+        "y": 396,
+        "width": 343,
+        "height": 228
+      },
+      "viewport": {
+        "width": 1024,
+        "height": 681,
+        "offsetLeft": 0,
+        "offsetTop": 0,
+        "innerWidth": 1024,
+        "innerHeight": 681,
+        "devicePixelRatio": 1
+      },
+      "frameSize": {
+        "width": 1024,
+        "height": 681
+      },
+      "scale": {
+        "x": 1,
+        "y": 1
+      },
+      "rawCrop": {
+        "left": 638,
+        "top": 396,
+        "right": 981,
+        "bottom": 624
+      },
+      "crop": {
+        "left": 638,
+        "top": 396,
+        "width": 343,
+        "height": 228
+      },
+      "clamped": false
+    }
+  },
+  "nativeMaterial": {
+    "captured": true,
+    "reducedTransparency": false,
+    "samples": [
+      [
+        24,
+        24,
+        26
+      ],
+      [
+        49,
+        49,
+        51
+      ]
+    ],
+    "difference": 25
+  },
+  "url": "file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/index.html"
+}

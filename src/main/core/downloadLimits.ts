@@ -1,7 +1,7 @@
 import { abortableDelay } from './tasks'
 
 export interface DownloadLimits { downloadThreads: number; downloadSpeedKBps: number }
-export const DEFAULT_DOWNLOAD_LIMITS: DownloadLimits = { downloadThreads: 8, downloadSpeedKBps: 0 }
+export const DEFAULT_DOWNLOAD_LIMITS: DownloadLimits = { downloadThreads: 16, downloadSpeedKBps: 0 }
 export function validateDownloadLimits(value: DownloadLimits): void {
   if (!Number.isInteger(value.downloadThreads) || value.downloadThreads < 1 || value.downloadThreads > 64)
     throw new Error('最大线程数必须是 1–64 的整数')
@@ -20,6 +20,7 @@ export class DownloadLimiter {
   get isThrottling(): boolean {
     return this.limits.downloadSpeedKBps > 0
   }
+  get maxConcurrent(): number { return this.limits.downloadThreads }
   configure(limits: DownloadLimits): void {
     validateDownloadLimits(limits)
     this.limits = { ...limits }

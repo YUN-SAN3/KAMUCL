@@ -65,8 +65,9 @@ test('玩家直连入口已移除（冗余功能），共享基础设施原样�
 
 test('server page connects edit IPC and preserves sync, selection, delete confirmation and launch preparation', () => {
   const source = read('src/renderer/src/views/ServersView.vue')
-  for (const name of ['editServer', 'addServer', 'removeServer', 'syncServersFromDat', 'prepareServerLaunch', 'launchGame', 'bindServer']) assert.ok(source.includes(`await ${name}(`), name)
+  for (const name of ['editServer', 'addServer', 'removeServer', 'syncServersFromDat',  'launchGame', 'bindServer']) assert.ok(source.includes(`await ${name}(`), name)
   for (const text of ['filteredServers', 'toggleAll', 'openBatchDelete', 'requestDelete', 'delModal.batch', 'versionMissing', 'targetToken', 'onCardDblClick', '没有找到匹配的服务器']) assert.ok(source.includes(text), text)
+  assert.match(source, /withDeadline\(\(\) => prepareServerLaunch\(/)
   assert.match(source, /target: s, batch: false/)
   assert.match(read('src/main/ipc.ts', 'utf8'), /ipcMain.handle\(IPC.serversEdit/)
   assert.match(read('src/renderer/src/api.ts', 'utf8'), /invoke<ServerEntry\[\]>\(IPC.serversEdit, id, name, address\)/)

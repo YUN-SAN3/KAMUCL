@@ -12,6 +12,7 @@ import type { ImageFit } from '@shared/types'
 
 const props = defineProps<{
   open: boolean
+  folder?: string
   versionId: string
   currentPath: string
   currentFit: ImageFit
@@ -47,7 +48,7 @@ async function importImage() {
   if (busy.value) return
   busy.value = true
   try {
-    const imported = await uploadVersionThumbnail(props.versionId)
+    const imported = await uploadVersionThumbnail(props.versionId, props.folder)
     if (!imported) return
     imagePath.value = imported
     previewFailed.value = false
@@ -64,7 +65,7 @@ async function chooseFit(value: ImageFit) {
   if (!imagePath.value || busy.value) return
   busy.value = true
   try {
-    await setVersionThumbnailFit(props.versionId, value)
+    await setVersionThumbnailFit(props.versionId, value, props.folder)
     fit.value = value
     await refreshInstalled()
   } catch (error) {
@@ -78,7 +79,7 @@ async function resetImage() {
   if (busy.value) return
   busy.value = true
   try {
-    await resetVersionThumbnail(props.versionId)
+    await resetVersionThumbnail(props.versionId, props.folder)
     imagePath.value = ''
     previewFailed.value = false
     await refreshInstalled()

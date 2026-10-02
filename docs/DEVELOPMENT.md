@@ -6,9 +6,9 @@
 
 ### 必需环境
 
-- Node.js 20 LTS 或更高版本
+- Node.js 22 LTS 或更高版本
 - npm
-- Windows 开发建议使用 Windows 10/11 64 位
+- Windows 开发建议使用 Windows 10/11 64 位；macOS 构建需在对应架构的原生 Mac 或 CI runner 上进行
 
 ### 可选环境
 
@@ -34,6 +34,7 @@ npm install
 | `npm run dist:win` | 构建 Windows portable 与 ZIP |
 | `npm run dist:mac` | 构建 macOS ZIP |
 | `npm run dist:all` | 构建所有已配置平台 |
+| `npm run license:check` | 校验第三方依赖的许可证文件 |
 
 只构建 Windows 单文件便携版：
 
@@ -43,6 +44,8 @@ npx electron-builder --win portable
 ```
 
 产物位于 `release/`。版本号来自 `package.json`，portable 文件名由 `build.portable.artifactName` 自动生成。
+
+macOS 发布使用原生架构构建：ARM64 使用 `npx electron-builder --mac dir --arm64`，Intel 使用 `npx electron-builder --mac dir --x64`；发布包、DMG 和公证状态以 `.github/workflows/mac-build.yml` 和 `.github/workflows/mac-dmg.yml` 为准。
 
 ## 3. 代码分层
 
@@ -92,6 +95,8 @@ IPC 约定：
 - `src/main/core/versions.ts`：版本 JSON、继承链和库文件
 - `src/main/core/gameSession.ts`：运行会话状态
 - `src/main/core/gameWindow.ts`：游戏窗口处理
+- `src/main/core/launchPreparation.ts`：启动前资源、Java 和完整性检查
+- `src/main/core/instanceCenter.ts`：实例复制、备份、恢复和运行诊断
 
 修改启动参数后至少验证：
 
@@ -133,6 +138,7 @@ npx tsx --test tests/direct-connect.test.ts
 ```text
 native/WindowMaterial.cs  → out/main/WindowMaterial.exe
 native/GameWindowFocus.cs → out/main/GameWindowFocus.exe
+native/StartupFeedback.cs → out/main/StartupFeedback.exe
 ```
 
 构建 Bridge MOD：
@@ -142,11 +148,11 @@ $env:JAVA_HOME = 'C:\Program Files\Java\jdk-17'
 node scripts/build-bridge.cjs
 ```
 
-Bridge 只监听 `127.0.0.1`，通过游戏目录中的 `.kamucl-bridge.json` 发现端口和一次性 token。它是可选组件，缺失不会阻止主程序构建。
+Bridge 只监听 `127.0.0.1`，通过游戏目录中的 `.kamucl-bridge.json` 发现端口和一次性 token。构建脚本会从固定依赖地址下载并校验 Fabric Loader 和 Gson；它是可选组件，缺失不会阻止主程序构建。
 
 ## 8. 数据目录与调试
 
-默认用户数据目录是 `%APPDATA%\.kamucl`，设置文件位于 Electron `userData` 目录下。开发调试时建议使用独立临时目录，避免污染个人账号和游戏实例。
+默认用户数据目录是 Windows 的 `%APPDATA%\KAMUCL`（macOS 为 `~/Library/Application Support/KAMUCL`），设置文件位于 Electron `userData` 目录下。开发调试时建议使用独立临时目录，避免污染个人账号和游戏实例。
 
 调试重点：
 

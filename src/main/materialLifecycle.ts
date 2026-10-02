@@ -1,41 +1,38 @@
-/** 重建 DWM 材质需等原生 WM_SIZE/样式更新结束，不能在同步事件中完成。 */
+/** Coalesce visibility transitions to finish the fade without resetting Acrylic. */
 export function trackMaterialLifecycle(
-  window: { on(event: string, listener: () => void): unknown; isDestroyed(): boolean; setBackgroundMaterial(material: 'none' | 'acrylic'): void },
+  window: { on(event: string, listener: () => void): unknown; isDestroyed(): boolean; isMinimized?(): boolean; isVisible?(): boolean },
   report: (message: string) => void,
-  restoreFrame: () => void = () => {}
-): void {
+  restoreFrame: (finishStartupOpacity?: boolean) => void = () => {}
+): () => void {
   let pending: ReturnType<typeof setTimeout> | undefined
+  let closed = false
+  let lastRefresh = 0
+  let startupRevealed = false
   const refresh = () => {
+    if (closed) return
     clearTimeout(pending)
     pending = setTimeout(() => {
-      if (window.isDestroyed()) return
+      pending = undefined
+      if (closed || window.isDestroyed() || window.isMinimized?.() || window.isVisible?.() === false) return
       try {
-        window.setBackgroundMaterial('none')
-        window.setBackgroundMaterial('acrylic')
-        restoreFrame()
+        // Electron owns native Acrylic and geometry. The helper only releases
+        // a completed startup fade; it must never reassign material or bounds.
+        restoreFrame(startupRevealed)
+        lastRefresh = Date.now()
       } catch (error) { report(`Desktop acrylic refresh failed: ${String(error)}`) }
-    }, 80)
+    }, 120)
   }
   for (const event of ['maximize', 'unmaximize', 'restore', 'show', 'leave-full-screen']) window.on(event, refresh)
+  // Electron's setOpacity(1) leaves WS_EX_LAYERED behind. Release it only
+  // after our own native fade has finished, never in the middle of the fade.
+  window.on('kamucl:startup-opacity-complete', () => { startupRevealed = true; refresh() })
 
-  // 最大化/全屏窗口切屏（Alt+Tab、Win+D、锁屏）后再切回只产生 focus，不经过 restore：
-  // DWM 在该路径下可能丢失 Acrylic 材质导致背景变不透明。focus 时重建，节流 1s 防止
-  // 普通点击激活窗口造成的反复闪动。
-  let lastFocusRefresh = 0
-  let focusPending: ReturnType<typeof setTimeout> | undefined
+  // Alt+Tab/Win+D can need a frame repair, but focus belongs to the same queue
+  // as maximize/show/restore. Never schedule a second independent compositor pass.
   window.on('focus', () => {
-    const now = Date.now()
-    if (now - lastFocusRefresh < 1000) return
-    lastFocusRefresh = now
-    clearTimeout(focusPending)
-    focusPending = setTimeout(() => {
-      if (window.isDestroyed()) return
-      try {
-        window.setBackgroundMaterial('none')
-        window.setBackgroundMaterial('acrylic')
-        restoreFrame()
-      } catch (error) { report(`Desktop acrylic focus refresh failed: ${String(error)}`) }
-    }, 120)
+    if (!pending && Date.now() - lastRefresh < 1000) return
+    refresh()
   })
-  window.on('closed', () => { clearTimeout(pending); clearTimeout(focusPending) })
+  window.on('closed', () => { closed = true; clearTimeout(pending); pending = undefined })
+  return refresh
 }

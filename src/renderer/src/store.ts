@@ -1,7 +1,7 @@
 /**
  * 轻量全局状态（Vue reactive），跨视图共享。
  */
-import { reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import { trackLaunchState } from '@shared/launchTracking'
 import type {
   Account,
@@ -11,7 +11,7 @@ import type {
   Settings,
   YggdrasilProviderInput
 } from '@shared/types'
-import { errText, getInstalled, getSelectedAccount, listAccounts, saveSettings } from './api'
+import { errText, getInstalled, getSelectedAccount, listAccounts, saveSettings, setActiveFolder, getSettings, getExitHistory, acknowledgeExitHistory, clearExitHistory } from './api'
 
 export type ViewName =
   | 'home'
@@ -19,6 +19,8 @@ export type ViewName =
   | 'mods'
   | 'packs'
   | 'shaders'
+  | 'recordings'
+  | 'projections'
   | 'keys'
   | 'bridge'
   | 'skins'
@@ -84,6 +86,7 @@ export const store = reactive({
   progress: null as ProgressEvent | null,
   /** 正在后台下载/安装的版本 id 集合（installDone 事件到达后移除） */
   installing: new Set<string>(),
+  installProgress: {} as Record<string, ProgressEvent>,
   /** 最近一次安装失败的版本 id 集合（已安装页显示重试入口） */
   failedInstalls: new Set<string>(),
   /** 首页 Banner 文字对齐（localStorage 持久化） */
@@ -104,7 +107,7 @@ export const store = reactive({
   /** 当前选中的板块 key（对应元素 data-edit 值），空 = 未选中 */
   editTarget: '',
   /** 通知中心：最近的 toast 记录（新→旧，上限 30 条） */
-  notices: [] as Array<{ id: number; text: string; type: ToastType; time: number }>,
+  notices: [] as Array<{ id: number; text: string; type: ToastType; time: number; exitTarget?: {id:string;folder:string} }>,
   /** 通知是否有未读（驱动铃铛红点） */
   noticesUnread: false,
   /** 整合包导入处理器（App.vue 注册，供任意页面触发导入确认弹窗） */
@@ -120,6 +123,25 @@ export const store = reactive({
   toasts: [] as ToastItem[]
 })
 
+const normalizeFolder = (value = '') => value.replaceAll('\\', '/').replace(/\/$/, '').toLowerCase()
+export const activeInstalled = computed(() => store.installed.filter(v => !v.folder || normalizeFolder(v.folder) === normalizeFolder(store.settings?.activeFolder || store.settings?.gameDir)))
+export const selectedInstance = computed(() => activeInstalled.value.find(v => v.id === store.resourceVersionId) ?? activeInstalled.value[0])
+export async function selectInstance(id: string, folder?: string) {
+  if (folder && normalizeFolder(folder) !== normalizeFolder(store.settings?.activeFolder || store.settings?.gameDir)) {
+    await setActiveFolder(folder); store.settings = await getSettings()
+  }
+  store.resourceVersionId = id
+}
+watch([activeInstalled, () => store.settings?.activeFolder], () => {
+  if (!store.settings) return
+  const list = activeInstalled.value
+  if (!list.some(v => v.id === store.resourceVersionId)) {
+    const saved = localStorage.getItem('kamucl.lastVersion') || ''
+    store.resourceVersionId = list.find(v => v.id === saved)?.id || list[0]?.id || ''
+  }
+}, { flush: 'sync' })
+watch(() => store.resourceVersionId, id => { if (id) localStorage.setItem('kamucl.lastVersion', id) }, { flush: 'sync' })
+
 export const applyLaunchState = (state: LaunchState) => trackLaunchState(store, state)
 
 export function openSettings(section: 'java' | 'memory' | 'downloads'): void {
@@ -129,6 +151,8 @@ export function openSettings(section: 'java' | 'memory' | 'downloads'): void {
 
 // ---------------- 后台任务（下载中心） ----------------
 export interface TaskItem {
+  manualFiles?: ProgressEvent['manualFiles']
+  parallelStages?: ProgressEvent['parallelStages']
   id: string
   title: string
   stage: string
@@ -146,11 +170,14 @@ export interface TaskItem {
 
 /** 阶段名 → 中文阶段标签 */
 const STAGE_LABEL: Record<string, string> = {
+  parallel: '同步准备',
   'version-json': '解析版本信息',
   libraries: '下载依赖库',
   client: '下载游戏本体',
   assets: '下载资源文件',
   loader: '安装加载器',
+  'loader-dependencies': '下载加载器依赖',
+  'loader-process': '生成加载器运行文件',
   'fabric-api': '安装 Fabric API',
   repair: '修复文件',
   modpack: '安装整合包',
@@ -187,6 +214,8 @@ export function upsertTaskProgress(e: ProgressEvent) {
   t.speed = e.speed
   t.etaSeconds = e.etaSeconds
   t.indeterminate = e.indeterminate
+  t.parallelStages = e.parallelStages
+  t.manualFiles = e.manualFiles
 }
 
 /** 任务终态（成功/失败/取消），失败保留阶段与原因 */
@@ -231,22 +260,41 @@ export function dismissTask(taskId: string) {
 // ---------------- toast ----------------
 let toastSeq = 0
 
+const toastTimers = new Map<number, ReturnType<typeof setTimeout>>()
+export function dismissToast(id: number) {
+  clearTimeout(toastTimers.get(id)); toastTimers.delete(id)
+  const i = store.toasts.findIndex(t => t.id === id); if (i >= 0) store.toasts.splice(i, 1)
+}
 export function toast(text: string, type: ToastType = 'info') {
+  // Repeated identical feedback refreshes one notification; unrelated completions stay in history.
+  const previous = store.toasts.find(t => t.text === text && t.type === type)
+  if (previous) { clearTimeout(toastTimers.get(previous.id)); toastTimers.set(previous.id, setTimeout(() => dismissToast(previous.id), type === 'error' ? 8000 : 3000)); return }
   const id = ++toastSeq
   store.toasts.push({ id, text, type })
-  // 同步记录到通知中心（新→旧，上限 30 条，标记未读）
+  while (store.toasts.length > 3) dismissToast(store.toasts[0].id)
   store.notices.unshift({ id, text, type, time: Date.now() })
   if (store.notices.length > 30) store.notices.length = 30
   store.noticesUnread = true
-  setTimeout(() => {
-    const i = store.toasts.findIndex((t) => t.id === id)
-    if (i >= 0) store.toasts.splice(i, 1)
-  }, 3000)
+  toastTimers.set(id, setTimeout(() => dismissToast(id), type === 'error' ? 8000 : 3000))
 }
 
 /** 打开通知中心时调用：清除未读标记 */
 export function markNoticesRead() {
   store.noticesUnread = false
+  void acknowledgeExitHistory().catch(() => undefined)
+}
+
+export async function loadExitNotices() {
+  try {
+    const records = await getExitHistory()
+    records.forEach((record, i) => store.notices.push({ id: -i - 1, time: record.time, text: record.text, type: record.uncertain || record.context?.exitKind === 'shutdown-timeout' ? 'info' : 'error', exitTarget: record.kind==='game'&&record.context?.versionId&&record.context?.folder?{id:String(record.context.versionId),folder:String(record.context.folder)}:undefined }))
+    store.notices.sort((a, b) => b.time - a.time)
+    store.noticesUnread ||= records.some(record => !record.seen)
+  } catch { /* Older test bridges or unreadable journal must not block startup. */ }
+}
+export function clearNotices() {
+  store.notices = []
+  void clearExitHistory().catch(() => undefined)
 }
 
 // ---------------- 数据刷新 ----------------
@@ -261,27 +309,25 @@ export async function refreshInstalled() {
 }
 
 // ---------------- 版本收藏 ----------------
-export function isFavorite(id: string): boolean {
-  return (store.settings?.favoriteVersions ?? []).includes(id)
+function favoriteKey(id: string, folder = store.settings?.activeFolder || store.settings?.gameDir || '') {
+  return JSON.stringify([normalizeFolder(folder), id])
 }
-
-export async function toggleFavorite(id: string) {
-  const cur = store.settings?.favoriteVersions ?? []
-  const next = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]
+export function isFavorite(id: string, folder?: string): boolean {
+  return store.settings?.favoriteInstanceOverrides?.[favoriteKey(id, folder)] ?? (store.settings?.favoriteVersions ?? []).includes(id)
+}
+export async function toggleFavorite(id: string, folder?: string) {
+  const next = { ...store.settings?.favoriteInstanceOverrides, [favoriteKey(id, folder)]: !isFavorite(id, folder) }
   try {
-    store.settings = await saveSettings({ favoriteVersions: next })
-    toast(isFavorite(id) ? '已收藏' : '已取消收藏', 'success')
-  } catch (e) {
-    toast('收藏失败：' + errText(e), 'error')
-  }
+    store.settings = await saveSettings({ favoriteInstanceOverrides: next })
+    // The star and ordering provide immediate local feedback.
+  } catch (e) { toast('收藏失败：' + errText(e), 'error') }
 }
 
 /** 收藏置顶 + 组内最近游玩倒序 */
-export function sortWithFavorite<T extends { id: string }>(list: T[]): T[] {
-  const fav = new Set(store.settings?.favoriteVersions ?? [])
+export function sortWithFavorite<T extends { id: string; folder?: string }>(list: T[]): T[] {
   return [...list].sort((a, b) => {
-    const fa = fav.has(a.id) ? 0 : 1
-    const fb = fav.has(b.id) ? 0 : 1
+    const fa = isFavorite(a.id, a.folder) ? 0 : 1
+    const fb = isFavorite(b.id, b.folder) ? 0 : 1
     if (fa !== fb) return fa - fb
     return (store.lastPlayed[b.id] ?? 0) - (store.lastPlayed[a.id] ?? 0)
   })
@@ -327,14 +373,6 @@ export function setBannerAlign(a: BannerAlign) {
 /** 进入编辑模式：确保主题为 custom（custom 保持现有值或默认），然后停留在当前界面 */
 export async function enterEditMode() {
   if (store.editMode) return
-  if (store.settings && store.settings.theme !== 'custom') {
-    try {
-      store.settings = await saveSettings({ theme: 'custom' })
-    } catch (e) {
-      toast('切换自定义主题失败：' + errText(e), 'error')
-      return
-    }
-  }
   store.editTarget = ''
   store.editMode = true
 }

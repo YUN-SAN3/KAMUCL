@@ -6,21 +6,12 @@
  */
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { bridgeInstall, bridgeInstalled, bridgeManifest, bridgeReset, bridgeSet, bridgeStatus, errText } from '../api'
-import { refreshInstalled, store, toast } from '../store'
+import { refreshInstalled, store, toast, selectedInstance, displayVersionName as versionLabel } from '../store'
 import SelectMenu from '../components/SelectMenu.vue'
 import type { BridgeParam, BridgeStatus } from '@shared/types'
 
 /** 面板面向正在运行的实例（游戏在哪台实例上跑就配置哪台）；未运行时跟随首页选中实例 */
-const currentVersion = computed(() => {
-  const list = store.installed
-  if (!list.length) return null
-  const runningId = store.launchingVersionId
-  if (runningId && store.launchState?.status === 'running') {
-    const running = list.find((v) => v.id === runningId)
-    if (running) return running
-  }
-  return list.find((v) => v.id === store.selectedId) ?? list[0]
-})
+const currentVersion = selectedInstance
 
 const status = ref<BridgeStatus | null>(null)
 const params = ref<BridgeParam[]>([])
@@ -31,17 +22,17 @@ const noticeShown = ref<Record<string, string>>({})
 let pollTimer: ReturnType<typeof setInterval> | undefined
 
 /** 实例 mods 目录是否已有桥接 MOD（决定显示"安装桥接 MOD"按钮） */
-const bridgePresent = ref(true)
+const bridgePresent = ref<boolean | null>(null)
+const presenceError = ref('')
+let presenceRequest=0, statusRequest=0, manifestRequest=0, disposed=false
 const installingBridge = ref(false)
 
 async function refreshBridgePresent() {
-  const v = currentVersion.value
-  if (!v) { bridgePresent.value = true; return }
-  try {
-    bridgePresent.value = await bridgeInstalled(v.id)
-  } catch {
-    bridgePresent.value = true
-  }
+  const request=++presenceRequest, v=currentVersion.value
+  bridgePresent.value=null; presenceError.value=''
+  if (!v) return
+  try { const result=await bridgeInstalled(v.id); if(request===presenceRequest)bridgePresent.value=result }
+  catch(e) { if(request===presenceRequest)presenceError.value='无法确认桥接 MOD 是否已安装：'+errText(e) }
 }
 
 async function onInstallBridge() {
@@ -51,7 +42,7 @@ async function onInstallBridge() {
   try {
     const result = await bridgeInstall(v.id)
     if (result.ok) {
-      bridgePresent.value = true
+      if(currentVersion.value===v && !disposed) bridgePresent.value = true
       toast(result.already ? '桥接 MOD 已在实例中' : '桥接 MOD 已装入实例，启动游戏后自动接入', 'success')
     } else {
       toast('安装失败：' + (result.error ?? ''), 'error')
@@ -66,33 +57,35 @@ async function onInstallBridge() {
 const gameRunning = computed(() => store.launchState?.status === 'running')
 
 async function refreshStatus() {
-  const v = currentVersion.value
+  const request=++statusRequest, v = currentVersion.value
   if (!v) { status.value = { connected: false, reason: '未选择实例' }; return }
   try {
-    status.value = await bridgeStatus(v.id)
+    const next = await bridgeStatus(v.id); if(request===statusRequest)status.value=next
   } catch {
-    status.value = { connected: false, reason: '桥接状态检查失败' }
+    if(request===statusRequest)status.value = { connected: false, reason: '桥接状态检查失败' }
   }
 }
 
 async function loadManifest() {
   const v = currentVersion.value
-  if (!v || loadingManifest.value) return
+  if (!v || loadingManifest.value || disposed) return
+  const request=++manifestRequest
   loadingManifest.value = true
   try {
     const manifest = await bridgeManifest(v.id)
-    params.value = manifest.params
+    if(request===manifestRequest && !disposed) params.value = manifest.params
   } catch (e) {
+    if(request!==manifestRequest || disposed)return
     params.value = []
     if (status.value?.connected) toast('读取参数清单失败：' + errText(e), 'error')
   } finally {
-    loadingManifest.value = false
+    if(request===manifestRequest) loadingManifest.value = false
   }
 }
 
 async function poll() {
   // 页面隐藏时暂停轮询，回到页面后下一轮自动恢复，避免后台空转
-  if (document.hidden) return
+  if (document.hidden || disposed) return
   const wasConnected = status.value?.connected === true
   await refreshStatus()
   if (status.value?.connected && !wasConnected) await loadManifest()
@@ -100,6 +93,8 @@ async function poll() {
 }
 
 watch(currentVersion, () => {
+  ++statusRequest; ++manifestRequest
+  status.value=null; loadingManifest.value=false; itemError.value={}; noticeShown.value={}
   params.value = []
   void refreshBridgePresent()
   void poll()
@@ -107,11 +102,13 @@ watch(currentVersion, () => {
 
 onMounted(async () => {
   if (!store.installed.length) await refreshInstalled()
+  if(disposed)return
   await refreshBridgePresent()
   await poll()
+  if(disposed)return
   pollTimer = setInterval(() => void poll(), 3000)
 })
-onUnmounted(() => clearInterval(pollTimer))
+onUnmounted(() => { disposed=true; ++presenceRequest; ++statusRequest; ++manifestRequest; clearInterval(pollTimer) })
 
 /** 按 MOD → 分组聚合参数；搜索即时过滤（名称/说明/分组） */
 const groupedParams = computed(() => {
@@ -186,69 +183,62 @@ function isModified(p: BridgeParam): boolean {
 </script>
 
 <template>
-  <div class="page bridge-page">
-    <div class="page-head">
-      <h1 class="page-title">MOD 面板</h1>
-      <p class="page-sub">游戏运行期间实时读取与修改 MOD 参数；以 MOD 返回的实际结果为准</p>
+  <div data-ui="BridgeView:cfdb5a4d90a2" class="page bridge-page">
+    <div data-ui="BridgeView:db609f258d77" class="page-head">
+      <h1 data-ui="BridgeView:83a0b6c9508f" class="page-title">MOD 面板</h1>
+      <p data-ui="BridgeView:bb8e2f3a040b" class="page-sub">游戏运行期间实时读取与修改 MOD 参数；以 MOD 返回的实际结果为准</p>
     </div>
 
-    <!-- 连接状态 -->
-    <div class="card bridge-status" :class="{ connected: status?.connected }">
-      <span class="bridge-dot" :class="{ on: status?.connected }"></span>
-      <div class="bridge-status-text">
-        <strong>{{ status?.connected ? `已连接桥接 MOD（v${status.modVersion || '?'}）` : '未接入桥接 MOD' }}</strong>
-        <span class="muted">
-          <template v-if="status?.connected">实例「{{ currentVersion?.id }}」 · 参数修改即时下发</template>
-          <template v-else-if="!gameRunning">{{ status?.reason || '游戏未运行' }}。启动游戏后自动接入。</template>
-          <template v-else>{{ status?.reason || '等待桥接服务' }}</template>
-        </span>
+    <div data-ui="BridgeView:b3265d72c149" class="card bridge-status" :class="{ connected: status?.connected }">
+      <div class="bridge-context"><span>{{ currentVersion ? versionLabel(currentVersion) : '尚未选择游戏实例' }}</span><button class="btn btn-ghost btn-sm" :disabled="installingBridge" @click="refreshBridgePresent();poll()">刷新状态</button></div>
+      <span data-ui="BridgeView:5325fe599383" class="bridge-dot" :class="{ on: status?.connected }"></span>
+      <div data-ui="BridgeView:b1906759db96" class="bridge-status-text">
+        <strong>{{ status?.connected ? `已连接桥接 MOD（v${status.modVersion || '?'}）` : !currentVersion ? '先选择游戏实例' : bridgePresent === false ? '尚未安装桥接 MOD' : bridgePresent === null ? '尚未确认安装状态' : gameRunning ? '等待游戏接入' : '启动游戏后自动接入' }}</strong>
+        <span class="muted">{{ status?.connected ? '参数修改即时下发，以游戏返回结果为准。' : !currentVersion ? '选择已安装加载器的实例后，可安装桥接 MOD。' : bridgePresent === false ? '安装后启动游戏，即可调整支持的 MOD 参数。' : bridgePresent === null ? '请刷新确认安装情况，再进行操作。' : status?.reason || '前往首页启动游戏；此页面会自动检测连接。' }}</span>
+        <p v-if="presenceError" class="connection-error" role="alert">{{ presenceError }}</p>
       </div>
-      <button class="btn btn-ghost btn-sm" @click="poll">刷新状态</button>
-      <button
-        v-if="!status?.connected && !bridgePresent"
-        class="btn btn-gold btn-sm"
-        :disabled="installingBridge || !currentVersion?.loader"
-        :title="currentVersion?.loader ? '把内置 KAMUCL Bridge 装入当前实例的 mods 目录，下次启动游戏自动接入' : '当前实例是纯净版，不加载 MOD'"
-        @click="onInstallBridge"
-      >{{ installingBridge ? '安装中…' : '安装桥接 MOD' }}</button>
-      <button v-if="status?.connected && params.length" class="btn btn-ghost btn-sm" @click="resetAll">全部恢复默认</button>
+      <div class="bridge-guide-actions">
+        <button v-if="!status?.connected && bridgePresent === false" class="btn btn-gold" :disabled="installingBridge || !currentVersion?.loader" @click="onInstallBridge">{{ installingBridge ? '安装中…' : '安装桥接 MOD' }}</button>
+        <small v-if="currentVersion && !currentVersion.loader && bridgePresent===false" class="muted">纯净版不加载 MOD，请选择带加载器的实例。</small>
+        <button v-if="!status?.connected" class="btn" :class="bridgePresent === false ? 'btn-ghost' : 'btn-gold'" @click="store.currentView = currentVersion ? 'home' : 'game'">{{ currentVersion ? '前往首页' : '选择游戏实例' }}</button>
+        <button data-ui="BridgeView:b3c6f77da5ef" v-if="status?.connected && params.length" class="btn btn-ghost" @click="resetAll">全部恢复默认</button>
+      </div>
     </div>
-
     <!-- 参数区 -->
     <template v-if="status?.connected">
-      <div v-if="params.length" class="bridge-toolbar">
-        <input v-model="search" class="input bridge-search" placeholder="搜索参数名称、说明、分组…" />
+      <div data-ui="BridgeView:e2062fc19818" v-if="params.length" class="bridge-toolbar">
+        <input data-ui="BridgeView:ca30db9d543d" v-model="search" class="input bridge-search" placeholder="搜索参数名称、说明、分组…" />
       </div>
-      <div v-if="loadingManifest" class="card empty"><span class="spin"></span><span>正在读取参数清单…</span></div>
+      <div data-ui="BridgeView:f720f714d75f" v-if="loadingManifest" class="card empty"><span data-ui="BridgeView:6bcd3d93d313" class="spin"></span><span>正在读取参数清单…</span></div>
       <template v-else>
-        <div v-for="mod in groupedParams" :key="mod.modId" class="bridge-mod">
-          <div v-for="group in mod.groups" :key="group.group" class="card bridge-card">
-            <div class="bridge-card-head">
+        <div data-ui="BridgeView:ca3ed5c40349" v-for="mod in groupedParams" :key="mod.modId" class="bridge-mod">
+          <div data-ui="BridgeView:c7ebe4470e01" v-for="group in mod.groups" :key="group.group" class="card bridge-card">
+            <div data-ui="BridgeView:4a5c8c65dd64" class="bridge-card-head">
               <strong>{{ group.group }}</strong>
               <span class="muted">{{ mod.modId }}</span>
             </div>
-            <div v-for="p in group.items" :key="p.id" class="bridge-row" :class="{ disabled: !p.visible || p.scope === 'SERVER' }">
-              <div class="bridge-row-info">
-                <span class="bridge-label">
+            <div data-ui="BridgeView:9534fa3e44a9" v-for="p in group.items" :key="p.id" class="bridge-row" :class="{ disabled: !p.visible || p.scope === 'SERVER' }">
+              <div data-ui="BridgeView:20c0ec6ff98d" class="bridge-row-info">
+                <span data-ui="BridgeView:d6913ec6096c" class="bridge-label">
                   {{ p.label }}
-                  <span v-if="APPLY_HINT[p.apply]" class="tag bridge-apply-tag">{{ APPLY_HINT[p.apply] }}</span>
-                  <span v-if="p.scope === 'SERVER'" class="tag bridge-scope-tag" title="服务器参数：必须由服务端校验权限，本地接口只读">服务器</span>
+                  <span data-ui="BridgeView:7737e6691034" v-if="APPLY_HINT[p.apply]" class="tag bridge-apply-tag">{{ APPLY_HINT[p.apply] }}</span>
+                  <span data-ui="BridgeView:072b1f0fecd4" v-if="p.scope === 'SERVER'" class="tag bridge-scope-tag" title="服务器参数：必须由服务端校验权限，本地接口只读">服务器</span>
                 </span>
-                <span v-if="p.description" class="muted bridge-desc">{{ p.description }}</span>
-                <span v-if="itemError[p.id]" class="bridge-error">{{ itemError[p.id] }}</span>
+                <span data-ui="BridgeView:7c9682444806" v-if="p.description" class="muted bridge-desc">{{ p.description }}</span>
+                <span data-ui="BridgeView:2d8e87e07e42" v-if="itemError[p.id]" class="bridge-error">{{ itemError[p.id] }}</span>
               </div>
-              <div class="bridge-control">
-                <label v-if="p.kind === 'SWITCH'" class="switch">
-                  <input
+              <div data-ui="BridgeView:9ca3c51d77e3" class="bridge-control">
+                <label data-ui="BridgeView:8460a5e8359b" v-if="p.kind === 'SWITCH'" class="switch">
+                  <input data-ui="BridgeView:ccafccfd626d"
                     type="checkbox"
                     :checked="p.value === true"
                     :disabled="!p.visible || p.scope === 'SERVER'"
                     @change="applyParam(p, ($event.target as HTMLInputElement).checked)"
                   />
-                  <span class="switch-ui"></span>
+                  <span data-ui="BridgeView:75c7b5405cfa" class="switch-ui"></span>
                 </label>
                 <template v-else-if="p.kind === 'SLIDER'">
-                  <input
+                  <input data-ui="BridgeView:0926fcdcd53a"
                     type="range"
                     class="bridge-slider"
                     :min="p.min ?? 0"
@@ -258,9 +248,9 @@ function isModified(p: BridgeParam): boolean {
                     :disabled="!p.visible || p.scope === 'SERVER'"
                     @change="applyParam(p, Number(($event.target as HTMLInputElement).value))"
                   />
-                  <span class="bridge-slider-value">{{ p.value }}</span>
+                  <span data-ui="BridgeView:fbf62cc0f3d7" class="bridge-slider-value">{{ p.value }}</span>
                 </template>
-                <input
+                <input data-ui="BridgeView:87863c4c8f30"
                   v-else-if="p.kind === 'TEXT'"
                   class="input bridge-text"
                   :value="String(p.value ?? '')"
@@ -275,7 +265,7 @@ function isModified(p: BridgeParam): boolean {
                   :disabled="!p.visible || p.scope === 'SERVER'"
                   @change="(v) => applyParam(p, v)"
                 />
-                <button
+                <button data-ui="BridgeView:1433b0496f90"
                   v-if="isModified(p)"
                   class="bridge-reset"
                   title="恢复默认"
@@ -288,8 +278,8 @@ function isModified(p: BridgeParam): boolean {
             </div>
           </div>
         </div>
-        <div v-if="params.length && !groupedParams.length" class="card empty"><span>没有匹配「{{ search }}」的参数</span></div>
-        <div v-if="!params.length && !loadingManifest" class="card empty"><span>桥接 MOD 没有注册任何参数</span></div>
+        <div data-ui="BridgeView:ebfce48a2687" v-if="params.length && !groupedParams.length" class="card empty"><span>没有匹配「{{ search }}」的参数</span></div>
+        <div data-ui="BridgeView:80ec96dd566a" v-if="!params.length && !loadingManifest" class="card empty"><span>桥接 MOD 没有注册任何参数</span></div>
       </template>
     </template>
   </div>
@@ -339,4 +329,5 @@ function isModified(p: BridgeParam): boolean {
 }
 .bridge-reset:hover { color: var(--accent-2); background: var(--hover); }
 .bridge-reset svg { width: 13px; height: 13px; }
+.bridge-status{max-width:960px;display:grid;grid-template-columns:24px minmax(0,1fr);gap:16px;padding:24px;min-height:0}.bridge-context{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text-dim);font-size:13px;border-bottom:1px solid var(--border);padding-bottom:12px}.bridge-status-text strong{font-size:21px}.bridge-status-text span{line-height:1.7}.bridge-guide-actions{grid-column:2;display:flex;flex-wrap:wrap;align-items:center;gap:12px}.bridge-dot{margin-top:9px}
 </style>

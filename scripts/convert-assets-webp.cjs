@@ -1,19 +1,14 @@
 // 一次性 PNG→WebP 资源转换工具（构建期专用：sharp 仅作 devDependency，不会进发布包）。
 // 用法：node scripts/convert-assets-webp.cjs [相对路径 ...]
-//   缺省转换 renderer 内置 banner 三图；转换后需手动更新引用并删除旧 PNG。
+// 显式指定 PNG 输入；保留原 PNG，转换后按实际用途更新引用。
 const fs = require('node:fs')
 const path = require('node:path')
-
-const DEFAULT_TARGETS = [
-  'src/renderer/src/assets/banner1.png',
-  'src/renderer/src/assets/banner2.png',
-  'src/renderer/src/assets/banner3.png'
-]
 
 async function main() {
   const sharp = require('sharp')
   const root = path.resolve(__dirname, '..')
-  const targets = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT_TARGETS
+  const targets = process.argv.slice(2)
+  if (!targets.length) throw new Error('请显式指定 PNG 路径：node scripts/convert-assets-webp.cjs <图片.png> ...')
   let before = 0
   let after = 0
   for (const target of targets) {
@@ -22,8 +17,7 @@ async function main() {
     if (!fs.existsSync(source)) throw new Error(`文件不存在：${target}`)
     const destination = source.replace(/\.png$/i, '.webp')
     const sourceStat = fs.statSync(source)
-    // 质量 85 + effort 6：展示图视觉无损，alpha 自动保留
-    await sharp(source).webp({ quality: 85, effort: 6 }).toFile(destination)
+    await sharp(source).webp({ lossless: true, effort: 6 }).toFile(destination)
     const destinationStat = fs.statSync(destination)
     before += sourceStat.size
     after += destinationStat.size

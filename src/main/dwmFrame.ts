@@ -3,18 +3,18 @@ import { join } from 'node:path'
 import { app, nativeTheme, type BrowserWindow } from 'electron'
 import { launcherLog } from './core/launcherLog'
 
-/** Electron 33 最大化时会将扩展客户区重置为黑色；Acrylic 属性本身没有丢失。
- * 用独立的、无 UI 的 helper 调用公开 DWM API，不改窗口尺寸、不用桌面截图伪装。
+/** 只清理原生启动淡入残留。Electron 44 负责 DWM、裁剪和窗口边框；
+ * 禁止继续使用旧内核的边框修补，否则会破坏新版的原生还原尺寸。
  * 原生错误隔离于主进程；helper 只接受属于当前 Electron PID 的 HWND。
  */
-export function createDwmFrameRestorer(window: BrowserWindow): () => void {
+export function createDwmFrameRestorer(window: BrowserWindow): (finishStartupOpacity?: boolean) => void {
   let helper: ChildProcessWithoutNullStreams | null = null
   let unavailable = false
   const close = () => { helper?.stdin.end(); helper = null }
   window.once('closed', close)
   app.once('before-quit', close)
-  return () => {
-    if (unavailable || window.isDestroyed() || process.platform !== 'win32') return
+  return (finishStartupOpacity = false) => {
+    if (!finishStartupOpacity || unavailable || window.isDestroyed() || process.platform !== 'win32') return
     if (!helper) {
       const executable = join(__dirname.replace(/app\.asar([\\/])/, 'app.asar.unpacked$1'), 'WindowMaterial.exe')
       helper = spawn(executable, [String(process.pid)], { windowsHide: true, stdio: 'pipe' })
@@ -32,6 +32,6 @@ export function createDwmFrameRestorer(window: BrowserWindow): () => void {
     }
     const handle = window.getNativeWindowHandle()
     const value = handle.length === 8 ? handle.readBigUInt64LE().toString() : String(handle.readUInt32LE())
-    helper.stdin.write(`${value} ${nativeTheme.shouldUseDarkColors ? 'dark' : 'light'}\n`)
+    helper.stdin.write(`${value} ${nativeTheme.shouldUseDarkColors ? 'dark' : 'light'} ${finishStartupOpacity ? 'finish-opacity' : 'repair'}\n`)
   }
 }

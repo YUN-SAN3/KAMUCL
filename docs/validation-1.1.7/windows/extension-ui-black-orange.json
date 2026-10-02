@@ -1,0 +1,708 @@
+{
+  "version": "1.1.7",
+  "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 DKuWhH",
+  "complete": true,
+  "readiness": [
+    {
+      "label": "projection page mounted, finished scanning and agrees with actual catalog",
+      "samples": [
+        {
+          "at": 1790888680815,
+          "ready": true,
+          "mounted": true,
+          "loading": false,
+          "error": "",
+          "domRows": 3,
+          "domIds": [
+            "10166a378d329ba6a154db97cd15bc36c2905aea33e297b79ccbcf3ceedaa642",
+            "3ba22d7205aeeaef98266d1ff5c71499ee4b6557c5faec6f5d4e23b3c8041e2d",
+            "6033a1a61d66f0c36addd70386c689b3a39faf97d2b979e5b9a77ea5c2c33391"
+          ],
+          "ipcRows": 3,
+          "ipcIds": [
+            "10166a378d329ba6a154db97cd15bc36c2905aea33e297b79ccbcf3ceedaa642",
+            "3ba22d7205aeeaef98266d1ff5c71499ee4b6557c5faec6f5d4e23b3c8041e2d",
+            "6033a1a61d66f0c36addd70386c689b3a39faf97d2b979e5b9a77ea5c2c33391"
+          ],
+          "warnings": [],
+          "heading": "投影 3 个",
+          "navigation": {
+            "current": [
+              "projections"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "download catalog mounted",
+      "samples": [
+        {
+          "at": 1790888681640,
+          "ready": true,
+          "label": "再次安装",
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "install dialog and loader choices mounted",
+      "samples": [
+        {
+          "at": 1790888681749,
+          "ready": true,
+          "picker": true,
+          "loaders": [
+            {
+              "text": "不安装",
+              "disabled": false
+            },
+            {
+              "text": "Forge",
+              "disabled": false
+            },
+            {
+              "text": "Fabric",
+              "disabled": false
+            },
+            {
+              "text": "Quilt",
+              "disabled": false
+            },
+            {
+              "text": "NeoForge",
+              "disabled": false
+            }
+          ],
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "Fabric compatibility request is actually pending before switching loader",
+      "samples": [
+        {
+          "at": 1790888681846,
+          "ready": true,
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible",
+          "main": {
+            "ready": true,
+            "requests": [
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "fabric",
+                "startedAt": 1790888681765,
+                "finishedAt": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "favorite compatibility settles on Forge and rejects completed late Fabric result",
+      "samples": [
+        {
+          "at": 1790888681938,
+          "ready": false,
+          "rows": [
+            {
+              "text": "未关联本地模组\n\n来源未关联，无法自动下载",
+              "disabled": true
+            },
+            {
+              "text": "隔离兼容模组\nforge-compatible · forge.jar",
+              "disabled": false
+            }
+          ],
+          "text": "同时安装收藏模组\n未关联本地模组\n\n来源未关联，无法自动下载\n\n隔离兼容模组\nforge-compatible · forge.jar\n\n按本次游戏版本重新查询；必要前置会一并校验和安装。",
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible",
+          "main": {
+            "ready": false,
+            "requests": [
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "fabric",
+                "startedAt": 1790888681765,
+                "finishedAt": 0
+              },
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "forge",
+                "startedAt": 1790888681851,
+                "finishedAt": 1790888681889
+              }
+            ]
+          }
+        },
+        {
+          "at": 1790888682031,
+          "ready": false,
+          "rows": [
+            {
+              "text": "未关联本地模组\n\n来源未关联，无法自动下载",
+              "disabled": true
+            },
+            {
+              "text": "隔离兼容模组\nforge-compatible · forge.jar",
+              "disabled": false
+            }
+          ],
+          "text": "同时安装收藏模组\n未关联本地模组\n\n来源未关联，无法自动下载\n\n隔离兼容模组\nforge-compatible · forge.jar\n\n按本次游戏版本重新查询；必要前置会一并校验和安装。",
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible",
+          "main": {
+            "ready": false,
+            "requests": [
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "fabric",
+                "startedAt": 1790888681765,
+                "finishedAt": 0
+              },
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "forge",
+                "startedAt": 1790888681851,
+                "finishedAt": 1790888681889
+              }
+            ]
+          }
+        },
+        {
+          "at": 1790888682126,
+          "ready": false,
+          "rows": [
+            {
+              "text": "未关联本地模组\n\n来源未关联，无法自动下载",
+              "disabled": true
+            },
+            {
+              "text": "隔离兼容模组\nforge-compatible · forge.jar",
+              "disabled": false
+            }
+          ],
+          "text": "同时安装收藏模组\n未关联本地模组\n\n来源未关联，无法自动下载\n\n隔离兼容模组\nforge-compatible · forge.jar\n\n按本次游戏版本重新查询；必要前置会一并校验和安装。",
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible",
+          "main": {
+            "ready": false,
+            "requests": [
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "fabric",
+                "startedAt": 1790888681765,
+                "finishedAt": 0
+              },
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "forge",
+                "startedAt": 1790888681851,
+                "finishedAt": 1790888681889
+              }
+            ]
+          }
+        },
+        {
+          "at": 1790888682220,
+          "ready": false,
+          "rows": [
+            {
+              "text": "未关联本地模组\n\n来源未关联，无法自动下载",
+              "disabled": true
+            },
+            {
+              "text": "隔离兼容模组\nforge-compatible · forge.jar",
+              "disabled": false
+            }
+          ],
+          "text": "同时安装收藏模组\n未关联本地模组\n\n来源未关联，无法自动下载\n\n隔离兼容模组\nforge-compatible · forge.jar\n\n按本次游戏版本重新查询；必要前置会一并校验和安装。",
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible",
+          "main": {
+            "ready": false,
+            "requests": [
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "fabric",
+                "startedAt": 1790888681765,
+                "finishedAt": 0
+              },
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "forge",
+                "startedAt": 1790888681851,
+                "finishedAt": 1790888681889
+              }
+            ]
+          }
+        },
+        {
+          "at": 1790888682311,
+          "ready": false,
+          "rows": [
+            {
+              "text": "未关联本地模组\n\n来源未关联，无法自动下载",
+              "disabled": true
+            },
+            {
+              "text": "隔离兼容模组\nforge-compatible · forge.jar",
+              "disabled": false
+            }
+          ],
+          "text": "同时安装收藏模组\n未关联本地模组\n\n来源未关联，无法自动下载\n\n隔离兼容模组\nforge-compatible · forge.jar\n\n按本次游戏版本重新查询；必要前置会一并校验和安装。",
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible",
+          "main": {
+            "ready": false,
+            "requests": [
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "fabric",
+                "startedAt": 1790888681765,
+                "finishedAt": 0
+              },
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "forge",
+                "startedAt": 1790888681851,
+                "finishedAt": 1790888681889
+              }
+            ]
+          }
+        },
+        {
+          "at": 1790888682403,
+          "ready": false,
+          "rows": [
+            {
+              "text": "未关联本地模组\n\n来源未关联，无法自动下载",
+              "disabled": true
+            },
+            {
+              "text": "隔离兼容模组\nforge-compatible · forge.jar",
+              "disabled": false
+            }
+          ],
+          "text": "同时安装收藏模组\n未关联本地模组\n\n来源未关联，无法自动下载\n\n隔离兼容模组\nforge-compatible · forge.jar\n\n按本次游戏版本重新查询；必要前置会一并校验和安装。",
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible",
+          "main": {
+            "ready": false,
+            "requests": [
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "fabric",
+                "startedAt": 1790888681765,
+                "finishedAt": 0
+              },
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "forge",
+                "startedAt": 1790888681851,
+                "finishedAt": 1790888681889
+              }
+            ]
+          }
+        },
+        {
+          "at": 1790888682497,
+          "ready": true,
+          "rows": [
+            {
+              "text": "未关联本地模组\n\n来源未关联，无法自动下载",
+              "disabled": true
+            },
+            {
+              "text": "隔离兼容模组\nforge-compatible · forge.jar",
+              "disabled": false
+            }
+          ],
+          "text": "同时安装收藏模组\n未关联本地模组\n\n来源未关联，无法自动下载\n\n隔离兼容模组\nforge-compatible · forge.jar\n\n按本次游戏版本重新查询；必要前置会一并校验和安装。",
+          "navigation": {
+            "current": [
+              "game"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible",
+          "main": {
+            "ready": true,
+            "requests": [
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "fabric",
+                "startedAt": 1790888681765,
+                "finishedAt": 1790888682480
+              },
+              {
+                "source": "modrinth",
+                "project": "fixtureProject",
+                "mc": "26.3",
+                "loader": "forge",
+                "startedAt": 1790888681851,
+                "finishedAt": 1790888681889
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "skin page editor entry mounted",
+      "samples": [
+        {
+          "at": 1790888683274,
+          "ready": true,
+          "button": "<button data-v-1e0e2626=\"\" data-ui=\"SkinsView:ea7f4a971659\" class=\"btn btn-gold\">绘制皮肤</button>",
+          "navigation": {
+            "current": [
+              "skins"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "skin editor canvas mounted",
+      "samples": [
+        {
+          "at": 1790888683398,
+          "ready": true,
+          "canvas": true,
+          "width": 672,
+          "height": 537,
+          "navigation": {
+            "current": [
+              "skins"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "connection chooser mounted",
+      "samples": [
+        {
+          "at": 1790888691776,
+          "ready": true,
+          "cards": [
+            "FRP 内网穿透\n公网隧道\n注册樱花穿透（natfrp.com）并创建隧道，用官方 frpc 把本地世界映射到公网。填写访问密钥后选择或创建隧道；可用性取决于节点、账号权限和网络。\n适合愿意配置隧道的玩家\n→",
+            "VoxLink 联机\n6 位房间码 · 免公网 IP\n创建房间，把 6 位房间码发给好友即可开始连接。直连尝试 20 秒后，可由玩家主动选择 TURN 中继；连接成功后，按页面指引在游戏内输入地址。\n适合所有普通玩家的连接方式\n→",
+            "陶瓦联机\n独立开源 · 开箱即用\n独立开源联机项目（GitHub burningtnt/Terracotta，基于 EasyTier，AGPL-3.0）：手动下载官方工具并校验，创建/加入房间开箱即用，连接效果取决于双方网络。\n适合使用官方工具和房间码联机的玩家\n→"
+          ],
+          "navigation": {
+            "current": [
+              "friends"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "VoxLink ticket entry mounted",
+      "samples": [
+        {
+          "at": 1790888691869,
+          "ready": true,
+          "button": "我的工单",
+          "navigation": {
+            "current": [
+              "friends"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "ticket dialog list agrees with actual fixture response",
+      "samples": [
+        {
+          "at": 1790888691962,
+          "ready": true,
+          "mounted": true,
+          "rows": [
+            {
+              "text": "#fixture-1\n有未读回复\n2026/10/2 05:04:51",
+              "disabled": false
+            }
+          ],
+          "ipcIds": [
+            "fixture-1"
+          ],
+          "navigation": {
+            "current": [
+              "friends"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "ticket detail and admin reply loaded",
+      "samples": [
+        {
+          "at": 1790888692056,
+          "ready": true,
+          "text": "工单 #fixture-1\n×\n2026/10/2 05:04:51\n我 · 首次提交\n\n隔离工单问题\n\nVoxLink 回复 · 2026/10/2 05:04:51\n\n隔离服务回复\n\n补充问题\n0/2000 字 · 1/200 条消息\n选择附件\n\n每条消息最多 10 个附件；工单附件总量最多 500 MB。只有点击提交或发送追问时才上传。\n\n返回列表删除工单撤回上一条追问发送追问",
+          "navigation": {
+            "current": [
+              "friends"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "ticket list restored",
+      "samples": [
+        {
+          "at": 1790888692460,
+          "ready": true,
+          "navigation": {
+            "current": [
+              "friends"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "new ticket fields mounted",
+      "samples": [
+        {
+          "at": 1790888692551,
+          "ready": true,
+          "input": true,
+          "navigation": {
+            "current": [
+              "friends"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "picked attachment appears before any submission",
+      "samples": [
+        {
+          "at": 1790888692644,
+          "ready": true,
+          "files": [
+            "测试日志.txt · 0.0 MB\n×"
+          ],
+          "navigation": {
+            "current": [
+              "friends"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "rate limit response and disabled submit rendered",
+      "samples": [
+        {
+          "at": 1790888692736,
+          "ready": true,
+          "text": "提交工单\n×\n\n请求过于频繁\n\n请等待 13 秒后再次提交或追问。\n\n问题描述\n4/10000 字\n测试日志.txt · 0.0 MB\n×\n选择附件\n\n每条消息最多 10 个附件；工单附件总量最多 500 MB。只有点击提交或发送追问时才上传。\n\n返回列表提交工单",
+          "disabled": true,
+          "navigation": {
+            "current": [
+              "friends"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    },
+    {
+      "label": "ticket dialog closed",
+      "samples": [
+        {
+          "at": 1790888692829,
+          "ready": true,
+          "navigation": {
+            "current": [
+              "friends"
+            ],
+            "resourcesExpanded": "true",
+            "resourceInert": false
+          },
+          "visibility": "visible"
+        }
+      ]
+    }
+  ],
+  "skinPixels": [
+    [
+      4,
+      12
+    ],
+    [
+      12,
+      12
+    ],
+    [
+      28,
+      12
+    ],
+    [
+      44,
+      12
+    ]
+  ],
+  "legacySkinImport": true,
+  "skinHistory": true,
+  "skinUpload": "isolated failure/success fixtures; profile refresh observed",
+  "tickets": "isolated fixtures; selection no submission; rate countdown",
+  "projectionSourceUnchanged": true,
+  "multiRoot": true,
+  "modern26": true,
+  "mascots": {
+    "counts": {},
+    "order": [
+      "q3",
+      "qiqi",
+      "biyuehu",
+      "hongshu",
+      "kamu",
+      "milo",
+      "muchuanbei"
+    ],
+    "sound": {
+      "muted": false,
+      "volume": 0.45
+    }
+  },
+  "memory": {
+    "applicable": true,
+    "beforeMB": 90669,
+    "afterMB": 92827,
+    "processed": 282,
+    "skipped": 362,
+    "failures": {
+      "打开进程失败（Windows 5）": 232
+    },
+    "elapsedMs": 1641
+  }
+}

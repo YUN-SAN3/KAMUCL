@@ -10,7 +10,11 @@ export function isolatedUpdateTest(): boolean {
 export function trustedUpdateRelease(release: ReleaseInfo | undefined): boolean {
   if (!release || !/^\d+\.\d+\.\d+$/.test(release.version)) return false
   if (isolatedUpdateTest()) return true
-  const name = `KAMUCL-${release.version}.exe`
+  const name = updateAssetName(release.version)
   return release.assetName === name && release.assetSize > 0 &&
     release.assetUrl === `https://github.com/${GITHUB_REPO}/releases/download/v${release.version}/${name}`
+}
+
+export function updateAssetName(version: string, platform = process.platform, arch = process.arch): string {
+  return platform === 'darwin' ? `KAMUCL-${version}-mac-${arch}.zip` : `KAMUCL-${version}.exe`
 }

@@ -25,6 +25,53 @@ function pack(file: string, marker: string) {
   const zip = new AdmZip(); zip.addFile('pack.mcmeta', Buffer.from(JSON.stringify({ pack: { pack_format: 75, description: marker } }))); zip.addFile('assets/minecraft/test.txt', Buffer.from(marker)); zip.writeZip(file)
 }
 
+test('individual default pack switches persist, preserve priority and remove only managed selections', async t => {
+  const { root, api } = await runtime(t)
+  const a = path.join(root, 'A.zip'), b = path.join(root, 'B.zip'); pack(a, 'A'); pack(b, 'B')
+  const [first, second] = api.importDefaultResourcePacks([a, b])
+  assert.equal(first.enabled, true)
+  for (const mc of ['1.12.2', '26.2']) {
+    const game = path.join(root, mc); fs.mkdirSync(game)
+    fs.writeFileSync(path.join(game, 'options.txt'), 'resourcePacks:["vanilla","file/Personal.zip"]\nincompatibleResourcePacks:[]\nlang:zh_cn\n')
+    api.setDefaultResourcePackEnabled(first.id, true)
+    api.setDefaultResourcePackEnabled(second.id, true)
+    api.syncDefaultResourcePacks(game, mc)
+    api.setDefaultResourcePackEnabled(first.id, false)
+    assert.equal(api.getDefaultResourcePacks()[0].enabled, false)
+    assert.equal(api.importDefaultResourcePacks([a])[0].enabled, false, 'duplicate import must preserve disabled state')
+    assert.equal(api.syncDefaultResourcePacks(game, mc), 1)
+    let options = fs.readFileSync(path.join(game, 'options.txt'), 'utf8')
+    assert(!options.includes(first.id)); assert(options.includes(second.id)); assert(options.includes('Personal.zip'))
+    assert.equal(fs.readdirSync(path.join(game, 'resourcepacks')).length, 2)
+    api.setDefaultResourcePackEnabled(second.id, false)
+    assert.equal(api.syncDefaultResourcePacks(game, mc), 0)
+    options = fs.readFileSync(path.join(game, 'options.txt'), 'utf8')
+    assert(!options.includes(second.id)); assert(options.includes('lang:zh_cn'))
+    api.setDefaultResourcePackEnabled(first.id, true)
+    api.setDefaultResourcePackEnabled(second.id, true)
+    api.syncDefaultResourcePacks(game, mc)
+    options = fs.readFileSync(path.join(game, 'options.txt'), 'utf8')
+    assert(options.indexOf(first.id) < options.indexOf(second.id))
+  }
+  api.setDefaultResourcePackEnabled(first.id, false)
+  const fresh = path.join(root, 'fresh'); fs.mkdirSync(fresh)
+  api.syncDefaultResourcePacks(fresh, '26.2')
+  assert.equal(fs.readdirSync(path.join(fresh, 'resourcepacks')).length, 1)
+  assert(fs.existsSync(a)); assert(fs.existsSync(b))
+  assert.throws(() => api.setDefaultResourcePackEnabled(first.id, 'false'), /无效/)
+  assert.throws(() => api.setDefaultResourcePackEnabled('missing', false), /不存在/)
+})
+
+test('legacy default pack manifests remain enabled until explicitly disabled', async t => {
+  const { root, api } = await runtime(t)
+  const file = path.join(root, 'legacy.zip'); pack(file, 'legacy')
+  const [p] = api.importDefaultResourcePacks([file]); delete p.enabled
+  fs.writeFileSync(path.join(root, 'default-resourcepacks', 'packs.json'), JSON.stringify([p]))
+  assert.equal(api.getDefaultResourcePacks()[0].enabled, true)
+  api.setDefaultResourcePackEnabled(p.id, false)
+  assert.equal(JSON.parse(fs.readFileSync(path.join(root, 'default-resourcepacks', 'packs.json'), 'utf8'))[0].enabled, false)
+})
+
 test('default packs import multiple ZIPs, deduplicate, preserve sources and apply to isolated/legacy instances', async t => {
   const { root, api } = await runtime(t)
   const a = path.join(root, 'A.zip'), b = path.join(root, 'B.zip'); pack(a, 'A'); pack(b, 'B')

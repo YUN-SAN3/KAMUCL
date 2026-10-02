@@ -41,18 +41,21 @@ test('community download modal: file list redesigned as breathing card rows (指
 
 test('friend connect: sub-page transition on method switch (指令2)', () => {
   const fc = read('src/renderer/src/views/FriendConnectView.vue')
-  assert.match(fc, /<Transition name="method-slide" mode="out-in" :duration="280">/)
-  assert.match(fc, /\.method-slide-enter-from \{ opacity: 0; transform: translateX\(22px\)/)
-  assert.match(fc, /prefers-reduced-motion/)
+  assert.match(fc, /<Transition name="subpage" :duration="200">/)
+  assert.ok(fc.indexOf('<Transition name="subpage"') < fc.indexOf('<template v-if="page'))
+  const motion = read('src/renderer/src/ui-system.css')
+  assert.match(motion, /\.subpage-enter-from.*opacity:0/)
+  assert.match(motion, /prefers-reduced-motion/)
+
 })
 
-test('home runtime strip: hover blob follows pointer between cells + cell lifts (指令3)', () => {
+test('home runtime strip: hover feedback follows pointer between cells', () => {
   const home = read('src/renderer/src/views/HomeView.vue')
   assert.match(home, /class="runtime-blob"/)
   assert.match(home, /@mouseenter="runtimeHover = 0"/)
   assert.match(home, /@mouseleave="runtimeHover = -1"/)
   assert.match(home, /\.runtime-blob\.on \{/)
-  assert.match(home, /\.runtime-item:hover \{ transform: translateY\(-2px\)/)
+  // The v1.0.36 design pass keeps the hover indicator but no longer lifts each cell.
 })
 
 test('1.0.21 changed SFCs compile', () => {

@@ -1,0 +1,286 @@
+{
+  "version": "1.1.6",
+  "run": "https://github.com/kamubaba-i/KAMUCL/actions/runs/36900960198",
+  "commit": "d5f93ee1e8a3046b478a5528bb9bcf0069c16ec7",
+  "conclusion": "success",
+  "arches": {
+    "arm64": {
+      "ui": {
+        "version": "1.1.6",
+        "arch": "arm64",
+        "binary": "/Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/MacOS/KAMUCL: Mach-O 64-bit executable arm64\n",
+        "mainUI": true,
+        "macUI": {
+          "platform": "darwin",
+          "customButtons": 0,
+          "logoTop": 39,
+          "folderStatus": "ready",
+          "folderPath": "/Users/runner/Library/Application Support/.kamucl"
+        },
+        "skin": {
+          "facePixels": 2883,
+          "shirtPixels": 4712
+        },
+        "nativeMaterial": {
+          "captured": true,
+          "reducedTransparency": false,
+          "samples": [
+            [
+              24,
+              24,
+              26
+            ],
+            [
+              49,
+              49,
+              51
+            ]
+          ],
+          "difference": 25
+        },
+        "url": "file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/index.html"
+      },
+      "extensions": {
+        "version": "1.1.6",
+        "skinPixels": [
+          [
+            4,
+            12
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            28,
+            12
+          ],
+          [
+            44,
+            12
+          ]
+        ],
+        "legacySkinImport": true,
+        "skinHistory": true,
+        "skinUpload": "isolated failure/success fixtures; profile refresh observed",
+        "tickets": "isolated fixtures; selection no submission; rate countdown",
+        "projectionSourceUnchanged": true,
+        "multiRoot": true,
+        "modern26": true,
+        "mascots": {
+          "counts": {
+            "q3": 1,
+            "qiqi": 1,
+            "biyuehu": 0,
+            "hongshu": 0,
+            "kamu": 0,
+            "milo": 0,
+            "muchuanbei": 0
+          },
+          "order": [
+            "qiqi",
+            "q3",
+            "biyuehu",
+            "hongshu",
+            "kamu",
+            "milo",
+            "muchuanbei"
+          ]
+        },
+        "memory": {
+          "applicable": false,
+          "beforeMB": 99,
+          "afterMB": 99,
+          "processed": 0,
+          "skipped": 0,
+          "failures": {},
+          "elapsedMs": 0
+        }
+      },
+      "game": {
+        "arch": "arm64",
+        "version": "26.2",
+        "nativeWindow": {
+          "reducedTransparency": false,
+          "screenWidth": 1024,
+          "id": 60,
+          "bounds": {
+            "X": 85,
+            "Height": 508,
+            "Y": 116,
+            "Width": 854
+          }
+        },
+        "gamePid": 6408,
+        "gameWindow": true,
+        "worldStarted": true,
+        "savedWorld": true,
+        "regionFiles": [
+          "r.-1.-1.mca",
+          "r.-1.0.mca",
+          "r.0.-1.mca",
+          "r.0.0.mca"
+        ],
+        "nativeFocus": true,
+        "gracefulClose": true,
+        "closeAndDockReopen": true,
+        "ciMetalArgumentBuffers": null,
+        "ciMetalHeap": null
+      },
+      "glass": [
+        {
+          "complete": true,
+          "pointerDisplacement": 62.130865490462234,
+          "lateAssembly": true,
+          "readinessGate": true,
+          "cleanup": true
+        },
+        {
+          "complete": true,
+          "reducedMotion": true,
+          "readinessGate": true,
+          "cleanup": true
+        }
+      ]
+    },
+    "x64": {
+      "ui": {
+        "version": "1.1.6",
+        "arch": "x64",
+        "binary": "/Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/MacOS/KAMUCL: Mach-O 64-bit executable x86_64\n",
+        "mainUI": true,
+        "macUI": {
+          "platform": "darwin",
+          "customButtons": 0,
+          "logoTop": 39,
+          "folderStatus": "ready",
+          "folderPath": "/Users/runner/Library/Application Support/.kamucl"
+        },
+        "skin": {
+          "facePixels": 2914,
+          "shirtPixels": 4750
+        },
+        "nativeMaterial": {
+          "captured": true,
+          "reducedTransparency": false,
+          "samples": [
+            [
+              29.216666666666665,
+              29.066666666666666,
+              30.730555555555554
+            ],
+            [
+              53.31666666666667,
+              53.166666666666664,
+              54.830555555555556
+            ]
+          ],
+          "difference": 24.100000000000005
+        },
+        "url": "file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/index.html"
+      },
+      "extensions": {
+        "version": "1.1.6",
+        "skinPixels": [
+          [
+            4,
+            12
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            28,
+            12
+          ],
+          [
+            44,
+            12
+          ]
+        ],
+        "legacySkinImport": true,
+        "skinHistory": true,
+        "skinUpload": "isolated failure/success fixtures; profile refresh observed",
+        "tickets": "isolated fixtures; selection no submission; rate countdown",
+        "projectionSourceUnchanged": true,
+        "multiRoot": true,
+        "modern26": true,
+        "mascots": {
+          "counts": {
+            "q3": 1,
+            "qiqi": 1,
+            "biyuehu": 0,
+            "hongshu": 0,
+            "kamu": 0,
+            "milo": 0,
+            "muchuanbei": 0
+          },
+          "order": [
+            "qiqi",
+            "q3",
+            "biyuehu",
+            "hongshu",
+            "kamu",
+            "milo",
+            "muchuanbei"
+          ]
+        },
+        "memory": {
+          "applicable": false,
+          "beforeMB": 3336,
+          "afterMB": 3336,
+          "processed": 0,
+          "skipped": 0,
+          "failures": {},
+          "elapsedMs": 0
+        }
+      },
+      "game": {
+        "arch": "x64",
+        "version": "26.2",
+        "nativeWindow": {
+          "bounds": {
+            "X": 533,
+            "Height": 508,
+            "Y": 272,
+            "Width": 854
+          },
+          "id": 67,
+          "screenWidth": 1920,
+          "reducedTransparency": false
+        },
+        "gamePid": 13203,
+        "gameWindow": true,
+        "worldStarted": true,
+        "savedWorld": true,
+        "regionFiles": [
+          "r.-1.-1.mca",
+          "r.-1.0.mca",
+          "r.0.-1.mca",
+          "r.0.0.mca"
+        ],
+        "nativeFocus": true,
+        "gracefulClose": true,
+        "closeAndDockReopen": true,
+        "ciMetalArgumentBuffers": "0",
+        "ciMetalHeap": "0"
+      },
+      "glass": [
+        {
+          "complete": true,
+          "reducedMotion": true,
+          "readinessGate": true,
+          "cleanup": true
+        },
+        {
+          "complete": true,
+          "pointerDisplacement": 51.0728133676972,
+          "lateAssembly": true,
+          "readinessGate": true,
+          "cleanup": true
+        }
+      ]
+    }
+  }
+}

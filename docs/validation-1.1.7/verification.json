@@ -1,0 +1,19 @@
+{
+  "version": "1.1.7",
+  "applicationCommit": "bf37aa8953fde9bdc53620b7915486ad1305ed20",
+  "tests": {
+    "command": "npm test",
+    "pass": 588,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "cleanSource": "clean-source.json",
+  "windowsPortableSHA256": "d13d82eb8f3428771d76a10f978b0166497823740ced0fb014d04540a64aaa77",
+  "themeRuns": [
+    "black-orange",
+    "blue-white",
+    "custom"
+  ],
+  "hardwareListening": "not performed"
+}

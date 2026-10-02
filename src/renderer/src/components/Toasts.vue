@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { store } from '../store'
+import { store, dismissToast } from '../store'
 </script>
 
 <template>
-  <TransitionGroup name="toast" tag="div" class="toasts">
-    <div v-for="t in store.toasts" :key="t.id" class="toast" :class="`toast-${t.type}`">
+  <TransitionGroup name="toast" tag="div" class="toasts" aria-live="polite" aria-relevant="additions text">
+    <div v-for="t in store.toasts.slice(-3)" :key="t.id" class="toast" :class="`toast-${t.type}`">
       <span class="toast-dot"></span>
-      <span class="toast-text">{{ t.text }}</span>
+      <span class="toast-text">{{ t.text }}</span><button class="icon-btn toast-close" aria-label="关闭通知" @click="dismissToast(t.id)">×</button>
     </div>
   </TransitionGroup>
 </template>
@@ -30,7 +30,7 @@ import { store } from '../store'
   max-width: 360px;
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
-  background: var(--card);
+  background: var(--surface-raised);
   border: 1px solid var(--border);
   border-left-width: 3px;
   box-shadow: var(--shadow-lg);
@@ -39,6 +39,8 @@ import { store } from '../store'
   user-select: text;
 }
 
+.toast-close { pointer-events:auto; width:28px; height:28px; }
+.toast-text { overflow-wrap:anywhere; }
 .toast-dot {
   width: 8px;
   height: 8px;

@@ -119,6 +119,7 @@ export function removeGameFolder(input: string): GameFolder[] {
   if (!folders.length) {
     const { app } = require('electron')
     const fallback = path.join(app.getPath('appData'), '.kamucl')
+    fs.mkdirSync(fallback, { recursive: true })
     folders = [{ path: fallback, name: '默认文件夹', isDefault: true }]
     folderLog.info(`已移除最后一个文件夹，自动重建内置默认文件夹：${fallback}`)
   }

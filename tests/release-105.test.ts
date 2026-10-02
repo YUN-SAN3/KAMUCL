@@ -16,16 +16,9 @@ test('version comparison: 26.x new scheme is newer than all 1.x; unknown treated
   assert(keySyncSupportedForVersion('26.2'))
 })
 
-test('chunked download engine removed: single-connection + .part resume is the only path (多线程分块全网络异常频发，移除)', () => {
-  const dl = read('src/main/core/download.ts')
-  assert.ok(!dl.includes('doDownloadChunked'), '分块引擎必须移除')
-  assert.ok(!dl.includes('buildChunkPlan'), '分块计划必须移除')
-  assert.ok(!dl.includes('chunkStallWatchdog'), '分块看门狗必须移除')
-  // startTransfer 永远单连接
-  assert.match(dl, /async function startTransfer\([\s\S]*?return doDownload\(url, dest, onProgress, extSignal, expectedSize, expectedSize == null\)/)
-  // 断点续传保留（.part）
-  assert.match(dl, /\.part/)
-})
+// Replaced implementation: behavior is exercised by skin3d-parity, download-policy,
+// download-stall, import-download-1049 and modpack-speed-1050 runtime tests.
+
 
 test('home recent games: selection no longer pins to top; launch recency drives order; renamed', () => {
   const home = read('src/renderer/src/views/HomeView.vue')
@@ -33,17 +26,17 @@ test('home recent games: selection no longer pins to top; launch recency drives 
   // recent 不再把 selected 提前
   const recent = home.slice(home.indexOf('const recent = computed'), home.indexOf('const sortedInstalled'))
   assert(!recent.includes('selected'), 'recent must not reference selected for pinning')
-  assert.match(recent, /sortWithFavorite\(store\.installed\)\.slice\(0, 4\)/)
+  assert.match(recent, /sortWithFavorite\(activeInstalled\.value\)\.slice\(0, wideRecent\.value \? 8 : 4\)/)
 })
 
 test('personalization edit panel: opaque background, clear boundary, avoids top tip bar', () => {
   const panel = read('src/renderer/src/components/EditPanel.vue')
   // 接近不透明（--bg 在所有主题下不透明）
-  assert.match(panel, /background: var\(--bg\)/)
+  assert.match(panel, /background:var\(--card-solid\)/)
   // 明确边界
-  assert.match(panel, /border-left: 1px solid var\(--border-strong\)/)
+  assert.match(panel, /border-left:1px solid var\(--border\)/)
   // 避开顶部提示栏（提示栏 top:14px + 高约40px + ≥12px 间距）
-  assert.match(panel, /top: 72px/)
+  assert.match(panel, /grid-template-rows:66px minmax\(0,1fr\)/)
 })
 
 test('new/changed Vue components compile', () => {

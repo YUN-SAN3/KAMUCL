@@ -1,0 +1,49 @@
+{
+  "version": "1.1.7",
+  "complete": true,
+  "exeSHA256": "d13d82eb8f3428771d76a10f978b0166497823740ced0fb014d04540a64aaa77",
+  "catalogReentry": true,
+  "disclosureBothDirections": true,
+  "dropdownMotion": true,
+  "methodEntryMotion": true,
+  "settingsScopes": true,
+  "compactRuntime": true,
+  "settingsScrollRestored": true,
+  "asyncLatestWins": true,
+  "errorRetry": true,
+  "emptySearch": true,
+  "modalKeyboard": true,
+  "runningState": true,
+  "confinedAnimation": true,
+  "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 2Plod6",
+  "shotDir": "E:\\KAMUCL\\release\\ui-refinement-custom",
+  "issues": [],
+  "settingsTargets": 16,
+  "reducedMotion": true,
+  "legacyConfig": true,
+  "rapidNavigation": true,
+  "themes": "custom",
+  "windows": [
+    [
+      960,
+      620,
+      1
+    ],
+    [
+      1280,
+      900,
+      1.25
+    ],
+    [
+      1440,
+      960,
+      1.5
+    ],
+    [
+      980,
+      720,
+      1.5
+    ],
+    "maximized"
+  ]
+}

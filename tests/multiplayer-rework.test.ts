@@ -24,11 +24,11 @@ test('联机文案纠错：多页全部文件不得出现「一点即连/一键�
   }
   const view = read('src/renderer/src/views/FriendConnectView.vue')
   // 方式选择页卡片：准确介绍 + 适用场景标签
-  for (const text of ['注册樱花穿透（natfrp.com）并创建隧道', '公网隧道 · 最稳', 'UDP 打洞 + STUN 的 P2P 直连，游戏数据不经服务器', '6 位房间码 · 免公网 IP', '打通后仍需在游戏内「直接连接」填入地址', '独立开源联机项目', 'burningtnt/Terracotta', '独立开源 · 开箱即用']) {
+  for (const text of ['注册樱花穿透（natfrp.com）并创建隧道', '公网隧道', '可由玩家主动选择 TURN 中继', '6 位房间码 · 免公网 IP', '连接成功后，按页面指引在游戏内输入地址', '独立开源联机项目', 'burningtnt/Terracotta', '独立开源 · 开箱即用']) {
     assert.ok(view.includes(text), `方式选择页缺少：${text}`)
   }
   // 横向卡片各配一句适用场景（含还原的玩家直连）
-  for (const scene of ['适合追求稳定', '适合双方网络尚可', '适合不想配置任何参数']) {
+  for (const scene of ['适合愿意配置隧道的玩家', '适合所有普通玩家的连接方式', '适合使用官方工具和房间码联机的玩家']) {
     assert.ok(view.includes(scene), `方式选择页缺少场景标签：${scene}`)
   }
   // 方式选择页恰好三张卡片（玩家直连属冗余已移除，1.0.25）
@@ -48,16 +48,16 @@ test('联机多页结构：landing=方式选择，每种方式独立页并保留
   assert.ok(!view.includes("'direct'"), '不得残留玩家直连页面态')
 })
 
-test('FRP 页重排：一键开始 + 状态区/主操作区/参考折叠/日志窄区 + 宽松节点行', () => {
+test('FRP 页重排：独立隧道卡片、启停与恢复提示、参考折叠及宽松节点行', () => {
   const panel = read('src/renderer/src/components/connection/FrpPanel.vue')
   // 主流程：一键开始（上次配置预填） + 刷新状态
-  for (const text of ['启动 frpc', '刷新状态', 'userData/frp-config.json', 'frp:status', 'frp:start']) {
+  for (const text of ['启动隧道', '停止隧道', '下次打开自动恢复', '刷新状态', 'frp:status', 'frp:start', 'frp:create-tunnel']) {
     assert.ok(panel.includes(text), `FrpPanel 缺少：${text}`)
   }
   // 节点参考与运行日志默认折叠（details 不带 open 属性）
-  assert.match(panel, /<details class="reference-details"(?:\s[^>]*)?>/ )
-  assert.match(panel, /<details class="connection-details log-details">(?:\s[^>]*)?>/)
-  assert.ok(!panel.includes(' open'), '折叠区默认不得展开（不应出现 open 属性）')
+  assert.match(panel, /<details\b[^>]*class="reference-details"[^>]*>/ )
+  assert.match(panel, /<details\b[^>]*class="frp-card-logs"[^>]*>/)
+  assert.ok(!/<details[^>]*class="(?:reference-details|frp-card-logs)"[^>]*\sopen(?:\s|>)/.test(panel), '参考及日志默认折叠')
   // 节点列表：宽松行（自适应高度 + 内边距），行间距 ≥ --space-2，不再固定小行高
   const scoped = panel.slice(panel.indexOf('<style'))
   assert.match(scoped, /\.node-item \{[^}]*align-items: flex-start/)
@@ -70,9 +70,9 @@ test('FRP 页重排：一键开始 + 状态区/主操作区/参考折叠/日志�
   const listAt = panel.indexOf('class="node-list"')
   assert.ok(tunnelsAt > -1 && listAt > tunnelsAt, '我的隧道小卡应在节点列表上方')
   // 高级选项（本地端口自动识别）折叠；远程地址+复制在状态卡
-  assert.ok(panel.includes('高级选项 · 本地端口'), '本地端口应放高级折叠区')
+  assert.ok(panel.includes('localPort'), '创建隧道需要实际本地端口')
   assert.ok(panel.includes('复制地址'), '远程地址应可复制')
-  for (const text of ['只看免费节点', "'免费'", "'专业版'", '节点由 natfrp 后台创建隧道时选择', '负载', '直接连接']) {
+  for (const text of ['只看免费节点', "'免费'", "'专业版'", '负载', '直接连接']) {
     assert.ok(panel.includes(text), `FrpPanel 缺少：${text}`)
   }
 })
@@ -108,8 +108,8 @@ test('陶瓦房间码：实现与文案统一为 U/ + 四段（U/XXXX-XXXX-XXXX-
   assert.ok(!re.test('U/AB12-CD34-EF56'))
   assert.ok(!re.test('U/AB12-CD34-EF56-GH78-9'))
   // 分区结构：状态区 → 主操作区 → 参考折叠 → 日志窄区
-  const statusAt = panel.indexOf('title="连接状态"')
-  const opsAt = panel.indexOf('title="开始联机"')
+  const statusAt = panel.indexOf('title="当前连接"')
+  const opsAt = panel.indexOf('class="tc-operations"')
   const refAt = panel.indexOf('reference-details')
   const logAt = panel.indexOf('log-details')
   assert.ok(statusAt > -1 && opsAt > statusAt && refAt > opsAt && logAt > refAt, '陶瓦页应按 状态→主操作→参考→日志 顺序向下分区')
@@ -124,13 +124,9 @@ test('VoxLink 集成补全：后备 IPC、阶段事件、已连接判定、消�
   const shared = read('src/shared/types.ts')
   for (const key of ['voxlinkTryDirect', 'voxlinkUsePlayerRelay']) assert.ok(shared.includes(key), `types.ts 缺少 ${key}`)
 
-  const engine = read('src/main/core/voxlink/engine.ts')
-  for (const key of ["emitStage('stun'", "emitStage('punch'", "emitStage('relay'", "emitStage('host_stun'", "emitStage('host_punch'"]) {
-    assert.ok(engine.includes(key), `engine.ts 缺少阶段事件 ${key}`)
-  }
-
+  // Engine events and connectivity are exercised by voxlink-replacement.test.ts.
   const panel = read('src/renderer/src/components/connection/VoxLinkPanel.vue')
-  for (const text of ['尝试直连', '使用玩家中继', '房间已加入，正在建立 P2P 连接…', '多人游戏', '直接连接', '复制地址', 'sanitizeLog', "'stage'", "'conn:state'", '阶段', '复制日志', '300 秒', '不含 I、L、O、0、1']) {
+  for (const text of ['尝试直连', '使用玩家中继', '正在连接好友', '多人游戏', '直接连接', '复制地址', 'sanitizeLog', "'stage'", "'conn:state'", '阶段', '复制日志', '20_000', '不含 I、L、O、0、1']) {
     assert.ok(panel.includes(text), `VoxLinkPanel 缺少：${text}`)
   }
   assert.ok(!panel.includes('已连接到房主'), '不得保留过早的「已连接到房主」')
@@ -138,21 +134,15 @@ test('VoxLink 集成补全：后备 IPC、阶段事件、已连接判定、消�
   for (const text of ['connect-tab', "tab === 'host'", "tab === 'join'", "tab === 'lobby'", '公共大厅']) {
     assert.ok(panel.includes(text), `VoxLinkPanel 应使用页内 Tab 分开入口，缺少：${text}`)
   }
-  // 分区结构：状态区 → 主操作区 → 参考折叠 → 日志窄区
-  const statusAt = panel.indexOf('title="连接状态"')
-  const opsAt = panel.indexOf('title="开始联机"')
-  const refAt = panel.indexOf('reference-details')
-  const logAt = panel.indexOf('log-details')
-  assert.ok(statusAt > -1 && opsAt > statusAt && refAt > opsAt && logAt > refAt, 'VoxLink 页应按 状态→主操作→参考→日志 顺序向下分区')
-  // 「已连接」只允许出现在 connected 分支内（静态断言）
+  // Entry, progress and result are mutually exclusive; links remain above them.
   const template = panel.slice(panel.indexOf('<template>'))
-  const connectedStart = template.indexOf('v-else-if="connected"')
-  const connectedEnd = template.indexOf('<template v-else>', connectedStart)
-  assert.ok(connectedStart > -1 && connectedEnd > connectedStart, '模板必须保留 connected 分支结构')
-  const before = template.slice(0, connectedStart)
-  const branch = template.slice(connectedStart, connectedEnd)
-  assert.ok(!before.includes('已连接'), 'connected 之前的模板不得出现「已连接」')
-  assert.ok(branch.includes('已连接'), 'connected 分支内应有「已连接」状态')
+  assert.ok(template.indexOf('<VoxLinkRelatedLinks') < template.indexOf('v-if="inFlow"'))
+  assert.ok(template.includes('v-if="connected && !isHost"'))
+  assert.match(template, /<ConnectionPanel\b[^>]*v-else[^>]*title="游戏与房间"/)
+  assert.ok(template.includes('aria-label="连接进度"'))
+  assert.ok(template.includes('class="address-hero"'))
+  assert.ok(template.includes('logGroups'))
+
 })
 
 test('重排后的联机组件可编译且遵守配色铁律（无十六进制/rgb 字面量）', () => {

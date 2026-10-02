@@ -1,0 +1,393 @@
+{
+  "width": 1360,
+  "height": 860,
+  "zoom": 1,
+  "native": {
+    "isVisible": true,
+    "isMinimized": false,
+    "focused": true,
+    "bounds": {
+      "x": 280,
+      "y": 54,
+      "width": 1360,
+      "height": 860
+    },
+    "contentBounds": {
+      "x": 280,
+      "y": 54,
+      "width": 1360,
+      "height": 860
+    },
+    "zoom": 1,
+    "backgroundThrottling": true
+  },
+  "viewport": {
+    "width": 1360,
+    "height": 860,
+    "devicePixelRatio": 1,
+    "visualWidth": 1360,
+    "visualHeight": 860
+  },
+  "documentHidden": false,
+  "visibilityState": "visible",
+  "stageHidden": false,
+  "draws": 6300,
+  "bar": {
+    "left": 209,
+    "right": 1359,
+    "top": 1,
+    "bottom": 73,
+    "height": 72
+  },
+  "stage": {
+    "left": 265,
+    "right": 1149,
+    "top": 1,
+    "bottom": 72
+  },
+  "strip": {
+    "left": 265,
+    "right": 1120,
+    "top": 1,
+    "bottom": 72,
+    "clientWidth": 855,
+    "clientHeight": 71
+  },
+  "canvas": {
+    "left": 265,
+    "right": 1120,
+    "top": 1,
+    "bottom": 60,
+    "clientWidth": 855,
+    "clientHeight": 59,
+    "width": 855,
+    "height": 59
+  },
+  "modelBounds": {
+    "height": 59,
+    "width": 855,
+    "models": [
+      {
+        "id": "q3",
+        "top": 5.994181243216572,
+        "bottom": 56.42413314499511,
+        "left": 168.83064496595927,
+        "right": 198.89524894017123
+      },
+      {
+        "id": "qiqi",
+        "top": 5.809867702355902,
+        "bottom": 56.42413314499511,
+        "left": 46.68778782310214,
+        "right": 76.75239179731408
+      },
+      {
+        "id": "biyuehu",
+        "top": 5.609754041516298,
+        "bottom": 56.42413314499511,
+        "left": 290.9735021088164,
+        "right": 321.03810608302837
+      },
+      {
+        "id": "hongshu",
+        "top": 5.570933706174072,
+        "bottom": 56.42413314499511,
+        "left": 413.1163592516735,
+        "right": 443.1809632258855
+      },
+      {
+        "id": "kamu",
+        "top": 5.7254627174345245,
+        "bottom": 56.42413314499511,
+        "left": 535.2592163945307,
+        "right": 565.3238203687425
+      },
+      {
+        "id": "milo",
+        "top": 5.941205642412992,
+        "bottom": 56.42413314499511,
+        "left": 657.4020735373879,
+        "right": 687.4666775115998
+      },
+      {
+        "id": "muchuanbei",
+        "top": 6.015146480212849,
+        "bottom": 56.42413314499511,
+        "left": 779.544930680245,
+        "right": 809.609534654457
+      }
+    ]
+  },
+  "buttons": [
+    {
+      "id": "q3",
+      "x": 436.703125,
+      "y": 36.90625,
+      "width": 20.8125,
+      "height": 10.40625,
+      "leftStyle": "171.711px",
+      "topStyle": "35.9206px",
+      "visible": true
+    },
+    {
+      "id": "qiqi",
+      "x": 314.5625,
+      "y": 36.90625,
+      "width": 20.8125,
+      "height": 10.40625,
+      "leftStyle": "49.5679px",
+      "topStyle": "35.9206px",
+      "visible": true
+    },
+    {
+      "id": "biyuehu",
+      "x": 558.84375,
+      "y": 36.90625,
+      "width": 20.8125,
+      "height": 10.40625,
+      "leftStyle": "293.854px",
+      "topStyle": "35.9206px",
+      "visible": true
+    },
+    {
+      "id": "hongshu",
+      "x": 680.984375,
+      "y": 36.90625,
+      "width": 20.8125,
+      "height": 10.40625,
+      "leftStyle": "415.997px",
+      "topStyle": "35.9206px",
+      "visible": true
+    },
+    {
+      "id": "kamu",
+      "x": 803.125,
+      "y": 36.90625,
+      "width": 20.8125,
+      "height": 10.40625,
+      "leftStyle": "538.139px",
+      "topStyle": "35.9206px",
+      "visible": true
+    },
+    {
+      "id": "milo",
+      "x": 925.28125,
+      "y": 36.90625,
+      "width": 20.8125,
+      "height": 10.40625,
+      "leftStyle": "660.282px",
+      "topStyle": "35.9206px",
+      "visible": true
+    },
+    {
+      "id": "muchuanbei",
+      "x": 1047.421875,
+      "y": 36.90625,
+      "width": 20.8125,
+      "height": 10.40625,
+      "leftStyle": "782.425px",
+      "topStyle": "35.9206px",
+      "visible": true
+    }
+  ],
+  "controls": [
+    {
+      "label": "返回上一个页面",
+      "left": 221,
+      "right": 257,
+      "top": 18.5,
+      "bottom": 54.5
+    },
+    {
+      "label": " 下载 ",
+      "left": 1157,
+      "right": 1230,
+      "top": 18.5,
+      "bottom": 54.5
+    },
+    {
+      "label": " 导入 ",
+      "left": 1234,
+      "right": 1307,
+      "top": 18.5,
+      "bottom": 54.5
+    },
+    {
+      "label": "通知",
+      "left": 1311,
+      "right": 1347,
+      "top": 18.5,
+      "bottom": 54.5
+    }
+  ],
+  "readinessSamples": [
+    {
+      "sample": 0,
+      "matched": false,
+      "stable": 0,
+      "native": {
+        "isVisible": true,
+        "isMinimized": false,
+        "focused": true,
+        "bounds": {
+          "x": 280,
+          "y": 54,
+          "width": 1360,
+          "height": 860
+        },
+        "contentBounds": {
+          "x": 280,
+          "y": 54,
+          "width": 1360,
+          "height": 860
+        },
+        "zoom": 1,
+        "backgroundThrottling": true
+      },
+      "viewport": {
+        "width": 1360,
+        "height": 860,
+        "devicePixelRatio": 1,
+        "visualWidth": 1360,
+        "visualHeight": 860
+      },
+      "documentHidden": false,
+      "stageHidden": false,
+      "strip": {
+        "left": 265,
+        "right": 1120,
+        "top": 1,
+        "bottom": 72,
+        "clientWidth": 855,
+        "clientHeight": 71
+      },
+      "canvas": {
+        "left": 265,
+        "right": 777,
+        "top": 1,
+        "bottom": 56,
+        "clientWidth": 512,
+        "clientHeight": 55,
+        "width": 512,
+        "height": 55
+      },
+      "modelBoundsSize": {
+        "width": 512,
+        "height": 55
+      },
+      "draws": 6090
+    },
+    {
+      "sample": 1,
+      "matched": true,
+      "stable": 0,
+      "native": {
+        "isVisible": true,
+        "isMinimized": false,
+        "focused": true,
+        "bounds": {
+          "x": 280,
+          "y": 54,
+          "width": 1360,
+          "height": 860
+        },
+        "contentBounds": {
+          "x": 280,
+          "y": 54,
+          "width": 1360,
+          "height": 860
+        },
+        "zoom": 1,
+        "backgroundThrottling": true
+      },
+      "viewport": {
+        "width": 1360,
+        "height": 860,
+        "devicePixelRatio": 1,
+        "visualWidth": 1360,
+        "visualHeight": 860
+      },
+      "documentHidden": false,
+      "stageHidden": false,
+      "strip": {
+        "left": 265,
+        "right": 1120,
+        "top": 1,
+        "bottom": 72,
+        "clientWidth": 855,
+        "clientHeight": 71
+      },
+      "canvas": {
+        "left": 265,
+        "right": 1120,
+        "top": 1,
+        "bottom": 60,
+        "clientWidth": 855,
+        "clientHeight": 59,
+        "width": 855,
+        "height": 59
+      },
+      "modelBoundsSize": {
+        "width": 855,
+        "height": 59
+      },
+      "draws": 6174
+    },
+    {
+      "sample": 2,
+      "matched": true,
+      "stable": 1,
+      "native": {
+        "isVisible": true,
+        "isMinimized": false,
+        "focused": true,
+        "bounds": {
+          "x": 280,
+          "y": 54,
+          "width": 1360,
+          "height": 860
+        },
+        "contentBounds": {
+          "x": 280,
+          "y": 54,
+          "width": 1360,
+          "height": 860
+        },
+        "zoom": 1,
+        "backgroundThrottling": true
+      },
+      "viewport": {
+        "width": 1360,
+        "height": 860,
+        "devicePixelRatio": 1,
+        "visualWidth": 1360,
+        "visualHeight": 860
+      },
+      "documentHidden": false,
+      "stageHidden": false,
+      "strip": {
+        "left": 265,
+        "right": 1120,
+        "top": 1,
+        "bottom": 72,
+        "clientWidth": 855,
+        "clientHeight": 71
+      },
+      "canvas": {
+        "left": 265,
+        "right": 1120,
+        "top": 1,
+        "bottom": 60,
+        "clientWidth": 855,
+        "clientHeight": 59,
+        "width": 855,
+        "height": 59
+      },
+      "modelBoundsSize": {
+        "width": 855,
+        "height": 59
+      },
+      "draws": 6300
+    }
+  ]
+}

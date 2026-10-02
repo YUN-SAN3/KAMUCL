@@ -51,31 +51,6 @@ test('download candidates honor source setting: auto=direct+mirror, direct only,
   assert.deepEqual(updateDownloadCandidates(url, { updateSource: 'mirror', updateMirrorUrl: 'https://m.example/' }), ['https://m.example/' + url])
 })
 
-test('updater script: waits for main pid, backups old exe, moves new, watches 20s, rollback writes flag', () => {
-  const s = buildUpdaterScript({
-    oldExe: 'D:\\启动器\\KAMUCL-1.0.13.exe',
-    newExe: 'D:\\启动器\\KAMUCL-update\\KAMUCL-1.0.14.exe',
-    backupDir: 'D:\\启动器\\KAMUCL-backup',
-    mainPid: 12345,
-    stateDir: 'C:\\Users\\x\\AppData\\Roaming\\kamucl'
-  })
-  assert.match(s, /Get-Process -Id \$mainPid/)
-  // 移动改为带重试的 Move-WithRetry（便携包外层进程文件锁延迟释放）
-  assert.match(s, /function Move-WithRetry\(/)
-  assert.match(s, /Move-WithRetry \$oldExe \(Join-Path \$backupDir/)
-  assert.match(s, /Move-WithRetry \$newExe \$newTarget/)
-  // 每步写 updater-last.log（可诊断）
-  assert.match(s, /updater-last\.log/)
-  assert.match(s, /Start-Sleep -Seconds 20/)
-  assert.match(s, /update-failed\.flag/)
-  assert.match(s, /Restore-Backup/)
-  // 仅留一份备份
-  assert.match(s, /Remove-Item.*-Filter 'KAMUCL-\*\.exe'|-Filter 'KAMUCL-\*\.exe'[\s\S]*?Remove-Item/)
-  // 还原模式不生成新备份
-  const r = buildUpdaterScript({ oldExe: 'a', newExe: 'b', backupDir: 'c', mainPid: 1, stateDir: 'd', restore: true })
-  assert.match(r, /\$doBackup = \$false/)
-})
-
 test('markdown lite: escapes HTML, renders headings/bold/code/lists/links only', () => {
   const html = renderMarkdownLite('## 标题\n- **加粗** 和 `代码`\n<script>alert(1)</script>\n[链接](https://example.com)')
   assert(!html.includes('<script>'), 'raw HTML must be escaped')

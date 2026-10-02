@@ -1,0 +1,5 @@
+const {execFileSync}=require('node:child_process')
+if(process.platform==='darwin') execFileSync(process.execPath,['scripts/pack-mac.mjs'],{stdio:'inherit'})
+else if(process.platform==='win32') execFileSync('npm.cmd',['run','dist:win'],{stdio:'inherit',shell:true})
+else throw Error('Release packaging requires Windows or macOS')
+console.log('Cross-platform distribution is built by each native platform; macOS dual architecture: macOS packages workflow.')

@@ -1,0 +1,3325 @@
+{
+  "version": "1.1.7",
+  "checks": [
+    {
+      "label": "two full sweeps",
+      "expected": {
+        "q3": 2,
+        "qiqi": 2,
+        "biyuehu": 2,
+        "hongshu": 2,
+        "kamu": 2,
+        "milo": 2,
+        "muchuanbei": 2
+      },
+      "closed": false,
+      "samples": [
+        {
+          "time": 1790889103545,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": null,
+              "label": "打开七人互动彩蛋",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 2,
+              "qiqi": 2,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": false,
+              "volume": 0.45
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "keyboard Space equivalence",
+      "expected": {
+        "q3": 2,
+        "qiqi": 3,
+        "biyuehu": 2,
+        "hongshu": 2,
+        "kamu": 2,
+        "milo": 2,
+        "muchuanbei": 2
+      },
+      "closed": false,
+      "samples": [
+        {
+          "time": 1790889104517,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "qiqi",
+              "label": "拍一下 qiqi，累计 3 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 2,
+              "qiqi": 2,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": false,
+              "volume": 0.45
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        },
+        {
+          "time": 1790889104669,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "qiqi",
+              "label": "拍一下 qiqi，累计 3 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 2,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "qiqi",
+              "q3",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": false,
+              "volume": 0.45
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "reduced motion remains interactive",
+      "expected": {
+        "q3": 3,
+        "qiqi": 3,
+        "biyuehu": 2,
+        "hongshu": 2,
+        "kamu": 2,
+        "milo": 2,
+        "muchuanbei": 2
+      },
+      "closed": false,
+      "samples": [
+        {
+          "time": 1790889109175,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "qiqi",
+              "label": "拍一下 qiqi，累计 3 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 3,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 2,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "qiqi",
+              "q3",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": false,
+              "volume": 0.45
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        },
+        {
+          "time": 1790889109263,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "qiqi",
+              "label": "拍一下 qiqi，累计 3 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 3,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 2,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "qiqi",
+              "q3",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": false,
+              "volume": 0.45
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        },
+        {
+          "time": 1790889109350,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "qiqi",
+              "label": "拍一下 qiqi，累计 3 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 3,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 3,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "qiqi",
+              "q3",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": false,
+              "volume": 0.45
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "muted hit still saves once",
+      "expected": {
+        "q3": 4,
+        "qiqi": 3,
+        "biyuehu": 2,
+        "hongshu": 2,
+        "kamu": 2,
+        "milo": 2,
+        "muchuanbei": 2
+      },
+      "closed": false,
+      "samples": [
+        {
+          "time": 1790889111290,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "qiqi",
+              "label": "拍一下 qiqi，累计 3 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 4,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 3,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "qiqi",
+              "q3",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        },
+        {
+          "time": 1790889111389,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "qiqi",
+              "label": "拍一下 qiqi，累计 3 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 4,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 3,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "qiqi",
+              "q3",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        },
+        {
+          "time": 1790889111490,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "qiqi",
+              "label": "拍一下 qiqi，累计 3 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 4,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 4,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              },
+              {
+                "pending": false,
+                "time": 1790889111421
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "72d77012-6575-4290-b2b7-08eb43e1b7a6",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889111417,
+                "status": "saved",
+                "completed": 1790889111420,
+                "counts": {
+                  "q3": 4,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "close flushes and restores the LOGO",
+      "expected": {
+        "q3": 4,
+        "qiqi": 3,
+        "biyuehu": 2,
+        "hongshu": 2,
+        "kamu": 2,
+        "milo": 2,
+        "muchuanbei": 2
+      },
+      "closed": true,
+      "samples": [
+        {
+          "time": 1790889111586,
+          "local": {
+            "stageOpen": false,
+            "stageHidden": null,
+            "focused": {
+              "hit": null,
+              "label": "打开七人互动彩蛋",
+              "disabled": false
+            },
+            "buttons": []
+          },
+          "saved": {
+            "counts": {
+              "q3": 4,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              },
+              {
+                "pending": false,
+                "time": 1790889111421
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "72d77012-6575-4290-b2b7-08eb43e1b7a6",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889111417,
+                "status": "saved",
+                "completed": 1790889111420,
+                "counts": {
+                  "q3": 4,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "held keyboard Space is exactly one slap",
+      "expected": {
+        "q3": 5,
+        "qiqi": 3,
+        "biyuehu": 2,
+        "hongshu": 2,
+        "kamu": 2,
+        "milo": 2,
+        "muchuanbei": 2
+      },
+      "closed": false,
+      "samples": [
+        {
+          "time": 1790889113258,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "q3",
+              "label": "拍一下 q3，累计 5 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 5,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 4,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              },
+              {
+                "pending": false,
+                "time": 1790889111421
+              },
+              {
+                "pending": true,
+                "time": 1790889113048
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "72d77012-6575-4290-b2b7-08eb43e1b7a6",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889111417,
+                "status": "saved",
+                "completed": 1790889111420,
+                "counts": {
+                  "q3": 4,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "a01dae57-ada1-4d06-a76e-0e7ad1ad3c82",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113256,
+                "status": "pending"
+              }
+            ]
+          }
+        },
+        {
+          "time": 1790889113544,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": "q3",
+              "label": "拍一下 q3，累计 5 次",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 5,
+                "disabled": false,
+                "focused": true
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 5,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              },
+              {
+                "pending": false,
+                "time": 1790889111421
+              },
+              {
+                "pending": true,
+                "time": 1790889113048
+              },
+              {
+                "pending": false,
+                "time": 1790889113322
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "72d77012-6575-4290-b2b7-08eb43e1b7a6",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889111417,
+                "status": "saved",
+                "completed": 1790889111420,
+                "counts": {
+                  "q3": 4,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "a01dae57-ada1-4d06-a76e-0e7ad1ad3c82",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113256,
+                "status": "saved",
+                "completed": 1790889113260,
+                "counts": {
+                  "q3": 5,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Escape flushes the final hit before closing",
+      "expected": {
+        "q3": 6,
+        "qiqi": 3,
+        "biyuehu": 2,
+        "hongshu": 2,
+        "kamu": 2,
+        "milo": 2,
+        "muchuanbei": 2
+      },
+      "closed": true,
+      "samples": [
+        {
+          "time": 1790889114151,
+          "local": {
+            "stageOpen": false,
+            "stageHidden": null,
+            "focused": {
+              "hit": null,
+              "label": "打开七人互动彩蛋",
+              "disabled": false
+            },
+            "buttons": []
+          },
+          "saved": {
+            "counts": {
+              "q3": 6,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              },
+              {
+                "pending": false,
+                "time": 1790889111421
+              },
+              {
+                "pending": true,
+                "time": 1790889113048
+              },
+              {
+                "pending": false,
+                "time": 1790889113322
+              },
+              {
+                "pending": true,
+                "time": 1790889113831
+              },
+              {
+                "pending": false,
+                "time": 1790889114062
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "72d77012-6575-4290-b2b7-08eb43e1b7a6",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889111417,
+                "status": "saved",
+                "completed": 1790889111420,
+                "counts": {
+                  "q3": 4,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "a01dae57-ada1-4d06-a76e-0e7ad1ad3c82",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113256,
+                "status": "saved",
+                "completed": 1790889113260,
+                "counts": {
+                  "q3": 5,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "11ab1cfe-f757-4d47-9b86-5b4f741f4608",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113902,
+                "status": "saved",
+                "completed": 1790889113909,
+                "counts": {
+                  "q3": 6,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "committed but lost acknowledgement retries without double count",
+      "expected": {
+        "q3": 7,
+        "qiqi": 3,
+        "biyuehu": 2,
+        "hongshu": 2,
+        "kamu": 2,
+        "milo": 2,
+        "muchuanbei": 2
+      },
+      "closed": false,
+      "samples": [
+        {
+          "time": 1790889115998,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": null,
+              "label": "打开七人互动彩蛋",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 7,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 7,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              },
+              {
+                "pending": false,
+                "time": 1790889111421
+              },
+              {
+                "pending": true,
+                "time": 1790889113048
+              },
+              {
+                "pending": false,
+                "time": 1790889113322
+              },
+              {
+                "pending": true,
+                "time": 1790889113831
+              },
+              {
+                "pending": false,
+                "time": 1790889114062
+              },
+              {
+                "pending": true,
+                "time": 1790889115183
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "72d77012-6575-4290-b2b7-08eb43e1b7a6",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889111417,
+                "status": "saved",
+                "completed": 1790889111420,
+                "counts": {
+                  "q3": 4,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "a01dae57-ada1-4d06-a76e-0e7ad1ad3c82",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113256,
+                "status": "saved",
+                "completed": 1790889113260,
+                "counts": {
+                  "q3": 5,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "11ab1cfe-f757-4d47-9b86-5b4f741f4608",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113902,
+                "status": "saved",
+                "completed": 1790889113909,
+                "counts": {
+                  "q3": 6,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "c1ab8986-0433-4b39-863b-336ed6fba7a9",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889115324,
+                "status": "saved",
+                "completed": 1790889115328,
+                "counts": {
+                  "q3": 7,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        },
+        {
+          "time": 1790889116272,
+          "local": {
+            "stageOpen": true,
+            "stageHidden": false,
+            "focused": {
+              "hit": null,
+              "label": "打开七人互动彩蛋",
+              "disabled": false
+            },
+            "buttons": [
+              {
+                "id": "q3",
+                "count": 7,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "qiqi",
+                "count": 3,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "biyuehu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "hongshu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "kamu",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "milo",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              },
+              {
+                "id": "muchuanbei",
+                "count": 2,
+                "disabled": false,
+                "focused": false
+              }
+            ]
+          },
+          "saved": {
+            "counts": {
+              "q3": 7,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              },
+              {
+                "pending": false,
+                "time": 1790889111421
+              },
+              {
+                "pending": true,
+                "time": 1790889113048
+              },
+              {
+                "pending": false,
+                "time": 1790889113322
+              },
+              {
+                "pending": true,
+                "time": 1790889113831
+              },
+              {
+                "pending": false,
+                "time": 1790889114062
+              },
+              {
+                "pending": true,
+                "time": 1790889115183
+              },
+              {
+                "pending": false,
+                "time": 1790889116272
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "72d77012-6575-4290-b2b7-08eb43e1b7a6",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889111417,
+                "status": "saved",
+                "completed": 1790889111420,
+                "counts": {
+                  "q3": 4,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "a01dae57-ada1-4d06-a76e-0e7ad1ad3c82",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113256,
+                "status": "saved",
+                "completed": 1790889113260,
+                "counts": {
+                  "q3": 5,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "11ab1cfe-f757-4d47-9b86-5b4f741f4608",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113902,
+                "status": "saved",
+                "completed": 1790889113909,
+                "counts": {
+                  "q3": 6,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "c1ab8986-0433-4b39-863b-336ed6fba7a9",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889115324,
+                "status": "saved",
+                "completed": 1790889115328,
+                "counts": {
+                  "q3": 7,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "c1ab8986-0433-4b39-863b-336ed6fba7a9",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889116207,
+                "status": "saved",
+                "completed": 1790889116208,
+                "counts": {
+                  "q3": 7,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "close after unknown acknowledgement saves exactly once",
+      "expected": {
+        "q3": 7,
+        "qiqi": 3,
+        "biyuehu": 2,
+        "hongshu": 2,
+        "kamu": 2,
+        "milo": 2,
+        "muchuanbei": 2
+      },
+      "closed": true,
+      "samples": [
+        {
+          "time": 1790889116550,
+          "local": {
+            "stageOpen": false,
+            "stageHidden": null,
+            "focused": {
+              "hit": null,
+              "label": "打开七人互动彩蛋",
+              "disabled": false
+            },
+            "buttons": []
+          },
+          "saved": {
+            "counts": {
+              "q3": 7,
+              "qiqi": 3,
+              "biyuehu": 2,
+              "hongshu": 2,
+              "kamu": 2,
+              "milo": 2,
+              "muchuanbei": 2
+            },
+            "order": [
+              "q3",
+              "qiqi",
+              "biyuehu",
+              "hongshu",
+              "kamu",
+              "milo",
+              "muchuanbei"
+            ],
+            "sound": {
+              "muted": true,
+              "volume": 0.32
+            }
+          },
+          "ipc": {
+            "pending": [
+              {
+                "pending": true,
+                "time": 1790889102795
+              },
+              {
+                "pending": false,
+                "time": 1790889102920
+              },
+              {
+                "pending": true,
+                "time": 1790889104399
+              },
+              {
+                "pending": false,
+                "time": 1790889104613
+              },
+              {
+                "pending": true,
+                "time": 1790889109163
+              },
+              {
+                "pending": false,
+                "time": 1790889109294
+              },
+              {
+                "pending": true,
+                "time": 1790889110999
+              },
+              {
+                "pending": false,
+                "time": 1790889111153
+              },
+              {
+                "pending": true,
+                "time": 1790889111283
+              },
+              {
+                "pending": false,
+                "time": 1790889111421
+              },
+              {
+                "pending": true,
+                "time": 1790889113048
+              },
+              {
+                "pending": false,
+                "time": 1790889113322
+              },
+              {
+                "pending": true,
+                "time": 1790889113831
+              },
+              {
+                "pending": false,
+                "time": 1790889114062
+              },
+              {
+                "pending": true,
+                "time": 1790889115183
+              },
+              {
+                "pending": false,
+                "time": 1790889116272
+              }
+            ],
+            "batches": [
+              {
+                "batchId": "a7e94876-2358-4097-bb79-f37fd69a04eb",
+                "hits": [
+                  "q3",
+                  "qiqi",
+                  "biyuehu",
+                  "hongshu",
+                  "kamu",
+                  "milo",
+                  "muchuanbei",
+                  "muchuanbei",
+                  "milo",
+                  "kamu",
+                  "hongshu",
+                  "biyuehu",
+                  "qiqi",
+                  "q3"
+                ],
+                "time": 1790889102916,
+                "status": "saved",
+                "completed": 1790889102919,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 2,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "74d3a2e8-0834-485d-b76f-61568fc5fc06",
+                "hits": [
+                  "qiqi"
+                ],
+                "time": 1790889104587,
+                "status": "saved",
+                "completed": 1790889104589,
+                "counts": {
+                  "q3": 2,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "d061e778-838a-44b8-bd9f-65b47ea4ac74",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889109290,
+                "status": "saved",
+                "completed": 1790889109292,
+                "counts": {
+                  "q3": 3,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "72d77012-6575-4290-b2b7-08eb43e1b7a6",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889111417,
+                "status": "saved",
+                "completed": 1790889111420,
+                "counts": {
+                  "q3": 4,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "a01dae57-ada1-4d06-a76e-0e7ad1ad3c82",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113256,
+                "status": "saved",
+                "completed": 1790889113260,
+                "counts": {
+                  "q3": 5,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "11ab1cfe-f757-4d47-9b86-5b4f741f4608",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889113902,
+                "status": "saved",
+                "completed": 1790889113909,
+                "counts": {
+                  "q3": 6,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "c1ab8986-0433-4b39-863b-336ed6fba7a9",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889115324,
+                "status": "saved",
+                "completed": 1790889115328,
+                "counts": {
+                  "q3": 7,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              },
+              {
+                "batchId": "c1ab8986-0433-4b39-863b-336ed6fba7a9",
+                "hits": [
+                  "q3"
+                ],
+                "time": 1790889116207,
+                "status": "saved",
+                "completed": 1790889116208,
+                "counts": {
+                  "q3": 7,
+                  "qiqi": 3,
+                  "biyuehu": 2,
+                  "hongshu": 2,
+                  "kamu": 2,
+                  "milo": 2,
+                  "muchuanbei": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

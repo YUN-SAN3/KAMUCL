@@ -1,3 +1,4 @@
+import { recycleFile } from './recycleFile'
 /**
  * 插件系统：userData/plugins/<id>/ 下的 JS 插件（启动器版 Mod）。
  * 主进程只负责安装/枚举/启停/读取代码；插件代码在渲染进程页面上下文中执行，
@@ -130,12 +131,12 @@ export function setPluginEnabled(id: string, enabled: boolean): PluginInfo[] {
   return listPlugins()
 }
 
-export function removePlugin(id: string): PluginInfo[] {
+export async function removePlugin(id: string): Promise<PluginInfo[]> {
   if (!ID_RE.test(id)) throw new Error('插件 id 无效')
   const dir = path.join(pluginsRoot(), id)
   // 边界：只能删除插件根目录内的对应 id 目录
   if (path.dirname(path.resolve(dir)) !== path.resolve(pluginsRoot())) throw new Error('非法插件路径')
-  fs.rmSync(dir, { recursive: true, force: true })
+  await recycleFile(pluginsRoot(), id)
   writeEnabled(readEnabled().filter((x) => x !== id))
   return listPlugins()
 }

@@ -1,0 +1,30 @@
+{
+  "arch": "x64",
+  "version": "26.2",
+  "nativeWindow": {
+    "bounds": {
+      "X": 533,
+      "Height": 508,
+      "Y": 272,
+      "Width": 854
+    },
+    "screenWidth": 1920,
+    "reducedTransparency": false,
+    "id": 73
+  },
+  "gamePid": 13560,
+  "gameWindow": true,
+  "worldStarted": true,
+  "savedWorld": true,
+  "regionFiles": [
+    "r.-1.-1.mca",
+    "r.-1.0.mca",
+    "r.0.-1.mca",
+    "r.0.0.mca"
+  ],
+  "nativeFocus": true,
+  "gracefulClose": true,
+  "closeAndDockReopen": true,
+  "ciMetalArgumentBuffers": "0",
+  "ciMetalHeap": "0"
+}

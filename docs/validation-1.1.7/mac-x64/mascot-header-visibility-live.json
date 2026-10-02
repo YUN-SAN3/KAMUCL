@@ -1,0 +1,208 @@
+{
+  "sources": {
+    "native": "BrowserWindow.isVisible/isMinimized in the main process",
+    "nativeVisibility": "controlled window:visibility IPC query and hide/show broadcast consumed by useMotion",
+    "page": "unmodified document.hidden/document.visibilityState",
+    "stage": "useMotion pageHidden || nativeHidden",
+    "rendering": "intercepted actual WebGL2 drawElements",
+    "audio": "actual owned AudioContext.state"
+  },
+  "before": {
+    "native": {
+      "isVisible": true,
+      "isMinimized": false,
+      "backgroundThrottling": true,
+      "electron": "33.4.11",
+      "platform": "darwin"
+    },
+    "renderer": {
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "stageHidden": false,
+      "draws": 7140,
+      "activeSources": 0,
+      "audioStates": [
+        "running"
+      ],
+      "nativeVisibility": true
+    }
+  },
+  "hiddenSamples": [
+    {
+      "native": {
+        "isVisible": false,
+        "isMinimized": false,
+        "backgroundThrottling": true,
+        "electron": "33.4.11",
+        "platform": "darwin"
+      },
+      "renderer": {
+        "documentHidden": false,
+        "visibilityState": "visible",
+        "stageHidden": false,
+        "draws": 7350,
+        "activeSources": 0,
+        "audioStates": [
+          "suspended"
+        ],
+        "nativeVisibility": false
+      }
+    },
+    {
+      "native": {
+        "isVisible": false,
+        "isMinimized": false,
+        "backgroundThrottling": true,
+        "electron": "33.4.11",
+        "platform": "darwin"
+      },
+      "renderer": {
+        "documentHidden": false,
+        "visibilityState": "visible",
+        "stageHidden": true,
+        "draws": 7350,
+        "activeSources": 0,
+        "audioStates": [
+          "suspended"
+        ],
+        "nativeVisibility": false
+      }
+    }
+  ],
+  "hidden": {
+    "native": {
+      "isVisible": false,
+      "isMinimized": false,
+      "backgroundThrottling": true,
+      "electron": "33.4.11",
+      "platform": "darwin"
+    },
+    "renderer": {
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "stageHidden": true,
+      "draws": 7350,
+      "activeSources": 0,
+      "audioStates": [
+        "suspended"
+      ],
+      "nativeVisibility": false
+    }
+  },
+  "hiddenSettled": {
+    "native": {
+      "isVisible": false,
+      "isMinimized": false,
+      "backgroundThrottling": true,
+      "electron": "33.4.11",
+      "platform": "darwin"
+    },
+    "renderer": {
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "stageHidden": true,
+      "draws": 7350,
+      "activeSources": 0,
+      "audioStates": [
+        "suspended"
+      ],
+      "nativeVisibility": false
+    }
+  },
+  "audioLifecycleCalls": [
+    {
+      "method": "suspend",
+      "context": 0,
+      "state": "running",
+      "time": 7.627755102040816,
+      "wallTime": 34551.59999999998,
+      "documentHidden": true,
+      "stageHidden": false,
+      "stack": "Error\n    at Original.suspend (<anonymous>:10:136)\n    at MascotAudio.suspend (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:101:29)\n    at MascotAudio.pause (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:181:28)\n    at watch.flush (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:515:15)\n    at callWithErrorHandling (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/as"
+    },
+    {
+      "method": "resume",
+      "context": 0,
+      "state": "suspended",
+      "time": 7.627755102040816,
+      "wallTime": 34572.30000000005,
+      "documentHidden": false,
+      "stageHidden": true,
+      "stack": "Error\n    at Original.resume (<anonymous>:9:134)\n    at MascotAudio.unlock (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:137:56)\n    at watch.flush (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:519:20)\n    at callWithErrorHandling (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/index-D_eyqMrP.js:1964:19)\n    at callWithAsyncErrorHandling (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/a"
+    },
+    {
+      "method": "suspend",
+      "context": 0,
+      "state": "suspended",
+      "time": 7.656780045351474,
+      "wallTime": 34653.70000000007,
+      "documentHidden": false,
+      "stageHidden": false,
+      "stack": "Error\n    at Original.suspend (<anonymous>:10:136)\n    at MascotAudio.suspend (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:101:29)\n    at MascotAudio.pause (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:181:28)\n    at watch.flush (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:515:15)\n    at callWithErrorHandling (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/as"
+    },
+    {
+      "method": "suspend",
+      "context": 0,
+      "state": "running",
+      "time": 7.656780045351474,
+      "wallTime": 34654.09999999998,
+      "documentHidden": false,
+      "stageHidden": true,
+      "stack": "Error\n    at Original.suspend (<anonymous>:10:136)\n    at MascotAudio.suspend (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:101:29)\n    at MascotAudio.unlock (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:138:33)"
+    }
+  ],
+  "audioStateTransitions": [
+    {
+      "context": 0,
+      "state": "running",
+      "time": 0.09868480725623582,
+      "wallTime": 27026.099999999977,
+      "documentHidden": false,
+      "stageHidden": false
+    },
+    {
+      "context": 0,
+      "state": "suspended",
+      "time": 7.656780045351474,
+      "wallTime": 34653,
+      "documentHidden": false,
+      "stageHidden": false
+    },
+    {
+      "context": 0,
+      "state": "suspended",
+      "time": 7.656780045351474,
+      "wallTime": 34691.20000000007,
+      "documentHidden": false,
+      "stageHidden": true
+    },
+    {
+      "context": 0,
+      "state": "suspended",
+      "time": 7.656780045351474,
+      "wallTime": 34691.20000000007,
+      "documentHidden": false,
+      "stageHidden": true
+    }
+  ],
+  "restored": {
+    "native": {
+      "isVisible": true,
+      "isMinimized": false,
+      "backgroundThrottling": true,
+      "electron": "33.4.11",
+      "platform": "darwin"
+    },
+    "renderer": {
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "stageHidden": false,
+      "draws": 7644,
+      "activeSources": 0,
+      "audioStates": [
+        "running"
+      ],
+      "nativeVisibility": true
+    }
+  }
+}

@@ -15,7 +15,7 @@ import { compareSemver, isNewerVersion } from '../../shared/semver'
 import type { ReleaseInfo, UpdateCheckResult } from '../../shared/types'
 import { httpFetch } from './httpClient'
 import { logScope } from './launcherLog'
-import { isolatedUpdateTest, trustedUpdateRelease } from './updateTrust'
+import { isolatedUpdateTest, trustedUpdateRelease, updateAssetName } from './updateTrust'
 
 const updateLog = logScope('self-update')
 
@@ -81,15 +81,15 @@ interface GhRelease {
 }
 
 /** 从 Release JSON 提取便携 exe 资产（排除 zip 与 SHA256SUMS） */
-function pickPortableExe(assets: GhAsset[] | undefined): GhAsset | null {
+function pickPortableExe(assets: GhAsset[] | undefined, version: string): GhAsset | null {
   if (!Array.isArray(assets)) return null
-  return assets.find((a) => /^KAMUCL-[\d.]+\.exe$/i.test(a.name ?? '')) ?? null
+  return assets.find((a) => a.name === updateAssetName(version)) ?? null
 }
 
 function toReleaseInfo(j: GhRelease): ReleaseInfo | null {
   const version = String(j.tag_name ?? '').replace(/^v/i, '')
   if (!version) return null
-  const asset = pickPortableExe(j.assets)
+  const asset = pickPortableExe(j.assets, version)
   const release: ReleaseInfo = {
     version,
     publishedAt: String(j.published_at ?? ''),
@@ -233,28 +233,36 @@ export function parseSha256Sums(text: string): Map<string, string> {
   return map
 }
 
-/** 拉取 latest Release 的 SHA256SUMS.txt（用于下载后校验与本地文件校验）；失败返回 null */
-export async function fetchSha256Sums(releaseAssetUrlHint?: string): Promise<Map<string, string> | null> {
+/** Resolve the requested release's checksums, never a different latest version's manifest. */
+export async function fetchSha256Sums(releaseAssetUrlHint?: string, fetcher: typeof ghFetch = ghFetch): Promise<Map<string, string> | null> {
   const urls: string[] = []
+  const expectedName = releaseAssetUrlHint?.split('/').at(-1)
+  const read = async (url: string): Promise<Map<string, string> | null> => {
+    try {
+      const res = await fetcher(url)
+      if (!res.ok) return null
+      const sums = parseSha256Sums(await res.text())
+      return sums.size && (!expectedName || sums.has(expectedName)) ? sums : null
+    } catch { return null }
+  }
+  if (releaseAssetUrlHint) {
+    const exact = await read(releaseAssetUrlHint.replace(/[^/]+$/, 'SHA256SUMS.txt'))
+    if (exact) return exact
+  }
   // mock/测试：下载基地址覆盖时直接从该基地址取
   const dlBase = downloadBaseOverride()
   if (dlBase) urls.push(`${dlBase}/SHA256SUMS.txt`)
   try {
-    const res = await ghFetch(`${apiBase()}/repos/${GITHUB_REPO}/releases/latest`)
+    const res = await fetcher(`${apiBase()}/repos/${GITHUB_REPO}/releases/latest`)
     if (res.ok) {
       const json = (await res.json()) as GhRelease
       const sums = (json.assets ?? []).find((a) => a.name === 'SHA256SUMS.txt')
       if (sums?.browser_download_url) urls.push(sums.browser_download_url)
     }
   } catch { /* 继续用候选 */ }
-  if (releaseAssetUrlHint) {
-    urls.push(releaseAssetUrlHint.replace(/[^/]+$/, 'SHA256SUMS.txt'))
-  }
   for (const url of urls) {
-    try {
-      const res = await ghFetch(url)
-      if (res.ok) return parseSha256Sums(await res.text())
-    } catch { /* 下一个候选 */ }
+    const sums = await read(url)
+    if (sums) return sums
   }
   return null
 }

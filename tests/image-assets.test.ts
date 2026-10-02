@@ -12,6 +12,7 @@ import {
 } from '../src/main/core/imageAssetPolicy'
 import {
   encodeManagedImageBuffer,
+  validateManagedImageSnapshot,
   type DecodedImage,
   type ImageCodec
 } from '../src/main/core/imageAssetProcessor'
@@ -121,6 +122,42 @@ const sharpCodec: ImageCodec = {
     }
   }
 }
+
+const snapshotCodec: ImageCodec = {
+  async decode(data) {
+    try { await sharp(data, { failOn: 'error' }).raw().toBuffer(); return sharpCodec.decode(data) }
+    catch { return null }
+  }
+}
+
+test('validated theme snapshots preserve PNG/JPEG/WebP bytes and ICC rather than re-encoding', async () => {
+  const pixels = Buffer.from(Array.from({ length: 48 * 32 * 3 }, (_, i) => (i * 73 + Math.floor(i / 37) * 29) % 256))
+  const input = sharp(pixels, { raw: { width: 48, height: 32, channels: 3 } })
+  const jpeg = await input.clone().withMetadata().jpeg({ quality: 67 }).toBuffer()
+  assert((await sharp(jpeg).metadata()).icc?.length)
+  for (const bytes of [jpeg, await input.clone().png().toBuffer(), await input.clone().webp().toBuffer()]) {
+    const result = await validateManagedImageSnapshot(bytes, 'launch-thumbnail', snapshotCodec)
+    assert.notEqual(result.data, bytes)
+    assert.deepEqual(result.data, bytes)
+    assert.deepEqual(await sharp(result.data).raw().toBuffer(), await sharp(bytes).raw().toBuffer())
+    assert.deepEqual((await sharp(result.data).metadata()).icc, (await sharp(bytes).metadata()).icc)
+    assert.equal(result.width, 48); assert.equal(result.height, 32)
+  }
+})
+
+test('theme snapshot limits precede decoding; corrupt decodable formats and truncated WebP are refused', async () => {
+  let calls = 0
+  const codec: ImageCodec = { async decode(data) { calls++; return snapshotCodec.decode(data) } }
+  const oversized = await sharp({ create: { width: 1921, height: 10, channels: 3, background: '#123456' } }).png().toBuffer()
+  await assert.rejects(validateManagedImageSnapshot(oversized, 'launch-thumbnail', codec), /尺寸上限/)
+  assert.equal(calls, 0)
+  const valid = await sharp({ create: { width: 64, height: 64, channels: 3, background: '#123456' } }).jpeg().toBuffer()
+  await assert.rejects(validateManagedImageSnapshot(valid.subarray(0, Math.floor(valid.length * .8)), 'background', codec), /解码失败/)
+  const webp = await sharp({ create: { width: 32, height: 32, channels: 3, background: '#123456' } }).webp().toBuffer()
+  const truncated = Buffer.from(webp.subarray(0, webp.length - 6)); truncated.writeUInt32LE(truncated.length - 8, 4)
+  await assert.rejects(validateManagedImageSnapshot(truncated, 'background', codec), /截断/)
+  await assert.rejects(validateManagedImageSnapshot(Buffer.from('not image'), 'background', codec), /格式/)
+})
 
 test('大图导入会等比缩小并转为 JPEG 缓存（编码走注入 codec）', async () => {
   const source = await sharp({

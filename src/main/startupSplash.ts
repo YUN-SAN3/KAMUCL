@@ -29,11 +29,19 @@ function createElectronStartupSplash() {
   splash.setIgnoreMouseEvents(true)
   splash.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
   let revealed = false, disposed = false, fallback = false
+  // OS cursor coordinates keep the overlay non-activating and click-through.
+  const pointerTimer = setInterval(() => {
+    if (!splash || splash.isDestroyed() || revealed) return
+    const point = screen.getCursorScreenPoint(), rect = splash.getBounds()
+    splash.webContents.send('boot:pointer', { x: point.x - rect.x, y: point.y - rect.y })
+  }, 32)
+  pointerTimer.unref()
   const listeners: Array<[string, (event: Electron.IpcMainEvent, ...args: any[]) => void]> = []
   const listen = (channel: string, fn: (event: Electron.IpcMainEvent, ...args: any[]) => void) => { listeners.push([channel, fn]); ipcMain.on(channel, fn) }
   const dispose = () => {
     if (disposed) return
     disposed = true
+    clearInterval(pointerTimer)
     for (const [channel, listener] of listeners) ipcMain.removeListener(channel, listener)
     if (splash && !splash.isDestroyed()) splash.destroy()
     splash = null
@@ -54,6 +62,7 @@ function createElectronStartupSplash() {
   const animationFailure = (message: string) => {
     launcherLog(`Startup animation fallback: ${message}`)
     fallback = true
+    clearInterval(pointerTimer)
     if (splash && !splash.isDestroyed()) splash.destroy()
     splash = null
     reveal()
@@ -64,7 +73,7 @@ function createElectronStartupSplash() {
     splash.setAlwaysOnTop(true, 'floating')
     splash.moveTop()
     publish()
-    launcherLog('Startup: desktop pixels visible')
+    launcherLog('Startup: floating desktop glass visible')
   })
   listen('boot:stage', (event, stage: BootStage) => {
     if (event.sender !== main?.webContents || !BOOT_STAGES.includes(stage)) return

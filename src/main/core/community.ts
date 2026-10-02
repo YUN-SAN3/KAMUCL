@@ -6,9 +6,11 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import {AsyncLocalStorage} from 'node:async_hooks'
 import type {
   CommunityFile,
   CommunityKind,
+  CommunityModProject,
   CommunityQuery,
   CommunityResult,
   CommunitySearchPage,
@@ -16,7 +18,7 @@ import type {
   LoaderName,
   ProgressEvent
 } from '../../shared/types'
-import { downloadFile } from './download'
+import { downloadAll } from './download'
 import { readVersionJson } from './versions'
 import { instanceDirectoryState } from './instances'
 import { getSettings } from './settings'
@@ -33,11 +35,14 @@ const errText = (e: unknown): string => (e instanceof Error ? e.message : String
 
 const UA = { 'User-Agent': 'KAMUCL/0.4.0' }
 const TIMEOUT = 30000
+const requestSignal=new AsyncLocalStorage<AbortSignal>()
+export const withCommunitySignal=<T>(signal:AbortSignal|undefined,run:()=>Promise<T>):Promise<T>=>signal?requestSignal.run(signal,run):run()
 
 // ---------------- 基础请求 ----------------
 
 async function fetchJson(url: string, headers: Record<string, string> = {}): Promise<unknown> {
-  const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT), headers: { ...UA, ...headers } })
+  const signal=requestSignal.getStore();signal?.throwIfAborted()
+  const res = await fetch(url, { signal: signal?AbortSignal.any([signal,AbortSignal.timeout(TIMEOUT)]):AbortSignal.timeout(TIMEOUT), headers: { ...UA, ...headers } })
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`)
   return res.json()
 }
@@ -183,7 +188,7 @@ function mapMrVersions(arr: MrVersion[], projectId?: string): CommunityFile[] {
 const CF_OFFICIAL = 'https://api.curseforge.com/v1'
 const CF_MIRROR = 'https://mod.mcimirror.top/curseforge/v1'
 /** 内置默认 Key（卡慕注册的 KAMUCL 官方应用 Key，开箱即用；用户可在设置页换成自己的） */
-const CF_BUILTIN_KEY = '$2a$10$m36VLjTaHEqxr/hO3kMDE.XCDEG90rSu3iGKkoPsj0KdCPWXOASXG'
+import { CF_BUILTIN_KEY } from './curseforgeKey'
 
 /** 当前生效的 CurseForge 通道：有 key（用户设置 > 内置默认）走官方；仅内置失效时才落镜像 */
 export function cfChannel(): { base: string; official: boolean; key: string } {
@@ -218,6 +223,9 @@ async function cfFetch(p: string): Promise<unknown> {
 
 interface CfMod {
   id?: number
+  gameId?: number
+  classId?: number
+  links?: { websiteUrl?: string }
   slug?: string
   name?: string
   summary?: string
@@ -402,6 +410,67 @@ export async function communitySearchPage(input: CommunityQuery): Promise<Commun
   return { items: withZhTitle(items), total: totals.modrinth + totals.curseforge, offset: q.offset, limit: q.limit, warnings }
 }
 
+const projectText = (value: unknown, limit: number): string | undefined => typeof value === 'string' && value.trim() ? value.slice(0, limit) : undefined
+const projectCount = (value: unknown): number | undefined => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 ? value : undefined
+function projectWebpage(value: unknown, source: CommunitySource): string | undefined {
+  if (typeof value !== 'string') return
+  try { const url = new URL(value); if (url.protocol === 'https:' && !url.username && !url.password && !url.port &&
+    (source === 'modrinth' ? ['modrinth.com', 'www.modrinth.com'] : ['curseforge.com', 'www.curseforge.com']).includes(url.hostname)) return url.href } catch { /* Missing or unsafe source links stay hidden. */ }
+  return undefined
+}
+
+/** Metadata is verified against the platform's MOD type before it reaches a dialog or a favorite link. */
+export async function communityProject(source: CommunitySource, projectId: string, kind: CommunityKind): Promise<CommunityModProject> {
+  if (kind !== 'mod') throw new Error('收藏详情仅支持 MOD 项目')
+  if (typeof projectId !== 'string') throw new Error('请填写有效的来源项目 ID')
+  if (source === 'modrinth' && /^[a-zA-Z0-9_-]{1,100}$/.test(projectId)) {
+    const project = await mrFetch(`/project/${encodeURIComponent(projectId)}`) as { id?: string; project_type?: string; title?: string; slug?: string; description?: string; license?: { id?: string; name?: string }; categories?: string[]; downloads?: number; followers?: number; updated?: string }
+    if (project.project_type !== 'mod' || typeof project.id !== 'string' || !/^[a-zA-Z0-9_-]{1,100}$/.test(project.id) || typeof project.title !== 'string' || !project.title) throw new Error('该 Modrinth 项目不是有效模组')
+    const slug = projectText(project.slug, 100)
+    return { kind: 'mod', source, projectId: project.id, title: project.title.slice(0, 200), slug,
+      description: projectText(project.description, 4000), license: projectText(project.license?.name || project.license?.id, 200),
+      categories: Array.isArray(project.categories) ? project.categories.flatMap(c => projectText(c, 100) ?? []).slice(0, 30) : [],
+      downloads: projectCount(project.downloads), followers: projectCount(project.followers), updatedAt: projectText(project.updated, 100),
+      webpage: projectWebpage(`https://modrinth.com/mod/${encodeURIComponent(slug || project.id)}`, source) }
+  }
+  if (source === 'curseforge' && /^\d{1,20}$/.test(projectId)) {
+    const result = await cfFetch(`/mods/${projectId}`) as { data?: CfMod }, project = result.data
+    if (String(project?.id) !== projectId || project?.gameId !== 432 || project?.classId !== CF_CLASS_ID.mod || typeof project?.name !== 'string' || !project.name) throw new Error('该 CurseForge 项目不是有效 Minecraft 模组')
+    return { kind: 'mod', source, projectId, title: project.name.slice(0, 200), slug: projectText(project.slug, 100),
+      description: projectText(project.summary, 4000), author: Array.isArray(project.authors) ? projectText(project.authors.map(author => projectText(author.name, 100)).filter(Boolean).join(', '), 500) : undefined,
+      categories: Array.isArray(project.categories) ? project.categories.flatMap(c => projectText(c.name, 100) ?? []).slice(0, 30) : [],
+      downloads: projectCount(project.downloadCount), updatedAt: projectText(project.dateModified, 100), webpage: projectWebpage(project.links?.websiteUrl, source) }
+  }
+  throw new Error('请填写有效的来源项目 ID')
+}
+
+export async function communityModProject(source: CommunitySource, projectId: string): Promise<{ source: CommunitySource; projectId: string; name: string }> {
+  const project = await communityProject(source, projectId, 'mod')
+  return { source: project.source, projectId: project.projectId, name: project.title }
+}
+
+export async function curseForgeFilePage(projectID: number, fileID: number): Promise<string> {
+  if (![projectID, fileID].every(n => Number.isSafeInteger(n) && n > 0)) throw new Error('CurseForge 文件标识无效')
+  const { httpFetch } = await import('./httpClient')
+  const channel = cfChannel()
+  const sources = [{ base: CF_MIRROR, headers: undefined as Record<string, string> | undefined },
+    { base: channel.base, headers: channel.official ? { 'x-api-key': channel.key } : undefined }]
+  for (const source of sources) {
+    try {
+      const res = await httpFetch(`${source.base}/mods/${projectID}`, { headers: source.headers, signal: AbortSignal.timeout(6000) })
+      if (!res.ok) { await res.body?.cancel(); continue }
+      const data = await res.json() as { data?: { id?: number; links?: { websiteUrl?: string } } }
+      if (data.data?.id !== projectID || !data.data.links?.websiteUrl) continue
+      const url = new URL(data.data.links.websiteUrl)
+      if (url.protocol !== 'https:' || !['curseforge.com', 'www.curseforge.com'].includes(url.hostname)) continue
+      url.pathname = url.pathname.replace(/\/+$/, '') + '/download/' + fileID
+      url.search = ''; url.hash = ''
+      return url.href
+    } catch { /* Try the other public metadata source. */ }
+  }
+  throw new Error('无法读取 CurseForge 文件页面，请稍后重试')
+}
+
 /** 依赖查找保留数组接口；界面使用含总数的分页接口。 */
 export async function communitySearch(q: CommunityQuery): Promise<CommunityResult[]> {
   return (await communitySearchPage(q)).items
@@ -453,12 +522,13 @@ export async function communityDownload(
 ): Promise<string> {
   const fileName = path.basename(String(file.fileName ?? '')) || 'download.bin'
   communityLog.info(`开始下载 ${target.kind} 资源 ${fileName} → 实例 ${target.versionId}`)
-  const dlProgress = (d: number, t: number) =>
+  const dlProgress = (d: number, t: number, speed: number, eta: number | null) =>
     emit({
       stage: 'download',
       progress: t ? d / t : 0,
       // 压缩包只是整合包任务的第一步；不能先报 100% 再开始安装。
       overall: target.kind === 'modpack' ? (t ? d / t : 0) * 0.1 : (t ? d / t : 0),
+      speed, etaSeconds: eta ?? undefined,
       bytesDone: d,
       bytesTotal: t || undefined,
       indeterminate: !t,
@@ -478,9 +548,13 @@ export async function communityDownload(
     file = { ...file, url: data.data }
   }
 
+  const transfer = (dest: string) => downloadAll([{url: file.url, dest, sha1: file.sha1, size: file.size || undefined}],
+    (_done,_total,speed,detail) => dlProgress(detail.bytesDone,detail.bytesTotal ?? 0,speed,detail.etaSeconds),
+    getSettings().downloadThreads, getSettings().mirror, signal)
+
   if (target.kind === 'modpack') {
     const tmpPath = path.join(os.tmpdir(), `kamucl-pack-${Date.now()}-${fileName}`)
-    await downloadFile(file.url, tmpPath, dlProgress, file.sha1, undefined, signal)
+    await transfer(tmpPath)
     // 动态 import 避免与 modpacks.ts 的循环依赖；后台异步安装，进度走 event:progress
     const { installModpack } = await import('./modpacks')
     const installProgress: ProgressEmit = (event) => emit({
@@ -519,17 +593,17 @@ export async function communityDownload(
     }
     if (worlds.length === 1) {
       const dest = path.join(savesDir, worlds[0], 'datapacks', fileName)
-      await downloadFile(file.url, dest, dlProgress, file.sha1, undefined, signal)
+      await transfer(dest)
       return dest
     }
     const dest = path.join(base, 'datapacks', fileName)
-    await downloadFile(file.url, dest, dlProgress, file.sha1, undefined, signal)
+    await transfer(dest)
     return `${dest}（提示：请将文件移入存档 saves/<世界>/datapacks 后生效）`
   }
 
   const sub = KIND_SUBDIR[target.kind]
   if (!sub) throw new Error(`不支持的资源类型: ${target.kind}`)
   const dest = path.join(base, sub, fileName)
-  await downloadFile(file.url, dest, dlProgress, file.sha1, undefined, signal)
+  await transfer(dest)
   return dest
 }

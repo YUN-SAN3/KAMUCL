@@ -1,9 +1,29 @@
+import { registerRecordingsIpc } from './core/recordingsIpc'
+import { probeImport } from './core/importProbe'
+import { registerSkinEditorIpc } from './core/skinEditorIpc'
+import { registerModFavoritesIpc } from './core/modFavorites'
+import { registerSupplementalModsIpc } from './core/supplementalMods'
+import { registerMemoryOrganizerIpc } from './core/memoryOrganizer'
+import { registerProjectionsIpc } from './core/projectionsIpc'
+import { registerMascotsIpc } from './core/mascots'
+import { activeLaunchStates, rememberLaunchState } from './core/launchUiState'
+import { startNativeFileDrag } from './core/nativeFileDrag'
+import { dragResourceFilesSync } from './core/resourceDragPaths'
+import { centerTarget } from './core/instanceCenter'
+import { recordingModVersions } from './core/recordingMods'
+import { recycleFile } from './core/recycleFile'
+import { withFileJob as withRecycleJob } from './core/fileJobs'
+import { planModMigration, applyModMigration } from './core/modMigration'
+import { pendingModpackFiles, supplyModpackFiles } from './core/modpackManualFiles'
+import { registerInstanceCenterIpc } from './core/instanceCenterIpc'
+import { resolveResourceDirectory, listResourceEntries, requireResourceVersion } from './core/resourceDirectory'
 import { importResourceFiles } from './core/resourceFiles'
+import { exitHistory } from './core/exitHistory'
 /**
  * IPC 注册：types.ts 中 IPC 常量的全部通道
  * 事件统一通过 getWin()?.webContents.send(IPC_EVENT.xxx, payload) 推送
  */
-import { ipcMain, dialog, shell, Menu, type BrowserWindow } from 'electron'
+import { ipcMain, dialog, shell, Menu, systemPreferences, type BrowserWindow } from 'electron'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
@@ -40,6 +60,10 @@ import { scanModTargets, selectModTarget, copyCompatibleMods } from './core/modT
 import { prepareModInstall, executeModPlan, discardModPlan } from './core/modInstallPlan'
 import * as modinfo from './core/modinfo'
 import * as modUpdates from './core/modUpdates'
+import * as modManagement from './core/modManagement'
+import { exportVisualTheme, importVisualTheme, resetVisualTheme } from './core/visualTheme'
+import * as appearanceDraft from './core/appearanceDraft'
+import { getModIcons } from './core/modIcons'
 import * as plugins from './core/plugins'
 import * as keybindings from './core/keybindings'
 import * as modBridge from './core/modBridge'
@@ -80,6 +104,18 @@ function errText(err: unknown): string {
 }
 
 export function registerIpc(getWin: () => BrowserWindow | null): void {
+  registerSkinEditorIpc(getWin)
+  registerModFavoritesIpc()
+  registerSupplementalModsIpc(getWin)
+  registerMemoryOrganizerIpc()
+  registerProjectionsIpc(getWin)
+  registerMascotsIpc()
+  registerInstanceCenterIpc(getWin)
+  registerRecordingsIpc(getWin)
+  ipcMain.handle("recordings:modVersions", (_e, kind, mc, loader) => recordingModVersions(kind, mc, loader))
+  ipcMain.handle(IPC.exitHistoryList, () => exitHistory().list())
+  ipcMain.handle(IPC.exitHistoryAck, () => exitHistory().acknowledge())
+  ipcMain.handle(IPC.exitHistoryClear, () => exitHistory().clearHistory())
   // IPC 失败兜底：注册期统一包装 ipcMain.handle，handler 抛错时记录通道名与脱敏错误，
   // 再原样抛回渲染端（渲染端收到的错误与原行为一致）；取消类错误属常规路径只记 debug。
   type IpcInvokeListener = (event: unknown, ...args: unknown[]) => unknown
@@ -107,11 +143,25 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   registerFrpIpc(ipcMain)
   installFrpEventBridge(getWin)
   const send = (channel: string, payload: unknown): void => {
-    getWin()?.webContents.send(channel, payload)
+    const window = getWin()
+    if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(channel, payload)
   }
   /** 统一进度回调 */
   const emit = (e: ProgressEvent): void => send(IPC_EVENT.progress, e)
-  const sendState = (s: LaunchState): void => send(IPC_EVENT.launchState, s)
+  const sendState = (s: LaunchState): void => { rememberLaunchState(s); send(IPC_EVENT.launchState, s) }
+  ipcMain.on('boot:renderer-ready', event => {
+    if (event.sender !== getWin()?.webContents) return
+    const states = activeLaunchStates()
+    for (const state of states) send(IPC_EVENT.launchState, state)
+    if (!states.length) launch.restoreRunningGame(state => send(IPC_EVENT.launchState, state))
+  })
+  ipcMain.handle(IPC.appearanceResetTheme, () => resetVisualTheme())
+  ipcMain.handle(IPC.appearanceExportTheme, (_e, preview) => exportVisualTheme(preview?appearanceDraft.appearanceOnly(preview):undefined))
+  ipcMain.handle(IPC.appearanceImportTheme, (_e, code: string, preview?: boolean) => importVisualTheme(code,preview===true))
+  ipcMain.handle('appearance:draftRead', () => appearanceDraft.readAppearanceDraft())
+  ipcMain.handle('appearance:draftSave', (_e, value) => appearanceDraft.saveAppearanceDraft(value))
+  ipcMain.handle('appearance:draftDiscard', () => appearanceDraft.discardAppearanceDraft())
+  ipcMain.handle('appearance:draftApply', (_e, value) => appearanceDraft.applyAppearanceDraft(value))
   let activeJavaScanTaskId: string | null = null
   const pickImage = async (title: string): Promise<string | null> => {
     const win = getWin()
@@ -128,7 +178,8 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   ipcMain.handle(IPC.settingsGet, () => settings.getSettings())
   ipcMain.handle(IPC.appSystemInfo, () => ({
     totalMemMB: Math.floor(os.totalmem() / 1024 / 1024),
-    freeMemMB: Math.floor(os.freemem() / 1024 / 1024)
+    freeMemMB: Math.floor(os.freemem() / 1024 / 1024),
+    reducedTransparency: process.platform === 'darwin' ? systemPreferences.accessibilityDisplayShouldReduceTransparency : undefined
   }))
   ipcMain.handle(IPC.directOverview, () => direct.directOverview())
   ipcMain.handle(IPC.directHost, (_e, request: DirectHostRequest) => direct.startDirectHost(request))
@@ -297,20 +348,27 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   )
 
   // ---------------- 版本 ----------------
+  ipcMain.handle(IPC.versionsCatalog, (_e, refresh?: boolean) => versions.getVersionCatalog(refresh === true))
   ipcMain.handle(IPC.versionsManifest, (_e, refresh?: boolean) =>
     versions.fetchVersionManifest(settings.getSettings().mirror, refresh === true)
   )
-  ipcMain.handle(IPC.versionsInstalled, () => versions.listInstalled())
+  ipcMain.handle(IPC.versionsInstalled, (_e, all?: boolean) => all === true ? versions.listAllInstalled() : versions.listInstalled())
+  function scopedVersion<T>(id: string, folder: string | undefined, action: () => T): T {
+    const target = folder || folderOfVersion(id)
+    const norm = (p: string) => process.platform === 'win32' ? path.resolve(p).toLowerCase() : path.resolve(p)
+    if (!settings.getSettings().folders.some(f => norm(f.path) === norm(target))) throw new Error('游戏文件夹未绑定或已解除绑定')
+    return withGameFolder(target, action)
+  }
   // 异步执行，不阻塞返回；进度经 event:progress（带 taskId）推送，结束经 event:installDone 推送
-  ipcMain.handle(IPC.versionsInstall, (_e, versionId: string, opts?: InstallOptions) => {
+  ipcMain.handle(IPC.versionsInstall, (_e, versionId: string, opts?: InstallOptions, folder?: string) => scopedVersion(versionId, folder || settings.getSettings().activeFolder, () => {
     const vid = String(versionId ?? '')
     const task = registerTask(`安装版本 ${vid}${opts?.loader ? ` + ${opts.loader}` : ''}`, 'version')
     const progressGuard = new ProgressEventGuard()
     let lastStage = ''
     const taskEmit = (e: ProgressEvent): void => {
       const normalized = progressGuard.normalize(e)
-      lastStage = normalized.stage
-      emit({ ...normalized, taskId: task.id, taskTitle: task.title })
+      if (!['error', 'done'].includes(normalized.stage)) lastStage = normalized.stage
+      emit({ ...normalized, versionId: vid, taskId: task.id, taskTitle: task.title })
     }
     const taskDone = (ok: boolean, error?: string, cancelled = false): void =>
       send(IPC_EVENT.taskDone, {
@@ -331,17 +389,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
           const cancelled = isCancelError(err)
           const text = cancelled ? '已取消' : errText(err)
           if (!cancelled) taskEmit({ stage: 'error', progress: 0, text: `安装失败: ${text}` })
-          // 事务清理：删除安装失败产生的文件（.installing 标记在则目录是失败产物）
-          try {
-            versions.cleanupPartialInstall(vid)
-            // 加载器实例目录（若已生成）一并清理
-            const installed = versions.listInstalled()
-            for (const v of installed) {
-              if (v.failed) versions.cleanupPartialInstall(v.id)
-            }
-          } catch {
-            /* 清理失败不阻断错误上报 */
-          }
+          // 保留本任务的 .installing 标记供续传/显式清理；绝不扫描删除其他并行任务的目录。
           taskDone(false, text, cancelled)
           send(IPC_EVENT.installDone, {
             versionId: vid,
@@ -353,15 +401,15 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
           })
         })
         .finally(() => finishTask(task.id))
-    })
+    }))
   // 取消进行中的后台任务（版本安装/整合包导入/资源下载）
   ipcMain.handle(IPC.tasksCancel, (_e, taskId: string) =>
     cancelTaskAndWait(String(taskId ?? ''))
   )
   ipcMain.handle(IPC.tasksPause, (_e, taskId: string) => pauseTask(String(taskId ?? '')))
   ipcMain.handle(IPC.tasksResume, (_e, taskId: string) => resumeTask(String(taskId ?? '')))
-  ipcMain.handle(IPC.versionsRemove, (_e, versionId: string) => versions.removeVersion(versionId))
-  ipcMain.handle(IPC.versionsRename, (_e, id: string, newName: string) => {
+  ipcMain.handle(IPC.versionsRemove, (_e, versionId: string, folder?: string) => versions.removeVersion(versionId, folder))
+  ipcMain.handle(IPC.versionsRename, (_e, id: string, newName: string, folder?: string) => scopedVersion(id, folder, () => {
     const vid = String(id ?? '')
     const name = String(newName ?? '').trim()
     // 前置校验：游戏运行中禁止改名（文件夹句柄被占用，且引用会错乱）
@@ -369,18 +417,20 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
       throw new Error('该版本正在运行中，请先退出游戏再改名')
     }
     versions.renameVersion(vid, name)
-    // 引用同步：收藏列表
+    // 旧版 ID 收藏保留给其他目录同名实例，当前实例迁移到目录限定的键。
     const s = settings.getSettings()
-    if (s.favoriteVersions.includes(vid)) {
-      settings.saveSettings({
-        favoriteVersions: s.favoriteVersions.map((x) => (x === vid ? name : x))
-      })
+    const root = (folder || folderOfVersion(vid)).replace(/\\/g, '/').replace(/\/$/, '').toLowerCase()
+    const oldKey = JSON.stringify([root, vid]), nextKey = JSON.stringify([root, name])
+    if (s.favoriteVersions.includes(vid) || (s.favoriteInstanceOverrides && oldKey in s.favoriteInstanceOverrides)) {
+      const overrides = { ...s.favoriteInstanceOverrides, [nextKey]: s.favoriteInstanceOverrides?.[oldKey] ?? s.favoriteVersions.includes(vid) }
+      delete overrides[oldKey]
+      settings.saveSettings({ favoriteInstanceOverrides: overrides })
     }
     // 引用同步：服务器绑定（隔离实例的 servers.dat 随目录迁移，无需额外处理）
-    servers.renameBinding(vid, name)
-  })
-  ipcMain.handle(IPC.versionsCleanup, (_e, id: string) =>
-    versions.cleanupPartialInstall(String(id ?? ''))
+    servers.renameBinding(vid, name, folder || folderOfVersion(vid))
+  }))
+  ipcMain.handle(IPC.versionsCleanup, (_e, id: string, folder?: string) =>
+    scopedVersion(id, folder, () => versions.cleanupPartialInstall(String(id ?? '')))
   )
 
   // ---------------- 游戏文件夹管理 ----------------
@@ -415,14 +465,14 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   )
   ipcMain.handle(
     IPC.versionsSetResolution,
-    (_e, id: string, resolution: GameResolution | null) =>
-      versions.setVersionResolution(String(id ?? ''), resolution ?? null)
+    (_e, id: string, resolution: GameResolution | null, folder?: string) =>
+      scopedVersion(id, folder, () => versions.setVersionResolution(String(id ?? ''), resolution ?? null))
   )
-  ipcMain.handle(IPC.versionsSetIcon, (_e, id: string, icon: string) =>
-    versions.setVersionIcon(String(id ?? ''), String(icon ?? ''))
+  ipcMain.handle(IPC.versionsSetIcon, (_e, id: string, icon: string, folder?: string) =>
+    scopedVersion(id, folder, () => versions.setVersionIcon(String(id ?? ''), String(icon ?? '')))
   )
   // 上传自定义图标：弹窗选图 → 校验类型/大小 → 复制进 .kamucl/icons 并写入版本 json
-  ipcMain.handle(IPC.versionsUploadIcon, async (_e, id: string) => {
+  ipcMain.handle(IPC.versionsUploadIcon, (_e, id: string, targetFolder?: string) => scopedVersion(id, targetFolder, async () => {
     const vid = String(id ?? '')
     const win = getWin()
     const opts = {
@@ -442,8 +492,8 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     const icon = `file:${name}`
     versions.setVersionIcon(vid, icon)
     return icon
-  })
-  ipcMain.handle(IPC.versionsUploadThumbnail, async (_e, id: string) => {
+  }))
+  ipcMain.handle(IPC.versionsUploadThumbnail, (_e, id: string, targetFolder?: string) => scopedVersion(id, targetFolder, async () => {
     const versionId = String(id ?? '')
     const version = versions.readVersionJson(versionId)
     const source = await pickImage('导入实例启动卡缩略图')
@@ -461,18 +511,18 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
       appearance.removeInstanceThumbnail(imported.path, folder)
       throw error
     }
-  })
-  ipcMain.handle(IPC.versionsSetThumbnailFit, (_e, id: string, fit: ImageFit) =>
-    versions.setVersionThumbnailFit(String(id ?? ''), fit)
+  }))
+  ipcMain.handle(IPC.versionsSetThumbnailFit, (_e, id: string, fit: ImageFit, folder?: string) =>
+    scopedVersion(id, folder, () => versions.setVersionThumbnailFit(String(id ?? ''), fit))
   )
-  ipcMain.handle(IPC.versionsResetThumbnail, (_e, id: string) =>
-    versions.resetVersionThumbnail(String(id ?? ''))
+  ipcMain.handle(IPC.versionsResetThumbnail, (_e, id: string, folder?: string) =>
+    scopedVersion(id, folder, () => versions.resetVersionThumbnail(String(id ?? '')))
   )
-  ipcMain.handle(IPC.versionsSetIsolation, (_e, versionId: string, isolated: boolean) =>
-    versions.setIsolation(String(versionId ?? ''), isolated === true)
+  ipcMain.handle(IPC.versionsSetIsolation, (_e, versionId: string, isolated: boolean, folder?: string) =>
+    scopedVersion(versionId, folder, () => versions.setIsolation(String(versionId ?? ''), isolated === true))
   )
-  ipcMain.handle(IPC.versionsIsolationPlan, (_e, versionId: string) =>
-    instances.isolationMigrationPlan(String(versionId ?? ''))
+  ipcMain.handle(IPC.versionsIsolationPlan, (_e, versionId: string, folder?: string) =>
+    scopedVersion(versionId, folder, () => instances.isolationMigrationPlan(String(versionId ?? '')))
   )
   ipcMain.handle(IPC.loadersList, (_e, loader: LoaderName, mcVersion: string) =>
     loaders.listLoaderVersions(loader, mcVersion)
@@ -482,7 +532,21 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   )
 
   // ---------------- 整合包 ----------------
+  ipcMain.handle(IPC.modpackSupplyFiles, async (_e, token: string) => {
+    const files = pendingModpackFiles(String(token))
+    const opts: Electron.OpenDialogOptions = { title: `补充整合包文件（剩余 ${files.length} 个）`, buttonLabel: '校验并补充', properties: ['openFile', 'multiSelections'], filters: [{ name: '模组文件', extensions: ['jar', 'disabled'] }] }
+    const win = getWin()
+    const selection = win ? await dialog.showOpenDialog(win, opts) : await dialog.showOpenDialog(opts)
+    if (selection.canceled) return { accepted: 0, remaining: files.length, rejected: [] }
+    return supplyModpackFiles(String(token), selection.filePaths)
+  })
+  ipcMain.handle(IPC.modpackOpenFile, async (_e, token: string, fileID: number) => {
+    const file = pendingModpackFiles(String(token)).find(f => f.fileID === fileID)
+    if (!file) throw new Error('该文件已补充或任务已结束')
+    await shell.openExternal(await community.curseForgeFilePage(file.projectID, file.fileID))
+  })
   // 只解析不安装：导入确认弹窗展示包信息用
+  ipcMain.handle(IPC.importProbe, (_e, inputPath: string) => probeImport(String(inputPath ?? '')))
   ipcMain.handle(IPC.modpackProbe, (_e, filePath: string) =>
     modpacks.probeModpack(String(filePath ?? ''))
   )
@@ -505,7 +569,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
       let lastStage = ''
       const taskEmit = (e: ProgressEvent): void => {
         const normalized = progressGuard.normalize(e)
-        lastStage = normalized.stage
+        if (!['error', 'done'].includes(normalized.stage)) lastStage = normalized.stage
         emit({ ...normalized, taskId: task.id, taskTitle: task.title })
       }
       void modpacks
@@ -545,7 +609,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
       let lastStage = ''
       const taskEmit = (event: ProgressEvent): void => {
         const normalized = progressGuard.normalize(event)
-        lastStage = normalized.stage
+        if (!['error', 'done'].includes(normalized.stage)) lastStage = normalized.stage
         emit({ ...normalized, taskId: task.id, taskTitle: task.title })
       }
       try {
@@ -572,6 +636,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
 
   // ---------------- 社区资源（同步 await 返回，错误 reject 给前端） ----------------
   ipcMain.handle(IPC.communitySearch, (_e, q: CommunityQuery) => community.communitySearchPage(q))
+  ipcMain.handle(IPC.communityProject, (_e, source: CommunitySource, projectId: string, kind: CommunityKind) => community.communityProject(source, projectId, kind))
   ipcMain.handle(
     IPC.communityFiles,
     (_e, source: CommunitySource, projectId: string, filter?: { mcVersion?: string; loader?: LoaderName | ''; kind?: CommunityKind }) =>
@@ -585,7 +650,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
       let lastStage = ''
       const taskEmit = (e: ProgressEvent): void => {
         const normalized = progressGuard.normalize(e)
-        lastStage = normalized.stage
+        if (!['error', 'done'].includes(normalized.stage)) lastStage = normalized.stage
         emit({ ...normalized, taskId: task.id, taskTitle: task.title })
       }
       try {
@@ -724,7 +789,8 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
           if (s.status === 'error') launcherLogError('game', `启动状态异常：${s.text}`)
           else if (s.status === 'exited') {
             const code = s.code ?? 0
-            if (code === 0) launcherLogInfo('game', `游戏正常退出（code=0）：${s.text}`)
+            if (s.exitKind === 'shutdown-timeout') launcherLogWarn('game', `游戏退出清理超时（code=${code}）：${s.text}`)
+            else if (code === 0 || s.intentionalStop || s.intentionalRestart) launcherLogInfo('game', `游戏已退出（code=${code}）：${s.text}`)
             else launcherLogWarn('game', `游戏异常退出（code=${code}）：${s.text}`)
           } else launcherLogInfo('game', `启动状态 ${s.status}：${s.text}`)
           sendState({ ...s, versionId, folder, launchId })
@@ -746,8 +812,8 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   ipcMain.handle(IPC.gameRestart, (_e, versionId: string, folder: string, forceToken?: string) => launch.restartGame(versionId, folder, forceToken))
   ipcMain.handle(IPC.gameRestartCancel, () => launch.cancelRestart())
   // 导出启动失败日志包（保存对话框在 main 弹出）
-  ipcMain.handle(IPC.launchExportLogs, (_e, versionId: string) =>
-    exportLaunchLogs(getWin(), String(versionId ?? ''))
+  ipcMain.handle(IPC.launchExportLogs, (_e, versionId: string, folder?: string) =>
+    withGameFolder(folder || folderOfVersion(versionId), () => exportLaunchLogs(getWin(), String(versionId ?? '')))
   )
 
   // ---------------- 游戏目录迁移 ----------------
@@ -767,6 +833,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   ipcMain.handle(IPC.serversEdit, (_e, id: string, name: string, address: string) =>
     servers.editServer(String(id ?? ''), String(name ?? ''), String(address ?? ''))
   )
+  ipcMain.handle(IPC.serversFavorite, (_e, id: string, favorite: boolean) => servers.favoriteServer(String(id ?? ''), favorite === true))
   ipcMain.handle(IPC.serversPing, (_e, address: string) =>
     servers.pingServer(String(address ?? ''))
   )
@@ -811,17 +878,34 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     }
     return list
   })
-  ipcMain.handle(IPC.modsDuplicates, (_e, versionId: string) =>
-    modinfo.findDuplicates(String(versionId ?? ''))
+  ipcMain.handle(IPC.modsDuplicates, (_e, versionId: string, folder?: string) =>
+    withGameFolder(folder || folderOfVersion(versionId), () => modinfo.findDuplicates(String(versionId ?? '')))
   )
-  ipcMain.handle(IPC.modsCrossDuplicates, (_e, versionIds: string[]) =>
-    modinfo.findCrossDuplicates(Array.isArray(versionIds) ? versionIds.map(String) : [])
+  ipcMain.handle(IPC.modsCrossDuplicates, (_e, versionIds: string[], folder?: string) =>
+    withGameFolder(folder || settings.getSettings().activeFolder || settings.getSettings().gameDir, () => modinfo.findCrossDuplicates(Array.isArray(versionIds) ? versionIds.map(String) : []))
   )
+  ipcMain.handle(IPC.modsIcons, (_e, versionId: string, names: string[], folder?: string, kind?: string) =>
+    getModIcons(String(versionId ?? ''), folder || folderOfVersion(String(versionId ?? '')), Array.isArray(names) ? names : [], kind || 'mods'))
+  ipcMain.handle(IPC.modsMigrationPlan, (_e, sourceId: string, folder: string, mc: string, loader: any) => planModMigration(sourceId, folder, mc, loader))
+  ipcMain.handle(IPC.modsMigrationApply, (_e, planId: string, confirmed: boolean) => {
+    const task=registerTask('版本迁移','version')
+    void applyModMigration(planId,confirmed,e=>emit({...e,taskId:task.id,taskTitle:task.title}),task.controller.signal)
+      .then(r=>{send(IPC_EVENT.taskDone,{taskId:task.id,ok:true});send(IPC_EVENT.installDone,{taskId:task.id,versionId:r.versionId,installedId:r.versionId,ok:true})})
+      .catch(e=>send(IPC_EVENT.taskDone,{taskId:task.id,ok:false,error:errText(e),cancelled:isCancelError(e)}))
+      .finally(()=>finishTask(task.id))
+    return task.id
+  })
   ipcMain.handle(IPC.modsCheckUpdates, (_e, versionId: string, folder?: string) =>
     withGameFolder(folder || folderOfVersion(String(versionId ?? '')), () =>
       modUpdates.checkModUpdates(String(versionId ?? ''))
     )
   )
+  ipcMain.handle('mods:catalog', (_e,id:string,folder:string)=>modManagement.modCatalog(id,folder))
+  ipcMain.handle('mods:setEnabled', (_e,id:string,folder:string,names:string[],enabled:boolean)=>modManagement.setModsEnabled(id,folder,names,enabled===true))
+  ipcMain.handle('mods:setLocked', (_e,id:string,folder:string,names:string[],locked:boolean)=>modManagement.lockMods(id,folder,names,locked===true))
+  ipcMain.handle('mods:versionChoices', (_e,id:string,folder:string,name:string)=>modManagement.modVersionChoices(id,folder,name))
+  ipcMain.handle('mods:versionPlan', (_e,id:string,fileId:string)=>modManagement.planModVersionChange(id,fileId))
+  ipcMain.handle('mods:versionApply', (_e,id:string,confirmed:boolean)=>modManagement.applyModVersionChange(id,confirmed===true))
   ipcMain.handle(IPC.modsApplyUpdates, (_e, versionId: string, items: unknown, folder?: string) =>
     withGameFolder(folder || folderOfVersion(String(versionId ?? '')), () =>
       modUpdates.applyModUpdates(String(versionId ?? ''), Array.isArray(items) ? items : [])
@@ -854,6 +938,8 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   })
 
   // ---------------- 默认按键 ----------------
+  ipcMain.handle(IPC.gameOptionsGet, async () => (await import('./core/defaultGameOptions')).getDefaultGameOptions())
+  ipcMain.handle(IPC.gameOptionsSet, async (_e, change) => (await import('./core/defaultGameOptions')).setDefaultGameOptions(change))
   ipcMain.handle(IPC.keysGetDefault, () => keybindings.getDefaultKeys())
   ipcMain.handle(IPC.keysSetDefault, (_e, id: string, bind: string) =>
     keybindings.setDefaultKey(String(id ?? ''), String(bind ?? ''))
@@ -867,6 +953,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   })
   ipcMain.handle(IPC.defaultPacksRemove, (_e, id: string) => defaultPacks.removeDefaultResourcePack(id))
   ipcMain.handle(IPC.defaultPacksMove, (_e, id: string, direction: number) => defaultPacks.moveDefaultResourcePack(id, direction))
+  ipcMain.handle(IPC.defaultPacksSetEnabled, (_e, id: string, enabled: boolean) => defaultPacks.setDefaultResourcePackEnabled(id, enabled))
 
   // ---------------- 启动器自更新与版本回退 ----------------
   applyUpdate.setUpdateEmitter(send)
@@ -894,7 +981,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     const opts = {
       properties: ['openFile' as const],
       title: '选择 KAMUCL 安装包',
-      filters: [{ name: 'KAMUCL 安装包', extensions: ['exe'] }]
+      filters: [{ name: 'KAMUCL 安装包', extensions: [process.platform === 'darwin' ? 'zip' : 'exe'] }]
     }
     const result = win ? await dialog.showOpenDialog(win, opts) : await dialog.showOpenDialog(opts)
     if (result.canceled || !result.filePaths[0]) return null
@@ -963,7 +1050,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     const target = selectModTarget(modTargets().versions, id, folder)
     return importResourceFiles(files, target, kind)
   })
-  const safeDir = (rel: string, folder?: string): string => {
+  const safeDir = async (rel: string, folder?: string): Promise<string> => {
     // 允许 gameDir 下单级子目录（mods 等）或 versions/<id>/<sub> 三级（版本实例目录），防目录穿越
     const parts = String(rel ?? '')
       .split(/[\\/]+/)
@@ -974,42 +1061,38 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     // versions/<id> 前缀按版本所属文件夹寻址（多文件夹体系）；其余按当前活动文件夹
     if (folder && !settings.getSettings().folders.some(f => pathIdentity(f.path) === pathIdentity(folder))) throw new Error('游戏文件夹未登记')
     const base = folder || (isVersionPath && parts.length >= 2 ? folderOfVersion(parts[1]) : settings.getSettings().activeFolder || settings.getSettings().gameDir)
-    if (folder && isVersionPath && parts.length === 3 && ['mods', 'resourcepacks', 'shaderpacks'].includes(parts[2])) {
-      const target = selectModTarget(versions.scanInstalledFolder(folder).versions, parts[1], folder)
-      return path.join(target.gameDirectory!, parts[2])
+    if (isVersionPath && parts.length === 3 && ['mods', 'resourcepacks', 'shaderpacks'].includes(parts[2])) {
+      return resolveResourceDirectory(base, parts[1], parts[2])
     }
     const dir = parts.length ? path.join(base, ...parts) : base
     if (!path.resolve(dir).startsWith(path.resolve(base))) throw new Error('非法目录')
     return dir
   }
-  const listDir = (rel: string, folder?: string): FsEntry[] => {
-    const dir = safeDir(rel, folder)
+  const listDir = async (rel: string, folder?: string): Promise<FsEntry[]> => listResourceEntries(await safeDir(rel, folder))
+  ipcMain.on('fs:drag', (event, rel: string, names: unknown, folder: string) => {
+    if (event.sender !== getWin()?.webContents) return
     try {
-      return fs
-        .readdirSync(dir, { withFileTypes: true })
-        .map((d) => {
-          try {
-            const st = fs.statSync(path.join(dir, d.name))
-            return { name: d.name, size: st.size, isDir: d.isDirectory(), mtime: st.mtimeMs }
-          } catch {
-            return { name: d.name, size: 0, isDir: d.isDirectory(), mtime: 0 }
-          }
-        })
-        .sort((a, b) => Number(b.isDir) - Number(a.isDir) || a.name.localeCompare(b.name))
-    } catch {
-      return []
-    }
-  }
-  ipcMain.handle(IPC.appOpenDir, (_e, rel?: string, folder?: string) => {
-    const dir = safeDir(String(rel ?? ''), folder)
+      if (typeof rel !== 'string' || !/^versions\/[^/\\]+\/(mods|resourcepacks|shaderpacks)$/.test(rel)) throw new Error('不支持拖出该目录')
+      if (typeof folder !== 'string' || !folder) throw new Error('未指定游戏文件夹')
+      const [,id,kind] = rel.split('/')
+      startNativeFileDrag(event.sender, dragResourceFilesSync(path.join(centerTarget({folder,id}).dir, kind), names))
+    } catch (e) { if (!event.sender.isDestroyed()) event.sender.send('files:dragError', String(e)) }
+  })
+  ipcMain.handle(IPC.appOpenDir, async (_e, rel?: string, folder?: string) => {
+    const dir = await safeDir(String(rel ?? ''), folder)
     fs.mkdirSync(dir, { recursive: true })
     void shell.openPath(dir)
   })
   ipcMain.handle(IPC.fsList, (_e, rel: string, folder?: string) => listDir(String(rel ?? ''), folder))
-  ipcMain.handle(IPC.fsRemove, (_e, rel: string, name: string, folder?: string) => {
-    const dir = safeDir(String(rel ?? ''), folder)
-    const target = path.join(dir, path.basename(String(name ?? '')))
-    fs.rmSync(target, { recursive: true, force: true })
+  ipcMain.handle(IPC.fsRemove, async (_e, rel: string, name: string, folder?: string) => {
+    const dir = await safeDir(String(rel ?? ''), folder)
+    const parts = String(rel ?? '').split(/[\\/]+/).filter(Boolean)
+    if (!((parts.length === 1 || (parts.length === 3 && parts[0] === 'versions')) && ['mods', 'resourcepacks', 'shaderpacks'].includes(parts[parts.length - 1]))) throw new Error('不支持删除该目录中的文件')
+    await withRecycleJob(dir, undefined, async () => {
+      const { assertInstanceIdle } = await import('./core/instanceCenter')
+      await assertInstanceIdle(path.dirname(dir))
+      await recycleFile(dir, name)
+    })
     return listDir(String(rel ?? ''), folder)
   })
   /**
@@ -1018,7 +1101,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
    * - 隔离实例（versions/<id>/…）→ 只查该实例；
    * - 共享目录（mods 等）→ 查所有共享实例，任一在运行即阻止。
    */
-  ipcMain.handle(IPC.fsToggleDisable, (_e, rel: string, name: string, folder?: string) => {
+  ipcMain.handle(IPC.fsToggleDisable, async (_e, rel: string, name: string, folder?: string) => {
     const relStr = String(rel ?? '')
     const running = launch.getRunningVersionIds()
     const m = /^versions\/([^/]+)\//.exec(relStr)
@@ -1028,7 +1111,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
     if (affected.some((id) => running.has(id))) {
       throw new Error('该实例正在运行中，请先退出游戏再禁用/启用模组')
     }
-    const dir = safeDir(relStr, folder)
+    const dir = await safeDir(relStr, folder)
     const base = path.basename(String(name ?? ''))
     const from = path.join(dir, base)
     const lower = base.toLowerCase()

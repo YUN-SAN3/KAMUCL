@@ -2,12 +2,14 @@
  * 渲染进程对 preload 桥接（window.kamucl）的类型化封装。
  * 所有 IPC 通道名一律取自 @shared/types 的 IPC / IPC_EVENT 常量。
  */
+import { refreshSkinAfter } from './skinRevision'
 import { IPC, IPC_EVENT } from '@shared/types'
 import type {
   DefaultResourcePack,
   Account,
   CommunityFile,
   CommunityKind,
+  CommunityModProject,
   CommunityQuery,
   CommunitySearchPage,
   CommunitySource,
@@ -29,6 +31,7 @@ import type {
   ModInstallPlan,
   ModInstallResult,
   ModpackInfo,
+  ImportProbeResult,
   ModpackInstallRequest,
   MsDeviceCodeInfo,
   ProgressEvent,
@@ -68,6 +71,9 @@ function invoke<T>(channel: string, ...args: unknown[]): Promise<T> {
 
 // ---------------- 设置 ----------------
 export const getSettings = () => invoke<Settings>(IPC.settingsGet)
+export const getExitHistory = () => invoke<Array<{ id: string; kind: string; time: number; text: string; seen: boolean; uncertain?: boolean; context?: Record<string,unknown> }>>(IPC.exitHistoryList)
+export const acknowledgeExitHistory = () => invoke<void>(IPC.exitHistoryAck)
+export const clearExitHistory = () => invoke<void>(IPC.exitHistoryClear)
 /** 真实系统信息（物理内存总量等），用于内存滑块上限等 */
 export const getSystemInfo = () => invoke<SystemInfo>(IPC.appSystemInfo)
 /**
@@ -125,19 +131,20 @@ export const prepareYggdrasilRuntime = () =>
 export const refreshAccount = (id: string) => invoke<Account>(IPC.accountsRefresh, id)
 
 // ---------------- 版本 ----------------
+export const getVersionCatalog = (refresh = false) => invoke<{ versions: RemoteVersion[]; checkedAt: number; stale: boolean }>(IPC.versionsCatalog, refresh)
 export const getManifest = (refresh = false) => invoke<RemoteVersion[]>(IPC.versionsManifest, refresh)
-export const getInstalled = () => invoke<InstalledVersion[]>(IPC.versionsInstalled)
-export const installVersion = (id: string, opts?: InstallOptions) =>
-  invoke<void>(IPC.versionsInstall, id, opts)
-export const removeVersion = (id: string) => invoke<void>(IPC.versionsRemove, id)
-export const renameVersion = (id: string, newName: string) =>
-  invoke<void>(IPC.versionsRename, id, newName)
+export const getInstalled = (all = false) => invoke<InstalledVersion[]>(IPC.versionsInstalled, all)
+export const installVersion = (id: string, opts?: InstallOptions, folder?: string) =>
+  invoke<void>(IPC.versionsInstall, id, opts, folder)
+export const removeVersion = (id: string, folder?: string) => invoke<void>(IPC.versionsRemove, id, folder)
+export const renameVersion = (id: string, newName: string, folder?: string) =>
+  invoke<void>(IPC.versionsRename, id, newName, folder)
 export const setVersionJava = (id: string, javaPath: string, automatic = false, folder?: string) =>
   invoke<void>(IPC.versionsSetJava, id, javaPath, automatic, folder)
-export const setVersionResolution = (id: string, resolution: GameResolution | null) =>
-  invoke<void>(IPC.versionsSetResolution, id, resolution)
-export const cleanupPartialInstall = (id: string) =>
-  invoke<boolean>(IPC.versionsCleanup, id)
+export const setVersionResolution = (id: string, resolution: GameResolution | null, folder?: string) =>
+  invoke<void>(IPC.versionsSetResolution, id, resolution, folder)
+export const cleanupPartialInstall = (id: string, folder?: string) =>
+  invoke<boolean>(IPC.versionsCleanup, id, folder)
 
 // ---------------- 游戏文件夹管理 ----------------
 export const listFolders = () =>
@@ -156,22 +163,22 @@ export const setActiveFolder = (path: string) => invoke<string>(IPC.foldersSetAc
 export const scanFolder = (path: string) => invoke<FolderScanResult>(IPC.foldersScan, path)
 export const openGameFolder = (path: string) => invoke<void>(IPC.foldersOpen, path)
 export const showFolderContextMenu = (folder: string, versionId?: string) => invoke<void>(IPC.foldersContextMenu, folder, versionId)
-export const setVersionIsolation = (id: string, isolated: boolean) =>
-  invoke<void>(IPC.versionsSetIsolation, id, isolated)
-export const getIsolationPlan = (id: string) =>
-  invoke<IsolationMigrationPlan>(IPC.versionsIsolationPlan, id)
+export const setVersionIsolation = (id: string, isolated: boolean, folder?: string) =>
+  invoke<void>(IPC.versionsSetIsolation, id, isolated, folder)
+export const getIsolationPlan = (id: string, folder?: string) =>
+  invoke<IsolationMigrationPlan>(IPC.versionsIsolationPlan, id, folder)
 /** 设置实例图标（'mob:<id>' / 'file:<文件名>' / '' 恢复默认） */
-export const setVersionIcon = (id: string, icon: string) =>
-  invoke<void>(IPC.versionsSetIcon, id, icon)
+export const setVersionIcon = (id: string, icon: string, folder?: string) =>
+  invoke<void>(IPC.versionsSetIcon, id, icon, folder)
 /** 上传自定义实例图标，返回新 icon 值（取消 = null） */
-export const uploadVersionIcon = (id: string) =>
-  invoke<string | null>(IPC.versionsUploadIcon, id)
-export const uploadVersionThumbnail = (id: string) =>
-  invoke<string | null>(IPC.versionsUploadThumbnail, id)
-export const setVersionThumbnailFit = (id: string, fit: ImageFit) =>
-  invoke<void>(IPC.versionsSetThumbnailFit, id, fit)
-export const resetVersionThumbnail = (id: string) =>
-  invoke<void>(IPC.versionsResetThumbnail, id)
+export const uploadVersionIcon = (id: string, folder?: string) =>
+  invoke<string | null>(IPC.versionsUploadIcon, id, folder)
+export const uploadVersionThumbnail = (id: string, folder?: string) =>
+  invoke<string | null>(IPC.versionsUploadThumbnail, id, folder)
+export const setVersionThumbnailFit = (id: string, fit: ImageFit, folder?: string) =>
+  invoke<void>(IPC.versionsSetThumbnailFit, id, fit, folder)
+export const resetVersionThumbnail = (id: string, folder?: string) =>
+  invoke<void>(IPC.versionsResetThumbnail, id, folder)
 export const listLoaders = (loader: LoaderName, mc: string) =>
   invoke<string[]>(IPC.loadersList, loader, mc)
 export const listFabricApi = (mc: string) => invoke<FabricApiVersion[]>(IPC.fabricApiList, mc)
@@ -179,6 +186,9 @@ export const listFabricApi = (mc: string) => invoke<FabricApiVersion[]>(IPC.fabr
 // ---------------- 整合包 ----------------
 /** 只解析整合包元信息（不解压不下载），供导入确认弹窗展示；失败抛错 */
 export const probeModpack = (filePath: string) => invoke<ModpackInfo>(IPC.modpackProbe, filePath)
+export const probeImport = (inputPath: string) => invoke<ImportProbeResult>(IPC.importProbe, inputPath)
+export const supplyModpackFiles = (token: string) => invoke<{ accepted: number; remaining: number; rejected: string[] }>(IPC.modpackSupplyFiles, token)
+export const openModpackFile = (token: string, fileID: number) => invoke<void>(IPC.modpackOpenFile, token, fileID)
 /** 异步安装整合包：invoke 仅表示任务已受理，完成/失败由 onInstallDone 推送 */
 export const installModpack = (filePath: string, opts?: ModpackInstallRequest) =>
   invoke<void>(IPC.modpackInstall, filePath, opts)
@@ -193,6 +203,9 @@ export const importWorld = (inputPath: string, options: WorldImportOptions) =>
 /** 搜索 Modrinth / CurseForge 社区资源 */
 export const communitySearch = (q: CommunityQuery) =>
   invoke<CommunitySearchPage>(IPC.communitySearch, q)
+/** Read verified MOD metadata independently of downloadable file versions. */
+export const communityProject = (source: CommunitySource, projectId: string) =>
+  invoke<CommunityModProject>(IPC.communityProject, source, projectId, 'mod')
 /** 项目文件版本列表（可按 mc 版本/加载器过滤） */
 export const communityFiles = (
   source: CommunitySource,
@@ -216,10 +229,13 @@ export const hideJava = (path: string) => invoke<void>(IPC.javaHide, path)
 
 // ---------------- 皮肤/披风 ----------------
 /** 当前微软账号的皮肤/披风档案 */
-export const getSkinProfile = (refresh = false) => invoke<ProfileSkins>(IPC.skinProfile, refresh)
+export const getSkinProfile = (refresh = false) => {
+  const request = invoke<ProfileSkins>(IPC.skinProfile, refresh)
+  return refresh ? refreshSkinAfter(request) : request
+}
 /** 上传皮肤（64×64 PNG），返回最新档案 */
 export const uploadSkin = (filePath: string, variant: SkinVariant) =>
-  invoke<ProfileSkins>(IPC.skinUpload, filePath, variant)
+  refreshSkinAfter(invoke<ProfileSkins>(IPC.skinUpload, filePath, variant))
 /** 激活披风（传 id）/ 卸下披风（传 null），返回最新档案 */
 export const changeCape = (capeId: string | null) => invoke<ProfileSkins>(IPC.skinCape, capeId)
 /** 历史皮肤（含 dataUrl 缩略图，新→旧） */
@@ -231,7 +247,7 @@ export const renameSkinHistory = (id: string, name: string) =>
   invoke<SkinHistoryEntry[]>(IPC.skinHistoryRename, id, name)
 /** 用历史记录快速换回，返回最新档案 */
 export const uploadSkinFromHistory = (id: string) =>
-  invoke<ProfileSkins>(IPC.skinUploadHistory, id)
+  refreshSkinAfter(invoke<ProfileSkins>(IPC.skinUploadHistory, id))
 /** 当前选中账号的头像数据（微软=皮肤 dataURL / 离线=minotar 头像 dataURL / 无=null） */
 export const getSkinAvatar = (accountId?: string) => invoke<string | null>(IPC.skinAvatar, accountId)
 
@@ -250,6 +266,7 @@ export const cancelGameRestart = () => invoke<void>(IPC.gameRestartCancel)
 export const killGame = (forceToken?: string) => invoke<{ requiresForce: boolean; forceToken?: string }>(IPC.gameKill, forceToken)
 
 // ---------------- 服务器 ----------------
+export const favoriteServer = (id: string, favorite: boolean) => invoke<ServerEntry[]>(IPC.serversFavorite, id, favorite)
 export const listServers = () => invoke<ServerEntry[]>(IPC.serversList)
 export const addServer = (name: string, address: string) =>
   invoke<ServerEntry[]>(IPC.serversAdd, name, address)
@@ -273,8 +290,9 @@ export const discardModInstall = (id: string) => invoke<void>(IPC.modsDiscard, i
 export const parseMods = (paths: string[]) => invoke<ModInfo[]>(IPC.modsParse, paths)
 export const installMods = (files: string[], targetVersionId: string, folder?: string) =>
   invoke<ModInstallResult[]>(IPC.modsInstall, files, targetVersionId, folder)
-export const findModDuplicates = (versionId: string) =>
-  invoke<ModDuplicateGroup[]>(IPC.modsDuplicates, versionId)
+export const findModDuplicates = (versionId: string, folder?: string) =>
+  invoke<ModDuplicateGroup[]>(IPC.modsDuplicates, versionId, folder)
+export const getModIcons = (versionId: string, names: string[], folder?: string, kind = 'mods') => invoke<Record<string, string>>(IPC.modsIcons, versionId, names, folder, kind)
 export const checkModUpdates = (versionId: string, folder?: string) =>
   invoke<import('@shared/types').ModUpdateReport>(IPC.modsCheckUpdates, versionId, folder)
 export const applyModUpdates = (versionId: string, items: import('@shared/types').ModUpdateTarget[], folder?: string) =>
@@ -291,6 +309,8 @@ export const openPluginsDir = () => invoke<void>(IPC.pluginsOpenDir)
 
 // ---------------- 默认按键 ----------------
 export const getDefaultKeys = () => invoke<Record<string, string>>(IPC.keysGetDefault)
+export const getDefaultGameOptions = () => invoke<import('@shared/gameOptions').DefaultGameOptions>(IPC.gameOptionsGet)
+export const setDefaultGameOptions = (change: { enabled?: boolean; id?: string; value?: import('@shared/gameOptions').GameOptionValue | null }) => invoke<import('@shared/gameOptions').DefaultGameOptions>(IPC.gameOptionsSet, change)
 export const setDefaultKey = (id: string, bind: string) =>
   invoke<Record<string, string>>(IPC.keysSetDefault, id, bind)
 export const resetDefaultKeys = () => invoke<Record<string, string>>(IPC.keysReset)
@@ -299,6 +319,7 @@ export const importDefaultResourcePacks = (files: string[]) => invoke<DefaultRes
 export const pickDefaultResourcePacks = () => invoke<DefaultResourcePack[]>(IPC.defaultPacksPick)
 export const removeDefaultResourcePack = (id: string) => invoke<DefaultResourcePack[]>(IPC.defaultPacksRemove, id)
 export const moveDefaultResourcePack = (id: string, direction: number) => invoke<DefaultResourcePack[]>(IPC.defaultPacksMove, id, direction)
+export const setDefaultResourcePackEnabled = (id: string, enabled: boolean) => invoke<DefaultResourcePack[]>(IPC.defaultPacksSetEnabled, id, enabled)
 
 // ---------------- 启动器自更新与版本回退 ----------------
 export const checkUpdate = (force = false) => invoke<import('@shared/types').UpdateCheckResult>(IPC.updateCheck, force)
@@ -336,8 +357,8 @@ export const bridgeReset = (versionId: string, id?: string) =>
 export const bridgeInstalled = (versionId: string) => invoke<boolean>(IPC.bridgeInstalled, versionId)
 export const bridgeInstall = (versionId: string) =>
   invoke<{ ok: boolean; already?: boolean; error?: string }>(IPC.bridgeInstall, versionId)
-export const findModCrossDuplicates = (versionIds: string[]) =>
-  invoke<ModCrossDuplicate[]>(IPC.modsCrossDuplicates, versionIds)
+export const findModCrossDuplicates = (versionIds: string[], folder?: string) =>
+  invoke<ModCrossDuplicate[]>(IPC.modsCrossDuplicates, versionIds, folder)
 
 // ---------------- 文件/目录 ----------------
 /** 用系统资源管理器打开游戏目录下的子目录（'' = 游戏根目录） */
@@ -384,8 +405,8 @@ export const pauseTask = (taskId: string) => invoke<boolean>(IPC.tasksPause, tas
 export const resumeTask = (taskId: string) => invoke<boolean>(IPC.tasksResume, taskId)
 
 /** 导出启动失败日志包（弹系统保存对话框），返回保存路径（取消 = null） */
-export const exportLaunchLogs = (versionId: string) =>
-  invoke<string | null>(IPC.launchExportLogs, versionId)
+export const exportLaunchLogs = (versionId: string, folder?: string) =>
+  invoke<string | null>(IPC.launchExportLogs, versionId, folder)
 
 // ---------------- 工具 ----------------
 /** 把 invoke 抛出的错误转成适合 toast 展示的短文本 */

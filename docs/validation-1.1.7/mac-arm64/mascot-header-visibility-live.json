@@ -1,0 +1,188 @@
+{
+  "sources": {
+    "native": "BrowserWindow.isVisible/isMinimized in the main process",
+    "nativeVisibility": "controlled window:visibility IPC query and hide/show broadcast consumed by useMotion",
+    "page": "unmodified document.hidden/document.visibilityState",
+    "stage": "useMotion pageHidden || nativeHidden",
+    "rendering": "intercepted actual WebGL2 drawElements",
+    "audio": "actual owned AudioContext.state"
+  },
+  "before": {
+    "native": {
+      "isVisible": true,
+      "isMinimized": false,
+      "backgroundThrottling": true,
+      "electron": "33.4.11",
+      "platform": "darwin"
+    },
+    "renderer": {
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "stageHidden": false,
+      "draws": 7980,
+      "activeSources": 0,
+      "audioStates": [
+        "running"
+      ],
+      "nativeVisibility": true
+    }
+  },
+  "hiddenSamples": [
+    {
+      "native": {
+        "isVisible": false,
+        "isMinimized": false,
+        "backgroundThrottling": true,
+        "electron": "33.4.11",
+        "platform": "darwin"
+      },
+      "renderer": {
+        "documentHidden": false,
+        "visibilityState": "visible",
+        "stageHidden": true,
+        "draws": 8064,
+        "activeSources": 0,
+        "audioStates": [
+          "suspended"
+        ],
+        "nativeVisibility": false
+      }
+    }
+  ],
+  "hidden": {
+    "native": {
+      "isVisible": false,
+      "isMinimized": false,
+      "backgroundThrottling": true,
+      "electron": "33.4.11",
+      "platform": "darwin"
+    },
+    "renderer": {
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "stageHidden": true,
+      "draws": 8064,
+      "activeSources": 0,
+      "audioStates": [
+        "suspended"
+      ],
+      "nativeVisibility": false
+    }
+  },
+  "hiddenSettled": {
+    "native": {
+      "isVisible": false,
+      "isMinimized": false,
+      "backgroundThrottling": true,
+      "electron": "33.4.11",
+      "platform": "darwin"
+    },
+    "renderer": {
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "stageHidden": true,
+      "draws": 8064,
+      "activeSources": 0,
+      "audioStates": [
+        "suspended"
+      ],
+      "nativeVisibility": false
+    }
+  },
+  "audioLifecycleCalls": [
+    {
+      "method": "suspend",
+      "context": 0,
+      "state": "running",
+      "time": 6.570666666666667,
+      "wallTime": 30388,
+      "documentHidden": true,
+      "stageHidden": false,
+      "stack": "Error\n    at Original.suspend (<anonymous>:10:136)\n    at MascotAudio.suspend (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:101:29)\n    at MascotAudio.pause (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:181:28)\n    at watch.flush (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:515:15)\n    at callWithErrorHandling (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/as"
+    },
+    {
+      "method": "resume",
+      "context": 0,
+      "state": "suspended",
+      "time": 6.570666666666667,
+      "wallTime": 30406.79999999999,
+      "documentHidden": false,
+      "stageHidden": true,
+      "stack": "Error\n    at Original.resume (<anonymous>:9:134)\n    at MascotAudio.unlock (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:137:56)\n    at watch.flush (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:519:20)\n    at callWithErrorHandling (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/index-D_eyqMrP.js:1964:19)\n    at callWithAsyncErrorHandling (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/a"
+    },
+    {
+      "method": "suspend",
+      "context": 0,
+      "state": "suspended",
+      "time": 6.570666666666667,
+      "wallTime": 30407.5,
+      "documentHidden": false,
+      "stageHidden": false,
+      "stack": "Error\n    at Original.suspend (<anonymous>:10:136)\n    at MascotAudio.suspend (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:101:29)\n    at MascotAudio.pause (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:181:28)\n    at watch.flush (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:515:15)\n    at callWithErrorHandling (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/as"
+    },
+    {
+      "method": "suspend",
+      "context": 0,
+      "state": "running",
+      "time": 6.576,
+      "wallTime": 30417.5,
+      "documentHidden": false,
+      "stageHidden": true,
+      "stack": "Error\n    at Original.suspend (<anonymous>:10:136)\n    at MascotAudio.suspend (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:101:29)\n    at MascotAudio.unlock (file:///Users/runner/work/_temp/dmg-mount/KAMUCL.app/Contents/Resources/app.asar/out/renderer/assets/MascotStage-C-IaSdTL.js:138:33)"
+    }
+  ],
+  "audioStateTransitions": [
+    {
+      "context": 0,
+      "state": "running",
+      "time": 0.06933333333333333,
+      "wallTime": 23888.099999999977,
+      "documentHidden": false,
+      "stageHidden": false
+    },
+    {
+      "context": 0,
+      "state": "suspended",
+      "time": 6.570666666666667,
+      "wallTime": 30407.29999999999,
+      "documentHidden": false,
+      "stageHidden": false
+    },
+    {
+      "context": 0,
+      "state": "suspended",
+      "time": 6.576,
+      "wallTime": 30422.5,
+      "documentHidden": false,
+      "stageHidden": true
+    },
+    {
+      "context": 0,
+      "state": "suspended",
+      "time": 6.576,
+      "wallTime": 30422.699999999953,
+      "documentHidden": false,
+      "stageHidden": true
+    }
+  ],
+  "restored": {
+    "native": {
+      "isVisible": true,
+      "isMinimized": false,
+      "backgroundThrottling": true,
+      "electron": "33.4.11",
+      "platform": "darwin"
+    },
+    "renderer": {
+      "documentHidden": false,
+      "visibilityState": "visible",
+      "stageHidden": false,
+      "draws": 8400,
+      "activeSources": 0,
+      "audioStates": [
+        "running"
+      ],
+      "nativeVisibility": true
+    }
+  }
+}

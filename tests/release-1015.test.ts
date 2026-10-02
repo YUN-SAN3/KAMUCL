@@ -55,21 +55,15 @@ test('pending update roundtrip: readable only while file exists, clear removes',
   }
 })
 
-test('quit-time auto install wiring: before-quit intercepts synchronously, 6h recheck, startup decision', () => {
+test('next-startup updates never intercept launcher closing', () => {
   const index = read('src/main/index.ts')
-  // before-quit 同步检查 pending 后 preventDefault（异步拦截无效）
-  assert.match(index, /app\.on\('before-quit'/)
-  assert.match(index, /getPendingUpdate\(\)[\s\S]*?e\.preventDefault\(\)/)
-  assert.match(index, /applyPendingIfAny\(\)/)
-  // 启动决策走 decideUpdateAction，auto 静默下载 / prompt 弹窗
+  assert.match(index, /applyUpdateOnStartup\(\)/)
+  assert(!index.includes('applyingPendingUpdate'))
+  assert(!index.includes('applyPendingIfAny'))
+  assert.match(index, /blockedUpdateVersion/)
+  assert.match(index, /acknowledgeUpdateStartup/)
   assert.match(index, /decideUpdateAction/)
-  assert.match(index, /startAutoUpdate/)
-  assert.match(index, /autoUpdate !== false/)
-  // 运行中 6h 复查
   assert.match(index, /setInterval\(\(\) => void runUpdateCheck\(\), 6 \* 3600_000\)/)
-  // 就绪事件与失败回滚标记
-  assert.match(index, /updateReady/)
-  assert.match(index, /consumeUpdateFailedFlag/)
 })
 
 test('auto update surfaces: settings toggle, pending state IPC, ready event', () => {
@@ -83,11 +77,11 @@ test('auto update surfaces: settings toggle, pending state IPC, ready event', ()
   assert.match(ipc, /IPC\.updateApplyPending/)
   const kb = read('src/main/core/applyUpdate.ts')
   // 下载校验通过即写待安装；新下载开始先清旧待装；手动安装前也清
-  assert.match(kb, /writePendingUpdate\(release, dest\)/)
-  assert.match(kb, /clearPendingUpdate\(\)[\s\S]*?updateDirOf/)
+  assert.match(kb, /await writePendingUpdate\(release, dest, expected, mode\)/)
+  assert.match(kb, /updateMarker/)
   const settings = read('src/renderer/src/views/SettingsView.vue')
   assert.match(settings, /自动安装更新/)
-  assert.match(settings, /立即重启安装/)
+  assert.match(settings, /下次启动应用/)
   assert.match(settings, /pendingUpdate/)
 })
 

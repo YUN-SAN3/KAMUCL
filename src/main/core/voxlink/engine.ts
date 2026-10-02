@@ -1,1386 +1,541 @@
-/**
- * voxlink/engine.ts — 连接引擎编排：信令分发、UDP 打洞 → rudp 隧道 → 本地端口映射桥、
- * 直连探测与 MC 端口探测。玩家中继见 relay.ts。
- *
- * 移植自 voxlink/app-desktop/conn_engine.go + relay.go。所有时间常量与 Go 原值对齐。
- *
- * 角色分工：
- *   - guest：JoinRoom 成功自动开始 p2p（等 host 的 holepunch_offer → 发 punch_info →
- *     等 holepunch_mapped/齐射时刻 → 打洞 → rudp → 本地桥）。
- *   - host：收到 join_request 起 host 侧引擎（打洞 socket 绑 hostPort → STUN →
- *     签发 holepunch_offer → 收 punch_info 回 holepunch_mapped 并开始打洞 → lazy 桥）。
- */
+// SPDX-License-Identifier: LGPL-3.0-only
+// New KAMUCL orchestration using VoxLink Java signaling fields (ConnectionManager / SignalingClient,
+// AUGUHDAR/VoxLink baseline 924845e897d8fb36dca2474ade30e675278559d0; updated contract c475faa98cca16d4a2eeef4422c862c36091e1fc).
 import dgram from 'node:dgram'
+import { setTimeout as delay } from 'node:timers/promises'
+import net from 'node:net'
+import { networkInterfaces } from 'node:os'
+import { randomUUID } from 'node:crypto'
 import { EventEmitter } from 'node:events'
-import { ApiClient, APIError, CLIENT_TAG, DEFAULT_SERVER_URL, validateRoomCode } from './api'
+import { ApiClient, APIError, APP_VERSION, CLIENT_TAG, DEFAULT_SERVER_URL, validateRoomCode, validateServerURL } from './api'
 import { normalizeVoxlinkRoomName } from '../../../shared/voxlinkRoom'
-import { quickNatType, STUN_SERVERS, StunMappedAddr, stunSampleSeries, stunDeltaFromSamples } from './stun'
-import { Puncher, predictedPortsAround, punchListen } from './punch'
-import { RudpConn, RudpTarget } from './rudp'
-import { TcpBridge, pumpRelay, startHostLazyBridge, BridgeDownCb } from './bridge'
+import { NAT_RAW_LABELS,natLabel } from '../../../shared/voxlinkNat'
+import { STUN_SERVERS, stunSampleSeries, samplePortsSequential, stunDeltaFromSamples, type StunMappedAddr } from './stun'
+import { chooseTcpPunchPort, tcpSimOpen, bridgePunchedSocket } from './tcpPunch'
+import { Puncher, PunchFailure, punchListen, type PuncherOptions } from './punch'
+import { PROFILES } from './punchProfiles'
+import { fromProfile, predict, deltaPredict, selectStrategy, symmetric, type NatClass } from './punchPolicy'
+import { PunchRounds } from './punchRounds'
+import { RudpConn } from './rudp'
+import { TcpBridge, startHostLazyBridge, pumpRelay } from './bridge'
+import { TurnRelay } from './turnRelay'
+import { derivePunchKey } from './punchAuth'
+import { VoxlinkSession } from './session'
 import { detectMcPorts, probeHostPort } from './mc_ports'
-import { VoxlinkSession, SessionOptions } from './session'
-import { defaultSettingsPath, loadSettings, saveSettings } from './settings'
-import type { VoxlinkSettings } from './settings'
-
-// ---- 常量对齐 Go 端 conn_engine.go ----
-export const PHASE_P2P = 'p2p'
-export const PHASE_DIRECT = 'direct'
-export const PHASE_PRELAY = 'prelay'
-export const STATUS_TRYING = 'trying'
-export const STATUS_FAILED = 'failed'
-export const STATUS_SUCCESS = 'success'
-
-const OFFER_WAIT_MAPPED_MAX_MS = 5_000
-const PUNCH_SYNC_MAX_WAIT_MS = 5_000
-const PUNCH_CYCLE_INTERVAL_MS = 1_000
-const PUNCH_CYCLE_ROT_EVERY = 5
-const PUNCH_MAX_WAIT_BEFORE_TX_MS = 24_000
-const HOST_PUNCH_LIFETIME_MS = 10 * 60 * 1000
-const DIRECT_ATTEMPTS = 3
-const DIRECT_DIAL_TIMEOUT_MS = 3_000
-const DIRECT_RETRY_INTERVAL_MS = 2_000
-const RELAY_REQUEST_TIMEOUT_MS = 20_000
-const RELAY_PUNCH_TIMEOUT_MS = 15_000
-const RELAY_SETUP_TIMEOUT_MS = 15_000
-
-const ENGINE_SIGNALS = new Set([
-  'join_request',
-  'holepunch_offer',
-  'holepunch_mapped',
-  'punch_info',
-  'peer_port',
-  'disconnect',
-  'relay_request',
-  'relay_notify',
-  'relay_accept',
-  'relay_declined',
-  'relay_setup',
-  'relay_ready'
-])
-
-// ---- 信令消息类型 ----
-export interface ConnState {
-  phase: string
-  status: string
-  address: string
-  detail: string
-}
-
-export interface RoomInfo {
-  code: string
-  name: string
-  hostIp: string
-  hostPort: number
-  maxPlayers: number
-  currentPlayers: number
-  hasPassword: boolean
-  category: string
-  gameVersion: string
-  loader: string
-  clientType: string
-  clientTag?: string
-  expiresIn: number
-  isHost: boolean
-}
-
-export interface LobbyRoom {
-  code: string
-  name: string
-  hostIp?: string
-  hostPort?: number
-  currentPlayers?: number
-  maxPlayers?: number
-  hasPassword?: boolean
-  category?: string
-  gameVersion?: string
-  loader?: string
-  clientType?: string
-  clientTag?: string
-  natType?: string
-}
-
-// ---- App-level 状态 ----
-export interface AppState {
-  state: 'idle' | 'hosting' | 'in_room' | 'closed'
-  code: string
-  token: string
-  isHost: boolean
-  room: RoomInfo | null
-}
-
-export interface CreateRoomParams {
-  name: string
-  password?: string
-  category?: string
-  visible: boolean
-  hostPort: number
-  loader?: string
-  gameVersion?: string
-}
-
-export interface JoinRoomParams {
-  code: string
-  password?: string
-}
-
-export interface CreateRoomResult {
-  code: string
-  hostToken: string
-  name: string
-  hostIp: string
-  hostPort: number
-  expiresIn: number
-}
-
-export interface JoinRoomResult {
-  clientToken: string
-  clientId: string
-  room: RoomInfo
-}
-
-// ---- 引擎 ----
-
-interface HostPeer {
-  id: string
-  puncher: Puncher | null
-  rudp: RudpConn | null
-  mapped: StunMappedAddr | null
-  hostMapped: StunMappedAddr | null
-  hostDelta: number
-}
-
-export type LogLevel = 'info' | 'warn' | 'error'
-
-export type EmitFn = (event: string, data: unknown) => void
-export type NetLogFn = (level: LogLevel, msg: string) => void
-
-/** 创建 connEngine 的对外回调接口（解耦 settings/io 路径）。 */
-export interface EngineDeps {
-  api: ApiClient
-  baseURL: () => string
-  emit: EmitFn
-  netLog: NetLogFn
-}
-
+import { defaultSettingsPath, loadSettings, saveSettings, type VoxlinkSettings } from './settings'
+export const PHASE_P2P='p2p',PHASE_DIRECT='direct',PHASE_PRELAY='prelay',STATUS_TRYING='trying',STATUS_FAILED='failed',STATUS_SUCCESS='success'
+export interface ConnState { phase:string;status:string;address:string;detail:string }
+export interface RoomInfo { code:string;name:string;hostIp:string;hostPort:number;maxPlayers:number;currentPlayers:number;hasPassword:boolean;category:string;gameVersion:string;loader:string;clientType:string;clientTag?:string;expiresIn:number;isHost:boolean;hostCapabilities?:string[];natType?:string }
+export interface LobbyRoom {code:string;name:string;hostIp?:string;hostPort?:number;currentPlayers?:number;maxPlayers?:number;hasPassword?:boolean;category?:string;gameVersion?:string;loader?:string;clientType?:string;clientTag?:string;natType?:string}
+export interface AppState {state:'idle'|'hosting'|'in_room'|'closed';code:string;token:string;isHost:boolean;room:RoomInfo|null}
+export interface CreateRoomParams {name:string;password?:string;category?:string;visible:boolean;hostPort:number;loader?:string;gameVersion?:string}
+export interface JoinRoomParams {code:string;password?:string;loader?:string;gameVersion?:string}
+export const VOXLINK_CAPABILITIES=['relay','ice_restart','continuous_retry','punchAuthV1','overlayAuthV1','modSyncV1','stdTurnV1'] as const
+export const JOIN_RETRY_BACKOFF_MS=[1500,3000] as const // ConnectionManager.java: JOIN_RETRY_BACKOFF_MS.
+export interface CreateRoomResult {code:string;hostToken:string;name:string;hostIp:string;hostPort:number;expiresIn:number}
+export interface JoinRoomResult {clientToken:string;clientId:string;room:RoomInfo}
+export type LogLevel='info'|'warn'|'error'
+export type NetLogFn=(level:LogLevel,message:string)=>void
+export type EmitFn=(event:string,data:unknown)=>void
+export interface EngineDeps {api:ApiClient;baseURL:()=>string;emit:EmitFn;netLog:NetLogFn;allowRelay?:()=>boolean;rejoin?:()=>Promise<void>}
+export interface RelayCandidate {clientId:string;roomCode:string;natType:string;mappedIp:string;mappedPort:number}
+interface Link { socket:dgram.Socket;punch:Puncher;mapped:StunMappedAddr;delta:number;auth:Buffer|null;rudp?:RudpConn;bridge?:TcpBridge;remote?:StunMappedAddr;started?:boolean;timer?:NodeJS.Timeout; sockets:dgram.Socket[];punchers:Puncher[];samples:StunMappedAddr[];nat:NatClass;peer:string;reverse:boolean;ports:number[];controller:AbortController }
+type Data=Record<string,unknown>
+const endpoint=(data:Data,prefix:string):StunMappedAddr|null=>{const ip=String(data[`${prefix}Ip`]??''),port=Number(data[`${prefix}Port`]);return net.isIP(ip)&&Number.isInteger(port)&&port>0&&port<=65535?{ip,port}:null}
 export class ConnEngine extends EventEmitter {
-  readonly deps: EngineDeps
-  state: 'idle' | 'hosting' | 'in_room' | 'closed' = 'idle'
-  code = ''
-  token = ''
-  isHost = false
-  clientID = ''
-  room: RoomInfo | null = null
-  hostPort = 0
-  hostIp = ''
-
-  // guest 侧
-  gCycle = 0
-  gActive = false
-  gOffer: Record<string, unknown> | null = null
-  gMapped: StunMappedAddr | null = null
-  gMappedCh: StunMappedAddr[] = []
-  gMappedDelta = 0
-  gPunchSock: dgram.Socket | null = null
-  gPuncher: Puncher | null = null
-  gRudp: RudpConn | null = null
-  gBridge: TcpBridge | null = null
-  gP2PDone = false
-
-  // guest 中继
-  rInFlight = false
-  rDone = false
-  rResult: Array<string> = []
-  rSock: dgram.Socket | null = null
-  rPuncher: Puncher | null = null
-  rRudp: RudpConn | null = null
-  rBridge: TcpBridge | null = null
-  rConnectedHint = false
-  rAsNodeStop: (() => void) | null = null
-
-  // host 侧
-  hPeers = new Map<string, HostPeer>()
-
-  // 会话
-  session: VoxlinkSession | null = null
-
-  // 中继锁
-  directMu = false
-
-  constructor(deps: EngineDeps) {
+  code='';token='';isHost=false;hostPort=0;hostIp='';clientID='';session:VoxlinkSession|null=null;room:RoomInfo|null=null
+  joinedAt=0;lastConnection:ConnState|null=null;stages:Record<string,{key:string;status:string;detail:string;ts:number}>={}
+  readonly turn:TurnRelay
+  private generation=0
+  private links=new Map<string,Link>()
+  private creating=new Set<string>()
+  private timers=new Set<NodeJS.Timeout>()
+  private relays=new Set<()=>void>()
+  private relayPending=false
+  private relayAssignments=new Map<string,{candidate:string;at:number}>()
+  private rounds=new Map<string,PunchRounds>()
+  private tcp=new Map<string,{controller:AbortController;stop?:()=>void}>()
+  private tcpPeerIp=''
+  private reconnectPending=false
+  private mode:'p2p'|'turn'|'prelay'|'direct'='p2p'
+  private winner=new Map<string,string>()
+  private turnChoices=new Set<string>()
+  private iceRestarts=new Map<string,{count:number;at:number}>()
+  private knownPeers=new Set<string>()
+  private lastMappings=new Map<string,{local:{address:string;port:number};remote:{address:string;port:number}}>()
+  private natNotes=new Set<string>()
+  private reportNat(local:NatClass,remote:NatClass,peer:string){
+    const raw=String(this.room?.natType??'unknown').trim().toLowerCase()
+    if(!Object.hasOwn(NAT_RAW_LABELS,raw)&&!this.natNotes.has(raw)){this.natNotes.add(raw);this.deps.netLog('warn','未收录的 NAT 类型，显示为未知：'+raw.slice(0,80))}
+    this.deps.emit('nat:state',{local:natLabel(local,undefined),remote:natLabel(remote,raw),localClass:local,remoteClass:remote,profile:this.policy(peer).profile.name})
+    const expected=raw.includes('cone')?'CONE':raw.startsWith('symmetric_easy')?'EASY_SYM':raw==='symmetric'?'HARD_SYM':undefined,key=raw+':'+remote
+    if(expected&&remote!=='UNKNOWN'&&expected!==remote&&!this.natNotes.has(key)){this.natNotes.add(key);this.deps.netLog('info',`NAT 文案与协商分类不同 (${raw} / ${remote})，打洞使用协商分类`)}
+  }
+  constructor(readonly deps:EngineDeps){
     super()
-    this.deps = deps
+    this.turn=new TurnRelay({api:deps.api,baseURL:deps.baseURL,
+      room:()=>this.session?{code:this.code,token:this.token,isHost:this.isHost,clientId:this.clientID,hostPort:this.hostPort,hostAuth:this.isHost||!!this.room?.hostCapabilities?.includes('punchAuthV1'),hostStdTurn:!!this.room?.hostCapabilities?.includes('stdTurnV1')}:null,
+      directConnected:peer=>!!this.winner.get(peer||'host')&&this.winner.get(peer||'host')!=='turn',
+      connected:(peer,address,mode)=>{this.winner.set(peer,mode??'turn');if(mode)this.mode=mode;this.stopPeerPunching(peer);if(!this.isHost)this.state(mode??'turn','success',address,mode==='p2p'?'已平滑升级为直连':mode==='prelay'?'TURN 已断开，热备玩家中继接替；若游戏已断线，请重新连接此地址':'TURN 中继已连接')},
+      disconnected:peer=>{if(['turn','p2p','prelay'].includes(this.winner.get(peer)??''))this.winner.delete(peer)},
+      stage:(status,detail)=>this.stage('turn',status,detail),
+      state:(status,address,detail)=>{if(!this.isHost)this.state('turn',status,address,detail)},
+      signal:(type,data,to)=>this.sendSignal(type,data,to),log:deps.netLog,
+      mapping:peer=>this.lastMappings.get(peer),template:peer=>({profile:this.policy(peer).profile,params:this.policy(peer).params})})
   }
-
-  // ---- 状态 ----
-
-  baseURL(): string {
-    return this.deps.baseURL()
+  private policy(peer:string):PunchRounds {let p=this.rounds.get(peer);if(!p){p=new PunchRounds(message=>this.deps.netLog('info',message));this.rounds.set(peer,p)}return p}
+  private stopPeerPunching(peer:string,keep?:Link,keepTcp?:string):void {
+    for(const key of this.tcp.keys())if((key===peer||key.startsWith(peer+':direct:'))&&key!==keepTcp)this.cancelTcp(key)
+    for(const[id,link]of this.links)if(link.peer===peer&&link!==keep)this.drop(id)
   }
-
-  snapshotRoom(): RoomInfo | null {
-    return this.room ? { ...this.room } : null
-  }
-
-  setState(state: AppState['state'], code: string, token: string, isHost: boolean, room: RoomInfo | null, s: VoxlinkSession | null): void {
-    this.state = state
-    this.code = code
-    this.token = token
-    this.isHost = isHost
-    this.room = room
-    this.session = s
-  }
-
-  currentHostPort(): number { return this.hostPort }
-
-  // ---- 信令发送 ----
-
-  async sendSignal(type: string, data: Record<string, unknown>, to: string): Promise<void> {
-    if (!this.code || !this.token) throw new Error('会话未绑定')
-    await this.deps.api.post(this.baseURL(), '/signal/send', {
-      code: this.code,
-      token: this.token,
-      isHost: this.isHost,
-      type,
-      data,
-      to
-    }, null)
-  }
-
-  // ---- 信令分发 ----
-
-  onSignal(type: string, from: string, data: Record<string, unknown>): void {
-    if (!ENGINE_SIGNALS.has(type)) return
-    if (!this.session || this.session.isDone()) return
-    switch (type) {
-      case 'join_request':
-        if (this.isHost) void this.hostOnJoinRequest(from, data)
-        break
-      case 'holepunch_offer':
-        if (!this.isHost) void this.guestOnOffer(from, data)
-        break
-      case 'holepunch_mapped':
-        if (!this.isHost) void this.guestOnMapped(data)
-        break
-      case 'punch_info':
-        if (this.isHost) void this.hostOnPunchInfo(from, data)
-        break
-      case 'peer_port':
-        this.onPeerPort(data)
-        break
-      case 'disconnect':
-        this.onPeerDisconnect(from)
-        break
-      case 'relay_request':
-        if (this.isHost) void this.hostOnRelayRequest(from, data)
-        break
-      case 'relay_notify':
-        if (!this.isHost) this.guestOnRelayNotify(from, data)
-        break
-      case 'relay_declined':
-        if (!this.isHost) this.guestRelayFail('房主或中继者拒绝了中继请求')
-        break
-      case 'relay_setup':
-        if (!this.isHost) void this.guestOnRelaySetup(from, data)
-        break
-      case 'relay_accept':
-        this.deps.netLog('info', '中继节点已接受')
-        break
-      case 'relay_ready':
-        this.deps.netLog('info', '房客中继就绪')
-        break
-    }
-  }
-
-  // ---- guest：p2p 打洞 ----
-
-  private beginGuestCycle(): { gen: number; ok: boolean } {
-    if (this.gActive || this.gP2PDone) return { gen: this.gCycle, ok: false }
-    this.gActive = true
-    this.gCycle += 1
-    return { gen: this.gCycle, ok: true }
-  }
-
-  private endGuestCycle(): void {
-    this.gActive = false
-  }
-
-  private genValid(gen: number): boolean {
-    return this.session !== null && gen === this.gCycle
-  }
-
-  private async guestOnOffer(_from: string, data: Record<string, unknown>): Promise<void> {
-    const { gen, ok } = this.beginGuestCycle()
-    if (!ok) {
-      this.deps.netLog('warn', '忽略重复/迟到的 holepunch_offer（周期进行中或已连通）')
-      return
-    }
-    this.gOffer = { ...data }
-    if (typeof data.hostIp === 'string' && data.hostIp) this.hostIp = data.hostIp
-    if (typeof data.hostPort === 'number' && data.hostPort > 0) this.hostPort = data.hostPort
-    if (typeof data.hostMappedIp === 'string' && data.hostMappedIp && typeof data.hostMappedPort === 'number' && data.hostMappedPort > 0) {
-      this.gMapped = { ip: data.hostMappedIp, port: data.hostMappedPort }
-    }
-    if (typeof data.hostMappedPortDelta === 'number') this.gMappedDelta = data.hostMappedPortDelta
-    const offer = { ...data }
-    await this.guestPunchFlow(gen, offer)
-  }
-
-  private async guestPunchFlow(gen: number, offer: Record<string, unknown>): Promise<void> {
-    try { await this._guestPunchFlow(gen, offer) } finally { this.endGuestCycle() }
-  }
-
-  private async _guestPunchFlow(gen: number, offer: Record<string, unknown>): Promise<void> {
-    const sock = dgram.createSocket('udp4')
-    await new Promise<void>((resolve, reject) => {
-      sock.once('error', reject)
-      sock.bind(0, '0.0.0.0', () => {
-        sock.removeListener('error', reject)
-        resolve()
+  private cancelTcp(id:string):void { const old=this.tcp.get(id);this.tcp.delete(id);old?.controller.abort();old?.stop?.() }
+  private async runDirect(ip:string,port:number):Promise<void>{
+    if(this.isHost||this.mode!=='p2p'||this.winner.has('host')||!net.isIP(ip)||!Number.isInteger(port)||port<1||port>65535)return
+    const id=`host:direct:${ip}:${port}`;if(this.tcp.has(id))return
+    const controller=new AbortController(),operation:{controller:AbortController;stop?:()=>void}={controller},epoch=this.generation
+    this.tcp.set(id,operation)
+    const socket=new net.Socket(),abort=()=>socket.destroy();controller.signal.addEventListener('abort',abort,{once:true})
+    const valid=()=>epoch===this.generation&&this.tcp.get(id)===operation&&this.mode==='p2p'&&!this.winner.has('host')
+    try{
+      await new Promise<void>((resolve,reject)=>{
+        const timer=setTimeout(()=>{socket.destroy();reject(new Error('直连未命中'))},5000) // ConnectionManager.java: TCP_CONNECT_TIMEOUT_MS.
+        socket.once('error',reject);socket.once('close',()=>{clearTimeout(timer);reject(new Error('直连已关闭'))})
+        socket.connect(port,ip,()=>{clearTimeout(timer);resolve()})
       })
-    })
-
-    let mine: StunMappedAddr | null = null
-    this.emitStage('stun', 'active', '正在通过 STUN 探测本机 NAT 映射…')
+      if(!valid()){socket.destroy();return}
+      const bridge=await bridgePunchedSocket(socket,null,()=>{
+        if(this.tcp.get(id)!==operation)return
+        this.tcp.delete(id);controller.abort()
+        if(this.winner.get('host')===id){this.winner.delete('host');this.state('p2p','failed','','游戏通路已关闭');this.reconnect()}
+      })
+      if(!valid()){bridge.stop();return}
+      operation.stop=bridge.stop;this.winner.set('host',id);this.stopPeerPunching('host',undefined,id)
+      this.state('p2p','success',bridge.address,'连接成功，请在游戏中输入下方地址');this.stage('punch','ok','直连游戏地址已就绪')
+    }catch{socket.destroy()}finally{if(!operation.stop&&this.tcp.get(id)===operation){this.tcp.delete(id);controller.abort();this.reconnect()}}
+  }
+  private reconnect(firewall=false):void {
+    if(this.isHost||!this.session||this.reconnectPending||this.mode!=='p2p'||this.winner.has('host'))return
+    if([...this.links.values()].some(l=>l.peer==='host'&&l.started))return
+    if([...this.tcp.entries()].some(([key,value])=>(key==='host'||key.startsWith('host:direct:'))&&!value.stop))return
+    const policy=this.policy('host'),wait=policy.advance(firewall)
+    if(policy.terminal){this.state('p2p','failed','','未收到对方的网络回应。可手动使用 TURN 中继，或退出后重新加入');void this.sendSignal('cancel_connection',{},'host').catch(()=>{});return}
+    this.reconnectPending=true
+    this.state('p2p','trying','',`正在重新协商连接 · 第 ${policy.round+1} 轮`)
+    this.later(()=>{
+      this.reconnectPending=false
+      if(this.mode!=='p2p'||this.winner.has('host'))return
+      // launcher-integration.md §7.5: server injects join_request on /room/join.
+      // Never invent a client join_request timer. Rejoin also refreshes credentials/auth.
+      void this.deps.rejoin?.().catch(error=>{this.deps.netLog('warn',error.message);this.reconnect()})
+    },wait)
+  }
+  private async runTcp(id:string,ip:string,port:number):Promise<void> {
+    if(this.tcp.has(id)||this.winner.has(id)||this.turn.hasPeer(id)||!this.isHost&&this.mode!=='p2p')return
+    const controller=new AbortController(), operation:{controller:AbortController;stop?:()=>void}={controller};this.tcp.set(id,operation)
+    const epoch=this.generation
     try {
-      const samples = await stunSampleSeries(sock, STUN_SERVERS, 3, 2, 1500)
-      if (samples.length > 0) mine = samples[0]!
-    } catch {
-      this.deps.netLog('warn', 'STUN 探测全部失败，punch_info 不带映射地址')
-    }
-    if (mine) this.emitStage('stun', 'ok', 'NAT 映射探测完成')
-    else this.emitStage('stun', 'degraded', 'STUN 探测失败，将按房主公告地址直接打洞')
-
-    const punchData: Record<string, unknown> = {}
-    if (mine) {
-      punchData.joinerMappedIp = mine.ip
-      punchData.joinerMappedPort = mine.port
-    }
-    const lip = getLocalIP()
-    if (lip) punchData.joinerLocalIp = lip
-    try { await this.sendSignal('punch_info', punchData, 'host') } catch (e) {
-      this.deps.netLog('warn', `发送 punch_info 失败: ${(e as Error).message}`)
-    }
-
-    // 齐射时刻：host 墙钟+3000（容忍时钟差，最多等 5s）
-    let startAt = Date.now()
-    if (typeof offer.punchSyncTimeMs === 'number' && offer.punchSyncTimeMs > 0) {
-      const d = offer.punchSyncTimeMs - Date.now()
-      if (d > 0 && d <= PUNCH_SYNC_MAX_WAIT_MS) startAt = offer.punchSyncTimeMs
-      else if (d > PUNCH_SYNC_MAX_WAIT_MS) this.deps.netLog('warn', `punchSyncTimeMs 时钟偏差过大（${d}ms），忽略齐射同步`)
-    }
-
-    // 等 holepunch_mapped（齐射时刻前；offer 已带 mapped 则到点即走）
-    let waitDur = startAt - Date.now()
-    if (waitDur < 0) waitDur = 0
-    if (waitDur > OFFER_WAIT_MAPPED_MAX_MS) waitDur = OFFER_WAIT_MAPPED_MAX_MS
-    let hostMapped: StunMappedAddr | null = null
-    if (this.gMappedCh.length > 0) hostMapped = this.gMappedCh.shift()!
-    if (!hostMapped && waitDur > 0) {
-      await new Promise<void>((resolve) => {
-        const t = setTimeout(resolve, waitDur)
-        const onMapped = (): void => { clearTimeout(t); resolve() }
-        this.once('mapped', onMapped)
-        if (this.gMappedCh.length > 0) { clearTimeout(t); onMapped() }
+      const socket=await tcpSimOpen(ip,port,this.isHost,controller.signal)
+      controller.signal.addEventListener('abort',()=>socket.destroy(),{once:true})
+      if(epoch!==this.generation||this.tcp.get(id)!==operation||this.winner.has(id)||this.turn.hasPeer(id)||!this.isHost&&this.mode!=='p2p'){socket.destroy();return}
+      const bridge=await bridgePunchedSocket(socket,this.isHost?this.hostPort:null,()=>{
+        if(this.tcp.get(id)!==operation)return
+        this.tcp.delete(id);this.winner.delete(id);controller.abort()
+        if(!this.isHost){this.state('p2p','failed','','TCP 游戏通路已关闭');this.reconnect()}
       })
-      if (this.gMappedCh.length > 0) hostMapped = this.gMappedCh.shift()!
-    }
-    if (!hostMapped) hostMapped = this.gMapped
-
-    // 目标选择
-    let target: RudpTarget | null = null
-    let predBase = 0, predDelta = 0
-    const hostIp = this.hostIp, hostPort = this.hostPort
-    const delta = this.gMappedDelta
-    if (hostMapped) {
-      target = { address: hostMapped.ip, port: hostMapped.port }
-      predBase = hostMapped.port
-      predDelta = delta
-    } else if (hostIp && hostPort > 0) {
-      target = { address: hostIp, port: hostPort }
-    } else {
-      try { sock.close() } catch { /* ignore */ }
-      this.deps.netLog('error', 'holepunch_offer 缺少可用目标地址')
-      this.emitConnState(PHASE_P2P, STATUS_FAILED, '', '缺少打洞目标地址')
-      return
-    }
-
-    const punchOnPeer = (addr: { address: string; port: number }): void => {
-      void this.sendSignal('peer_port', { peer_ip: addr.address, peer_port: addr.port }, 'host')
-    }
-
-    this.gPunchSock = sock
-    this.emitStage('punch', 'active', 'UDP 打洞进行中（通常几秒，持续约 20 秒未成功会出现手动后备）')
-
-    let predictStep = predDelta
-    if (predictStep === 0) predictStep = 1
-    if (predictStep < 0) predictStep = -predictStep
-
-    let cycle = 0
-    while (true) {
-      if (!this.genValid(gen)) { try { sock.close() } catch { /* ignore */ }; return }
-      if (this.gP2PDone) { try { sock.close() } catch { /* ignore */ }; return }
-
-      let curTarget: RudpTarget = target
-      let curMapped = this.gMapped
-      let curDelta = this.gMappedDelta
-      if (curMapped) {
-        curTarget = { address: curMapped.ip, port: curMapped.port }
-        predBase = curMapped.port
-        predDelta = curDelta
+      if(epoch!==this.generation||this.tcp.get(id)!==operation||this.winner.has(id)||this.turn.hasPeer(id)||!this.isHost&&this.mode!=='p2p'){bridge.stop();return}
+      operation.stop=bridge.stop;this.winner.set(id,'tcp');for(const[key,link]of this.links)if(link.peer===id)this.drop(key)
+      this.stage(this.isHost?'host_punch':'punch','ok','TCP 同时打开通路已建立')
+      if(!this.isHost){this.turn.stop();this.state('p2p','success',bridge.address,'TCP 打洞已连接')}
+    }catch(error){if(!controller.signal.aborted&&epoch===this.generation)this.deps.netLog('info',`TCP 辅助打洞未命中：${(error as Error).message}`)}
+    finally{if(!operation.stop&&this.tcp.get(id)===operation){this.tcp.delete(id);controller.abort();if(!this.isHost)this.reconnect()}}
+  }
+  baseURL():string{return this.deps.baseURL()}
+  canRetry():boolean{return this.mode==='p2p'&&!this.winner.has('host')&&!!this.session}
+  snapshotRoom():RoomInfo|null{return this.room}
+  currentHostPort():number{return this.hostPort}
+  setState(_state:AppState['state'],code:string,token:string,isHost:boolean,room:RoomInfo|null,session:VoxlinkSession|null):void{this.code=code;this.token=token;this.isHost=isHost;this.room=room;this.session=session;this.hostPort=room?.hostPort??0;this.hostIp=room?.hostIp??''}
+  private later(callback:()=>void,ms:number):void{const epoch=this.generation;const timer=setTimeout(()=>{this.timers.delete(timer);if(epoch===this.generation&&this.session)callback()},ms);this.timers.add(timer)}
+  private state(phase:string,status:string,address:string,detail:string):void{if(!this.session)return;if(this.lastConnection?.phase!==phase||status==='trying'&&this.lastConnection.status!=='trying')this.stages={};this.lastConnection={phase,status,address:status==='success'?address:'',detail};this.deps.emit('conn:state',this.lastConnection)}
+  private stage(key:string,status:string,detail:string):void{if(!this.session)return;const item={key,status,detail,ts:Date.now()};this.stages[key]=item;this.deps.emit('stage',item)}
+  beginFallbackTimer():void{if(!this.joinedAt)this.joinedAt=Date.now();if(this.isHost)return;this.state('p2p','trying','','正在与房主交换连接信息');this.later(()=>{if(this.mode==='p2p'&&!this.winner.has('host'))this.stage('turn','degraded','现在可由你选择使用 TURN 中继')},Math.max(0,20000-(Date.now()-this.joinedAt)))} // ConnectionManager.java: getPunchUiStartMs; UI TURN threshold 20s
+  async sendSignal(type:string,data:Data,to:string):Promise<void>{if(!this.session||this.session.isDone())throw new Error('房间已退出');await this.session.request('/signal/send',{type,data,...(to?{to}:{})})}
+  private drop(id:string):void {
+    const link=this.links.get(id);if(!link)return
+    this.links.delete(id);link.controller.abort();clearTimeout(link.timer)
+    link.punch.stop();for(const punch of link.punchers)punch.stop()
+    link.bridge?.stop();link.rudp?.close();for(const socket of link.sockets)try{socket.close()}catch{}
+  }
+  private alive(id:string,link:Link):boolean {
+    return this.links.get(id)===link&&!link.controller.signal.aborted&&!!this.session&&!this.winner.has(link.peer)&&!this.turnChoices.has(link.peer)&&!this.turn.hasPeer(link.peer)&&(this.isHost||this.mode==='p2p'||link.peer==='relay')
+  }
+  private async prepare(id:string,auth:Buffer|null,peer=id,reverse=false,probe=true):Promise<Link>{
+    const epoch=this.generation,socket=await punchListen(this.isHost&&!reverse?this.hostPort:0)
+    if(epoch!==this.generation||!this.session){socket.close();throw new Error('房间已退出')}
+    const punch=new Puncher({conn:socket,authKey:auth})
+    const link:Link={socket,punch,mapped:{ip:'',port:0},delta:0,auth,sockets:[socket],punchers:[],samples:[],nat:'UNKNOWN',peer,reverse,ports:[],controller:new AbortController()}
+    this.drop(id);this.links.set(id,link)
+    if(!probe)return link // ConnectionManager.java: joiner_extra creates a socket without STUN.
+    try{
+      const samples=await stunSampleSeries(socket,STUN_SERVERS,2,1,1000,link.controller.signal) // ConnectionManager.java: dual STUN, PROBE_SOCKET_TIMEOUT_MS
+      if(!this.alive(id,link))throw new Error('连接已取消')
+      if(!samples.length)throw new Error('暂未探测到公网映射，将继续尝试；也可手动使用中继')
+      link.samples=samples;link.mapped=samples[samples.length-1];link.delta=stunDeltaFromSamples(samples)
+      link.nat=samples.length<2?'UNKNOWN':link.delta===0?'CONE':Math.abs(link.delta)<=100?'EASY_SYM':'HARD_SYM' // ConnectionManager.java: hostEasySym <=100
+      if(symmetric(link.nat)){
+        // ConnectionManager.java: handleJoinRequest P-PRE sampling 10 ×100ms.
+        const extra=await samplePortsSequential(socket,STUN_SERVERS,10,100,link.controller.signal)
+        if(extra.length>=5){link.delta=Math.max(1,deltaPredict(extra.map(a=>a.port))-extra[extra.length-1].port);link.samples=extra} // ConnectionManager.java: P-PRE / calculatePortDelta (trimmed EMA, minimum 1); does not shift the STUN endpoint.
       }
-
-      if (cycle > 0 && cycle % PUNCH_CYCLE_ROT_EVERY === 0) {
-        if ((cycle / PUNCH_CYCLE_ROT_EVERY) % 2 === 1) {
-          if (predictStep > 1) predictStep -= 1
-        } else {
-          if (predictStep < 64) predictStep += 1
+      if(!this.alive(id,link))throw new Error('连接已取消')
+      return link
+    }catch(error){if(this.links.get(id)===link)this.drop(id);throw error}
+  }
+  private async addSockets(id:string,link:Link,count:number,stun:boolean):Promise<StunMappedAddr[]>{
+    const profile=this.policy(link.peer).profile,queries:Promise<StunMappedAddr|null>[]=[]
+    for(let i=link.sockets.length;i<count&&this.alive(id,link);i++){
+      try{
+        const socket=await punchListen(0)
+        if(!this.alive(id,link)){socket.close();break}
+        link.sockets.push(socket)
+        if(stun)queries.push(stunSampleSeries(socket,STUN_SERVERS,profile.socketStunCount,1,1000,link.controller.signal).then(samples=>{
+          const delta=stunDeltaFromSamples(samples)
+          if(samples.length>=2&&delta!==0){link.nat=Math.abs(delta)<=100?'EASY_SYM':'HARD_SYM';link.delta=delta} // ConnectionManager.java: multi-socket dual STUN upgrade, threshold 100.
+          return samples[0]??null
+        }))
+      }catch{/* ConnectionManager.java: tolerate individual socket allocation failures */}
+      if(stun&&profile.socketCreateIntervalMs)await delay(profile.socketCreateIntervalMs,undefined,{signal:link.controller.signal})
+    }
+    return [link.mapped,...(await Promise.all(queries)).filter((a):a is StunMappedAddr=>!!a)]
+  }
+  private async connect(id:string,link:Link,remote:StunMappedAddr,data:Data={},relay=false):Promise<void>{
+    if(!this.alive(id,link))return
+    link.remote=remote;for(const punch of link.punchers)punch.setTarget({address:remote.ip,port:remote.port})
+    this.lastMappings.set(link.peer,{local:{address:link.mapped.ip,port:link.mapped.port},remote:{address:remote.ip,port:remote.port}})
+    if(link.started)return
+    link.started=true;clearTimeout(link.timer)
+    const policy=this.policy(link.peer),prefix=this.isHost?'joiner':'host'
+    const remoteNat:NatClass=data[`${prefix}Symmetric`]===true?(data[`${prefix}EasySym`]===true?'EASY_SYM':'HARD_SYM'):'CONE'
+    policy.classify(link.nat,remoteNat,link.samples.length)
+    this.reportNat(link.nat,remoteNat,link.peer)
+    let profile=policy.profile,params={...(policy.params??fromProfile(profile))}
+    const epoch=this.generation
+    let both=symmetric(link.nat)&&symmetric(remoteNat)
+    let count=1,range=profile.defaultPortRange,mode:PuncherOptions['mode']='prediction',fixedRange=false,ports:number[]=[]
+    if(data.mappedExtra===true){range=profile.joinerMultiPortRange}
+    else if(link.reverse){
+      fixedRange=true
+      if(!this.isHost&&symmetric(link.nat)){
+        // ConnectionManager.java: startReversePunch -> startBirthdayPunch.
+        count=link.nat==='EASY_SYM'?profile.birthdaySocketCount:profile.hardSymSocketCount
+        range=link.nat==='EASY_SYM'?profile.easySymPortRange:symmetric(remoteNat)?profile.defaultPortRange:profile.minPortRange
+      }else if(this.isHost){
+        const advertised=Array.isArray(data.joinerMappedPorts)?data.joinerMappedPorts.map(Number).filter(p=>Number.isInteger(p)&&p>0&&p<=65535):[]
+        range=both?0:symmetric(remoteNat)?profile.widePortRange:profile.defaultPortRange
+        if(symmetric(link.nat)&&Math.abs(link.delta)>range)range=Math.min(Math.abs(link.delta)*2,profile.maxPortRange) // ConnectionManager.java: host reverse drift window
+        params.timeoutMs=Math.max(params.timeoutMs,12000) // ConnectionManager.java: hostRevParams
+        if(advertised.length>1){const expanded=new Set<number>();for(const p of advertised)for(let n=-profile.defaultPortRange;n<=profile.defaultPortRange;n++)if(p+n>0&&p+n<=65535)expanded.add(p+n);ports=[...expanded];mode='ports'}
+      }else{range=profile.portPredictionMaxRange;params.timeoutMs=Math.max(params.timeoutMs,15000)} // ConnectionManager.java: simpleRevParams
+    }else if(this.isHost){
+      count=symmetric(link.nat)?profile.hardSymSocketCount:profile.hostMultiSocketCount
+      range=symmetric(remoteNat)?profile.joinerMultiPortRange:0
+      params.timeoutMs=Math.min(params.timeoutMs,profile.hostRoundTimeoutMs)
+      if(range>0){params.sendMinRounds=1;params.sendMinPass=1} // ConnectionManager.java: host roundParams
+    }else if(link.nat==='EASY_SYM'&&remoteNat==='EASY_SYM'){
+      count=policy.round>0?profile.easySymMutualRetrySocketCount:profile.easySymMutualSocketCount;mode='group';params.easySymBomb=true
+    }else{
+      if(symmetric(link.nat)){count=symmetric(remoteNat)?profile.hardSymSocketCount:profile.joinerSymSocketCount;mode='group'}
+      range=symmetric(link.nat)&&remoteNat==='CONE'?0:symmetric(remoteNat)?Math.max(Number(data.hostMappedPortRange)||profile.widePortRange,profile.maxPortRange):policy.cycle===0?profile.defaultPortRange:policy.cycle===1?profile.widePortRange:profile.maxPortRange
+    }
+    this.stage(this.isHost?'host_punch':relay?'relay':'punch','active',`正在建立${link.reverse?'反向':'直连'}通路 · 第 ${policy.round+1} 轮`)
+    try{
+      const mappings=await this.addSockets(id,link,count,this.isHost||link.reverse)
+      if(this.isHost&&!link.reverse&&symmetric(link.nat)){
+        // ConnectionManager.java: extend host group to HARDSYM.hardSymSocketCount after dual-STUN upgrade.
+        await this.addSockets(id,link,profile.hardSymSocketCount,false)
+        policy.classify(link.nat,remoteNat,link.samples.length);profile=policy.profile;params=fromProfile(profile)
+        params.timeoutMs=Math.min(params.timeoutMs,profile.hostRoundTimeoutMs);if(range>0){params.sendMinRounds=1;params.sendMinPass=1}
+        both=symmetric(remoteNat)
+      }
+      if(!this.alive(id,link))return
+      if(link.reverse&&!this.isHost){await this.sendSignal('reverse_holepunch_offer',{...this.mapping(link,'joiner'),joinerMappedPorts:mappings.map(a=>a.port)},'host')}
+      if(this.isHost)await this.sendSignal(link.reverse?'reverse_punch_info':'holepunch_mapped',{...this.mapping(link,'host'),hostMappedPorts:mappings.map(a=>a.port)},link.peer)
+      if(!this.alive(id,link))return
+      // Host uses independent prediction punchers; guest symmetric uses one group with shared PPS budget.
+      const groups=mode==='group'?[link.sockets]:link.sockets.map(socket=>[socket])
+      link.punchers=groups.map(sockets=>{
+        const punch=new Puncher({conn:sockets[0],sockets,authKey:link.auth,profile,params,mode,range,fixedRange,skipFirewall:both||symmetric(link.nat)||symmetric(remoteNat),sweepSpread:both?profile.joinerMultiPortRange:0})
+        punch.setTarget({address:remote.ip,port:remote.port});if(ports.length)punch.setPredictedPorts(ports)
+        punch.setOnPeer(addr=>{policy.receivedEver=true;void this.sendSignal('peer_port',{peer_ip:addr.address,peer_port:addr.port},link.peer).catch(()=>{})})
+        punch.start();return punch
+      })
+      const hostDeadline=Date.now()+120000 // ConnectionManager.java: punchGroupDeadline, per host group (not session deadline).
+      let won:{punch:Puncher;target:{address:string;port:number}}
+      while(true){
+        try{won=await Promise.any(link.punchers.map(async punch=>({punch,target:await punch.wait()})));break}
+        catch(error){
+          if(!this.isHost||link.reverse||!this.alive(id,link)||Date.now()>=hostDeadline)throw error
+          for(const failure of error instanceof AggregateError?error.errors:[error])if(failure instanceof PunchFailure)policy.record(failure.result)
+          if(policy.terminal)throw error
+          await delay(300,undefined,{signal:link.controller.signal}) // ConnectionManager.java: host round sleep 300ms.
+          if(symmetric(link.nat))void this.sendSignal('holepunch_mapped',{...this.mapping(link,'host'),hostMappedPorts:mappings.map(a=>a.port)},link.peer).catch(()=>{})
+          link.punchers=groups.map(sockets=>{
+            const punch=new Puncher({conn:sockets[0],sockets,authKey:link.auth,profile,params,mode,range,fixedRange,skipFirewall:both||symmetric(link.nat)||symmetric(remoteNat)})
+            const current=link.remote??remote;punch.setTarget({address:current.ip,port:current.port})
+            punch.setOnPeer(()=>{policy.receivedEver=true});punch.start();return punch
+          })
         }
       }
-
-      const p = new Puncher({ conn: sock, timeoutMs: PUNCH_MAX_WAIT_BEFORE_TX_MS })
-      p.setTarget(curTarget)
-      if (predDelta !== 0) p.setPredictedPorts(predictedPortsAround(predBase, predictStep))
-      p.setOnPeer(punchOnPeer)
-      this.gPuncher = p
-
-      // 等齐射
-      if (cycle === 0) {
-        const d = startAt - Date.now()
-        if (d > 0) await new Promise<void>((resolve) => setTimeout(resolve, d))
+      if(epoch!==this.generation||!this.alive(id,link))return
+      this.winner.set(link.peer,id);this.stopPeerPunching(link.peer,link)
+      for(const punch of link.punchers)punch.stop()
+      link.punch=won.punch;link.socket=won.punch.conn
+      for(const socket of link.sockets)if(socket!==link.socket)try{socket.close()}catch{}
+      link.sockets=[link.socket]
+      const rc=link.rudp=new RudpConn(link.socket,won.target,{authKey:link.auth});rc.start()
+      if(this.isHost){rc.once('closed',()=>{if(this.links.get(id)===link){this.winner.delete(link.peer);this.drop(id)}});void startHostLazyBridge(rc,this.hostPort,this.deps.netLog).catch(error=>this.deps.netLog('warn',error.message));this.stage('host_punch','ok','玩家通路已建立，等待游戏连接')}
+      else{
+        const result=await TcpBridge.startGuest(rc,()=>{if(this.links.get(id)===link){this.winner.delete(link.peer);this.drop(id);this.state(relay?'prelay':'p2p','failed','','游戏通路已关闭');this.reconnect()}})
+        if(epoch!==this.generation||this.links.get(id)!==link){result.bridge.stop();return}
+        link.bridge=result.bridge;this.turn.stop();this.relayPending=false
+        this.state(relay?'prelay':'p2p','success',result.addr,relay?'玩家中继已连接':'连接成功，请在游戏中输入下方地址')
+        this.stage(relay?'relay':'punch','ok','游戏地址已就绪');void this.sendSignal('connected',{},'host').catch(error=>this.deps.netLog('warn',error.message))
       }
-      if (!this.genValid(gen)) { p.stop(); try { sock.close() } catch { /* ignore */ }; return }
-      p.start()
-      let actual: { address: string; port: number }
-      try {
-        actual = await p.wait()
-      } catch {
-        this.gPuncher = null
-        p.stop()
-        cycle += 1
-        this.emitStage('punch', 'retry', `第 ${cycle} 轮打洞未命中，调整端口预测继续尝试`)
-        await new Promise<void>((resolve) => setTimeout(resolve, PUNCH_CYCLE_INTERVAL_MS))
-        continue
+    }catch(error){
+      if(epoch!==this.generation||this.links.get(id)!==link)return
+      const failures=error instanceof AggregateError?error.errors:[error]
+      for(const failure of failures)if(failure instanceof PunchFailure)policy.record(failure.result)
+      this.winner.delete(link.peer);this.drop(id)
+      this.stage(this.isHost?'host_punch':relay?'relay':'punch','retry',policy.terminal?'未收到对方回应，可手动选择中继':'本轮未连通，继续尝试')
+      if(!this.isHost&&!relay){
+        // ConnectionManager.java: Wave 2 follows a UDP failure; direct TCP never selects TURN.
+        const direct=this.runDirect(this.hostIp,this.hostPort)
+        if(link.remote)void this.runDirect(link.remote.ip,this.hostPort||link.remote.port)
+        if(!this.tcp.has('host')){const port=await chooseTcpPunchPort();if(this.canRetry())void this.sendSignal('tcp_punch_info',{tcpPunchIp:link.mapped.ip,tcpPunchPort:port},'host').catch(()=>{})}
+        await direct
+        if(epoch===this.generation)this.reconnect(failures.some(e=>e instanceof PunchFailure&&e.result.firewallDetected))
       }
-
-      if (!this.genValid(gen)) { try { sock.close() } catch { /* ignore */ }; return }
-      if (this.gP2PDone) { try { sock.close() } catch { /* ignore */ }; return }
-
-      const rc = new RudpConn(sock!, actual)
-      rc.start()
-      let guestBridge: TcpBridge | null = null
-      let localAddr = ''
-      try {
-        const started = await TcpBridge.startGuest(rc, () => this.guestBridgeDown())
-        guestBridge = started.bridge
-        localAddr = started.addr
-      } catch (e) {
-        rc.close()
-        this.emitConnState(PHASE_P2P, STATUS_FAILED, '', `本地桥建立失败：${(e as Error).message}`)
+    }
+  }
+  private mapping(link:Link,prefix:string):Data{
+    // ConnectionManager.java: handleJoinRequest symOrUnknown. A single STUN
+    // observation must not advertise a confirmed cone host to the joining peer.
+    return{[`${prefix}MappedIp`]:link.mapped.ip,[`${prefix}MappedPort`]:link.mapped.port,[`${prefix}MappedPortDelta`]:link.delta,[`${prefix}MappedPortRange`]:predict(link.samples.map(a=>a.port)).range,[`${prefix}Symmetric`]:symmetric(link.nat)||prefix==='host'&&link.nat==='UNKNOWN',[`${prefix}EasySym`]:link.nat==='EASY_SYM'}
+  }
+  private async hostOffer(from:string,data:Data={}):Promise<void>{
+    if(this.creating.has(from)||this.links.get(from)?.started||this.winner.has(from)||this.turnChoices.has(from)||this.turn.hasPeer(from))return
+    this.creating.add(from)
+    try{
+      this.stage('host_stun','active','正在探测网络')
+      const caps=Array.isArray(data.clientCapabilities)?data.clientCapabilities:Array.isArray(data.capabilities)?data.capabilities:[]
+      const link=await this.prepare(from,caps.includes('punchAuthV1')||data.punchAuthV1===true?derivePunchKey(this.code,from):null)
+      if(!this.alive(from,link))return
+      const addresses=Object.values(networkInterfaces()).flat().filter(a=>a&&!a.internal)
+      await this.sendSignal('holepunch_offer',{hostIp:this.hostIp,hostPort:this.hostPort,hostLocalIp:addresses.find(a=>a?.family==='IPv4')?.address,hostIpv6:addresses.find(a=>a?.family==='IPv6'&&!a.address.startsWith('fe80:'))?.address,...this.mapping(link,'host'),punchAuthV1:!!link.auth,punchSyncTimeMs:Date.now()+3000,punchSyncSentAtMs:Date.now()},from) // ConnectionManager.java: offer RTT sync 3000ms
+      this.stage('host_stun','ok','网络探测完成，等待玩家回应')
+    }finally{this.creating.delete(from)}
+  }
+  private async guestOffer(data:Data):Promise<void>{
+    if(this.creating.has('host')||this.links.get('host')?.started||this.winner.has('host')||this.mode!=='p2p')return
+    this.creating.add('host');this.stage('stun','active','正在探测网络')
+    try{
+      const auth=this.room?.hostCapabilities?.includes('punchAuthV1')?derivePunchKey(this.code,this.clientID):null
+      const link=await this.prepare('host',auth),policy=this.policy('host')
+      const remoteNat:NatClass=data.hostSymmetric===true?(data.hostEasySym===true?'EASY_SYM':'HARD_SYM'):'CONE'
+      policy.classify(link.nat,remoteNat,link.samples.length)
+      this.stage('stun','ok','网络探测完成')
+      const strategy=selectStrategy(link.nat,remoteNat,policy.cycle,false),target=endpoint(data,'hostMapped')
+      if(!target)throw new Error('房主网络地址尚未就绪')
+      this.tcpPeerIp=target.ip
+      // ConnectionManager.java: Wave 1 LAN/CGNAT and IPv6 race alongside UDP.
+      const localIp=String(data.hostLocalIp??''),ipv6=String(data.hostIpv6??'')
+      const sameLan=net.isIPv4(localIp)&&Object.values(networkInterfaces()).flat().some(a=>a?.family==='IPv4'&&a.address.split('.').slice(0,3).join('.')===localIp.split('.').slice(0,3).join('.')) // StunDetector.java: isSameLan /24.
+      if(sameLan||link.mapped.ip===target.ip)void this.runDirect(localIp,this.hostPort)
+      if(net.isIPv6(ipv6)&&Object.values(networkInterfaces()).flat().some(a=>a?.family==='IPv6'&&!a.internal&&!a.address.startsWith('fe80:')))void this.runDirect(ipv6,this.hostPort)
+      // ConnectionManager.java: Wave 1 strategy dispatch, separate reverse sockets.
+      const reverse=policy.params?.skipDirectPunch||strategy==='REVERSE_ONLY'||strategy==='REVERSE_THEN_FORWARD'||strategy==='PARALLEL_FROM_START'||strategy==='REVERSE_FIRST'&&policy.cycle===0||strategy==='DIRECT_ONLY'&&policy.cycle===0||strategy==='DIRECT_WITH_REVERSE_PARALLEL'&&policy.cycle>=1||strategy==='RELAY_FALLBACK_FAST'&&policy.cycle>=1
+      if(reverse)void(async()=>{const r=await this.prepare('host:reverse',auth,'host',true);await this.connect('host:reverse',r,target,data)})().catch(e=>{if(this.mode==='p2p'){this.deps.netLog('warn',e.message);this.reconnect()}})
+      if(strategy!=='REVERSE_ONLY'&&!policy.params?.skipDirectPunch){
+        await this.sendSignal('punch_info',{...this.mapping(link,'joiner'),joinerOfferRecvMs:Date.now()},'host')
+        void this.connect('host',link,target,data)
+      }else this.drop('host')
+      if(policy.cycle>=1){const port=await chooseTcpPunchPort();if(this.mode==='p2p'&&!this.winner.has('host'))await this.sendSignal('tcp_punch_info',{tcpPunchIp:link.mapped.ip,tcpPunchPort:port},'host')}
+    }catch(error){this.deps.netLog('warn',(error as Error).message);this.reconnect()}
+    finally{this.creating.delete('host')}
+  }
+  onSignal(type:string,from:string,data:Data):void{
+    if(!this.session||this.session.isDone())return
+    if(!this.acceptSignal(type,from))return
+    const run=async()=>{
+      if(type==='cancel_connection'||type==='disconnect'){
+        this.winner.delete(from);this.turnChoices.delete(from);this.stopPeerPunching(from);this.turn.peerLeft(from)
+        if(!this.isHost&&from==='host'){this.mode='direct';this.state('p2p','failed','','对方已结束连接，请退出后重新加入')}
         return
       }
-      if (this.gP2PDone) {
-        rc.close()
-        guestBridge.stop()
+      if(type.startsWith('turn_')){
+        if(type==='turn_alloc'&&this.isHost&&!this.winner.has(from)){this.turnChoices.add(from);this.stopPeerPunching(from)}
+        if(this.isHost||this.mode==='turn')await this.turn.onSignal(type,from,data)
         return
       }
-      // 修复：成功后释放打洞器的接收循环（原先从不 stop，500ms 轮询定时器泄漏）；
-      // socket 交由 rudp 接管，stop() 不再关闭 socket。
-      p.stop()
-      this.gPuncher = null
-      this.gPunchSock = null
-      this.gRudp = rc
-      this.gBridge = guestBridge
-      this.gP2PDone = true
-      this.deps.netLog('info', 'P2P 打洞成功，rudp 隧道已建立')
-      this.emitStage('punch', 'ok', 'UDP 打洞成功，数据隧道已建立')
-      const directAddr = `${hostIp}:${hostPort}`
-      this.emitConnState(PHASE_P2P, STATUS_SUCCESS, directAddr, `本地代理 ${localAddr}`)
-      return
-    }
-  }
-
-  private async guestOnMapped(data: Record<string, unknown>): Promise<void> {
-    const ip = typeof data.hostMappedIp === 'string' ? data.hostMappedIp : ''
-    const port = typeof data.hostMappedPort === 'number' ? data.hostMappedPort : 0
-    if (!ip || port <= 0) return
-    const m: StunMappedAddr = { ip, port }
-    this.gMapped = m
-    if (typeof data.hostMappedPortDelta === 'number') this.gMappedDelta = data.hostMappedPortDelta
-    const puncher = this.gPuncher
-    const d = this.gMappedDelta
-    this.gMappedCh.push(m)
-    this.emit('mapped', m)
-    if (puncher && d) {
-        puncher.setTarget({ address: ip, port })
-        puncher.setPredictedPorts(predictedPortsAround(port, d))
-    }
-  }
-
-  private onPeerPort(data: Record<string, unknown>): void {
-    const ip = typeof data.peer_ip === 'string' ? data.peer_ip : ''
-    const port = typeof data.peer_port === 'number' ? data.peer_port : 0
-    if (!ip || port <= 0) return
-    const addr = { address: ip, port }
-    if (this.gPuncher) this.gPuncher.setTarget(addr)
-  }
-
-  private guestBridgeDown(): void {
-    const rc = this.gRudp
-    const bridge = this.gBridge
-    this.gRudp = null
-    this.gBridge = null
-    this.gP2PDone = false
-    this.gActive = false
-    if (bridge) bridge.stop()
-    if (rc) try { rc.close() } catch { /* ignore */ }
-    this.deps.netLog('warn', 'MC 隧道已断开，将重新尝试打洞')
-  }
-
-  private onPeerDisconnect(from: string): void {
-    if (this.isHost) {
-      const p = this.hPeers.get(from)
-      this.hPeers.delete(from)
-      if (p) {
-        p.puncher?.stop()
-        if (p.rudp) try { p.rudp.close() } catch { /* ignore */ }
-        this.deps.netLog('info', '对端已断开')
+      if(!this.isHost&&this.mode==='turn'&&type==='relay_notify'){await this.turn.onSignal(type,from,data);return}
+      if(this.isHost&&type==='relay_accept'&&typeof data.forClientId==='string'){
+        const assignment=this.relayAssignments.get(data.forClientId)
+        if(!assignment||assignment.candidate!==from||Date.now()-assignment.at>20000)return
+        const relay=endpoint(data,'relay');if(!relay&&data.connected===false)return;await this.sendSignal('relay_notify',relay?{relayIp:relay.ip,relayPort:relay.port,connected:data.connected===true}:{connected:true},data.forClientId);return
       }
-      return
-    }
-    const rc = this.gRudp, bridge = this.gBridge, puncher = this.gPuncher
-    const sock = this.gPunchSock
-    this.gRudp = null
-    this.gBridge = null
-    this.gPunchSock = null
-    this.gP2PDone = false
-    this.gActive = false
-    if (puncher) puncher.stop()
-    // 修复：stop() 不再隐式关闭 socket，房主断开时要显式关闭打洞 socket
-    if (sock) try { sock.close() } catch { /* ignore */ }
-    if (bridge) bridge.stop()
-    if (rc) try { rc.close() } catch { /* ignore */ }
-    this.deps.netLog('warn', '房主已断开，将重新尝试打洞')
-  }
-
-  // ---- host：打洞应答与桥接 ----
-
-  private async hostOnJoinRequest(from: string, _data: Record<string, unknown>): Promise<void> {
-    const existing = this.hPeers.get(from)
-    if (existing && (existing.rudp || existing.puncher)) {
-      this.deps.netLog('warn', '忽略重复 join_request')
-      return
-    }
-    const peer: HostPeer = { id: from, puncher: null, rudp: null, mapped: null, hostMapped: null, hostDelta: 0 }
-    this.hPeers.set(from, peer)
-    const hostPort = this.hostPort
-    if (hostPort <= 0) {
-      this.deps.netLog('error', '收到 join_request 但缺少房间 hostPort')
-      this.dropHostPeer(peer)
-      return
-    }
-    await this.hostServeJoin(peer, hostPort)
-  }
-
-  private dropHostPeer(peer: HostPeer): void {
-    const cur = this.hPeers.get(peer.id)
-    if (cur === peer && !cur.rudp) this.hPeers.delete(peer.id)
-  }
-
-  private async hostServeJoin(peer: HostPeer, hostPort: number): Promise<void> {
-    const sock = await punchListen(hostPort)
-
-    this.emitStage('host_stun', 'active', '房主：正在通过 STUN 探测 NAT 映射…')
-    let hostMapped: StunMappedAddr | null = null
-    let hostDelta = 0
-    try {
-      const samples = await stunSampleSeries(sock, STUN_SERVERS, 2, 2, 1500)
-      if (samples.length > 0) hostMapped = samples[0]!
-      hostDelta = stunDeltaFromSamples(samples)
-    } catch { /* ignore */ }
-    this.emitStage('host_stun', hostMapped ? 'ok' : 'degraded', hostMapped ? '房主 NAT 映射探测完成' : '房主 STUN 探测失败，将在邀请中省略映射地址')
-
-    const offer: Record<string, unknown> = { hostPort }
-    if (this.hostIp) offer.hostIp = this.hostIp
-    const lip = getLocalIP()
-    if (lip) offer.hostLocalIp = lip
-    if (hostMapped) {
-      offer.hostMappedIp = hostMapped.ip
-      offer.hostMappedPort = hostMapped.port
-      if (hostDelta !== 0) offer.hostMappedPortDelta = hostDelta
-    }
-    peer.hostMapped = hostMapped
-    peer.hostDelta = hostDelta
-    offer.punchSyncTimeMs = Date.now() + 3_000
-
-    try {
-      await this.sendSignal('holepunch_offer', offer, peer.id)
-    } catch (e) {
-      this.deps.netLog('warn', `发送 holepunch_offer 失败: ${(e as Error).message}`)
-      try { sock.close() } catch { /* ignore */ }
-      this.dropHostPeer(peer)
-      return
-    }
-
-    const puncher = new Puncher({ conn: sock, timeoutMs: HOST_PUNCH_LIFETIME_MS })
-    puncher.setOnPeer((addr) => {
-      void this.sendSignal('peer_port', { peer_ip: addr.address, peer_port: addr.port }, peer.id)
-    })
-    peer.puncher = puncher
-    puncher.start()
-    this.deps.netLog('info', '已签发 holepunch_offer，等待房客穿透')
-    this.emitStage('host_punch', 'active', '已签发打洞邀请，等待与房客打通…')
-
-    let actual: { address: string; port: number }
-    try {
-      actual = await puncher.wait()
-    } catch {
-      try { sock.close() } catch { /* ignore */ }
-      const cur = this.hPeers.get(peer.id)
-      if (cur === peer && !cur.rudp) this.hPeers.delete(peer.id)
-      this.deps.netLog('warn', 'host 打洞未成功')
-      this.emitStage('host_punch', 'fail', '与房客打洞未成功，等待房客重试或改用后备方式')
-      return
-    }
-    // 成功后停止打洞接收循环；socket 交由 rudp 接管（stop 不再关闭 socket）
-    puncher.stop()
-    const rc = new RudpConn(sock!, actual)
-    rc.start()
-    const cur = this.hPeers.get(peer.id)
-    if (cur !== peer) { rc.close(); return }
-    peer.rudp = rc
-    this.deps.netLog('info', 'host 端 rudp 隧道已建立，等待 MC 握手')
-    this.emitStage('host_punch', 'ok', '房客数据隧道已建立')
-    void startHostLazyBridge(rc, this.hostPort, this.deps.netLog)
-  }
-
-  private async hostOnPunchInfo(from: string, data: Record<string, unknown>): Promise<void> {
-    const ip = typeof data.joinerMappedIp === 'string' ? data.joinerMappedIp : ''
-    const port = typeof data.joinerMappedPort === 'number' ? data.joinerMappedPort : 0
-    const peer = this.hPeers.get(from)
-    if (!peer) return
-    if (ip && port > 0) peer.mapped = { ip, port }
-
-    const mappedData: Record<string, unknown> = {}
-    if (peer.hostMapped) {
-      mappedData.hostMappedIp = peer.hostMapped.ip
-      mappedData.hostMappedPort = peer.hostMapped.port
-      mappedData.hostMappedPorts = [peer.hostMapped.port]
-      if (peer.hostDelta !== 0) mappedData.hostMappedPortDelta = peer.hostDelta
-    }
-    const lip = getLocalIP()
-    if (lip) mappedData.hostLocalIp = lip
-    try { await this.sendSignal('holepunch_mapped', mappedData, from) } catch (e) {
-      this.deps.netLog('warn', `发送 holepunch_mapped 失败: ${(e as Error).message}`)
-    }
-    if (peer.puncher && peer.mapped) peer.puncher.setTarget({ address: peer.mapped.ip, port: peer.mapped.port })
-  }
-
-  // ---- TryDirect 直连探测 ----
-
-  tryDirect(): { ok: boolean; err?: string } {
-    if (!this.session) return { ok: false, err: '当前没有房间会话' }
-    if (this.directMu) return { ok: false, err: '直连探测已在进行中' }
-    this.directMu = true
-    void (async (): Promise<void> => {
-      try {
-        this.emitConnState(PHASE_DIRECT, STATUS_TRYING, '', '')
-        const hostIp = this.hostIp, hostPort = this.hostPort
-        if (!hostIp || hostPort <= 0) {
-          this.deps.netLog('warn', '直连探测缺少目标')
-          this.emitConnState(PHASE_DIRECT, STATUS_FAILED, '', '缺少房主地址（尚未收到 holepunch_offer）')
-          return
-        }
-        const target = `${hostIp}:${hostPort}`
-        for (let i = 0; i < DIRECT_ATTEMPTS; i++) {
-          const ok2 = await this.tcpProbe(target, DIRECT_DIAL_TIMEOUT_MS)
-          if (ok2) {
-            this.deps.netLog('info', '直连探测成功')
-            this.emitConnState(PHASE_DIRECT, STATUS_SUCCESS, target, '')
-            return
-          }
-          this.deps.netLog('warn', '直连探测未通')
-          if (i < DIRECT_ATTEMPTS - 1) {
-            await new Promise<void>((r) => setTimeout(r, DIRECT_RETRY_INTERVAL_MS))
-            if (!this.session || this.session.isDone()) return
+      if(!this.isHost&&this.mode!=='p2p'&&!['relay_notify','relay_declined','relay_setup'].includes(type))return
+      if(this.isHost&&this.turnChoices.has(from)&&type!=='relay_request')return
+      if(this.winner.has(from)&&type!=='relay_setup'&&type!=='relay_request')return
+      if(type==='ice_restart'){
+        if(!this.isHost&&from!=='host')return
+        const previous=this.iceRestarts.get(from)||{count:0,at:0}
+        if(previous.count>=3||Date.now()-previous.at<5000)return
+        this.iceRestarts.set(from,{count:previous.count+1,at:Date.now()})
+        this.cancelTcp(from);this.drop(from);this.turn.peerLeft(from)
+        if(this.isHost)await this.hostOffer(from);else{this.state('p2p','trying','','对端请求重新建立连接');this.reconnect()}
+        return
+      }
+      if(type==='peer_port')return // Observed peer address is diagnostic, never our remote target.
+      if(this.isHost){
+        if(type==='tcp_punch_info'){
+          const target=endpoint(data,'tcpPunch')
+          if(target && target.port>=1024 && !this.tcp.has(from) && !this.links.get(from)?.rudp?.isConnected() && !this.turn.hasPeer(from)) {
+            const work=this.runTcp(from,target.ip,target.port)
+            await this.sendSignal('tcp_punch_go',{tcpPunchPort:target.port},from);void work
           }
         }
-        this.emitConnState(PHASE_DIRECT, STATUS_FAILED, '', '直连探测未通')
-      } finally {
-        this.directMu = false
-      }
-    })()
-    return { ok: true }
-  }
-
-  private tcpProbe(target: string, timeoutMs: number): Promise<boolean> {
-    return new Promise<boolean>((resolve) => {
-      const [host, portStr] = target.split(':')
-      const port = parseInt(portStr ?? '0', 10)
-      try {
-        const sock = new (require('node:net').Socket)()
-        let done = false
-        const finish = (v: boolean): void => {
-          if (done) return
-          done = true
-          try { sock.destroy() } catch { /* ignore */ }
-          resolve(v)
+        if(type==='join_request')await this.hostOffer(from,data)
+        if(type==='punch_info'||type==='reverse_holepunch_offer'){
+          const reverse=type==='reverse_holepunch_offer',id=reverse?from+':reverse':from,remote=endpoint(data,'joinerMapped')
+          if(remote&&!this.turn.hasPeer(from)&&!this.winner.has(from)){
+            let link=this.links.get(id)
+            if(!link&&reverse)link=await this.prepare(id,this.links.get(from)?.auth??null,from,true)
+            if(link)void this.connect(id,link,remote,data)
+          }
         }
-        sock.setTimeout(timeoutMs)
-        sock.once('connect', () => finish(true))
-        sock.once('error', () => finish(false))
-        sock.once('timeout', () => finish(false))
-        sock.connect(port, host)
-      } catch {
-        resolve(false)
-      }
-    })
-  }
-
-  // ---- UsePlayerRelay ----
-
-  usePlayerRelay(): { ok: boolean; err?: string } {
-    if (!this.session) return { ok: false, err: '当前没有房间会话' }
-    if (this.isHost) return { ok: false, err: '房主无需玩家中继' }
-    if (this.rInFlight || this.rDone) return { ok: false, err: '玩家中继已在进行中' }
-
-    // 修复：失效当前 p2p 打洞周期（gen+1），否则打洞循环会与下面的中继打洞
-    // 共用同一个 socket 互相干扰（Go 版通过取消 context 实现，这里对齐为代次失效）。
-    this.gCycle += 1
-    this.gActive = false
-    if (this.gPuncher && !this.gP2PDone) {
-      this.gPuncher.stop()
-      this.gPuncher = null
-    }
-    // 打洞循环退出时会 close 自己持有的 sock；这里清引用，中继打洞改用全新 socket。
-    this.gPunchSock = null
-    this.rInFlight = true
-    this.rResult = []
-    this.rDone = false
-
-    this.emitConnState(PHASE_PRELAY, STATUS_TRYING, '', '')
-    this.emitStage('relay', 'active', '已请求玩家中继，等待房主派发中继节点（约 20 秒超时）')
-    void this.sendSignal('relay_request', { clientId: this.clientID }, 'host').then(() => {
-      this.deps.netLog('info', '已发送 relay_request，等待房主派发中继…')
-    }).catch((e) => {
-      this.guestRelayFail(`发送中继请求失败: ${(e as Error).message}`)
-    })
-
-    void (async (): Promise<void> => {
-      // 修复：原实现超时后 interval 永远不清除（另有一处裸 `clearInterval` 死语句），定时器泄漏
-      const winner = await new Promise<string | null>((resolve) => {
-        let done = false
-        const finish = (v: string | null): void => {
-          if (done) return
-          done = true
-          clearTimeout(timer)
-          clearInterval(check)
-          resolve(v)
+        if(type==='relay_request')await this.dispatchRelay(from,data)
+      }else if(from==='host'){
+        if(type==='tcp_punch_go' && this.tcpPeerIp && this.lastConnection?.status!=='success')void this.runTcp('host',this.tcpPeerIp,Number(data.tcpPunchPort))
+        if(type==='holepunch_offer')await this.guestOffer(data)
+        if(type==='holepunch_mapped'||type==='reverse_punch_info'){
+          const id=type==='reverse_punch_info'?'host:reverse':'host',link=this.links.get(id),remote=endpoint(data,'hostMapped')
+          if(link&&remote){
+            void this.connect(id,link,remote,data)
+            if(type==='holepunch_mapped'&&Array.isArray(data.hostMappedPorts)){
+              const ports=data.hostMappedPorts.map(Number).filter(p=>Number.isInteger(p)&&p>0&&p<=65535)
+              if(JSON.stringify(link.ports)!==JSON.stringify(ports)){
+                link.ports=ports
+                for(const key of [...this.links.keys()])if(key.startsWith('host:extra:'))this.drop(key)
+                const cap=link.mapped.ip===remote.ip?12:6 // ConnectionManager.java: handleHolepunchMapped maxExtraCap, same CGNAT 12, otherwise 6.
+                for(let i=1;i<Math.min(ports.length,cap);i++)void(async()=>{
+                  const key=`host:extra:${i}`,extra=await this.prepare(key,link.auth,'host',false,false)
+                  extra.nat=link.nat;extra.samples=link.samples
+                  if(this.alive(key,extra))await this.connect(key,extra,{ip:remote.ip,port:ports[i]},{...data,mappedExtra:true})
+                })().catch(()=>{})
+              }
+            }
+          }
         }
-        const check = setInterval(() => {
-          if (this.rResult.length > 0) finish(this.rResult.shift() || null)
-        }, 100)
-        const timer = setTimeout(() => finish('TIMEOUT'), RELAY_REQUEST_TIMEOUT_MS)
-      })
-      if (winner === 'TIMEOUT') this.guestRelayFail('中继请求超时（20s 无响应）')
-    })()
-
-    return { ok: true }
-  }
-
-  private relayResultChanSend(addr: string): void {
-    if (addr) this.rResult.push(addr)
-  }
-
-  private guestRelayFail(reason: string): void {
-    if (this.rDone) return
-    this.rDone = true
-    this.rInFlight = false
-    const sock = this.rSock, puncher = this.rPuncher, rudp = this.rRudp, bridge = this.rBridge
-    this.rSock = null
-    this.rPuncher = null
-    this.rRudp = null
-    this.rBridge = null
-    puncher?.stop()
-    bridge?.stop()
-    if (rudp) try { rudp.close() } catch { /* ignore */ }
-    if (sock) try { sock.close() } catch { /* ignore */ }
-    this.deps.netLog('warn', `玩家中继失败: ${reason}`)
-    this.emitStage('relay', 'fail', `玩家中继失败：${reason}`)
-    this.emitConnState(PHASE_PRELAY, STATUS_FAILED, '', reason)
-  }
-
-  private guestOnRelayNotify(from: string, data: Record<string, unknown>): void {
-    if (from !== 'host' && from !== '') return
-    const ip = typeof data.relayIp === 'string' ? data.relayIp : ''
-    const port = typeof data.relayPort === 'number' ? data.relayPort : 0
-    if (ip && port > 0) {
-      this.deps.netLog('info', '收到 relay_notify，开始打洞')
-      void this.relayPunchFlow(ip, port)
-      return
-    }
-    if (data.connected === true) {
-      this.rConnectedHint = true
-      const already = this.rRudp !== null
-      this.deps.netLog('info', '收到 relay_notify(connected)：中继链路就绪')
-      if (already) {
-        const b = this.relayBridgeAddr()
-        if (b) this.relaySuccess(b)
+        if(type==='relay_declined'){this.relayPending=false;this.state('prelay','failed','','当前没有可用的玩家中继')}
+        if(type==='relay_notify'&&!data.connected&&this.mode==='prelay'){const remote=endpoint(data,'relay');if(remote){const link=await this.prepare('relay',null);void this.connect('relay',link,remote,{},true)}}
+        if(type==='relay_setup')await this.serveRelay(data)
       }
-    }
+    };void run().catch(error=>{if(this.session)this.deps.netLog('warn',(error as Error).message)})
   }
-
-  private relaySuccess(addr: string): void {
-    if (this.rDone) return
-    this.rDone = true
-    this.rInFlight = false
-    this.deps.netLog('info', '中继链路就绪')
-    this.emitStage('relay', 'ok', '玩家中继链路已建立')
-    this.emitConnState(PHASE_PRELAY, STATUS_SUCCESS, addr, '')
-    void this.sendSignal('relay_ready', { clientId: this.clientID }, 'host')
-    this.relayResultChanSend(addr)
+  private async dispatchRelay(requester:string,data:Data={}):Promise<void>{
+    const recorded=this.lastMappings.get(requester)?.remote,target=endpoint(data,'mapped')??this.links.get(requester)?.remote??(recorded?{ip:recorded.address,port:recorded.port}:undefined)
+    const candidates=[...this.links.entries()].filter(([id,link])=>id!==requester&&link.remote&&link.rudp?.isConnected())
+    if(!target||!candidates.length){await this.sendSignal('relay_declined',{},requester);return}
+    const [id,relay]=candidates[0];this.relayAssignments.set(requester,{candidate:id,at:Date.now()});await this.sendSignal('relay_setup',{targetClientId:requester,targetIp:target.ip,targetPort:target.port,punchAuth:!!this.links.get(requester)?.auth||this.turn.peerAuth(requester)},id);await this.sendSignal('relay_notify',{relayIp:relay.remote!.ip,relayPort:relay.remote!.port},requester)
   }
-
-  private relayBridgeAddr(): string {
-    if (this.rBridge && this.rBridge.ln) {
-      const a = this.rBridge.ln.address() as { address: string; port: number }
-      return `${a.address}:${a.port}`
-    }
-    return ''
+  private async serveRelay(data:Data):Promise<void>{
+    const remote=endpoint(data,'target'),host=this.links.get('host');if(this.deps.allowRelay?.()===false||!remote||!host?.rudp?.isConnected()){await this.sendSignal('relay_declined',{},'host');return}
+    const targetId=String(data.targetClientId??'');if(!targetId||targetId.length>128)return
+    const id=`relay:${targetId}`;if(this.links.has(id)||this.creating.has(id))return
+    const auth=data.punchAuth===true?derivePunchKey(this.code,targetId):null,link=await this.prepare(id,auth),epoch=this.generation,policy=this.policy('host')
+    try{
+      await this.sendSignal('relay_accept',{forClientId:targetId,relayIp:link.mapped.ip,relayPort:link.mapped.port,connected:false},'host')
+      for(let i=1;i<policy.profile.relaySocketCount;i++){const socket=await punchListen(0);if(epoch!==this.generation||link.controller.signal.aborted){socket.close();return}link.sockets.push(socket)}
+      link.punch=new Puncher({conn:link.socket,sockets:link.sockets,authKey:auth,profile:policy.profile,params:policy.params,range:policy.profile.coneBackupPortRange,timeoutMs:15000});link.punch.setTarget({address:remote.ip,port:remote.port});link.started=true;link.punch.start()
+      const target=await link.punch.wait();if(epoch!==this.generation||link.controller.signal.aborted)return
+      link.socket=link.punch.conn;for(const socket of link.sockets)if(socket!==link.socket)try{socket.close()}catch{};link.sockets=[link.socket]
+      const rc=link.rudp=new RudpConn(link.socket,target);rc.start();const stop=pumpRelay(host.rudp,rc);this.relays.add(stop);await this.sendSignal('relay_accept',{forClientId:targetId,connected:true},'host')
+    }catch(error){if(epoch===this.generation){this.drop(id);await this.sendSignal('relay_declined',{forClientId:targetId},'host').catch(()=>{});this.deps.netLog('info','玩家中继探测未命中：'+(error as Error).message)}}
   }
-
-  private async relayPunchFlow(relayIP: string, relayPort: number): Promise<void> {
-    if (this.rDone || !this.session) return
-    let sock = this.gPunchSock
-    const reused = !!sock && !this.gRudp && !this.gPuncher
-    if (!reused) {
-      sock = dgram.createSocket('udp4')
-      await new Promise<void>((resolve, reject) => {
-        sock!.once('error', reject)
-        sock!.bind(0, '0.0.0.0', () => {
-          sock!.removeListener('error', reject)
-          resolve()
-        })
-      })
-    }
-    const target = { address: relayIP, port: relayPort }
-    const p = new Puncher({ conn: sock!, timeoutMs: RELAY_PUNCH_TIMEOUT_MS })
-    p.setTarget(target)
-    p.start()
-    this.emitStage('relay', 'active', '已获得中继节点，正在与中继节点打洞…')
-    let actual: { address: string; port: number }
-    try { actual = await p.wait() } catch (e) {
-      if (!reused) try { sock!.close() } catch { /* ignore */ }
-      this.guestRelayFail(`中继打洞失败（${(e as Error).message}）`)
-      return
-    }
-    // 成功后停止打洞接收循环；socket 交由 rudp 接管（stop 不再关闭 socket）
-    p.stop()
-    const rc = new RudpConn(sock!, actual)
-    rc.start()
-    let guestBridge: TcpBridge | null = null
-    let local = ''
-    try {
-      const started = await TcpBridge.startGuest(rc, () => this.relayBridgeDown())
-      guestBridge = started.bridge
-      local = started.addr
-    } catch (e) {
-      rc.close()
-      this.guestRelayFail(`中继本地桥建立失败: ${(e as Error).message}`)
-      return
-    }
-    this.rSock = sock
-    this.rPuncher = null
-    this.rRudp = rc
-    this.rBridge = guestBridge
-    this.deps.netLog('info', '中继隧道建立')
-    this.relaySuccess(local)
+  usePlayerRelay():{ok:boolean;err?:string}{if(!this.session||this.isHost)return{ok:false,err:'请先加入房间'};if(this.relayPending)return{ok:false,err:'正在请求玩家中继'};this.mode='prelay';this.stopPeerPunching('host');this.relayPending=true;this.state('prelay','trying','','正在寻找玩家中继');void this.sendSignal('relay_request',{},'host').catch(error=>{this.relayPending=false;this.state('prelay','failed','',error.message)});this.later(()=>{if(this.relayPending){this.relayPending=false;this.state('prelay','failed','','玩家中继请求超时，可尝试 TURN')}},20000);return{ok:true}}
+  async useTurnRelay():Promise<void>{
+    if(!this.session||this.isHost)throw new Error('请先加入房间')
+    if(this.winner.has('host')||this.turn.busy())return
+    if(!this.joinedAt||Date.now()-this.joinedAt<20000)throw new Error('连接尝试 20 秒后可选择 TURN 中继') // ConnectionManager.java: getPunchUiStartMs
+    this.mode='turn';this.reconnectPending=false;this.stopPeerPunching('host');this.state('turn','trying','','正在建立你选择的 TURN 中继')
+    await this.turn.startGuest()
   }
-
-  private relayBridgeDown(): void {
-    const rc = this.rRudp, bridge = this.rBridge
-    this.rRudp = null
-    this.rBridge = null
-    bridge?.stop()
-    if (rc) try { rc.close() } catch { /* ignore */ }
-    this.emitStage('relay', 'fail', '中继隧道已断开')
-    this.emitConnState(PHASE_PRELAY, STATUS_FAILED, '', '中继隧道已断开')
+  acceptSignal(type:string,from:string):boolean{
+    if(typeof from!=='string'||!from||from.length>128)return false
+    if(from==='server'||from==='host')return true
+    if(this.isHost&&type==='join_request'){this.knownPeers.add(from);return true}
+    return this.knownPeers.has(from)
   }
-
-  private async hostOnRelayRequest(from: string, _data: Record<string, unknown>): Promise<void> {
-    this.deps.netLog('info', '收到 relay_request')
-    const requester = this.hPeers.get(from)
-    const selfID = this.clientID
-    const roomCode = this.code
-    if (!requester || !requester.mapped) {
-      this.deps.netLog('warn', 'relay_request 但缺少 requester 映射地址，拒绝')
-      try { await this.sendSignal('relay_declined', {}, from) } catch { /* ignore */ }
-      return
-    }
-    let cands: RelayCandidate[] = []
-    try { cands = await this.fetchRelayCandidates(roomCode) } catch (e) {
-      this.deps.netLog('warn', `查询中继候选失败: ${(e as Error).message}`)
-    }
-    const cand = this.pickRelayCandidate(cands, from, selfID)
-    if (!cand) {
-      this.deps.netLog('warn', '无可用中继候选，拒绝 relay_request')
-      try { await this.sendSignal('relay_declined', {}, from) } catch { /* ignore */ }
-      return
-    }
-    const setup: Record<string, unknown> = {
-      targetClientId: from,
-      targetIp: requester.mapped.ip,
-      targetPort: requester.mapped.port
-    }
-    try { await this.sendSignal('relay_setup', setup, cand.clientId) } catch (e) {
-      this.deps.netLog('warn', `发送 relay_setup 失败: ${(e as Error).message}`)
-    }
-    const notify: Record<string, unknown> = { relayIp: cand.mappedIp, relayPort: cand.mappedPort }
-    try { await this.sendSignal('relay_notify', notify, from) } catch (e) {
-      this.deps.netLog('warn', `发送 relay_notify 失败: ${(e as Error).message}`)
-    }
-    this.deps.netLog('info', '中继派发完成')
-  }
-
-  private async fetchRelayCandidates(_roomCode: string): Promise<RelayCandidate[]> {
-    const raw = await this.deps.api.get(this.baseURL(), '/relay/candidates', {}, {}) as { candidates?: RelayCandidate[] }
-    return raw?.candidates ?? []
-  }
-
-  private pickRelayCandidate(cands: RelayCandidate[], requesterID: string, selfID: string): RelayCandidate | null {
-    for (const c of cands) {
-      if (!c.clientId || c.clientId === requesterID || c.clientId === selfID) continue
-      if (!c.mappedIp || !c.mappedPort) continue
-      const nt = (c.natType || '').toLowerCase()
-      if (!nt || nt.includes('sym') || nt.includes('strict') || nt.includes('unknown')) continue
-      return c
-    }
-    return null
-  }
-
-  private async guestOnRelaySetup(from: string, data: Record<string, unknown>): Promise<void> {
-    const targetClientID = typeof data.targetClientId === 'string' ? data.targetClientId : ''
-    const targetIP = typeof data.targetIp === 'string' ? data.targetIp : ''
-    const targetPort = typeof data.targetPort === 'number' ? data.targetPort : 0
-    const hostRudp = this.gRudp
-    if (!hostRudp || !targetIP || targetPort <= 0) {
-      this.deps.netLog('warn', '收到 relay_setup 但无到 host 的隧道，declined')
-      try { await this.sendSignal('relay_declined', {}, 'host') } catch { /* ignore */ }
-      return
-    }
-    this.deps.netLog('info', '受托为中继节点')
-    await (async (): Promise<void> => {
-      const sock = dgram.createSocket('udp4')
-      await new Promise<void>((resolve, reject) => {
-        sock.once('error', reject)
-        sock.bind(0, '0.0.0.0', () => {
-          sock.removeListener('error', reject)
-          resolve()
-        })
-      })
-      const target = { address: targetIP, port: targetPort }
-      const p = new Puncher({ conn: sock, timeoutMs: RELAY_SETUP_TIMEOUT_MS })
-      p.setTarget(target)
-      p.start()
-      let actual: { address: string; port: number }
-      try { actual = await p.wait() } catch {
-        try { sock.close() } catch { /* ignore */ }
-        this.deps.netLog('warn', '中继节点对 target 打洞失败')
-        try { await this.sendSignal('relay_declined', {}, 'host') } catch { /* ignore */ }
-        return
-      }
-      // 成功后停止打洞接收循环；socket 交由 rudp 接管（stop 不再关闭 socket）
-      p.stop()
-      const targetRc = new RudpConn(sock, actual)
-      targetRc.start()
-      const stop = pumpRelay(hostRudp, targetRc)
-      this.rAsNodeStop = stop
-      try { await this.sendSignal('relay_accept', { forClientId: targetClientID }, 'host') } catch (e) {
-        this.deps.netLog('warn', `发送 relay_accept 失败: ${(e as Error).message}`)
-      }
-      this.deps.netLog('info', '中继桥已建立')
-    })()
-  }
-
-  /** 中继资源释放钩子（保留便于未来 TURN 接入）。 */
-  relayRelease(): void { /* no-op for player relay */ }
-
-  // ---- 状态推送 ----
-
-  private emitConnState(phase: string, status: string, address: string, detail: string): void {
-    if (!this.session) return
-    this.deps.emit('conn:state', { phase, status, address, detail } satisfies ConnState)
-  }
-
-  /**
-   * 关键阶段事件（'stage'）：驱动面板「连接过程」阶段条逐步点亮。
-   * 仅补充本地事件发射，不改变任何信令/协议行为；detail 不含远程地址（消敏）。
-   */
-  private emitStage(
-    key: 'stun' | 'punch' | 'relay' | 'host_stun' | 'host_punch',
-    status: 'active' | 'retry' | 'ok' | 'degraded' | 'fail',
-    detail: string
-  ): void {
-    if (!this.session) return
-    this.deps.emit('stage', { key, status, detail, ts: Date.now() })
-  }
-
-  // ---- 解绑 ----
-
-  teardown(): void {
-    const gPuncher = this.gPuncher, gSock = this.gPunchSock, gRudp = this.gRudp, gBridge = this.gBridge
-    const rPuncher = this.rPuncher, rSock = this.rSock, rRudp = this.rRudp, rBridge = this.rBridge
-    const asNodeStop = this.rAsNodeStop
-    const peers = Array.from(this.hPeers.values())
-
-    const sendBye = this.session !== null && this.code !== '' && this.token !== ''
-    const byeCode = this.code, byeToken = this.token, byeBase = this.baseURL()
-    const byeIsHost = this.isHost
-    const byeTo = byeIsHost ? '' : 'host'
-
-    this.code = ''
-    this.token = ''
-    this.clientID = ''
-    this.isHost = false
-    this.hostPort = 0
-    this.hostIp = ''
-    this.gOffer = null
-    this.gMapped = null
-    this.gPunchSock = null
-    this.gPuncher = null
-    this.gRudp = null
-    this.gBridge = null
-    this.gP2PDone = false
-    this.gActive = false
-    this.gMappedCh = []
-    this.rInFlight = false
-    this.rDone = false
-    this.rSock = null
-    this.rPuncher = null
-    this.rRudp = null
-    this.rBridge = null
-    this.rConnectedHint = false
-    this.rAsNodeStop = null
-    this.hPeers.clear()
-
-    if (sendBye) {
-      void this.deps.api.post(byeBase, '/signal/send', {
-        code: byeCode, token: byeToken, isHost: byeIsHost, type: 'disconnect', data: {}, to: byeTo
-      }, null).catch(() => { /* ignore */ })
-    }
-    gPuncher?.stop()
-    if (gSock) try { gSock.close() } catch { /* ignore */ }
-    gBridge?.stop()
-    if (gRudp) try { gRudp.close() } catch { /* ignore */ }
-    rPuncher?.stop()
-    if (rSock) try { rSock.close() } catch { /* ignore */ }
-    rBridge?.stop()
-    if (rRudp) try { rRudp.close() } catch { /* ignore */ }
-    if (asNodeStop) try { asNodeStop() } catch { /* ignore */ }
-    for (const p of peers) {
-      p.puncher?.stop()
-      if (p.rudp) try { p.rudp.close() } catch { /* ignore */ }
-    }
-  }
+  tryDirect():{ok:boolean;err?:string}{if(!this.session||this.isHost||!net.isIP(this.hostIp)||!this.hostPort)return{ok:false,err:'当前房间没有有效直连地址'};const epoch=this.generation;const socket=net.createConnection({host:this.hostIp,port:this.hostPort});this.state('direct','trying','','正在测试直连');let finished=false;const finish=(ok:boolean)=>{if(finished)return;finished=true;clearTimeout(timer);socket.destroy();if(epoch===this.generation)this.state('direct',ok?'success':'failed',ok?`${net.isIP(this.hostIp)===6?'['+this.hostIp+']':this.hostIp}:${this.hostPort}`:'',ok?'直连可用':'直连不可用')};const timer=setTimeout(()=>finish(false),3000);socket.once('connect',()=>finish(true));socket.once('error',()=>finish(false));return{ok:true}}
+  relayRelease():void{this.turn.stop()}
+  teardown(retry=false):void{this.generation++;for(const timer of this.timers)clearTimeout(timer);this.timers.clear();if(!retry){this.rounds.clear();this.knownPeers.clear();this.natNotes.clear()}this.lastMappings.clear();this.relayAssignments.clear();this.iceRestarts.clear();this.winner.clear();this.turnChoices.clear();this.reconnectPending=false;this.tcpPeerIp='';for(const id of [...this.tcp.keys()])this.cancelTcp(id);this.turn.stop();for(const id of [...this.links.keys()])this.drop(id);for(const stop of this.relays)stop();this.relays.clear();this.creating.clear();this.relayPending=false;if(!retry)this.joinedAt=0;this.mode='p2p';this.lastConnection=null;this.stages={}}
 }
-
-export interface RelayCandidate {
-  clientId: string
-  roomCode: string
-  natType: string
-  mappedIp: string
-  mappedPort: number
-}
-
-function getLocalIP(): string {
-  const dgram = require('node:dgram') as typeof import('node:dgram')
-  const sock = dgram.createSocket('udp4')
-  try {
-    sock.connect(80, '8.8.8.8')
-    const a = sock.address()
-    if (typeof a === 'object' && 'address' in a) return a.address
-    return ''
-  } catch { return '' } finally { try { sock.close() } catch { /* ignore */ } }
-}
-
-/** ---- 顶层 VoxlinkApp（对外 18 个能力 + 引擎编排） ---- */
-
-export interface AppOptions {
-  settings?: VoxlinkSettings
-}
-
+export interface AppOptions {settings?:VoxlinkSettings;settingsPath?:string;api?:ApiClient;serverURL?:string}
 export class VoxlinkApp {
-  readonly api: ApiClient
-  readonly engine: ConnEngine
-  settings: VoxlinkSettings
-  state: 'idle' | 'hosting' | 'in_room' | 'closed' = 'idle'
-  room: RoomInfo | null = null
-  settingsPath: string
-
-  constructor(opts: AppOptions = {}) {
-    this.settings = opts.settings ?? loadSettings()
-    this.settingsPath = defaultSettingsPath()
-    this.api = new ApiClient({ userAgent: `KAMUCL-App/${'1.1.4-beta'}` })
-    this.engine = new ConnEngine({
-      api: this.api,
-      baseURL: () => DEFAULT_SERVER_URL,
-      emit: (ev, data) => this.emit(ev, data),
-      netLog: (level, msg) => this.netLog(level, msg)
-    })
-    // 把 session 的信令桥接给引擎
-    this.engine.on('roomInfo', (info) => this.updateRoomInfo(info as { currentPlayers: number; name: string }))
-  }
-
-  /** emit / netLog 暴露给主进程包装；这里只暴露接口。 */
-  emit(_event: string, _data: unknown): void { /* hook */ }
-  netLog(_level: LogLevel, _msg: string): void { /* hook */ }
-
-  baseURL(): string { return DEFAULT_SERVER_URL }
-
-  // ---- 1. GetSettings ----
-  getSettingsJSON(): { serverUrl: string; theme: string; version: string } {
-    return { serverUrl: DEFAULT_SERVER_URL, theme: this.settings.theme, version: '1.1.4-beta' }
-  }
-
-  // ---- 2. SaveSettings ----
-  saveSettingsJSON(payload: { theme?: string }): { serverUrl: string; theme: string; version: string } {
-    if (payload.theme) this.settings.theme = payload.theme
-    saveSettings(this.settings, this.settingsPath)
-    return this.getSettingsJSON()
-  }
-
-  /** 仅修改允许被中继开关。 */
-  setAllowRelay(allow: boolean): VoxlinkSettings {
-    this.settings.allowRelay = !!allow
-    saveSettings(this.settings, this.settingsPath)
-    return this.settings
-  }
-
-  // ---- 3. GetCategories ----
-  async getCategories(): Promise<Record<string, string>> {
-    return (await this.api.get(this.baseURL(), '/categories', {}, {}) ?? {}) as Record<string, string>
-  }
-
-  // ---- 4. ListRooms ----
-  async listRooms(query: { page?: number; size?: number; category?: string; loader?: string; search?: string }): Promise<{ rooms: LobbyRoom[]; total: number; page: number; size: number }> {
-    const page = query.page && query.page > 0 ? query.page : 1
-    const size = query.size && query.size > 0 ? query.size : 20
-    const q: Record<string, number | string> = { page, size, clientType: 'mod' }
-    if (query.category) q.category = query.category
-    if (query.loader) q.loader = query.loader
-    const raw = await this.api.get(this.baseURL(), '/room/list', q, {}) as { rooms: LobbyRoom[]; total: number; page: number; size: number }
-    let rooms = raw.rooms || []
-    if (query.search) {
-      const needle = query.search.toLowerCase()
-      rooms = rooms.filter((r) => (r.name || '').toLowerCase().includes(needle))
-    }
-    return { rooms, total: rooms.length, page, size }
-  }
-
-  // ---- 5. RoomInfo ----
-  async roomInfo(code: string): Promise<Record<string, unknown>> {
-    if (!code) throw new APIError('INVALID_PARAMS', '房间码不能为空', 0)
-    return (await this.api.get(this.baseURL(), '/room/info', { code }, {}) ?? {}) as Record<string, unknown>
-  }
-
-  // ---- 6. CreateRoom ----
-  async createRoom(req: CreateRoomParams): Promise<CreateRoomResult> {
-    const name = normalizeVoxlinkRoomName(req.name)
-    if (req.hostPort < 1024 || req.hostPort > 65535) throw new APIError('INVALID_PARAMS', 'hostPort 必须在 1024-65535 之间', 0)
-    const loader = (req.loader || '').trim() || 'unknown'
-    const gameVersion = (req.gameVersion || '').trim() || 'unknown'
-    if (this.state !== 'idle') throw new APIError('SESSION_ACTIVE', '请先退出当前房间再操作', 0)
-
-    // 端口探测
-    try { await probeHostPort(req.hostPort) } catch {
-      throw new APIError('PORT_NOT_LISTENING', `端口 ${req.hostPort} 没有服务在监听，请先在 MC 开好局域网或启动服务端`, 0)
-    }
-
-    const natType = await quickNatType()
-    const body: Record<string, unknown> = {
-      name,
-      maxPlayers: 20,
-      hostPort: req.hostPort,
-      natType,
-      visible: req.visible,
-      category: req.category || '',
-      gameVersion,
-      loader,
-      clientType: 'app',
-      clientProtocolVersion: 7,
-      clientCapabilities: ['relay', 'continuous_retry'],
-      clientTag: CLIENT_TAG,
-      client_tag: CLIENT_TAG
-    }
-    if (req.password) body.password = req.password
-
-    const data = await this.api.post(this.baseURL(), '/room/create', body, {}) as { code: string; hostToken: string; name: string; hostIp: string; hostPort: number; expiresIn: number }
-
-    const room: RoomInfo = {
-      code: data.code,
-      name: data.name,
-      hostIp: data.hostIp,
-      hostPort: data.hostPort,
-      maxPlayers: 20,
-      currentPlayers: 1,
-      hasPassword: !!req.password,
-      category: req.category || '',
-      gameVersion,
-      loader,
-      clientType: 'app',
-      clientTag: CLIENT_TAG,
-      expiresIn: data.expiresIn,
-      isHost: true
-    }
-    this.startSession(data.code, data.hostToken, true, room)
-    return { code: data.code, hostToken: data.hostToken, name: data.name, hostIp: data.hostIp, hostPort: data.hostPort, expiresIn: data.expiresIn }
-  }
-
-  // ---- 7. JoinRoom ----
-  async joinRoom(req: JoinRoomParams): Promise<JoinRoomResult> {
-    const code = req.code.toUpperCase().trim()
-    if (!validateRoomCode(code)) throw new APIError('INVALID_PARAMS', '房间码必须为 6 位（字符集 A-Z 去掉 I/O、2-9 去掉 0/1）', 0)
-    if (this.state !== 'idle') throw new APIError('SESSION_ACTIVE', '请先退出当前房间再操作', 0)
-    const body: Record<string, unknown> = {
-      code,
-      clientType: 'app',
-      clientProtocolVersion: 7,
-      clientCapabilities: ['relay', 'continuous_retry']
-    }
-    if (req.password) body.password = req.password
-
-    const data = await this.api.post(this.baseURL(), '/room/join', body, {}) as { clientToken: string; clientId: string; room: RoomInfo }
-    const room: RoomInfo = { ...data.room, code, isHost: false }
-    if (!room.clientType) room.clientType = 'app'
-    this.startSession(code, data.clientToken, false, room, data.clientId)
-    return { clientToken: data.clientToken, clientId: data.clientId, room }
-  }
-
-  private startSession(code: string, token: string, isHost: boolean, room: RoomInfo, clientID = ''): void {
-    const state: AppState['state'] = isHost ? 'hosting' : 'in_room'
-    this.state = state
-    this.room = room
-    this.engine.code = code
-    this.engine.token = token
-    this.engine.isHost = isHost
-    this.engine.hostPort = room.hostPort
-    this.engine.hostIp = room.hostIp
-    this.engine.clientID = clientID
-    const sess = new VoxlinkSession(
-      { api: this.api, baseURL: () => this.baseURL(), emit: (e, d) => this.emit(e, d), netLog: (l, m) => this.netLog(l, m) },
-      { code, token, isHost }
-    )
-    sess.on('engineSignal', (sig) => {
-      const s = sig as { type: string; from: string; data: Record<string, unknown> }
-      this.engine.onSignal(s.type, s.from, s.data)
-    })
-    this.engine.session = sess
-    this.engine.setState(state, code, token, isHost, room, sess)
-    this.emit('session:state', { state, room: { ...room } })
-    void sess.run()
-  }
-
-  private updateRoomInfo(info: { currentPlayers: number; name: string }): void {
-    if (!this.room) return
-    if (info.currentPlayers > 0 && info.currentPlayers !== this.room.currentPlayers) {
-      this.room.currentPlayers = info.currentPlayers
-      this.emit('session:state', { state: this.state, room: { ...this.room } })
-    }
-    if (info.name && info.name !== this.room.name) {
-      this.room.name = info.name
-      this.emit('session:state', { state: this.state, room: { ...this.room } })
+  readonly api:ApiClient;readonly engine:ConnEngine;settings:VoxlinkSettings;settingsPath:string;state:AppState['state']='idle';room:RoomInfo|null=null
+  private operation=0;private pending=false;private joinPassword='';private rejoining=false
+  private operationController=new AbortController();private joinEnvironment:{loader?:string;gameVersion?:string}={}
+  private async requestJoin(code:string,password:string|undefined,signal:AbortSignal):Promise<JoinRoomResult>{
+    const body={code,password,...this.joinEnvironment,clientType:'app',clientTag:CLIENT_TAG,clientProtocolVersion:7,clientCapabilities:VOXLINK_CAPABILITIES,idempotencyKey:randomUUID()}
+    for(let attempt=0;;attempt++){
+      signal.throwIfAborted()
+      try{return await this.api.post(this.baseURL(),'/room/join',body,undefined,signal) as JoinRoomResult}
+      catch(error){signal.throwIfAborted();if(!(error instanceof APIError)||!['NETWORK','NETWORK_ERROR','CDN_ERROR','RATE_LIMITED'].includes(error.code)||attempt>=JOIN_RETRY_BACKOFF_MS.length)throw error;this.netLog('warn',`加入暂时失败 (${error.code})，将进行第 ${attempt+2}/3 次尝试`);await delay(JOIN_RETRY_BACKOFF_MS[attempt],undefined,{signal})}
     }
   }
-
-  // ---- 8. LeaveRoom ----
-  async leaveRoom(): Promise<{ left: boolean }> {
-    const had = this.engine.session !== null
-    if (!had) return { left: false }
-    await this.leaveInternal()
-    this.emit('session:state', { state: 'idle' })
-    return { left: true }
+  constructor(private options:AppOptions={}){this.settingsPath=options.settingsPath??defaultSettingsPath();this.settings=options.settings??loadSettings(this.settingsPath);this.api=options.api??new ApiClient();this.engine=new ConnEngine({api:this.api,baseURL:()=>this.baseURL(),allowRelay:()=>this.settings.allowRelay,rejoin:()=>this.rejoin(),emit:(event,data)=>this.emit(event,data),netLog:(level,message)=>this.netLog(level,message)})}
+  private async rejoin():Promise<void>{
+    if(this.rejoining||!this.engine.canRetry()||this.engine.isHost)return
+    this.rejoining=true
+    const epoch=this.operation,code=this.engine.code,old=this.engine.session,oldToken=this.engine.token
+    try{
+      const result=await this.requestJoin(code,this.joinPassword,this.operationController.signal)
+      if(epoch!==this.operation||this.engine.session!==old||!this.engine.canRetry()){
+        void this.api.post(this.baseURL(),'/room/leave',{code,token:result.clientToken,isHost:false}).catch(()=>{});return
+      }
+      this.engine.session=null;old?.stop();this.engine.teardown(true)
+      result.room={...result.room,code,isHost:false}
+      await this.accept(epoch,code,result.clientToken,false,result.room,result.clientId)
+      if(oldToken!==result.clientToken)void this.api.post(this.baseURL(),'/room/leave',{code,token:oldToken,isHost:false}).catch(()=>{})
+    }finally{this.rejoining=false}
   }
-
-  private async leaveInternal(): Promise<void> {
-    const s = this.engine.session
-    const code = this.engine.code, token = this.engine.token, isHost = this.engine.isHost
-    if (s) {
-      this.engine.relayRelease()
-      this.engine.teardown()
-      try { s.stop() } catch { /* ignore */ }
-      await Promise.race([s.getDone(), new Promise<void>((r) => setTimeout(r, 3000))])
-      try { await this.api.post(this.baseURL(), '/room/leave', { code, token, isHost }, null) } catch { /* ignore */ }
-    }
-    this.engine.session = null
-    this.state = 'idle'
-    this.room = null
-    this.engine.setState('idle', '', '', false, null, null)
+  emit(_event:string,_data:unknown):void{}
+  netLog(_level:LogLevel,_message:string):void{}
+  baseURL():string{return this.options.serverURL??DEFAULT_SERVER_URL}
+  getSettingsJSON(){return{serverUrl:this.baseURL(),theme:this.settings.theme,version:APP_VERSION}}
+  saveSettingsJSON(value:{theme?:string}){if(value.theme)this.settings.theme=value.theme;saveSettings(this.settings,this.settingsPath);return this.getSettingsJSON()}
+  setAllowRelay(value:boolean):VoxlinkSettings{this.settings.allowRelay=value;saveSettings(this.settings,this.settingsPath);return this.settings}
+  async getCategories():Promise<Record<string,string>>{return await this.api.get(this.baseURL(),'/categories',{}) as Record<string,string>}
+  async listRooms(query:{page?:number;size?:number;category?:string;loader?:string;search?:string}):Promise<{rooms:LobbyRoom[];total:number;page:number;size:number}>{const page=Math.max(1,query.page??1),size=Math.min(100,Math.max(1,query.size??20));return await this.api.get(this.baseURL(),'/room/list',{...query,page,size}) as {rooms:LobbyRoom[];total:number;page:number;size:number}}
+  async roomInfo(code:string):Promise<Data>{return await this.api.get(this.baseURL(),'/room/info',{code}) as Data}
+  private begin():number{if(this.pending||this.engine.session)throw new APIError('SESSION_ACTIVE','请先退出当前房间');this.operationController.abort();this.operationController=new AbortController();this.pending=true;return ++this.operation}
+  private async accept(epoch:number,code:string,token:string,isHost:boolean,room:RoomInfo,clientId=''):Promise<void>{
+    if(epoch!==this.operation){void this.api.post(this.baseURL(),'/room/leave',{code,token,isHost}).catch(()=>{});throw new Error('操作已取消')}
+    this.room=room;this.state=isHost?'hosting':'in_room';const session=new VoxlinkSession({api:this.api,baseURL:()=>this.baseURL(),emit:(e,d)=>this.emit(e,d),netLog:(l,m)=>this.netLog(l,m)},{code,token,isHost});this.engine.clientID=clientId;this.engine.setState(this.state,code,token,isHost,room,session)
+    session.on('engineSignal',signal=>{if(this.engine.session!==session||!this.engine.acceptSignal(signal.type,signal.from))return;if (isHost && signal.type==='mods_request') this.emit('mods:request',signal.data); else this.engine.onSignal(signal.type,signal.from,signal.data)});session.on('roomInfo',info=>{if(this.engine.session===session&&this.room){if(Number.isFinite(info?.currentPlayers))this.room.currentPlayers=info.currentPlayers;if(info?.name)this.room.name=info.name;this.emit('session:state',{state:this.state,room:this.room})}})
+    this.engine.beginFallbackTimer();this.emit('session:state',{state:this.state,room});void session.run().finally(()=>{if(this.engine.session===session){this.engine.teardown();this.engine.session=null;this.state='closed';this.room=null;this.emit('session:state',{state:'closed'})}})
+    // Server injects join_request after room/join; no client-originated duplicate.
   }
-
-  // ---- 9. GetSessionState ----
-  getSessionStateJSON(): AppState {
-    return { state: this.state, code: this.engine.code, token: this.engine.token, isHost: this.engine.isHost, room: this.room }
-  }
-
-  // ---- 10. SendRoomUpdate ----
-  async sendRoomUpdate(req: { name?: string; category?: string; visible?: boolean; password?: string }): Promise<void> {
-    const code = this.engine.code, token = this.engine.token
-    const hosting = this.state === 'hosting' && this.engine.isHost
-    if (!code || !token) throw new APIError('NO_SESSION', '当前没有房间会话', 0)
-    const body: Record<string, unknown> = { code, token, isHost: hosting }
-    for (const k of ['name', 'category', 'visible', 'password'] as const) {
-      if (req[k] !== undefined) body[k] = req[k]
-    }
-    await this.api.post(this.baseURL(), '/room/update', body, null)
-  }
-
-  // ---- 11. GetRoomMods ----
-  async getRoomMods(code: string): Promise<Record<string, unknown>> {
-    if (!code) throw new APIError('INVALID_PARAMS', '房间码不能为空', 0)
-    return (await this.api.post(this.baseURL(), '/room/mods', { code }, {}) ?? {}) as Record<string, unknown>
-  }
-
-  // ---- 12. RelayStatus ----
-  async relayStatus(): Promise<Record<string, unknown>> {
-    return (await this.api.get(this.baseURL(), '/relay/status', {}, {}) ?? {}) as Record<string, unknown>
-  }
-
-  // ---- 13. RelayList ----
-  async relayList(): Promise<Record<string, unknown>> {
-    return (await this.api.get(this.baseURL(), '/relay/list', {}, {}) ?? {}) as Record<string, unknown>
-  }
-
-  // ---- 14. GetStun ----
-  async getStun(): Promise<Record<string, unknown>> {
-    return (await this.api.get(this.baseURL(), '/stun', {}, {}) ?? {}) as Record<string, unknown>
-  }
-
-  // ---- 15. OpenInBrowser ----
-  async openInBrowser(rawURL: string): Promise<void> {
-    const u = rawURL.trim()
-    if (!/^https?:\/\//i.test(u)) {
-      this.netLog('warn', `拒绝打开非 http/https 链接: ${rawURL}`)
-      return
-    }
-    try {
-      const { shell } = require('electron') as typeof import('electron')
-      await shell.openExternal(u)
-    } catch (e) {
-      this.netLog('error', `打开浏览器失败: ${(e as Error).message}`)
-    }
-  }
-
-  // ---- 16. DetectMcPorts ----
-  async detectMcPortsJSON(): Promise<{ ports: McPortEntry[] }> {
-    const ports = await detectMcPorts()
-    return { ports }
-  }
-
-  // ---- 17. TryDirect ----
-  tryDirect(): { ok: boolean; err?: string } { return this.engine.tryDirect() }
-
-  // ---- 18. UsePlayerRelay ----
-  usePlayerRelay(): { ok: boolean; err?: string } { return this.engine.usePlayerRelay() }
+  async createRoom(req:CreateRoomParams):Promise<CreateRoomResult>{const epoch=this.begin();try{const name=normalizeVoxlinkRoomName(req.name);await probeHostPort(req.hostPort);if(epoch!==this.operation)throw new Error('操作已取消');const result=await this.api.post(this.baseURL(),'/room/create',{...req,name,maxPlayers:20,natType:'unknown',clientType:'app',clientTag:CLIENT_TAG,client_tag:CLIENT_TAG,clientProtocolVersion:7,clientCapabilities:VOXLINK_CAPABILITIES,idempotencyKey:randomUUID()},undefined,this.operationController.signal) as CreateRoomResult;const room:RoomInfo={...result,maxPlayers:20,currentPlayers:1,hasPassword:!!req.password,category:req.category??'',gameVersion:req.gameVersion??'',loader:req.loader??'',clientType:'app',clientTag:CLIENT_TAG,isHost:true};await this.accept(epoch,result.code,result.hostToken,true,room);return result}finally{if(epoch===this.operation)this.pending=false}}
+  async joinRoom(req:JoinRoomParams):Promise<JoinRoomResult>{const epoch=this.begin();this.joinPassword=req.password??'';this.joinEnvironment={loader:req.loader,gameVersion:req.gameVersion};try{const code=req.code.trim().toUpperCase();if(!validateRoomCode(code))throw new APIError('INVALID_PARAMS','请输入有效的六位房间码');const result=await this.requestJoin(code,req.password,this.operationController.signal);result.room={...result.room,code,isHost:false};await this.accept(epoch,code,result.clientToken,false,result.room,result.clientId);return result}finally{if(epoch===this.operation)this.pending=false}}
+  async leaveRoom(reason='用户退出房间'):Promise<{left:boolean}>{this.netLog('info','退出房间：'+reason.slice(0,100));this.operation++;this.operationController.abort();this.pending=false;const session=this.engine.session,credentials={code:this.engine.code,token:this.engine.token,isHost:this.engine.isHost};this.engine.session=null;session?.stop();this.engine.teardown();this.engine.setState('idle','','',false,null,null);this.state='idle';this.room=null;this.emit('session:state',{state:'idle'});if(session)void this.api.post(this.baseURL(),'/room/leave',credentials).catch(()=>{});return{left:!!session}}
+  getSessionStateJSON():AppState{return{state:this.state,room:this.room,code:this.engine.code,token:this.engine.token,isHost:this.engine.isHost}}
+  async sendRoomUpdate(value:{name?:string;category?:string;visible?:boolean;password?:string}):Promise<void>{if(!this.engine.session||!this.engine.isHost)throw new Error('只有房主可以修改房间');await this.api.post(this.baseURL(),'/room/update',{...value,code:this.engine.code,token:this.engine.token,isHost:true})}
+  async getRoomMods(code:string):Promise<Data>{return await this.api.post(this.baseURL(),'/room/mods',{code}) as Data}
+  async relayStatus():Promise<Data>{return await this.api.get(this.baseURL(),'/relay/status',{}) as Data}
+  async relayList():Promise<Data>{return await this.api.get(this.baseURL(),'/relay/list',{}) as Data}
+  async getStun():Promise<Data>{return await this.api.get(this.baseURL(),'/stun',{}) as Data}
+  async openInBrowser(url:string):Promise<void>{if(!validateServerURL(url))throw new Error('链接无效');const {shell}=await import('electron');await shell.openExternal(url)}
+  async detectMcPortsJSON(){return{ports:await detectMcPorts()}}
+  tryDirect(){return this.engine.tryDirect()}
+  usePlayerRelay(){return this.engine.usePlayerRelay()}
 }
-
-import type { McPortEntry } from './mc_ports'

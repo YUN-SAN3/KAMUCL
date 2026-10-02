@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-21T07:50:37.426Z",
+  "version": "26.3",
+  "files": 5147,
+  "bytes": 483700241,
+  "threads": 16,
+  "cache": "Each run used a new empty directory. No local file reuse. Runs were sequential on the same PC and connection.",
+  "source": "BMCLAPI preference with official fallback",
+  "timedPhase": "Asset files only; metadata fetch and final independent audit excluded. Each downloader still verifies every output before completing.",
+  "before": {
+    "revision": "4c896f0ebb32741e0e1708093253ad5ed9b7671e",
+    "elapsedSeconds": 398.8131858,
+    "complete": true,
+    "verifiedFiles": 5147,
+    "requests": 14396,
+    "redirects": 8903
+  },
+  "after": {
+    "release": "1.0.96",
+    "elapsedSeconds": 150.4040457,
+    "complete": true,
+    "verifiedFiles": 5147,
+    "requests": 5443,
+    "redirects": 38,
+    "rateLimits": 0
+  },
+  "speedRatio": 2.651612088916036,
+  "limitations": [
+    "One full paired real-network run; CDN nodes and routing vary over time.",
+    "This measures asset downloads, not a complete modpack installation or game launch.",
+    "User video reference is PCL installing Mechanomania, with cache state unknown. These figures do not establish twice PCL speed.",
+    "First 120-second baseline and intermediate 180-second run were exploratory and are excluded from this complete-run comparison."
+  ]
+}

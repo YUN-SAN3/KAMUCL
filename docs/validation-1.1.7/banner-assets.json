@@ -1,0 +1,348 @@
+{
+  "version": "1.1.7",
+  "sourceCommit": "959ecbd3fcf1886becaa54795e9bceeb3987a986",
+  "checkedAtUTC": "2026-10-01T19:27:49.524Z",
+  "checkedAtLocal": "2026-10-02 03:27:49",
+  "decodedPixelPolicy": "sharp decode to 8-bit RGB and normalized RGBA (opaque images receive alpha 255); compare every decoded RGBA byte, dimensions and SHA256",
+  "buildConfiguration": "electron.vite.config.ts renderer.build.outDir=out/renderer",
+  "allPassed": true,
+  "imageCount": 7,
+  "images": [
+    {
+      "key": "builtin:piston",
+      "title": "Minecraft活塞压扁大冒险",
+      "original": {
+        "path": "C:\\Users\\ROG\\OneDrive\\桌面\\KAMUCL-首页图片\\Minecraft活塞压扁大冒险.png",
+        "format": "png",
+        "sizeBytes": 1796017,
+        "width": 1672,
+        "height": 941,
+        "hasAlpha": false,
+        "fileSHA256": "8f8edda5b2eacbe4a62a07895d6fbcba43131c383b4855d47eb94081ccb0b492",
+        "decodedRGBSHA256": "e8c74509e9f57c18c99df123e87bdc41752b069f2876671893b691a124b40456",
+        "decodedRGBASHA256": "8a013067aa4cd26d1c0ea273c5f90da164bc35dfce43de2c0c0f62cfb0c37143",
+        "decodedRGBAChannels": 4
+      },
+      "repository": {
+        "path": "E:\\KAMUCL\\src\\renderer\\src\\assets\\launch\\piston.webp",
+        "format": "webp",
+        "sizeBytes": 1406146,
+        "width": 1672,
+        "height": 941,
+        "hasAlpha": false,
+        "fileSHA256": "bdfbc3e3b189a0e6e012a7fd381cd5a829c7b5143ba869d51ee35c072cf3197d",
+        "decodedRGBSHA256": "e8c74509e9f57c18c99df123e87bdc41752b069f2876671893b691a124b40456",
+        "decodedRGBASHA256": "8a013067aa4cd26d1c0ea273c5f90da164bc35dfce43de2c0c0f62cfb0c37143",
+        "decodedRGBAChannels": 4
+      },
+      "production": {
+        "path": "E:\\KAMUCL\\out\\renderer\\assets\\piston-CXXgq7BE.webp",
+        "format": "webp",
+        "sizeBytes": 1406146,
+        "width": 1672,
+        "height": 941,
+        "hasAlpha": false,
+        "fileSHA256": "bdfbc3e3b189a0e6e012a7fd381cd5a829c7b5143ba869d51ee35c072cf3197d",
+        "decodedRGBSHA256": "e8c74509e9f57c18c99df123e87bdc41752b069f2876671893b691a124b40456",
+        "decodedRGBASHA256": "8a013067aa4cd26d1c0ea273c5f90da164bc35dfce43de2c0c0f62cfb0c37143",
+        "decodedRGBAChannels": 4
+      },
+      "checks": {
+        "dimensionsPreserved": true,
+        "rgbaPixelsIdentical": true,
+        "rgbPixelsIdentical": true,
+        "productionBytesIdentical": true,
+        "productionDimensionsIdentical": true,
+        "productionRGBAPixelsIdentical": true
+      }
+    },
+    {
+      "key": "builtin:brewer",
+      "title": "暮色村庄酿药师",
+      "original": {
+        "path": "C:\\Users\\ROG\\OneDrive\\桌面\\KAMUCL-首页图片\\暮色村庄酿药师.png",
+        "format": "png",
+        "sizeBytes": 1841134,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "a75a93e57af0b7c7092fbe2d3d430f5732141c61af65d8b9cc8f8b6ffa12c2af",
+        "decodedRGBSHA256": "30a8f343d3549ca13b6c5b69146b5e0b86e32d0d9f21b997ba5915fc2249808d",
+        "decodedRGBASHA256": "819098926de1001cf44a6c056caef3d471ef4d922bb26ecccc0e97d9e90d1637",
+        "decodedRGBAChannels": 4
+      },
+      "repository": {
+        "path": "E:\\KAMUCL\\src\\renderer\\src\\assets\\launch\\brewer.webp",
+        "format": "webp",
+        "sizeBytes": 1405068,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "38f39f80451353784a5217c781d35f131961074eb3f0a2bdc59bc37a84e77a16",
+        "decodedRGBSHA256": "30a8f343d3549ca13b6c5b69146b5e0b86e32d0d9f21b997ba5915fc2249808d",
+        "decodedRGBASHA256": "819098926de1001cf44a6c056caef3d471ef4d922bb26ecccc0e97d9e90d1637",
+        "decodedRGBAChannels": 4
+      },
+      "production": {
+        "path": "E:\\KAMUCL\\out\\renderer\\assets\\brewer-_t6hu0qJ.webp",
+        "format": "webp",
+        "sizeBytes": 1405068,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "38f39f80451353784a5217c781d35f131961074eb3f0a2bdc59bc37a84e77a16",
+        "decodedRGBSHA256": "30a8f343d3549ca13b6c5b69146b5e0b86e32d0d9f21b997ba5915fc2249808d",
+        "decodedRGBASHA256": "819098926de1001cf44a6c056caef3d471ef4d922bb26ecccc0e97d9e90d1637",
+        "decodedRGBAChannels": 4
+      },
+      "checks": {
+        "dimensionsPreserved": true,
+        "rgbaPixelsIdentical": true,
+        "rgbPixelsIdentical": true,
+        "productionBytesIdentical": true,
+        "productionDimensionsIdentical": true,
+        "productionRGBAPixelsIdentical": true
+      }
+    },
+    {
+      "key": "builtin:cannon",
+      "title": "熔岩悬崖上的失控大炮",
+      "original": {
+        "path": "C:\\Users\\ROG\\OneDrive\\桌面\\KAMUCL-首页图片\\熔岩悬崖上的失控大炮.png",
+        "format": "png",
+        "sizeBytes": 1987245,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "7e684147495a480b207a33810bc31327877f49037b53b869a201436f71671588",
+        "decodedRGBSHA256": "be20c272883fbeee485d09f8b033d1fbd030ba3a9df0a1cb1e2e756b5fbf1c76",
+        "decodedRGBASHA256": "19550e6bff1f15156818038c73ac25f4d542af2612fa0bcc07313067950312a4",
+        "decodedRGBAChannels": 4
+      },
+      "repository": {
+        "path": "E:\\KAMUCL\\src\\renderer\\src\\assets\\launch\\cannon.webp",
+        "format": "webp",
+        "sizeBytes": 1543372,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "4b0a8804c5ac58292c28056783b6a19ae39c417d39898e9f2000aed751326a64",
+        "decodedRGBSHA256": "be20c272883fbeee485d09f8b033d1fbd030ba3a9df0a1cb1e2e756b5fbf1c76",
+        "decodedRGBASHA256": "19550e6bff1f15156818038c73ac25f4d542af2612fa0bcc07313067950312a4",
+        "decodedRGBAChannels": 4
+      },
+      "production": {
+        "path": "E:\\KAMUCL\\out\\renderer\\assets\\cannon-CrDDsD5Q.webp",
+        "format": "webp",
+        "sizeBytes": 1543372,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "4b0a8804c5ac58292c28056783b6a19ae39c417d39898e9f2000aed751326a64",
+        "decodedRGBSHA256": "be20c272883fbeee485d09f8b033d1fbd030ba3a9df0a1cb1e2e756b5fbf1c76",
+        "decodedRGBASHA256": "19550e6bff1f15156818038c73ac25f4d542af2612fa0bcc07313067950312a4",
+        "decodedRGBAChannels": 4
+      },
+      "checks": {
+        "dimensionsPreserved": true,
+        "rgbaPixelsIdentical": true,
+        "rgbPixelsIdentical": true,
+        "productionBytesIdentical": true,
+        "productionDimensionsIdentical": true,
+        "productionRGBAPixelsIdentical": true
+      }
+    },
+    {
+      "key": "builtin:cactus",
+      "title": "沙漠仙人掌飞跃大作战",
+      "original": {
+        "path": "C:\\Users\\ROG\\OneDrive\\桌面\\KAMUCL-首页图片\\沙漠仙人掌飞跃大作战.png",
+        "format": "png",
+        "sizeBytes": 1790898,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "8b269514f957f0fbc4e04aea0f833b4c78c84f1b20f593f3702f53a073a985c9",
+        "decodedRGBSHA256": "0945dacc3d2c8d292c4418c19afe0e317771c1c2ebf7d926697de5112a349503",
+        "decodedRGBASHA256": "3680e245122f9506464b8c54287b465124e6db9b3c12f48a410c5185b4fbc7f8",
+        "decodedRGBAChannels": 4
+      },
+      "repository": {
+        "path": "E:\\KAMUCL\\src\\renderer\\src\\assets\\launch\\cactus.webp",
+        "format": "webp",
+        "sizeBytes": 1391550,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "0530b9aeec17c0f538b25e7c4ebfc4c9064f166964fea333e8994a7ad9caadfb",
+        "decodedRGBSHA256": "0945dacc3d2c8d292c4418c19afe0e317771c1c2ebf7d926697de5112a349503",
+        "decodedRGBASHA256": "3680e245122f9506464b8c54287b465124e6db9b3c12f48a410c5185b4fbc7f8",
+        "decodedRGBAChannels": 4
+      },
+      "production": {
+        "path": "E:\\KAMUCL\\out\\renderer\\assets\\cactus-ZHT28Bbx.webp",
+        "format": "webp",
+        "sizeBytes": 1391550,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "0530b9aeec17c0f538b25e7c4ebfc4c9064f166964fea333e8994a7ad9caadfb",
+        "decodedRGBSHA256": "0945dacc3d2c8d292c4418c19afe0e317771c1c2ebf7d926697de5112a349503",
+        "decodedRGBASHA256": "3680e245122f9506464b8c54287b465124e6db9b3c12f48a410c5185b4fbc7f8",
+        "decodedRGBAChannels": 4
+      },
+      "checks": {
+        "dimensionsPreserved": true,
+        "rgbaPixelsIdentical": true,
+        "rgbPixelsIdentical": true,
+        "productionBytesIdentical": true,
+        "productionDimensionsIdentical": true,
+        "productionRGBAPixelsIdentical": true
+      }
+    },
+    {
+      "key": "builtin:farmer",
+      "title": "像素农夫与肥料伙伴",
+      "original": {
+        "path": "C:\\Users\\ROG\\OneDrive\\桌面\\KAMUCL-首页图片\\像素农夫与肥料伙伴.png",
+        "format": "png",
+        "sizeBytes": 2011221,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "b0201cd0da512b5d9697c1eefa9c4f869bd11ba3d8c6c9add36b34a0f882dc77",
+        "decodedRGBSHA256": "5b8bac38860c285b2abcf5361682e0671e08a62d55229afff1c647736e2c8a33",
+        "decodedRGBASHA256": "9b043cec4f61fbbcd96c02b59a4ce03ac8ec90d4b09ef1ac11618775b636cc29",
+        "decodedRGBAChannels": 4
+      },
+      "repository": {
+        "path": "E:\\KAMUCL\\src\\renderer\\src\\assets\\launch\\farmer.webp",
+        "format": "webp",
+        "sizeBytes": 1588558,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "c186d9793565bbc22aafa68de3df9cf6e02c73d252aab596771941cf7957e252",
+        "decodedRGBSHA256": "5b8bac38860c285b2abcf5361682e0671e08a62d55229afff1c647736e2c8a33",
+        "decodedRGBASHA256": "9b043cec4f61fbbcd96c02b59a4ce03ac8ec90d4b09ef1ac11618775b636cc29",
+        "decodedRGBAChannels": 4
+      },
+      "production": {
+        "path": "E:\\KAMUCL\\out\\renderer\\assets\\farmer-3krkG6Tm.webp",
+        "format": "webp",
+        "sizeBytes": 1588558,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "c186d9793565bbc22aafa68de3df9cf6e02c73d252aab596771941cf7957e252",
+        "decodedRGBSHA256": "5b8bac38860c285b2abcf5361682e0671e08a62d55229afff1c647736e2c8a33",
+        "decodedRGBASHA256": "9b043cec4f61fbbcd96c02b59a4ce03ac8ec90d4b09ef1ac11618775b636cc29",
+        "decodedRGBAChannels": 4
+      },
+      "checks": {
+        "dimensionsPreserved": true,
+        "rgbaPixelsIdentical": true,
+        "rgbPixelsIdentical": true,
+        "productionBytesIdentical": true,
+        "productionDimensionsIdentical": true,
+        "productionRGBAPixelsIdentical": true
+      }
+    },
+    {
+      "key": "builtin:camp",
+      "title": "月夜篝火下的方块森林营地",
+      "original": {
+        "path": "C:\\Users\\ROG\\OneDrive\\桌面\\KAMUCL-首页图片\\月夜篝火下的方块森林营地.png",
+        "format": "png",
+        "sizeBytes": 1809371,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "a6c726afe729a5f079f5d90258d180fb210533ea8ffae38f68cec42ecad7405e",
+        "decodedRGBSHA256": "042a68cbf1faded3d6e8b3b29e12a3ee4bf4df5b74d1537e6cdfb42a84d95e4a",
+        "decodedRGBASHA256": "1d677d8c05331f982171b9ac4ef95a991d70af11d1e9e1f05c5b1eaa0aae6819",
+        "decodedRGBAChannels": 4
+      },
+      "repository": {
+        "path": "E:\\KAMUCL\\src\\renderer\\src\\assets\\launch\\camp.webp",
+        "format": "webp",
+        "sizeBytes": 1413784,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "66783d4aa2371fdb8e95df9fe17103345f6fad27ab35640ae1ebec2e59981ebe",
+        "decodedRGBSHA256": "042a68cbf1faded3d6e8b3b29e12a3ee4bf4df5b74d1537e6cdfb42a84d95e4a",
+        "decodedRGBASHA256": "1d677d8c05331f982171b9ac4ef95a991d70af11d1e9e1f05c5b1eaa0aae6819",
+        "decodedRGBAChannels": 4
+      },
+      "production": {
+        "path": "E:\\KAMUCL\\out\\renderer\\assets\\camp-KA8qI3ns.webp",
+        "format": "webp",
+        "sizeBytes": 1413784,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "66783d4aa2371fdb8e95df9fe17103345f6fad27ab35640ae1ebec2e59981ebe",
+        "decodedRGBSHA256": "042a68cbf1faded3d6e8b3b29e12a3ee4bf4df5b74d1537e6cdfb42a84d95e4a",
+        "decodedRGBASHA256": "1d677d8c05331f982171b9ac4ef95a991d70af11d1e9e1f05c5b1eaa0aae6819",
+        "decodedRGBAChannels": 4
+      },
+      "checks": {
+        "dimensionsPreserved": true,
+        "rgbaPixelsIdentical": true,
+        "rgbPixelsIdentical": true,
+        "productionBytesIdentical": true,
+        "productionDimensionsIdentical": true,
+        "productionRGBAPixelsIdentical": true
+      }
+    },
+    {
+      "key": "builtin:sunset",
+      "title": "方块世界的日落奇遇",
+      "original": {
+        "path": "C:\\Users\\ROG\\OneDrive\\桌面\\KAMUCL-首页图片\\方块世界的日落奇遇.png",
+        "format": "png",
+        "sizeBytes": 2165048,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "469938d7d90d7b8eff6ce0556cd14d2fae3981bbafc65b9393d0575dc93d28c5",
+        "decodedRGBSHA256": "0fd4efc56307d9b90b4c721361f5d193c1ce464390fff5ce630177ef4af9535f",
+        "decodedRGBASHA256": "c3202622b7c6ddeddcdf8a2a556741b6a65cb25756469ae3d6257458f51a4ac4",
+        "decodedRGBAChannels": 4
+      },
+      "repository": {
+        "path": "E:\\KAMUCL\\src\\renderer\\src\\assets\\launch\\sunset.webp",
+        "format": "webp",
+        "sizeBytes": 1582702,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "0c4586a2ff009492b82f543fe64fea4a6210d952d7c382a270e889e508e38766",
+        "decodedRGBSHA256": "0fd4efc56307d9b90b4c721361f5d193c1ce464390fff5ce630177ef4af9535f",
+        "decodedRGBASHA256": "c3202622b7c6ddeddcdf8a2a556741b6a65cb25756469ae3d6257458f51a4ac4",
+        "decodedRGBAChannels": 4
+      },
+      "production": {
+        "path": "E:\\KAMUCL\\out\\renderer\\assets\\sunset--N5hnz1m.webp",
+        "format": "webp",
+        "sizeBytes": 1582702,
+        "width": 1870,
+        "height": 841,
+        "hasAlpha": false,
+        "fileSHA256": "0c4586a2ff009492b82f543fe64fea4a6210d952d7c382a270e889e508e38766",
+        "decodedRGBSHA256": "0fd4efc56307d9b90b4c721361f5d193c1ce464390fff5ce630177ef4af9535f",
+        "decodedRGBASHA256": "c3202622b7c6ddeddcdf8a2a556741b6a65cb25756469ae3d6257458f51a4ac4",
+        "decodedRGBAChannels": 4
+      },
+      "checks": {
+        "dimensionsPreserved": true,
+        "rgbaPixelsIdentical": true,
+        "rgbPixelsIdentical": true,
+        "productionBytesIdentical": true,
+        "productionDimensionsIdentical": true,
+        "productionRGBAPixelsIdentical": true
+      }
+    }
+  ]
+}

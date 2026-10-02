@@ -3,6 +3,10 @@
    ============================================================ */
 
 /* -------- 图一深色绿玻璃的首帧回退值（设置加载后由主题色板覆盖） -------- */
+/* Keep the native traffic lights clear of branding and editable page content. */
+html[data-platform="darwin"] .sidebar { padding-top: 38px; }
+html[data-platform="darwin"] .shell { border-radius: 0; }
+
 :root {
   --bg: #10191b;
   --bg-2: rgba(13, 23, 26, 0.72);
@@ -54,6 +58,11 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
+  /* Shared interaction rhythm: short response, restrained deceleration. */
+  --motion-fast: 120ms;
+  --motion-normal: 180ms;
+  --motion-enter: 220ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
   --ctl-h: 36px;
   --row-h: 42px;
   --card-pad: 20px;
@@ -104,6 +113,50 @@
   margin: 0;
   padding: 0;
 }
+
+/* Keep native checkbox state, events, keyboard activation and indeterminate
+   semantics; only replace the platform-dependent visual treatment. */
+input[type='checkbox']:not(:where(.switch input, .connection-toggle input)) {
+  appearance: none;
+  -webkit-appearance: none;
+  /* Legacy scoped list styles used 14–17px sizes; the shared size token owns
+     these dimensions across both Teleport dialogs and ordinary page lists. */
+  width: var(--check-size, 20px) !important;
+  height: var(--check-size, 20px) !important;
+  min-width: var(--check-size, 20px) !important;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  border: 1.5px solid color-mix(in srgb, var(--text-dim) 65%, var(--border));
+  border-radius: 6px;
+  background-color: var(--card-2);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 76%;
+  cursor: pointer;
+  transition: background-color var(--motion-fast), border-color var(--motion-fast), box-shadow var(--motion-fast);
+}
+input[type='checkbox']:not(:where(.switch input, .connection-toggle input)):hover:not(:disabled) { border-color: var(--accent); }
+input[type='checkbox']:not(:where(.switch input, .connection-toggle input)):checked {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m5 12 4.5 4.5L19 7' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+input[type='checkbox']:not(:where(.switch input, .connection-toggle input)):indeterminate {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12h12' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+input[type='checkbox']:not(:where(.switch input, .connection-toggle input)):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+input[type='checkbox']:not(:where(.switch input, .connection-toggle input)):disabled { opacity: .45; cursor: not-allowed; }
+.check-option { display: flex; gap: 14px; align-items: flex-start; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--card-2); cursor: pointer; }
+.check-option:has(input:checked) { border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); background: color-mix(in srgb, var(--accent-soft) 40%, var(--card-2)); }
+.check-option input { --check-size: 26px; margin-top: 2px; }
+.check-option strong { display: block; font-size: var(--text-md); font-weight: 600; }
+.check-option small { display: block; margin-top: 4px; color: var(--text-dim); font-size: var(--text-xs); line-height: 1.6; }
+.check-option:has(input:disabled) { cursor: default; }
+@media (prefers-reduced-motion: reduce) { input[type='checkbox'] { transition: none; } }
 
 html,
 body,
@@ -161,7 +214,7 @@ body {
   font-family: inherit;
   line-height: 1.2;
   cursor: pointer;
-  /* 2026 现代感：悬浮微浮起 + 阴影过渡 + 按压反馈 + 焦点环 */
+  /* Keep hover stationary; reserve movement for a short press response. */
   transition: background 0.18s ease, border-color 0.18s ease, filter 0.18s ease,
     transform 0.14s ease, opacity 0.18s ease, color 0.18s ease, box-shadow 0.2s ease;
   white-space: nowrap;
@@ -171,13 +224,13 @@ body {
   outline: none;
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
-/* 悬浮：微浮起 + 阴影 */
+/* Pointer hover stays in place. */
 .btn:hover:not(:disabled) {
-  transform: translateY(-1px);
+  transform: none;
 }
 /* 按压反馈 */
 .btn:active:not(:disabled) {
-  transform: scale(0.97);
+  transform: scale(0.985);
 }
 .btn:disabled {
   opacity: 0.45;
@@ -192,35 +245,35 @@ body {
   background: var(--accent-grad);
   color: var(--on-accent);
   font-weight: 600;
-  box-shadow: 0 4px 16px var(--accent-soft);
+  box-shadow: 0 2px 6px var(--accent-soft);
 }
 .btn-gold:hover:not(:disabled) {
   filter: brightness(1.08);
-  box-shadow: 0 6px 22px var(--accent-soft);
-  transform: translateY(-1px);
+  box-shadow: 0 3px 10px var(--accent-soft);
+  transform: none;
 }
 .btn-gold:active:not(:disabled) {
-  transform: scale(0.97);
+  transform: scale(0.985);
 }
 .btn-gold:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--accent-soft), 0 4px 16px var(--accent-soft);
 }
 
-/* 次按钮：card-2 底 + 边框，悬浮金边 + 微浮起 */
+/* Secondary actions use a neutral surface and border. */
 .btn-ghost {
   background: var(--card-2);
   border-color: var(--border);
   color: var(--text);
 }
 .btn-ghost:hover:not(:disabled) {
-  border-color: var(--accent-deep);
-  color: var(--accent-2);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: var(--border-strong);
+  color: var(--text);
+  transform: none;
+  box-shadow: none;
 }
 .btn-ghost:active:not(:disabled) {
-  transform: scale(0.97);
+  transform: scale(0.985);
 }
 .btn-ghost:focus-visible {
   outline: none;
@@ -235,11 +288,11 @@ body {
 }
 .btn-danger:hover:not(:disabled) {
   background: color-mix(in srgb, var(--danger) 18%, transparent);
-  transform: translateY(-1px);
+  transform: none;
   box-shadow: 0 4px 14px color-mix(in srgb, var(--danger) 14%, transparent);
 }
 .btn-danger:active:not(:disabled) {
-  transform: scale(0.97);
+  transform: scale(0.985);
 }
 .btn-danger:focus-visible {
   outline: none;
@@ -272,8 +325,8 @@ body {
 .icon-btn:hover:not(:disabled) {
   background: var(--card-2);
   color: var(--accent-2);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 10px color-mix(in srgb, var(--accent) 10%, transparent);
+  transform: none;
+  box-shadow: none;
 }
 .icon-btn:active:not(:disabled) {
   transform: scale(0.93);
@@ -369,8 +422,7 @@ input[type='number'] {
   border-radius: 999px;
   background: var(--card-2);
   border: 1px solid var(--border);
-  /* 开/关过渡放慢一倍（0.2s → 0.4s），ease-in-out 保持平滑 */
-  transition: background 0.4s ease-in-out, border-color 0.4s ease-in-out;
+  transition: background var(--motion-normal) ease, border-color var(--motion-normal) ease;
 }
 .switch-ui::before {
   content: '';
@@ -382,14 +434,14 @@ input[type='number'] {
   height: 14px;
   border-radius: 50%;
   background: var(--text-dim);
-  transition: left 0.4s ease-in-out, background 0.4s ease-in-out;
+  transition: transform var(--motion-normal) var(--ease-out), background var(--motion-normal) ease;
 }
 .switch input:checked + .switch-ui {
   background: var(--accent);
   border-color: var(--accent);
 }
 .switch input:checked + .switch-ui::before {
-  left: 21px;
+  transform: translate(18px, -50%);
   background: var(--on-accent);
 }
 .switch input:focus-visible + .switch-ui {
@@ -447,9 +499,6 @@ input[type='number'] {
   box-shadow: var(--shadow);
   transition: border-color 0.18s ease, background 0.18s ease;
 }
-.card:hover {
-  border-color: var(--border-strong);
-}
 
 .tag {
   display: inline-flex;
@@ -498,7 +547,8 @@ input[type='number'] {
 .page-title {
   font-size: var(--text-xl);
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
+  line-height: 1.35;
 }
 .page-sub {
   font-size: var(--text-sm);
@@ -521,25 +571,31 @@ input[type='number'] {
 .modal-mask {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--mask);
-  backdrop-filter: blur(24px) saturate(130%);
-  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   animation: mask-in 0.2s ease;
 }
+
+/* User content layers stay within the page, below navigation and system dialogs. */
+.content { isolation: isolate; z-index: 0; }
+.sidebar, .topbar { isolation: isolate; position: relative; z-index: 2; }
+#design-preview-host > .shell { width: 100% !important; height: 100% !important; min-height: 0 !important; }
+#design-preview-host > .app-bg { position: absolute !important; }
 .modal {
   width: min(460px, calc(100vw - 48px));
   max-height: calc(100vh - 96px);
   overflow-y: auto;
-  background: var(--card);
+  background: color-mix(in srgb, var(--card-solid, var(--card)) 96%, transparent);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--space-5);
   box-shadow: var(--shadow-lg);
-  animation: modal-in 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  animation: modal-in var(--motion-enter) var(--ease-out);
 }
 /* 弹窗底部按钮行（各弹窗通用的规范布局；此前分散在各组件 scoped 中） */
 .modal-actions {
@@ -557,7 +613,7 @@ input[type='number'] {
 @keyframes modal-in {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.97);
+    transform: translateY(6px) scale(0.99);
   }
 }
 
@@ -573,7 +629,7 @@ input[type='number'] {
   min-width: 150px;
   max-height: 300px;
   overflow-y: auto;
-  background: var(--card-2);
+  background: color-mix(in srgb, var(--card-solid, var(--card)) 96%, transparent);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: var(--space-2);
@@ -632,22 +688,32 @@ input[type='number'] {
   text-align: center;
 }
 
-/* ---------------- 视图切换过渡（FCL 式：淡入 + 上滑 24px / 250ms） ---------------- */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+/* Page changes: a brief exit, then a small entrance, without spring overshoot. */
+.fade-enter-active { transition: opacity 180ms ease, transform 180ms var(--ease-out); }
+.fade-leave-active { transition: opacity 80ms ease; }
+.fade-enter-from { opacity: 0; transform: translateY(6px); }
+.fade-leave-to { opacity: 0; }
+
+/* All custom controls retain a visible keyboard focus, including icon-only actions. */
+:where(button, a, [role='button'], input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
-.fade-enter-from {
-  opacity: 0;
-  transform: translateY(24px);
-}
-.fade-leave-to {
-  opacity: 0;
-}
+.slider:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* Keep progress state visible while honoring the system's motion preference. */
 @media (prefers-reduced-motion: reduce) {
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: none;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .dl-bar.is-indeterminate .dl-bar-fill {
+    animation: none !important;
+    transform: none !important;
   }
 }
 
@@ -675,16 +741,16 @@ input[type='number'] {
 
 /* ---------------- 个性化点选编辑模式 ---------------- */
 /* 可编辑板块：指针 + 悬停虚线描边 */
-.edit-mode [data-edit] {
+.legacy-edit-mode [data-edit] {
   cursor: pointer;
 }
-.edit-mode [data-edit]:hover {
+.legacy-edit-mode [data-edit]:hover {
   outline: 2px dashed var(--accent);
   outline-offset: 2px;
 }
 /* 选中板块：实线高亮描边（优先于 hover） */
-.edit-mode [data-edit].edit-active,
-.edit-mode [data-edit].edit-active:hover {
+.legacy-edit-mode [data-edit].edit-active,
+.legacy-edit-mode [data-edit].edit-active:hover {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
@@ -752,3 +818,16 @@ input[type='number'] {
   transform: translateX(40px);
   opacity: 0;
 }
+
+/* 所有可用按钮统一提供静止高亮，保持布局与个性化动效。 */
+@media (hover: hover) {
+  button:not(:disabled):not([aria-disabled="true"]):hover {
+    filter: brightness(1.08);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--accent) 10%, var(--card-2));
+    border-color: var(--accent);
+    box-shadow: 0 3px 12px var(--accent-soft);
+  }
+}
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

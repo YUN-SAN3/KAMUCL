@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "kamucl-bridge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "KAMUCL Bridge",
   "description": "KAMUCL 启动器的本机桥接与参数注册接口；附带演示 MOD（kamucl-demo）。",
   "authors": ["KAMUCL"],
