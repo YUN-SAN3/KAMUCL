@@ -12,6 +12,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-See%20LICENSE-ffb4a2?style=flat-square" alt="license: see LICENSE"></a>
   <img src="https://img.shields.io/badge/Electron-44.3.0-9be564?style=flat-square" alt="electron">
   <a href="https://space.bilibili.com/9596327"><img src="https://img.shields.io/badge/Bilibili-作者主页-00AEEC?style=flat-square&logo=bilibili&logoColor=white" alt="Bilibili 作者主页"></a>
+  <a href="https://space.bilibili.com/526277131"><img src="https://img.shields.io/badge/Bilibili-代码贡献者-00AEEC?style=flat-square&logo=bilibili&logoColor=white" alt="Bilibili 代码贡献者主页"></a>
 </p>
 
 <p>把账号、实例、模组和启动按钮，收进一个清爽的小窗口里。<br>
