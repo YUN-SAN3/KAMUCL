@@ -187,8 +187,8 @@ docs/           功能说明、构建说明与版本验证记录
 
 联机模块的实现离不开以下开源项目的支持：
 
-- **[VoxLink](https://github.com/AUGUHDAR/VoxLink)**：由 [AUGUHDAR](https://github.com/AUGUHDAR) 开发，提供开箱即用的房间码联机方案，无需端口映射或公网 IP。感谢作者及所有参与远程联机测试的贡献者，累计完成超过 4000 轮测试。
-- **[陶瓦联机（Terracotta）](https://github.com/burningtnt/Terracotta)**：由 [Burning_TNT](https://github.com/burningtnt) 基于 [EasyTier](https://github.com/EasyTier/EasyTier) 开发，采用 AGPL-3.0 许可，为 Minecraft Java 版提供 P2P 联机能力。VoxLink 自 1.0.4 起集成陶瓦作为可选后端，以提升连接成功率。
+- **[VoxLink](https://github.com/AUGUHDAR/VoxLink)**：由 [AUGUHDAR](https://github.com/AUGUHDAR) 开发，提供开箱即用的房间码联机方案，无需端口映射或公网 IP。感谢作者及所有参与远程联机测试的贡献者
+- **[陶瓦联机（Terracotta）](https://github.com/burningtnt/Terracotta)**：由 [Burning_TNT](https://github.com/burningtnt) 基于 [EasyTier](https://github.com/EasyTier/EasyTier) 开发，采用 AGPL-3.0 许可，为 Minecraft Java 版提供 P2P 联机能力。
 
 <div align="center">
 
