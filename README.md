@@ -32,7 +32,7 @@ KAMUCL 基于 Electron 44.3.0、Vue 和 Three.js。当前交付 Windows x64 和 
 | 🛠️ 实例管理中心 | 复制、备份、恢复实例，并查看运行诊断 |
 | 🔎 社区资源 | 搜索并导入 Modrinth / CurseForge 资源 |
 | 🧁 皮肤衣柜 | 角色预览、皮肤与披风上传、历史记录 |
-| 🤝 联机 | FRP、VoxLink、Terracotta 和好友直连 |
+| 🤝 联机 | FRP、[VoxLink](https://github.com/AUGUHDAR/VoxLink)、[陶瓦（Terracotta）](https://github.com/burningtnt/Terracotta)和好友直连 |
 | 🛠️ MOD 面板 | 通过 KAMUCL Bridge 实时读取与修改 MOD 参数 |
 | ✨ 个性化 | 主题、背景、快捷键、插件和启动页缩略图 |
 | 🩺 诊断 | 下载任务、日志导出、启动诊断、更新与回滚 |
@@ -181,9 +181,14 @@ docs/           功能说明、构建说明与版本验证记录
 
 </details>
 
-## 💌 许可证
+## 💌 许可证与致谢
 
 项目的 `package.json` 许可字段为 `SEE LICENSE IN LICENSE`。原始 KAMUCL 贡献适用 [LICENSE](LICENSE) 中限定范围的 MIT 条款；第三方代码保留各自许可，请同时阅读 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)、`licenses/` 和[对应源码说明](docs/CORRESPONDING_SOURCE.md)，以具体条件为准。
+
+联机模块的实现离不开以下开源项目的支持：
+
+- **[VoxLink](https://github.com/AUGUHDAR/VoxLink)**：由 [AUGUHDAR](https://github.com/AUGUHDAR) 开发，提供开箱即用的房间码联机方案，无需端口映射或公网 IP。感谢作者及所有参与远程联机测试的贡献者，累计完成超过 4000 轮测试。
+- **[陶瓦联机（Terracotta）](https://github.com/burningtnt/Terracotta)**：由 [Burning_TNT](https://github.com/burningtnt) 基于 [EasyTier](https://github.com/EasyTier/EasyTier) 开发，采用 AGPL-3.0 许可，为 Minecraft Java 版提供 P2P 联机能力。VoxLink 自 1.0.4 起集成陶瓦作为可选后端，以提升连接成功率。
 
 <div align="center">
 
