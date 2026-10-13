@@ -19,10 +19,10 @@ jobs:
     runs-on: macos-26
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '24'
           cache: npm
@@ -32,7 +32,7 @@ jobs:
           node --test scripts/verify-mac-batch120-reuse-tests.cjs scripts/qa-community-input120-tests.cjs
           node -e "require('./scripts/verify-mac-batch120-reuse.cjs').proveReuseSource('0649ed5c7035a0809b9e73117da2b4ff0ea378bd',process.env.GITHUB_SHA)"
       - name: Read immutable original package run and artifact provenance
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
             const assert = require('node:assert/strict')
@@ -56,7 +56,7 @@ jobs:
             assert.equal(matches[0].workflow_run.head_sha, run.head_sha)
             fs.mkdirSync('release', { recursive: true })
             fs.writeFileSync('release/artifact-origin120.json', JSON.stringify({ run, packageJob: packageJobs[0], artifact: matches[0] }, null, 2))
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           artifact-ids: 11509975002
           run-id: 37680785679
@@ -66,7 +66,7 @@ jobs:
         run: defaults write com.apple.universalaccess reduceTransparency -bool false
       - name: Original signed bytes, current bounded QA and actual native four-theme APP or DMG
         run: node scripts/verify-mac-batch120-reuse.cjs ${{ matrix.stage }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: mac-batch120-reuse-arm64-${{ matrix.stage }}

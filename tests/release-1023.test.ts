@@ -16,7 +16,7 @@ test('curseforge: official API with x-api-key when configured, mirror fallback o
   assert.match(c, /export \{ cfChannel \} from '\.\/curseforgeChannel'/)
   assert.match(channel, /const CF_OFFICIAL = 'https:\/\/api\.curseforge\.com\/v1'/)
   assert.match(channel, /const CF_MIRROR = 'https:\/\/mod\.mcimirror\.top\/curseforge\/v1'/)
-  assert.match(channel, /curseforgeApiKey/)
+  assert.match(channel, /getCurseforgeApiKey/)
   assert.match(c, /'x-api-key': ch\.key/)
   // 受限文件现场解析 download-url
   assert.match(c, /download-url/)
@@ -32,7 +32,7 @@ test('isolated CurseForge channel preserves environment, settings, builtin prece
   // Stub only dependency boundaries. Never read, emit or replace a real key or user profile.
   const result = await build({ entryPoints: ['src/main/core/curseforgeChannel.ts'], bundle: true, write: false, platform: 'node', format: 'cjs', plugins: [{ name: 'channel-dependencies', setup(plugin) {
     plugin.onResolve({ filter: /^\.\/(settings|curseforgeKey)$/ }, args => /[\\/]curseforgeChannel\.ts$/.test(args.importer) ? { path: args.path, namespace: 'channel-fixture' } : undefined)
-    plugin.onLoad({ filter: /.*/, namespace: 'channel-fixture' }, args => ({ loader: 'js', contents: args.path === './settings' ? 'export function getSettings(){fixture.settingsReads++;return fixture.settings}' : 'export const CF_BUILTIN_KEY=fixture.builtin' }))
+    plugin.onLoad({ filter: /.*/, namespace: 'channel-fixture' }, args => ({ loader: 'js', contents: args.path === './settings' ? 'export function getCurseforgeApiKey(){fixture.settingsReads++;return fixture.settings.curseforgeApiKey}' : 'export const CF_BUILTIN_KEY=fixture.builtin' }))
   } }] })
   const run = (env: Record<string, string>, setting: string, builtin: string) => {
     const fixture = { settings: { curseforgeApiKey: setting }, builtin, settingsReads: 0 }, mod = { exports: {} as any }

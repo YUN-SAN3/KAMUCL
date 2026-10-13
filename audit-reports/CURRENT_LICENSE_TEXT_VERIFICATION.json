@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "rootPackageVersion": "1.1.22",
+  "packageLockSHA256": "7138c2aae62d6c6f56a3bb8e30092afa3c9caa5558929fa3d50dbee9678891af",
+  "currentPackages": 552,
+  "installed": 437,
+  "installedVersionMismatches": 0,
+  "comparisons": [
+    {
+      "retained": "licenses/vue.txt",
+      "installedSource": "node_modules/vue/LICENSE",
+      "retainedSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "installedSourceSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/vue-runtime-core.txt",
+      "installedSource": "node_modules/@vue/runtime-core/LICENSE",
+      "retainedSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "installedSourceSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/vue-runtime-dom.txt",
+      "installedSource": "node_modules/@vue/runtime-dom/LICENSE",
+      "retainedSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "installedSourceSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/vue-reactivity.txt",
+      "installedSource": "node_modules/@vue/reactivity/LICENSE",
+      "retainedSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "installedSourceSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/vue-shared.txt",
+      "installedSource": "node_modules/@vue/shared/LICENSE",
+      "retainedSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "installedSourceSHA256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/three.txt",
+      "installedSource": "node_modules/three/LICENSE",
+      "retainedSHA256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+      "installedSourceSHA256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/skinview-utils.txt",
+      "installedSource": "node_modules/skinview-utils/LICENSE",
+      "retainedSHA256": "7eb7128de2e4de70932ce370c2c602136b4d7648fce9fc4a50c93fc59be94d94",
+      "installedSourceSHA256": "7eb7128de2e4de70932ce370c2c602136b4d7648fce9fc4a50c93fc59be94d94",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/adm-zip.txt",
+      "installedSource": "node_modules/adm-zip/LICENSE",
+      "retainedSHA256": "6bb5b2d4c07d793ca928daa63a8899c6914fafb5ac3aa04ec10cae07f3d57dca",
+      "installedSourceSHA256": "6bb5b2d4c07d793ca928daa63a8899c6914fafb5ac3aa04ec10cae07f3d57dca",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/iarna-toml.txt",
+      "installedSource": "node_modules/@iarna/toml/LICENSE",
+      "retainedSHA256": "22754885597e9864dbb792209ce75e58d691cba24c55beaa45023b218515e33e",
+      "installedSourceSHA256": "d4dc58571be1260e45f2fb8ab174e0a838c9ca361720e1b0e2ca020c037988b2",
+      "sameNormalized": false,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/koffi.txt",
+      "installedSource": "node_modules/koffi/LICENSE.txt",
+      "retainedSHA256": "22bcbbbacd739b026a8dc484f62a31484ce4c4e31f3408b60b29b4e41d62b290",
+      "installedSourceSHA256": "22bcbbbacd739b026a8dc484f62a31484ce4c4e31f3408b60b29b4e41d62b290",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/undici.txt",
+      "installedSource": "node_modules/undici/LICENSE",
+      "retainedSHA256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27",
+      "installedSourceSHA256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    },
+    {
+      "retained": "licenses/ws.txt",
+      "installedSource": "node_modules/ws/LICENSE",
+      "retainedSHA256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef",
+      "installedSourceSHA256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef",
+      "sameNormalized": true,
+      "sameTextIgnoringTrailingWhitespace": true
+    }
+  ],
+  "classification": "Actual installed updated library text comparison; no claim that every transitive license body received manual legal review."
+}

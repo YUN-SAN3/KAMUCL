@@ -2,18 +2,19 @@
  * 樱花穿透（natfrp.com / SakuraFrp）FRP 客户端封装。
  *
  * 用法：spawn frpc -f <accessKey>:<tunnelId>，解析 stdout/stderr 识别启动状态、远程地址。
- * 访问密钥、隧道 ID 持久化到 userData/frp-config.json，日志对密钥做打码处理。
+ * 访问密钥由系统安全存储加密持久化，隧道 ID 保留为元数据；运行日志对密钥做打码处理。
  *
  * 文档：https://doc.natfrp.com/frpc/usage.html
  * 启动成功后会输出形如 "[xxxxx.natfrp.cloud:yyyyy] start proxy success" 的日志行，
  * 失败会输出 "invalid token" / "tunnel not exists" / "login to server failed" 等。
  */
 import { spawn, type ChildProcess } from 'node:child_process'
-import { app } from 'electron'
+import { app, safeStorage } from 'electron'
 import fs from 'node:fs'
 import path from 'node:path'
 import { downloadAll } from './download'
 import { parseFrpLine, frpLineReader } from './frpLog'
+import { FrpSecureStore } from './frpSecureStore'
 
 /** 默认本地转发目标（MC 局域网开放端口） */
 export const DEFAULT_LOCAL_HOST = '127.0.0.1'
@@ -39,6 +40,10 @@ export interface FrpConfig {
   tunnelId: string
   /** 本地转发端口；0 表示交给 MC 局域网自动检测 */
   localPort: number
+  /** Main-process migration state; never emitted to renderer with raw credentials. */
+  credentialLocked?: boolean
+  credentialConfigured?: boolean
+  secureIdentity?: string
 }
 
 export type FrpStatus =
@@ -115,30 +120,15 @@ function sanitize(raw: string, key: string): string {
   return out
 }
 
-function readConfig(): FrpConfig | null {
-  try {
-    const raw = fs.readFileSync(configFile(), 'utf8')
-    const parsed = JSON.parse(raw) as Partial<FrpConfig>
-    if (!parsed || typeof parsed !== 'object') return null
-    if (typeof parsed.accessKey !== 'string' || typeof parsed.tunnelId !== 'string') return null
-    return {
-      accessKey: parsed.accessKey,
-      tunnelId: parsed.tunnelId,
-      localPort: typeof parsed.localPort === 'number' ? parsed.localPort : 0
-    }
-  } catch {
-    return null
-  }
-}
+const legacySecureStore = new FrpSecureStore(safeStorage)
+function readConfig(): FrpConfig | null { return legacySecureStore.readLegacy(configFile()) }
 
-function writeConfig(cfg: FrpConfig): void {
-  fs.mkdirSync(path.dirname(configFile()), { recursive: true })
-  fs.writeFileSync(configFile(), JSON.stringify(cfg, null, 2), 'utf8')
-}
+function writeConfig(cfg: FrpConfig): void { legacySecureStore.writeLegacy(configFile(), cfg) }
 
 export function loadFrpConfig(): FrpConfig | null {
   return readConfig()
 }
+export function clearSavedFrpConfig(): void { legacySecureStore.clearLegacy(configFile()) }
 
 export function saveFrpConfig(cfg: FrpConfig): FrpConfig {
   const next: FrpConfig = {
@@ -246,7 +236,7 @@ export class FrpController {
     }
     return {
       status: this.session.status,
-      config: this.session.config,
+      config: { tunnelId: this.session.config.tunnelId, localPort: this.session.config.localPort, accessKey: '' },
       remoteAddress: this.session.remoteAddress,
       pid: this.session.pid,
       startedAt: this.session.startedAt,

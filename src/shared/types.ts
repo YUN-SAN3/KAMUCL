@@ -14,6 +14,11 @@ export interface Account {
   accessToken?: string
   /** 微软 OAuth refresh_token，用于静默续期 */
   refreshToken?: string
+  /** 微软令牌签发时的公开应用身份；旧账号缺失此字段必须重新授权。 */
+  msOAuthClientId?: string
+  /** 仅微软账号使用；身份变更、未知来源或缺少令牌时提示重新登录。 */
+  msReauthRequired?: boolean
+  msReauthReason?: 'application-changed' | 'identity-unknown' | 'credentials-missing'
   /** MC accessToken 过期时间（epoch 秒） */
   expiresAt?: number
   /** 外置 Yggdrasil 账号所属提供商。 */
@@ -29,9 +34,41 @@ export interface Account {
 
 /** 微软 device code 登录开始时返回给前端的展示信息 */
 export interface MsDeviceCodeInfo {
+  /** Public random correlation ID, unrelated to the device code or user credentials. */
+  operationId: string
   userCode: string
   verificationUri: string
   message: string
+}
+
+export interface MsLoginDone {
+  operationId: string
+  account: Account | null
+  error?: string | null
+}
+
+export type MicrosoftAuthFailureCode =
+  | 'APPLICATION_REJECTED' | 'ACCOUNT_REAUTH_REQUIRED' | 'USER_DECLINED'
+  | 'DEVICE_CODE_EXPIRED' | 'NETWORK_ERROR' | 'TLS_ERROR' | 'STORAGE_UNAVAILABLE'
+  | 'STORAGE_WRITE_FAILED' | 'PROTOCOL_ERROR' | 'NOT_OWNED' | 'PROFILE_MISSING'
+  | 'ACCOUNT_CHANGED' | 'CANCELLED' | 'RATE_LIMITED' | 'SERVICE_ERROR'
+
+export interface MicrosoftAuthFailure {
+  code: MicrosoftAuthFailureCode
+  message: string
+  stage: string
+  httpStatus?: number
+}
+
+export interface MicrosoftAuthStatus {
+  clientId: string
+  applicationName: 'KAMUCL'
+  authority: string
+  scopes: string
+  /** UUID/用户提供应用身份不代表服务批准；只有本次完整登录成功才升级。 */
+  serviceValidation: 'unverified' | 'verified-this-session'
+  reauthenticationRequiredAccounts: number
+  lastFailure?: MicrosoftAuthFailure
 }
 
 export interface YggdrasilProviderInput {
@@ -403,7 +440,7 @@ export interface Settings {
   downloadSpeedKBps: number
   /** 新版本安装后默认开启版本隔离（独立游戏目录），可在设置中关闭 */
   defaultIsolation: boolean
-  /** 微软登录用的 Azure 应用 client_id（device code flow） */
+  /** 正式微软应用身份（兼容旧字段）；读取时规范化，设置不允许覆写。 */
   msClientId: string
   theme: ThemeName
   /** theme === 'custom' 时使用的自定义配色与布局 */
@@ -442,8 +479,10 @@ export interface Settings {
   updateMirrorUrls?: string[]
   /** 内测群号覆盖（免打包临时改；默认取 shared/branding.ts 的 QQ_GROUP_NUMBER） */
   qqGroupNumber?: string
-  /** CurseForge 官方 API Key（console.curseforge.com 免费申请）；留空走 MCIM 镜像兜底 */
+  /** 自定义 CurseForge 密钥，仅写入请求使用；所有 Settings 响应不返回此值。空文本清除。 */
   curseforgeApiKey?: string
+  /** 主进程安全存储是否已有自定义密钥；只读展示，不说明当前密钥服务可用。 */
+  curseforgeApiKeyConfigured?: boolean
   /** 自动安装更新（默认开启）：发现新版本静默下载，启动器关闭时自动安装；关闭则弹窗询问 */
   autoUpdate?: boolean
 }
@@ -753,6 +792,7 @@ export const IPC = {
   accountsSelected: 'accounts:selected', // () => Account | null
   accountsMsBegin: 'accounts:msBegin', // () => MsDeviceCodeInfo  开始 device code 流程
   accountsMsCancel: 'accounts:msCancel', // () => void
+  accountsMsStatus: 'accounts:msStatus', // () => MicrosoftAuthStatus  不含设备码或令牌
   accountsYggProviders: 'accounts:yggProviders', // () => YggdrasilProvider[]
   accountsYggProbe: 'accounts:yggProbe', // (YggdrasilProviderInput, allowInsecure?) => YggdrasilProviderCandidate
   accountsYggSaveProvider: 'accounts:yggSaveProvider', // (candidate, allowInsecure) => YggdrasilProvider[]
@@ -962,7 +1002,7 @@ export const IPC_EVENT = {
   progress: 'event:progress', // (e: ProgressEvent)
   launchLog: 'event:launchLog', // (line: string)
   launchState: 'event:launchState', // (s: LaunchState)
-  msLoginDone: 'event:msLoginDone', // (account: Account | null)  null = 失败/取消
+  msLoginDone: 'event:msLoginDone', // (r: MsLoginDone)  与 begin 返回的公开 operationId 绑定
   installDone: 'event:installDone', // (r: { versionId: string; installedId?: string; ok: boolean; error?: string; taskId?: string; cancelled?: boolean; stage?: string })  installedId = 实际实例 id（含加载器后缀，成功时存在）；stage = 失败阶段；cancelled = 用户取消
   taskDone: 'event:taskDone', // (r: { taskId: string; ok: boolean; error?: string; cancelled?: boolean; stage?: string })  所有后台任务（含普通资源下载）的统一完成通知
   gameDirDone: 'event:gameDirDone', // (r: { ok: boolean; error?: string; gameDir?: string })  目录迁移结束（配置已切换/失败已回滚）
@@ -972,10 +1012,10 @@ export const IPC_EVENT = {
 } as const
 
 /**
- * 默认微软登录 client_id：Prism Launcher 注册的公开 Azure 应用，
- * 已在 consumers 租户实测支持 device code 流程；可在设置中替换为自注册应用
+ * KAMUCL 正式微软应用的公开 Client ID，由维护者提供。
+ * 应用注册标识不代表 Xbox/Minecraft 服务批准；不包含 client secret。
  */
-export const DEFAULT_MS_CLIENT_ID = 'c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb'
+export const DEFAULT_MS_CLIENT_ID = '06cc8cf6-4b8f-4631-8459-b2bd828808f8'
 
 // ---------------- 社区资源 ----------------
 export type CommunityKind = 'mod' | 'modpack' | 'resourcepack' | 'shader' | 'datapack'

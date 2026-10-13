@@ -268,8 +268,8 @@ test('actual favorite installation accepts uppercase SHA1 metadata while readbac
 })
 test('real Modrinth mapping preserves unavailable compatible candidates only for the diagnostic favorites query',async()=>{
  const result=await build({entryPoints:['src/main/core/community.ts'],bundle:true,write:false,platform:'node',format:'cjs',packages:'external',logLevel:'silent',plugins:[{name:'isolated-service',setup(b){
-  b.onResolve({filter:/^\.\/(download|versions|instances|settings|launcherLog|curseforgeKey)$/},args=>args.importer.endsWith('community.ts')?{path:args.path,namespace:'favorite-service'}:undefined)
-  b.onLoad({filter:/.*/,namespace:'favorite-service'},()=>({loader:'js',contents:`export function downloadAll(){};export function readVersionJson(){};export function instanceDirectoryState(){};export function getSettings(){return{curseforgeApiKey:''}};export function logScope(){return{info(){},warn(){},error(){}}};export const CF_BUILTIN_KEY='';`}))
+  b.onResolve({filter:/^\.\/(download|versions|instances|settings|launcherLog|curseforgeKey)$/},args=>/[\\/](?:community|curseforgeChannel)\.ts$/.test(args.importer)?{path:args.path,namespace:'favorite-service'}:undefined)
+  b.onLoad({filter:/.*/,namespace:'favorite-service'},()=>({loader:'js',contents:`export function downloadAll(){};export function readVersionJson(){};export function instanceDirectoryState(){};export function getSettings(){return {}};export function getCurseforgeApiKey(){return ''};export function logScope(){return{info(){},warn(){},error(){}}};export const CF_BUILTIN_KEY='';`}))
  }}]})
  const module={exports:{} as any},payload=[{id:'missing-url',project_id:'one',version_number:'1',game_versions:['1.20.1'],loaders:['fabric'],files:[{filename:'one.jar',hashes:{sha1:'a'.repeat(40)}}]},{id:'missing-file',project_id:'one',game_versions:['1.20.1'],loaders:['fabric'],files:[]}]
  new Function('require','module','exports','fetch',result.outputFiles[0].text)(req,module,module.exports,async()=>({ok:true,json:async()=>payload}))

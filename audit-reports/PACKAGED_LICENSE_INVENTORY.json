@@ -1,0 +1,360 @@
+{
+  "schemaVersion": 1,
+  "classification": "Read original formal 1.1.21 package bytes; not a new 1.1.22 build or run.",
+  "packages": [
+    {
+      "platform": "windows-x64-1.1.21",
+      "version": "1.1.21",
+      "asarSHA256": "1b6b85d83af00734fa51ebfad335db179680b04b779b290f3fe8efa2a8ce786b",
+      "packageCount": 6,
+      "entryCount": 435,
+      "packages": [
+        {
+          "path": "node_modules/@iarna/toml",
+          "name": "@iarna/toml",
+          "version": "2.2.5",
+          "license": "ISC",
+          "noticeFiles": [
+            "node_modules/@iarna/toml/LICENSE"
+          ]
+        },
+        {
+          "path": "node_modules/@koromix/koffi-win32-x64",
+          "name": "@koromix/koffi-win32-x64",
+          "version": "3.2.1",
+          "license": "MIT",
+          "noticeFiles": []
+        },
+        {
+          "path": "node_modules/adm-zip",
+          "name": "adm-zip",
+          "version": "0.6.0",
+          "license": "MIT",
+          "noticeFiles": [
+            "node_modules/adm-zip/LICENSE"
+          ]
+        },
+        {
+          "path": "node_modules/koffi",
+          "name": "koffi",
+          "version": "3.2.1",
+          "license": "MIT",
+          "noticeFiles": [
+            "node_modules/koffi/LICENSE.txt"
+          ]
+        },
+        {
+          "path": "node_modules/undici",
+          "name": "undici",
+          "version": "6.28.0",
+          "license": "MIT",
+          "noticeFiles": [
+            "node_modules/undici/LICENSE",
+            "node_modules/undici/lib/web/fetch/LICENSE"
+          ]
+        },
+        {
+          "path": "node_modules/ws",
+          "name": "ws",
+          "version": "8.22.0",
+          "license": "MIT",
+          "noticeFiles": [
+            "node_modules/ws/LICENSE"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "path": "LICENSE",
+          "bytes": 1314,
+          "sha256": "72b7ee01719dc8ee23b648b40570668eb0392d6e56a5d562dfdee96ab4043bed",
+          "kind": "license-notice"
+        },
+        {
+          "path": "package.json",
+          "bytes": 415,
+          "sha256": "ff85f5d3a03accfa1654eda0e8d909ffac47fb011ca532bb3fdec6453c6d4ecc",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/@iarna/toml/LICENSE",
+          "bytes": 752,
+          "sha256": "d4dc58571be1260e45f2fb8ab174e0a838c9ca361720e1b0e2ca020c037988b2",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/@iarna/toml/package.json",
+          "bytes": 1366,
+          "sha256": "d6b5341d37b721c3a5334460432d775ba4d31f67d9764567cd933d90fc281ec0",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/@koromix/koffi-win32-x64/package.json",
+          "bytes": 644,
+          "sha256": "3c6d427795e7c1e18220dfa56d9dfdf392c62b074e7a061f84a55fe44857670f",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/adm-zip/LICENSE",
+          "bytes": 1106,
+          "sha256": "6bb5b2d4c07d793ca928daa63a8899c6914fafb5ac3aa04ec10cae07f3d57dca",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/adm-zip/package.json",
+          "bytes": 931,
+          "sha256": "219a5bebd291fbd3676e331a4b1184dd946cfdc56ed5a3f26c5980e54acd9d60",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/koffi/LICENSE.txt",
+          "bytes": 1117,
+          "sha256": "22bcbbbacd739b026a8dc484f62a31484ce4c4e31f3408b60b29b4e41d62b290",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/koffi/package.json",
+          "bytes": 1760,
+          "sha256": "b57cbd14c1cbc3589402b8f6e5ff5aa2deb9b6b148d4048b53086cef533ee8e4",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/undici/LICENSE",
+          "bytes": 1090,
+          "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/undici/lib/web/fetch/LICENSE",
+          "bytes": 1071,
+          "sha256": "a21d6c8d3fc631198b97e57584697f7f9c37805c71c6cf9a12e4442b40394b88",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/undici/package.json",
+          "bytes": 1450,
+          "sha256": "11a2e97b28e86e0e92771eaddd92c178a1625a7cedc15e3a6cd2875bfd5a8073",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/ws/LICENSE",
+          "bytes": 1183,
+          "sha256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/ws/package.json",
+          "bytes": 1385,
+          "sha256": "95662acace1e91018caee5e0f4fb93c9401c379bdc7ff5fa06bd0c7cd098f8b8",
+          "kind": "package-metadata"
+        }
+      ],
+      "vendoredRendererLicenseFiles": [
+        "licenses/skinview-utils.txt",
+        "licenses/skinview3d.txt",
+        "licenses/three.txt",
+        "licenses/vue-reactivity.txt",
+        "licenses/vue-runtime-core.txt",
+        "licenses/vue-runtime-dom.txt",
+        "licenses/vue-shared.txt",
+        "licenses/vue.txt"
+      ],
+      "offlineAgentBundled": true,
+      "bridgeBundled": true,
+      "forbiddenBuildPackagesBundled": 0,
+      "externalRuntimeNotices": [
+        {
+          "path": "LICENSE.electron.txt",
+          "bytes": 1096,
+          "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+        },
+        {
+          "path": "LICENSES.chromium.html",
+          "bytes": 20472830,
+          "sha256": "7b328b8c7463ac9bfc7dc648c751533517c8441a0b5b21047d6c0b2620e60d70"
+        }
+      ]
+    },
+    {
+      "platform": "mac-arm64-1.1.21",
+      "version": "1.1.21",
+      "asarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+      "packageCount": 6,
+      "entryCount": 508,
+      "packages": [
+        {
+          "path": "node_modules/@iarna/toml",
+          "name": "@iarna/toml",
+          "version": "2.2.5",
+          "license": "ISC",
+          "noticeFiles": [
+            "node_modules/@iarna/toml/LICENSE"
+          ]
+        },
+        {
+          "path": "node_modules/@koromix/koffi-darwin-arm64",
+          "name": "@koromix/koffi-darwin-arm64",
+          "version": "3.2.1",
+          "license": "MIT",
+          "noticeFiles": []
+        },
+        {
+          "path": "node_modules/adm-zip",
+          "name": "adm-zip",
+          "version": "0.6.0",
+          "license": "MIT",
+          "noticeFiles": [
+            "node_modules/adm-zip/LICENSE"
+          ]
+        },
+        {
+          "path": "node_modules/koffi",
+          "name": "koffi",
+          "version": "3.2.1",
+          "license": "MIT",
+          "noticeFiles": [
+            "node_modules/koffi/LICENSE.txt",
+            "node_modules/koffi/vendor/node-addon-api/LICENSE.md",
+            "node_modules/koffi/vendor/node-api-headers/LICENSE"
+          ]
+        },
+        {
+          "path": "node_modules/undici",
+          "name": "undici",
+          "version": "6.28.0",
+          "license": "MIT",
+          "noticeFiles": [
+            "node_modules/undici/LICENSE",
+            "node_modules/undici/lib/web/fetch/LICENSE"
+          ]
+        },
+        {
+          "path": "node_modules/ws",
+          "name": "ws",
+          "version": "8.22.0",
+          "license": "MIT",
+          "noticeFiles": [
+            "node_modules/ws/LICENSE"
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "path": "node_modules/@iarna/toml/LICENSE",
+          "bytes": 752,
+          "sha256": "d4dc58571be1260e45f2fb8ab174e0a838c9ca361720e1b0e2ca020c037988b2",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/@iarna/toml/package.json",
+          "bytes": 1366,
+          "sha256": "d6b5341d37b721c3a5334460432d775ba4d31f67d9764567cd933d90fc281ec0",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/@koromix/koffi-darwin-arm64/package.json",
+          "bytes": 653,
+          "sha256": "250106f6147c8e0e2e792fb30163ce7bbc63399eccfe98c538b0dbba4e0923b8",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/adm-zip/LICENSE",
+          "bytes": 1106,
+          "sha256": "6bb5b2d4c07d793ca928daa63a8899c6914fafb5ac3aa04ec10cae07f3d57dca",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/adm-zip/package.json",
+          "bytes": 931,
+          "sha256": "219a5bebd291fbd3676e331a4b1184dd946cfdc56ed5a3f26c5980e54acd9d60",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/koffi/LICENSE.txt",
+          "bytes": 1117,
+          "sha256": "22bcbbbacd739b026a8dc484f62a31484ce4c4e31f3408b60b29b4e41d62b290",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/koffi/package.json",
+          "bytes": 1760,
+          "sha256": "b57cbd14c1cbc3589402b8f6e5ff5aa2deb9b6b148d4048b53086cef533ee8e4",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/koffi/vendor/node-addon-api/LICENSE.md",
+          "bytes": 1150,
+          "sha256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/koffi/vendor/node-api-headers/LICENSE",
+          "bytes": 1064,
+          "sha256": "a553508f516031c91f3af1148d44970cb81bbae6c4f091be6835d39cc252238c",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/undici/LICENSE",
+          "bytes": 1090,
+          "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/undici/lib/web/fetch/LICENSE",
+          "bytes": 1071,
+          "sha256": "a21d6c8d3fc631198b97e57584697f7f9c37805c71c6cf9a12e4442b40394b88",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/undici/package.json",
+          "bytes": 1450,
+          "sha256": "11a2e97b28e86e0e92771eaddd92c178a1625a7cedc15e3a6cd2875bfd5a8073",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "node_modules/ws/LICENSE",
+          "bytes": 1183,
+          "sha256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef",
+          "kind": "license-notice"
+        },
+        {
+          "path": "node_modules/ws/package.json",
+          "bytes": 1385,
+          "sha256": "95662acace1e91018caee5e0f4fb93c9401c379bdc7ff5fa06bd0c7cd098f8b8",
+          "kind": "package-metadata"
+        },
+        {
+          "path": "LICENSE",
+          "bytes": 1294,
+          "sha256": "f923c2cdb93960e41cdd23c35eaec2d21e70f9a81086296028a2c3f4e578e1e2",
+          "kind": "license-notice"
+        },
+        {
+          "path": "package.json",
+          "bytes": 415,
+          "sha256": "ff85f5d3a03accfa1654eda0e8d909ffac47fb011ca532bb3fdec6453c6d4ecc",
+          "kind": "package-metadata"
+        }
+      ],
+      "vendoredRendererLicenseFiles": [
+        "licenses/skinview-utils.txt",
+        "licenses/skinview3d.txt",
+        "licenses/three.txt",
+        "licenses/vue-reactivity.txt",
+        "licenses/vue-runtime-core.txt",
+        "licenses/vue-runtime-dom.txt",
+        "licenses/vue-shared.txt",
+        "licenses/vue.txt"
+      ],
+      "offlineAgentBundled": true,
+      "bridgeBundled": true,
+      "forbiddenBuildPackagesBundled": 0,
+      "externalRuntimeNotices": []
+    }
+  ],
+  "notes": [
+    "Bundle-time Vue/Three/skinview-utils are checked through included notices, not assumed absent because package.json was bundled away.",
+    "Native node-api-version/koffi notice gaps require upstream attribution verification.",
+    "Electron/Chromium multi-library notices retained separately; patent/platform terms are not resolved by license metadata."
+  ]
+}

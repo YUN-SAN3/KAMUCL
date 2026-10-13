@@ -239,9 +239,10 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
   ipcMain.handle(IPC.accountsRemove, (_e, id: string) => accounts.removeAccount(id))
   ipcMain.handle(IPC.accountsSelect, (_e, id: string) => accounts.selectAccount(id))
   ipcMain.handle(IPC.accountsSelected, () => accounts.selectedAccountPublic())
+  ipcMain.handle(IPC.accountsMsStatus, () => accounts.microsoftAuthStatus())
   ipcMain.handle(IPC.accountsMsBegin, () =>
-    accounts.beginMsDeviceCode((account, error) =>
-      send(IPC_EVENT.msLoginDone, account ? { account: accounts.publicAccount(account) } : { account: null, error: error ?? null })
+    accounts.beginMsDeviceCode((account, error, operationId) =>
+      send(IPC_EVENT.msLoginDone, account ? { operationId, account: accounts.publicAccount(account) } : { operationId, account: null, error: error ?? null })
     )
   )
   ipcMain.handle(IPC.accountsMsCancel, () => accounts.cancelMsLogin())

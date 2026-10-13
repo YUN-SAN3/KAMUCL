@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "evidence": [
+    {
+      "repository": "actions/checkout",
+      "originalTag": "v4",
+      "tagRefObject": "11d5960a326750d5838078e36cf38b85af677262",
+      "peeledCommit": "11d5960a326750d5838078e36cf38b85af677262",
+      "officialGitRemote": "https://github.com/actions/checkout.git",
+      "officialCommitURL": "https://github.com/actions/checkout/commit/11d5960a326750d5838078e36cf38b85af677262",
+      "officialAPI": "https://api.github.com/repos/actions/checkout/git/commits/11d5960a326750d5838078e36cf38b85af677262",
+      "officialAPIStatus": 403,
+      "treeSHA": "f8a7b72dc00648d050099727d25ca92a43ad1162",
+      "verifiedAtUTC": "2026-10-13T15:23:22.505Z",
+      "method": "Unauthenticated official Git ref and fetched commit/tree; anonymous REST status 403 recorded, not treated as success; no discovered project credentials used."
+    },
+    {
+      "repository": "actions/setup-node",
+      "originalTag": "v4",
+      "tagRefObject": "49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "peeledCommit": "49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "officialGitRemote": "https://github.com/actions/setup-node.git",
+      "officialCommitURL": "https://github.com/actions/setup-node/commit/49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "officialAPI": "https://api.github.com/repos/actions/setup-node/git/commits/49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "officialAPIStatus": 403,
+      "treeSHA": "6e2fefae7f597aebce691c980b27ec6381e493e2",
+      "verifiedAtUTC": "2026-10-13T15:23:32.866Z",
+      "method": "Unauthenticated official Git ref and fetched commit/tree; anonymous REST status 403 recorded, not treated as success; no discovered project credentials used."
+    },
+    {
+      "repository": "actions/setup-java",
+      "originalTag": "v4",
+      "tagRefObject": "cf277c60eb25467037889841efdb72551f06f6c3",
+      "peeledCommit": "cf277c60eb25467037889841efdb72551f06f6c3",
+      "officialGitRemote": "https://github.com/actions/setup-java.git",
+      "officialCommitURL": "https://github.com/actions/setup-java/commit/cf277c60eb25467037889841efdb72551f06f6c3",
+      "officialAPI": "https://api.github.com/repos/actions/setup-java/git/commits/cf277c60eb25467037889841efdb72551f06f6c3",
+      "officialAPIStatus": 403,
+      "treeSHA": "b3f37028ad61d4c59e568eb01f13e76248f2ad9f",
+      "verifiedAtUTC": "2026-10-13T15:23:46.122Z",
+      "method": "Unauthenticated official Git ref and fetched commit/tree; anonymous REST status 403 recorded, not treated as success; no discovered project credentials used."
+    },
+    {
+      "repository": "actions/upload-artifact",
+      "originalTag": "v4",
+      "tagRefObject": "ea165f8d65b6e75b540449e92b4886f43607fa02",
+      "peeledCommit": "ea165f8d65b6e75b540449e92b4886f43607fa02",
+      "officialGitRemote": "https://github.com/actions/upload-artifact.git",
+      "officialCommitURL": "https://github.com/actions/upload-artifact/commit/ea165f8d65b6e75b540449e92b4886f43607fa02",
+      "officialAPI": "https://api.github.com/repos/actions/upload-artifact/git/commits/ea165f8d65b6e75b540449e92b4886f43607fa02",
+      "officialAPIStatus": 403,
+      "treeSHA": "90fba5b2fb462e7dd5b3b810757b73327d2d66bc",
+      "verifiedAtUTC": "2026-10-13T15:23:56.426Z",
+      "method": "Unauthenticated official Git ref and fetched commit/tree; anonymous REST status 403 recorded, not treated as success; no discovered project credentials used."
+    },
+    {
+      "repository": "actions/download-artifact",
+      "originalTag": "v4",
+      "tagRefObject": "d3f86a106a0bac45b974a628896c90dbdf5c8093",
+      "peeledCommit": "d3f86a106a0bac45b974a628896c90dbdf5c8093",
+      "officialGitRemote": "https://github.com/actions/download-artifact.git",
+      "officialCommitURL": "https://github.com/actions/download-artifact/commit/d3f86a106a0bac45b974a628896c90dbdf5c8093",
+      "officialAPI": "https://api.github.com/repos/actions/download-artifact/git/commits/d3f86a106a0bac45b974a628896c90dbdf5c8093",
+      "officialAPIStatus": 403,
+      "treeSHA": "064a6e5489b0f9f42ede63b1262704c4e73e4093",
+      "verifiedAtUTC": "2026-10-13T15:24:05.533Z",
+      "method": "Unauthenticated official Git ref and fetched commit/tree; anonymous REST status 403 recorded, not treated as success; no discovered project credentials used."
+    },
+    {
+      "repository": "actions/github-script",
+      "originalTag": "v7",
+      "tagRefObject": "f28e40c7f34bde8b3046d885e986cb6290c5673b",
+      "peeledCommit": "f28e40c7f34bde8b3046d885e986cb6290c5673b",
+      "officialGitRemote": "https://github.com/actions/github-script.git",
+      "officialCommitURL": "https://github.com/actions/github-script/commit/f28e40c7f34bde8b3046d885e986cb6290c5673b",
+      "officialAPI": "https://api.github.com/repos/actions/github-script/git/commits/f28e40c7f34bde8b3046d885e986cb6290c5673b",
+      "officialAPIStatus": 403,
+      "treeSHA": "e94f4aa4c9252771ab84aee1e59cd5020d452832",
+      "verifiedAtUTC": "2026-10-13T15:24:13.999Z",
+      "method": "Unauthenticated official Git ref and fetched commit/tree; anonymous REST status 403 recorded, not treated as success; no discovered project credentials used."
+    }
+  ],
+  "changes": [
+    {
+      "path": ".github/workflows/linux-build.yml",
+      "changedUses": 16
+    },
+    {
+      "path": ".github/workflows/mac-batch120-reuse.yml",
+      "changedUses": 5
+    },
+    {
+      "path": ".github/workflows/mac-batch121-reuse.yml",
+      "changedUses": 5
+    },
+    {
+      "path": ".github/workflows/mac-build.yml",
+      "changedUses": 45
+    },
+    {
+      "path": ".github/workflows/mac-dmg.yml",
+      "changedUses": 3
+    }
+  ],
+  "constraints": [
+    "No version major, permission, job gate or consumer acceptance rule changed.",
+    "Only these six verified official repositories were substituted.",
+    "Historical tags and historical workflow data remain unchanged."
+  ]
+}

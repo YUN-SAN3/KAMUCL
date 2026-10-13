@@ -1,0 +1,75 @@
+name: macOS ARM64 1.1.22 identity and secure storage
+on:
+  workflow_dispatch:
+    inputs:
+      resume_mac_arm64:
+        description: 'Build ARM64 originals and perform only the explicit 1.1.22 changed-scope native checks'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  native-auth122:
+    if: inputs.resume_mac_arm64 == true
+    runs-on: macos-26
+    timeout-minutes: 50
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, official ACTION_PIN_PROVENANCE.json
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Record exact native source and runner
+        run: |
+          mkdir -p out/mac-auth122-logs
+          node -e "const assert=require('node:assert/strict'),fs=require('node:fs'),p=require('./package.json');assert.equal(process.platform,'darwin');assert.equal(process.arch,'arm64');assert.equal(p.version,'1.1.22');assert.equal(p.devDependencies.electron,'44.3.0');fs.writeFileSync('out/mac-auth122-logs/source.json',JSON.stringify({version:p.version,commit:process.env.GITHUB_SHA,platform:process.platform,arch:process.arch,node:process.version,scope:'1.1.22 changed authentication/credential UI and package provenance; does not replace earlier whole-platform acceptance'},null,2)+'\n')"
+          sw_vers > out/mac-auth122-logs/system.txt
+      - name: Install frozen dependencies
+        run: |
+          set -o pipefail
+          npm ci 2>&1 | tee out/mac-auth122-logs/npm-ci.log
+      - name: Run full tests with original results
+        timeout-minutes: 12
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee out/mac-auth122-logs/npm-test.log
+      - name: Type and license checks
+        run: |
+          set -o pipefail
+          npx tsc --noEmit 2>&1 | tee out/mac-auth122-logs/types.log
+          npm run license:check 2>&1 | tee out/mac-auth122-logs/licenses.log
+      - name: Build original production payload
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee out/mac-auth122-logs/build.log
+      - name: Package original APP, DMG and ZIP with signed identity and notices
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: |
+          set -o pipefail
+          node scripts/pack-mac.mjs arm64 --package-only 2>&1 | tee out/mac-auth122-logs/package.log
+      - name: Verify original packages and bounded native changed scope
+        timeout-minutes: 20
+        run: |
+          set -o pipefail
+          node scripts/verify-mac-auth122.cjs 2>&1 | tee out/mac-auth122-logs/native-check.log
+      - name: Preserve raw packages, receipts and screenshots even on failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: mac-auth122-arm64-${{ github.run_id }}
+          path: |
+            release/KAMUCL-1.1.22-mac-arm64.dmg
+            release/KAMUCL-1.1.22-mac-arm64.zip
+            release/SHA256SUMS-mac-arm64.txt
+            release/mac-package-arm64.json
+            out/mac-auth122-logs/
+            release/mac-auth122-proof/
+          if-no-files-found: error

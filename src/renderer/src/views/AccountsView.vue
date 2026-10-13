@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
 import {
   addOfflineAccount,
   copyText,
   errText,
   getSelectedAccount,
+  getMicrosoftAuthStatus,
   getSystemInfo,
   listYggdrasilProviders,
   loginYggdrasil,
@@ -32,6 +33,8 @@ const securityNote = computed(() => {
 import type {
   Account,
   MsDeviceCodeInfo,
+  MsLoginDone,
+  MicrosoftAuthStatus,
   YggdrasilLoginResult,
   YggdrasilProvider,
   YggdrasilProviderCandidate,
@@ -39,6 +42,34 @@ import type {
 } from '@shared/types'
 
 const accountMode = ref<'microsoft' | 'offline' | 'yggdrasil'>('microsoft')
+const microsoftStatus = ref<MicrosoftAuthStatus | null>(null)
+const accountRefreshError = ref('')
+const accountRefreshBusy = ref(false)
+async function retryAccountRefresh() {
+  if (accountRefreshBusy.value) return
+  accountRefreshBusy.value = true
+  try { await refreshAccounts(); accountRefreshError.value = '' }
+  catch (error) { accountRefreshError.value = errText(error) }
+  finally { accountRefreshBusy.value = false }
+}
+let mounted = false
+let msRequestId = 0
+const pendingMsCompletions = new Map<string, MsLoginDone>()
+let msOpener: HTMLElement | null = null
+async function restoreMsFocus() {
+  await nextTick()
+  if (!mounted) return
+  const opener = msOpener?.isConnected ? msOpener : document.querySelector<HTMLElement>('.ms-btn')
+  if (opener && !opener.matches(':disabled') && opener.getClientRects().length) opener.focus({ preventScroll: true })
+}
+async function refreshMicrosoftStatus() {
+  try {
+    const status = await getMicrosoftAuthStatus()
+    if (mounted) microsoftStatus.value = status
+  } catch {
+    // 状态查询失败不猜测服务权限，也不阻止用户进行一次明确的登录。
+  }
+}
 
 // ---------------- 添加离线账号 ----------------
 const newName = ref('')
@@ -79,28 +110,45 @@ const ms = reactive({
   info: null as MsDeviceCodeInfo | null
 })
 
-async function beginMsLogin() {
-  if (ms.starting) return
+async function beginMsLogin(event?: Event) {
+  if (ms.starting || ms.waiting) return
+  msOpener = event?.currentTarget instanceof HTMLElement ? event.currentTarget : document.activeElement instanceof HTMLElement ? document.activeElement : null
+  const requestId = ++msRequestId
+  pendingMsCompletions.clear()
   ms.starting = true
   try {
-    ms.info = await msBeginLogin()
+    const info = await msBeginLogin()
+    if (!mounted || requestId !== msRequestId) return
+    ms.info = info
     ms.open = true
     ms.waiting = true
+    const earlyResult = pendingMsCompletions.get(info.operationId)
+    pendingMsCompletions.clear()
+    if (earlyResult) { await handleMsLoginDone(earlyResult); return }
     // 设备代码出现的瞬间自动写入剪贴板，玩家到验证页直接粘贴即可
     ms.autoCopied = false
-    if (ms.info.userCode) {
-      ms.autoCopied = await copyText(ms.info.userCode)
+    if (info.userCode) {
+      const copied = await copyText(info.userCode)
+      if (mounted && requestId === msRequestId) ms.autoCopied = copied
     }
   } catch (e) {
-    toast('无法开始微软登录：' + errText(e), 'error')
+    if (mounted && requestId === msRequestId) {
+      toast('无法开始微软登录：' + errText(e), 'error')
+      await refreshMicrosoftStatus()
+    }
   } finally {
-    ms.starting = false
+    if (requestId === msRequestId) ms.starting = false
   }
 }
 
 async function cancelMsLogin() {
+  ++msRequestId
+  pendingMsCompletions.clear()
   ms.open = false
   ms.waiting = false
+  ms.starting = false
+  ms.info = null
+  await restoreMsFocus()
   try {
     await msCancelLogin()
   } catch {
@@ -325,7 +373,42 @@ function accountTypeLabel(account: Account): string {
   return '离线'
 }
 
+async function handleMsLoginDone(result: MsLoginDone) {
+  if (!mounted || (!ms.open && !ms.starting) || typeof result?.operationId !== 'string') return
+  if (!ms.info) {
+    if (ms.starting && pendingMsCompletions.size < 8) pendingMsCompletions.set(result.operationId, result)
+    return
+  }
+  if (result.operationId !== ms.info.operationId) return
+  pendingMsCompletions.clear()
+    ++msRequestId
+    ms.starting = false
+    ms.open = false
+    ms.waiting = false
+    ms.info = null
+  const account = result?.account ?? null
+  try {
+    if (account) {
+      await refreshAccounts()
+      accountRefreshError.value = ''
+      toast(`登录成功，欢迎 ${account.username}`, 'success')
+    } else if (result?.error) {
+      toast(`微软登录失败：${result.error}`, 'error')
+    } else {
+      toast('微软登录已取消', 'info')
+    }
+  } catch (error) {
+    accountRefreshError.value = errText(error)
+    toast('已收到登录结果，但账号列表刷新失败，请重试刷新。', 'error')
+  } finally {
+    await refreshMicrosoftStatus()
+    await restoreMsFocus()
+  }
+}
+
 onMounted(() => {
+  mounted = true
+  void refreshMicrosoftStatus()
   void getSystemInfo().then(info => {
     credentialsPersistent.value = info.credentialStorage?.persistent ?? null
     credentialNotice.value = info.credentialStorage?.message ?? '无法确认当前系统的安全存储状态。'
@@ -337,25 +420,14 @@ onMounted(() => {
     store.pendingYggdrasilImport = null
     openProviderImport(pending)
   }
-  offMsDone = onMsLoginDone(async (result) => {
-    if (!ms.open) return
-    ms.open = false
-    ms.waiting = false
-    ms.info = null
-    const account = result?.account ?? null
-    if (account) {
-      await refreshAccounts()
-      toast(`登录成功，欢迎 ${account.username}`, 'success')
-    } else if (result?.error) {
-      // 具体失败步骤与原因（设备码/轮询/XBL/XSTS/MC 登录/拥有权/档案），可被查日志诊断
-      toast(`微软登录失败：${result.error}`, 'error')
-    } else {
-      toast('微软登录已取消', 'info')
-    }
-  })
+  offMsDone = onMsLoginDone(result => { void handleMsLoginDone(result) })
 })
 
 onUnmounted(() => {
+  mounted = false
+  pendingMsCompletions.clear()
+  ++msRequestId
+  if (ms.starting || ms.waiting) void msCancelLogin().catch(() => {})
   offMsDone?.()
   store.yggdrasilImportHandler = null
   yggLogin.password = ''
@@ -411,6 +483,10 @@ async function onRemove(acc: Account) {
     </div>
 
     <p v-if="credentialNotice" class="muted" role="status">{{ credentialNotice }}</p>
+    <div v-if="accountRefreshError" class="ms-identity-notice" role="alert">
+      <p>账号列表刷新失败：{{ accountRefreshError }}。原界面资料保留。</p>
+      <button class="btn btn-ghost btn-sm" :disabled="accountRefreshBusy" @click="retryAccountRefresh">{{ accountRefreshBusy ? '正在刷新…' : '刷新账号列表' }}</button>
+    </div>
     <!-- 添加账号 -->
     <div class="card">
       <h3 class="section-title">添加账号</h3>
@@ -427,14 +503,19 @@ async function onRemove(acc: Account) {
       </div>
 
       <div v-if="accountMode === 'microsoft'" class="account-mode-panel">
+        <div class="ms-identity-notice" role="status" data-ui="AccountsView:ms-identity">
+          <strong>KAMUCL 自有应用授权</strong>
+          <p>请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。</p>
+          <p v-if="microsoftStatus?.lastFailure" class="field-error">{{ microsoftStatus.lastFailure.message }}</p>
+        </div>
         <p class="muted mode-description">通过微软设备代码完成正版授权，KAMUCL 不会接触你的微软密码。</p>
         <p class="muted">SSL 证书验证已启用：校验证书链、域名及有效期，证书异常时终止登录。</p>
-        <button class="btn btn-gold ms-btn" :disabled="ms.starting" @click="beginMsLogin">
+        <button class="btn btn-gold ms-btn" :disabled="ms.starting || ms.waiting" @click="beginMsLogin">
           <span v-if="ms.starting" class="spin"></span>
           <svg v-else viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
             <path d="M3 3h8.5v8.5H3zM12.5 3H21v8.5h-8.5zM3 12.5h8.5V21H3zM12.5 12.5H21V21h-8.5z" />
           </svg>
-          {{ ms.starting ? '正在获取登录码…' : '开始微软登录' }}
+          {{ ms.starting ? '正在获取登录码…' : ms.waiting ? '正在等待授权…' : '开始微软登录' }}
         </button>
       </div>
 
@@ -552,9 +633,16 @@ async function onRemove(acc: Account) {
               </span>
             </div>
             <span class="muted uuid">{{ acc.uuid.slice(0, 8) }}</span>
+            <p v-if="acc.type === 'microsoft' && acc.msReauthRequired" class="reauth-note">应用身份已更新，需要重新登录</p>
           </div>
           <span v-if="store.selectedAccount?.id === acc.id" class="selected-badge">使用中</span>
           <span v-else-if="selectingId === acc.id" class="spin"></span>
+          <button
+            v-if="acc.type === 'microsoft' && acc.msReauthRequired"
+            class="btn btn-ghost btn-sm"
+            :disabled="ms.starting || ms.waiting"
+            @click.stop="beginMsLogin"
+          >重新登录</button>
           <button
             v-if="acc.type === 'yggdrasil'"
             class="btn btn-ghost btn-sm"
@@ -603,7 +691,7 @@ async function onRemove(acc: Account) {
           </div>
 
           <div class="modal-actions">
-            <button class="btn btn-ghost" @click="cancelMsLogin">取消登录</button>
+            <button class="btn btn-ghost" data-modal-dismiss @click="cancelMsLogin">取消登录</button>
           </div>
         </div>
       </div>
@@ -768,6 +856,19 @@ async function onRemove(acc: Account) {
   font-size: var(--text-xs);
   line-height: 1.6;
 }
+.ms-identity-notice {
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card-2);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+}
+.ms-identity-notice p { margin-top: var(--space-1); }
+.reauth-note { color: var(--accent-2); font-size: var(--text-xs); margin-top: var(--space-1); }
+.account-row { flex-wrap: wrap; }
+.account-meta { min-width: 0; }
 
 /* 添加账号 */
 .add-row {

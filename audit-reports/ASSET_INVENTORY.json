@@ -1,0 +1,661 @@
+{
+  "schemaVersion": 1,
+  "classification": "Static content/provenance audit. No credential authentication, install hooks, builds, runtime execution or legal clearance.",
+  "sourceCommit": "56a761b528e6eb1511d7c0980461016ba17a72f7",
+  "createdAt": "2026-10-13T15:11:24.876Z",
+  "counts": {
+    "tracked": 11504,
+    "trackedBytes": 645401657,
+    "historicalValidationFiles": 10351,
+    "productAssets": 105,
+    "packagesInLock": 552,
+    "installedPackages": 437,
+    "installedVersionMismatches": 0,
+    "installedWithoutNoticeCandidates": 22
+  },
+  "tools": {
+    "node": "24.16.0",
+    "git": "git version 2.55.0.windows.3",
+    "specializedLicenseScannerExecuted": false
+  },
+  "limits": [
+    "Notice candidate search limited to depth 4, excludes docs/tests/build/dist and nested node_modules; metadata is not proof of permission.",
+    "No untracked user files or real user data read.",
+    "Current repository images were hashed, not every frame visually reviewed.",
+    "Historical secret/source origins owned by separate audit agent."
+  ],
+  "assets": [
+    {
+      "path": "build/icon-512.png",
+      "bytes": 9063,
+      "sha256": "ad446b495232065589b7e83467b80d1d3d35a1df1404b2c362294a23c38a10f9",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "build/icon.png",
+      "bytes": 3820,
+      "sha256": "d3ceb71aa5dfcaf1295e4f5eed9bf9d57e4cadad1ac112f33da03fca3534d74f",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/allay.png",
+      "bytes": 176,
+      "sha256": "58e583cf63056a135b65f2bb73c544f1a47baa928af358f5b02fd7bc803b8234",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/armadillo.png",
+      "bytes": 251,
+      "sha256": "254962e3c73b16565de26ec27ae31c6b88f246e5abf3b1d2bfd3e010c30df786",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/axolotl.png",
+      "bytes": 171,
+      "sha256": "00e71ca81cecfbdd3184e62dfbaebe7c43f5e35b372c237f1dc874b52652a4f5",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/bat.png",
+      "bytes": 396,
+      "sha256": "73046e9a33db7621294f1e02a8cacf1f8ba9459bbf0cf815589b55051432bd4d",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/bee.png",
+      "bytes": 228,
+      "sha256": "9f3f84e5778570de143732a4dbb198c2bb4b763cfe1bf18ef5fb6d890d77d325",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/blaze.png",
+      "bytes": 218,
+      "sha256": "765744fc9e40af244d416349b1c8cd35cabd7fecc16e3ccc70153c7f95e23192",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/bogged.png",
+      "bytes": 236,
+      "sha256": "e3ad7651831754bb9ba878536df772b20f7c261b6101ca570e895c37e8183e9d",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/breeze.png",
+      "bytes": 204,
+      "sha256": "6e7b19c20630640196eb50667df4cb0ccab7dc381789f12f76cfeb099521cdac",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/camel.png",
+      "bytes": 239,
+      "sha256": "46e5aee66f437b81550e0d7e71a7cd2ae0272ec686b983bc20e31699c78228c3",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/cat.png",
+      "bytes": 175,
+      "sha256": "b30e0ac590bfbfdc7a3499cc21a2c5a0ac81375361a145a24d6110b7445e2734",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/cave_spider.png",
+      "bytes": 172,
+      "sha256": "4fb2536ee802cbaad248f175b641dd1e67977196256872c5b33b5aa251b53d65",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/chicken.png",
+      "bytes": 287,
+      "sha256": "5c570fe435fca55fb61d1bc00f6eabc9c9aeba2b5c31832682247517c0eabdd5",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/cod.png",
+      "bytes": 194,
+      "sha256": "593563c140ff5115f720b3901a25daafee67bb77cebce751cffaabef269322b3",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/copper_golem.png",
+      "bytes": 208,
+      "sha256": "e947fae000286506c265b2d5c20b73915d97c1797e8817563cfed7a3baafcc63",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/cow.png",
+      "bytes": 194,
+      "sha256": "0ac9d05e7a1714c736a95a0ca8a85900b8c331c0e2da6cc744df086e59f00a4f",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/creaking.png",
+      "bytes": 214,
+      "sha256": "9136949fec26016c8a9d82e8f4022fc2ceecc448085fd3465577c8e2d07454de",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/creeper.png",
+      "bytes": 577,
+      "sha256": "88336194570c75abfe3dc4f6c04040510cb41f3f3837f9c27af4063595992067",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/dolphin.png",
+      "bytes": 191,
+      "sha256": "46e2de785604fef3e330fe96023ed69040e617c5e525252ca1ca0a46c98bd0ec",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/donkey.png",
+      "bytes": 249,
+      "sha256": "66c5ca40de2505bd593ecddc6f7891cae77e02d1936bfa00886a3df2e4ad6f50",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/drowned.png",
+      "bytes": 221,
+      "sha256": "4e104987fc3e65425269607848c7a1581f94ea8eab3c4d5d2fed27c1f73b5c54",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/elder_guardian.png",
+      "bytes": 327,
+      "sha256": "ee9708a53e4853b53440bf2f1bb9477f972f76c57f13e6b0a307f48c265d1fa3",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/ender_dragon.png",
+      "bytes": 317,
+      "sha256": "3b048df95b600d2ecbb34bdb63db8f92db9b1e9ced369090b08d2022a0207c2d",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/enderman.png",
+      "bytes": 155,
+      "sha256": "91db168527a87cd644e737b245686cd737042ec6131e5c90a884a3aa7cad5aa2",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/endermite.png",
+      "bytes": 174,
+      "sha256": "f0a3ad90b4515a2bf0c52502e9a03a115fb44e93fa9ada86dec87b9ef2a9a6df",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/evoker.png",
+      "bytes": 223,
+      "sha256": "ead5f8fe2f511ae043509000bfbd8329734e6da1dd30a9c5687d26b15ab8a80e",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/fox.png",
+      "bytes": 217,
+      "sha256": "3a8e5727c3196f710142d0f0ad87c51e554edb6823512e85fb285c70ef79c7bb",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/frog.png",
+      "bytes": 235,
+      "sha256": "6dfde650f9c7404e21e712061a936fc952b7b1a34df3ee8a50d67832c2004bd9",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/ghast.png",
+      "bytes": 221,
+      "sha256": "c49903350a4870be02e5bf844efc5159a060e73fe89ed127033aa31cd2282087",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/glow_squid.png",
+      "bytes": 258,
+      "sha256": "5fde659253861c77541c2882e8058a315f2218c331641a0c9772cc2d20de2c63",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/goat.png",
+      "bytes": 341,
+      "sha256": "7b031398f28a097a9a1cbf9019ba8d926e1d380f63256ad6d2057d5fdd20a11f",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/guardian.png",
+      "bytes": 362,
+      "sha256": "e88eddd5aac824cd6aa20be73fababad3c675e554c8ea9d1b51483b3e5aa1c6c",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/happy_ghast.png",
+      "bytes": 207,
+      "sha256": "b01f128f47a9d463f9df1aa606a30a8f1433abb45b52ef76db5ceed7668bbc4e",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/hoglin.png",
+      "bytes": 262,
+      "sha256": "06a4779a748c21e40dfa17386fb25122e0a3ae2f956931224eee061e1945b1ac",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/horse.png",
+      "bytes": 257,
+      "sha256": "5f97bd63e9a7451e26f4ed943f2deb03efcb83bd160fb881e9a06fddecc5768e",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/husk.png",
+      "bytes": 231,
+      "sha256": "4c6518ff70f536847f8d527d5a506022eb4826d3cdcf049f9b1ad58c3674f400",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/iron_golem.png",
+      "bytes": 224,
+      "sha256": "b7287aa95dbf41d92e9d3a505f0af8eb56dc66619716fa7aae8a2b3c509496fc",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/llama.png",
+      "bytes": 219,
+      "sha256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/magma_cube.png",
+      "bytes": 199,
+      "sha256": "5f8bfe6318056dc02c862f5f0ba1d26a4d9b1bb2800c8b0d5f0ef3ec7dab2b79",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/mooshroom.png",
+      "bytes": 204,
+      "sha256": "c2f72592936cd02e814e02b76adc221d7a44109cf6d5ca462dd022f288eb6501",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/mule.png",
+      "bytes": 249,
+      "sha256": "a28d39062e8f8652ce9fb16615db5172498aebe1443751b68fac9c760d2011f3",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/ocelot.png",
+      "bytes": 195,
+      "sha256": "e20b2834216256b3e2c9491e3f1ab3937f7781f8e2f14fd3861102a8f2335ba7",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/panda.png",
+      "bytes": 258,
+      "sha256": "9148f7a3deeb96f76439958967e0dec6860f7f612cf985be10816a3f2d74dc71",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/parrot.png",
+      "bytes": 222,
+      "sha256": "e57ca6fe46a34c13d4179e5c11825944a462411db2a5eaca23537ce1e39ba477",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/phantom.png",
+      "bytes": 161,
+      "sha256": "2e3e55ad61bade42ef4c8809979023cc6502ca0b1092eb794e0d6eef91168dde",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/pig.png",
+      "bytes": 199,
+      "sha256": "acae9bb4417f19faeae6334dd4487d25264c00c0690105377350386d97915323",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/piglin.png",
+      "bytes": 216,
+      "sha256": "e29051c1c14b4530b5312264a351e49a1b80b9cec18a84104fad3a90d59ad279",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/piglin_brute.png",
+      "bytes": 226,
+      "sha256": "5efa04c61f4f49140156b8c182f9a603316475ea7f72f10abf1ba6899a365053",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/pillager.png",
+      "bytes": 385,
+      "sha256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/polar_bear.png",
+      "bytes": 259,
+      "sha256": "2985c0a5732c79fde76e1688a45bba7e75f90c22362027c4db5dcd53c54828d6",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/pufferfish.png",
+      "bytes": 205,
+      "sha256": "a4f8d7c49221f0133f2f1d579a2519b6486c3b69cfbeae1284b6fbb91571d6e1",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/rabbit.png",
+      "bytes": 167,
+      "sha256": "ea5f25b9fa91dcd32b1f128d79031fc5f78a6c76397e3bedb2189bff8e29a687",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/ravager.png",
+      "bytes": 248,
+      "sha256": "8ce477c9cbd18934dc1310f633d45ea6ee97731e4c83c4662a7c8728160a9e11",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/salmon.png",
+      "bytes": 270,
+      "sha256": "87a8226c542d22803ab127307c9914e62a6558d1250540d3fd778c40975edfb5",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/sheep.png",
+      "bytes": 232,
+      "sha256": "ddecce3420e872f5aa4344e40acc23006afc8cd821e9a5d270d925399b0e74a6",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/shulker.png",
+      "bytes": 420,
+      "sha256": "0bbd1548da251bae55f892986dcdec1bf2fe77d04117ad7689d7ec5a39757076",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/silverfish.png",
+      "bytes": 216,
+      "sha256": "b81b245b1a220c43e201d07bab9f3ba817ea2a38f2267f1d4ffb79356ce249e0",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/skeleton.png",
+      "bytes": 200,
+      "sha256": "80c62d8175b9c7b538590d3876ee3dd02d04b3c09f33f546d6cf5fc1a29a90dc",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/skeleton_horse.png",
+      "bytes": 216,
+      "sha256": "40aa58c2fafc14146fa8b913ad1d1c77b1977589a7f0861884d2ce061ebd501c",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/slime.png",
+      "bytes": 300,
+      "sha256": "3228e4d2c7eed3cb59e078576b7390950253adb3b8e50ea40d92638acebd49e7",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/sniffer.png",
+      "bytes": 368,
+      "sha256": "1af8113771ed63740dde074573437d5d396e778d5c5128768d25ef6628b8ce44",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/snow_golem.png",
+      "bytes": 4035,
+      "sha256": "8c94528abb4943fd10f3653986c6ac2bf028ace88d3b3199eb8611bad96725f0",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/spider.png",
+      "bytes": 176,
+      "sha256": "bb17e3051dfc22a62f3acbec1a196fff3f0940b691ed60c7e3207fc7fc175253",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/squid.png",
+      "bytes": 224,
+      "sha256": "c1f68053c3e3b8682243a3f02c76db9aa681a586f8447812bfbe392ec80c1fac",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/stray.png",
+      "bytes": 211,
+      "sha256": "c3cd8e0344a75e719874b2c41e57360d602e04003a8349604c7bf812456bf211",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/strider.png",
+      "bytes": 274,
+      "sha256": "9c8551ace5994ec831e03fe3cdeff7fad09d7bff6570adef529f5d9fb8057347",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/tadpole.png",
+      "bytes": 149,
+      "sha256": "00cc02afd6a5bb8460bae2061b146193325426f442c4a100e56d7413dafddddf",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/trader_llama.png",
+      "bytes": 219,
+      "sha256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/tropical_fish.png",
+      "bytes": 224,
+      "sha256": "de00e0f56c81e267959b37090f213d2684a38d637bac9939fc621e9f0b12c9e6",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/turtle.png",
+      "bytes": 224,
+      "sha256": "c126bd723b9cfdd1728d899cbe3d6ff295fe2be42b0bfcfce8c65439239ab72b",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/vex.png",
+      "bytes": 179,
+      "sha256": "2dd126529eac9cc675b7885132bbc18af8976ab305473ad838b807719918f290",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/villager.png",
+      "bytes": 196,
+      "sha256": "cfeebe39ee8df5a0d770ea2b9ba9605d0f506e5c2e12c56e8481f912eb9a938a",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/vindicator.png",
+      "bytes": 385,
+      "sha256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/wandering_trader.png",
+      "bytes": 297,
+      "sha256": "677fa59716bc1bfc775621760dfc63add31232638d7652e51fc6a8dc6503f96b",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/warden.png",
+      "bytes": 285,
+      "sha256": "44701545b94a58f02cc0a54da306ddfa301f5f2a065052026bcf8d006ba1f5b0",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/witch.png",
+      "bytes": 208,
+      "sha256": "c81f9d177a43b7988829679be0d5dd11bee57177dfe1dc649f60361bc223562d",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/wither.png",
+      "bytes": 201,
+      "sha256": "c929375c68de20b543a11dda5ccd3a4730114d42026976e8a2c478a75f7adc9a",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/wither_skeleton.png",
+      "bytes": 195,
+      "sha256": "9c134d7ac4b1e4582887696643e31e63550cf9781ab67c4fc1fc28d37e9ee9d5",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/wolf.png",
+      "bytes": 230,
+      "sha256": "b8e97df6f3df58fd679e6735dff05acd082d46cafa930e1843e54ebd9fe2e79d",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/zoglin.png",
+      "bytes": 704,
+      "sha256": "b33814d008bfeb876a880749a49dcaf47c6ef6023f95a800f2ed4bb98c99fa33",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/zombie.png",
+      "bytes": 236,
+      "sha256": "648784a72340af43e5e8cda6a21d2f8f1e807f9cb5054fe6e32951d756fcf876",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/zombie_horse.png",
+      "bytes": 202,
+      "sha256": "d9b4a220bb0ae757ffba03f13fc0ac037a1038f3b75f61a6872d10e930fb0248",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/zombie_villager.png",
+      "bytes": 261,
+      "sha256": "f25f235b8a4c3674d0a4b41ab6fdc877ed5ba14ace9f14694fe21b556118027d",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/public/mobs/zombified_piglin.png",
+      "bytes": 263,
+      "sha256": "c5d5f0264b6ac24b8edb27a27228d16b09ca14e78f693e11005adaa3e38ce019",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/launch/brewer.webp",
+      "bytes": 1405068,
+      "sha256": "38f39f80451353784a5217c781d35f131961074eb3f0a2bdc59bc37a84e77a16",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/launch/cactus.webp",
+      "bytes": 1391550,
+      "sha256": "0530b9aeec17c0f538b25e7c4ebfc4c9064f166964fea333e8994a7ad9caadfb",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/launch/camp.webp",
+      "bytes": 1413784,
+      "sha256": "66783d4aa2371fdb8e95df9fe17103345f6fad27ab35640ae1ebec2e59981ebe",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/launch/cannon.webp",
+      "bytes": 1543372,
+      "sha256": "4b0a8804c5ac58292c28056783b6a19ae39c417d39898e9f2000aed751326a64",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/launch/farmer.webp",
+      "bytes": 1588558,
+      "sha256": "c186d9793565bbc22aafa68de3df9cf6e02c73d252aab596771941cf7957e252",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/launch/piston.webp",
+      "bytes": 1406146,
+      "sha256": "bdfbc3e3b189a0e6e012a7fd381cd5a829c7b5143ba869d51ee35c072cf3197d",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/launch/sunset.webp",
+      "bytes": 1582702,
+      "sha256": "0c4586a2ff009492b82f543fe64fea4a6210d952d7c382a270e889e508e38766",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-feedback/palm-print.png",
+      "bytes": 167,
+      "sha256": "486e5c5a356fc27e75f67ebf7f42aacac5bd9217773f5f5a29366026df07f788",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-feedback/palm-print.svg",
+      "bytes": 326,
+      "sha256": "ad8d6ebbddc33ee428166cf1b6efda6ed033e353feb41f7a1da1628c48bec791",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-feedback/pixel-palm.png",
+      "bytes": 177,
+      "sha256": "2af4a772fade672a4aab42f4b1a376c8d6c0979a6dbf11c4943368bac9ad1e95",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-feedback/pixel-palm.svg",
+      "bytes": 346,
+      "sha256": "25fa08cb06c05b7a98cb92197cd122b0c75ed341c778034bd8a8abff3b224c47",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-skins/biyuehu.png",
+      "bytes": 678,
+      "sha256": "440d74577cd04d8d60743a5579f570df84fed5f90e2b56842edf191cecc38094",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-skins/hongshu.png",
+      "bytes": 615,
+      "sha256": "09c870b2a81682828e01b558269c7bc78e6fd2616ff297d38f0d301de0098064",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-skins/kamu.png",
+      "bytes": 764,
+      "sha256": "5da56959aa951ae779e829b95eecc80105711d3b24b52593c24da26c07fe7d85",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-skins/milo.png",
+      "bytes": 585,
+      "sha256": "8b51b95ed50a785fa128d0a302cf6ddfc315145774b624a4068008e19fde81dd",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-skins/muchuanbei.png",
+      "bytes": 607,
+      "sha256": "c658d91ff04eb25b354925f656783fdd157a6dd42c9d2313664f1022cdd829bc",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-skins/q3.png",
+      "bytes": 577,
+      "sha256": "aa657013dcfb15be9e918d8a75ca73a4a7dd48e1bd0a5b7443b622a850837b10",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/mascot-skins/qiqi.png",
+      "bytes": 593,
+      "sha256": "ca1d7b4e753d299bfaf42a396d0f6951a2133fda1e4410ed883427b336953686",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/splash-face-32.png",
+      "bytes": 399,
+      "sha256": "376cab5be6e4b31039fff66e3ebc6904df39b08bfbcc83b2cbf76175dcf5cf62",
+      "kind": "asset-binary"
+    },
+    {
+      "path": "src/renderer/src/assets/splash-face.png",
+      "bytes": 3820,
+      "sha256": "d3ceb71aa5dfcaf1295e4f5eed9bf9d57e4cadad1ac112f33da03fca3534d74f",
+      "kind": "asset-binary"
+    }
+  ],
+  "historicalImageCount": 9862,
+  "representation": "Observed working-tree bytes at listed Git-tracked baseline paths. sourceCommit names HEAD at collection, not a claim that all observed hashes were committed."
+}

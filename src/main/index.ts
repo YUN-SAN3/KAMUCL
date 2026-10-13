@@ -25,6 +25,7 @@ import { applyUpdateOnStartup, acknowledgeUpdateStartup, blockedUpdateVersion, g
 import { startMemoryTrim } from './core/memTrim'
 import type { MemoryTrimController } from './core/memTrim'
 import { getRunningGamePids } from './core/launch'
+import { cancelMsLogin } from './core/accounts'
 import { exitHistory, rememberExit } from './core/exitHistory'
 import { configureRuntimeGraphics } from './runtimeGraphics'
 import { resynchronizeWindowsRestore } from './windowRestoreVisibility'
@@ -143,7 +144,7 @@ function createWindow(startup?: Awaited<ReturnType<typeof createStartupSplash>>)
     if (skinEditorDirty || skinEditorPrefsPending || skinEditorBusy) { event.preventDefault(); deferredPaletteClose=skinEditorPrefsPending&&!skinEditorDirty&&!skinEditorBusy; mainWindow.webContents.send('window:skinEditorClose'); return }
     if (mascotPending) { event.preventDefault(); mainWindow.webContents.send('window:mascotClose') }
   })
-  mainWindow.once('closed', () => { if (win === mainWindow) win = null })
+  mainWindow.once('closed', () => { cancelMsLogin(); if (win === mainWindow) win = null })
   mainWindow.webContents.on('render-process-gone', () => {
     if(win!==mainWindow)return
     // A crashed renderer cannot acknowledge an editor close request.
@@ -326,6 +327,7 @@ app.on('window-all-closed', () => {
 app.on('before-quit', event => {
   if((skinEditorDirty||skinEditorPrefsPending||skinEditorBusy)&&win&&!win.webContents.isDestroyed()){event.preventDefault();deferredPaletteQuit=skinEditorPrefsPending&&!skinEditorDirty&&!skinEditorBusy;win.webContents.send('window:skinEditorClose',{quit:true});return}
   if(mascotPending&&win&&!win.webContents.isDestroyed()){event.preventDefault();win.webContents.send('window:mascotClose',{quit:true});return}
+  cancelMsLogin()
   // 仅清理联机相关子进程/监听器；不影响 Minecraft 生命周期。
   void stopDirectHost()
   void stopVoxlinkOnQuit()

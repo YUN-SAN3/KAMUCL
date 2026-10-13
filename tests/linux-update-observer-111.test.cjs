@@ -108,15 +108,16 @@ test('actual pinned Electron main and sandboxed private renderer expose observed
   fs.writeFileSync(html, '<!doctype html><body>private context contract</body>'); fs.writeFileSync(second, '<!doctype html><body>next owned context</body>')
   const config = { root, html, second, receipt, version: require('../package.json').devDependencies.electron }
   fs.writeFileSync(entry, `
-const fs=require('node:fs'),path=require('node:path'),{app,BrowserWindow}=require('electron'),config=${JSON.stringify(config)};
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{app,BrowserWindow}=require('electron'),config=${JSON.stringify(config)};
 const profile=path.join(config.root,'profile'),data=path.join(config.root,'config');fs.mkdirSync(profile);fs.mkdirSync(data);app.setPath('userData',profile);app.setPath('appData',data);
-const report={contractOnly:true,nativeDesktop:false,complete:false,actual:{pid:process.pid,platform:process.platform,arch:process.arch,electron:process.versions.electron,executable:process.execPath,argv:[...process.argv],profile,appData:data},startedAt:new Date().toISOString()};const save=()=>{fs.writeFileSync(config.receipt+'.tmp',JSON.stringify(report,null,2)+'\\n');fs.renameSync(config.receipt+'.tmp',config.receipt)};save();let win;const timer=setTimeout(()=>{report.error={message:'Private context contract deadline'};save();app.exit(1)},20000);
-process.on('message',async message=>{try{if(message.command==='navigate'){await win.loadFile(config.second);report.navigated=true;save()}if(message.command==='quit'){report.complete=true;report.closedAt=new Date().toISOString();save();clearTimeout(timer);win?.destroy();app.exit(0)}}catch(error){report.error={message:error.message,stack:error.stack};save();app.exit(1)}});
-app.whenReady().then(async()=>{if(process.versions.electron!==config.version)throw Error('Pinned runtime mismatch');win=new BrowserWindow({show:false,webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false}});const p=win.webContents.getLastWebPreferences();report.nativeWindowPreferences={sandbox:p.sandbox,contextIsolation:p.contextIsolation,nodeIntegration:p.nodeIntegration};report.ready=true;await win.loadFile(config.html);report.loaded=true;save()}).catch(error=>{report.error={message:error.message,stack:error.stack};save();clearTimeout(timer);app.exit(1)});
+const report={contractOnly:true,nativeDesktop:false,complete:false,actual:{pid:process.pid,platform:process.platform,arch:process.arch,electron:process.versions.electron,executable:process.execPath,argv:[...process.argv],profile,appData:data},startedAt:new Date().toISOString()};let revision=0;const save=(final=false)=>{const file=final?config.receipt:path.join(path.dirname(config.receipt),'verification-'+(++revision)+'.json'),bytes=JSON.stringify(report,null,2)+'\\n';fs.writeFileSync(file+'.tmp',bytes,{flag:'wx'});fs.renameSync(file+'.tmp',file);return{file,sha256:crypto.createHash('sha256').update(bytes).digest('hex')}};save();let win;const timer=setTimeout(()=>{report.error={message:'Private context contract deadline'};save(true);app.exit(1)},20000);
+process.on('message',async message=>{try{if(message.command==='navigate'){await win.loadFile(config.second);report.navigated=true;const saved=save();process.send?.({event:'owned-navigation-saved',pid:process.pid,...saved})}if(message.command==='quit'){report.complete=true;report.closedAt=new Date().toISOString();save(true);clearTimeout(timer);win?.destroy();app.exit(0)}}catch(error){report.error={message:error.message,stack:error.stack};save(true);app.exit(1)}});
+app.whenReady().then(async()=>{if(process.versions.electron!==config.version)throw Error('Pinned runtime mismatch');win=new BrowserWindow({show:false,webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false}});const p=win.webContents.getLastWebPreferences();report.nativeWindowPreferences={sandbox:p.sandbox,contextIsolation:p.contextIsolation,nodeIntegration:p.nodeIntegration};report.ready=true;await win.loadFile(config.html);report.loaded=true;save()}).catch(error=>{report.error={message:error.message,stack:error.stack};save(true);clearTimeout(timer);app.exit(1)});
 `)
   const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE
   const child = spawn(require('electron'), [entry, '--inspect=127.0.0.1:' + mainPort, '--remote-debugging-port=' + port], { env, stdio: ['ignore', 'pipe', 'pipe', 'ipc'] })
-  const childPid = child.pid, events = []; let stdout = '', stderr = '', main, renderer, primary, outcome
+  const childPid = child.pid, events = []; let stdout = '', stderr = '', main, renderer, primary, outcome, navigationNotice
+  child.on('message', message => { if (message?.event === 'owned-navigation-saved' && message.pid === childPid) navigationNotice = { pid: childPid, file: message.file, sha256: message.sha256, observedAt: new Date().toISOString() } })
   child.stdout.on('data', value => { stdout += value }); child.stderr.on('data', value => { stderr += value })
   const closed = new Promise(resolve => child.once('close', (code, signal) => { outcome = { code, signal }; resolve(outcome) }))
   child.once('error', error => { primary ??= error })
@@ -133,14 +134,22 @@ app.whenReady().then(async()=>{if(process.versions.electron!==config.version)thr
     const identity = await main.evaluate('({pid:process.pid,platform:process.platform,arch:process.arch,electron:process.versions.electron})', { startupDeadline: true }); assert.equal(identity.pid, childPid); assert.equal(identity.electron, config.version)
     renderer = await openOwnedInspector({ url: page.webSocketDebuggerUrl, port, role: 'renderer', rendererURL, ...owned })
     const observed = await renderer.evaluate('({body:document.body.textContent,url:location.href})', { startupDeadline: true }); assert.equal(observed.body, 'private context contract'); assert.equal(observed.url, rendererURL)
-    child.send({ command: 'navigate' }); for (let i = 0; i < 100; i++) { if (JSON.parse(fs.readFileSync(receipt, 'utf8')).navigated) break; await wait(20) }
-    assert.equal(JSON.parse(fs.readFileSync(receipt, 'utf8')).navigated, true)
+    // Immutable stage receipts avoid replacing evidence an observer/scanner may have open.
+    // Wait for the owned child's completed atomic write, then verify its exact snapshot.
+    child.send({ command: 'navigate' }); for (let i = 0; i < 100; i++) { if (navigationNotice) break; assert.equal(child.exitCode, null, 'Owned child exited before recording navigation'); await wait(20) }
+    assert(navigationNotice && navigationNotice.pid === childPid, 'Actual navigation and its receipt write were not acknowledged by the owned child')
+    assert.equal(path.dirname(navigationNotice.file), proof)
+    assert.match(path.basename(navigationNotice.file), /^verification-\d+\.json$/)
+    const navigationBytes = fs.readFileSync(navigationNotice.file)
+    assert.equal(hash(navigationBytes), navigationNotice.sha256)
+    const original = JSON.parse(navigationBytes)
+    assert.equal(original.navigated, true)
     for (let i = 0; i < 50 && !events.some(e => e.role === 'renderer' && e.name === 'Runtime.executionContextsCleared'); i++) await wait(10)
     const evaluations = events.filter(e => e.name === 'command-sent' && e.value.method === 'Runtime.evaluate').length
     await assert.rejects(renderer.evaluate('fixture_update_request()'), /destroyed; IPC will not be retried/)
     assert.equal(events.filter(e => e.name === 'command-sent' && e.value.method === 'Runtime.evaluate').length, evaluations)
-    const original = JSON.parse(fs.readFileSync(receipt, 'utf8')); assert.equal(original.actual.pid, childPid); assert.equal(original.actual.platform, process.platform); assert.equal(original.actual.arch, process.arch); assert.deepEqual(original.nativeWindowPreferences, { sandbox: true, contextIsolation: true, nodeIntegration: false })
-    fs.writeFileSync(path.join(proof, 'parent-observation.json'), JSON.stringify({ nativeDesktop: false, contractOnly: true, identity, mainReadiness: main.readiness, rendererReadiness: renderer.readiness, oldContextRejectedWithoutResend: true, helperSHA256: hash(fs.readFileSync(path.resolve('scripts/linux-update-observer.cjs'))), executableSHA256: hash(fs.readFileSync(require('electron'))) }, null, 2))
+    assert.equal(original.actual.pid, childPid); assert.equal(original.actual.platform, process.platform); assert.equal(original.actual.arch, process.arch); assert.deepEqual(original.nativeWindowPreferences, { sandbox: true, contextIsolation: true, nodeIntegration: false })
+    fs.writeFileSync(path.join(proof, 'parent-observation.json'), JSON.stringify({ nativeDesktop: false, contractOnly: true, identity, navigationNotice, mainReadiness: main.readiness, rendererReadiness: renderer.readiness, oldContextRejectedWithoutResend: true, helperSHA256: hash(fs.readFileSync(path.resolve('scripts/linux-update-observer.cjs'))), executableSHA256: hash(fs.readFileSync(require('electron'))) }, null, 2))
   } catch (error) { primary ??= error }
   finally {
     const secondaryErrors = [], failedCleanup = error => { secondaryErrors.push({ message: error.message, stack: error.stack }); primary ??= error }

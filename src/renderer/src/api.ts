@@ -34,6 +34,8 @@ import type {
   ImportProbeResult,
   ModpackInstallRequest,
   MsDeviceCodeInfo,
+  MsLoginDone,
+  MicrosoftAuthStatus,
   ProgressEvent,
   ProfileSkins,
   RemoteVersion,
@@ -109,6 +111,7 @@ export const removeAccount = (id: string) => invoke<Account[]>(IPC.accountsRemov
 export const selectAccount = (id: string) => invoke<Account | null>(IPC.accountsSelect, id)
 export const getSelectedAccount = () => invoke<Account | null>(IPC.accountsSelected)
 export const msBeginLogin = () => invoke<MsDeviceCodeInfo>(IPC.accountsMsBegin)
+export const getMicrosoftAuthStatus = () => invoke<MicrosoftAuthStatus>(IPC.accountsMsStatus)
 export const msCancelLogin = () => invoke<void>(IPC.accountsMsCancel)
 export const listYggdrasilProviders = () =>
   invoke<YggdrasilProvider[]>(IPC.accountsYggProviders)
@@ -395,8 +398,8 @@ export const onLaunchLog = (cb: (line: string) => void) =>
   subscribe<string>(IPC_EVENT.launchLog, cb)
 export const onLaunchState = (cb: (s: LaunchState) => void) =>
   subscribe<LaunchState>(IPC_EVENT.launchState, cb)
-export const onMsLoginDone = (cb: (result: { account: Account | null; error?: string | null }) => void) =>
-  subscribe<{ account: Account | null; error?: string | null }>(IPC_EVENT.msLoginDone, cb)
+export const onMsLoginDone = (cb: (result: MsLoginDone) => void) =>
+  subscribe<MsLoginDone>(IPC_EVENT.msLoginDone, cb)
 export const onInstallDone = (
   cb: (r: { versionId: string; installedId?: string; ok: boolean; error?: string; taskId?: string; cancelled?: boolean; stage?: string; favoriteModsResult?: import('@shared/modFavorites').FavoriteInstallResult }) => void
 ) =>

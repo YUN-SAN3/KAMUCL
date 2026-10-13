@@ -106,6 +106,21 @@ async function save(patch: Partial<Settings>) {
 }
 
 const windowFitBusy = ref(false)
+const curseforgeKeyDraft = ref('')
+const curseforgeKeyBusy = ref(false)
+async function saveCurseforgeKey(clear = false) {
+  if (curseforgeKeyBusy.value) return
+  const key = clear ? '' : curseforgeKeyDraft.value.trim()
+  if (!clear && !key) return
+  curseforgeKeyBusy.value = true
+  try {
+    await updateSettings({ curseforgeApiKey: key })
+    curseforgeKeyDraft.value = ''
+    toast(clear ? '已清除自定义 CurseForge 密钥' : '已安全保存自定义 CurseForge 密钥', 'success')
+  } catch (error) {
+    toast('密钥保存失败，原设置保持不变：' + errText(error), 'error')
+  } finally { curseforgeKeyBusy.value = false }
+}
 async function changeWindowFit(event: Event) {
   if (windowFitBusy.value) return
   const input = event.target as HTMLInputElement
@@ -405,7 +420,7 @@ const stopJavaProgress = onProgress((event) => {
   javaScanText.value = event.text
   javaScanProgress.value = Math.max(0, Math.min(1, event.overall ?? event.progress))
 })
-onUnmounted(stopJavaProgress)
+onUnmounted(() => { stopJavaProgress(); curseforgeKeyDraft.value = '' })
 
 const javaLabel = (j: { major: number; path: string; version: string; architecture?: string }) =>
   `Java ${j.major}（${j.version} · ${j.architecture ?? '未知架构'}）· ${j.path}`
@@ -706,7 +721,7 @@ async function onRemovePlugin(p: PluginInfo) {
             <span data-ui="SettingsView:53c4924a8276" class="collapse-arrow" aria-hidden="true"></span>
           </summary>
           <div data-ui="SettingsView:7d7409e56805" class="collapse-body">
-      <!-- 下载镜像（微软登录 Client ID 按隐私要求不在界面展示，登录固定使用内置默认应用） -->
+      <!-- 下载镜像；微软登录仅使用官方构建中的 KAMUCL 自有应用身份。 -->
       <div data-ui="SettingsView:95f82195a3e7" v-show="category === 'downloads'" data-section="mirror" class="download-mirror-group">
         <div data-ui="SettingsView:df1b5ac2d829" class="download-mirror-options">
           <h3 data-ui="SettingsView:377562d71363" class="group-title">下载镜像</h3>
@@ -735,11 +750,18 @@ async function onRemovePlugin(p: PluginInfo) {
               <input data-ui="SettingsView:bb44d7c926e9"
                 class="input mono"
                 type="password"
-                :value="store.settings.curseforgeApiKey ?? ''"
-                placeholder="留空走镜像通道"
-                @change="save({ curseforgeApiKey: ($event.target as HTMLInputElement).value.trim() })"
+                v-model="curseforgeKeyDraft"
+                autocomplete="off"
+                :disabled="curseforgeKeyBusy"
+                :placeholder="store.settings.curseforgeApiKeyConfigured ? '已配置，输入新密钥可替换' : '输入自定义 API Key'"
+                @keyup.enter="saveCurseforgeKey()"
               />
             </label>
+            <div class="cf-key-actions">
+              <button class="btn btn-ghost btn-sm" :disabled="curseforgeKeyBusy || !curseforgeKeyDraft.trim()" @click="saveCurseforgeKey()">{{ curseforgeKeyBusy ? '保存中…' : '保存密钥' }}</button>
+              <button v-if="store.settings.curseforgeApiKeyConfigured" class="btn btn-ghost btn-sm" :disabled="curseforgeKeyBusy" @click="saveCurseforgeKey(true)">清除自定义密钥</button>
+              <span class="muted">{{ store.settings.curseforgeApiKeyConfigured ? '已配置，不回显已保存的密钥' : '未配置自定义密钥' }}</span>
+            </div>
             <p data-ui="SettingsView:2afaeb170207" class="muted group-hint">CurseForge 官方 API 需要免费注册申请：<a data-ui="SettingsView:b8eb49f2eba5" class="upd-link" href="https://console.curseforge.com/" target="_blank" rel="noreferrer">console.curseforge.com</a>（注册 → 创建应用 → 复制 API Key 粘贴到上方）。填入后社区资源的 CurseForge 搜索与下载走官方通道，不受镜像波动影响。</p></details>
           </div>
         </details>
@@ -1192,6 +1214,7 @@ async function onRemovePlugin(p: PluginInfo) {
 </template>
 
 <style scoped>
+.cf-key-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: var(--space-2); }
 .settings-navigation { position:sticky; top:0; z-index:15; padding:12px; margin-bottom:16px; border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface-solid); }
 .settings-search { display:flex; align-items:center; gap:12px; }
 .settings-search > span { white-space:nowrap; font-weight:600; }

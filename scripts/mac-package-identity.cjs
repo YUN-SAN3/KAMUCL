@@ -2,6 +2,7 @@
 // whose hash it records, so signing introduces no circular payload hash.
 const fs = require('node:fs'), path = require('node:path'), assert = require('node:assert/strict')
 const crypto = require('node:crypto'), { execFileSync } = require('node:child_process')
+const { verifyRuntimeNotices } = require('./mac-runtime-notices.cjs')
 const IDENTITY_FILE = 'kamucl-mac.json'
 const signing = 'ad-hoc; not Developer ID or notarized'
 const sha256 = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')
@@ -39,6 +40,9 @@ function readMacPackageIdentity(appPath, expected, { execute = execFileSync } = 
   assert.equal(observedRuntime, identity.runtimeVersion, 'Actual Electron framework runtime differs from signed identity')
   assert.equal(observedMinimum, identity.minimumSystemVersion, 'Actual Mac minimum differs from signed identity')
   assert.equal(sha256(path.join(resources, 'app.asar')), identity.appAsarSHA256, 'Mac ASAR bytes differ from signed identity')
+  const parts = identity.version.split('.').map(Number)
+  const needsRuntimeNotices = parts[0] > 1 || (parts[0] === 1 && (parts[1] > 1 || (parts[1] === 1 && parts[2] >= 22)))
+  if (needsRuntimeNotices) verifyRuntimeNotices(resources, identity.runtimeNotices)
   return { identity, identitySHA256: sha256(file), observedRuntime, observedMinimum, nativeArch, signature: 'strict deep verification passed' }
 }
 function collectMacWorldHashes(saveDirectory) {

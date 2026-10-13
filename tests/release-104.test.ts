@@ -16,7 +16,7 @@ test('microsoft login: every pipeline step is labeled and written to launcher lo
   // 失败写 launcherLog（不再只进 console）且错误原因透传给前端
   assert.match(accounts, /logScope\('ms-auth'\)/)
   assert.match(accounts, /authLog\.error\('微软登录失败', e\)/)
-  assert.match(accounts, /onDone\(null, signal\.aborted \? undefined : message\)/)
+  assert.match(accounts, /onDone\(null, signal\.aborted \? undefined : message, operation\.publicId\)/)
   const ipc = read('src/main/ipc.ts')
   assert.match(ipc, /msLoginDone[\s\S]*?error: error \?\? null/)
   // 前端显示具体原因，取消与失败区分

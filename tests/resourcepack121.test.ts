@@ -109,7 +109,8 @@ test('unsafe paths, duplicate paths, encrypted entries, links and broken metadat
     assert.throws(() => prepareResourcePackArchive(input.toBuffer(), 'unsafe.zip'), /路径/)
   }
   const duplicate = new AdmZip(archive('pack/')); duplicate.getEntry('pack/LICENSE.txt')!.entryName = 'pack/pack.mcmeta'
-  assert.throws(() => prepareResourcePackArchive(duplicate.toBuffer(), 'duplicate.zip'), /重复|冲突/)
+  // Current adm-zip rejects this malformed central directory before the product can enumerate it.
+  assert.throws(() => prepareResourcePackArchive(duplicate.toBuffer(), 'duplicate.zip'), /重复|冲突|^(?:Error: )?ADM-ZIP: Duplicate entry name "pack\/pack\.mcmeta"$/)
   const encrypted = new AdmZip(archive('pack/')); encrypted.getEntry('pack/LICENSE.txt')!.header.flags |= 1
   assert.throws(() => prepareResourcePackArchive(encrypted.toBuffer(), 'encrypted.zip'), /加密/)
   const link = new AdmZip(archive('pack/')); link.getEntry('pack/LICENSE.txt')!.attr = (0o120777 << 16) >>> 0

@@ -1,0 +1,547 @@
+{
+  "schema": 1,
+  "checkedAtUTC": "2026-10-13T15:29:51.918Z",
+  "purpose": "Official package release/version/integrity/engine/peer metadata; not an exploitability verdict. No packages installed and no lifecycle scripts run.",
+  "packages": [
+    {
+      "name": "adm-zip",
+      "registry": "https://registry.npmjs.org/adm-zip",
+      "metadataSHA256": "73d7aec3311aa920938797f966d290a2fb339419bb33a674aa9aeb8d045184f7",
+      "latest": "0.6.1",
+      "versions": [
+        {
+          "version": "0.6.0",
+          "exists": true,
+          "publishedAtUTC": "2026-07-10T20:08:24.472Z",
+          "repository": {
+            "url": "git+https://github.com/cthackers/adm-zip.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/adm-zip/-/adm-zip-0.6.0.tgz",
+          "integrity": "sha512-XleryMhbuksdKtofnWZ9Sk+4CUTbms4Mb/EU32SZwToAyZ5RgVos/ki8n+yr0LWHOGKuakbXTuuYNHLQjhddgg==",
+          "shasum": "bbc5c6c333755e967a06dd98747f431e1d53a3cf",
+          "engines": {
+            "node": ">=14.0"
+          },
+          "peerDependencies": null,
+          "dependencies": null,
+          "optionalDependencies": null,
+          "scripts": {}
+        },
+        {
+          "version": "0.6.1",
+          "exists": true,
+          "publishedAtUTC": "2026-09-11T10:24:22.219Z",
+          "repository": {
+            "url": "git+https://github.com/cthackers/adm-zip.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/adm-zip/-/adm-zip-0.6.1.tgz",
+          "integrity": "sha512-Xwrja8nx9e5o2N1my4DsKCeKpdrnACyr1wtbPxBDgGzKzKyE9kRtBFA8mWldI+RVlD7CBZNWY/wQ2+ydwOR6kQ==",
+          "shasum": "5b95da4a6e7af0663b71457c06e1517fa6ac8d5f",
+          "engines": {
+            "node": ">=14.0"
+          },
+          "peerDependencies": null,
+          "dependencies": null,
+          "optionalDependencies": null,
+          "scripts": {}
+        }
+      ]
+    },
+    {
+      "name": "undici",
+      "registry": "https://registry.npmjs.org/undici",
+      "metadataSHA256": "6ea2dbbee1b5369f5ba599641531304505bfd647e4d57727545726a69b05c370",
+      "latest": "8.11.2",
+      "versions": [
+        {
+          "version": "6.28.0",
+          "exists": true,
+          "publishedAtUTC": "2026-07-24T12:55:27.721Z",
+          "repository": {
+            "url": "git+https://github.com/nodejs/undici.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/undici/-/undici-6.28.0.tgz",
+          "integrity": "sha512-LIY910g9TI13YS95lrMFrs8Rm/u/irgHeTWoKCoteeJ04CUJ92eEfj0rVn+7VKMPBpUPiUoBKfhNyLI23EE/KA==",
+          "shasum": "9f0e385744fef5021d6596c5bccd783f61193c1c",
+          "engines": {
+            "node": ">=18.17"
+          },
+          "peerDependencies": null,
+          "dependencies": null,
+          "optionalDependencies": null,
+          "scripts": {
+            "prepare": "husky && node ./scripts/platform-shell.js"
+          }
+        },
+        {
+          "version": "6.28.1",
+          "exists": true,
+          "publishedAtUTC": "2026-09-04T14:23:45.648Z",
+          "repository": {
+            "url": "git+https://github.com/nodejs/undici.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/undici/-/undici-6.28.1.tgz",
+          "integrity": "sha512-zWpdTVD54H48CIybL0rWQ3ukpb9d23wM7eH5RtfdmeP70cWHNjtfo7P4vZX+5CoDcO53J4Pu5uXp7lNfjc6DRA==",
+          "shasum": "aa9d2c44aef3840bef80216f2a50f337543a3fbd",
+          "engines": {
+            "node": ">=18.17"
+          },
+          "peerDependencies": null,
+          "dependencies": null,
+          "optionalDependencies": null,
+          "scripts": {
+            "prepare": "husky && node ./scripts/platform-shell.js"
+          }
+        },
+        {
+          "version": "6.29.0",
+          "exists": true,
+          "publishedAtUTC": "2026-09-25T09:45:19.865Z",
+          "repository": {
+            "url": "git+https://github.com/nodejs/undici.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/undici/-/undici-6.29.0.tgz",
+          "integrity": "sha512-R+RODBqp6i2pPflGdq+xIOUkl+RNfGgHwoinecKu/JCuf2uO06cOKoDbI2P7Dn6KcswdKwrczbU6IYJ6K8X+wg==",
+          "shasum": "140fa16e337ac706d6ff12f03fbe5c4357e5f9a3",
+          "engines": {
+            "node": ">=18.17"
+          },
+          "peerDependencies": null,
+          "dependencies": null,
+          "optionalDependencies": null,
+          "scripts": {
+            "prepare": "husky && node ./scripts/platform-shell.js"
+          }
+        }
+      ]
+    },
+    {
+      "name": "sharp",
+      "registry": "https://registry.npmjs.org/sharp",
+      "metadataSHA256": "b8db63ff3811d73007a09b7225a41c25deb3bb08960d56b0d4bfd48e019b1ec9",
+      "latest": "0.35.5",
+      "versions": [
+        {
+          "version": "0.35.4",
+          "exists": true,
+          "publishedAtUTC": "2026-08-26T09:42:27.903Z",
+          "repository": {
+            "url": "git+https://github.com/lovell/sharp.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/sharp/-/sharp-0.35.4.tgz",
+          "integrity": "sha512-n++8XWcj+jCOr2IOl7h8LbKnGBDY4aPbmprMONBNFdn0ImXqpGVv5zliDs0V9HbmbCQLpbuo2ej9rAoOQTvMDA==",
+          "shasum": "361df3b2959daeb380541289960456c6be0f92de",
+          "engines": {
+            "node": ">=20.9.0"
+          },
+          "peerDependencies": null,
+          "dependencies": {
+            "semver": "^7.8.5",
+            "@img/colour": "^1.1.0",
+            "detect-libc": "^2.1.2"
+          },
+          "optionalDependencies": {
+            "@img/sharp-linux-arm": "0.35.4",
+            "@img/sharp-linux-x64": "0.35.4",
+            "@img/sharp-win32-x64": "0.35.4",
+            "@img/sharp-darwin-x64": "0.35.4",
+            "@img/sharp-win32-ia32": "0.35.4",
+            "@img/sharp-linux-arm64": "0.35.4",
+            "@img/sharp-linux-ppc64": "0.35.4",
+            "@img/sharp-linux-s390x": "0.35.4",
+            "@img/sharp-win32-arm64": "0.35.4",
+            "@img/sharp-darwin-arm64": "0.35.4",
+            "@img/sharp-linux-riscv64": "0.35.4",
+            "@img/sharp-linuxmusl-x64": "0.35.4",
+            "@img/sharp-freebsd-wasm32": "0.35.4",
+            "@img/sharp-linuxmusl-arm64": "0.35.4",
+            "@img/sharp-libvips-linux-arm": "1.3.3",
+            "@img/sharp-libvips-linux-x64": "1.3.3",
+            "@img/sharp-libvips-darwin-x64": "1.3.3",
+            "@img/sharp-libvips-linux-arm64": "1.3.3",
+            "@img/sharp-libvips-linux-ppc64": "1.3.3",
+            "@img/sharp-libvips-linux-s390x": "1.3.3",
+            "@img/sharp-libvips-darwin-arm64": "1.3.3",
+            "@img/sharp-webcontainers-wasm32": "0.35.4",
+            "@img/sharp-libvips-linux-riscv64": "1.3.3",
+            "@img/sharp-libvips-linuxmusl-x64": "1.3.3",
+            "@img/sharp-libvips-linuxmusl-arm64": "1.3.3"
+          },
+          "scripts": {}
+        },
+        {
+          "version": "0.35.5",
+          "exists": true,
+          "publishedAtUTC": "2026-09-27T13:46:24.509Z",
+          "repository": {
+            "url": "git+https://github.com/lovell/sharp.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/sharp/-/sharp-0.35.5.tgz",
+          "integrity": "sha512-Ywn4OnzGukp7CDMrp08RQ50YKmuwG47brZgIVPTvBaaAfQlRlygrRqSrxdCiL9M+LlzLBiJ68IR1QqvzHyjC7g==",
+          "shasum": "43fb539872ec5f53cc7162eb850dbf6514692fbf",
+          "engines": {
+            "node": ">=20.9.0"
+          },
+          "peerDependencies": null,
+          "dependencies": {
+            "semver": "^7.8.5",
+            "@img/colour": "^1.1.0",
+            "detect-libc": "^2.1.2"
+          },
+          "optionalDependencies": {
+            "@img/sharp-linux-arm": "0.35.5",
+            "@img/sharp-linux-x64": "0.35.5",
+            "@img/sharp-win32-x64": "0.35.5",
+            "@img/sharp-darwin-x64": "0.35.5",
+            "@img/sharp-win32-ia32": "0.35.5",
+            "@img/sharp-linux-arm64": "0.35.5",
+            "@img/sharp-linux-ppc64": "0.35.5",
+            "@img/sharp-linux-s390x": "0.35.5",
+            "@img/sharp-win32-arm64": "0.35.5",
+            "@img/sharp-darwin-arm64": "0.35.5",
+            "@img/sharp-linux-riscv64": "0.35.5",
+            "@img/sharp-linuxmusl-x64": "0.35.5",
+            "@img/sharp-freebsd-wasm32": "0.35.5",
+            "@img/sharp-linuxmusl-arm64": "0.35.5",
+            "@img/sharp-libvips-linux-arm": "1.3.4",
+            "@img/sharp-libvips-linux-x64": "1.3.4",
+            "@img/sharp-libvips-darwin-x64": "1.3.4",
+            "@img/sharp-libvips-linux-arm64": "1.3.4",
+            "@img/sharp-libvips-linux-ppc64": "1.3.4",
+            "@img/sharp-libvips-linux-s390x": "1.3.4",
+            "@img/sharp-libvips-darwin-arm64": "1.3.4",
+            "@img/sharp-webcontainers-wasm32": "0.35.5",
+            "@img/sharp-libvips-linux-riscv64": "1.3.4",
+            "@img/sharp-libvips-linuxmusl-x64": "1.3.4",
+            "@img/sharp-libvips-linuxmusl-arm64": "1.3.4"
+          },
+          "scripts": {}
+        }
+      ]
+    },
+    {
+      "name": "source-map-js",
+      "registry": "https://registry.npmjs.org/source-map-js",
+      "metadataSHA256": "f9fd77ed10814e5a3b5bd0d49fb56f195483ed3ed77164b308ca295e51209604",
+      "latest": "1.2.2",
+      "versions": [
+        {
+          "version": "1.2.1",
+          "exists": true,
+          "publishedAtUTC": "2024-09-08T16:22:55.645Z",
+          "repository": {
+            "url": "git+https://github.com/7rulnik/source-map-js.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.1.tgz",
+          "integrity": "sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==",
+          "shasum": "1ce5650fddd87abc099eda37dcff024c2667ae46",
+          "engines": {
+            "node": ">=0.10.0"
+          },
+          "peerDependencies": null,
+          "dependencies": null,
+          "optionalDependencies": null,
+          "scripts": {}
+        },
+        {
+          "version": "1.2.2",
+          "exists": true,
+          "publishedAtUTC": "2026-09-30T14:08:09.382Z",
+          "repository": {
+            "url": "git+https://github.com/7rulnik/source-map-js.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz",
+          "integrity": "sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==",
+          "shasum": "79fb88d97535a21cb27162cb05d211b67acea4ab",
+          "engines": {
+            "node": ">=0.10.0"
+          },
+          "peerDependencies": null,
+          "dependencies": null,
+          "optionalDependencies": null,
+          "scripts": {}
+        }
+      ]
+    },
+    {
+      "name": "vite",
+      "registry": "https://registry.npmjs.org/vite",
+      "metadataSHA256": "d6121df12481dca3457a8b1b904d6ffdff0b04f574576d2641a7e6c81aa67b92",
+      "latest": "8.3.4",
+      "versions": [
+        {
+          "version": "5.4.21",
+          "exists": true,
+          "publishedAtUTC": "2025-10-20T05:32:04.015Z",
+          "repository": {
+            "url": "git+https://github.com/vitejs/vite.git",
+            "type": "git",
+            "directory": "packages/vite"
+          },
+          "tarball": "https://registry.npmjs.org/vite/-/vite-5.4.21.tgz",
+          "integrity": "sha512-o5a9xKjbtuhY6Bi5S3+HvbRERmouabWbyUcpXXUA1u+GNUKoROi9byOJ8M0nHbHYHkYICiMlqxkg1KkYmm25Sw==",
+          "shasum": "84a4f7c5d860b071676d39ba513c0d598fdc7027",
+          "engines": {
+            "node": "^18.0.0 || >=20.0.0"
+          },
+          "peerDependencies": {
+            "less": "*",
+            "sass": "*",
+            "stylus": "*",
+            "terser": "^5.4.0",
+            "sugarss": "*",
+            "@types/node": "^18.0.0 || >=20.0.0",
+            "lightningcss": "^1.21.0",
+            "sass-embedded": "*"
+          },
+          "dependencies": {
+            "rollup": "^4.20.0",
+            "esbuild": "^0.21.3",
+            "postcss": "^8.4.43"
+          },
+          "optionalDependencies": {
+            "fsevents": "~2.3.3"
+          },
+          "scripts": {}
+        },
+        {
+          "version": "6.4.3",
+          "exists": true,
+          "publishedAtUTC": "2026-06-01T10:37:49.281Z",
+          "repository": {
+            "url": "git+https://github.com/vitejs/vite.git",
+            "type": "git",
+            "directory": "packages/vite"
+          },
+          "tarball": "https://registry.npmjs.org/vite/-/vite-6.4.3.tgz",
+          "integrity": "sha512-NTKlcQjlAK7MlQoyb6LgaqHc8sso/pVyUJYWMws3jg21uTJw/LddqIFPcPqP6PzpgbIcZyKI85sFE4HBrQDA8A==",
+          "shasum": "85a164db7ce706f2a776812efa2b340f1721858e",
+          "engines": {
+            "node": "^18.0.0 || ^20.0.0 || >=22.0.0"
+          },
+          "peerDependencies": {
+            "tsx": "^4.8.1",
+            "jiti": ">=1.21.0",
+            "less": "*",
+            "sass": "*",
+            "yaml": "^2.4.2",
+            "stylus": "*",
+            "terser": "^5.16.0",
+            "sugarss": "*",
+            "@types/node": "^18.0.0 || ^20.0.0 || >=22.0.0",
+            "lightningcss": "^1.21.0",
+            "sass-embedded": "*"
+          },
+          "dependencies": {
+            "fdir": "^6.4.4",
+            "rollup": "^4.34.9",
+            "esbuild": "^0.25.0",
+            "postcss": "^8.5.3",
+            "picomatch": "^4.0.2",
+            "tinyglobby": "^0.2.13"
+          },
+          "optionalDependencies": {
+            "fsevents": "~2.3.3"
+          },
+          "scripts": {}
+        }
+      ]
+    },
+    {
+      "name": "electron-vite",
+      "registry": "https://registry.npmjs.org/electron-vite",
+      "metadataSHA256": "b88b6fee077356bdf4ff4f1da86bde012d92c159dee4e3bc9e041bf7347283cf",
+      "latest": "5.0.0",
+      "versions": [
+        {
+          "version": "2.3.0",
+          "exists": true,
+          "publishedAtUTC": "2024-06-23T14:48:29.785Z",
+          "repository": {
+            "url": "git+https://github.com/alex8088/electron-vite.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/electron-vite/-/electron-vite-2.3.0.tgz",
+          "integrity": "sha512-lsN2FymgJlp4k6MrcsphGqZQ9fKRdJKasoaiwIrAewN1tapYI/KINLdfEL7n10LuF0pPSNf/IqjzZbB5VINctg==",
+          "shasum": "58de48f9423980d860d2648e59fdbf0f8cd74b8c",
+          "engines": {
+            "node": "^18.0.0 || >=20.0.0"
+          },
+          "peerDependencies": {
+            "vite": "^4.0.0 || ^5.0.0",
+            "@swc/core": "^1.0.0"
+          },
+          "dependencies": {
+            "cac": "^6.7.14",
+            "esbuild": "^0.21.5",
+            "picocolors": "^1.0.1",
+            "@babel/core": "^7.24.7",
+            "magic-string": "^0.30.10",
+            "@babel/plugin-transform-arrow-functions": "^7.24.7"
+          },
+          "optionalDependencies": null,
+          "scripts": {}
+        }
+      ]
+    },
+    {
+      "name": "@vitejs/plugin-vue",
+      "registry": "https://registry.npmjs.org/%40vitejs%2Fplugin-vue",
+      "metadataSHA256": "f588e6d36771dbbd8151d975c0bad19210685d5d5193acf018a447f382132ea3",
+      "latest": "6.0.10",
+      "versions": [
+        {
+          "version": "5.2.4",
+          "exists": true,
+          "publishedAtUTC": "2025-05-09T09:47:50.969Z",
+          "repository": {
+            "url": "git+https://github.com/vitejs/vite-plugin-vue.git",
+            "type": "git",
+            "directory": "packages/plugin-vue"
+          },
+          "tarball": "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-5.2.4.tgz",
+          "integrity": "sha512-7Yx/SXSOcQq5HiiV3orevHUFn+pmMB4cgbEkDYgnkUWb0WfeQ/wa2yFv6D5ICiCQOVpjA7vYDXrC7AGO8yjDHA==",
+          "shasum": "9e8a512eb174bfc2a333ba959bbf9de428d89ad8",
+          "engines": {
+            "node": "^18.0.0 || >=20.0.0"
+          },
+          "peerDependencies": {
+            "vue": "^3.2.25",
+            "vite": "^5.0.0 || ^6.0.0"
+          },
+          "dependencies": null,
+          "optionalDependencies": null,
+          "scripts": {}
+        }
+      ]
+    },
+    {
+      "name": "brace-expansion",
+      "registry": "https://registry.npmjs.org/brace-expansion",
+      "metadataSHA256": "d64701dc19c759f500c7db606ff5bef33cdc1061ef16e01db42549b202d2739a",
+      "latest": "5.0.12",
+      "versions": [
+        {
+          "version": "1.1.21",
+          "exists": true,
+          "publishedAtUTC": "2026-09-14T21:59:28.332Z",
+          "repository": {
+            "url": "git://github.com/juliangruber/brace-expansion.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.21.tgz",
+          "integrity": "sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==",
+          "shasum": "edf4fab5c64d051aea5a8def49aba1c7522279f3",
+          "engines": null,
+          "peerDependencies": null,
+          "dependencies": {
+            "concat-map": "0.0.1",
+            "balanced-match": "^1.0.0"
+          },
+          "optionalDependencies": null,
+          "scripts": {}
+        },
+        {
+          "version": "2.1.7",
+          "exists": true,
+          "publishedAtUTC": "2026-09-14T22:02:58.810Z",
+          "repository": {
+            "url": "git://github.com/juliangruber/brace-expansion.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.1.7.tgz",
+          "integrity": "sha512-uZbew1NqdmPDTMJ8ah1y+b+9QEJrfkXFk3RcTQw3X0jW/xRUvFKsg1CfQdSYGdTbXZWExtU3J3ccxtnfw1Fi0g==",
+          "shasum": "14ea3836731823bb24740225ea43b941b436f9d1",
+          "engines": null,
+          "peerDependencies": null,
+          "dependencies": {
+            "balanced-match": "^1.0.0"
+          },
+          "optionalDependencies": null,
+          "scripts": {}
+        },
+        {
+          "version": "5.0.12",
+          "exists": true,
+          "publishedAtUTC": "2026-09-14T21:59:00.288Z",
+          "repository": {
+            "url": "git+https://github.com/juliangruber/brace-expansion.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.12.tgz",
+          "integrity": "sha512-YovQ3rzhaLMIrDjNDMkNS01tea93qhEhG5xy8f6+R0l+dw3Ki+5sCoIoI942iuLZTHWogWktgwVDhU09iNEimQ==",
+          "shasum": "995fbb4750a77c4d16a7dc942ff2ca6ef8e675ec",
+          "engines": {
+            "node": "20 || >=22"
+          },
+          "peerDependencies": null,
+          "dependencies": {
+            "balanced-match": "^4.0.2"
+          },
+          "optionalDependencies": null,
+          "scripts": {
+            "prepare": "tshy"
+          }
+        }
+      ]
+    },
+    {
+      "name": "fast-uri",
+      "registry": "https://registry.npmjs.org/fast-uri",
+      "metadataSHA256": "d5d91ce5098057685cd8ea23dcc0f044e3278600237421aa62676ca02d2b0424",
+      "latest": "4.2.2",
+      "versions": [
+        {
+          "version": "3.1.8",
+          "exists": true,
+          "publishedAtUTC": "2026-09-15T07:36:25.444Z",
+          "repository": {
+            "url": "git+https://github.com/fastify/fast-uri.git",
+            "type": "git"
+          },
+          "tarball": "https://registry.npmjs.org/fast-uri/-/fast-uri-3.1.8.tgz",
+          "integrity": "sha512-GZMtZUTNRpOVIECoXwLNZS5xUGE+mVNbTB8h/7Rwh2TFWcBQiPzTgyZi05BF9UMZKkLJv8XBRJTlU7zg8+ZfMg==",
+          "shasum": "f7db8d942e20eead3cfe93b0beeb4eb0169e938b",
+          "engines": null,
+          "peerDependencies": null,
+          "dependencies": null,
+          "optionalDependencies": null,
+          "scripts": {}
+        }
+      ]
+    },
+    {
+      "name": "http-cache-semantics",
+      "registry": "https://registry.npmjs.org/http-cache-semantics",
+      "metadataSHA256": "80d047081285fcc7b46d40f2526e1d123fa3b2c02c0d4bb4d718cb678a80e623",
+      "latest": "4.3.0",
+      "versions": [
+        {
+          "version": "4.2.1",
+          "exists": false
+        }
+      ]
+    },
+    {
+      "name": "sprintf-js",
+      "registry": "https://registry.npmjs.org/sprintf-js",
+      "metadataSHA256": "63b38fe06bde566459a48e447dbe0519de9429623626c4c5cf51f5c5be0732cc",
+      "latest": "1.1.3",
+      "versions": [
+        {
+          "version": "1.1.4",
+          "exists": false
+        }
+      ]
+    }
+  ]
+}

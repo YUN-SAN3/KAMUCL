@@ -56,5 +56,246 @@
     "version": "8.22.0",
     "license": "MIT",
     "file": "licenses/ws.txt"
+  },
+  "koffiNativeHeaders": {
+    "version": "3.2.1",
+    "license": "MIT",
+    "integration": "Header-only node-addon-api and Node-API headers used by Koffi native code; original headers/notice files may be pruned from development payload but their exact notices are retained here.",
+    "materials": [
+      {
+        "component": "node-api-headers",
+        "viaPackage": "koffi@3.2.1",
+        "primarySource": "https://raw.githubusercontent.com/nodejs/node-api-headers/v1.8.0/LICENSE",
+        "packageArchiveMember": "package/vendor/node-api-headers/LICENSE",
+        "lockedArchiveIntegrityVerified": true,
+        "lockedArchiveSHA256": "9da0daf695cfdabcdcb36f3e4d1e26456522d6c4efb53f114f83474cd5d35373",
+        "license": "MIT",
+        "file": "licenses/node-api-headers.txt",
+        "normalizedSha256": "a553508f516031c91f3af1148d44970cb81bbae6c4f091be6835d39cc252238c",
+        "upstreamLicenseSHA256": "a553508f516031c91f3af1148d44970cb81bbae6c4f091be6835d39cc252238c",
+        "installedBytesEqualNormalized": true
+      },
+      {
+        "component": "node-addon-api",
+        "viaPackage": "koffi@3.2.1",
+        "primarySource": "https://raw.githubusercontent.com/nodejs/node-addon-api/v8.9.2/LICENSE.md",
+        "packageArchiveMember": "package/vendor/node-addon-api/LICENSE.md",
+        "lockedArchiveIntegrityVerified": true,
+        "lockedArchiveSHA256": "9da0daf695cfdabcdcb36f3e4d1e26456522d6c4efb53f114f83474cd5d35373",
+        "license": "MIT",
+        "file": "licenses/node-addon-api.txt",
+        "normalizedSha256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c",
+        "upstreamLicenseSHA256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c",
+        "installedBytesEqualNormalized": true
+      }
+    ]
+  },
+  "portableLibraries": {
+    "nsisVersion": "3.0.4.1",
+    "nsisSourceCommit": "25cf71ac318c73016d0706add96f25ef70ccd4f7",
+    "stdutilsVersion": "1.14",
+    "stdutilsSourceCommit": "4e1117321001e54dcd2c52f72d3c359d5215e426",
+    "nsis7zVersion": "19.00",
+    "integration": "Verbatim separately loaded DLLs embedded as NSIS payload, not launcher source copied from these libraries.",
+    "sourceArchives": [
+      {
+        "file": "licenses/source/stdutils-1.14.tar.gz",
+        "url": "https://codeload.github.com/lordmulder/stdutils/tar.gz/4e1117321001e54dcd2c52f72d3c359d5215e426",
+        "bytes": 222751,
+        "sha256": "3687ab4e09005a8a0b93c1a07a36285d93466070e94b8bf6f12781fb53c419e1",
+        "payloadExecuted": false,
+        "component": "StdUtils",
+        "version": "1.14",
+        "commit": "4e1117321001e54dcd2c52f72d3c359d5215e426",
+        "license": "LGPL-2.1-or-later with upstream clarification"
+      },
+      {
+        "file": "licenses/source/7zip-19.00-source.7z",
+        "url": "https://www.7-zip.org/a/7z1900-src.7z",
+        "bytes": 1071569,
+        "sha256": "9ba70a5e8485cf9061b30a2a84fe741de5aeb8dd271aab8889da0e9b3bf1868e",
+        "payloadExecuted": false,
+        "component": "7-Zip",
+        "version": "19.00",
+        "license": "LGPL-2.1-or-later plus file-specific terms; Nsis7z reads 7z only"
+      },
+      {
+        "file": "licenses/source/Nsis7z_19.00.7z",
+        "url": "https://nsis.sourceforge.io/mediawiki/images/6/69/Nsis7z_19.00.7z",
+        "bytes": 461078,
+        "sha256": "6f2f3730049926f40442ee0c8b7d3e3dee7ace544d82467ff8059ea3f4201c58",
+        "component": "Nsis7z",
+        "version": "19.00",
+        "includes": "Verbatim plugin source, project/build files, example and original 3 platform binaries; embedded x86-unicode DLL byte-exact match.",
+        "license": "7-Zip terms for linked 7-Zip code; supplied SDK license file states public domain for SDK code only",
+        "payloadExecuted": false
+      }
+    ],
+    "materials": [
+      {
+        "file": "licenses/LGPL-2.1.txt",
+        "archiveMember": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/LGPL.txt",
+        "normalizedSha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+        "component": "StdUtils 1.14"
+      },
+      {
+        "file": "licenses/StdUtils-LGPL-CLARIFICATION.txt",
+        "archiveMember": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/LGPL_CLARIFICATION.txt",
+        "normalizedSha256": "49287ffa37d51910a8cb595d7ab64ebd2d42525384b16d4322783a0e57a77194",
+        "component": "StdUtils 1.14"
+      },
+      {
+        "file": "licenses/StdUtils-README.txt",
+        "archiveMember": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/ReadMe.txt",
+        "normalizedSha256": "7d1b40bfdf3d6ef857b361929f8bfa3de38f53968ab1c084fac50ce0086e23f1",
+        "component": "StdUtils 1.14"
+      },
+      {
+        "file": "licenses/7zip-19.00.txt",
+        "archiveMember": "DOC/License.txt",
+        "normalizedSha256": "ce1b78c504c4f3d51cc93bc4a8c7f487425361ee0b7df60949f443f9d092be0e",
+        "component": "7-Zip 19.00"
+      },
+      {
+        "file": "licenses/7zip-19.00-COPYING.txt",
+        "archiveMember": "DOC/copying.txt",
+        "normalizedSha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+        "component": "7-Zip 19.00"
+      },
+      {
+        "file": "licenses/Nsis7z-SDK-License.txt",
+        "archiveMember": "Contrib/nsis7z/DOC/License.txt",
+        "normalizedSha256": "e3702485b31cfa0d43f597ccc4550ffb171e9793b0d98b2179d68096b75de64f",
+        "component": "Nsis7z 19.00 supplied SDK notice; not a blanket relicense of 7-Zip CPP source"
+      },
+      {
+        "file": "licenses/NSIS-3.0.4.1-COPYING.txt",
+        "component": "NSIS 3.0.4.1",
+        "primarySource": "https://raw.githubusercontent.com/NSIS-Dev/nsis/25cf71ac318c73016d0706add96f25ef70ccd4f7/COPYING",
+        "normalizedSha256": "3c8de989f6504d52f5f8dfafedb6668cd47201f5d01f1319570727c091425dd6"
+      }
+    ],
+    "baselinePluginEvidence": {
+      "package": "KAMUCL-1.1.21.exe",
+      "packageSHA256": "034b64e567dd34ce90f784e1c5d2eda920e5ba9050cfdd84070231c3cbbd12a7",
+      "stdutilsDLLSHA256": "b72e9013a6204e9f01076dc38dabbf30870d44dfc66962adbf73619d4331601e",
+      "nsis7zDLLSHA256": "b393f05e8ff919ef071181050e1873c9a776e1a0ae8329aefff7007d0cadf592",
+      "nsis7zByteIdenticalToPrimary": true
+    },
+    "limits": [
+      "StdUtils source tag matches declared 1.14 version; no bit-identical rebuild has been performed.",
+      "Nsis7z x86-unicode binary equals actual original portable plugin. Rebuild needs supplied plugin source overlaid onto 7-Zip 19.00 source using included VS project.",
+      "Original library source and licenses are preserved; no upstream code or binaries executed by audit."
+    ]
+  },
+  "assetProvenance": {
+    "reviewState": "Incomplete rights verification, not a declaration of infringement or permission",
+    "inventory": "audit-reports/ASSET_INVENTORY.json",
+    "groups": [
+      {
+        "pathPrefix": "src/renderer/public/mobs/",
+        "count": 83,
+        "sourceClaim": "src/renderer/src/mobIcons.ts:1; Minecraft Wiki game-texture icons",
+        "status": "pending",
+        "missing": "Per-file originating page/revision, license scope and applicable Mojang/Microsoft asset use conditions; Wiki page currently inaccessible to audit tool."
+      },
+      {
+        "pathPrefix": "src/renderer/src/assets/launch/",
+        "count": 7,
+        "sourceClaim": "User-supplied references/generated illustration description in notices",
+        "status": "pending",
+        "missing": "Rights-holder authority for depicted characters/assets and reproduction scope; no claim that user supply or AI generation alone grants all rights."
+      },
+      {
+        "pathPrefix": "src/renderer/src/assets/mascot-skins/",
+        "count": 7,
+        "sourceClaim": "scripts/generate-mascot-skins.cjs:1 reconstructs user front/back references",
+        "status": "pending",
+        "missing": "Character/skin right-holder reproduction authority; only one shown in current UI, all seven historical sources retained."
+      },
+      {
+        "pathPrefix": "build/",
+        "count": 2,
+        "sourceClaim": "Application icon",
+        "status": "pending",
+        "missing": "Origin/author/license record for pig-face brand graphic"
+      },
+      {
+        "pathPrefix": "src/renderer/src/assets/splash-face",
+        "count": 2,
+        "sourceClaim": "Application splash/face asset",
+        "status": "pending",
+        "missing": "Origin and authorization aligned with application icon"
+      },
+      {
+        "pathPrefix": "src/renderer/src/assets/mascot-feedback/",
+        "count": 4,
+        "sourceClaim": "Authored SVG plus deterministic rasterization via scripts/generate-kamu-feedback.cjs",
+        "status": "author-declared-original",
+        "missing": "No separate sample/image library used; authorship statement is not a judicial ownership determination."
+      }
+    ],
+    "audio": {
+      "source": "src/renderer/src/mascotAudio.ts:3-18",
+      "status": "author-declared-original procedural audio, no external sample import observed"
+    },
+    "fonts": {
+      "status": "CSS system font fallback names only; no tracked .ttf/.otf/.woff/.woff2 files",
+      "scope": "Git tracked current source inventory only"
+    },
+    "historicalScreenshots": {
+      "status": "pending per-image rights/privacy scope",
+      "classification": "Hashed inventory; no blanket per-frame visual or legal review claim"
+    }
+  },
+  "runtimeFFmpeg": {
+    "electronVersion": "44.3.0",
+    "electronCommit": "07e460719c75b2ec5ee4893f7d2192ef31c7b8c2",
+    "chromiumVersion": "152.0.7977.78",
+    "ffmpegRevision": "2b68d2babae73714846961fb0ee47e3b3d2e39a9",
+    "license": "LGPL-2.1-or-later with file-specific compatible licenses; optional GPL paths are not inferred enabled",
+    "integration": "Electron upstream release configuration builds FFmpeg as an independently replaceable shared library; current fixed Windows/Chrome and MacARM64/Chrome source configs have GPL/NONFREE/VERSION3 disabled.",
+    "externalSourceBundle": {
+      "name": "KAMUCL-1.1.22-runtime-source.zip",
+      "bytes": 38905320,
+      "sha256": "af40243e21439aa77af20319c00fbb8d83f76975e88d6cd2249d15ff73d8ebe3",
+      "location": "Matching GitHub Release asset; independently distributed to avoid putting source archives in the ASAR runtime budget",
+      "contents": "Complete exact FFmpeg and Electron source archives, exact DEPS records, FFmpeg patch and fixed Chromium build metadata; not complete Chromium graph"
+    },
+    "materials": [
+      {
+        "file": "licenses/FFmpeg-COPYING.LGPLv2.1",
+        "normalizedSha256": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30",
+        "primarySource": "https://chromium.googlesource.com/chromium/third_party/ffmpeg/+/2b68d2babae73714846961fb0ee47e3b3d2e39a9/COPYING.LGPLv2.1"
+      },
+      {
+        "file": "licenses/FFmpeg-COPYING.LGPLv3",
+        "normalizedSha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
+        "primarySource": "https://chromium.googlesource.com/chromium/third_party/ffmpeg/+/2b68d2babae73714846961fb0ee47e3b3d2e39a9/COPYING.LGPLv3"
+      },
+      {
+        "file": "licenses/FFmpeg-LICENSE.txt",
+        "normalizedSha256": "2e1d16c72fd74e12063776371da757322f8b77589386532f4fd8634bde7de1af",
+        "primarySource": "https://chromium.googlesource.com/chromium/third_party/ffmpeg/+/2b68d2babae73714846961fb0ee47e3b3d2e39a9/LICENSE.md"
+      }
+    ],
+    "limits": [
+      "Full Chromium dependency graph not bundled; Chromium notice list is not a list of all actual shipped components.",
+      "No FFmpeg or Electron source built or executed.",
+      "Archive plus Electron FFmpeg patches/build metadata supports inspection/rebuilding of matched library; no byte-identical compiler reproduction asserted."
+    ]
+  },
+  "authlibInjector": {
+    "onDemand": true,
+    "bundledBinary": false,
+    "license": "AGPL-3.0-or-later WITH AUTHLIB-INJECTOR exception (upstream named exception, not an assumed standard SPDX exception)",
+    "referenceCommit": "879c6cbfce848f37e7da656d59a20cb93bd7102b",
+    "material": {
+      "file": "licenses/authlib-injector-AGPL-exception.txt",
+      "primarySource": "https://raw.githubusercontent.com/yushijinhun/authlib-injector/879c6cbfce848f37e7da656d59a20cb93bd7102b/AGPLv3-with-authlib-injector-exception.txt",
+      "normalizedSha256": "3ae6da2502108d2bf777508663a6c4ca55fb937137507bebb642e4506c0ccd0b"
+    },
+    "integration": "Official hash-checked runtime download; separate Java Agent in game JVM and local HTTP API, no source copy into launcher observed",
+    "limits": "This is a pinned license reference, not a claim that all future or user-supplied modified injector builds are covered identically; inspect each actual version and exception."
   }
 }

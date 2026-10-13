@@ -39,11 +39,12 @@ export function registerFrpIpc(ipcMain: IpcMain): void {
     if (!payload?.id || payload.confirmed !== true) throw new Error('请先确认删除该隧道')
     return frpManager.remove(String(payload.id))
   })
-  ipcMain.handle('frp:create-tunnel', (_e, payload: {accessKey: string; tunnel: FrpCreateTunnel}) => createFrpTunnel(String(payload?.accessKey ?? ''), payload?.tunnel))
+  ipcMain.handle('frp:clear-credentials', async (_e, payload: { confirmed?: boolean }) => { if (payload?.confirmed !== true) throw new Error('请确认清除本机保存的访问密钥'); await frpManager.clearCredentials(); return frpManager.list() })
+  ipcMain.handle('frp:create-tunnel', (_e, payload: {accessKey?: string; tunnel: FrpCreateTunnel}) => createFrpTunnel(frpManager.accessKey(payload?.accessKey), payload?.tunnel))
   ipcMain.handle(FRP_IPC.start, async (_event, payload: FrpStartPayload) => {
     if (!payload || typeof payload !== 'object') throw new Error('参数无效')
     if (payload.id) return frpManager.start(String(payload.id))
-    const accessKey = String(payload.accessKey ?? '').trim()
+    const accessKey = frpManager.accessKey(payload.accessKey)
     const tunnelId = String(payload.tunnelId ?? '').trim()
     if (!accessKey) throw new Error('请填写访问密钥')
     const tunnel = await getRunnableFrpTunnel(accessKey, tunnelId)
@@ -59,7 +60,7 @@ export function registerFrpIpc(ipcMain: IpcMain): void {
 
   // 节点列表（natfrp v4 公开 API）。accessKey 缺省时回退持久化配置里的密钥。
   ipcMain.handle(FRP_IPC.nodes, async (_event, payload: { accessKey?: string; refresh?: boolean } | undefined) => {
-    const key = String(payload?.accessKey ?? '').trim() || frpManager.list().accessKey || loadFrpConfig()?.accessKey || ''
+    const key = frpManager.accessKey(payload?.accessKey)
     const result = await fetchFrpNodes(key, { refresh: !!payload?.refresh })
     if (result.tunnels) frpManager.register(key, result.tunnels)
     return result
