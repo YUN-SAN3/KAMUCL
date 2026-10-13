@@ -44,6 +44,9 @@ test('Mac UI gate cannot count synthetic success from another platform or missin
 test('native workflow retains raw failures, verified action commits and a strict evidence allowlist', () => {
   const workflow = fs.readFileSync('.github/workflows/mac-auth122.yml', 'utf8'), driver = fs.readFileSync('scripts/verify-mac-auth122.cjs', 'utf8')
   assert.match(workflow, /runs-on: macos-26/); assert.match(workflow, /npm test/); assert.match(workflow, /set -o pipefail/); assert.doesNotMatch(workflow, /continue-on-error/)
+  const bridgeBuild = workflow.indexOf('node scripts/build-bridge.cjs'), productionBuild = workflow.indexOf('npm run build')
+  assert(bridgeBuild >= 0 && productionBuild > bridgeBuild, 'Clean native checkout must compile its current bridge before the production closeBundle copies it')
+  assert.match(workflow, /bridge-build\.log/)
   const provenance = JSON.parse(fs.readFileSync('audit-reports/ACTION_PIN_PROVENANCE.json', 'utf8'))
   const verified = JSON.stringify(provenance)
   for (const match of workflow.matchAll(/uses: (actions\/[\w-]+)@([^\s]+)/g)) { assert.match(match[2], /^[a-f0-9]{40}$/); assert(verified.includes(match[2]), 'Action commit must have verified official-ref evidence') }

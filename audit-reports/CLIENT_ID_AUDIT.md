@@ -56,6 +56,10 @@ UI 交叉审查随后发现旧完成事件可能在“取消 → 重新开始”
 
 之后对全套测试的只读句柄诊断定位到历史 `mod-update-reliability-1079` 两个夹具：它们先监听再构建，缺少新 `getCurseforgeApiKey` 模拟接口使构建失败，清理尚未注册而遗留测试服务器。原日志另有两项社区夹具缺少 `getSettings` 及一项新 adm-zip 在枚举前拒绝重复条目却不符合旧中文消息断言，共五项失败。Node spec reporter 使用 `✖`，没有 `not ok` 不能作为通过依据。已只修改四个测试文件的接口契约和夹具清理，不修改产品来隐藏失败；重复条目仍必须拒绝，只额外识别精确的上游 duplicate 错误。追加“setup 失败也关闭真实 listener 并删除任务临时目录”后，相关 **46/46 通过并自然退出**，历史失败日志与创建栈保留在 `out/auth122-handle-diagnostic/`。诊断失败进程按其确切任务 PID 单独停止，没有全局结束 node/electron 或其他应用；该中断不计作全套通过。完整全套仍由根任务重新执行并记录最终结果。
 
+下一次全套已自然退出：1694 项、1692 通过、1 失败、1 Windows 下的 Linux 原生项跳过。唯一失败来自 `linux-update-observer-111` 的真实 Electron 私有观察夹具：主进程、隔离渲染上下文和导航均已通过观察，但它反复覆盖同一 receipt 时，Windows 返回原始 `EPERM`，子进程以 1 退出。原始子输出和错误 receipt 在 `out/linux-context-proof-8Tu00L/`。初步改为导航写盘后的真实 PID acknowledgment，重复第 5 轮仍遇同类覆盖失败，保留在 `out/linux-context-proof-6vICgM/`；不将最初几轮成功当作稳定结论，也不推断 EPERM 必然由父读取独自导致。
+
+最终仅修改该测试夹具，采用不可变阶段 receipt、独占暂存文件原子发布、导航 acknowledgment 后核对任务目录、文件名和 SHA256，退出时只写一次最终 receipt。失败仍必须返回非零；原启动/导航期限、隔离窗口偏好、正确运行时、旧执行上下文销毁后不重试 IPC、最终 exit 0 都没有放宽，也没有注入产品修复或重新启动观察对象。连续 **10 轮真实 Electron 专项，每轮 8/8 通过并自然退出**，原始日志 `out/linux-observer122-immutable-r1.log` 至 `r10.log` 保留；这些是 Windows 上的浏览器协议验证，明确 `nativeDesktop=false`，不是 Linux 原生桌面功能验收。完整全套最终结果仍由根任务记录。
+
 ## 自定义服务密钥的追加整改
 
 区别于公开 Client ID，用户填入的自定义 CurseForge API key 是秘密。原实现将它作为普通 `Settings` 字段明文写入、返回 IPC、外观及其他 Settings 响应。整改后 `curseforgeApiKey` 仅可作 write-only 输入，返回对象只有 `curseforgeApiKeyConfigured`。`src/main/core/settingsCredentials.ts:22` 管理主进程专属内存状态，文件仅保存 `secureCredentials.curseforgeApiKey` 的系统 safeStorage 密文；`src/main/core/settings.ts:46` 的主进程 `getCurseforgeApiKey()` 是唯一取值入口，`curseforgeChannel.ts:10` 保留环境变量 → 自定义密钥 → 内置公开应用密钥 → 无密钥镜像的原选择策略。

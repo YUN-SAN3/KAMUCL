@@ -4,12 +4,13 @@ const { spawn } = require('node:child_process'), { trackOwnedChild, finishOwnedC
 assert.equal(process.platform, 'win32'); assert.equal(process.arch, 'x64')
 const [runtimeExecutable, directory] = process.argv.slice(2); fs.mkdirSync(directory, { recursive: true })
 const receipt = { complete: false, classification: 'Actual unsigned Windows packaged executable in a fresh owned APPDATA and userData profile; launch smoke only, no real login or game', startedAt: new Date().toISOString() }
+const { openOwnedInspector } = require('./linux-update-observer.cjs')
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 ;(async () => {
   const reserve = net.createServer(); await new Promise(resolve => reserve.listen(0, '127.0.0.1', resolve)); const port = reserve.address().port; await new Promise(resolve => reserve.close(resolve))
   const fd = fs.openSync(path.join(directory, 'process.log'), 'w'), env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE; delete env.GH_TOKEN; delete env.GITHUB_TOKEN;const privateRoot=fs.mkdtempSync(path.resolve('out/windows-auth122-private-'));env.APPDATA=path.join(privateRoot,'roaming');env.LOCALAPPDATA=path.join(privateRoot,'local');fs.mkdirSync(env.APPDATA);fs.mkdirSync(env.LOCALAPPDATA);const profile=path.join(privateRoot,'profile');fs.mkdirSync(profile)
   const child = spawn(runtimeExecutable, ['--user-data-dir='+profile,'--remote-debugging-port=' + port], { env, stdio: ['ignore', fd, fd] }), owned = trackOwnedChild(child, 'windows-auth122-native-smoke'); fs.closeSync(fd)
-  let ws, original
+  let ws, original, inspector
   try {
     let page
     for (let i = 0; i < 75; i++) {
@@ -25,21 +26,23 @@ const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
       const listener = event => { const response = JSON.parse(event.data); if (response.id !== requestId) return; clearTimeout(timeout); ws.removeEventListener('message', listener); response.error ? reject(Error('Owned smoke protocol failed: ' + method)) : resolve(response.result) }
       ws.addEventListener('message', listener); ws.send(JSON.stringify({ id: requestId, method, params }))
     })
+    const contextEvents=[]
+    inspector=await openOwnedInspector({url:page.webSocketDebuggerUrl,port,role:'renderer',ownedPid:child.pid,ownedChild:child,rendererURL:page.url,deadline:Date.now()+30000,observe:event=>contextEvents.push(event)})
+    receipt.contextReadiness=inspector.readiness
     let ready = false
     for (let i = 0; i < 80; i++) {
-      const result = await call('Runtime.evaluate', { expression: `document.body.innerText.includes('首页')&&document.body.innerText.includes('1.1.22')&&!!window.kamucl`, returnByValue: true })
-      if (result.result?.value === true) { ready = true; break }; await wait(250)
+      const result = await inspector.evaluate(`!!document.body&&document.body.innerText.includes('首页')&&document.body.innerText.includes('1.1.22')&&!!window.kamucl`)
+      if (result === true) { ready = true; break }; await wait(250)
     }
     assert(ready, 'Actual signed APP never reached complete initial navigation readiness')
-    const observed = await call('Runtime.evaluate', { expression: `(async()=>({title:document.title,content:document.body.innerText,platform:document.documentElement.dataset.platform,userAgent:navigator.userAgent,accountsCount:(await window.kamucl.invoke('accounts:list')).length,configured:(await window.kamucl.invoke('accounts:msStatus')).clientId}))()`, awaitPromise: true, returnByValue: true })
-    assert(!observed.exceptionDetails, 'Original APP backend startup failed'); const value = observed.result.value
+    const value = await inspector.evaluate(`(async()=>({title:document.title,content:document.body.innerText,platform:document.documentElement.dataset.platform,userAgent:navigator.userAgent,accountsCount:(await window.kamucl.invoke('accounts:list')).length,configured:(await window.kamucl.invoke('accounts:msStatus')).clientId}))()`)
     assert(value.content.includes('首页') && value.content.includes('1.1.22')); assert.equal(value.platform, 'win32'); assert(value.userAgent.includes('Electron/44.3.0'))
     assert.equal(value.accountsCount, 0, 'Disposable native smoke cannot use an existing account'); assert.equal(value.configured, '06cc8cf6-4b8f-4631-8459-b2bd828808f8')
     const image = await call('Page.captureScreenshot', { format: 'png', fromSurface: true, captureBeyondViewport: false }); fs.writeFileSync(path.join(directory, 'original-startup.png'), Buffer.from(image.data, 'base64'))
     receipt.observed = { platform: value.platform, isolatedAppData:true, runtime: '44.3.0', sourceVersion: '1.1.22', freshAccounts: true, ownApplicationIdentity: true, rootPid: child.pid }; receipt.complete = true
   } catch (error) { original = error; receipt.error = { name: error.name, message: error.message }; console.error(error) }
   finally {
-    ws?.close(); try { await finishOwnedChild(owned, { terminate: true, timeoutMs: 10000 }); receipt.ownedCleanup = owned.ledger } catch (error) { receipt.complete = false; receipt.cleanupError = error.message; original ??= error }
+    inspector?.socket.close();ws?.close(); try { await finishOwnedChild(owned, { terminate: true, timeoutMs: 10000 }); receipt.ownedCleanup = owned.ledger } catch (error) { receipt.complete = false; receipt.cleanupError = error.message; original ??= error }
     receipt.finishedAt = new Date().toISOString(); fs.writeFileSync(path.join(directory, 'receipt.json'), JSON.stringify(receipt, null, 2) + '\n')
   }
   if (original) process.exitCode = 1

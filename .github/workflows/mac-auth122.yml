@@ -48,6 +48,7 @@ jobs:
       - name: Build original production payload
         run: |
           set -o pipefail
+          node scripts/build-bridge.cjs 2>&1 | tee out/mac-auth122-logs/bridge-build.log
           npm run build 2>&1 | tee out/mac-auth122-logs/build.log
       - name: Package original APP, DMG and ZIP with signed identity and notices
         env:
