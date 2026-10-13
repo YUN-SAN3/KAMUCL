@@ -26,11 +26,13 @@ LGPL 部分提供完整源码，可修改并重新编译组合应用，无需 KA
 npm 依赖由锁文件固定，npm ci 需要网络。源码包不包含账户、游戏和下载缓存。
 本说明不追溯确认历史版本授权。对应源码交付仍需实际完成并验证。
 
-## 1.1.22 分发的运行时与安装插件源码
+## 1.1.23 分发的运行时与安装插件源码
 
-本版另附 `KAMUCL-1.1.22-runtime-source.zip`，供给与 Electron 44.3.0 对应的
+本版另附 `KAMUCL-1.1.23-runtime-source.zip`，供给与 Electron 44.3.0 对应的
 Electron 原始源码、固定 FFmpeg revision 的完整源码、构建配置及 Electron 补丁。
 其来源、固定坐标和 SHA256 见 `audit-reports/RUNTIME_SOURCE_PROVENANCE.json`。
+该补充包复用 1.1.22 已核对的原始字节，运行时及其源码坐标没有变化；文件名随发行版同步，
+包内原始来源记录保留，不把它称为本轮重新编译的运行时。
 Windows 便携安装器所用 StdUtils、Nsis7z 与 7-Zip 的完整原始源码位于
 `licenses/source/`，相关声明及完整许可位于 `licenses/`。
 这份补充包不包含完整 Chromium 源码，也没有声称重新构建运行时即可产生字节一致的二进制。

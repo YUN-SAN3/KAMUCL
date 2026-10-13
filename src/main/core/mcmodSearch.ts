@@ -1,5 +1,6 @@
 import type { CommunitySource } from '../../shared/types'
 import { normalizeChineseModKeyword } from './community-zh'
+import { runCommunityRequest, sharedCommunityRequest } from './communitySearchBudget'
 
 /** MC百科 exposes public HTML, not a documented JSON download API. We read only
  * result titles and the entry's explicit related-project links. No page code is
@@ -46,12 +47,12 @@ function anchors(html: string): Array<{ href: string; title: string }> {
  * fuzzy synonyms inferred from article text. Keep similarly named editions
  * separate, and do not use an English subtitle as a Chinese download identity. */
 export function mcmodNameRank(title: string, keyword: string): number {
-  const name = title.replace(/^\[[^\]]+\]\s*/, '').replace(/\s+\([^一-鿿]*\)\s*$/, '').trim()
+  const name = title.replace(/^\[[^\]]+\]\s*/, '').replace(/\s+\([^\p{Script=Han}]*\)\s*$/u, '').trim()
   const key = normalizeChineseModKeyword(keyword), main = normalizeChineseModKeyword(name)
   if (!key) return Infinity
   if (main === key) return 0
   if (name.split(/[／/]/).some(part => normalizeChineseModKeyword(part) === key)) return 1
-  return main.includes(key) ? 2 : Infinity
+  return main.startsWith(key) ? 2 : main.includes(key) ? 3 : Infinity
 }
 export function parseMcmodEntryTitle(html: string): string | undefined {
   const heading = html.match(/<div\b[^>]*class=["'][^"']*\bclass-title\b[^"']*["'][^>]*>([\s\S]*?)<h3\b[^>]*>([\s\S]*?)<\/h3>/i)?.[2]
@@ -73,14 +74,13 @@ export function parseMcmodSearch(html: string, keyword: string): Candidate[] {
       if (url.protocol !== 'https:' || url.hostname !== 'www.mcmod.cn' || url.username || url.password || !id || !anchor.title) continue
       // The English subtitle is useful for display only. Exact Chinese title
       // wins over similarly named add-ons, editions and unrelated body matches.
-      const name = anchor.title.replace(/^\[[^\]]+\]\s*/, '').replace(/\s+\([^一-鿿]*\)\s*$/, '')
+      const name = anchor.title.replace(/^\[[^\]]+\]\s*/, '').replace(/\s+\([^\p{Script=Han}]*\)\s*$/u, '')
       if (!Number.isFinite(mcmodNameRank(name, key))) continue
       found.push({ id, title: name, url: `https://www.mcmod.cn/class/${id}.html` })
     }
   }
   const unique = [...new Map(found.map(item => [item.id, item])).values()]
-  const exact = unique.filter(item => mcmodNameRank(item.title, key) < 2)
-  return (exact.length ? exact : unique).sort((a, b) => mcmodNameRank(a.title, key) - mcmodNameRank(b.title, key))
+  return unique.sort((a, b) => mcmodNameRank(a.title, key) - mcmodNameRank(b.title, key) || a.title.length - b.title.length || a.id.localeCompare(b.id))
 }
 export function parseMcmodProjects(html: string): McmodProjectLink[] {
   // Project links are in the entry's related-link list, before version/author
@@ -109,8 +109,10 @@ export function parseMcmodProjects(html: string): McmodProjectLink[] {
   return [...new Map(result.map(link => [`${link.source}:${link.slug}`, link])).values()].slice(0, 8)
 }
 async function readHtml(url: string, fetcher: typeof fetch, signal: AbortSignal): Promise<string> {
+  if (fetcher === desktopHtmlFetch) return sharedCommunityRequest('mcmod:' + url, 'mcmod', signal,
+    owned => readHtmlWithSlot(url, fetcher, AbortSignal.any([owned, AbortSignal.timeout(10_000)])))
   const release = await requestSlot(signal)
-  try { return await readHtmlWithSlot(url, fetcher, signal) } finally { release() }
+  try { return await runCommunityRequest('mcmod', signal, () => readHtmlWithSlot(url, fetcher, signal)) } finally { release() }
 }
 async function readHtmlWithSlot(url: string, fetcher: typeof fetch, signal: AbortSignal): Promise<string> {
   const response = await fetcher(url, { signal, redirect: 'error', headers: { 'User-Agent': 'KAMUCL (+https://github.com/kamubaba-i/KAMUCL)', Accept: 'text/html' } })
@@ -137,7 +139,7 @@ async function readHtmlWithSlot(url: string, fetcher: typeof fetch, signal: Abor
  * requests at a time, a shared 10-second deadline, 64 successful cache entries. */
 export async function lookupMcmod(keyword: string, fetcher: typeof fetch = desktopHtmlFetch): Promise<McmodSearchResult> {
   const key = normalizeChineseModKeyword(keyword)
-  if (!/[一-鿿]/.test(key) || key.length < 2 || key.length > 80) return { entries: [], warnings: [] }
+  if (!/\p{Script=Han}/u.test(key) || key.length < 2 || key.length > 80) return { entries: [], warnings: [] }
   if (fetcher === desktopHtmlFetch) {
     const stored = cache.get(key)
     if (stored && Date.now() - stored.at < 6 * 60 * 60_000) return structuredClone(stored.result)
@@ -150,16 +152,14 @@ export async function lookupMcmod(keyword: string, fetcher: typeof fetch = deskt
     try {
       const html = await readHtml(`https://search.mcmod.cn/s?${params}`, fetcher, signal)
       let candidates = parseMcmodSearch(html, keyword)
-      const exact = () => candidates.some(item => mcmodNameRank(item.title, key) < 2)
       let limited = false
-      if (!exact() && /data-page=["']2["']/.test(html)) {
+      if (/data-page=["']2["']/.test(html)) {
         params.set('page', '2')
         const next = await readHtml(`https://search.mcmod.cn/s?${params}`, fetcher, signal)
         candidates = [...new Map([...candidates, ...parseMcmodSearch(next, keyword)].map(item => [item.id, item])).values()]
         limited = /data-page=["']3["']/.test(next)
       }
-      const matched = candidates.filter(item => mcmodNameRank(item.title, key) < 2)
-      if (matched.length) candidates = matched
+      candidates.sort((a, b) => mcmodNameRank(a.title, key) - mcmodNameRank(b.title, key) || a.title.length - b.title.length || a.id.localeCompare(b.id))
       limited ||= candidates.length > MAX_ENTRIES
       candidates = candidates.slice(0, MAX_ENTRIES)
       const entries: McmodEntry[] = [], warnings: string[] = []
@@ -180,7 +180,7 @@ export async function lookupMcmod(keyword: string, fetcher: typeof fetch = deskt
           catch { warnings.push(`MC百科“${candidate.title}”的来源链接读取失败，未自动关联项目；可重试。`) }
         }
       }))
-      if (limited) warnings.push('MC百科中文检索仅关联前两页中的最多 5 个条目；请使用完整中文名缩小范围。')
+      if (limited) warnings.push('MC百科本批已核对最多 5 个条目；更多相关条目尚未核对。')
       const result = { entries: entries.filter(Boolean), warnings }
       // Empty results and failed lookups are not negative-cache hits. They can
       // be retried immediately when the network or site recovers.
@@ -194,4 +194,63 @@ export async function lookupMcmod(keyword: string, fetcher: typeof fetch = deskt
   const promise = run()
   if (fetcher === desktopHtmlFetch) pending.set(key, promise)
   try { return await promise } finally { if (fetcher === desktopHtmlFetch) pending.delete(key) }
+}
+
+export interface McmodDiscoveryState { candidates: Candidate[]; done: string[]; nextPage: number; exhausted: boolean }
+export const initialMcmodDiscoveryState = (): McmodDiscoveryState => ({ candidates: [], done: [], nextPage: 1, exhausted: false })
+export interface McmodDiscoveryBatch extends McmodSearchResult { hasMore: boolean; failed: boolean }
+/** Incremental discovery: two search pages and five entry pages at most in one
+ * caller-owned deadline. State belongs to the shared search, not a renderer;
+ * unread/failed candidates remain available for the explicit next batch. */
+export async function lookupMcmodBatch(keyword: string, state: McmodDiscoveryState, signal: AbortSignal,
+  onEntry?: (entry: McmodEntry) => void, fetcher: typeof fetch = desktopHtmlFetch): Promise<McmodDiscoveryBatch> {
+  const key = normalizeChineseModKeyword(keyword), warnings: string[] = [], entries: McmodEntry[] = []
+  if (!/\p{Script=Han}/u.test(key) || key.length < 2 || key.length > 80) {
+    state.exhausted = true
+    return { entries, warnings, hasMore: false, failed: false }
+  }
+  let failed = false
+  const pendingCandidates = () => state.candidates.filter(candidate => !state.done.includes(candidate.id))
+  // Initial two pages discover exact entries beyond page one without throwing
+  // away the already confirmed related editions. Later batches read ahead only
+  // when the pending title queue no longer fills the entry budget.
+  const pagesToRead = state.nextPage === 1 ? 2 : pendingCandidates().length < MAX_ENTRIES ? 2 : 0
+  for (let read = 0; read < pagesToRead && !state.exhausted; read++) {
+    try {
+      const params = new URLSearchParams({ key: keyword.trim().replace(/\s*(?:模组|模組|mod)$/i, ''), filter: '1' })
+      if (state.nextPage > 1) params.set('page', String(state.nextPage))
+      const html = await readHtml(`https://search.mcmod.cn/s?${params}`, fetcher, signal)
+      const found = parseMcmodSearch(html, keyword)
+      state.candidates = [...new Map([...state.candidates, ...found].map(candidate => [candidate.id, candidate])).values()]
+      const next = state.nextPage + 1
+      state.exhausted = !new RegExp(`data-page=["']${next}["']`).test(html)
+      state.nextPage = next
+    } catch {
+      failed = true; warnings.push('MC百科中文检索暂不可用，已保留其他已确认结果；可继续查找重试。'); break
+    }
+  }
+  state.candidates.sort((a, b) => mcmodNameRank(a.title, key) - mcmodNameRank(b.title, key) || a.title.length - b.title.length || a.id.localeCompare(b.id))
+  const batch = pendingCandidates().slice(0, MAX_ENTRIES)
+  let cursor = 0
+  await Promise.all(Array.from({ length: Math.min(2, batch.length) }, async () => {
+    while (cursor < batch.length) {
+      const candidate = batch[cursor++]
+      try {
+        const html = await readHtml(candidate.url, fetcher, signal), title = parseMcmodEntryTitle(html)
+        if (title && (!Number.isFinite(mcmodNameRank(title, key)) ||
+          (mcmodNameRank(candidate.title, key) < 2 && mcmodNameRank(title, key) >= 2))) {
+          state.done.push(candidate.id)
+          warnings.push(`MC百科“${candidate.title}”的条目名称已变化，未自动关联项目；请核对来源。`)
+          continue
+        }
+        const item = { ...candidate, ...(title ? { title } : {}), projects: parseMcmodProjects(html) }
+        state.done.push(candidate.id); entries.push(item); onEntry?.(item)
+      } catch {
+        failed = true; warnings.push(`MC百科“${candidate.title}”的来源链接读取失败，未自动关联项目；可继续查找重试。`)
+      }
+    }
+  }))
+  const hasMore = !state.exhausted || pendingCandidates().length > 0
+  if (hasMore && !failed) warnings.push('还有相关百科条目未核对，可继续查找；当前数量只统计已确认项目。')
+  return { entries, warnings, hasMore, failed }
 }

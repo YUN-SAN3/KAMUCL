@@ -946,6 +946,9 @@ export const IPC = {
 
   // 社区资源
   communitySearch: 'community:search', // (q: CommunityQuery) => CommunitySearchPage
+  communitySearchStart: 'community:searchStart', // (requestId, query) => CommunitySearchSnapshot
+  communitySearchContinue: 'community:searchContinue', // (requestId, continuation) => CommunitySearchSnapshot
+  communitySearchCancel: 'community:searchCancel', // (requestId) => boolean; sender-owned subscription only
   communityProject: 'community:project', // (source, projectId, kind: 'mod') => CommunityModProject  校验来源与项目类型
   communityFiles: 'community:files', // (source: 'modrinth'|'curseforge', projectId: string) => CommunityFile[]
   communityDownload: 'community:download', // (file: CommunityFile, target: { versionId: string; kind: CommunityKind }) => string  同步下载完成返回保存路径；kind=modpack 时下载后自动进入整合包安装流程
@@ -999,6 +1002,7 @@ export interface FsEntry {
 
 // ---------------- IPC 事件（主进程 -> 前端，on 订阅） ----------------
 export const IPC_EVENT = {
+  communitySearchUpdate: 'event:communitySearchUpdate', // sender-owned progressive snapshot; revisions only advance
   progress: 'event:progress', // (e: ProgressEvent)
   launchLog: 'event:launchLog', // (line: string)
   launchState: 'event:launchState', // (s: LaunchState)
@@ -1072,6 +1076,23 @@ export interface CommunitySearchPage {
   offset: number
   limit: number
   warnings?: string[]
+}
+
+/** Items are the complete visible prefix, never a delta to append twice. The
+ * total is the confirmed set, not an estimate of every matching repository item. */
+export interface CommunitySearchSnapshot extends CommunitySearchPage {
+  requestId: string
+  revision: number
+  query: CommunityQuery
+  phase: 'initial' | 'enriching' | 'ready' | 'failed'
+  discoveryHasMore: boolean
+  cursor?: string
+  totalKind: 'confirmed'
+  error?: string
+}
+export interface CommunitySearchContinuation {
+  mode: 'page' | 'discover'
+  cursor: string
 }
 
 export interface CommunityFile {

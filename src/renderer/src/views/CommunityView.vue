@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ContentSkeleton from '../components/ContentSkeleton.vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
-import { communityFiles, communitySearch, errText, getManifest, getModTargets } from '../api'
+import { communityFiles, communitySearch, communitySearchStart, communitySearchContinue, communitySearchCancel, onCommunitySearchUpdate, errText, getManifest, getModTargets } from '../api'
 import { store, toast, selectedInstance, displayVersionName as versionLabel } from '../store'
 import { instanceKey } from '@shared/modCompatibility'
 import { communityFileMatchesInstance, usesCommunityLoader } from '@shared/communityPolicy'
@@ -9,6 +9,7 @@ import { mcmodSearchUrl } from '@shared/communityLinks'
 import SelectMenu from '../components/SelectMenu.vue'
 import CommunityVersionFilter from '../components/CommunityVersionFilter.vue'
 import { readCommunitySession, saveCommunitySession } from '../communitySession'
+import { createProgressiveCommunitySearch, usesProgressiveCommunitySearch, communityQueryKey } from '../communityProgressiveSearch'
 import { initialCommunityQuery, initialCommunityVersionSelection, chooseCommunityInstance, usableCommunityInstance, type CommunityVersionSource } from '../communityVersionSelection'
 const previousSession = readCommunitySession()
 import MarqueeText from '../components/MarqueeText.vue'
@@ -23,6 +24,8 @@ import type {
   CommunityKind,
   CommunityProjectReference,
   CommunityResult,
+  CommunityQuery,
+  CommunitySearchSnapshot,
   CommunitySource,
   LoaderName
 } from '@shared/types'
@@ -190,17 +193,106 @@ const visiblePages = computed(() => {
   return Array.from({ length: Math.min(5, totalPages.value) }, (_, i) => start + i)
 })
 const listCard = ref<HTMLElement | null>(null)
+const progressiveSnapshot = ref<CommunitySearchSnapshot | undefined>(previousSession?.progressive?.snapshot)
+const progressiveMode = ref(!!previousSession?.progressive)
+const progressivePaused = ref(!!previousSession?.progressive)
+const progressivePending = ref(false)
+const progressiveRequestId = ref<string | null>(null)
+const progressiveFailed = ref(previousSession?.progressive?.snapshot.phase === 'failed')
+const staleResults = ref(false)
+const progressiveEnriching = computed(() => progressiveMode.value && !progressivePaused.value && !progressiveFailed.value && (progressiveSnapshot.value?.requestId !== progressiveRequestId.value || ['initial', 'enriching'].includes(progressiveSnapshot.value?.phase ?? 'initial')))
+const progressiveCanPage = computed(() => progressiveMode.value && !progressivePaused.value && !progressiveEnriching.value && progressiveSnapshot.value?.phase === 'ready' && results.value.length < totalResults.value)
+const progressiveCanDiscover = computed(() => progressiveMode.value && progressiveSnapshot.value?.discoveryHasMore === true)
+const filterQueryKey = (value: CommunityQuery) => communityQueryKey({ ...value, limit: PAGE_SIZE })
+let lastConfirmedQuery = previousSession ? filterQueryKey({ ...previousSession.query, offset: 0, limit: PAGE_SIZE }) : ''
+let appliedProgressRevision = ''
+let retainedProgressCount = 0
+
+function requestedQuery(): CommunityQuery {
+  return { keyword: query.keyword.trim(), kind: query.kind, source: query.source,
+    mcVersion: query.mcVersion || undefined, loader: supportsLoader.value ? query.loader || undefined : undefined,
+    sort: query.sort, offset: 0, limit: PAGE_SIZE }
+}
+/** Keep the same visible card and action in place when the completed discovery
+ * set changes order. Vue keys preserve identity; this also handles scroll/focus. */
+function resultPosition() {
+  const content = document.querySelector<HTMLElement>('.content')
+  const top = content?.getBoundingClientRect().top ?? 0
+  const cards = Array.from(listCard.value?.querySelectorAll<HTMLElement>('[data-project-key]') ?? [])
+  const anchor = cards.find(card => card.getBoundingClientRect().bottom > top)
+  const active = document.activeElement as HTMLElement | null
+  const focused = active?.closest<HTMLElement>('[data-project-key]')
+  return { content, anchorKey: anchor?.dataset.projectKey, anchorTop: anchor ? anchor.getBoundingClientRect().top - top : 0,
+    focusKey: focused?.dataset.projectKey, action: active?.dataset.search123Action, active }
+}
+function restoreResultPosition(position: ReturnType<typeof resultPosition>, marker: string) {
+  void nextTick(() => {
+    if (disposed || appliedProgressRevision !== marker) return
+    const cards = Array.from(listCard.value?.querySelectorAll<HTMLElement>('[data-project-key]') ?? [])
+    const anchor = cards.find(card => card.dataset.projectKey === position.anchorKey)
+    if (position.content && anchor) position.content.scrollTop += anchor.getBoundingClientRect().top - position.content.getBoundingClientRect().top - position.anchorTop
+    if (position.focusKey && position.action && (document.activeElement === position.active || document.activeElement === document.body)) {
+      cards.find(card => card.dataset.projectKey === position.focusKey)?.querySelector<HTMLElement>(`[data-search123-action="${position.action}"]`)?.focus({ preventScroll: true })
+    }
+  })
+}
+const progressiveSearch = createProgressiveCommunitySearch({
+  uuid: () => crypto.randomUUID(), start: communitySearchStart, continue: communitySearchContinue,
+  cancel: communitySearchCancel, subscribe: onCommunitySearchUpdate, errorText: errText,
+  changed(state) {
+    if (disposed || !progressiveMode.value) return
+    progressivePending.value = state.pending
+    progressivePaused.value = state.paused
+    progressiveRequestId.value = state.requestId
+    progressiveFailed.value = !!state.error || state.snapshot?.requestId === state.requestId && state.snapshot?.phase === 'failed'
+    loadError.value = state.error || (state.snapshot?.requestId === state.requestId ? state.snapshot?.error ?? '' : '')
+    if (state.error) { loadError.value = state.error; loading.value = false; loadingMore.value = false }
+    const snapshot = state.snapshot
+    if (!snapshot || snapshot.requestId !== state.requestId) return
+    const marker = `${snapshot.requestId}:${snapshot.revision}`
+    if (marker === appliedProgressRevision) return
+    const position = results.value.length && filterQueryKey(snapshot.query) === lastConfirmedQuery ? resultPosition() : undefined
+    appliedProgressRevision = marker
+    progressiveSnapshot.value = snapshot
+    const keepRetained = retainedProgressCount > snapshot.items.length && snapshot.phase !== 'ready'
+    if (!keepRetained) { results.value = snapshot.items; retainedProgressCount = 0 }
+    totalResults.value = keepRetained ? Math.max(snapshot.total, results.value.length) : snapshot.total
+    searchWarnings.value = snapshot.warnings ?? []
+    hasMore.value = snapshot.items.length < snapshot.total
+    offset.value = results.value.length
+    loadError.value = snapshot.error ?? ''
+    lastConfirmedQuery = filterQueryKey(snapshot.query)
+    staleResults.value = false
+    loading.value = false
+    loadingMore.value = false
+    if (position) restoreResultPosition(position, marker)
+  }
+})
 
 let searchGeneration = 0
 let disposed = false
 onBeforeUnmount(() => {
-  saveCommunitySession({ query: { ...query }, tab: communityTab.value, favoriteSearch: favoriteSearch.value, versionInput: versionInput.value, versionSelection: { ...versionSelection }, results: results.value, searched: searched.value, error: loadError.value, offset: offset.value, hasMore: hasMore.value, page: currentPage.value, total: totalResults.value, warnings: searchWarnings.value, scrollTop: document.querySelector<HTMLElement>('.content')?.scrollTop ?? 0, topKeyword: store.searchKeyword, interrupted: loading.value || loadingMore.value })
+  saveCommunitySession({ query: { ...query }, tab: communityTab.value, favoriteSearch: favoriteSearch.value, versionInput: versionInput.value, versionSelection: { ...versionSelection }, results: results.value, searched: searched.value, error: loadError.value, offset: offset.value, hasMore: hasMore.value, page: currentPage.value, total: totalResults.value, warnings: searchWarnings.value, scrollTop: document.querySelector<HTMLElement>('.content')?.scrollTop ?? 0, topKeyword: store.searchKeyword, interrupted: loading.value || loadingMore.value || progressiveEnriching.value,
+    progressive: progressiveMode.value && progressiveSnapshot.value ? { snapshot: { ...progressiveSnapshot.value, items: results.value, total: totalResults.value }, paused: true } : undefined })
   disposed = true; searchGeneration++; fileGeneration++; openGeneration++
+  progressiveSearch.dispose()
 })
 async function doSearch(reset: boolean, page = currentPage.value) {
   if (disposed) return
   if (!reset && (loading.value || loadingMore.value)) return
   const generation = ++searchGeneration
+  const request = requestedQuery()
+  const progressive = usesProgressiveCommunitySearch(request)
+  if (!reset && progressive) { await progressiveSearch.more('page'); return }
+  progressiveMode.value = progressive
+  void progressiveSearch.pause()
+  progressiveSnapshot.value = undefined
+  progressivePaused.value = false
+  progressivePending.value = false
+  progressiveFailed.value = false
+  appliedProgressRevision = ''
+  retainedProgressCount = 0
+  staleResults.value = !!results.value.length && lastConfirmedQuery !== filterQueryKey(request)
   if (reset) {
     offset.value = 0
     currentPage.value = 1
@@ -215,6 +307,11 @@ async function doSearch(reset: boolean, page = currentPage.value) {
   else loadingMore.value = true
   loadError.value = ''
   searched.value = true
+  if (progressive) {
+    await progressiveSearch.start(request)
+    if (generation === searchGeneration) { loading.value = false; loadingMore.value = false }
+    return
+  }
   try {
     const response = await communitySearch({
       keyword: query.keyword.trim(),
@@ -234,6 +331,8 @@ async function doSearch(reset: boolean, page = currentPage.value) {
     searchWarnings.value = response.warnings ?? []
     hasMore.value = requestedOffset + PAGE_SIZE < response.total
     offset.value = requestedOffset + PAGE_SIZE
+    lastConfirmedQuery = filterQueryKey(request)
+    staleResults.value = false
   } catch (e) {
     if (generation !== searchGeneration) return
     loadError.value = errText(e)
@@ -247,7 +346,27 @@ async function doSearch(reset: boolean, page = currentPage.value) {
 }
 
 const onSearch = () => void doSearch(true)
-const onLoadMore = () => void doSearch(false)
+const onLoadMore = () => progressiveMode.value ? void progressiveSearch.more('page') : void doSearch(false)
+async function continueDiscovery() {
+  if (disposed || progressivePending.value) return
+  if (!usesProgressiveCommunitySearch(requestedQuery()) || (progressiveSnapshot.value && filterQueryKey(requestedQuery()) !== filterQueryKey(progressiveSnapshot.value.query))) { await doSearch(true); return }
+  if (progressivePaused.value || progressiveFailed.value || progressiveSnapshot.value?.phase === 'failed') {
+    const retained = progressiveSnapshot.value
+    loadError.value = ''; searched.value = true
+    retainedProgressCount = lastConfirmedQuery === filterQueryKey(requestedQuery()) ? results.value.length : 0
+    const initial = await progressiveSearch.start({ ...requestedQuery(), limit: Math.min(1000, Math.max(PAGE_SIZE, retainedProgressCount)) }, retained)
+    // One explicit resume also advances one discovery batch when Start only
+    // reattached a ready cached set. An initial/enriching Start already runs its
+    // batch and must not silently schedule another one.
+    if (initial?.phase === 'ready' && initial.requestId === progressiveSearch.current().requestId && !progressiveSearch.current().error && progressiveSearch.current().snapshot?.phase === 'ready' && progressiveSearch.current().snapshot?.discoveryHasMore) await progressiveSearch.more('discover')
+  } else await progressiveSearch.more('discover')
+}
+function pauseDiscovery() { void progressiveSearch.pause() }
+function viewAllVersions() {
+  query.mcVersion = ''; query.loader = ''; versionInput.value = ''
+  Object.assign(versionSelection, { source: 'all', instance: '', loaderSource: 'all' })
+  void doSearch(true)
+}
 async function goToPage(page: number) {
   if (loading.value || page < 1 || page > totalPages.value || page === currentPage.value) return
   await doSearch(false, page)
@@ -260,7 +379,7 @@ let moreObserver: IntersectionObserver | null = null
 onMounted(() => {
   moreObserver = new IntersectionObserver(
     (entries) => {
-      if (communityTab.value === 'browse' && !usesPagination.value && entries.some((e) => e.isIntersecting) && hasMore.value && !loading.value && !loadingMore.value) {
+      if (communityTab.value === 'browse' && !usesPagination.value && entries.some((e) => e.isIntersecting) && hasMore.value && !loading.value && !loadingMore.value && !progressiveEnriching.value && !progressivePaused.value && !progressivePending.value) {
         onLoadMore()
       }
     },
@@ -346,7 +465,8 @@ onMounted(async () => {
     await nextTick()
     const content = document.querySelector<HTMLElement>('.content')
     if (content) content.scrollTop = previousSession.scrollTop
-    if (previousSession.interrupted) loadError.value = '上次查询在离开页面时中断，已保留原结果；请重试。'
+    if (previousSession.progressive) progressiveSearch.restore(previousSession.progressive.snapshot)
+    else if (previousSession.interrupted) loadError.value = '上次查询在离开页面时中断，已保留原结果；请重试。'
   }
 })
 
@@ -539,12 +659,13 @@ function confirmDownload() {
 
       <div data-ui="CommunityView:d516b82f0eb8" class="search-row">
         <input data-ui="CommunityView:bc0450fd9c8f"
+          data-search123="keyword"
           v-model="query.keyword"
           class="input"
           :placeholder="query.kind === 'mod' ? '输入 MOD 中文名、常用别名或英文名，回车搜索…' : '输入资源名称，回车搜索…'"
           @keyup.enter="onSearch"
         />
-        <button data-ui="CommunityView:ce39174e4563" class="btn btn-gold search-btn" :disabled="loading" @click="onSearch">
+        <button data-ui="CommunityView:ce39174e4563" data-search123="submit" class="btn btn-gold search-btn" :disabled="loading" @click="onSearch">
           <span data-ui="CommunityView:bb1887897e8c" v-if="loading" class="spin"></span>
           <svg v-else viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="7" />
@@ -564,6 +685,12 @@ function confirmDownload() {
 
     <!-- 结果列表 -->
     <div data-ui="CommunityView:5e55abba5e8a" ref="listCard" class="card list-card">
+      <div v-if="progressiveMode && searched" class="progressive-search-status" data-search123="status" :data-phase="progressivePaused ? 'paused' : progressiveFailed ? 'failed' : progressiveSnapshot?.requestId !== progressiveRequestId ? 'initial' : progressiveSnapshot?.phase ?? 'initial'" :data-request-id="progressiveRequestId ?? ''" :data-revision="progressiveSnapshot?.revision ?? -1" role="status" aria-live="polite">
+        <div class="progressive-search-copy"><strong>{{ progressivePaused ? `已保留 ${results.length} 项结果` : progressiveFailed ? '中文匹配补充未完成' : progressiveEnriching ? `找到 ${totalResults} 项，正在补全中文匹配…` : `已确认 ${totalResults} 项结果` }}</strong><span class="muted">{{ progressivePaused ? '已暂停后台补充；返回后可继续此查询。' : progressiveFailed ? '已停止补充；可以重试，已确认结果继续保留。' : progressiveEnriching ? '已显示的结果可查看、收藏和下载；补充完成后统一排序。' : '数量为当前已核验结果；可继续补充候选，不会自动改变版本筛选。' }}</span></div>
+        <button v-if="progressivePaused || progressiveFailed || progressiveSnapshot?.phase === 'failed'" class="btn btn-ghost btn-sm" data-search123="resume" :disabled="progressivePending" @click="continueDiscovery">{{ progressivePending ? '恢复中…' : progressiveFailed ? '重试补充' : '继续补充' }}</button>
+        <button v-else-if="progressiveEnriching" class="btn btn-ghost btn-sm" data-search123="cancel" @click="pauseDiscovery">暂停补充</button>
+        <button v-else-if="progressiveCanDiscover" class="btn btn-ghost btn-sm" data-search123="discover-more" :disabled="progressivePending" @click="continueDiscovery">{{ progressivePending ? '补充中…' : '继续补充中文匹配' }}</button>
+      </div>
       <div data-ui="CommunityView:72423555b623" v-if="results.length && (loading || loadError)" class="status-strip" role="status">{{ loading ? '正在更新条件，暂时显示上次结果…' : '更新失败，以下为上次结果：' + loadError }}<button data-ui="CommunityView:4ab4e45e43a0" v-if="loadError" class="btn btn-ghost btn-sm" @click="doSearch(true)">重试</button></div>
       <p data-ui="CommunityView:fa2eef57b2fc" v-for="warning in searchWarnings" :key="warning" class="search-warning">{{ warning }}</p>
       <!-- 加载中 -->
@@ -581,12 +708,13 @@ function confirmDownload() {
           <path d="M12 3a13.5 13.5 0 0 1 0 18" />
           <path d="M12 3a13.5 13.5 0 0 0 0 18" />
         </svg>
-        <span>{{ searched ? '没有找到匹配的资源，换个关键词或条件试试' : '输入关键词或选择条件开始搜索' }}</span>
+        <span>{{ progressiveEnriching ? '正在补充中文名称匹配，尚未找到已核验结果…' : searched ? '没有找到匹配的资源，换个关键词或条件试试' : '输入关键词或选择条件开始搜索' }}</span>
+        <button v-if="searched && !progressiveEnriching && (query.mcVersion || query.loader)" class="btn btn-ghost btn-sm" data-search123="all-versions" @click="viewAllVersions">查看全部版本</button>
       </div>
       <!-- 列表 -->
       <template v-else>
-        <div data-ui="CommunityView:ea58bb908a86" class="result-list" :inert="loading || !!loadError" :aria-busy="loading">
-          <div data-ui="CommunityView:0d40e298da83" v-for="r in results" :key="itemKey(r)" class="result-card">
+        <div data-ui="CommunityView:ea58bb908a86" data-search123="results" class="result-list" :inert="staleResults || (!progressiveMode && (loading || !!loadError))" :aria-busy="loading || progressiveEnriching">
+          <div data-ui="CommunityView:0d40e298da83" v-for="r in results" :key="itemKey(r)" :data-project-key="itemKey(r)" class="result-card">
             <div data-ui="CommunityView:491b5f81c088" class="result-top">
               <div data-ui="CommunityView:00f58a1819fa" class="result-icon">
                 <img data-ui="CommunityView:830997d3ecb7"
@@ -599,7 +727,7 @@ function confirmDownload() {
                 <span data-ui="CommunityView:a6c25e1efd38" v-else class="icon-placeholder">{{ (r.title || '?').charAt(0).toUpperCase() }}</span>
               </div>
               <div data-ui="CommunityView:d33af84ab969" class="result-head">
-                <strong class="result-title" tabindex="0" :title="r.title">{{ r.title }}</strong>
+                <strong class="result-title" :title="r.title"><button v-if="query.kind === 'mod'" type="button" class="result-title-button" data-search123-action="details" :aria-label="`查看 ${r.title} 详情`" @click="detailProject = r">{{ r.title }}</button><template v-else>{{ r.title }}</template></strong>
                 <span data-ui="CommunityView:6f93851d6071" class="tag" :class="r.source === 'modrinth' ? 'tag-success' : 'tag-cf'">
                   来源：{{ r.source === 'modrinth' ? 'Modrinth' : 'CurseForge' }}
                 </span>
@@ -615,6 +743,7 @@ function confirmDownload() {
             <div data-ui="CommunityView:9195d6b103b6" class="result-foot">
               <div data-ui="CommunityView:22746f0aa9cd" class="result-links">
                 <button data-ui="CommunityView:7c3533e67ba3"
+                  data-search123-action="source"
                   class="icon-btn"
                   :title="`打开 ${r.source === 'modrinth' ? 'Modrinth' : 'CurseForge'} 源页面（查看完整介绍）`"
                   @click="openExternal(sourceUrl(r))"
@@ -622,17 +751,18 @@ function confirmDownload() {
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
                 </button>
                 <button data-ui="CommunityView:0c667bb024b0"
+                  data-search123-action="mcmod"
                   class="icon-btn"
                   title="在 MC 百科查看介绍与教程"
                   @click="openMcmod(r)"
                 >
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
                 </button>
-                <button v-if="query.kind === 'mod'" class="icon-btn result-favorite" :class="{ active: favorites.some(f => f.key === itemKey(r)) }" :aria-label="`${favorites.some(f => f.key === itemKey(r)) ? '取消收藏' : '收藏'} ${r.title}`" :aria-pressed="favorites.some(f => f.key === itemKey(r))" :title="favorites.some(f => f.key === itemKey(r)) ? '取消收藏模组' : '收藏模组'" :disabled="favoriteBusy.has(itemKey(r))" @click.stop="toggleProject(r.source, r.projectId, r.title, r.iconUrl)">
+                <button v-if="query.kind === 'mod'" data-search123-action="favorite" class="icon-btn result-favorite" :class="{ active: favorites.some(f => f.key === itemKey(r)) }" :aria-label="`${favorites.some(f => f.key === itemKey(r)) ? '取消收藏' : '收藏'} ${r.title}`" :aria-pressed="favorites.some(f => f.key === itemKey(r))" :title="favorites.some(f => f.key === itemKey(r)) ? '取消收藏模组' : '收藏模组'" :disabled="favoriteBusy.has(itemKey(r))" @click.stop="toggleProject(r.source, r.projectId, r.title, r.iconUrl)">
                   <svg viewBox="0 0 24 24" width="16" height="16" :fill="favorites.some(f => f.key === itemKey(r)) ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3L3 9.6l6.2-.9Z" /></svg>
                 </button>
               </div>
-              <button data-ui="CommunityView:6d17d47c8729" class="btn btn-gold btn-sm result-dl" @click="openDownload(r)">
+              <button data-ui="CommunityView:6d17d47c8729" data-search123-action="download" class="btn btn-gold btn-sm result-dl" @click="openDownload(r)">
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 3v11" />
                   <path d="m7 10 5 5 5-5" />
@@ -644,10 +774,10 @@ function confirmDownload() {
           </div>
         </div>
         <!-- 无限滚动哨兵：进入视口自动加载更多（按钮保留作兜底） -->
-        <div data-ui="CommunityView:1833f0867a9c" v-if="!usesPagination && hasMore && !loading && !loadError" ref="moreSentinel" class="more-sentinel"></div>
+        <div data-ui="CommunityView:1833f0867a9c" v-if="!usesPagination && hasMore && !loading && !loadError && !progressiveEnriching && !progressivePaused" ref="moreSentinel" class="more-sentinel"></div>
         <!-- 加载更多 -->
-        <div data-ui="CommunityView:c18472307641" v-if="!usesPagination && hasMore" class="more-row">
-          <button data-ui="CommunityView:165371e35396" class="btn btn-ghost" :disabled="loadingMore" @click="onLoadMore">
+        <div data-ui="CommunityView:c18472307641" v-if="!usesPagination && (progressiveMode ? progressiveCanPage : hasMore)" class="more-row">
+          <button data-ui="CommunityView:165371e35396" data-search123="page-more" class="btn btn-ghost" :disabled="loadingMore || progressivePending || progressiveEnriching" @click="onLoadMore">
             <span data-ui="CommunityView:6fa61ac3821a" v-if="loadingMore" class="spin"></span>
             {{ loadingMore ? '加载中…' : '加载更多' }}
           </button>
@@ -731,6 +861,13 @@ function confirmDownload() {
 </template>
 
 <style scoped>
+.progressive-search-status { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card-2); }
+.progressive-search-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1 1 260px; }
+.progressive-search-copy strong { font-size: var(--text-sm); overflow-wrap: anywhere; }
+.progressive-search-copy .muted { font-size: var(--text-xs); line-height: 1.6; }
+.progressive-search-status .btn { flex: 0 0 auto; max-width: 100%; white-space: normal; }
+.result-title-button { appearance: none; padding: 0; margin: 0; border: 0; background: transparent; color: inherit; font: inherit; line-height: inherit; text-align: left; cursor: pointer; overflow-wrap: inherit; }
+.result-title-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
 .community-sections { display:flex;align-items:center;gap:6px;padding:4px;background:var(--card-2);border:1px solid var(--border);border-radius:var(--radius-md);align-self:flex-start; }
 .community-section { display:flex;align-items:center;justify-content:center;gap:8px;min-height:36px;border:0;border-radius:var(--radius-sm);padding:0 16px;background:transparent;color:var(--text-dim);font:inherit;font-size:13px;cursor:pointer;transition:background 160ms,color 160ms; }
 .community-section.active { background:var(--accent-soft);color:var(--accent-2);font-weight:600; }

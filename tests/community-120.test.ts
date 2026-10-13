@@ -53,7 +53,7 @@ test('official common names and previous launcher wording resolve to the same ex
 test('MC百科 explicit slash aliases outrank substrings; equal named entries remain separately identified', async () => {
   assert.equal(mcmodNameRank('静谧四季/季节 (Serene Seasons)', '季节'), 1)
   const page = search([['1', '季节：附加 (Addon)'], ['2', '静谧四季/季节 (Serene Seasons)'], ['3', '季节 (Another Season)']])
-  assert.deepEqual(parseMcmodSearch(page, '季节').map(r => r.id), ['3', '2'])
+  assert.deepEqual(parseMcmodSearch(page, '季节').map(r => r.id), ['3', '2', '1'])
   const result = await lookupMcmod('山海之境', async input => {
     const url = new URL(String(input))
     return html(url.hostname === 'search.mcmod.cn' ? search([['71', '山海之境 (First)'], ['72', '山海之境 (Second)']]) : entry('山海之境', 'https://modrinth.com/mod/' + (url.pathname.includes('71') ? 'first-world' : 'second-world')))
@@ -300,19 +300,30 @@ test('known local alias with a different repository slug falls back to explicit 
 async function mountedCommunity() {
   const descriptor = parse(fs.readFileSync('src/renderer/src/views/CommunityView.vue', 'utf8')).descriptor
   const script = compileScript(descriptor, { id: 'community-120-real-setup' }).content
-  const requests: Array<{ query: any; resolve: (v: any) => void }> = [], fileRequests: any[] = [], downloads: any[] = [], state: any = {}
-  const fixture = { state, store: reactive({ installed: [target], settings: { theme: 'black-orange', folders:[{path:'fixture/default-download',isDefault:true}],gameDir:'fixture/registered' }, searchKeyword: '' }), selected: ref(target), requests, fileRequests, downloads }
+  const requests: Array<{ query: any; requestId?: string; resolve: (v: any) => void; reject?: (e: Error) => void }> = [], fileRequests: any[] = [], downloads: any[] = [], state: any = {}
+  const fixture = { state, store: reactive({ installed: [target], settings: { theme: 'black-orange', folders:[{path:'fixture/default-download',isDefault:true}],gameDir:'fixture/registered' }, searchKeyword: '' }), selected: ref(target), requests, fileRequests, downloads, subscriptions: new Set<(value: any) => void>(), progressiveSessions: new Map<string, any>(), cancelled: [] as string[], continuations: [] as any[], failNextContinue: false, sameNextContinue: false }
   const code = (await build({ stdin: { contents: script, loader: 'ts', resolveDir: path.resolve('src/renderer/src/views') }, bundle: true, write: false, platform: 'node', format: 'cjs', packages: 'external', logLevel: 'silent', plugins: [{ name: 'scoped-community-transport-and-child-host-fixtures', setup(b) {
     b.onResolve({ filter: /\.vue$/ }, () => ({ path: 'child-host', namespace: 'fixture' }))
     b.onResolve({ filter: /^\.\.?\/(api|store|modFavorites)$/ }, args => ({ path: args.path.split('/').at(-1)!, namespace: 'fixture' }))
     b.onResolve({ filter: /^@shared\// }, args => ({ path: path.resolve('src/shared', args.path.slice('@shared/'.length) + '.ts') }))
-    b.onLoad({ filter: /.*/, namespace: 'fixture' }, args => ({ loader: 'ts', contents: args.path === 'api' ? `const f=globalThis.fixture; export const communitySearch=q=>new Promise(resolve=>f.requests.push({query:{...q},resolve})); export const communityFiles=(...a)=>{f.fileRequests.push(a);return Promise.resolve([])}; export const getManifest=()=>Promise.resolve([{id:'1.21.1',type:'release'},{id:'1.20.1',type:'release'}]); export const getModTargets=()=>Promise.resolve({versions:f.store.installed,errors:[]}); export const errText=e=>String(e); export const communityDownload=(file,target)=>{f.downloads.push({file,target});return Promise.resolve('synthetic IPC result, no downloaded file')}; export const prepareModInstall=(target,input)=>Promise.resolve({id:'synthetic-plan',target,files:[{fileName:input.file.fileName,dependency:false}],missing:[],warnings:[]}); export const commitModInstall=()=>Promise.resolve('synthetic-commit'); export const discardModInstall=()=>Promise.resolve(); export const cancelTask=()=>Promise.resolve(); export const onProgress=()=>()=>{}; export const onTaskDone=()=>()=>{};`
+    b.onLoad({ filter: /.*/, namespace: 'fixture' }, args => ({ loader: 'ts', contents: args.path === 'api' ? `const f=globalThis.fixture;
+      export const communitySearch=q=>new Promise(resolve=>f.requests.push({query:{...q},resolve}));
+      export const communitySearchStart=(requestId,q)=>new Promise((resolve,reject)=>f.requests.push({requestId,query:{...q},reject,resolve:value=>{
+        const snapshot={...value,requestId,query:{...q},revision:1,phase:value.phase??'ready',discoveryHasMore:value.discoveryHasMore??false,totalKind:'confirmed',cursor:'fixture-ready-1'};
+        f.progressiveSessions.set(requestId,snapshot); for(const callback of f.subscriptions)callback(snapshot); resolve(snapshot);
+      }}));
+      export const communitySearchContinue=(requestId,continuation)=>{f.continuations.push({requestId,continuation});const previous=f.progressiveSessions.get(requestId);if(!previous)return Promise.reject(new Error('Session expired'));
+        if(f.failNextContinue){f.failNextContinue=false;return Promise.reject(new Error('Continuation failed'))} if(f.sameNextContinue){f.sameNextContinue=false;return Promise.resolve(previous)}
+        const snapshot={...previous,revision:previous.revision+1,cursor:'fixture-next-'+(previous.revision+1)};f.progressiveSessions.set(requestId,snapshot);for(const callback of f.subscriptions)callback(snapshot);return Promise.resolve(snapshot)};
+      export const communitySearchCancel=requestId=>{f.cancelled.push(requestId);return Promise.resolve(f.progressiveSessions.delete(requestId))};
+      export const onCommunitySearchUpdate=callback=>{f.subscriptions.add(callback);return()=>f.subscriptions.delete(callback)};
+      export const communityFiles=(...a)=>{f.fileRequests.push(a);return Promise.resolve([])}; export const getManifest=()=>Promise.resolve([{id:'1.21.1',type:'release'},{id:'1.20.1',type:'release'}]); export const getModTargets=()=>Promise.resolve({versions:f.store.installed,errors:[]}); export const errText=e=>String(e); export const communityDownload=(file,target)=>{f.downloads.push({file,target});return Promise.resolve('synthetic IPC result, no downloaded file')}; export const prepareModInstall=(target,input)=>Promise.resolve({id:'synthetic-plan',target,files:[{fileName:input.file.fileName,dependency:false}],missing:[],warnings:[]}); export const commitModInstall=()=>Promise.resolve('synthetic-commit'); export const discardModInstall=()=>Promise.resolve(); export const cancelTask=()=>Promise.resolve(); export const onProgress=()=>()=>{}; export const onTaskDone=()=>()=>{};`
       : args.path === 'store' ? `const f=globalThis.fixture; export const store=f.store,selectedInstance=f.selected;export const toast=()=>{};export const displayVersionName=v=>v.id;`
       : args.path === 'modFavorites' ? `export const favorites=[],favoriteBusy=new Set(); export const loadFavorites=async()=>{};export const toggleProject=()=>{};`
       : 'export default {}' }))
   } }] })).outputFiles[0].text
   const require = createRequire(path.resolve('package.json')), vue = require('vue'), module = { exports: {} as any }
-  const content: any = { scrollTop: 0 }, document = { querySelector: (s: string) => s === '.content' ? content : null }
+  const content: any = { scrollTop: 0, getBoundingClientRect: () => ({ top: 0 }) }, document = { querySelector: (s: string) => s === '.content' ? content : null, activeElement: null, body: {} }
   class Observer { observe() {} disconnect() {} }
   new Function('require', 'module', 'exports', 'globalThis', 'document', 'ResizeObserver', 'IntersectionObserver', code)(require, module, module.exports, { fixture }, document, Observer, Observer)
   const component = module.exports.default, setup = component.setup
@@ -350,6 +361,56 @@ test('actual compiled community ignores old response after a new exact version q
   assert.deepEqual(s.results.value, []); assert.equal(s.query.mcVersion, '26.3')
   s.onSearch(); const late = h.requests.at(-1)!; app.unmount(); late.resolve({ items: [{ title: 'late after unmount' }], total: 1, offset: 0, limit: 20 }); await new Promise(resolve => setImmediate(resolve))
   assert.deepEqual(s.results.value, [])
+})
+
+test('actual compiled Chinese search resumes with a new ID, keeps its known prefix across empty initial progress and ignores the cancelled operation', async () => {
+  const h = await mountedCommunity(), app = await h.mount(), s = h.fixture.state.current
+  await h.resolveLast()
+  s.query.keyword = '季节'; s.onSearch(); await h.resolveLast('known-season')
+  const old = h.requests.at(-1)!
+  assert(old.requestId); assert.equal(s.progressiveMode.value, true)
+  s.pauseDiscovery(); await h.vue.nextTick()
+  assert.equal(s.progressivePaused.value, true); assert(h.fixture.cancelled.includes(old.requestId!))
+  const resumed = s.continueDiscovery(), current = h.requests.at(-1)!
+  assert(current.requestId && current.requestId !== old.requestId)
+  const emit = (value: any) => { for (const callback of h.fixture.subscriptions) callback(value) }
+  emit({ requestId: current.requestId, revision: 0, query: current.query, phase: 'initial', items: [], total: 0, offset: 0, limit: 20, totalKind: 'confirmed', discoveryHasMore: true })
+  assert.equal(s.results.value[0].title, 'known-season', 'Empty new-session snapshot must not erase the known same-query prefix')
+  emit({ requestId: old.requestId, revision: 100, query: old.query, phase: 'failed', items: [], total: 0, offset: 0, limit: 20, totalKind: 'confirmed', discoveryHasMore: false, error: 'cancelled old operation' })
+  assert.equal(s.results.value[0].title, 'known-season'); assert.equal(s.loadError.value, '')
+  await h.resolveLast('verified-season'); await resumed
+  assert.equal(s.results.value[0].title, 'verified-season'); assert.equal(s.progressiveSnapshot.value.requestId, current.requestId)
+  app.unmount(); assert.equal(h.fixture.subscriptions.size, 0)
+})
+
+test('actual compiled Chinese resume advances one cached discovery batch and clears a failed continuation on a repeated-revision response', async () => {
+  const h = await mountedCommunity(), app = await h.mount(), s = h.fixture.state.current
+  await h.resolveLast(); s.query.keyword = '季节'; s.onSearch()
+  const page = { items: [{ source: 'modrinth', projectId: 'known-season', slug: 'known-season', title: 'known-season' }], total: 3, offset: 0, limit: 20, discoveryHasMore: true }
+  h.requests.at(-1)!.resolve(page); await new Promise(resolve => setImmediate(resolve))
+  s.pauseDiscovery(); const resumed = s.continueDiscovery(), current = h.requests.at(-1)!
+  current.resolve(page); await resumed
+  assert.equal(h.fixture.continuations.length, 1, 'One resume click must advance the ready cached discovery once')
+  assert.equal(h.fixture.continuations[0].requestId, current.requestId); assert.equal(h.fixture.continuations[0].continuation.mode, 'discover')
+  h.fixture.failNextContinue = true; await s.continueDiscovery()
+  assert.equal(s.progressiveFailed.value, true); assert.match(s.loadError.value, /Continuation failed/)
+  h.fixture.sameNextContinue = true; s.onLoadMore(); await new Promise(resolve => setImmediate(resolve))
+  assert.equal(s.progressiveFailed.value, false); assert.equal(s.loadError.value, '', 'A duplicate current snapshot must not leave the cleared controller error in the view')
+  assert.equal(s.results.value[0].title, 'known-season'); app.unmount()
+})
+
+test('actual compiled Chinese Start rejection stops enrichment, preserves a visible retry path and recovers with a fresh request', async () => {
+  const h = await mountedCommunity(), app = await h.mount(), s = h.fixture.state.current
+  h.requests.at(-1)!.resolve({ items: [], total: 0, offset: 0, limit: 20 }); await new Promise(resolve => setImmediate(resolve))
+  s.query.keyword = '季节'; s.onSearch(); const failed = h.requests.at(-1)!
+  failed.reject!(new Error('Start channel failed')); await new Promise(resolve => setImmediate(resolve))
+  assert.equal(s.progressiveFailed.value, true); assert.equal(s.progressiveEnriching.value, false); assert.equal(s.loading.value, false)
+  assert.match(s.loadError.value, /Start channel failed/); assert.equal(s.progressiveSnapshot.value, undefined)
+  const retry = s.continueDiscovery(), fresh = h.requests.at(-1)!
+  assert(fresh.requestId && fresh.requestId !== failed.requestId)
+  fresh.resolve({ items: [], total: 0, offset: 0, limit: 20 }); await retry
+  assert.equal(s.progressiveFailed.value, false); assert.equal(s.progressiveEnriching.value, false); assert.equal(s.loadError.value, '')
+  app.unmount()
 })
 
 test('actual compiled resource download keeps the exact folder for same-named targets and leaves launcher and browse selection unchanged', async () => {

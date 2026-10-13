@@ -1,0 +1,73 @@
+name: macOS ARM64 1.1.23 community sessions
+on:
+  workflow_dispatch:
+    inputs:
+      resume_mac_arm64:
+        description: 'Build original ARM64 packages and verify changed community scope'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  native-community123:
+    if: inputs.resume_mac_arm64 == true
+    runs-on: macos-26
+    timeout-minutes: 55
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # official v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # official v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # official v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Record exact native source and runner
+        run: |
+          mkdir -p out/mac-community123-logs
+          node -e "const a=require('node:assert/strict'),f=require('node:fs'),p=require('./package.json');a.equal(process.platform,'darwin');a.equal(process.arch,'arm64');a.equal(p.version,'1.1.23');a.equal(p.devDependencies.electron,'44.3.0');f.writeFileSync('out/mac-community123-logs/source.json',JSON.stringify({version:p.version,commit:process.env.GITHUB_SHA,platform:process.platform,arch:process.arch,scope:'Changed community search only; not whole-platform/game/OAuth/motion acceptance'},null,2)+'\n')"
+          sw_vers > out/mac-community123-logs/system.txt
+      - name: Install frozen dependencies
+        run: |
+          set -o pipefail
+          npm ci 2>&1 | tee out/mac-community123-logs/npm-ci.log
+      - name: Full tests, type and license checks
+        timeout-minutes: 15
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee out/mac-community123-logs/npm-test.log
+          npx tsc --noEmit 2>&1 | tee out/mac-community123-logs/types.log
+          npm run license:check 2>&1 | tee out/mac-community123-logs/licenses.log
+      - name: Build current bridge and original production payload
+        run: |
+          set -o pipefail
+          node scripts/build-bridge.cjs 2>&1 | tee out/mac-community123-logs/bridge-build.log
+          npm run build 2>&1 | tee out/mac-community123-logs/build.log
+      - name: Package original signed APP, ZIP and DMG
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: |
+          set -o pipefail
+          node scripts/pack-mac.mjs arm64 --package-only 2>&1 | tee out/mac-community123-logs/package.log
+      - name: Verify original packages, community coordinates and actual service identities
+        timeout-minutes: 25
+        run: |
+          set -o pipefail
+          node scripts/verify-mac-community123.cjs 2>&1 | tee out/mac-community123-logs/native-check.log
+      - name: Preserve originals and exact bounded evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # official v4
+        with:
+          name: mac-community123-arm64-${{ github.run_id }}
+          path: |
+            release/KAMUCL-1.1.23-mac-arm64.dmg
+            release/KAMUCL-1.1.23-mac-arm64.zip
+            release/SHA256SUMS-mac-arm64.txt
+            release/mac-package-arm64.json
+            out/mac-community123-logs/
+            release/mac-community123-proof/
+          if-no-files-found: error

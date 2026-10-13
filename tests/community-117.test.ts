@@ -20,10 +20,10 @@ const searchPage = (entries: Array<[string, string]>, nextPage = '') => `<div cl
 const related = (...urls: string[]) => `<ul class="common-link-icon-frame common-link-icon-frame-style-3">${urls.map(url => `<li><a href="${url}">相关链接</a></li>`).join('')}</ul>`
 const html = (text: string) => new Response(text, { headers: { 'content-type': 'text/html; charset=utf-8' } })
 
-test('MC百科 exact Chinese titles beat similarly named add-ons; body, foot and off-site links cannot provide identities', () => {
+test('MC百科 exact Chinese titles precede independently identified related add-ons; body, foot and off-site links cannot provide identities', () => {
   const page = searchPage([['21', '深海研究：附加 (Ocean Addon)'], ['22', '[OR] <em>深海研究</em> (Ocean Research)']])
-  assert.deepEqual(parseMcmodSearch(page, '深海研究').map(item => [item.id, item.title]), [['22', '深海研究']])
-  assert.deepEqual(parseMcmodSearch(searchPage([['30', '起源 (Origins (Fabric))'], ['31', '起源：附属 (Addon)']]), '起源').map(item => item.id), ['30'])
+  assert.deepEqual(parseMcmodSearch(page, '深海研究').map(item => [item.id, item.title]), [['22', '深海研究'], ['21', '深海研究：附加']])
+  assert.deepEqual(parseMcmodSearch(searchPage([['30', '起源 (Origins (Fabric))'], ['31', '起源：附属 (Addon)']]), '起源').map(item => item.id), ['30', '31'])
   assert.throws(() => parseMcmodSearch('<html>验证访问者</html>', '深海研究'), /格式变化|受限/)
   assert.deepEqual(parseMcmodSearch('<div class="search-result-list"><div class="result-item"><div class="head"><a href="https://evil.invalid/class/22.html">深海研究</a></div></div></div>', '深海研究'), [])
 })
@@ -41,11 +41,11 @@ test('MC百科 second page may contain the exact main project; no first-hit or f
     const url = new URL(String(input)); requests.push(url.href)
     if (url.hostname === 'search.mcmod.cn') return html(url.searchParams.has('page')
       ? searchPage([['22', '深海研究 (Ocean Research)']]) : searchPage([['21', '深海研究：附加 (Ocean Addon)']], '<a data-page="2">2</a>'))
-    assert.equal(url.pathname, '/class/22.html')
-    return html(related('https://modrinth.com/mod/ocean-research'))
+    assert(['/class/22.html', '/class/21.html'].includes(url.pathname))
+    return html(related('https://modrinth.com/mod/' + (url.pathname === '/class/22.html' ? 'ocean-research' : 'ocean-addon')))
   })
-  assert.equal(requests.length, 3)
-  assert.deepEqual(result.entries.map(entry => [entry.id, entry.projects]), [['22', [{ source: 'modrinth', slug: 'ocean-research' }]]])
+  assert.equal(requests.length, 4)
+  assert.deepEqual(result.entries.map(entry => [entry.id, entry.projects]), [['22', [{ source: 'modrinth', slug: 'ocean-research' }]], ['21', [{ source: 'modrinth', slug: 'ocean-addon' }]]])
 })
 test('MC百科 caps entry reads and concurrency, ignores unrecognized pages and oversized streams honestly', async () => {
   let active = 0, peak = 0, entries = 0

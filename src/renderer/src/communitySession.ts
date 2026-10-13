@@ -1,4 +1,4 @@
-import type { CommunityQuery, CommunityResult } from '@shared/types'
+import type { CommunityQuery, CommunityResult, CommunitySearchSnapshot } from '@shared/types'
 import type { CommunityVersionSelection } from './communityVersionSelection'
 
 /** Route-local, memory-only history: leaving the page releases its DOM and dialogs. */
@@ -19,6 +19,9 @@ export interface CommunitySession {
   scrollTop: number
   topKeyword: string
   interrupted: boolean
+  /** Saved visible prefix and remaining discovery are retained while its sender
+   * subscription is cancelled. Returning explicitly resumes with a fresh ID. */
+  progressive?: { snapshot: CommunitySearchSnapshot; paused: boolean }
 }
 let last: CommunitySession | undefined
 export function saveCommunitySession(value: CommunitySession): void {

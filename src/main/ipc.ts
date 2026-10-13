@@ -7,6 +7,7 @@ import { registerSkinEditorIpc } from './core/skinEditorIpc'
 import { registerModFavoritesIpc } from './core/modFavorites'
 import { registerSupplementalModsIpc } from './core/supplementalMods'
 import { registerVersionCategoriesIpc } from './core/versionCategories'
+import { registerCommunitySearchIpc } from './core/communitySearchIpc'
 import { normalizeVersionCategoryState, renameCategoryAssignment } from '../shared/versionCategories'
 import { registerMemoryOrganizerIpc } from './core/memoryOrganizer'
 import { registerProjectionsIpc } from './core/projectionsIpc'
@@ -585,6 +586,7 @@ export function registerIpc(getWin: () => BrowserWindow | null): void {
 
   // ---------------- 社区资源（同步 await 返回，错误 reject 给前端） ----------------
   ipcMain.handle(IPC.communitySearch, (_e, q: CommunityQuery) => community.communitySearchPage(q))
+  registerCommunitySearchIpc(ipcMain, community)
   ipcMain.handle(IPC.communityProject, (_e, source: CommunitySource, projectId: string, kind: CommunityKind) => community.communityProject(source, projectId, kind))
   ipcMain.handle(
     IPC.communityFiles,

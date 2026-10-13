@@ -6,6 +6,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import {AsyncLocalStorage} from 'node:async_hooks'
 import type {
   CommunityFile,
@@ -22,7 +23,7 @@ import { downloadAll } from './download'
 import { readVersionJson } from './versions'
 import { instanceDirectoryState } from './instances'
 import { getSettings } from './settings'
-import { MOD_ZH, chineseModSearchTerms, hasExactChineseModName } from './community-zh'
+import { chineseModDisplayName, chineseModSearchTerms, hasExactChineseModName } from './community-zh'
 import { lookupMcmod } from './mcmodSearch'
 import { effectiveCommunityFilter, matchesCommunityFilter, usesCommunityLoader, MODRINTH_RESOURCE_LOADERS, type CommunityFileFilter } from '../../shared/communityPolicy'
 import { communityPageSlots } from './communityPaging'
@@ -30,6 +31,8 @@ import { logScope } from './launcherLog'
 import { downloadFileName } from './downloadFileName'
 import { defaultFolderPath, folderOfVersion, withGameFolder } from './paths'
 import { canonicalPath, samePath } from './folderPaths'
+import { runCommunityRequest, sharedCommunityRequest } from './communitySearchBudget'
+export { startCommunitySearch, continueCommunitySearch, cancelCommunitySearch } from './communitySearchSession'
 
 const communityLog = logScope('community')
 
@@ -46,9 +49,17 @@ export const withCommunitySignal=<T>(signal:AbortSignal|undefined,run:()=>Promis
 
 async function fetchJson(url: string, headers: Record<string, string> = {}): Promise<unknown> {
   const signal=requestSignal.getStore();signal?.throwIfAborted()
-  const res = await fetch(url, { signal: signal?AbortSignal.any([signal,AbortSignal.timeout(TIMEOUT)]):AbortSignal.timeout(TIMEOUT), headers: { ...UA, ...headers } })
-  if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`)
-  return res.json()
+  const deadline = signal?AbortSignal.any([signal,AbortSignal.timeout(TIMEOUT)]):AbortSignal.timeout(TIMEOUT)
+  const requestKey = createHash('sha256').update(JSON.stringify([url, Object.entries(headers).sort(([a], [b]) => a.localeCompare(b))])).digest('hex')
+  const read = async (owned: AbortSignal) => {
+    const res = await fetch(url, { signal: AbortSignal.any([owned, AbortSignal.timeout(TIMEOUT)]), headers: { ...UA, ...headers } })
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`)
+    return res.json()
+  }
+  // Explicit legacy refreshes retain their independent count revision. New
+  // cancellable searches/transactions deduplicate transport subscriptions.
+  return signal ? sharedCommunityRequest(requestKey, 'provider', deadline, read)
+    : runCommunityRequest('provider', deadline, () => read(deadline))
 }
 
 // ---------------- Modrinth ----------------
@@ -334,7 +345,7 @@ function mapCfFiles(files: CfFile[], projectId: string): CommunityFile[] {
 function withZhTitle(list: CommunityResult[]): CommunityResult[] {
   return list.map((r) => {
     const originalTitle = r.originalTitle ?? r.title
-    const zh = MOD_ZH[r.slug]
+    const zh = chineseModDisplayName(r.slug, r.source)
     if (zh && !r.title.startsWith(zh) && !(r.originalTitle && r.title !== r.originalTitle)) {
       return { ...r, originalTitle, title: `${zh} | ${r.title}` }
     }
@@ -348,11 +359,11 @@ const sourceCounts = new Map<string, SourceCount>()
 // response from an older request must neither restore a stale count nor erase
 // a newer successful refresh. Entries here exist only while reads are pending.
 const sourceCountReads = new Map<string, object>()
-const rawProviderSearch = (source: CommunitySource, q: CommunityQuery) => source === 'modrinth' ? mrSearch(q) : cfSearch(q)
+export const rawProviderSearch = (source: CommunitySource, q: CommunityQuery) => source === 'modrinth' ? mrSearch(q) : cfSearch(q)
 const aliasCatalogs = new Map<string, { time: number; items: CommunityResult[]; warnings: string[] }>()
 async function providerSearch(source: CommunitySource, q: CommunityQuery): Promise<CommunitySearchPage> {
   let builtin: CommunitySearchPage | undefined
-  const chinese = q.kind === 'mod' && /[一-鿿]/.test(q.keyword)
+  const chinese = q.kind === 'mod' && /\p{Script=Han}/u.test(q.keyword)
   if (chinese && hasExactChineseModName(q.keyword)) {
     builtin = await builtinProviderSearch(source, q)
     if (builtin.total) return builtin

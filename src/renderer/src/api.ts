@@ -12,6 +12,8 @@ import type {
   CommunityModProject,
   CommunityQuery,
   CommunitySearchPage,
+  CommunitySearchSnapshot,
+  CommunitySearchContinuation,
   CommunitySource,
   FabricApiVersion,
   FolderScanResult,
@@ -213,6 +215,14 @@ export const importWorld = (inputPath: string, options: WorldImportOptions) =>
 /** 搜索 Modrinth / CurseForge 社区资源 */
 export const communitySearch = (q: CommunityQuery) =>
   invoke<CommunitySearchPage>(IPC.communitySearch, q)
+export const communitySearchStart = (requestId: string, query: CommunityQuery) =>
+  invoke<CommunitySearchSnapshot>(IPC.communitySearchStart, requestId, query)
+export const communitySearchContinue = (requestId: string, continuation: CommunitySearchContinuation) =>
+  invoke<CommunitySearchSnapshot>(IPC.communitySearchContinue, requestId, continuation)
+export const communitySearchCancel = (requestId: string) =>
+  invoke<boolean>(IPC.communitySearchCancel, requestId)
+export const onCommunitySearchUpdate = (callback: (snapshot: CommunitySearchSnapshot) => void) =>
+  subscribe<CommunitySearchSnapshot>(IPC_EVENT.communitySearchUpdate, callback)
 /** Read verified MOD metadata independently of downloadable file versions. */
 export const communityProject = (source: CommunitySource, projectId: string) =>
   invoke<CommunityModProject>(IPC.communityProject, source, projectId, 'mod')

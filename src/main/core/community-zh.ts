@@ -4,6 +4,12 @@
  * 表可持续扩充；slug 以 Modrinth/CurseForge 通用小写连字符形式为准。
  */
 export const MOD_ZH: Record<string, string> = {
+  // Public encyclopedia titles and author-owned repository pages verified on
+  // 2026-10-14; each edition keeps its own repository identity.
+  'avaritia': '无尽贪婪',
+  'avaritia-1-10': '无尽贪婪 1.1x',
+  're-avaritia': '无尽贪婪：重生',
+  'avaritia-endless': '无尽贪婪·伪',
   // ---- 优化/性能 ----
   'sodium': '钠',
   'sodium-extra': '钠·扩展',
@@ -495,11 +501,53 @@ export function hasExactChineseModName(keyword: string): boolean {
 }
 /** Exact names win over substrings ("钠" must not become Sodium Extra). */
 export function chineseModSearchTerms(keyword: string): string[] {
-  if (!/[一-鿿]/.test(keyword)) return []
+  if (!/\p{Script=Han}/u.test(keyword)) return []
   const key = normalizeChineseModKeyword(keyword)
   if (!key) return []
   const entries = [...Object.entries(MOD_ZH_ALIASES), ...Object.entries(ZH_TO_SLUGS)]
   const exact = entries.filter(([name]) => normalizeChineseModKeyword(name) === key)
   const candidates = exact.length ? exact : entries.filter(([name]) => normalizeChineseModKeyword(name).includes(key)).sort((a, b) => a[0].length - b[0].length)
   return [...new Set(candidates.flatMap(([, slugs]) => slugs))].slice(0, 5)
+}
+
+export interface ChineseModSearchMatch { slug: string; name: string; rank: number; source?: 'modrinth' | 'curseforge' }
+const VERIFIED_MOD_SOURCES: Record<string, Array<'modrinth' | 'curseforge'>> = {
+  avaritia: ['curseforge'], 'avaritia-1-10': ['curseforge'],
+  're-avaritia': ['modrinth', 'curseforge'], 'avaritia-endless': ['curseforge']
+}
+export function chineseModDisplayName(slug: string, source: 'modrinth' | 'curseforge'): string | undefined {
+  return !VERIFIED_MOD_SOURCES[slug] || VERIFIED_MOD_SOURCES[slug].includes(source) ? MOD_ZH[slug] : undefined
+}
+/** Discovery retains related names. Exact identity is still checked against the
+ * provider response, and known source-specific editions never cross sources. */
+export function chineseModSearchMatches(keyword: string): ChineseModSearchMatch[] {
+  if (!/\p{Script=Han}/u.test(keyword)) return []
+  const key = normalizeChineseModKeyword(keyword)
+  if (!key) return []
+  const result: ChineseModSearchMatch[] = []
+  for (const [name, slugs] of [...Object.entries(MOD_ZH_ALIASES), ...Object.entries(ZH_TO_SLUGS)]) {
+    const normalized = normalizeChineseModKeyword(name)
+    if (!normalized.includes(key)) continue
+    const rank = normalized === key ? 0 : normalized.startsWith(key) ? 1 : 2
+    for (const slug of slugs) for (const source of VERIFIED_MOD_SOURCES[slug] ?? [undefined]) result.push({ slug, name, rank, ...(source ? { source } : {}) })
+  }
+  const unique = new Map<string, ChineseModSearchMatch>()
+  for (const match of result.sort((a, b) => a.rank - b.rank || a.name.length - b.name.length || a.slug.localeCompare(b.slug))) {
+    const identity = `${match.source ?? '*'}:${match.slug}`
+    if (!unique.has(identity)) unique.set(identity, match)
+  }
+  return [...unique.values()]
+}
+
+/** Author-owned Avaritia projects establish the English family spelling. This
+ * is discovery, never an inferred Chinese name or a replacement download ID.
+ * https://www.mcmod.cn/class/505.html
+ * https://www.curseforge.com/minecraft/mc-mods/avaritia (233785)
+ * https://www.curseforge.com/minecraft/mc-mods/avaritia-1-10 (261348)
+ * https://www.mcmod.cn/class/6439.html + https://modrinth.com/mod/re-avaritia
+ * https://www.mcmod.cn/class/6422.html
+ * https://www.curseforge.com/minecraft/mc-mods/avaritia-endless (624491) */
+export function chineseModFamilyTerms(keyword: string): string[] {
+  const key = normalizeChineseModKeyword(keyword)
+  return key.length >= 2 && normalizeChineseModKeyword('无尽贪婪').includes(key) ? ['avaritia'] : []
 }
