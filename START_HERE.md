@@ -2,15 +2,28 @@
 
 本版切换 KAMUCL 自有 Microsoft 应用，保留旧账号并要求重新授权，修复代理、取消及迟到事件，整改用户服务密钥保存和分发许可材料。首条内置更新日志及 Release 使用批准的公开致歉。仅交付 Windows x64 和 Mac ARM64，Electron 44.3.0 保持；资源占用优化仍撤回。
 
-## 使用成品
+- Project: KAMUCL
+- Deliverable: 1.1.22 Windows x64、Mac ARM64 成品及对应源码、交接材料。
+- Packaged artifact: release/ 下的 KAMUCL-1.1.22.exe、windows-x64.zip、windows-x64-unpacked.zip、mac-arm64.zip、mac-arm64.dmg、runtime-source.zip；最终源码与交接 ZIP 另经精确 Git 树包装，公开状态单独核对。
+- Intended receiver: KAMUCL 使用者、接手开发者及独立核验人员。
+- Operating system: Windows x64；Mac ARM64 最低 macOS 13，当前原生验证环境为 macOS 26；不新增 Intel Mac、Linux 或鸿蒙成品。
+- Runtime/tool versions: Electron 44.3.0、Node 24、npm；完整 JDK 17+，Windows 生产构建使用 JDK 21.0.12，Mac 原生构建使用 JDK 17。
+
+## Prerequisites（运行与构建前提）
+
+运行成品的系统、签名及真实验证范围见下文。开发需要 Node24、npm 和完整 JDK17+（javac 与 jar）；Windows 原生辅助程序需要 .NET C# 编译器，Mac 构建需要 Xcode 工具。原生平台成品与源码来源见 CURRENT_STATUS.md。
+
+## Use the deliverable（使用成品）
 
 先核对 SHA256SUMS.txt。Windows 运行 KAMUCL-1.1.22.exe，或解压 windows-x64.zip 后运行同名 EXE；展开 ZIP 的入口是 KAMUCL.exe。Mac 使用 ARM64 DMG 或 ZIP 的 KAMUCL.app，最低 macOS13。Mac 只有 ad-hoc 签名，无 Developer ID 或公证；Windows 无发行者签名。
 
 旧微软账号重新登录，浏览器授权页应显示 KAMUCL。不要把旧刷新令牌提交给其他应用。应用保留离线及外置 Yggdrasil 登录。正常玩家应使用自己的账户和游戏目录，不共享登录配置。
 
-## 开发与验证
+## Setup（开发环境与构建）
 
 安装 Node24、npm 和完整 JDK17+（javac 与 jar）；Windows 生产构建使用 JDK21.0.12，Mac 原生使用 JDK17。Windows 原生辅助程序需要 .NET C# 编译器，Mac 构建需要 Xcode 工具。源码 ZIP 在根目录运行 npm ci、node scripts/build-bridge.cjs、npm test、npx tsc --noEmit、npm run license:check、npm run build。原生平台打包命令与证据见 CURRENT_STATUS.md。
+
+## Verify（交接与便携验证）
 
 交接包将精确 Git 源码放在 source/，成品在 _handoff/artifacts/。在交接包顶层执行记录的便携验证命令：
 
@@ -18,7 +31,7 @@
 ["node", "source/scripts/check-licenses.cjs"]
 ```
 
-源码 ZIP 根目录对应命令是 node scripts/check-licenses.cjs。该命令核查锁文件、完整许可与供源材料，不能替代已记录的全套功能测试。交接创建及运输副本用原版 package-codex-project-handoff 进行完整成员、SHA 和上述命令复验。
+源码 ZIP 根目录对应命令是 node scripts/check-licenses.cjs。该命令核查许可、供源及来源记录材料，不能替代已记录的全套功能测试。交接创建及运输副本用原版 package-codex-project-handoff 进行完整成员、SHA 和上述命令复验。
 
 ## 证据范围
 
