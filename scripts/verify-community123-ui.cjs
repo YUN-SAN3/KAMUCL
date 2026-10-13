@@ -61,4 +61,4 @@ app.whenReady().then(async()=>{try{
   proof.matrix.push(row);proof.fixtureEvidence.push(fixture.inspect());await collectEvents();save()
  }
  proof.complete=true;proof.finishedAt=new Date().toISOString();save();validateUiProof(proof);console.log(JSON.stringify({root,images:proof.images.length,matrix:proof.matrix.length,complete:true}))
-}catch(error){proof.errors.push({name:error.name,message:error.message});proof.complete=false;save();console.error(error);process.exitCode=1}finally{if(win&&!win.isDestroyed())win.destroy();app.exit(process.exitCode||0)}})
+}catch(error){proof.errors.push({name:error.name,message:error.message});proof.complete=false;if(fixture)proof.failureFixture=fixture.inspect();if(win&&!win.isDestroyed())try{proof.failureDom=await state();await collectEvents();await shot('failure-final')}catch(observationError){proof.failureObservationError={name:observationError.name,message:observationError.message}}save();console.error(error);process.exitCode=1}finally{if(win&&!win.isDestroyed())win.destroy();app.exit(process.exitCode||0)}})

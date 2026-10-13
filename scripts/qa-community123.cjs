@@ -19,8 +19,8 @@ function createSearchFixture(sendUpdate,{replyDelayMs=80}={}) {
       const [id,query]=args;assert.equal(typeof id,'string');assert(query&&typeof query==='object');lastId=id
       record('start',{requestId:id,query});if(phase==='reject'){record('start-reject',{requestId:id,beforeSnapshot:true});throw Error('合成故障注入：Start 在任何 snapshot 前失败')}
       const s={id,query:copy(query),revision:2,confirmed:phase==='empty'?0:phase==='cached'?40:6,visible:query.limit||20,empty:phase==='empty',phase:['empty','cached'].includes(phase)?'ready':phase==='failed'?'failed':'enriching',cancelled:false};sessions.set(id,s)
-      emit(snapshot(s));const value=snapshot(s,{revision:1,count:0,phase:'initial'})
-      await new Promise(resolve=>setTimeout(resolve,replyDelayMs));record('start-return',{requestId:id,revision:1});return value
+      emit(snapshot(s));const value=phase==='cached'?snapshot(s,{revision:1,count:40,phase:'ready'}):snapshot(s,{revision:1,count:0,phase:'initial'})
+      await new Promise(resolve=>setTimeout(resolve,replyDelayMs));record('start-return',{requestId:id,revision:1,phase:value.phase,count:value.items.length});return value
     }
     if(channel==='community:searchCancel') {const s=sessions.get(args[0]);record('cancel',{requestId:args[0]});if(s)s.cancelled=true;return !!s}
     if(channel==='community:searchContinue') {

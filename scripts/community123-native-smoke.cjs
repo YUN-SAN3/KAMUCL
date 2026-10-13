@@ -72,13 +72,21 @@ async function main() {
       await inspector.evaluate(`document.querySelector(${JSON.stringify(selector)})?.scrollIntoView({block:'center'})`)
       await inspector.evaluate('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))')
       const point = await inspector.evaluate(observers.expression(observers.point, selector))
-      assert(!point.missing && !point.blocked && !point.disabled, 'Actual coordinate target is missing, blocked or disabled: ' + selector)
+      if (point.missing || point.blocked || point.disabled) {
+        receipt.coordinateFailure = { selector, point, at: new Date().toISOString() }; save()
+        await shot('coordinate-failure')
+        throw Error('Actual coordinate target is missing, blocked or disabled: ' + selector)
+      }
       for (const type of ['mouseMoved', 'mousePressed', 'mouseReleased']) await command('Input.dispatchMouseEvent', { type, x: point.x, y: point.y, ...(type === 'mouseMoved' ? {} : { button: 'left', clickCount: 1 }) })
       receipt.actions.push({ type: 'real-coordinate-click', selector, point, at: new Date().toISOString() }); save(); await wait(100)
     }
     await shot('original-startup')
     await click('[data-nav=community]'); await until(`!!document.querySelector('[data-search123=keyword]')`)
     await click('[data-ui="community:versions-all"]')
+    // Choosing the version filter may submit the original empty browse query.
+    // Wait for its actual disabled state to end before the next coordinate input;
+    // a fixed delay would mistake real startup work for a blocked control.
+    await until(`document.querySelector('[data-search123=submit]')?.disabled===false`, 45000)
     await click('[data-search123=keyword]'); await command('Input.insertText', { text: '无尽' })
     assert.equal(await inspector.evaluate(`document.querySelector('[data-search123=keyword]').value`), '无尽')
     await click('[data-search123=submit]')
