@@ -1,0 +1,161 @@
+{
+  "version": "1.1.22",
+  "rows": [
+    {
+      "file": "HISTORICAL_FAILURES.md",
+      "bytes": 2846,
+      "sha256": "ee6fd8c212aeb548fe897be391baa170b047ffba2c85cb60bd9adc534c0db923"
+    },
+    {
+      "file": "images/black-orange-960x620-125-device-code.png",
+      "bytes": 102829,
+      "sha256": "f464c683927ecda55c099606f4ab75ba7e2efe5fade4c882b17e8a081b91e1d3"
+    },
+    {
+      "file": "images/black-pink-960x620-125-migration.png",
+      "bytes": 58795,
+      "sha256": "f6b89ee4f548e0533d9a628d1c065a03cd8c655afbf20397535ea1f15aed11ca"
+    },
+    {
+      "file": "images/blue-white-1366x768-100-migration.png",
+      "bytes": 84143,
+      "sha256": "f1e594823736b0324b566b6536159baf9b6793058c149393495c4165f37aa7a7"
+    },
+    {
+      "file": "images/cf-key-black-orange-960x620-125-write-only.png",
+      "bytes": 77492,
+      "sha256": "2df43ed6e08d7c6e269549afa6b0ba353aed7c91d3ce579a97ff0fffb84e9cf0"
+    },
+    {
+      "file": "images/cf-key-black-pink-960x620-125-save-failure.png",
+      "bytes": 82068,
+      "sha256": "4cdd3b9553256c97ba4efc7f8955567a65bf5743bb944bd2f9cdaa0432bc4cde"
+    },
+    {
+      "file": "images/cf-key-blue-white-1366x768-100-save-failure.png",
+      "bytes": 91959,
+      "sha256": "65e8e918c0987f48353ab44053327f8fc4b669dabdf4522302c5ca7a9040ad6a"
+    },
+    {
+      "file": "images/cf-key-custom-1366x768-125-write-only.png",
+      "bytes": 107705,
+      "sha256": "49e22c0a6ddd2f8d383b9645aff021a0f128d647c2aa3e87cb505b2cba392f5d"
+    },
+    {
+      "file": "images/custom-1366x768-100-service-failure.png",
+      "bytes": 111266,
+      "sha256": "dd7fd5a2e64ef7ab74c1c5e94bc4b7a914006e1e13a43508145936580621cf3d"
+    },
+    {
+      "file": "images/frp-black-orange-960x620-125-locked.png",
+      "bytes": 91962,
+      "sha256": "0ccc708749aa91e8ac82c6c6975dec424759f9bcf96579aa164faada2b46fbf3"
+    },
+    {
+      "file": "images/frp-black-pink-960x620-125-clear-failure.png",
+      "bytes": 99092,
+      "sha256": "c73f30b6c16b9c8e04a318d3a394e9b713909d9dd46361fdee6cc13059d7ad40"
+    },
+    {
+      "file": "images/frp-blue-white-1366x768-100-configured.png",
+      "bytes": 101039,
+      "sha256": "27fde68a80047d03da2c6b3897a182f83aab66136a911112b1c59bc7889e6713"
+    },
+    {
+      "file": "images/frp-custom-1366x768-125-cleared-record-preserved.png",
+      "bytes": 125681,
+      "sha256": "700c483c28ed74e0222e03e2d31b48b9d6b44ae1a05b3da6489741aed6309665"
+    },
+    {
+      "file": "INDEPENDENT_BACKEND.json",
+      "bytes": 16979,
+      "sha256": "e3353adefdc4812786c71525182bcb19db8b1c9dd61edbe4ad221bd2d7d83b74"
+    },
+    {
+      "file": "INDEPENDENT_MAC.json",
+      "bytes": 202345,
+      "sha256": "7f9fdb9e687b6221f1637d99862c904938f0309fee69b228ac5828765f01b849"
+    },
+    {
+      "file": "INDEPENDENT_WINDOWS_UI.json",
+      "bytes": 5523,
+      "sha256": "5ccbc864fa4c2d2aaf36bbaccad4633e10af1b1036e62818ee2ced07537570b0"
+    },
+    {
+      "file": "MAC_NATIVE_ACCEPTANCE.json",
+      "bytes": 58272,
+      "sha256": "8e40491292a52cea8bddf96bf2139b1691aaedf42c7cab1eade56984d2e12ce2"
+    },
+    {
+      "file": "MAC_PACKAGE_LICENSES.json",
+      "bytes": 69712,
+      "sha256": "cccbe7afed9bbfd6f47cc5720f77b45fb30a7dd334fade91cd2e75d575bb6a5b"
+    },
+    {
+      "file": "MAC_PACKAGE_PRIVACY.json",
+      "bytes": 15947,
+      "sha256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727"
+    },
+    {
+      "file": "MAC_SAFE_STORAGE_READ.json",
+      "bytes": 204,
+      "sha256": "2d50183b17590d110f4a4558d0513c79e9851e3db82d425cdb2185b951495073"
+    },
+    {
+      "file": "MAC_SAFE_STORAGE_WRITE.json",
+      "bytes": 231,
+      "sha256": "54e4dd20d2c111066281147d9515b1a16fc00bcf9178fd3635a5a5544c81e217"
+    },
+    {
+      "file": "MAC_TESTS.log",
+      "bytes": 200596,
+      "sha256": "e11c7b0924c2654a13eb0a5435422288cbc14932c8c8c03388e2e3f4368525d5"
+    },
+    {
+      "file": "PRODUCTION_SOURCE_BINDING.json",
+      "bytes": 1145,
+      "sha256": "48a339aa1b19cb23b354bc3d5f74fa157a88fc128a68dcbc18ed8613d3f0f054"
+    },
+    {
+      "file": "WINDOWS_BUILD.log",
+      "bytes": 20424,
+      "sha256": "bba3a64999af9a816cb2e6be7cfbf9b77d1834085404c288bede121e55fa0542"
+    },
+    {
+      "file": "WINDOWS_DPAPI.json",
+      "bytes": 5903,
+      "sha256": "0d20371cbfb5c438c9d5a183aae810370ba08bf0f9685d0a9abbedbb048cd8fe"
+    },
+    {
+      "file": "WINDOWS_NATIVE_STARTUP.json",
+      "bytes": 1634,
+      "sha256": "1dea9c8c2b4637aeca964f5e7c11e786d917387b784b2f9b70d3c78ace7f2f60"
+    },
+    {
+      "file": "WINDOWS_PACKAGE.log",
+      "bytes": 1585,
+      "sha256": "032142e8ee0634979cc6fe6064febae65a564812e08929a71fd5417d16d78064"
+    },
+    {
+      "file": "WINDOWS_PACKAGE_LICENSES.json",
+      "bytes": 12665,
+      "sha256": "aafab26d213c56742a8485633a91b79ccdddf02cd04bb32ed3737b19cc24c6a7"
+    },
+    {
+      "file": "WINDOWS_PACKAGE_PRIVACY.json",
+      "bytes": 23542,
+      "sha256": "4d24d0f00b776db541977144b989e02bed14c001a122090a4b65d419764da53b"
+    },
+    {
+      "file": "WINDOWS_PACKAGED_UI.json",
+      "bytes": 59366,
+      "sha256": "8d4ab85f12e55346f7c8a5225d67d733e39d5b2cbf85038412843480a728866e"
+    },
+    {
+      "file": "WINDOWS_TESTS.log",
+      "bytes": 214965,
+      "sha256": "c7655835383d0158628d5429e5b3ebfab461a879c881f6a1a9387e4152aa7086"
+    }
+  ],
+  "classification": "Original controlled receipts/logs and selected untouched synthetic-state screenshots; no real authorization credentials or player profiles. Native checks, fixtures, real services and limitations remain separate."
+}

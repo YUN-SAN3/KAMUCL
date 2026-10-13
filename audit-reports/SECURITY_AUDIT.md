@@ -75,6 +75,18 @@ SEC-02 的初期引入及移位定位：`9db56e1f94cae10f7d34c5fe58189032d18e5a8
 
 新的 `.github/workflows/mac-auth122.yml` 只为本批变化创建原生 ARM64 成品和专项证据：完整 npm test/类型/许可/构建，原 ZIP 解压和只读挂载 DMG 的架构、来源、严格 ad-hoc 签名、ASAR及原始 runtime notices核验；两个原 APP 实际启动；从这两个成品 ASAR 提取原 renderer，使用同版本原生 Electron 执行隔离 IPC 的坐标验收；实际系统 safeStorage 在两个独立进程间加解密随机合成值。合同要求 Accounts、CF、FRP 各 16 个不重复的主题×视口×缩放组合及每项失败恢复标志，缺少任何必测矩阵直接失败。证据仅上传原包、日志、受控 receipt和截图，不上传 profile、账号、设备码、密文或 renderer临时目录；失败原样保留，没有 `continue-on-error`。流程实现及离线合同通过不等于任务已经在 Mac 实际执行；原 Mac 整个平台失败及未覆盖项目仍保留，专项成功也不能替代真实 Microsoft 登录、游戏、联机、动作或 Gatekeeper 公证验收。
 
+首个 Mac 专项 job `38437160585` 已实际执行，源码 `eacc…` 的生产 main 编译后，在 `closeBundle` 因当前桥接 JAR 尚未预编译而失败，**没有产生新 Mac 成品**；原日志保留在 `out/mac-auth122-run38437160585-failed.log`。流程已补充在第一次 `npm run build` 前明确编译本次 bridge，合同校验顺序，不借用旧 JAR 或绕过缺失断言。同期 Windows 启动 smoke 曾在目标 URL 可见但执行上下文尚未就绪时收到 `Runtime.evaluate` 失败；Mac QA 已改为复用现有实际 frame/default context 观察器，绑定原 contextId，等待实际 DOM readiness，失效时拒绝重发已提交 IPC，保留原协议错误 code/受控分类。既有观察器八项（含当前宿主的真实 Electron 私有 context 和导航失效测试）通过，新 Mac smoke 仍须在更新后的原生 job 实际验证；不能把 Windows 观察器验证冒称 Mac 通过。
+
 真实新 Microsoft 应用的首次 device-code 请求返回 401/`invalid_client`，随后同一产品 scope 已取得 200/设备码，用户也确认官方授权页显示 KAMUCL；一次真实授权随后在 token 轮询出现 `NETWORK_ERROR`。这些是独立时点，不能抹去旧失败，也不能替代 Xbox/Minecraft 全链、拥有权、续期或游戏登录，后续最新绑定结果以 Client ID/最终报告为准。审计没有使用发现的第三方凭据去检查其他人的账户，没有轮换、撤销或改写历史。若以后发现真实秘密，应先完成受授权的轮换与公开历史处理方案；当前候选结果不能当作已经需要撤销其他人的应用。
 
-发布前仍须绑定最终提交、全量测试及两平台实际新产物，再复核账户/FRP/CF 密文、界面边界、活动 ID、依赖补丁和许可附件。其他版权/许可待核实项以对应报告为准；本报告不能给出“整个项目已全面合规/可商业销售”的结论。
+## 1.1.22 原生成品的最终静态扫描
+
+新增成品证据单独保存，不覆盖原 1.1.21 成品或历史覆盖。`out/security122-final-windows-artifacts.json` 绑定三件 Windows 实际文件：EXE 99,124,081 字节／SHA256 `9ae86b2944c3f88ac0e59178398192b161503f9ba7700a34ed9bff0af7687ec7`；compact ZIP 100,972,803 字节／`4b7e80621f51490131aacd5b53acf0a6c0f6c6edf55887be3dbe559c7caed8d8`；unpacked ZIP 144,860,079 字节／`bfbc9bcb34ab80813d05b8fdea63f6eade0d8f0a2432267119ed59eaf827b0a9`。
+
+EXE 没有执行：使用已绑定工具 hash 的 7-Zip 静态解出三个 NSIS 插件和实际 `app-64.7z`，全部 28 个 payload regular files／330,819,806 字节扫描并逐项 SHA256 比对，与 unpacked ZIP 完全一致。实际 Windows ASAR SHA256 `5da49ae0…`，399 个 packed files／20,960,175 字节完整扫描；两 JAR 共 22 个内部文件／59,033 字节全部解码。EXE、compact ZIP、unpacked ZIP 分别为 4／0／6 个候选，均为已核查的 UI 文本、Chromium 公开例子及仍待核实的内置 CF 应用 key，没有新未知候选或已确认私密凭据泄漏；没有实际 accounts/settings/profile/.env/密钥库文件路径。Windows 既有 DXC 精简和相同 Electron DLL 不计成本轮资源优化。
+
+Mac 成功 job `38438892183` 的原 ZIP 129,893,677 字节／SHA256 `7d30bd37527df961e71415af7c648b6c30aef9b9265df7ac3a5fdf6b43cb7f5a`，DMG 141,299,910 字节／`f240034586197a70018d281d3e3b57376dafb1e69239faae1552a661fb1d0f15`。`out/security122-final-mac-artifacts.json` 全量读取 ZIP regular entries，实际 ASAR SHA256 `de91b0de…` 的 461 个 packed files／21,877,996 字节及两 JAR 22 文件／58,805 字节全部解码扫描；六个候选同为受控已知分类，没有新未知候选或实际账户/设置文件路径。Windows 只扫描 DMG 完整压缩原始字节（零候选），**没有伪造挂载或文件系统解码**；另绑定实际 native ZIP/只读 DMG 证据、源码 `48f2161292850fcf5c6ecdcc41a2517b766796e9`、严格签名/架构/44.3 runtime/notices、两个原 APP 的空账户及自有身份启动观察、两个三组 16 项矩阵和两个 Keychain 合成往返 receipt，共八份 receipt SHA。原始失败 job 仍保留，成功的本批专项不替代旧 Mac 整个平台、游戏、动作、真实 Microsoft 登录或公证验收。
+
+`out/security122-final-source-delta.json` 另保存 HEAD `48f21612…` 时的源码/所有本地 refs 补读：11,597 文件／656,766,232 字节，813 提交／14,390 唯一 blob／720,542,980 字节完整读取；无未知新候选，不覆盖旧基线。这是逐文件读取时点，不等于今后提交、最终源码 ZIP 或交接包自动获得同一结论。后续 public source／handoff／runtime-source 附件继续按实际新文件独立扫描并绑定全字节 hash。实际 Windows DPAPI 证据由父任务另保存：两进程运行在原 unpacked Electron runtime 并验证产品 SettingsCredentials helper，明确不是 packaged launcher 的完整凭据验证，不能将组件能力测试冒称整个账户系统通过。
+
+发布前仍须绑定最终提交、完整源码及交接包、公开下载回读和全部附件，再核对真实授权未覆盖项和许可待核实项。其他版权/许可待核实项以对应报告为准；本报告不能给出“整个项目已全面合规/可商业销售”的结论。

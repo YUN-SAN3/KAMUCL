@@ -68,6 +68,10 @@ UI 交叉审查随后发现旧完成事件可能在“取消 → 重新开始”
 
 新增 `tests/settings-credentials122.test.ts` **17 项通过**，使用真实设置/主题/外观草稿/资源设置路径、独立临时文件及合成密钥服务。覆盖 write-only 和所有返回路径、迁移、跨平台锁定、原密文保留、相关外观写盘、失败回滚、输入校验和注入、明确清空及加密重置备份。最初联合身份和既有目录/下载目录回归 **55/55 通过**；追加代理修复的六项后，最终此组 **61/61 通过**。一次新增响应路线测试错误读取已在 apply 后按产品语义删除的草稿，17 项中 16 通过、1 测试失败；已改为先检查保存草稿，再执行 apply 并断言删除，未修改产品行为。合成密钥服务不是 Windows DPAPI 或 macOS Keychain 原生验收，不能用此测试声明两平台系统密钥服务或真实 CurseForge 认证已通过。
 
+香港时间 2026-10-14 **01:25**，`scripts/windows-native-storage122.cjs` 另行完成 Windows 原生加密验收：使用同一固定 **Electron 44.3.0 原始未打包运行时**和其原始 DLL，无模拟 `safeStorage`；两个独立进程在新建 APPDATA、LOCALAPPDATA、明确 `--user-data-dir` 及专属 profile 中执行真实 `SettingsCredentials` helper。系统安全存储可用，即时加密/解密及第二进程重启后读取同一加密快照均通过，密文 SHA256 一致，读取未改写文件，公共字段没有明文或密文。两个进程均自然 exit 0，合成私有 profile 已删除；未读取或修改任何既有玩家账户或配置。公开证据为 `out/windows122-native-storage-receipt.json`，SHA256 **`0d20371cbfb5c438c9d5a183aae810370ba08bf0f9685d0a9abbedbb048cd8fe`**，原阶段 receipt 和子进程原始输出保留在 `out/windows122-native-storage-EE2fz4/`，其中只有状态、密文摘要和公开运行时信息。
+
+此项准确分类为原始运行时的 Windows DPAPI 与产品凭据 vault 原生验证，**不是打包 KAMUCL EXE 的 DPAPI 验收**，也不是实际微软/CurseForge 服务调用或 macOS Keychain 验收。此前向打包 EXE 传入外部验证脚本被其 main 忽略、超时且没有生成预期 receipt 的尝试仍失败，不能被本项替换成通过。原始运行时和 DLL 摘要、实际脚本及 helper 源哈希列于 receipt，以便与成品运行时分别核对。
+
 ## 验证范围与历史失败
 
 最初 `tests/microsoft-identity122.test.ts` 28 项通过（后续真实代理修复新增六项达到上节的 34 项）：实际产品函数、独立临时文件和受控 HTTP/安全存储响应；覆盖 ID 强制、旧账号零请求、冻结、替换/取消晚回包、完整链及绑定、同 UUID、刷新去重、账号移除、应用拒绝、OAuth pending/slow_down、错误不泄漏、部分文件写入/rename/加密失败、密钥锁定及坏原文件。轮询等待仅在测试调度器中加速，不修改产品代码或时间戳，不用于性能评分。
@@ -76,4 +80,4 @@ UI 交叉审查随后发现旧完成事件可能在“取消 → 重新开始”
 
 联合现有 TLS、Linux 安全存储、1.0.4 回归：45 项，44 通过、0 失败、1 项 Linux 原生更新测试在 Windows 跳过。`npx tsc --noEmit` 通过。
 
-第一次新增本机代理测试结果为 45 项：42 通过、2 失败、1 跳过。测试服务器保持 CONNECT 半开连接，已收到客户端关闭却未关闭自身一半，错误等待服务器 `close`。已改为显式观察客户端 `end`/FIN 后关闭测试服务器自己的连接，保留并增强实际取消断言；产品取消实现没有为该失败放宽。真实 Microsoft/Xbox/Minecraft 全链、授权界面名称、正版游戏启动、Windows/Mac 系统密钥服务原生交互仍待单列验收。
+第一次新增本机代理测试结果为 45 项：42 通过、2 失败、1 跳过。测试服务器保持 CONNECT 半开连接，已收到客户端关闭却未关闭自身一半，错误等待服务器 `close`。已改为显式观察客户端 `end`/FIN 后关闭测试服务器自己的连接，保留并增强实际取消断言；产品取消实现没有为该失败放宽。授权页名称的用户确认、Windows 原始运行时 DPAPI 的独立验证已在前文单列；真实 Microsoft/Xbox/Minecraft 全链、正版游戏启动、打包成品的系统凭据链及 Mac Keychain 原生交互仍待单列验收。

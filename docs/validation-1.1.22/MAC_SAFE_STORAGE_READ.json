@@ -1,0 +1,10 @@
+{
+  "phase": "read",
+  "platform": "darwin",
+  "arch": "arm64",
+  "electron": "44.3.0",
+  "fixtureOnly": true,
+  "complete": true,
+  "observedAt": "2026-10-13T17:36:10.468Z",
+  "restartRoundtrip": true
+}

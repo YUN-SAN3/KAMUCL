@@ -1,0 +1,1706 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "compliance_scope_audit",
+  "observedAt": "2026-10-13T17:48:47.639Z",
+  "classification": "Read-only independent original Mac package material and renderer-byte proof binding, not rating own license code.",
+  "assets": [
+    {
+      "name": "KAMUCL-1.1.22-mac-arm64.zip",
+      "bytes": 129893677,
+      "sha256": "7d30bd37527df961e71415af7c648b6c30aef9b9265df7ac3a5fdf6b43cb7f5a",
+      "verifiedOriginalBytes": true
+    },
+    {
+      "name": "KAMUCL-1.1.22-mac-arm64.dmg",
+      "bytes": 141299910,
+      "sha256": "f240034586197a70018d281d3e3b57376dafb1e69239faae1552a661fb1d0f15",
+      "verifiedOriginalBytes": true
+    }
+  ],
+  "sourceCommit": "48f2161292850fcf5c6ecdcc41a2517b766796e9",
+  "actualASAR": {
+    "bytes": 21999776,
+    "sha256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+    "entryCount": 526,
+    "packages": [
+      {
+        "file": "node_modules/@iarna/toml/package.json",
+        "name": "@iarna/toml",
+        "version": "2.2.5",
+        "license": "ISC"
+      },
+      {
+        "file": "node_modules/@koromix/koffi-darwin-arm64/package.json",
+        "name": "@koromix/koffi-darwin-arm64",
+        "version": "3.2.1",
+        "license": "MIT"
+      },
+      {
+        "file": "node_modules/adm-zip/package.json",
+        "name": "adm-zip",
+        "version": "0.6.1",
+        "license": "MIT"
+      },
+      {
+        "file": "node_modules/koffi/package.json",
+        "name": "koffi",
+        "version": "3.2.1",
+        "license": "MIT"
+      },
+      {
+        "file": "node_modules/undici/package.json",
+        "name": "undici",
+        "version": "6.28.1",
+        "license": "MIT"
+      },
+      {
+        "file": "node_modules/ws/package.json",
+        "name": "ws",
+        "version": "8.22.0",
+        "license": "MIT"
+      }
+    ]
+  },
+  "runtimeNotices": [
+    {
+      "file": "KAMUCL.app/Contents/Resources/LICENSES.chromium.html",
+      "bytes": 20111209,
+      "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535"
+    },
+    {
+      "file": "KAMUCL.app/Contents/Resources/LICENSE.electron.txt",
+      "bytes": 1096,
+      "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+    }
+  ],
+  "materials": [
+    {
+      "file": "LICENSE",
+      "bytes": 1294,
+      "sha256": "f923c2cdb93960e41cdd23c35eaec2d21e70f9a81086296028a2c3f4e578e1e2",
+      "binary": false,
+      "exactBytes": false,
+      "sameNormalized": true
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.md",
+      "bytes": 12023,
+      "sha256": "d4e988499a433e311a7dea93d9e7f049642754c6123331ca74bffd09c8b24660",
+      "binary": false,
+      "exactBytes": false,
+      "sameNormalized": true
+    },
+    {
+      "file": "docs/CORRESPONDING_SOURCE.md",
+      "bytes": 2906,
+      "sha256": "11d84ebec925b580d56f564ebe8ac2631eef49040dcaf39d7df3fd36a1359e3d",
+      "binary": false,
+      "exactBytes": false,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/7zip-19.00-COPYING.txt",
+      "bytes": 26530,
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+      "binary": false,
+      "exactBytes": false,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/7zip-19.00.txt",
+      "bytes": 4103,
+      "sha256": "ce1b78c504c4f3d51cc93bc4a8c7f487425361ee0b7df60949f443f9d092be0e",
+      "binary": false,
+      "exactBytes": false,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/FFmpeg-COPYING.LGPLv2.1",
+      "bytes": 26517,
+      "sha256": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/FFmpeg-COPYING.LGPLv3",
+      "bytes": 7651,
+      "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/FFmpeg-LICENSE.txt",
+      "bytes": 4346,
+      "sha256": "2e1d16c72fd74e12063776371da757322f8b77589386532f4fd8634bde7de1af",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/GPL-3.0.txt",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/LGPL-2.1.txt",
+      "bytes": 26530,
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/LGPL-3.0.txt",
+      "bytes": 7633,
+      "sha256": "6557adc4bc1d59232e27567a185dd70cf2ecca3154018b0be61ea29cf9e814e2",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/NSIS-3.0.4.1-COPYING.txt",
+      "bytes": 15488,
+      "sha256": "3c8de989f6504d52f5f8dfafedb6668cd47201f5d01f1319570727c091425dd6",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/Nsis7z-SDK-License.txt",
+      "bytes": 466,
+      "sha256": "e3702485b31cfa0d43f597ccc4550ffb171e9793b0d98b2179d68096b75de64f",
+      "binary": false,
+      "exactBytes": false,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/StdUtils-LGPL-CLARIFICATION.txt",
+      "bytes": 2703,
+      "sha256": "49287ffa37d51910a8cb595d7ab64ebd2d42525384b16d4322783a0e57a77194",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/StdUtils-README.txt",
+      "bytes": 1350,
+      "sha256": "7d1b40bfdf3d6ef857b361929f8bfa3de38f53968ab1c084fac50ce0086e23f1",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/adm-zip.txt",
+      "bytes": 1106,
+      "sha256": "6bb5b2d4c07d793ca928daa63a8899c6914fafb5ac3aa04ec10cae07f3d57dca",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/authlib-injector-AGPL-exception.txt",
+      "bytes": 35009,
+      "sha256": "3ae6da2502108d2bf777508663a6c4ca55fb937137507bebb642e4506c0ccd0b",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/iarna-toml.txt",
+      "bytes": 751,
+      "sha256": "22754885597e9864dbb792209ce75e58d691cba24c55beaa45023b218515e33e",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/koffi.txt",
+      "bytes": 1117,
+      "sha256": "22bcbbbacd739b026a8dc484f62a31484ce4c4e31f3408b60b29b4e41d62b290",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/minecraft-data.txt",
+      "bytes": 1338,
+      "sha256": "81ca556083602e2074b4a0ed450f7c0a1e64d373cf98691147e8e9ef5d2d32d0",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/node-addon-api.txt",
+      "bytes": 1150,
+      "sha256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/node-api-headers.txt",
+      "bytes": 1064,
+      "sha256": "a553508f516031c91f3af1148d44970cb81bbae6c4f091be6835d39cc252238c",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/skinview-utils.txt",
+      "bytes": 1140,
+      "sha256": "7eb7128de2e4de70932ce370c2c602136b4d7648fce9fc4a50c93fc59be94d94",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/skinview3d.txt",
+      "bytes": 1140,
+      "sha256": "7eb7128de2e4de70932ce370c2c602136b4d7648fce9fc4a50c93fc59be94d94",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/source/7zip-19.00-source.7z",
+      "bytes": 1071569,
+      "sha256": "9ba70a5e8485cf9061b30a2a84fe741de5aeb8dd271aab8889da0e9b3bf1868e",
+      "binary": true,
+      "exactBytes": true,
+      "sameNormalized": null
+    },
+    {
+      "file": "licenses/source/Nsis7z_19.00.7z",
+      "bytes": 461078,
+      "sha256": "6f2f3730049926f40442ee0c8b7d3e3dee7ace544d82467ff8059ea3f4201c58",
+      "binary": true,
+      "exactBytes": true,
+      "sameNormalized": null
+    },
+    {
+      "file": "licenses/source/README.md",
+      "bytes": 2225,
+      "sha256": "e4f43c41edb6ee00efd9904f9b9c3859d6f1da2b3982d600ed01a1cc389e82dc",
+      "binary": true,
+      "exactBytes": true,
+      "sameNormalized": null
+    },
+    {
+      "file": "licenses/source/stdutils-1.14.tar.gz",
+      "bytes": 222751,
+      "sha256": "3687ab4e09005a8a0b93c1a07a36285d93466070e94b8bf6f12781fb53c419e1",
+      "binary": true,
+      "exactBytes": true,
+      "sameNormalized": null
+    },
+    {
+      "file": "licenses/three.txt",
+      "bytes": 1081,
+      "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/undici.txt",
+      "bytes": 1090,
+      "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/vue-reactivity.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/vue-runtime-core.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/vue-runtime-dom.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/vue-shared.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/vue.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    },
+    {
+      "file": "licenses/ws.txt",
+      "bytes": 1183,
+      "sha256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef",
+      "binary": false,
+      "exactBytes": true,
+      "sameNormalized": true
+    }
+  ],
+  "rendererProofBoundToActualASAR": {
+    "zipFiles": 147,
+    "dmgFiles": 147,
+    "winFiles": 147,
+    "allHashesVerified": true,
+    "normalization": "Chunk reference names; Vue scope attributes and animation suffixes using exactly the same emitted scope IDs; CRLF and escaped carriage return before LF in license template literals. No colours, layout measurements, timing, function statements or user-visible words rewritten.",
+    "compare": [
+      {
+        "macFile": "assets/AccountsView-Cc0Twfso.js",
+        "winFile": "assets/AccountsView-B3bQ6mcI.js",
+        "macSHA256": "964d1b826daa1f8f64346197298cca7ac85541ab5dcdb3cdc36bfd54e66d8ae0",
+        "winSHA256": "c81c329a973919e6ba17ffc167f37ca50367bd3f7f1df9348c27735795d1b870",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/AccountsView-jW9PmeuP.css",
+        "winFile": "assets/AccountsView-DvQbZNgP.css",
+        "macSHA256": "d2eddb60be2c3824dba4d0d57a5607362ca796e32f7a8d88556b7923831bb5f9",
+        "winSHA256": "8e8a8420b923234a5d2e0c4329b342e9f7484322a6ea704ec470b9707db0b598",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/BridgeView-BT5l8TAd.css",
+        "winFile": "assets/BridgeView-Dg9xuueV.css",
+        "macSHA256": "e14cc91bd58750b3bfb671eb91ad44698078190e8ba713ab9b8d23c60c1b043d",
+        "winSHA256": "fc2fa7edd58214619a09d7e8604d5d692aa0476d9a2e169a68ea25942671f13a",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/BridgeView-DGmh5OBB.js",
+        "winFile": "assets/BridgeView-B6C1Vzii.js",
+        "macSHA256": "9511fe94ee5a26e6bf17a7615d0cf30c16239f3a52e3f40c88118016af2b0d51",
+        "winSHA256": "4d4d7ce943be04de3dbf2b02378576a22178db502fd7a31abe40430f37cb5d28",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/CommunityView--o4ztq8B.css",
+        "winFile": "assets/CommunityView-JCdkQNAM.css",
+        "macSHA256": "0c58bf2b4ecb1fba310823551772e01dc9bb190dc0e325c8a943b8e47859ed4c",
+        "winSHA256": "0c4b8a9fe325ff3f737058754a1bab916a02cfc4eb074af83a9141af25a620fc",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/CommunityView-CkGG-wpq.js",
+        "winFile": "assets/CommunityView-DrrS5G5H.js",
+        "macSHA256": "ee280d7b310114b0dc754bb6677fe3c7711dd3daab22a4e306fc87a07629dbb0",
+        "winSHA256": "c5de8b56528408302e5fc30d003813085896323c248a8db45fe780a02b1a4ec4",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ConnectionPanel.vue_vue_type_script_setup_true_lang-BqcCjCuG.js",
+        "winFile": "assets/ConnectionPanel.vue_vue_type_script_setup_true_lang-C94a8jzV.js",
+        "macSHA256": "589e587d1c05b1236574cc391f8ec023b291c2b421a28cafa62b1303790eb854",
+        "winSHA256": "7f286fa8ac3bc28ce58a7184248cd63e9d7b01faedbadfdec5ac83ccca57d8af",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ContentSkeleton-CDIFGqiF.js",
+        "winFile": "assets/ContentSkeleton-BBjI24ME.js",
+        "macSHA256": "62d7bd3e90b573cbdb479ea7a4315a0ff7d8581be403307688a9603ded562013",
+        "winSHA256": "e1d1d3a0e8d2254786c75371183120f6ba779054ee60ae71d4830aa244955365",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ContentSkeleton-EajBTAHq.css",
+        "winFile": "assets/ContentSkeleton-EajBTAHq.css",
+        "macSHA256": "1cafa67154caf8d3ab0955e77160d969c7f2cf2c944279bab42ac4c66497158c",
+        "winSHA256": "1cafa67154caf8d3ab0955e77160d969c7f2cf2c944279bab42ac4c66497158c",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/FileManager-D9muo6g6.js",
+        "winFile": "assets/FileManager-Dn_hQHeH.js",
+        "macSHA256": "7b6d8c2e53b04ed4b9ce42c029077a9904d2bbbf7b03933bd76d1f6e3a66b067",
+        "winSHA256": "dd306842ea9a47cb236d96f7d7eead201d07267a3e06416885b8e6a269b7dccd",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/FileManager-my-4LZ5D.css",
+        "winFile": "assets/FileManager-BW0aEH0D.css",
+        "macSHA256": "148148190777fdc7f8cd2e1bb5ba92ae29b491ce5171917c62c283bfce01c74b",
+        "winSHA256": "a9709a659d73f5dde3326f6e0d46f2ce4b2ff02b011db84d91e1daf8eb91b95c",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/FriendConnectView-B-5W-4sr.css",
+        "winFile": "assets/FriendConnectView-Ca3kNSA5.css",
+        "macSHA256": "17d13b36f388c8a0244e4c1a945846c2c636058bd1d7bc726a188d875feb7a7c",
+        "winSHA256": "6f81cc9b96bec7f10c8d6afbc346c0d4c98813585ba4764a07e54b12d85e1ab5",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/FriendConnectView-QQhLGf9A.js",
+        "winFile": "assets/FriendConnectView-b3ljbgGI.js",
+        "macSHA256": "81b00590e995714f3a545b286a514a0e375ff135b097ea477d3b95de7d9a7dca",
+        "winSHA256": "3a8696eee0c04d0b1abdfae7191fe4636d3aa7ff1b09f5eb2bed55a83ca1e2a8",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/FrpPanel-BMmTNtsQ.js",
+        "winFile": "assets/FrpPanel-DAS5zim-.js",
+        "macSHA256": "7022acc970bf783fba1051609355b3b7f9d19522dd0cb3fb49d6e6121df8f4b8",
+        "winSHA256": "bc7532705b93efd6452da4f4058dadd528b87134d1bd9226866b215c510f1379",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/FrpPanel-CfoZ94UC.css",
+        "winFile": "assets/FrpPanel-3KAV-AbJ.css",
+        "macSHA256": "afea34d4e9ba731026b5dde4b30cd4005e56fbf67f1e68a7893daf41ab2fb260",
+        "winSHA256": "1a50f0c87cf038c204f84080008aa7f88e34ba743ba4f02dd2a950c9e83ee24a",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/GameView-BEUCV4uY.js",
+        "winFile": "assets/GameView-C7S8FyQ6.js",
+        "macSHA256": "7b0fda4b44bf34bebe11a5274b7e479d6b6b621c83981c40f8ccfea9e79f14dd",
+        "winSHA256": "aa982f781cae8a2d9008852802ac0e297fd600e24932a8775c00c4bc1fee765c",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/GameView-EWZJiMFZ.css",
+        "winFile": "assets/GameView-D8YCrSyA.css",
+        "macSHA256": "39e496d25d16502b15ef339e45c55152ab97d274cd6d0f35073605ec2fcd67a9",
+        "winSHA256": "8f91d0dbb2b471314b14800378e158684b1fff492dfb74d71b3dea1d30f9c2dc",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/InstanceCenter-Bcj9NkYY.js",
+        "winFile": "assets/InstanceCenter-C2Ex49y4.js",
+        "macSHA256": "00e1f2a6d15b1bed3f730d5e35a757df03cf3fa93e2347bf56818b5dbeee03ac",
+        "winSHA256": "ccdb8e76c91c30776bb6fd422f9000c95613ca256d2137cf6b118a6dd3c5f9d3",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/InstanceCenter-D_i8gW0K.css",
+        "winFile": "assets/InstanceCenter-D0HzF6GJ.css",
+        "macSHA256": "d615a8361edbf71429c265c86151ea8c4e450c460194ef2ac1f4f11913c0c342",
+        "winSHA256": "607420639dda2439db4e6bd6ee2ab38585491c470ef70463f88936dd3c868a3b",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/KeysView-DcH50Uf_.js",
+        "winFile": "assets/KeysView-IS2QTWTv.js",
+        "macSHA256": "053ee091284155c38b2846e397dad0d87f6d6da69ee146f8d37bad7fa9001837",
+        "winSHA256": "c4c06e84519860ae19456787fbfe2f3fdda4a47afe44580acb3351f55fe0101d",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/KeysView-H82G0T6m.css",
+        "winFile": "assets/KeysView-BvT0YZPl.css",
+        "macSHA256": "538289443f954e864d2fcbc9d3e9c2b21894d4987d7724061a050740fefdd387",
+        "winSHA256": "4de44526b236cb2597bcb8ece1117bc529c2ad8e0854431f2554eef58c8d269c",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/MascotStage-DWCq4Dyb.css",
+        "winFile": "assets/MascotStage-BCKXjETR.css",
+        "macSHA256": "6402c462d1dd4be8a1897dbfbd6ad293916305ec4ad14e7a7df5776268494127",
+        "winSHA256": "eba2b4f57ff09dd87b5f6bb537616adeb0ad7462cd6749e045af3750b191bfdf",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/MascotStage-DjhYWo3m.js",
+        "winFile": "assets/MascotStage-ClAUQ8bH.js",
+        "macSHA256": "ffac966950d9d6f72e62790ce42fad97933c116fd0bc31a69f36c3f95be307d5",
+        "winSHA256": "8cdad926e3c7091192bd81a9a99ec0acb3ee41250b4e24092629897f8d59a2b5",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ModsView-D0RkJT_q.js",
+        "winFile": "assets/ModsView-CK16KZeU.js",
+        "macSHA256": "dc1f949deddcbc8cac22310752b9b8bd3d2d275f9bef1aa5feabc9f78805dd8b",
+        "winSHA256": "e4e5731ad652fb01040c4dae97784a6639cc94a8caf65be7f562e501f4168185",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/PacksView-DfyWcPhZ.js",
+        "winFile": "assets/PacksView-gKFL32mf.js",
+        "macSHA256": "a01dc647bd435838fb3811d5740a9e357910f4471fcca675f1f6ac0246c625cc",
+        "winSHA256": "597370bf4efd383030ebe9e05221e5025526894a38c44e0c354012fd929d3c80",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ProjectionsView-D50gZTkD.js",
+        "winFile": "assets/ProjectionsView-DKx-keDg.js",
+        "macSHA256": "27a15ae4932487623d2c1984e995f04e9f767f3a2d73eae617fd6dfb0492ce6f",
+        "winSHA256": "b0f82841083455b2696936469f096f594ec3024ec891a1f48463c0957cf02f9f",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ProjectionsView-Dp9tI4Ld.css",
+        "winFile": "assets/ProjectionsView-D-dz64gr.css",
+        "macSHA256": "855409930713d85252aa50251952d34b4bc725d5fc8b6661da904c34f70185a2",
+        "winSHA256": "0ea872bbc67d248e09df13979275148b30bb5a8c54d6679cb4af25960df3999b",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/RecordingsView-0F0WNiQX.js",
+        "winFile": "assets/RecordingsView-CFcRlcYP.js",
+        "macSHA256": "dc5d8dcd29de491c4a234584cc891a6a184a5b441ec633e8a2c17f22729b59e4",
+        "winSHA256": "d41222a527fcad57ed29c9e96af328d2c9905c122f3a92a24b10861ad8c4e8d7",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/RecordingsView-CD2oTJ_H.css",
+        "winFile": "assets/RecordingsView-DQWh4n87.css",
+        "macSHA256": "77f6df2b0dcde5898eb88a4fbbb64d35d3055ee7dc9522233683f333448e611c",
+        "winSHA256": "54ee3ce08bfacc0ea55d3569e2f579f30ba0a03c8937f62516b5b2382f49c43f",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/SelectMenu-DShRHZC1.css",
+        "winFile": "assets/SelectMenu-BVgQ1yqQ.css",
+        "macSHA256": "c51f7ef0318f37ac3612113099e1276597c2808b8ff70dcdd58efa1646333439",
+        "winSHA256": "bd38db12c3f5f8d117bfe4a972a17f53573b906b9af02778647a83b0f3cd5df6",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/SelectMenu-DpD_jpNh.js",
+        "winFile": "assets/SelectMenu-DKzO3Rkh.js",
+        "macSHA256": "2dabc08037fe3937df061439bc223cf3be25308c9d599e0781f4322d59dc27e7",
+        "winSHA256": "c6948ac5a0432df61c78cdd27cf2192fb67c04f274d1787a5c29c7b479b4925c",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ServersView-DdA9Rjpc.js",
+        "winFile": "assets/ServersView-Bho2AQTl.js",
+        "macSHA256": "b732591aa20654d03ea6756347b402d0a5fd2f3279100e51b5ef3e8984d1f300",
+        "winSHA256": "831164dcb5bb16e6e8a715ea0330e03762eb3a44ecf2cd531baf14869cc05259",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ServersView-EqcX99i9.css",
+        "winFile": "assets/ServersView-CMTjlCPz.css",
+        "macSHA256": "9495ca3c8003e3456c75da1797ea5852de119f94a94570024d29cf98b40507ae",
+        "winSHA256": "956d8d7b942d93f2797aebdff089dcddc2d470bc664334a5520c6e09be751efa",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/SettingsView-DE6iI74j.js",
+        "winFile": "assets/SettingsView-2uvbHDVz.js",
+        "macSHA256": "a167594e144235c444591c8370573b8318d316858341253a7b2f8ea6b886538a",
+        "winSHA256": "3b258f87a7b31bdc6ceaac0e9ff6fe54be6b47cadc92b16433b6bbb98c3997ab",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/SettingsView-DQ6csXGV.css",
+        "winFile": "assets/SettingsView-DQ6csXGV.css",
+        "macSHA256": "d00f9759d57b47aadda12dc2967da2a547386321fb04cd88369adec61605b388",
+        "winSHA256": "d00f9759d57b47aadda12dc2967da2a547386321fb04cd88369adec61605b388",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ShadersView-DInrlnWq.js",
+        "winFile": "assets/ShadersView-B_knCXYl.js",
+        "macSHA256": "37e5e7b1f6da66a6e94a5314f0743d881be5b1427fed241a1946f51ebb797b3b",
+        "winSHA256": "81652e60c91346c69e310cbb60aebe817a7b53284a807f85cb91714eed782524",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/SkinsView-BHPYm_Ab.js",
+        "winFile": "assets/SkinsView-D9QCsCsd.js",
+        "macSHA256": "4ae910648e5eaa6ec56ca3d924b91681cc313b69641efbd349b1feaf2dd84c5e",
+        "winSHA256": "4356a56e5ee86c62cd585a7dcc93761991fb5b4e2787544247047cd74f2b5313",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/SkinsView-uE0tE1RW.css",
+        "winFile": "assets/SkinsView-BDE2nHJ4.css",
+        "macSHA256": "1ce1440e9e9950ac0e277a0dba7a5eb0be209265fa434f4cb77b4a207ab90dd2",
+        "winSHA256": "65e6d60b11184215551688bebdf354f359ac55df0d248bb6da5b149f63dbe958",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/TerracottaPanel-BaBMHDkQ.js",
+        "winFile": "assets/TerracottaPanel-Cz_gEgNY.js",
+        "macSHA256": "773a720c99adf78b00517d5bedda72e32c1f86c0735338bac0af34fb58bf5caf",
+        "winSHA256": "ba08d5caee7dfbbb92e85d1358716818cb65fb5804e0213caac6d1e7ef86be2d",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/TerracottaPanel-CE9u-vBO.css",
+        "winFile": "assets/TerracottaPanel-mv44hqqU.css",
+        "macSHA256": "69839502a2e59c9be5f13ece5c5dd09348b89268177b20f183724667076028e3",
+        "winSHA256": "0181a6e3ca109269e9d927af20954ec3b8da5f2a9a01b1b3c02191572b171540",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ThirdPartyNotices-CAYjaZz1.js",
+        "winFile": "assets/ThirdPartyNotices-DtNfpjtF.js",
+        "macSHA256": "5723273ed264bd81ec26221967e1fa1b0a5a8804a969af57416f593fb65b1488",
+        "winSHA256": "5fbc353f0b582e5c89050dd987c6f288aa731d0c744a391085f49ddcc60cdba5",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/ThirdPartyNotices-CgBuT8G3.css",
+        "winFile": "assets/ThirdPartyNotices-CgBuT8G3.css",
+        "macSHA256": "d408974ca79da356a6f340ff236abd0cd5d435647c0d34adb4ffb9d402a017b6",
+        "winSHA256": "d408974ca79da356a6f340ff236abd0cd5d435647c0d34adb4ffb9d402a017b6",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/UiGlyph.vue_vue_type_script_setup_true_lang-DRZ8xRsI.js",
+        "winFile": "assets/UiGlyph.vue_vue_type_script_setup_true_lang-Cc6dqkJw.js",
+        "macSHA256": "f2c122a28225355771ab9a36430f8c2a74f10a95688fac4c5e6295e28f43ea87",
+        "winSHA256": "4868a6c4aeb9817c7679398422c74d5695eff437dd74db1e8d3f5525c2f20129",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/VoxLinkPanel-BNth1iMo.js",
+        "winFile": "assets/VoxLinkPanel-BnMnR24l.js",
+        "macSHA256": "7e124fed19124921b5df36bb85b9ec629d3b24284fbbcfd3aeca92fec7746108",
+        "winSHA256": "b27764f8b1ce7e49f10ca084d9f8d467a10ed11bf376109a17ccf786c799b4b6",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/VoxLinkPanel-D9fuG8qD.css",
+        "winFile": "assets/VoxLinkPanel-CnYwmKfe.css",
+        "macSHA256": "cc4d4d642de0608acd902a6509d141f9bd2b7035643145b525aa51976c3ed301",
+        "winSHA256": "078546e38918bfc4282eb10d7ff806651e8e2e177c81af09f766c42e21c8f6d9",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/brewer-_t6hu0qJ.webp",
+        "winFile": "assets/brewer-_t6hu0qJ.webp",
+        "macSHA256": "38f39f80451353784a5217c781d35f131961074eb3f0a2bdc59bc37a84e77a16",
+        "winSHA256": "38f39f80451353784a5217c781d35f131961074eb3f0a2bdc59bc37a84e77a16",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "assets/cactus-ZHT28Bbx.webp",
+        "winFile": "assets/cactus-ZHT28Bbx.webp",
+        "macSHA256": "0530b9aeec17c0f538b25e7c4ebfc4c9064f166964fea333e8994a7ad9caadfb",
+        "winSHA256": "0530b9aeec17c0f538b25e7c4ebfc4c9064f166964fea333e8994a7ad9caadfb",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "assets/camp-KA8qI3ns.webp",
+        "winFile": "assets/camp-KA8qI3ns.webp",
+        "macSHA256": "66783d4aa2371fdb8e95df9fe17103345f6fad27ab35640ae1ebec2e59981ebe",
+        "winSHA256": "66783d4aa2371fdb8e95df9fe17103345f6fad27ab35640ae1ebec2e59981ebe",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "assets/cannon-CrDDsD5Q.webp",
+        "winFile": "assets/cannon-CrDDsD5Q.webp",
+        "macSHA256": "4b0a8804c5ac58292c28056783b6a19ae39c417d39898e9f2000aed751326a64",
+        "winSHA256": "4b0a8804c5ac58292c28056783b6a19ae39c417d39898e9f2000aed751326a64",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "assets/connection-BGdzdtl5.css",
+        "winFile": "assets/connection--2GQb3ML.css",
+        "macSHA256": "0f700f965b423258f6fe75bfd636cbe0aec8eca8f55e10abac5dfd3a25b8d3d3",
+        "winSHA256": "8bda22c42969726c708be99ee0dc02565ca53b4606ec3bbcbbf26188c68028b0",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/farmer-3krkG6Tm.webp",
+        "winFile": "assets/farmer-3krkG6Tm.webp",
+        "macSHA256": "c186d9793565bbc22aafa68de3df9cf6e02c73d252aab596771941cf7957e252",
+        "winSHA256": "c186d9793565bbc22aafa68de3df9cf6e02c73d252aab596771941cf7957e252",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "assets/index-CA2L9xFR.js",
+        "winFile": "assets/index-CfcI51_M.js",
+        "macSHA256": "2221cbb7d012b6a970c24966dc5f554a429256cb1ed9982df26aa8f15fda6a0e",
+        "winSHA256": "f6c2f23ee2ddf9eaf6580ca886b14de8401489aec5ad3b1bd58e873007201899",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/index-CZV0tK3M.css",
+        "winFile": "assets/index-BXnVAW48.css",
+        "macSHA256": "594a0d2e68560bc189ce2fbbd2ae01ce8b560e9478b659177b62c93e9963fecd",
+        "winSHA256": "6af9509cac2c3c08065476324201ca8df26eb660297ce2247bc2919c61109715",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/modFavorites-C_Xtxe6f.js",
+        "winFile": "assets/modFavorites-DJxh-KcT.js",
+        "macSHA256": "7e67a730b0d070e144235c98c55e310487b78b4fbcb87976f0edecae5f361658",
+        "winSHA256": "6580f92e9acc3c1ab9bb3f295e04d44410eb018e4b85b010fc25f89d2a396312",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/piston-CXXgq7BE.webp",
+        "winFile": "assets/piston-CXXgq7BE.webp",
+        "macSHA256": "bdfbc3e3b189a0e6e012a7fd381cd5a829c7b5143ba869d51ee35c072cf3197d",
+        "winSHA256": "bdfbc3e3b189a0e6e012a7fd381cd5a829c7b5143ba869d51ee35c072cf3197d",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "assets/plugins-B7gmej4F.js",
+        "winFile": "assets/plugins-B5IU_Ubz.js",
+        "macSHA256": "6571976f1f1ff1575db74b2ad3d8e62f8ad2f59fa7dba2f57dff12f597809177",
+        "winSHA256": "19e410f28c04158d2777a26d6e4e503725a00960e1b48db3862969770560ca01",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/settingsUpdates-CRG7WFDv.js",
+        "winFile": "assets/settingsUpdates-DhCbDP27.js",
+        "macSHA256": "f6fcd447122520e3c507bb290d81c727b27d94e346b48e01d6c0d6e6d616b773",
+        "winSHA256": "97a00bcdba4c8a653b16d8ee6632f8fb2f44f9f02185dd564ddf57afc85cf484",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/splash-D5-Isy3u.css",
+        "winFile": "assets/splash-BCp9n5TB.css",
+        "macSHA256": "de9819187b78f5dea1f09812ab1d6cda9d1177ef077df4d9f7b1d54bd031154c",
+        "winSHA256": "349e6ca1b30527c27a35ad109eac8e44b3fbee1bffd111fa5799ce48fc61de01",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/splash-face-D7cFdy8J.js",
+        "winFile": "assets/splash-face-D7cFdy8J.js",
+        "macSHA256": "0a7f3d8cce8e90694708445599c8aa35f651146cb25f417de026da9af376ee4b",
+        "winSHA256": "0a7f3d8cce8e90694708445599c8aa35f651146cb25f417de026da9af376ee4b",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/splash-k65xAguc.js",
+        "winFile": "assets/splash-BhyJi4oD.js",
+        "macSHA256": "49f2660058a35fa7a7f8cad881b103e39a139bfbbaadf2a303edd04067b73cfe",
+        "winSHA256": "49f2660058a35fa7a7f8cad881b103e39a139bfbbaadf2a303edd04067b73cfe",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "assets/sunset--N5hnz1m.webp",
+        "winFile": "assets/sunset--N5hnz1m.webp",
+        "macSHA256": "0c4586a2ff009492b82f543fe64fea4a6210d952d7c382a270e889e508e38766",
+        "winSHA256": "0c4586a2ff009492b82f543fe64fea4a6210d952d7c382a270e889e508e38766",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "assets/uiPresentation-DBTJW4DM.js",
+        "winFile": "assets/uiPresentation-DBTJW4DM.js",
+        "macSHA256": "ad10ad0c3f6abaa3f5e4ec06a40c66c2bfd35f563db54a4db186c43fbe811a0f",
+        "winSHA256": "ad10ad0c3f6abaa3f5e4ec06a40c66c2bfd35f563db54a4db186c43fbe811a0f",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "index.html",
+        "winFile": "index.html",
+        "macSHA256": "fe8afd290b45ab7539d747e86c705e79dfd262ce1385be9deb95bf772df8a9f4",
+        "winSHA256": "7421fd5b5bc559a84ad6ce706d2790ee06abe54104875f6d589362cae282a0d6",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      },
+      {
+        "macFile": "mobs/allay.png",
+        "winFile": "mobs/allay.png",
+        "macSHA256": "58e583cf63056a135b65f2bb73c544f1a47baa928af358f5b02fd7bc803b8234",
+        "winSHA256": "58e583cf63056a135b65f2bb73c544f1a47baa928af358f5b02fd7bc803b8234",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/armadillo.png",
+        "winFile": "mobs/armadillo.png",
+        "macSHA256": "254962e3c73b16565de26ec27ae31c6b88f246e5abf3b1d2bfd3e010c30df786",
+        "winSHA256": "254962e3c73b16565de26ec27ae31c6b88f246e5abf3b1d2bfd3e010c30df786",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/axolotl.png",
+        "winFile": "mobs/axolotl.png",
+        "macSHA256": "00e71ca81cecfbdd3184e62dfbaebe7c43f5e35b372c237f1dc874b52652a4f5",
+        "winSHA256": "00e71ca81cecfbdd3184e62dfbaebe7c43f5e35b372c237f1dc874b52652a4f5",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/bat.png",
+        "winFile": "mobs/bat.png",
+        "macSHA256": "73046e9a33db7621294f1e02a8cacf1f8ba9459bbf0cf815589b55051432bd4d",
+        "winSHA256": "73046e9a33db7621294f1e02a8cacf1f8ba9459bbf0cf815589b55051432bd4d",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/bee.png",
+        "winFile": "mobs/bee.png",
+        "macSHA256": "9f3f84e5778570de143732a4dbb198c2bb4b763cfe1bf18ef5fb6d890d77d325",
+        "winSHA256": "9f3f84e5778570de143732a4dbb198c2bb4b763cfe1bf18ef5fb6d890d77d325",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/blaze.png",
+        "winFile": "mobs/blaze.png",
+        "macSHA256": "765744fc9e40af244d416349b1c8cd35cabd7fecc16e3ccc70153c7f95e23192",
+        "winSHA256": "765744fc9e40af244d416349b1c8cd35cabd7fecc16e3ccc70153c7f95e23192",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/bogged.png",
+        "winFile": "mobs/bogged.png",
+        "macSHA256": "e3ad7651831754bb9ba878536df772b20f7c261b6101ca570e895c37e8183e9d",
+        "winSHA256": "e3ad7651831754bb9ba878536df772b20f7c261b6101ca570e895c37e8183e9d",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/breeze.png",
+        "winFile": "mobs/breeze.png",
+        "macSHA256": "6e7b19c20630640196eb50667df4cb0ccab7dc381789f12f76cfeb099521cdac",
+        "winSHA256": "6e7b19c20630640196eb50667df4cb0ccab7dc381789f12f76cfeb099521cdac",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/camel.png",
+        "winFile": "mobs/camel.png",
+        "macSHA256": "46e5aee66f437b81550e0d7e71a7cd2ae0272ec686b983bc20e31699c78228c3",
+        "winSHA256": "46e5aee66f437b81550e0d7e71a7cd2ae0272ec686b983bc20e31699c78228c3",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/cat.png",
+        "winFile": "mobs/cat.png",
+        "macSHA256": "b30e0ac590bfbfdc7a3499cc21a2c5a0ac81375361a145a24d6110b7445e2734",
+        "winSHA256": "b30e0ac590bfbfdc7a3499cc21a2c5a0ac81375361a145a24d6110b7445e2734",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/cave_spider.png",
+        "winFile": "mobs/cave_spider.png",
+        "macSHA256": "4fb2536ee802cbaad248f175b641dd1e67977196256872c5b33b5aa251b53d65",
+        "winSHA256": "4fb2536ee802cbaad248f175b641dd1e67977196256872c5b33b5aa251b53d65",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/chicken.png",
+        "winFile": "mobs/chicken.png",
+        "macSHA256": "5c570fe435fca55fb61d1bc00f6eabc9c9aeba2b5c31832682247517c0eabdd5",
+        "winSHA256": "5c570fe435fca55fb61d1bc00f6eabc9c9aeba2b5c31832682247517c0eabdd5",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/cod.png",
+        "winFile": "mobs/cod.png",
+        "macSHA256": "593563c140ff5115f720b3901a25daafee67bb77cebce751cffaabef269322b3",
+        "winSHA256": "593563c140ff5115f720b3901a25daafee67bb77cebce751cffaabef269322b3",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/copper_golem.png",
+        "winFile": "mobs/copper_golem.png",
+        "macSHA256": "e947fae000286506c265b2d5c20b73915d97c1797e8817563cfed7a3baafcc63",
+        "winSHA256": "e947fae000286506c265b2d5c20b73915d97c1797e8817563cfed7a3baafcc63",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/cow.png",
+        "winFile": "mobs/cow.png",
+        "macSHA256": "0ac9d05e7a1714c736a95a0ca8a85900b8c331c0e2da6cc744df086e59f00a4f",
+        "winSHA256": "0ac9d05e7a1714c736a95a0ca8a85900b8c331c0e2da6cc744df086e59f00a4f",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/creaking.png",
+        "winFile": "mobs/creaking.png",
+        "macSHA256": "9136949fec26016c8a9d82e8f4022fc2ceecc448085fd3465577c8e2d07454de",
+        "winSHA256": "9136949fec26016c8a9d82e8f4022fc2ceecc448085fd3465577c8e2d07454de",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/creeper.png",
+        "winFile": "mobs/creeper.png",
+        "macSHA256": "88336194570c75abfe3dc4f6c04040510cb41f3f3837f9c27af4063595992067",
+        "winSHA256": "88336194570c75abfe3dc4f6c04040510cb41f3f3837f9c27af4063595992067",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/dolphin.png",
+        "winFile": "mobs/dolphin.png",
+        "macSHA256": "46e2de785604fef3e330fe96023ed69040e617c5e525252ca1ca0a46c98bd0ec",
+        "winSHA256": "46e2de785604fef3e330fe96023ed69040e617c5e525252ca1ca0a46c98bd0ec",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/donkey.png",
+        "winFile": "mobs/donkey.png",
+        "macSHA256": "66c5ca40de2505bd593ecddc6f7891cae77e02d1936bfa00886a3df2e4ad6f50",
+        "winSHA256": "66c5ca40de2505bd593ecddc6f7891cae77e02d1936bfa00886a3df2e4ad6f50",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/drowned.png",
+        "winFile": "mobs/drowned.png",
+        "macSHA256": "4e104987fc3e65425269607848c7a1581f94ea8eab3c4d5d2fed27c1f73b5c54",
+        "winSHA256": "4e104987fc3e65425269607848c7a1581f94ea8eab3c4d5d2fed27c1f73b5c54",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/elder_guardian.png",
+        "winFile": "mobs/elder_guardian.png",
+        "macSHA256": "ee9708a53e4853b53440bf2f1bb9477f972f76c57f13e6b0a307f48c265d1fa3",
+        "winSHA256": "ee9708a53e4853b53440bf2f1bb9477f972f76c57f13e6b0a307f48c265d1fa3",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/ender_dragon.png",
+        "winFile": "mobs/ender_dragon.png",
+        "macSHA256": "3b048df95b600d2ecbb34bdb63db8f92db9b1e9ced369090b08d2022a0207c2d",
+        "winSHA256": "3b048df95b600d2ecbb34bdb63db8f92db9b1e9ced369090b08d2022a0207c2d",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/enderman.png",
+        "winFile": "mobs/enderman.png",
+        "macSHA256": "91db168527a87cd644e737b245686cd737042ec6131e5c90a884a3aa7cad5aa2",
+        "winSHA256": "91db168527a87cd644e737b245686cd737042ec6131e5c90a884a3aa7cad5aa2",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/endermite.png",
+        "winFile": "mobs/endermite.png",
+        "macSHA256": "f0a3ad90b4515a2bf0c52502e9a03a115fb44e93fa9ada86dec87b9ef2a9a6df",
+        "winSHA256": "f0a3ad90b4515a2bf0c52502e9a03a115fb44e93fa9ada86dec87b9ef2a9a6df",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/evoker.png",
+        "winFile": "mobs/evoker.png",
+        "macSHA256": "ead5f8fe2f511ae043509000bfbd8329734e6da1dd30a9c5687d26b15ab8a80e",
+        "winSHA256": "ead5f8fe2f511ae043509000bfbd8329734e6da1dd30a9c5687d26b15ab8a80e",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/fox.png",
+        "winFile": "mobs/fox.png",
+        "macSHA256": "3a8e5727c3196f710142d0f0ad87c51e554edb6823512e85fb285c70ef79c7bb",
+        "winSHA256": "3a8e5727c3196f710142d0f0ad87c51e554edb6823512e85fb285c70ef79c7bb",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/frog.png",
+        "winFile": "mobs/frog.png",
+        "macSHA256": "6dfde650f9c7404e21e712061a936fc952b7b1a34df3ee8a50d67832c2004bd9",
+        "winSHA256": "6dfde650f9c7404e21e712061a936fc952b7b1a34df3ee8a50d67832c2004bd9",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/ghast.png",
+        "winFile": "mobs/ghast.png",
+        "macSHA256": "c49903350a4870be02e5bf844efc5159a060e73fe89ed127033aa31cd2282087",
+        "winSHA256": "c49903350a4870be02e5bf844efc5159a060e73fe89ed127033aa31cd2282087",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/glow_squid.png",
+        "winFile": "mobs/glow_squid.png",
+        "macSHA256": "5fde659253861c77541c2882e8058a315f2218c331641a0c9772cc2d20de2c63",
+        "winSHA256": "5fde659253861c77541c2882e8058a315f2218c331641a0c9772cc2d20de2c63",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/goat.png",
+        "winFile": "mobs/goat.png",
+        "macSHA256": "7b031398f28a097a9a1cbf9019ba8d926e1d380f63256ad6d2057d5fdd20a11f",
+        "winSHA256": "7b031398f28a097a9a1cbf9019ba8d926e1d380f63256ad6d2057d5fdd20a11f",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/guardian.png",
+        "winFile": "mobs/guardian.png",
+        "macSHA256": "e88eddd5aac824cd6aa20be73fababad3c675e554c8ea9d1b51483b3e5aa1c6c",
+        "winSHA256": "e88eddd5aac824cd6aa20be73fababad3c675e554c8ea9d1b51483b3e5aa1c6c",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/happy_ghast.png",
+        "winFile": "mobs/happy_ghast.png",
+        "macSHA256": "b01f128f47a9d463f9df1aa606a30a8f1433abb45b52ef76db5ceed7668bbc4e",
+        "winSHA256": "b01f128f47a9d463f9df1aa606a30a8f1433abb45b52ef76db5ceed7668bbc4e",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/hoglin.png",
+        "winFile": "mobs/hoglin.png",
+        "macSHA256": "06a4779a748c21e40dfa17386fb25122e0a3ae2f956931224eee061e1945b1ac",
+        "winSHA256": "06a4779a748c21e40dfa17386fb25122e0a3ae2f956931224eee061e1945b1ac",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/horse.png",
+        "winFile": "mobs/horse.png",
+        "macSHA256": "5f97bd63e9a7451e26f4ed943f2deb03efcb83bd160fb881e9a06fddecc5768e",
+        "winSHA256": "5f97bd63e9a7451e26f4ed943f2deb03efcb83bd160fb881e9a06fddecc5768e",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/husk.png",
+        "winFile": "mobs/husk.png",
+        "macSHA256": "4c6518ff70f536847f8d527d5a506022eb4826d3cdcf049f9b1ad58c3674f400",
+        "winSHA256": "4c6518ff70f536847f8d527d5a506022eb4826d3cdcf049f9b1ad58c3674f400",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/iron_golem.png",
+        "winFile": "mobs/iron_golem.png",
+        "macSHA256": "b7287aa95dbf41d92e9d3a505f0af8eb56dc66619716fa7aae8a2b3c509496fc",
+        "winSHA256": "b7287aa95dbf41d92e9d3a505f0af8eb56dc66619716fa7aae8a2b3c509496fc",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/llama.png",
+        "winFile": "mobs/llama.png",
+        "macSHA256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac",
+        "winSHA256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/magma_cube.png",
+        "winFile": "mobs/magma_cube.png",
+        "macSHA256": "5f8bfe6318056dc02c862f5f0ba1d26a4d9b1bb2800c8b0d5f0ef3ec7dab2b79",
+        "winSHA256": "5f8bfe6318056dc02c862f5f0ba1d26a4d9b1bb2800c8b0d5f0ef3ec7dab2b79",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/mooshroom.png",
+        "winFile": "mobs/mooshroom.png",
+        "macSHA256": "c2f72592936cd02e814e02b76adc221d7a44109cf6d5ca462dd022f288eb6501",
+        "winSHA256": "c2f72592936cd02e814e02b76adc221d7a44109cf6d5ca462dd022f288eb6501",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/mule.png",
+        "winFile": "mobs/mule.png",
+        "macSHA256": "a28d39062e8f8652ce9fb16615db5172498aebe1443751b68fac9c760d2011f3",
+        "winSHA256": "a28d39062e8f8652ce9fb16615db5172498aebe1443751b68fac9c760d2011f3",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/ocelot.png",
+        "winFile": "mobs/ocelot.png",
+        "macSHA256": "e20b2834216256b3e2c9491e3f1ab3937f7781f8e2f14fd3861102a8f2335ba7",
+        "winSHA256": "e20b2834216256b3e2c9491e3f1ab3937f7781f8e2f14fd3861102a8f2335ba7",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/panda.png",
+        "winFile": "mobs/panda.png",
+        "macSHA256": "9148f7a3deeb96f76439958967e0dec6860f7f612cf985be10816a3f2d74dc71",
+        "winSHA256": "9148f7a3deeb96f76439958967e0dec6860f7f612cf985be10816a3f2d74dc71",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/parrot.png",
+        "winFile": "mobs/parrot.png",
+        "macSHA256": "e57ca6fe46a34c13d4179e5c11825944a462411db2a5eaca23537ce1e39ba477",
+        "winSHA256": "e57ca6fe46a34c13d4179e5c11825944a462411db2a5eaca23537ce1e39ba477",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/phantom.png",
+        "winFile": "mobs/phantom.png",
+        "macSHA256": "2e3e55ad61bade42ef4c8809979023cc6502ca0b1092eb794e0d6eef91168dde",
+        "winSHA256": "2e3e55ad61bade42ef4c8809979023cc6502ca0b1092eb794e0d6eef91168dde",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/pig.png",
+        "winFile": "mobs/pig.png",
+        "macSHA256": "acae9bb4417f19faeae6334dd4487d25264c00c0690105377350386d97915323",
+        "winSHA256": "acae9bb4417f19faeae6334dd4487d25264c00c0690105377350386d97915323",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/piglin.png",
+        "winFile": "mobs/piglin.png",
+        "macSHA256": "e29051c1c14b4530b5312264a351e49a1b80b9cec18a84104fad3a90d59ad279",
+        "winSHA256": "e29051c1c14b4530b5312264a351e49a1b80b9cec18a84104fad3a90d59ad279",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/piglin_brute.png",
+        "winFile": "mobs/piglin_brute.png",
+        "macSHA256": "5efa04c61f4f49140156b8c182f9a603316475ea7f72f10abf1ba6899a365053",
+        "winSHA256": "5efa04c61f4f49140156b8c182f9a603316475ea7f72f10abf1ba6899a365053",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/pillager.png",
+        "winFile": "mobs/pillager.png",
+        "macSHA256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65",
+        "winSHA256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/polar_bear.png",
+        "winFile": "mobs/polar_bear.png",
+        "macSHA256": "2985c0a5732c79fde76e1688a45bba7e75f90c22362027c4db5dcd53c54828d6",
+        "winSHA256": "2985c0a5732c79fde76e1688a45bba7e75f90c22362027c4db5dcd53c54828d6",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/pufferfish.png",
+        "winFile": "mobs/pufferfish.png",
+        "macSHA256": "a4f8d7c49221f0133f2f1d579a2519b6486c3b69cfbeae1284b6fbb91571d6e1",
+        "winSHA256": "a4f8d7c49221f0133f2f1d579a2519b6486c3b69cfbeae1284b6fbb91571d6e1",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/rabbit.png",
+        "winFile": "mobs/rabbit.png",
+        "macSHA256": "ea5f25b9fa91dcd32b1f128d79031fc5f78a6c76397e3bedb2189bff8e29a687",
+        "winSHA256": "ea5f25b9fa91dcd32b1f128d79031fc5f78a6c76397e3bedb2189bff8e29a687",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/ravager.png",
+        "winFile": "mobs/ravager.png",
+        "macSHA256": "8ce477c9cbd18934dc1310f633d45ea6ee97731e4c83c4662a7c8728160a9e11",
+        "winSHA256": "8ce477c9cbd18934dc1310f633d45ea6ee97731e4c83c4662a7c8728160a9e11",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/salmon.png",
+        "winFile": "mobs/salmon.png",
+        "macSHA256": "87a8226c542d22803ab127307c9914e62a6558d1250540d3fd778c40975edfb5",
+        "winSHA256": "87a8226c542d22803ab127307c9914e62a6558d1250540d3fd778c40975edfb5",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/sheep.png",
+        "winFile": "mobs/sheep.png",
+        "macSHA256": "ddecce3420e872f5aa4344e40acc23006afc8cd821e9a5d270d925399b0e74a6",
+        "winSHA256": "ddecce3420e872f5aa4344e40acc23006afc8cd821e9a5d270d925399b0e74a6",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/shulker.png",
+        "winFile": "mobs/shulker.png",
+        "macSHA256": "0bbd1548da251bae55f892986dcdec1bf2fe77d04117ad7689d7ec5a39757076",
+        "winSHA256": "0bbd1548da251bae55f892986dcdec1bf2fe77d04117ad7689d7ec5a39757076",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/silverfish.png",
+        "winFile": "mobs/silverfish.png",
+        "macSHA256": "b81b245b1a220c43e201d07bab9f3ba817ea2a38f2267f1d4ffb79356ce249e0",
+        "winSHA256": "b81b245b1a220c43e201d07bab9f3ba817ea2a38f2267f1d4ffb79356ce249e0",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/skeleton.png",
+        "winFile": "mobs/skeleton.png",
+        "macSHA256": "80c62d8175b9c7b538590d3876ee3dd02d04b3c09f33f546d6cf5fc1a29a90dc",
+        "winSHA256": "80c62d8175b9c7b538590d3876ee3dd02d04b3c09f33f546d6cf5fc1a29a90dc",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/skeleton_horse.png",
+        "winFile": "mobs/skeleton_horse.png",
+        "macSHA256": "40aa58c2fafc14146fa8b913ad1d1c77b1977589a7f0861884d2ce061ebd501c",
+        "winSHA256": "40aa58c2fafc14146fa8b913ad1d1c77b1977589a7f0861884d2ce061ebd501c",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/slime.png",
+        "winFile": "mobs/slime.png",
+        "macSHA256": "3228e4d2c7eed3cb59e078576b7390950253adb3b8e50ea40d92638acebd49e7",
+        "winSHA256": "3228e4d2c7eed3cb59e078576b7390950253adb3b8e50ea40d92638acebd49e7",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/sniffer.png",
+        "winFile": "mobs/sniffer.png",
+        "macSHA256": "1af8113771ed63740dde074573437d5d396e778d5c5128768d25ef6628b8ce44",
+        "winSHA256": "1af8113771ed63740dde074573437d5d396e778d5c5128768d25ef6628b8ce44",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/snow_golem.png",
+        "winFile": "mobs/snow_golem.png",
+        "macSHA256": "8c94528abb4943fd10f3653986c6ac2bf028ace88d3b3199eb8611bad96725f0",
+        "winSHA256": "8c94528abb4943fd10f3653986c6ac2bf028ace88d3b3199eb8611bad96725f0",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/spider.png",
+        "winFile": "mobs/spider.png",
+        "macSHA256": "bb17e3051dfc22a62f3acbec1a196fff3f0940b691ed60c7e3207fc7fc175253",
+        "winSHA256": "bb17e3051dfc22a62f3acbec1a196fff3f0940b691ed60c7e3207fc7fc175253",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/squid.png",
+        "winFile": "mobs/squid.png",
+        "macSHA256": "c1f68053c3e3b8682243a3f02c76db9aa681a586f8447812bfbe392ec80c1fac",
+        "winSHA256": "c1f68053c3e3b8682243a3f02c76db9aa681a586f8447812bfbe392ec80c1fac",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/stray.png",
+        "winFile": "mobs/stray.png",
+        "macSHA256": "c3cd8e0344a75e719874b2c41e57360d602e04003a8349604c7bf812456bf211",
+        "winSHA256": "c3cd8e0344a75e719874b2c41e57360d602e04003a8349604c7bf812456bf211",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/strider.png",
+        "winFile": "mobs/strider.png",
+        "macSHA256": "9c8551ace5994ec831e03fe3cdeff7fad09d7bff6570adef529f5d9fb8057347",
+        "winSHA256": "9c8551ace5994ec831e03fe3cdeff7fad09d7bff6570adef529f5d9fb8057347",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/tadpole.png",
+        "winFile": "mobs/tadpole.png",
+        "macSHA256": "00cc02afd6a5bb8460bae2061b146193325426f442c4a100e56d7413dafddddf",
+        "winSHA256": "00cc02afd6a5bb8460bae2061b146193325426f442c4a100e56d7413dafddddf",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/trader_llama.png",
+        "winFile": "mobs/trader_llama.png",
+        "macSHA256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac",
+        "winSHA256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/tropical_fish.png",
+        "winFile": "mobs/tropical_fish.png",
+        "macSHA256": "de00e0f56c81e267959b37090f213d2684a38d637bac9939fc621e9f0b12c9e6",
+        "winSHA256": "de00e0f56c81e267959b37090f213d2684a38d637bac9939fc621e9f0b12c9e6",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/turtle.png",
+        "winFile": "mobs/turtle.png",
+        "macSHA256": "c126bd723b9cfdd1728d899cbe3d6ff295fe2be42b0bfcfce8c65439239ab72b",
+        "winSHA256": "c126bd723b9cfdd1728d899cbe3d6ff295fe2be42b0bfcfce8c65439239ab72b",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/vex.png",
+        "winFile": "mobs/vex.png",
+        "macSHA256": "2dd126529eac9cc675b7885132bbc18af8976ab305473ad838b807719918f290",
+        "winSHA256": "2dd126529eac9cc675b7885132bbc18af8976ab305473ad838b807719918f290",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/villager.png",
+        "winFile": "mobs/villager.png",
+        "macSHA256": "cfeebe39ee8df5a0d770ea2b9ba9605d0f506e5c2e12c56e8481f912eb9a938a",
+        "winSHA256": "cfeebe39ee8df5a0d770ea2b9ba9605d0f506e5c2e12c56e8481f912eb9a938a",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/vindicator.png",
+        "winFile": "mobs/vindicator.png",
+        "macSHA256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65",
+        "winSHA256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/wandering_trader.png",
+        "winFile": "mobs/wandering_trader.png",
+        "macSHA256": "677fa59716bc1bfc775621760dfc63add31232638d7652e51fc6a8dc6503f96b",
+        "winSHA256": "677fa59716bc1bfc775621760dfc63add31232638d7652e51fc6a8dc6503f96b",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/warden.png",
+        "winFile": "mobs/warden.png",
+        "macSHA256": "44701545b94a58f02cc0a54da306ddfa301f5f2a065052026bcf8d006ba1f5b0",
+        "winSHA256": "44701545b94a58f02cc0a54da306ddfa301f5f2a065052026bcf8d006ba1f5b0",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/witch.png",
+        "winFile": "mobs/witch.png",
+        "macSHA256": "c81f9d177a43b7988829679be0d5dd11bee57177dfe1dc649f60361bc223562d",
+        "winSHA256": "c81f9d177a43b7988829679be0d5dd11bee57177dfe1dc649f60361bc223562d",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/wither.png",
+        "winFile": "mobs/wither.png",
+        "macSHA256": "c929375c68de20b543a11dda5ccd3a4730114d42026976e8a2c478a75f7adc9a",
+        "winSHA256": "c929375c68de20b543a11dda5ccd3a4730114d42026976e8a2c478a75f7adc9a",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/wither_skeleton.png",
+        "winFile": "mobs/wither_skeleton.png",
+        "macSHA256": "9c134d7ac4b1e4582887696643e31e63550cf9781ab67c4fc1fc28d37e9ee9d5",
+        "winSHA256": "9c134d7ac4b1e4582887696643e31e63550cf9781ab67c4fc1fc28d37e9ee9d5",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/wolf.png",
+        "winFile": "mobs/wolf.png",
+        "macSHA256": "b8e97df6f3df58fd679e6735dff05acd082d46cafa930e1843e54ebd9fe2e79d",
+        "winSHA256": "b8e97df6f3df58fd679e6735dff05acd082d46cafa930e1843e54ebd9fe2e79d",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/zoglin.png",
+        "winFile": "mobs/zoglin.png",
+        "macSHA256": "b33814d008bfeb876a880749a49dcaf47c6ef6023f95a800f2ed4bb98c99fa33",
+        "winSHA256": "b33814d008bfeb876a880749a49dcaf47c6ef6023f95a800f2ed4bb98c99fa33",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/zombie.png",
+        "winFile": "mobs/zombie.png",
+        "macSHA256": "648784a72340af43e5e8cda6a21d2f8f1e807f9cb5054fe6e32951d756fcf876",
+        "winSHA256": "648784a72340af43e5e8cda6a21d2f8f1e807f9cb5054fe6e32951d756fcf876",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/zombie_horse.png",
+        "winFile": "mobs/zombie_horse.png",
+        "macSHA256": "d9b4a220bb0ae757ffba03f13fc0ac037a1038f3b75f61a6872d10e930fb0248",
+        "winSHA256": "d9b4a220bb0ae757ffba03f13fc0ac037a1038f3b75f61a6872d10e930fb0248",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/zombie_villager.png",
+        "winFile": "mobs/zombie_villager.png",
+        "macSHA256": "f25f235b8a4c3674d0a4b41ab6fdc877ed5ba14ace9f14694fe21b556118027d",
+        "winSHA256": "f25f235b8a4c3674d0a4b41ab6fdc877ed5ba14ace9f14694fe21b556118027d",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "mobs/zombified_piglin.png",
+        "winFile": "mobs/zombified_piglin.png",
+        "macSHA256": "c5d5f0264b6ac24b8edb27a27228d16b09ca14e78f693e11005adaa3e38ce019",
+        "winSHA256": "c5d5f0264b6ac24b8edb27a27228d16b09ca14e78f693e11005adaa3e38ce019",
+        "exactBytes": true,
+        "normalizedScopeAndChunkReferencesEqual": null,
+        "text": false
+      },
+      {
+        "macFile": "splash.html",
+        "winFile": "splash.html",
+        "macSHA256": "8e50df72c6dce2e5cedaf5f7cc9340a14fb1bcaa2ad7676ba6ec67b2f924ab06",
+        "winSHA256": "aedb1c65a739769e6d8b5168bb52de7cf4d0bb0367a5ae3a5a45215dc89ecdb9",
+        "exactBytes": false,
+        "normalizedScopeAndChunkReferencesEqual": true,
+        "text": true
+      }
+    ],
+    "residualDifferences": []
+  },
+  "missingRequiredMaterials": [],
+  "limits": [
+    "Windows independently read original Mac ZIP and hashed original DMG; mounted DMG contents/signature/runtime/architecture are native-runner receipts, not a Windows-mounted verification.",
+    "Notice/source presence is artifact verification; does not independently score own license remediation or universal legal clearance.",
+    "Scope/hash normalization is reported explicitly and does not claim byte-identical text bundles.",
+    "Real Microsoft full chain, game, whole-platform tools/update, DWM/vibrancy, FPS/audio and Developer ID/notarization are not asserted."
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "complete": true,
+  "classification": "Actual unsigned Windows packaged executable in a fresh owned APPDATA and userData profile; launch smoke only, no real login or game",
+  "startedAt": "2026-10-13T17:21:57.178Z",
+  "contextReadiness": {
+    "role": "renderer",
+    "ownedPid": 59036,
+    "rendererURL": "file:///E:/KAMUCL/release/win-unpacked/resources/app.asar/out/renderer/index.html",
+    "frameId": "C1570A25E3B77F4CBEBAF8DD8D3B349E",
+    "context": {
+      "id": 3,
+      "origin": "file://",
+      "name": "",
+      "uniqueId": "5598058349067461371.5842655086876884479",
+      "auxData": {
+        "isDefault": true,
+        "type": "default",
+        "frameId": "C1570A25E3B77F4CBEBAF8DD8D3B349E"
+      }
+    }
+  },
+  "observed": {
+    "platform": "win32",
+    "isolatedAppData": true,
+    "runtime": "44.3.0",
+    "sourceVersion": "1.1.22",
+    "freshAccounts": true,
+    "ownApplicationIdentity": true,
+    "rootPid": 59036
+  },
+  "ownedCleanup": {
+    "label": "windows-auth122-native-smoke",
+    "pid": 59036,
+    "startedAt": "2026-10-13T17:21:57.269Z",
+    "events": [
+      {
+        "event": "SIGTERM-request",
+        "at": 866487753.9342
+      },
+      {
+        "event": "exit",
+        "at": 866487785.5994,
+        "code": null,
+        "signal": "SIGTERM"
+      },
+      {
+        "event": "close",
+        "at": 866487785.6514,
+        "code": null,
+        "signal": "SIGTERM"
+      }
+    ],
+    "signalAccepted": true,
+    "closed": true,
+    "code": null,
+    "signal": "SIGTERM",
+    "awaitedClose": true,
+    "finishedAt": "2026-10-13T17:21:59.417Z"
+  },
+  "finishedAt": "2026-10-13T17:21:59.417Z"
+}

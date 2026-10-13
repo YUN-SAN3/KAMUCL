@@ -1,44 +1,27 @@
-# START HERE — KAMUCL 1.1.21
+# START HERE — KAMUCL 1.1.22
 
-本批实施用户文档的14组要求：社区兼容判断与后台确认队列、个性化/导航/透明度、小屏适应、更新镜像、嵌套整合包、默认材质包、图片与服务器版本显示。Windows x64已覆盖项目通过本批验收，原问题包等未覆盖项另外列明。Mac ARM64同步原生包，实际通过范围和失败独立列明，完整平台一致性未放行。Electron44.3.0保持，资源优化暂停。
+本版切换 KAMUCL 自有 Microsoft 应用，保留旧账号并要求重新授权，修复代理、取消及迟到事件，整改用户服务密钥保存和分发许可材料。首条内置更新日志及 Release 使用批准的公开致歉。仅交付 Windows x64 和 Mac ARM64，Electron 44.3.0 保持；资源占用优化仍撤回。
 
-- Project: KAMUCL
-- Deliverable: 1.1.21 Windows x64、Mac ARM64、源码、交接包及实际验收记录
-- Packaged artifact: _handoff/artifacts/内的成品；最终文件大小/SHA由DELIVERY和SHA256SUMS绑定
-- Intended receiver: 使用自己账号及游戏目录的玩家、维护者
-- Operating system: Windows10/11 x64、macOS13+ ARM64；本批实际Windows11与macOS26 ARM64云桌面
-- Runtime/tool versions: Electron44.3.0、Node24、锁定npm依赖、完整JDK17+含javac/jar；Windows本批生产构建JDK21.0.12
+## 使用成品
 
-## Prerequisites
+先核对 SHA256SUMS.txt。Windows 运行 KAMUCL-1.1.22.exe，或解压 windows-x64.zip 后运行同名 EXE；展开 ZIP 的入口是 KAMUCL.exe。Mac 使用 ARM64 DMG 或 ZIP 的 KAMUCL.app，最低 macOS13。Mac 只有 ad-hoc 签名，无 Developer ID 或公证；Windows 无发行者签名。
 
-成品不需要安装Node。游戏使用自己的账号、适配Java及资源。Windows未发行者签名；Mac仅ad-hoc，未Developer ID签名或公证，最低macOS13没有实体测试。Mac尚不能宣称全部游戏/外观/动效与Windows完全一致。
+旧微软账号重新登录，浏览器授权页应显示 KAMUCL。不要把旧刷新令牌提交给其他应用。应用保留离线及外置 Yggdrasil 登录。正常玩家应使用自己的账户和游戏目录，不共享登录配置。
 
-开发环境：Node24、npm ci、JDK17+（完整JDK含jar）、Windows.NET C#编译器；Mac原生构建需要Xcode工具。完整命令见README和docs/DEVELOPMENT.md。
+## 开发与验证
 
-## Setup
+安装 Node24、npm 和完整 JDK17+（javac 与 jar）；Windows 生产构建使用 JDK21.0.12，Mac 原生使用 JDK17。Windows 原生辅助程序需要 .NET C# 编译器，Mac 构建需要 Xcode 工具。源码 ZIP 在根目录运行 npm ci、node scripts/build-bridge.cjs、npm test、npx tsc --noEmit、npm run license:check、npm run build。原生平台打包命令与证据见 CURRENT_STATUS.md。
 
-核对SHA256SUMS.txt。Windows运行KAMUCL-1.1.21.exe；紧凑ZIP解压后运行同名EXE，展开ZIP运行KAMUCL.exe。Mac使用ARM64 ZIP或DMG的KAMUCL.app，依系统提示安装；签名和未通过项先看docs/validation-1.1.21/MAC_ACCEPTANCE.json。不要覆盖自己的游戏目录或把登录配置发给别人。
+交接包将精确 Git 源码放在 source/，成品在 _handoff/artifacts/。在交接包顶层执行记录的便携验证命令：
 
-源码解压后在项目根npm ci、node scripts/build-bridge.cjs；交接包在source目录执行。保留当前用户数据、旧实例和未提交文件。
+```json
+["node", "source/scripts/check-licenses.cjs"]
+```
 
-## Use the deliverable
+源码 ZIP 根目录对应命令是 node scripts/check-licenses.cjs。该命令核查锁文件、完整许可与供源材料，不能替代已记录的全套功能测试。交接创建及运输副本用原版 package-codex-project-handoff 进行完整成员、SHA 和上述命令复验。
 
-社区资源添加到下载队列后可继续搜索和切页。每个任务冻结目标，必要前置在独立确认界面展示；不会因检测完成就自动安装。错误可以重试/取消，结果以实际完成状态和文件为准。
+## 证据范围
 
-个性化的主题入口、画布、草稿与正式应用分开。取消不应用；失败保留内容并恢复意外失去的按钮焦点。小屏自适应入口保留且默认关闭，开启结合实际工作区和手动缩放，关闭恢复手动缩放。
+五份审计报告在 audit-reports/。docs/validation-1.1.22/ 包含最终测试、原生启动、独立评审和对应来源。Linux、Intel Mac、鸿蒙不新增成品。原始 MD、玩家账户、私钥、游戏整合包、存档、运行目录和 pelican-bicycle.html 不进入交付。
 
-更新可选择预设及自定义HTTPS镜像，首块测速有缓存；最终附件仍校验官方同版本SHA256。嵌套MRPACK移除旧512MiB整包限制但保留路径/CRC/容量/取消安全检查。材质包支持唯一wrapper，拒绝含糊多包而不丢弃内容。单图片导入替换旧轮播，保存失败回滚。
-
-## Verify
-
-npm test；npx --no-install tsc --noEmit；npm run license:check；npm run build。Windows包：node scripts/verify-windows-package.cjs。Mac原生工作流和专项脚本见验证目录，不能用Windows通过代替Mac结果。
-
-Windows最终QA源263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1全量：1589项/1588通过/0失败/1平台跳过；Mac原生成品8e源全量1561项/1556通过/0失败/5平台跳过。两平台QA源和计数分列。类型、许可、生产构建和包完整性通过。Windowsa844脚本16组矩阵全部通过，后续7528输入协议和263df7计时脚本各有Windows最小窗口125%烟雾测试，另有原生成品/硬件GPU/DPI证据；Mac实际修改范围与全部未通过按job分列。
-
-Mac本批修改范围的18组原生ARM64离屏矩阵及独立评分通过，使用原8e包、QA263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1、run37831726301；实际窗口、游戏、动效和整个平台仍未放行。这是受控renderer/原包专项，不是实体Mac完整验收。
-
-交接记录验证命令数组：["node","source/scripts/check-licenses.cjs"]，交接根运行应输出License check passed并退出0。它只验证许可，不代替游戏、UI或真实服务验收。
-
-源码是最终Git原始blob，所有既有公开历史夹具保留；不含原用户DOCX/ZIP、玩家世界、凭据、私钥、实时profile或未提交pelican-bicycle.html。Windows冻结539输入先于构建完整读取；后来QA/文档变化与成品来源由DELIVERY列明，不冒充最终标签重新构建。
-
-原PCL故障包、Nan2uu原材质包、人工听感、完整动效/帧率、实体Mac/macOS13未覆盖。Mac1.20.1 NSGL游戏失败，现代26.2保存链也不能代替可辨识画面通过；不降低门槛或改写原失败。
+真实设备码请求及授权页名称已观察；完整 Xbox/XSTS/Minecraft 登录、重启续期和正版游戏启动仍待交互验证。Mac 旧整机游戏图形及键盘验收失败保留，本版修改专项通过不表示全平台所有功能/外观/动效完全一致。实际听感、全场景 FPS、物理 macOS13、剩余素材授权与依赖公告不推断通过。

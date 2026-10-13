@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "compliance_scope_audit",
+  "createdAt": "2026-10-13T17:29:53.121Z",
+  "role": "Independent high-risk code / report cross-review of identity, custom CF credential and FRP storage; did not review own license implementation.",
+  "representation": "Observed shared working-tree bytes, not a clean commit / atomic source snapshot.",
+  "files": [
+    {
+      "file": "src/main/core/frpSecureStore.ts",
+      "bytes": 17235,
+      "sha256": "95443ec2417004378471f9d12dbabab84c536f41043d82f68c42cf30bbcb0c0c"
+    },
+    {
+      "file": "src/main/core/frpManager.ts",
+      "bytes": 13086,
+      "sha256": "a2c156d1755ff0e799d9e50556e847a5c3e8e5cf436aa917a8142c969959fb8c"
+    },
+    {
+      "file": "src/main/core/frpService.ts",
+      "bytes": 1334,
+      "sha256": "7f4b8f84e160338c42bbde6b46be2202e97dcb748fd219f85f0a887985339efb"
+    },
+    {
+      "file": "src/main/core/frpIpc.ts",
+      "bytes": 3673,
+      "sha256": "983716882e6d30f97018dcf87fa70d80cc3f03ac8533bb91c65c88fd47097c4f"
+    },
+    {
+      "file": "src/main/core/frp.ts",
+      "bytes": 14462,
+      "sha256": "de2d2fa679010d2f29697ad143771b68ed4b5bff61f57bea9ab067cbb1e63efa"
+    },
+    {
+      "file": "src/main/core/credentialProtection.ts",
+      "bytes": 1079,
+      "sha256": "8a19ac043f0ea6738aa42aea9ca83558f5a5205752fc99bd24f9b33366a7ebe7"
+    },
+    {
+      "file": "src/renderer/src/components/connection/FrpPanel.vue",
+      "bytes": 31270,
+      "sha256": "6d64aa0f4b669b0375390c6150ba4f277b9456ce8ea5abddbba51931998bf387"
+    },
+    {
+      "file": "tests/frp-secure122.test.ts",
+      "bytes": 13374,
+      "sha256": "586487badcc3a75a220ec90cf1971d58f84859896f5933ef0ea35f536bd88409"
+    },
+    {
+      "file": "tests/helpers/frpCipherFixture.ts",
+      "bytes": 1132,
+      "sha256": "c1d93dd40fd1fd39b2b37b80a1787ed16c7e24f083fda21ba756317cf5101029"
+    },
+    {
+      "file": "src/main/core/microsoftIdentity.ts",
+      "bytes": 5371,
+      "sha256": "4d6d718fc9abda59e4601fb0bfa1615227160ff65e406e49ea7119ce10ea12cf"
+    },
+    {
+      "file": "src/main/core/microsoftTls.ts",
+      "bytes": 6735,
+      "sha256": "0bd05a31ccd6b26f1c9e4cad5ed0b2d6b10086de96fd9cc6005dde4ce4e60c8e"
+    },
+    {
+      "file": "src/main/core/accounts.ts",
+      "bytes": 29729,
+      "sha256": "5409aebdc28232acb95eaee0a8e4f5f21ae0444a6679ec893fb560d293c91d1f"
+    },
+    {
+      "file": "src/main/core/settingsCredentials.ts",
+      "bytes": 3887,
+      "sha256": "a3532eddc86385d951088c989461548b39cbc8f32b34326ba1af13d0d938c531"
+    },
+    {
+      "file": "src/main/core/settings.ts",
+      "bytes": 16533,
+      "sha256": "d15f33734027e19506c13b277c73dcb10dcc1f046b13b7ab83d732b5a1af45cf"
+    },
+    {
+      "file": "src/main/core/curseforgeChannel.ts",
+      "bytes": 683,
+      "sha256": "dedf7cf36c002599f307c47a866e3837598ea12e281df6672fec24a3d117142f"
+    },
+    {
+      "file": "tests/microsoft-identity122.test.ts",
+      "bytes": 38408,
+      "sha256": "d1ce3cb35a72e77931261a431a2de792a0d009ab3a9433b72b29a30910f2db78"
+    },
+    {
+      "file": "tests/settings-credentials122.test.ts",
+      "bytes": 16824,
+      "sha256": "1822e12cdf46c61cff8ee75081e00851c1dac3b08d2c4630d210bf1ae3515042"
+    },
+    {
+      "file": "tests/frp-service-clear122.test.ts",
+      "bytes": 7214,
+      "sha256": "d7d8c545a7886580ea40932db4823d7123e12192d577a0cacf1638eacfc9408b"
+    },
+    {
+      "file": "audit-reports/CLIENT_ID_AUDIT.md",
+      "bytes": 17501,
+      "sha256": "13d69c997f71cf6694dd71d660441df00674c42d26b310c074182e559370ba17"
+    },
+    {
+      "file": "audit-reports/SECURITY_AUDIT.md",
+      "bytes": 19976,
+      "sha256": "1386cf71a1db55b77fea8f9d4c1789f6924dcb3897b2db47e74d2a4c4b507a7d"
+    }
+  ],
+  "tests": [
+    {
+      "command": "node node_modules/tsx/dist/cli.mjs --test tests/frp-secure122.test.ts tests/settings-credentials122.test.ts",
+      "pass": 32,
+      "fail": 0,
+      "skip": 0,
+      "exitCode": 0,
+      "durationMs": 743.4812,
+      "toolWallSeconds": 1.4204036
+    },
+    {
+      "command": "node node_modules/tsx/dist/cli.mjs --test tests/microsoft-identity122.test.ts",
+      "pass": 35,
+      "fail": 0,
+      "skip": 0,
+      "exitCode": 0,
+      "durationMs": 3615.3433,
+      "toolWallSeconds": 4.565145
+    },
+    {
+      "command": "node node_modules/tsx/dist/cli.mjs --test tests/frp-service-clear122.test.ts tests/frp-secure122.test.ts tests/frp-manager.test.ts",
+      "pass": 32,
+      "fail": 0,
+      "skip": 0,
+      "exitCode": 0,
+      "durationMs": 1024.3144,
+      "toolWallSeconds": 1.7838357
+    }
+  ],
+  "counts": {
+    "distinctTests": 84,
+    "testExecutionsIncludingRepeatedFRP": 99,
+    "independentReplayCases": 5,
+    "openFindings": 0
+  },
+  "scores": {
+    "scope": "Identity / CF / FRP backend changes and controlled failure behaviour reviewed independently. These scores do not rate own license changes, unverified real OAuth service qualification, UI appearance or whole-platform delivery.",
+    "rationality": {
+      "value": 9.2,
+      "outOf": 10,
+      "threshold": 8.5,
+      "status": "pass within scoped review",
+      "evidence": [
+        "Single immutable own application identity with old-binding reauthorization; no silent borrowed fallback.",
+        "Write-only credentials and encrypted storage preserve account/metadata intent; clear requires explicit confirmation.",
+        "Transactional failures restore owned changes or accurately expose partial restoration without overwriting observed external edits.",
+        "Reports keep historical failures and separate fixture / native / real-service coverage."
+      ]
+    },
+    "functionality": {
+      "value": 9,
+      "outOf": 10,
+      "threshold": 8.5,
+      "status": "pass within controlled backend review; actual OAuth service qualification remains unverified",
+      "evidence": [
+        "Original independent dedicated scope 67/67: identity35, CF17 and FRPstore15.",
+        "Actual service-composition 6/6 and supplemental existing manager11/11; latest FRP32/32 exits normally.",
+        "Independent replay5/5 and retained original P2 failure receipt confirm restoration / external-update protection / accurate partial failure.",
+        "Identity and CF core hashes remain unchanged from independently tested code."
+      ],
+      "deductions": [
+        "Native OS credential persistence and actual full OAuth/Xbox/Minecraft qualification not supplied by these backend fixtures.",
+        "No cross-file crash/power-loss atomicity or arbitrary multi-process race proof."
+      ]
+    },
+    "appearance": {
+      "value": null,
+      "status": "N/A",
+      "reason": "Backend-only independent assessment; UI screenshots/themes and packaged renderer appearance assigned to separate reviewer."
+    },
+    "criticalDefectsInReviewedScope": 0,
+    "overallProductReleaseApproval": false
+  },
+  "finalWindowsArtifactCrossCheck": {
+    "receipt": "out/compliance122-final-windows-package.json",
+    "sha256": "aafab26d213c56742a8485633a91b79ccdddf02cd04bb32ed3737b19cc24c6a7",
+    "status": "Actual EXE/payload/ASAR/compactZIP/fallbackZIP required-material check passed; no score of own license implementation; public source attachment/commit/release verification remains root-owned."
+  },
+  "unchangedSinceEarlierIdentityCFTests": [
+    {
+      "file": "src/main/core/microsoftIdentity.ts",
+      "unchanged": true
+    },
+    {
+      "file": "src/main/core/microsoftTls.ts",
+      "unchanged": true
+    },
+    {
+      "file": "src/main/core/accounts.ts",
+      "unchanged": true
+    },
+    {
+      "file": "src/main/core/settingsCredentials.ts",
+      "unchanged": true
+    },
+    {
+      "file": "src/main/core/settings.ts",
+      "unchanged": true
+    },
+    {
+      "file": "src/main/core/curseforgeChannel.ts",
+      "unchanged": true
+    },
+    {
+      "file": "tests/microsoft-identity122.test.ts",
+      "unchanged": true
+    },
+    {
+      "file": "tests/settings-credentials122.test.ts",
+      "unchanged": true
+    }
+  ],
+  "verifiedBoundaries": [
+    "Immutable single public Microsoft application identity; no new client secret or third-party fallback.",
+    "Old / unknown account identity bindings require reauthorization without sending their old tokens to the new identity.",
+    "Synthetic full-protocol validation, same-UUID binding, cancel/late-response and refresh ownership guards.",
+    "Account atomic file writes preserve bytes/cache/selection on injected partial-write, rename or protected-storage failures.",
+    "Strict endpoint / certificate / hostname TLS and actual owned CONNECT socket use, no second direct connection, socket cleanup.",
+    "CF key is write-only across actual settings/theme/appearance route fixtures; protected vault, migration and failure rollback.",
+    "FRP schema3 encrypted key bag, public metadata/events omit key, locked/corrupt storage preservation and Linux basic_text rejection.",
+    "FRP configured=false/locked=true after clear reports credentials cleared while the system service remains unavailable; metadata retained."
+  ],
+  "findings": [
+    {
+      "id": "INDEPENDENT-FRP-01",
+      "severity": "P2",
+      "confidence": "high",
+      "status": "resolved in current observed code; original failure evidence retained; independent recheck passed",
+      "file": "src/main/core/frpService.ts",
+      "line": 19,
+      "trigger": "Both old independent config and registry exist; confirmed clear first commits legacy clear, then registry rename fails.",
+      "historicalActual": "Controlled error said original file remains unchanged. Registry did remain byte-identical with old usable key, but independent config had already lost its key. Failed operation was partially committed.",
+      "effect": "The confirmation remains open and failure wording does not accurately describe two-file state. Single-file fixture coverage does not verify this service composition.",
+      "evidence": "out/compliance122-frp-clear-repro.json",
+      "remediation": "Actual service now uses one secureStore.clearCredentials plan. It preflights/freezes both current files, conditionally commits, restores in reverse on failure, refuses to overwrite observed external changes, reports incomplete rollback accurately and invalidates the manager cache.",
+      "recheck": {
+        "actualServiceTests": 6,
+        "independentReplay": {
+          "schemaVersion": 1,
+          "reviewer": "compliance_scope_audit",
+          "createdAt": "2026-10-13T16:58:25.400Z",
+          "scope": "Independent replay against actual FrpSecureStore clearCredentials; synthetic AES and owned temporary files only. Actual service composition independently ran separately.",
+          "originalFailureSHA256": "4ac4f71c307c6a9b82db250a9d85707b74926c243ef78796b7d42bd34bebd80c",
+          "pass": 5,
+          "fail": 0,
+          "records": [
+            {
+              "mode": "second-failure",
+              "error": "清除访问密钥失败；本次已写入的文件已恢复，其他当前文件未覆盖，请重试。",
+              "primaryByteExact": true,
+              "secondaryByteExact": true,
+              "externalSecondaryPreserved": false,
+              "configuredAfter": true,
+              "metadataCount": 1,
+              "hashes": {
+                "beforePrimary": "0e1c6d92348ab4f140caf50800e589f17b04b58e1f05f86c7dca84528bc0fba2",
+                "afterPrimary": "0e1c6d92348ab4f140caf50800e589f17b04b58e1f05f86c7dca84528bc0fba2",
+                "beforeSecondary": "a04f0bb0d47565ff027b7e5e8c7a25891ef7ba89d593c8d124bcdea574e88210",
+                "afterSecondary": "a04f0bb0d47565ff027b7e5e8c7a25891ef7ba89d593c8d124bcdea574e88210"
+              }
+            },
+            {
+              "mode": "post-commit-throw",
+              "error": "清除访问密钥失败；本次已写入的文件已恢复，其他当前文件未覆盖，请重试。",
+              "primaryByteExact": true,
+              "secondaryByteExact": true,
+              "externalSecondaryPreserved": false,
+              "configuredAfter": true,
+              "metadataCount": 1,
+              "hashes": {
+                "beforePrimary": "e33a40ff147a596aa109d257857e39516a1f1940abe33025a17c9d2e8946a918",
+                "afterPrimary": "e33a40ff147a596aa109d257857e39516a1f1940abe33025a17c9d2e8946a918",
+                "beforeSecondary": "e97e4b4661fc1f2f27bd9db9af78dcb22ec92d39ab158d9411f0da68d6e22970",
+                "afterSecondary": "e97e4b4661fc1f2f27bd9db9af78dcb22ec92d39ab158d9411f0da68d6e22970"
+              }
+            },
+            {
+              "mode": "external-legacy",
+              "error": "清除访问密钥未完成；文件被其他操作修改或恢复失败，部分写入无法自动恢复，请重新打开检查后重试。",
+              "primaryByteExact": true,
+              "secondaryByteExact": false,
+              "externalSecondaryPreserved": true,
+              "configuredAfter": true,
+              "metadataCount": 1,
+              "hashes": {
+                "beforePrimary": "ce8747bc800313cfdb458a129120e1b410cd1b6a7f01589b81ed4a8f7df88a29",
+                "afterPrimary": "ce8747bc800313cfdb458a129120e1b410cd1b6a7f01589b81ed4a8f7df88a29",
+                "beforeSecondary": "6c5c9ba52932be2e954e71d524194fa206d9a1c28e327af3f8fa091e626db061",
+                "afterSecondary": "d58f34edc8b5bfe707ba07df7379168fc8b7ce99449fecd7fba82f6ee59a5904"
+              }
+            },
+            {
+              "mode": "rollback-failure",
+              "error": "清除访问密钥未完成；文件被其他操作修改或恢复失败，部分写入无法自动恢复，请重新打开检查后重试。",
+              "primaryByteExact": true,
+              "secondaryByteExact": false,
+              "externalSecondaryPreserved": false,
+              "configuredAfter": true,
+              "metadataCount": 1,
+              "hashes": {
+                "beforePrimary": "50d69806d7af682231ac15f7248bf2ed46a42959a77c48c7d024b92e0944302f",
+                "afterPrimary": "50d69806d7af682231ac15f7248bf2ed46a42959a77c48c7d024b92e0944302f",
+                "beforeSecondary": "bbeb37cd104d84f209927f344adfe3c8b54df6fa9e5f41b6bed25d324807947c",
+                "afterSecondary": "22bd1f7ffae526fc49f0a11837ec844fc9b6c70a2deaf1cd9e507a7d22b53a2a"
+              }
+            },
+            {
+              "mode": "locked-success",
+              "error": "",
+              "primaryByteExact": false,
+              "secondaryByteExact": false,
+              "externalSecondaryPreserved": false,
+              "configuredAfter": false,
+              "metadataCount": 1,
+              "hashes": {
+                "beforePrimary": "383a9f15f02b779ef1f0699e445f9e5799e4d36363ffd3b3e5de5a29f47a1a74",
+                "afterPrimary": "80586587609195f89136f284e57541c3fdfa92c42727cd41d545422ba8400f8a",
+                "beforeSecondary": "ead00ede52245c54849e34b651e141d9b03c4539de27d66a9e441c71471f226a",
+                "afterSecondary": "22bd1f7ffae526fc49f0a11837ec844fc9b6c70a2deaf1cd9e507a7d22b53a2a"
+              }
+            }
+          ],
+          "limits": [
+            "No cross-file power-loss / crash atomicity asserted.",
+            "Conditional rollback preserves injected external edits, but there is no OS-level compare-and-swap primitive or multi-process locking guarantee.",
+            "No native OS keyring, real user config, remote service or worker used."
+          ]
+        },
+        "receiptSHA256": "70c720dd10672465492b68de199230138cc3e356c9a7e2ecae82ea4e32f3a359"
+      },
+      "limits": "Not a remote credential disclosure or unauthorized deletion claim; user explicitly confirmed clearing. No real user configuration, worker or network used."
+    }
+  ],
+  "noAdditionalHighConfidenceFinding": "No new high-confidence identity or CF product defect found in reviewed scope. Cached decrypted CF plaintext staying main-process-local after later keyring locking is existing cache semantics, not a disk plaintext leak.",
+  "limits": [
+    "Fixtures use synthetic protocol responses and AES/fake keyring, not actual Windows DPAPI or macOS Keychain.",
+    "Actual Microsoft authorization, Xbox/Minecraft entitlements/profile, real refresh/restart and game login remain root-owned service evidence; devicecode200 is not full-chain pass.",
+    "No native visual/theme/frame/audio scoring, public FRP service run, whole IPC/plugin penetration or whole-platform acceptance is claimed.",
+    "Did not run Vite/full-suite again or terminate foreign processes/handles; dedicated tests exited normally.",
+    "Public CF built-in application credential ownership remains unconfirmed; no discovered credential was used for network verification.",
+    "Own license changes require a separate reviewer; this receipt gives no independent rating of them.",
+    "Cross-file power-loss/crash atomicity was not tested or asserted; conditional checks are not an OS-level atomic CAS or arbitrary multi-process race guarantee."
+  ]
+}
