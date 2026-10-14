@@ -1,0 +1,19 @@
+✔ native123 assets bind exact source, both original names, ARM64/runtime and ad-hoc scope (1.6171ms)
+✔ native123 workflow freezes official actions, current bridge before build, original-package checks and raw failure evidence (0.4203ms)
+✔ every serialized DOM observer compiles as JavaScript, malformed observer is rejected (2.1433ms)
+✔ fixture delivers revision2 before late Start revision1, preserving exact full-prefix semantics (19.2798ms)
+✔ page increases visible prefix and discover adds only five confirmed candidates with bounded cursor (30.5047ms)
+✔ cancel receipt and deliberately late event remain independent observed fixture facts (15.5013ms)
+✔ filtered empty fixture preserves requested version and loader rather than silently expanding (0.3549ms)
+✔ strict matrix contract rejects absent state, duplicate screenshots, wrong-platform or untrusted proof (3.4497ms)
+✔ live target proof requires independently fixed source/project/slug identities and exact unfiltered session (1.8288ms)
+✔ public file receipt hashes path and omits URL query, while retaining exact project/file/hash identity (0.4432ms)
+✔ necessary UI failure fixtures distinguish Start rejection and coherent cached-ready Start return (24.2302ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 316.6535

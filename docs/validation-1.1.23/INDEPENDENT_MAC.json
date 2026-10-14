@@ -1,0 +1,507 @@
+{
+  "reviewer": "compliance_scope_audit",
+  "at": "2026-10-13T22:00:05.981Z",
+  "version": "1.1.23",
+  "platform": "darwin",
+  "arch": "arm64",
+  "runId": 38469671596,
+  "scope": "Independent final original-package and current community-search change review. Reviewer did not implement product UI/backend and does not score their own QA/license remediation. No unchanged whole-platform/game acceptance is inferred.",
+  "source": {
+    "windowsProductBuild": "eac26dce109add58103106c73352353b6be7f97a",
+    "macBuild": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+    "difference": "Five QA/document files only; protected src/package/lock/licenses/resources/build inputs are identical Git blobs. Windows was not rebuilt for QA-only corrections."
+  },
+  "environment": {
+    "actualNativeSystem": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83\n",
+    "runtime": "44.3.0",
+    "minimumAdvertised": "macOS 13+",
+    "minimumSystemNotPhysicallyTested": true,
+    "signing": "Ad-hoc strict deep native verification; not Developer ID signed or notarized"
+  },
+  "evidence": [
+    {
+      "file": "out/mac123-final-original-local.json",
+      "bytes": 8594,
+      "sha256": "64f4ca6208a85e536c94a7c946b0be82ad717aed4acadda06124fa9845a3d746"
+    },
+    {
+      "file": "out/mac123-original-copy-receipt.json",
+      "bytes": 913,
+      "sha256": "7b8b43985d07ae7944eb467d788356d2738124850a1856602106d901d80e954f"
+    },
+    {
+      "file": "out/community123-original-renderer-platform-compare.json",
+      "bytes": 72079,
+      "sha256": "e81a191e7209833272efa847247b820fb184f70573def56e965fd24ae8b5b879"
+    },
+    {
+      "file": "out/mac123-first-failure-independent.json",
+      "bytes": 2667,
+      "sha256": "113659d7ad0a5ae07d974cdf564d6472ac054404f5d0aa6cc0daa3120303e6d2"
+    },
+    {
+      "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-package-arm64.json",
+      "bytes": 2013,
+      "sha256": "2dd792158fd8d0bc472896c5fa051d8d00fab603142c4b17c32a48db680d1b92"
+    },
+    {
+      "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/receipt.json",
+      "bytes": 58339,
+      "sha256": "0c4f449b5938a89181e954d2e77b74e36486197c12d0e99743d868fe7bebb674"
+    },
+    {
+      "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/out/mac-community123-logs/npm-test.log",
+      "bytes": 206018,
+      "sha256": "b3491a6a562d41a7e10a9d4d1f3b1ac51a8ea56ab8817fac5e2c650e6648bf37"
+    },
+    {
+      "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/out/mac-community123-logs/native-check.log",
+      "bytes": 14309,
+      "sha256": "4aeff8a11fabcbdcd628d3709cb5740ca47d979abd1e3554174a231963446430"
+    }
+  ],
+  "assets": [
+    {
+      "name": "KAMUCL-1.1.23-mac-arm64.zip",
+      "bytes": 129902007,
+      "sha256": "fdf51a02e61bdcace37f1c891a20d4a1b958b649ec3a0c1286bc73f995339a1e",
+      "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/KAMUCL-1.1.23-mac-arm64.zip"
+    },
+    {
+      "name": "KAMUCL-1.1.23-mac-arm64.dmg",
+      "bytes": 141317086,
+      "sha256": "f508554a9163e03290ca0d6f8f182d1c02b23858d38eb8392571d986b0db6458",
+      "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/KAMUCL-1.1.23-mac-arm64.dmg"
+    }
+  ],
+  "checks": {
+    "actualNativeZipStartup": true,
+    "actualNativeMountedDmgStartup": true,
+    "originalPackageBytesVerified": true,
+    "actualProtectedUserDataUsed": false,
+    "exactOwnFreshAccountsBothStages": true,
+    "nativeSignatureArchMinimumAndNoticesCI": true,
+    "windowsLocalSignatureNotClaimed": true,
+    "exactOriginalZipAsar": {
+      "file": "E:\\KAMUCL\\out\\mac-community123-run-38469671596\\mac-community123-arm64-38469671596\\independent-original-asar\\app.asar",
+      "bytes": 22034314,
+      "sha256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+      "exactRendererFiles": 147,
+      "notices": [
+        {
+          "file": "LICENSE.electron.txt",
+          "bytes": 1096,
+          "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+        },
+        {
+          "file": "LICENSES.chromium.html",
+          "bytes": 20111209,
+          "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535"
+        }
+      ]
+    },
+    "matricesPerPackage": 16,
+    "requiredFlagsPerMatrix": 16,
+    "originalCoordinateImagesVerified": 320,
+    "originalNativeImagesVerified": 4,
+    "exactOriginalRendererFiles": 147,
+    "realSourceProjectSlugIdentitiesPerPackage": 4,
+    "sourceFileHashesAndSupplementalPayloadBothPackages": true,
+    "mountDetached": true
+  },
+  "live": [
+    {
+      "stage": "zip",
+      "proof": {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/zip-native/receipt.json",
+        "sha256": "96ea5ec1df4f736806dbd06eb7661564b2d2afc514e14f391c69231ef025c6f8"
+      },
+      "queries": [
+        {
+          "source": "modrinth",
+          "keyword": "无尽",
+          "version": "",
+          "loader": "",
+          "totalConfirmed": 17,
+          "observedFamilies": {
+            "base": false,
+            "variant": false,
+            "rebirth": true
+          },
+          "covered": true,
+          "actuallyExhausted": false
+        },
+        {
+          "source": "curseforge",
+          "keyword": "无尽",
+          "version": "",
+          "loader": "",
+          "totalConfirmed": 95,
+          "observedFamilies": {
+            "base": true,
+            "variant": true,
+            "rebirth": true
+          },
+          "covered": true,
+          "actuallyExhausted": false
+        },
+        {
+          "source": "all",
+          "keyword": "无尽",
+          "version": "",
+          "loader": "",
+          "totalConfirmed": 112,
+          "observedFamilies": {
+            "base": true,
+            "variant": true,
+            "rebirth": true
+          },
+          "covered": true,
+          "actuallyExhausted": false
+        }
+      ],
+      "targets": [
+        {
+          "key": "modrinth:QeB3NRC5",
+          "slug": "re-avaritia",
+          "detailProjectId": "QeB3NRC5",
+          "files": 36
+        },
+        {
+          "key": "curseforge:233785",
+          "slug": "avaritia",
+          "detailProjectId": "233785",
+          "files": 9
+        },
+        {
+          "key": "curseforge:623969",
+          "slug": "re-avaritia",
+          "detailProjectId": "623969",
+          "files": 84
+        },
+        {
+          "key": "curseforge:624491",
+          "slug": "avaritia-endless",
+          "detailProjectId": "624491",
+          "files": 84
+        }
+      ],
+      "supplemental": {
+        "classification": "Independent full network-byte SHA1/SHA256 check of production-IPC metadata, not product installer or game launch",
+        "project": {
+          "source": "modrinth",
+          "projectId": "EsAfCjCV",
+          "slug": "appleskin",
+          "title": "苹果皮 | AppleSkin",
+          "author": "squeek502",
+          "description": "Food/hunger-related HUD improvements",
+          "iconUrl": "https://cdn.modrinth.com/data/EsAfCjCV/icon.png",
+          "downloads": 95131583,
+          "updatedAt": "2026-09-17T23:59:30.437129+00:00",
+          "categories": [
+            "fabric",
+            "food",
+            "forge",
+            "neoforge",
+            "quilt",
+            "utility"
+          ],
+          "originalTitle": "AppleSkin"
+        },
+        "file": {
+          "source": "modrinth",
+          "projectId": "EsAfCjCV",
+          "fileId": "PHjDtQay",
+          "fileName": "appleskin-fabric-mc26.3-3.0.10.jar",
+          "size": 180194,
+          "sha1": "3d19e40c5f97186857db98e622c01c2cd0030497",
+          "gameVersions": [
+            "26.3"
+          ],
+          "loaders": [
+            "fabric"
+          ],
+          "url": {
+            "protocol": "https:",
+            "host": "cdn.modrinth.com",
+            "pathnameSHA256": "a4fd67a2c3a49a4b8fa7b99328725fb26eb3f046180b979b8a466333837cbe12"
+          }
+        },
+        "bytes": 180194,
+        "sha1": "3d19e40c5f97186857db98e622c01c2cd0030497",
+        "sha256": "cb05087c39f0d860611aa1fae7cf63560214d1b71378a7c903c18dc370b5c3ce"
+      }
+    },
+    {
+      "stage": "dmg",
+      "proof": {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/dmg-native/receipt.json",
+        "sha256": "a4eaeda9f6a028df6d0fccde52519905ba0d86e2a807e27a959466a432ca9f8d"
+      },
+      "queries": [
+        {
+          "source": "modrinth",
+          "keyword": "无尽",
+          "version": "",
+          "loader": "",
+          "totalConfirmed": 18,
+          "observedFamilies": {
+            "base": false,
+            "variant": false,
+            "rebirth": true
+          },
+          "covered": true,
+          "actuallyExhausted": false
+        },
+        {
+          "source": "curseforge",
+          "keyword": "无尽",
+          "version": "",
+          "loader": "",
+          "totalConfirmed": 95,
+          "observedFamilies": {
+            "base": true,
+            "variant": true,
+            "rebirth": true
+          },
+          "covered": true,
+          "actuallyExhausted": false
+        },
+        {
+          "source": "all",
+          "keyword": "无尽",
+          "version": "",
+          "loader": "",
+          "totalConfirmed": 112,
+          "observedFamilies": {
+            "base": true,
+            "variant": true,
+            "rebirth": true
+          },
+          "covered": true,
+          "actuallyExhausted": false
+        }
+      ],
+      "targets": [
+        {
+          "key": "modrinth:QeB3NRC5",
+          "slug": "re-avaritia",
+          "detailProjectId": "QeB3NRC5",
+          "files": 36
+        },
+        {
+          "key": "curseforge:233785",
+          "slug": "avaritia",
+          "detailProjectId": "233785",
+          "files": 9
+        },
+        {
+          "key": "curseforge:623969",
+          "slug": "re-avaritia",
+          "detailProjectId": "623969",
+          "files": 84
+        },
+        {
+          "key": "curseforge:624491",
+          "slug": "avaritia-endless",
+          "detailProjectId": "624491",
+          "files": 84
+        }
+      ],
+      "supplemental": {
+        "classification": "Independent full network-byte SHA1/SHA256 check of production-IPC metadata, not product installer or game launch",
+        "project": {
+          "source": "modrinth",
+          "projectId": "EsAfCjCV",
+          "slug": "appleskin",
+          "title": "苹果皮 | AppleSkin",
+          "author": "squeek502",
+          "description": "Food/hunger-related HUD improvements",
+          "iconUrl": "https://cdn.modrinth.com/data/EsAfCjCV/icon.png",
+          "downloads": 95131583,
+          "updatedAt": "2026-09-17T23:59:30.437129+00:00",
+          "categories": [
+            "fabric",
+            "food",
+            "forge",
+            "neoforge",
+            "quilt",
+            "utility"
+          ],
+          "originalTitle": "AppleSkin"
+        },
+        "file": {
+          "source": "modrinth",
+          "projectId": "EsAfCjCV",
+          "fileId": "PHjDtQay",
+          "fileName": "appleskin-fabric-mc26.3-3.0.10.jar",
+          "size": 180194,
+          "sha1": "3d19e40c5f97186857db98e622c01c2cd0030497",
+          "gameVersions": [
+            "26.3"
+          ],
+          "loaders": [
+            "fabric"
+          ],
+          "url": {
+            "protocol": "https:",
+            "host": "cdn.modrinth.com",
+            "pathnameSHA256": "a4fd67a2c3a49a4b8fa7b99328725fb26eb3f046180b979b8a466333837cbe12"
+          }
+        },
+        "bytes": 180194,
+        "sha1": "3d19e40c5f97186857db98e622c01c2cd0030497",
+        "sha256": "cb05087c39f0d860611aa1fae7cf63560214d1b71378a7c903c18dc370b5c3ce"
+      }
+    }
+  ],
+  "sourceComparison": {
+    "files": 147,
+    "rawBytesIdentical": 96,
+    "generatedTextNormalizedEqual": 51,
+    "unexplained": [],
+    "method": "Separate diagnostic only: generated import/bundle names, observed Vue scope/keyframe IDs and raw license text CRLF/LF. Every raw hash is retained; no native/package/coordinate gate uses this normalization."
+  },
+  "visualInspection": {
+    "pairedOriginalFrames": [
+      {
+        "mac": {
+          "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/zip-ui/black-orange-960x620-125-failed-before-snapshot.png",
+          "sha256": "7976f4a8b21d8b641c0e93a1004cf6be8b1621759c4c4d13af8509a82c07b692"
+        },
+        "windows": {
+          "file": "out/community123-ui-Y9SeOt/black-orange-960x620-125-failed-before-snapshot.png",
+          "sha256": "d42006dbb783f3528c28a06a5cd451007be65c9e913fe8bba36bd21f71fe2faa"
+        }
+      },
+      {
+        "mac": {
+          "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/zip-ui/blue-white-1366x768-100-ready.png",
+          "sha256": "551f716c970309792468ac4aabc3eb35ae0f35e5ba621eeae288fc221f5c9dc7"
+        },
+        "windows": {
+          "file": "out/community123-ui-Y9SeOt/blue-white-1366x768-100-ready.png",
+          "sha256": "3c01b91526f48ea8b83d3d599aaf955acf21327e0da25bfae686699a547dbe98"
+        }
+      },
+      {
+        "mac": {
+          "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/dmg-ui/custom-960x620-125-resumed.png",
+          "sha256": "9ecf02f132dba796c7df0b63cd7418f8a88e5614136c267e41faacb1eb7ad3f8"
+        },
+        "windows": {
+          "file": "out/community123-ui-Y9SeOt/custom-960x620-125-resumed.png",
+          "sha256": "733fa644083be48f8ade938cf7144a182adda5bf4b2300f024cb1daf4136aaf1"
+        }
+      },
+      {
+        "mac": {
+          "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/zip-ui/black-pink-960x620-125-partial.png",
+          "sha256": "a72dc635d9a2ac7dd2536b12d8489f751a8b2f31ac4e83afb7da2e0e331c4e61"
+        },
+        "windows": {
+          "file": "out/community123-ui-Y9SeOt/black-pink-960x620-125-partial.png",
+          "sha256": "4bcac6a8968e8d3873cfdbc6d464c591fdf13e288d673937345748012d045db4"
+        }
+      },
+      {
+        "mac": {
+          "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/dmg-ui/custom-960x620-125-failed-before-snapshot.png",
+          "sha256": "94606de865c8d82db8d8b2c698069d6182a08bef2d7f8a1805a143427e554786"
+        },
+        "windows": {
+          "file": "out/community123-ui-Y9SeOt/custom-960x620-125-failed-before-snapshot.png",
+          "sha256": "bc8e5a3f20472812a84733edc049d67279ab1c5ab6314c30d892bd380ef7862d"
+        }
+      },
+      {
+        "mac": {
+          "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/zip-ui/blue-white-960x620-125-empty.png",
+          "sha256": "894519a2cff800b569099e3890238b054cfee734f5165c3293add29bcfb840f3"
+        },
+        "windows": {
+          "file": "out/community123-ui-Y9SeOt/blue-white-960x620-125-empty.png",
+          "sha256": "56366750cb0bec5d2de0084549db800a7fa4cea464eb91c93173668747c43c50"
+        }
+      },
+      {
+        "mac": {
+          "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/dmg-ui/black-orange-1366x768-100-partial-actions.png",
+          "sha256": "0c5e1d3fb8016aafdaf2685f5812f038ad22ca1c4427db093daccd010530818a"
+        },
+        "windows": {
+          "file": "out/community123-ui-Y9SeOt/black-orange-1366x768-100-partial-actions.png",
+          "sha256": "8a3ac84817ba2848af77ad1f39759b3ac8703514cd9b761339a35f376f80e6b8"
+        }
+      }
+    ],
+    "actualOriginalNativeFrames": [
+      {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/zip-native/original-startup.png",
+        "sha256": "5cb0d028c5d2a260fec72e740865316df9c4d5a4743e76c4322f814aa30766d6"
+      },
+      {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/zip-native/original-live-wujin.png",
+        "sha256": "da5f8ad71fd8905f364adb463d1c05e88d286e0aed8442573be0980c8bb8238e"
+      },
+      {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/dmg-native/original-startup.png",
+        "sha256": "b5cde445a5df44a7f6ee401bad8caa42c16c80b1d5351fce71e541eb2671aa6d"
+      },
+      {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/dmg-native/original-live-wujin.png",
+        "sha256": "da5f8ad71fd8905f364adb463d1c05e88d286e0aed8442573be0980c8bb8238e"
+      }
+    ],
+    "observations": [
+      "Four themes were visually sampled from the final original ASAR-produced screenshots, including 960x620 at125% and1366x768 at100%. All mandatory state frames were separately byte-verified.",
+      "Community filter/status/action layout, hierarchy, colors and preserved-result/retry behavior agree with Windows samples; controls remain reachable through normal scrolling at minimum size.",
+      "Native Mac system-window controls and their reserved top space differ as allowed. Existing system font rendering can cause small line-flow differences; this is not a pixel-identical screenshot claim.",
+      "Native live 无尽 frames show independent source/project cards and actual available icons. A Windows comparison frame was captured during the existing card fade-in; original timing/opacity was retained."
+    ],
+    "criticalVisualFindings": []
+  },
+  "tests": {
+    "footer": [
+      "ℹ tests 1737",
+      "ℹ pass 1732",
+      "ℹ fail 0",
+      "ℹ skipped 5"
+    ],
+    "classification": "Full frozen-source tests on the native runner; 5 actual skips remain skips, not inferred passes"
+  },
+  "scores": {
+    "rationality": {
+      "value": 9.2,
+      "outOf": 10,
+      "basis": "Verified-source identities, confirmed counts, fast partial disclosure, explicit discovery and unchanged filters; one click restores cached search and starts one appropriate batch."
+    },
+    "functionality": {
+      "value": 9,
+      "outOf": 10,
+      "basis": "Both original ZIP and mounted DMG real APPs, exact native architecture/runtime/source identity, all16 flags in each of16 matrices, real 无尽 source-bound metadata and independent supplemental payload hash; no critical changed-scope finding."
+    },
+    "appearance": {
+      "value": 8.9,
+      "outOf": 10,
+      "basis": "Seven paired original frames across four themes, original native startup/live frames and320 strict state/coordinate captures. Clear reachable status/actions without overlay; normal vertical scrolling needed at largest text scale."
+    }
+  },
+  "releaseGate": {
+    "minimum": 8.5,
+    "currentMacCommunityScopePassed": true,
+    "criticalFindings": []
+  },
+  "historicalFailures": [
+    "Run38468603131 failed its UI gate because the QA cached-ready fixture wrongly returned initial0; first original package,6 failed UI frames,stage logs and already-passed native ZIP live evidence retained independently. No failed gate was relabeled a pass.",
+    "The subsequent coherent cached Start contract and error diagnostic were QA-only; product code was not changed to satisfy the test.",
+    "Earlier observer syntax/queued-input/synchronous-scroll faults and original Windows native-submit-disabled attempt remain retained."
+  ],
+  "unverified": [
+    "Whole Mac/game/tool/update acceptance, actual world entry, old GPU/animation failures and physical FPS/audio remain outside this changed community scope.",
+    "Actual target 无尽 JAR install/game launch not performed; full payload hash is the separately identified small AppleSkin supplement.",
+    "Real Microsoft/Xbox/Minecraft authentication chain was not rerun or inferred from these public-service checks.",
+    "Actual macOS13 desktop and Developer ID/Gatekeeper notarization were not tested; native execution evidence is macOS26.6.2 ARM64.",
+    "This is not a claim of zero defects in all launcher functions, complete repository search exhaustion, identical pixels across operating systems, all third-party asset rights, or absence of every possible secret."
+  ]
+}

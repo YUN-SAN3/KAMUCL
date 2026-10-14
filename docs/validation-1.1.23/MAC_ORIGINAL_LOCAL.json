@@ -1,0 +1,227 @@
+{
+  "runId": 38469671596,
+  "source": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+  "localPlatform": "win32",
+  "classification": "Original downloaded bytes and CI native receipts independently cross-checked. Local Windows never executes a Mac APP or verifies a macOS signature.",
+  "assets": [
+    {
+      "name": "KAMUCL-1.1.23-mac-arm64.zip",
+      "bytes": 129902007,
+      "sha256": "fdf51a02e61bdcace37f1c891a20d4a1b958b649ec3a0c1286bc73f995339a1e",
+      "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/KAMUCL-1.1.23-mac-arm64.zip"
+    },
+    {
+      "name": "KAMUCL-1.1.23-mac-arm64.dmg",
+      "bytes": 141317086,
+      "sha256": "f508554a9163e03290ca0d6f8f182d1c02b23858d38eb8392571d986b0db6458",
+      "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/KAMUCL-1.1.23-mac-arm64.dmg"
+    }
+  ],
+  "stages": [
+    {
+      "stage": "zip",
+      "uiProof": {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/zip-ui/proof.json",
+        "sha256": "9a51755720da194912202d412ca136aa0b1ce026ae2399846305b3f0470c624b"
+      },
+      "nativeProof": {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/zip-native/receipt.json",
+        "sha256": "96ea5ec1df4f736806dbd06eb7661564b2d2afc514e14f391c69231ef025c6f8"
+      },
+      "matrix": 16,
+      "flags": 16,
+      "imagesVerified": 160,
+      "nativeImagesVerified": 2,
+      "targets": 4,
+      "supplementalPayload": {
+        "classification": "Independent full network-byte SHA1/SHA256 check of production-IPC metadata, not product installer or game launch",
+        "project": {
+          "source": "modrinth",
+          "projectId": "EsAfCjCV",
+          "slug": "appleskin",
+          "title": "苹果皮 | AppleSkin",
+          "author": "squeek502",
+          "description": "Food/hunger-related HUD improvements",
+          "iconUrl": "https://cdn.modrinth.com/data/EsAfCjCV/icon.png",
+          "downloads": 95131583,
+          "updatedAt": "2026-09-17T23:59:30.437129+00:00",
+          "categories": [
+            "fabric",
+            "food",
+            "forge",
+            "neoforge",
+            "quilt",
+            "utility"
+          ],
+          "originalTitle": "AppleSkin"
+        },
+        "file": {
+          "source": "modrinth",
+          "projectId": "EsAfCjCV",
+          "fileId": "PHjDtQay",
+          "fileName": "appleskin-fabric-mc26.3-3.0.10.jar",
+          "size": 180194,
+          "sha1": "3d19e40c5f97186857db98e622c01c2cd0030497",
+          "gameVersions": [
+            "26.3"
+          ],
+          "loaders": [
+            "fabric"
+          ],
+          "url": {
+            "protocol": "https:",
+            "host": "cdn.modrinth.com",
+            "pathnameSHA256": "a4fd67a2c3a49a4b8fa7b99328725fb26eb3f046180b979b8a466333837cbe12"
+          }
+        },
+        "bytes": 180194,
+        "sha1": "3d19e40c5f97186857db98e622c01c2cd0030497",
+        "sha256": "cb05087c39f0d860611aa1fae7cf63560214d1b71378a7c903c18dc370b5c3ce"
+      },
+      "nativeIdentity": {
+        "identity": {
+          "schemaVersion": 1,
+          "product": "KAMUCL",
+          "platform": "darwin",
+          "version": "1.1.23",
+          "arch": "arm64",
+          "sourceCommit": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+          "runtimeVersion": "44.3.0",
+          "minimumSystemVersion": "13.0.0",
+          "appAsarSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+          "runtimeNotices": [
+            {
+              "name": "LICENSE.electron.txt",
+              "bytes": 1096,
+              "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+            },
+            {
+              "name": "LICENSES.chromium.html",
+              "bytes": 20111209,
+              "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535"
+            }
+          ],
+          "signing": "ad-hoc; not Developer ID or notarized"
+        },
+        "identitySHA256": "225a648770b29a2fb9f75232f1a40d82ff3d4f04ed594a3c7b6f1c311c4b1ca8",
+        "observedRuntime": "44.3.0",
+        "observedMinimum": "13.0.0",
+        "nativeArch": "arm64",
+        "signature": "strict deep verification passed"
+      }
+    },
+    {
+      "stage": "dmg",
+      "uiProof": {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/dmg-ui/proof.json",
+        "sha256": "372a5f8ab5fe8630b78a91cea40a2e46864f6e7aba84a2a8c641ce77e0661930"
+      },
+      "nativeProof": {
+        "file": "out/mac-community123-run-38469671596/mac-community123-arm64-38469671596/release/mac-community123-proof/dmg-native/receipt.json",
+        "sha256": "a4eaeda9f6a028df6d0fccde52519905ba0d86e2a807e27a959466a432ca9f8d"
+      },
+      "matrix": 16,
+      "flags": 16,
+      "imagesVerified": 160,
+      "nativeImagesVerified": 2,
+      "targets": 4,
+      "supplementalPayload": {
+        "classification": "Independent full network-byte SHA1/SHA256 check of production-IPC metadata, not product installer or game launch",
+        "project": {
+          "source": "modrinth",
+          "projectId": "EsAfCjCV",
+          "slug": "appleskin",
+          "title": "苹果皮 | AppleSkin",
+          "author": "squeek502",
+          "description": "Food/hunger-related HUD improvements",
+          "iconUrl": "https://cdn.modrinth.com/data/EsAfCjCV/icon.png",
+          "downloads": 95131583,
+          "updatedAt": "2026-09-17T23:59:30.437129+00:00",
+          "categories": [
+            "fabric",
+            "food",
+            "forge",
+            "neoforge",
+            "quilt",
+            "utility"
+          ],
+          "originalTitle": "AppleSkin"
+        },
+        "file": {
+          "source": "modrinth",
+          "projectId": "EsAfCjCV",
+          "fileId": "PHjDtQay",
+          "fileName": "appleskin-fabric-mc26.3-3.0.10.jar",
+          "size": 180194,
+          "sha1": "3d19e40c5f97186857db98e622c01c2cd0030497",
+          "gameVersions": [
+            "26.3"
+          ],
+          "loaders": [
+            "fabric"
+          ],
+          "url": {
+            "protocol": "https:",
+            "host": "cdn.modrinth.com",
+            "pathnameSHA256": "a4fd67a2c3a49a4b8fa7b99328725fb26eb3f046180b979b8a466333837cbe12"
+          }
+        },
+        "bytes": 180194,
+        "sha1": "3d19e40c5f97186857db98e622c01c2cd0030497",
+        "sha256": "cb05087c39f0d860611aa1fae7cf63560214d1b71378a7c903c18dc370b5c3ce"
+      },
+      "nativeIdentity": {
+        "identity": {
+          "schemaVersion": 1,
+          "product": "KAMUCL",
+          "platform": "darwin",
+          "version": "1.1.23",
+          "arch": "arm64",
+          "sourceCommit": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+          "runtimeVersion": "44.3.0",
+          "minimumSystemVersion": "13.0.0",
+          "appAsarSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+          "runtimeNotices": [
+            {
+              "name": "LICENSE.electron.txt",
+              "bytes": 1096,
+              "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+            },
+            {
+              "name": "LICENSES.chromium.html",
+              "bytes": 20111209,
+              "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535"
+            }
+          ],
+          "signing": "ad-hoc; not Developer ID or notarized"
+        },
+        "identitySHA256": "225a648770b29a2fb9f75232f1a40d82ff3d4f04ed594a3c7b6f1c311c4b1ca8",
+        "observedRuntime": "44.3.0",
+        "observedMinimum": "13.0.0",
+        "nativeArch": "arm64",
+        "signature": "strict deep verification passed"
+      }
+    }
+  ],
+  "errors": [],
+  "originalZipAsar": {
+    "file": "E:\\KAMUCL\\out\\mac-community123-run-38469671596\\mac-community123-arm64-38469671596\\independent-original-asar\\app.asar",
+    "bytes": 22034314,
+    "sha256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+    "exactRendererFiles": 147,
+    "notices": [
+      {
+        "file": "LICENSE.electron.txt",
+        "bytes": 1096,
+        "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+      },
+      {
+        "file": "LICENSES.chromium.html",
+        "bytes": 20111209,
+        "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535"
+      }
+    ]
+  },
+  "protectedInputDifference": "",
+  "complete": true
+}

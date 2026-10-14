@@ -1,0 +1,73 @@
+{
+  "runId": 38468603131,
+  "source": "eac26dce109add58103106c73352353b6be7f97a",
+  "classification": "Historical failed gate retained; cached fixture misrepresented Start initial vs cached-ready phase. No pass inferred for failed UI/DMG acceptance; independent first native ZIP launch/live IPC did pass.",
+  "evidence": [
+    {
+      "file": "out/mac-community123-run-38468603131/mac-community123-arm64-38468603131/release/mac-package-arm64.json",
+      "bytes": 2013,
+      "sha256": "46b20b1cf88364b3a22a98f510fa9f2435ead17037204b4fae2ca4cabac8959f"
+    },
+    {
+      "file": "out/mac-community123-run-38468603131/mac-community123-arm64-38468603131/release/mac-community123-proof/receipt.json",
+      "bytes": 30679,
+      "sha256": "26207b2df23eaf526af9db37aa9c2075b0a96adf9ac4579094867065a65aa1a7"
+    },
+    {
+      "file": "out/mac-community123-run-38468603131/mac-community123-arm64-38468603131/release/mac-community123-proof/zip-native/receipt.json",
+      "bytes": 1257034,
+      "sha256": "a11c0216e6ff64cbf974e8f00e04099e878b4e3f4f222cf9e25cfcc9e49a57dc"
+    },
+    {
+      "file": "out/mac-community123-run-38468603131/mac-community123-arm64-38468603131/release/mac-community123-proof/zip-ui/proof.json",
+      "bytes": 40598,
+      "sha256": "8043124e554741ae9627ade28248a4bf7ebbff0f6219f6789177f65cd5efdae3"
+    },
+    {
+      "file": "out/mac-community123-run-38468603131/mac-community123-arm64-38468603131/out/mac-community123-logs/native-check.log",
+      "bytes": 2649,
+      "sha256": "9e829fbd6dfd5a3001944438c0ff482192a99640b17205d23406f1bfa0f10eea"
+    },
+    {
+      "file": "out/mac-community123-run-38468603131/mac-community123-arm64-38468603131/out/mac-community123-logs/npm-test.log",
+      "bytes": 206011,
+      "sha256": "08cc246507a025dbab55cd1dfd0832aae310b5d566065c7548e98fc5fa3d1854"
+    }
+  ],
+  "uiOriginalHashesVerified": 6,
+  "ui": {
+    "complete": false,
+    "matrix": 0,
+    "images": 6,
+    "errors": [
+      {
+        "name": "Error",
+        "message": "UI observation deadline: document.querySelector('[data-search123=status]')?.textContent.includes('45')"
+      }
+    ]
+  },
+  "native": {
+    "complete": true,
+    "liveComplete": true,
+    "observed": {
+      "platform": "darwin",
+      "arch": "arm64",
+      "sourceVersion": "1.1.23",
+      "runtime": "44.3.0",
+      "freshAccounts": true,
+      "rootPid": 13260
+    }
+  },
+  "coordinator": {
+    "complete": false,
+    "mountDetached": true
+  },
+  "testFooter": [
+    "ℹ tests 1737",
+    "ℹ pass 1732",
+    "ℹ fail 0",
+    "ℹ skipped 5"
+  ],
+  "subsequentFixScope": "QA/diagnostic only; production UI/core/packages/licenses unchanged",
+  "scores": null
+}

@@ -1,0 +1,1115 @@
+{
+  "version": "1.1.23",
+  "complete": true,
+  "observedAt": "2026-10-13T21:50:24.045Z",
+  "helperSHA256": "5dc842c199704b728cf8ee6ada6b93062fbea5fbe2883d9c8aebde773a0bbfd0",
+  "receipts": [
+    {
+      "file": "out/security123-mac-artifacts-602370aa-37af-4ccf-be4e-56ebdedd5040.json",
+      "sha256": "22aae5e676f4d03ffcdb62259a56b9ab4a1cbcdb8faa34201b0e4d70bdf53c92"
+    },
+    {
+      "file": "out/security123-windows-artifacts-36e623d0-a5d1-4b65-83ca-c9345250d18a.json",
+      "sha256": "b191c0d555d1958893e2e8a4f657d17fe46ea892944850e692339c23696319ac"
+    }
+  ],
+  "qualification": "Static full actual HFS member decoding plus exact current 1.1.23 ZIP/ASAR/JAR and freshly decoded corresponding-source byte bindings. No distributed executable, Mac application, account or discovered credential executes on this Windows host.",
+  "limits": [
+    "Pattern scanning is not universal secret-absence proof or decompilation",
+    "Native signatures and UI operation are separately evidenced by original CI receipts",
+    "Embedded application-key ownership remains separately unresolved",
+    "Source/handoff and Git history are separate audits"
+  ],
+  "secretAbsenceProven": false,
+  "packedSourceBindings": [
+    {
+      "asar": "KAMUCL.app/Contents/Resources/app.asar",
+      "path": "licenses/source/7zip-19.00-source.7z",
+      "bytes": 1071569,
+      "sha256": "9ba70a5e8485cf9061b30a2a84fe741de5aeb8dd271aab8889da0e9b3bf1868e",
+      "decodedReceipt": "out/security123-windows-artifacts-36e623d0-a5d1-4b65-83ca-c9345250d18a.json",
+      "decodedArtifact": "KAMUCL-1.1.23-windows-x64.zip",
+      "decodedFiles": 1172,
+      "nestedContainers": []
+    },
+    {
+      "asar": "KAMUCL.app/Contents/Resources/app.asar",
+      "path": "licenses/source/Nsis7z_19.00.7z",
+      "bytes": 461078,
+      "sha256": "6f2f3730049926f40442ee0c8b7d3e3dee7ace544d82467ff8059ea3f4201c58",
+      "decodedReceipt": "out/security123-windows-artifacts-36e623d0-a5d1-4b65-83ca-c9345250d18a.json",
+      "decodedArtifact": "KAMUCL-1.1.23-windows-x64.zip",
+      "decodedFiles": 30,
+      "nestedContainers": [
+        {
+          "path": "Examples/nsis7z/Test.7z",
+          "detectedContainer": "7z",
+          "allMembersDecoded": true,
+          "containerType": "7z",
+          "files": 2,
+          "scannedBytes": 10,
+          "fileHashes": [
+            {
+              "path": "AnotherFolder/somefile.txt",
+              "bytes": 5,
+              "sha256": "a14b17ebd4709ae3125b52bcd214375bf41142fd539116fb6e72e98e4ec2c34a"
+            },
+            {
+              "path": "TestFolder/AnotherFolder/somefile.txt",
+              "bytes": 5,
+              "sha256": "a14b17ebd4709ae3125b52bcd214375bf41142fd539116fb6e72e98e4ec2c34a"
+            }
+          ],
+          "nestedContainers": []
+        }
+      ]
+    },
+    {
+      "asar": "KAMUCL.app/Contents/Resources/app.asar",
+      "path": "licenses/source/stdutils-1.14.tar.gz",
+      "bytes": 222751,
+      "sha256": "3687ab4e09005a8a0b93c1a07a36285d93466070e94b8bf6f12781fb53c419e1",
+      "decodedReceipt": "out/security123-windows-artifacts-36e623d0-a5d1-4b65-83ca-c9345250d18a.json",
+      "decodedArtifact": "KAMUCL-1.1.23-windows-x64.zip",
+      "decodedFiles": 1,
+      "nestedContainers": [
+        {
+          "path": "4234fe42-6e82-42bb-9446-26e0a70cd297",
+          "detectedContainer": "tar",
+          "allMembersDecoded": true,
+          "containerType": "tar",
+          "files": 94,
+          "scannedBytes": 874974,
+          "fileHashes": [
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/.gitignore",
+              "bytes": 125,
+              "sha256": "ee7d845faebe921baa9a9e219bda6d73f50b0691b7ae83ae8acd62847ff07e2e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/ansi/nsis/api.h",
+              "bytes": 2760,
+              "sha256": "60d394d869118558efc6d9e1de65f9cdcdeb669c6509a6c8c26a256d34f6d643"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/ansi/nsis/pluginapi.h",
+              "bytes": 2030,
+              "sha256": "c1643cd6b07acce4f02ca35cd379efc7923929a5e3142915ee4a9cf0db25d5d6"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/common/msvc_utils.h",
+              "bytes": 2547,
+              "sha256": "ea539f9f30d2a35685c125dd57821582a069091c1cd47e3369c8c6053854bd38"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/common/nsis_tchar.h",
+              "bytes": 4557,
+              "sha256": "378563248ddd77f4a33691527c43b1e4acb3925e1ddd2394fc6ec96d307a173b"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/unicode/nsis/api.h",
+              "bytes": 2761,
+              "sha256": "da0b2aa6ad8a9c6570ba63605746c3d832c468972a24417d75c322abe788086c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/unicode/nsis/pluginapi.h",
+              "bytes": 2920,
+              "sha256": "537c93fb4c08b0ab9ca598300aa517f96edd68b6011aa35faca40ce0a73559f5"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/lib/msvcrt_vc6.lib",
+              "bytes": 235942,
+              "sha256": "3efc3ddf045a459a2b6403f0b821be2cb7c316ffca67dddddb346cea7a9e4f63"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/lib/nsis_pluginapi_ansi.lib",
+              "bytes": 4668,
+              "sha256": "7074436c8deec55a2af7781ccf655747a6bb4c991079bc788e542236c6a87256"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/lib/nsis_pluginapi_unicode.lib",
+              "bytes": 6902,
+              "sha256": "ab451de8bb232bcc035cac13a4506040687f0271a4b13b878439f20cc7830e22"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/Base64.cpp",
+              "bytes": 8365,
+              "sha256": "42c2b04174c66afc1645d83b732cbd222022cdfb667054a2911e0b2340051396"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/Base64.h",
+              "bytes": 4435,
+              "sha256": "71a350cecec8a57e5c829c9a9307941813d1b1c5a3fcc22b653bcb942bfb2299"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/blake2/blake2.cpp",
+              "bytes": 12917,
+              "sha256": "6944df25988c7d215f4e778f5980eee6e641d8d9cc61323f41e1ebfcdd77c5b3"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/blake2/blake2.h",
+              "bytes": 2489,
+              "sha256": "d1e8a0b550c8e59a17006e3d2ee5e7acbf279fa18473e20e66c557883dc3df3e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/blake2/COPYING.txt",
+              "bytes": 7048,
+              "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ByteToHex.cpp",
+              "bytes": 3505,
+              "sha256": "fb32a4190b629d51e00b6aa018db6a08d693cb4e63aafcb7e7f243d247da6794"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/CleanUp.cpp",
+              "bytes": 2234,
+              "sha256": "823f3cd4437b7ca5488f6aaac7eace38c0479a5b602749584b16ecf8927e1d14"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/CleanUp.h",
+              "bytes": 1178,
+              "sha256": "28258bdb1dc623836aebc314f1aa26a46483e17cff73159d77b3cc31c26b256e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ComUtils.cpp",
+              "bytes": 2315,
+              "sha256": "ec925caff3d59da354a3d0d33b1f146eaaef6b5c4cefcfd3806193885db4acb7"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ComUtils.h",
+              "bytes": 3037,
+              "sha256": "ea46d1e7de23c1a28c7c6812ddd6c782acdefdc0a0332a81bfdfc96a9ea36358"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/DetectOsVersion.cpp",
+              "bytes": 16906,
+              "sha256": "7c5cc8d95fd235f97eb9e32fda43983abe89d23cbf3405c67925adc60ffa0adf"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/DetectOsVersion.h",
+              "bytes": 1538,
+              "sha256": "2d610964550c3bad670cefad69bb214b0bfe80af40414aad228dc69f84f3dde5"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/FileUtils.cpp",
+              "bytes": 3876,
+              "sha256": "c5315628e71530cce247f82587704c8acd54cd71dfb8173ad9f960eb8a841f93"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/FileUtils.h",
+              "bytes": 1204,
+              "sha256": "19f4ae3f589107e9011086494ce99755a700885bb643e14efbcf22983a14de3f"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/HashUtils.cpp",
+              "bytes": 10065,
+              "sha256": "a19f93a72f6102bb9db78fe37b933380f313deb04b72db6b66949e758e4c4efe"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/HashUtils.h",
+              "bytes": 1891,
+              "sha256": "226377dec8ba385a9cab97a2ed88c9e6d033fcf20c3320024300d4f93de8a08e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/InvokeShellVerb.cpp",
+              "bytes": 5757,
+              "sha256": "9b640975b1430a5d98ad287b918e008b94272d9be91fa0e52dbf64746281ff7f"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/InvokeShellVerb.h",
+              "bytes": 1531,
+              "sha256": "56cbd6d1d5a1addb88c175b978cb040264195f07d62784dc3178cd135c6f7bc4"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/Mutex.h",
+              "bytes": 1820,
+              "sha256": "37989bddd26a4ff8ae27f37f8b0d8481374a460418d6ad4f2a972d6b737d256b"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ParameterParser.cpp",
+              "bytes": 5929,
+              "sha256": "1d9667e46ddfa18e8ef92198d8b62a50d7019c755f738b62ca91f6d035d01315"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ParameterParser.h",
+              "bytes": 1318,
+              "sha256": "a5b194e224fc9630ed7bff5999ce46c48748b9b43641269b81ad99e82f87b30f"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/PathUtils.cpp",
+              "bytes": 3591,
+              "sha256": "8da8c7df292f3352de3e6f5e1a35a448527ff25c180448c88020e94fbc2ff84c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/PathUtils.h",
+              "bytes": 1531,
+              "sha256": "b01ed8810975c601775eba1426bd5f4b021eefe35c8cca01749ade9a0bd6112e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ProtectedData.cpp",
+              "bytes": 9357,
+              "sha256": "f99f69f0f2617c10d29a3e5ddf440ff4b3cfc854704b5bec69e9bb3f0b6acbdd"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ProtectedData.h",
+              "bytes": 1892,
+              "sha256": "abd10de42f0c42cb66aec96957d88a7b9c21fe8dafd880271678d200362c77e2"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/RandUtils.cpp",
+              "bytes": 3625,
+              "sha256": "1bcb617f246af0a2c401a6f6b7524ecc016de22c2e834bec402b2f3582e6e876"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/RandUtils.h",
+              "bytes": 1259,
+              "sha256": "b04c4d243192d427305b36770cf6e05479d610ed211b36f4b2f2b802ab5d9018"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/Resource.h",
+              "bytes": 820,
+              "sha256": "f180959a27a8c3fd72413eabbcddd4660da73570333fe0c7d095b48f2d3c79cc"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/byte_order.c",
+              "bytes": 5600,
+              "sha256": "fa8bd02b32e50e7408db0fdc023bbc0fc8c8eafe91e2c42d4e09f854e7d5b05b"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/byte_order.h",
+              "bytes": 6178,
+              "sha256": "9344d065ddf18c4e3afc69e8d9ec74b6cb43d5e5189ae393a7489968cb3b5d84"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/COPYING.txt",
+              "bytes": 751,
+              "sha256": "8cf876d3406a2eed6c17ae804c8958bd78d3a0f63c30d6e2e789ab575e9fde40"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/crc32.c",
+              "bytes": 7872,
+              "sha256": "101f9b08f26f13cfc5f6666b7c67a815b848fb9d7c864dfd66b615d6d5e16ac4"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/crc32.h",
+              "bytes": 690,
+              "sha256": "1a54a70be03944a2bfc237ee16604babf9b1ae115c41163cc0563cedf818ec4d"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/md5.c",
+              "bytes": 7962,
+              "sha256": "4d1eb55e5e7dc46c05f02ef1c11a822a939b8d7cea6d13de865dad4ca350c9ea"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/md5.h",
+              "bytes": 700,
+              "sha256": "ca7af3cb1009353d74f06a3bbf39bb1866895a2599b20be093901e016018e21c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha1.c",
+              "bytes": 5139,
+              "sha256": "229067223cebafe90d44765f6454168fef30e8179c215fc32312961b073d8b67"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha1.h",
+              "bytes": 701,
+              "sha256": "0103266f27f19f2d014d80ec01d3d3ad68f67c11d6d0791e0cd527f2ae2e7667"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha256.c",
+              "bytes": 8628,
+              "sha256": "c64bbbc86b4847b47248b84022da8c9ed636c756efb3f639ba589c1e20e0274c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha256.h",
+              "bytes": 878,
+              "sha256": "9e054eca10e6afad9f57c6830b30a7670e622d9717aae3fcdd117f8abad21d27"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha3.c",
+              "bytes": 10044,
+              "sha256": "4193073e3813bdb228bca5eb507257b7ddc9cc2e8b05f02b85a08d7cee782474"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha3.h",
+              "bytes": 1464,
+              "sha256": "c3a8557d847ff8996bb6bcc357debe4a646d0699a531770e39c90f76198217e6"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha512.c",
+              "bytes": 9960,
+              "sha256": "da21d4b8f7a4a1c910222cf366318288a3adaf6558eb38d4d8d8c115ce59e806"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha512.h",
+              "bytes": 877,
+              "sha256": "049fabc3e58fd340436e435e535160be76aeeaf48019af4a95161bfd4d7b74e8"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ShellDispatch.cpp",
+              "bytes": 4573,
+              "sha256": "ff8c6ee6424ca35617492946f05634615a0b7a9239fc7cbabc96743a734e5e53"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ShellDispatch.h",
+              "bytes": 1556,
+              "sha256": "f0765ce3be4051cc74c59abdcf6a3a6d16aacacfb38395de925b44f0ccd9c096"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ShellExecAsUser.cpp",
+              "bytes": 3259,
+              "sha256": "1f90e87ba2b054548bb2ee29d76d6d4519e65117e48254bd1ab0c4c51224e9d0"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ShellExecAsUser.h",
+              "bytes": 1584,
+              "sha256": "f75c7eed54e47d51f52c2c4b1d4d44935d34edf49da93d630d0bc89f1ea2ba22"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/StdUtils.cpp",
+              "bytes": 35788,
+              "sha256": "2ddb59536f6aaa8123c7f617aadb6e856980bb8a8055b0929f65debbdb984385"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/StdUtils.h",
+              "bytes": 2323,
+              "sha256": "20cf29941e5db3727c02f0c985741745eb8e7062c1d6b62b611b16828b83538a"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/TimerUtils.cpp",
+              "bytes": 5864,
+              "sha256": "b815111db40832d06bd4e50a2966d58cc502d9df48cfe82dbdae14a7acb83176"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/TimerUtils.h",
+              "bytes": 1367,
+              "sha256": "b2f199127f96f3e5067f23bc7871d742f4dc3965391464660710d8c1cfe5c3eb"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/UnicodeSupport.cpp",
+              "bytes": 5811,
+              "sha256": "567e005668cf5e67953da9b0c40f1a97481a4771c48e6538150aaaad1f4270e3"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/UnicodeSupport.h",
+              "bytes": 3017,
+              "sha256": "b201dd047424b7fb8ed12bce8ae71ecbebe1c9f2ec65ff2fe588b1f54cc0c021"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/WinUtils.h",
+              "bytes": 2170,
+              "sha256": "a75d08106ebb69c268d26aebdce150ec8901e84d34764989bb7c218b8df4b169"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.aps",
+              "bytes": 19048,
+              "sha256": "1f8f26ad9bc3d0cf1ff111b0c9afb7f5e4ade94f6a77a9fcda281b8c56fb0952"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.rc",
+              "bytes": 5046,
+              "sha256": "1747cac4906b0443d437f12a182663cbb2567a6f6be685582119d82e04d18969"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.sln",
+              "bytes": 1375,
+              "sha256": "f48ec29239459c9879934b70cd3d7cc8836dcd1c4981b9cc9acc10df4c25840a"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.vcxproj",
+              "bytes": 17766,
+              "sha256": "dbbcdf093a92a2f607c1337eba1eba490fc4c555e1d9106a62fd79779804930c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.vcxproj.filters",
+              "bytes": 6202,
+              "sha256": "1c94ad5053bc7d13d23e65310442587bf48f74bdea911f34a5d067eb6132c007"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.vcxproj.user",
+              "bytes": 422,
+              "sha256": "a0c614b832b87959c8fff95f370c3c227f9aed1d74b7ecbfffee2cf5261a7b35"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/utils/Date.exe",
+              "bytes": 39424,
+              "sha256": "5b399b89ad901437faf4be061dabc2a3f70c6973316a536d4245604bec394b54"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/utils/Zip.exe",
+              "bytes": 68096,
+              "sha256": "2e28e6e768d5f0c821d45209e702d01be0a9fb632d7fd83620bcb71cc9ae00f9"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Docs/StdUtils/minify.cmd",
+              "bytes": 534,
+              "sha256": "60b227734769b2184dd85d1d8a03e048f1f978af674d741cc85e85c2b9260be8"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Docs/StdUtils/StdUtils.FULL.html",
+              "bytes": 93967,
+              "sha256": "1609adae79b97dd853b4f25c3fe6aeb1211ad4963e939bbcce37fc56ed87b5ac"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/!_Clean.bat",
+              "bytes": 190,
+              "sha256": "aedec595caad14fc41e98656d48cefce1bbeec22019d3db454f927f603b47305"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/!_Make.bat",
+              "bytes": 1410,
+              "sha256": "adc1ae14c8753c7d634d4b44e37fbc86edde85d271ecd48d59037c97a90f38d7"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/AppendToFile.nsi",
+              "bytes": 1594,
+              "sha256": "938f4381588cf4695e34fc8503a5177139ee7761f77dd09ca2b1fa0796b5a325"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/GetParameters.nsi",
+              "bytes": 2681,
+              "sha256": "f07911153cfbdec105d8d6ec8f574b3a77043581e385015fc29d791d872be9be"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/HashFunctions.nsi",
+              "bytes": 3728,
+              "sha256": "1d3471eab4cdbc9de0563adda44c1531419c452d834d76d586310872dd3e4e98"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/InvokeShellVerb.nsi",
+              "bytes": 4006,
+              "sha256": "5fe0590b468b400eb8ff1b299f1d88322ff2adcaddc7787dc79785f6b680bba8"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/OSVersion.nsi",
+              "bytes": 2178,
+              "sha256": "9a61787c630b8864eed054f4d2a0d68b7e8ab4e11f469e83285367b98ec641cb"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/PathUtils.nsi",
+              "bytes": 4858,
+              "sha256": "4ff71a27ed5009651c1d1971e6f6b34ef2bc2b925fff50f1e40337b13d0d288d"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/ProtectStr.nsi",
+              "bytes": 4927,
+              "sha256": "db5d989cb2bd46bf484b3f998eec0e3e4fa07d2787fe0a6b1c166ebe1d5e48ea"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/ShellExecAsUser.nsi",
+              "bytes": 2394,
+              "sha256": "9c42f66671023809241ead7d4fe338c1ed3b770b091413f12b063d5072719a12"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/ShellExecWait.nsi",
+              "bytes": 2253,
+              "sha256": "d18bcc19d2fd23d2d84e4b23a543f0a2fb1fd047ed726d7142b164b795b63c4b"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/SHFileOperation.nsi",
+              "bytes": 2739,
+              "sha256": "db3e14e68456cbd8987fb8c480d8c5f0606ad063fd12329ffa3e2ad99108a3f7"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/StdUtilsTest.nsi",
+              "bytes": 13090,
+              "sha256": "a7671db7893d9b2a802f223be42b7494f4e76d2944e5fd4852a186e11254aa7d"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/StrToUtf8.nsi",
+              "bytes": 3341,
+              "sha256": "8dedfa97add32f3f0fc970a29e8b0cde863f9e6b15b583c06df716723d9c72a8"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/TimerCreate.nsi",
+              "bytes": 1888,
+              "sha256": "0ff4fbbdffcdd6a489eb84d40023b844d78404f4162cfa357b6e8a053d57320a"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Include/StdUtils.nsh",
+              "bytes": 16552,
+              "sha256": "d93d3d6d73cc4587bccecaf35d216f9f7f4a5a836291883791167210c0359217"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/LGPL.txt",
+              "bytes": 26530,
+              "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/LGPL_CLARIFICATION.txt",
+              "bytes": 2703,
+              "sha256": "49287ffa37d51910a8cb595d7ab64ebd2d42525384b16d4322783a0e57a77194"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/make_pack.bat",
+              "bytes": 3281,
+              "sha256": "a72445c68e0f72caf2831c1744b198eb1b1769d333939254c8fa03b870ecbaa4"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/ReadMe.txt",
+              "bytes": 1350,
+              "sha256": "7d1b40bfdf3d6ef857b361929f8bfa3de38f53968ab1c084fac50ce0086e23f1"
+            }
+          ],
+          "nestedContainers": []
+        }
+      ]
+    }
+  ],
+  "archiveTool": {
+    "file": "C:/Program Files/7-Zip/7z.exe",
+    "sha256": "4cd7d776c686427226a151789d2d61f0b2ed2c392148cc4e69c0238362fafecf"
+  },
+  "listingSHA256": "0c0d3d0b0d136bace34c45fc73118aaebe0d9c26eeb04b85bcb5eeb08d1f09c6",
+  "decisions": [
+    {
+      "kind": "url-user-password",
+      "classification": "potential-secret-needs-review",
+      "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+      "line": null,
+      "byteOffset": 184941441,
+      "fingerprint": "ae7c9f95165aff0b",
+      "valueLength": 22,
+      "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+      "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+      "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+      "status": "false-positive-chromium-example",
+      "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account.",
+      "evidence": "out/security122-final-mac-artifacts.json",
+      "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+      "contexts": [
+        {
+          "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+          "originalByteOffset": 184941441,
+          "representation": "original-byte/text-match"
+        },
+        {
+          "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "contextSHA256": "a929663a4da94982ed3560af45345773cd32304157dfc2d25a1575d6e82ce6d3",
+          "originalByteOffset": 187210424,
+          "representation": "original-byte/text-match"
+        }
+      ],
+      "matchedPriorByteContext": {
+        "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+        "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+        "originalByteOffset": 184941441,
+        "representation": "original-byte/text-match"
+      },
+      "currentMemberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+      "currentContextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+      "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+    },
+    {
+      "kind": "url-user-password",
+      "classification": "potential-secret-needs-review",
+      "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+      "line": null,
+      "byteOffset": 187210424,
+      "fingerprint": "ae7c9f95165aff0b",
+      "valueLength": 22,
+      "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+      "contextSHA256": "a929663a4da94982ed3560af45345773cd32304157dfc2d25a1575d6e82ce6d3",
+      "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+      "status": "false-positive-chromium-example",
+      "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account.",
+      "evidence": "out/security122-final-mac-artifacts.json",
+      "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+      "contexts": [
+        {
+          "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+          "originalByteOffset": 184941441,
+          "representation": "original-byte/text-match"
+        },
+        {
+          "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "contextSHA256": "a929663a4da94982ed3560af45345773cd32304157dfc2d25a1575d6e82ce6d3",
+          "originalByteOffset": 187210424,
+          "representation": "original-byte/text-match"
+        }
+      ],
+      "matchedPriorByteContext": {
+        "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+        "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+        "originalByteOffset": 184941441,
+        "representation": "original-byte/text-match"
+      },
+      "currentMemberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+      "currentContextSHA256": "a929663a4da94982ed3560af45345773cd32304157dfc2d25a1575d6e82ce6d3",
+      "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+    },
+    {
+      "kind": "credential-literal",
+      "classification": "literal-credential-candidate-needs-review",
+      "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+      "line": null,
+      "byteOffset": 7874209,
+      "fingerprint": "cd7a894b7eaaac6b",
+      "valueLength": 51,
+      "memberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+      "contextSHA256": "3f4dea280becf33f61959cc4ff78b32af571f04b6e4223a4c7e17e22f568fcaf",
+      "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+      "status": "false-positive-ui-prose",
+      "reason": "Exact reviewed Chinese password-input UI prose in the verified application ASAR; no actual credential. Both text and raw-container encodings are identified.",
+      "evidence": "out/security122-final-mac-artifacts.json",
+      "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+      "contexts": [
+        {
+          "memberSHA256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+          "contextSHA256": "3f4dea280becf33f61959cc4ff78b32af571f04b6e4223a4c7e17e22f568fcaf",
+          "originalByteOffset": 7860453,
+          "representation": "original-byte/text-match"
+        }
+      ],
+      "matchedPriorByteContext": {
+        "memberSHA256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+        "contextSHA256": "3f4dea280becf33f61959cc4ff78b32af571f04b6e4223a4c7e17e22f568fcaf",
+        "originalByteOffset": 7860453,
+        "representation": "original-byte/text-match"
+      },
+      "currentMemberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+      "currentContextSHA256": "3f4dea280becf33f61959cc4ff78b32af571f04b6e4223a4c7e17e22f568fcaf",
+      "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+    },
+    {
+      "kind": "bcrypt-shaped-api-key-or-password-hash",
+      "classification": "opaque-application-key-or-password-hash-needs-context",
+      "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+      "line": null,
+      "byteOffset": 4974377,
+      "fingerprint": "f0fe1a77e3852628",
+      "valueLength": 60,
+      "memberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+      "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+      "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+      "status": "opaque-application-key-ownership-pending",
+      "reason": "Same built-in application-key value in the verified application ASAR as the reviewed source/baseline bundle. No independent ownership/distribution authorization established; value not disclosed or tested.",
+      "evidence": "out/security122-final-mac-artifacts.json",
+      "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+      "contexts": [
+        {
+          "memberSHA256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+          "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+          "originalByteOffset": 4973974,
+          "representation": "original-byte/text-match"
+        }
+      ],
+      "matchedPriorByteContext": {
+        "memberSHA256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+        "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+        "originalByteOffset": 4973974,
+        "representation": "original-byte/text-match"
+      },
+      "currentMemberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+      "currentContextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+      "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+    }
+  ],
+  "unknownCandidates": 0,
+  "dmgFilesystem": {
+    "name": "KAMUCL-1.1.23-mac-arm64.dmg",
+    "bytes": 141317086,
+    "sha256": "f508554a9163e03290ca0d6f8f182d1c02b23858d38eb8392571d986b0db6458",
+    "regularMembers": 56,
+    "regularScannedBytes": 292468521,
+    "directories": 56,
+    "symbolicLinksScannedAsRawTargetBytes": [
+      {
+        "path": "Applications",
+        "bytes": 13,
+        "sha256": "5ebb86560e8364edec7de3705e925c59615b2acaa6cff121d08cc29a632c8c78",
+        "targetClass": "native-system-Applications-shortcut",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Electron Framework",
+        "bytes": 35,
+        "sha256": "36542878344780f376c0b91f24aeffb4cb21243d6c1dfd8f222add6cc617018e",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Helpers",
+        "bytes": 24,
+        "sha256": "bdc8c4c00015b2f00fce2e3f6206da685496214b15b40d45d626a3df37fb2486",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Libraries",
+        "bytes": 26,
+        "sha256": "9dcdccdc395427c6812de3e13a093956d81b0f87a4396d96d650f1b28079080b",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Resources",
+        "bytes": 26,
+        "sha256": "59991b51b8ee15b59f07ec45942957a4ce90494257766964f5df60b7c7998e42",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/Current",
+        "bytes": 1,
+        "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/ReactiveObjC",
+        "bytes": 29,
+        "sha256": "2ad8d1454b30b433501d7aee80dbc75b3829f37cede077bf61e42b402225eaa3",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Resources",
+        "bytes": 26,
+        "sha256": "59991b51b8ee15b59f07ec45942957a4ce90494257766964f5df60b7c7998e42",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Versions/Current",
+        "bytes": 1,
+        "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Resources",
+        "bytes": 26,
+        "sha256": "59991b51b8ee15b59f07ec45942957a4ce90494257766964f5df60b7c7998e42",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Squirrel",
+        "bytes": 25,
+        "sha256": "ed47862045e18d686e255b35409006f90f8b56c804dbb498111d269e6ed54051",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/Current",
+        "bytes": 1,
+        "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Mantle",
+        "bytes": 23,
+        "sha256": "f69b5e653cd4897d6ecebea03691fd06b4ae0d6638aac3bf3fa4e134efa6a05a",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Resources",
+        "bytes": 26,
+        "sha256": "59991b51b8ee15b59f07ec45942957a4ce90494257766964f5df60b7c7998e42",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Versions/Current",
+        "bytes": 1,
+        "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+        "targetClass": "contained-APP-internal-link",
+        "neverFollowed": true
+      }
+    ],
+    "everyAPPRegularFileMatchesFullDecodedZIP": true,
+    "APPBindings": [
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+        "bytes": 200442848,
+        "sha256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/chrome_crashpad_handler",
+        "bytes": 1238640,
+        "sha256": "2a1034bc98295fbf62b9421b27caf3beb2532dfa787a71b6102d272375c1732b"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib",
+        "bytes": 2317968,
+        "sha256": "73fc0f18b5d30dbed26bf1c2ecbd061f4cd793ebf905a0c884c9ba10ef4c1e41"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libvk_swiftshader.dylib",
+        "bytes": 16607280,
+        "sha256": "ae9a01c0c49c9969606cf90f206776aac51e0ff4689d42936e52f5cb1e8b26bd"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/vk_swiftshader_icd.json",
+        "bytes": 110,
+        "sha256": "d717d915e31e7c27948b80b36ab34e2d897888114c5c7d0af835f93eb53e58f5"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/chrome_100_percent.pak",
+        "bytes": 662674,
+        "sha256": "f50e6f15a39f086092c26abdb922b298780b63decc316b798b5f0ad7a5468a2e"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/chrome_200_percent.pak",
+        "bytes": 1337098,
+        "sha256": "d923367c81374695f88d6176aa6fe8d0c41b1a43f5188ef43c3f0a53dd06f96d"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/en.lproj/locale.pak",
+        "bytes": 584413,
+        "sha256": "e647fca0c580bd485a4e40705ed4ad87f0a72bc7e03c4858720c30d2e4f1269d"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/icudtl.dat",
+        "bytes": 10876560,
+        "sha256": "9f48c7f9c7c94d516a14870707e910ab94d75ae640ff6842c4af53276cd26ebe"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/Info.plist",
+        "bytes": 920,
+        "sha256": "6a5b5a7bf2b045433aa8b8e75e85fdb44a6f27b915d3711c87dd71b849f31437"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/MainMenu.nib",
+        "bytes": 2005,
+        "sha256": "4b2168de2d6d9a09b20faaa23139d5f25f73b2595671de25872d191b6939d819"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/resources.pak",
+        "bytes": 12397264,
+        "sha256": "5cf8fb2fd2e4c8cb3ce7fd8181bca067838325ea6593a62cb2dcfef3ff299c72"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/v8_context_snapshot.arm64.bin",
+        "bytes": 742208,
+        "sha256": "cd29af76d5abcdec992f1e2011e17757465ffac84059fe1daa1aec6d2216c174"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/_CodeSignature/CodeResources",
+        "bytes": 4939,
+        "sha256": "ef761453dc71473f07b18c293695fbac7f3ed59326078481bb837b91f2fc5e74"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/Info.plist",
+        "bytes": 1126,
+        "sha256": "0d755aa1c8e6c53d89da6906e3bc32d3e36e63b5846734532b4ae72645f2500f"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/MacOS/KAMUCL Helper (GPU)",
+        "bytes": 220544,
+        "sha256": "1b1994f3afa4c6259c60a0e1f5e302bbe7bbe3d87639b6f2d2b373585e398e3c"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/PkgInfo",
+        "bytes": 8,
+        "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/_CodeSignature/CodeResources",
+        "bytes": 2200,
+        "sha256": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/Info.plist",
+        "bytes": 1138,
+        "sha256": "7f7421f151c64ec14b479a75d11d8ab2f5f5e99f4d7fae6906afe77e3e51ab1c"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/MacOS/KAMUCL Helper (Plugin)",
+        "bytes": 220560,
+        "sha256": "e142ac7afcf82cf680e15273035e10d8741abdec72cb8adc871606b03e4b446f"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/PkgInfo",
+        "bytes": 8,
+        "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/_CodeSignature/CodeResources",
+        "bytes": 2200,
+        "sha256": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/Info.plist",
+        "bytes": 1146,
+        "sha256": "e31822dbddd83122db5f0dceb4065660155577f1df35a3502d9617454855b2b7"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/MacOS/KAMUCL Helper (Renderer)",
+        "bytes": 220560,
+        "sha256": "d00750be48c662bdf6935dd2bb1a9e9d59710c929b52ad331dbc8d0c7cb9a661"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/PkgInfo",
+        "bytes": 8,
+        "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/_CodeSignature/CodeResources",
+        "bytes": 2200,
+        "sha256": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/Info.plist",
+        "bytes": 1104,
+        "sha256": "7ccc2cbb46d96f5ea2064493ab7ace4c54fd48a2923b0a8af17f28ad6a5abf2b"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/MacOS/KAMUCL Helper",
+        "bytes": 220544,
+        "sha256": "82338fa259b1df31b001ce6bbaf2f528958cc71c3a7a45747e9eb2822c67a93b"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/PkgInfo",
+        "bytes": 8,
+        "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/_CodeSignature/CodeResources",
+        "bytes": 2200,
+        "sha256": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Versions/A/Mantle",
+        "bytes": 144064,
+        "sha256": "edbf84813646bd6b2063714949856ba9b90d8e8f2e989473b514f65ab2f69726"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Versions/A/Resources/Info.plist",
+        "bytes": 1020,
+        "sha256": "e93f0b4aaebea9bc158392ffa0c1150c16a0f30aecf11501b7871ce485f1a823"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Versions/A/_CodeSignature/CodeResources",
+        "bytes": 2442,
+        "sha256": "41b27daab76e01def237a2fb452d86d6442b461fa28013fc3abfd1a86d89c743"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/ReactiveObjC",
+        "bytes": 368832,
+        "sha256": "c000ef1336b553c5dd5ee367dbe16f94991578f12aea191b7c8ef78e95304c39"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/Resources/Info.plist",
+        "bytes": 1138,
+        "sha256": "4ded0fe1f4647f5b1862a2a98998aa7c3ade9bd925d097258e24667c446e7496"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/_CodeSignature/CodeResources",
+        "bytes": 2442,
+        "sha256": "95920ec9421fbb6d2efe69b0b33724d9e685b6c563f467ec8baa8c0a8df5444a"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/A/Resources/Info.plist",
+        "bytes": 1175,
+        "sha256": "f61ab349887360a2d84603ecff17ab6633cb7fe2e8e72861f4e38e9120f472bf"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/A/Resources/ShipIt",
+        "bytes": 125744,
+        "sha256": "cf44159cf38dd0801ad832497d16e425a3c79454c8d5fcae0e3f56949816ed12"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/A/Squirrel",
+        "bytes": 145872,
+        "sha256": "945773ec6b9b838d23c419ee9dc475a2a4b935c31ff79ccd9bd66535c9e09f11"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/A/_CodeSignature/CodeResources",
+        "bytes": 2660,
+        "sha256": "ad38f08d4acbc6b8fcf4ed4d5e24196b8788f22dd921bcb4a6ab1c486fad2e1a"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Info.plist",
+        "bytes": 3816,
+        "sha256": "6da62d1836317653928ac284885199875723547438722f81985128464bc8c67f"
+      },
+      {
+        "path": "KAMUCL.app/Contents/MacOS/KAMUCL",
+        "bytes": 51920,
+        "sha256": "53daa26090e27c740b2e2ddc4b71b043b897a34767a1be967dc320680c47be8d"
+      },
+      {
+        "path": "KAMUCL.app/Contents/PkgInfo",
+        "bytes": 8,
+        "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/app.asar",
+        "bytes": 22034314,
+        "sha256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/darwin_arm64/koffi.node",
+        "bytes": 1224408,
+        "sha256": "07bae31b943d7dcadfa0350e2a95944cb4dfb84b7f097cfd126478e370b9c705"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/index.js",
+        "bytes": 55,
+        "sha256": "0decaa09f32cdb5b9aa1ed250f9c4ba9a4a15adc761cda6c6d1613e378f1cd0b"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/package.json",
+        "bytes": 653,
+        "sha256": "250106f6147c8e0e2e792fb30163ce7bbc63399eccfe98c538b0dbba4e0923b8"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+        "bytes": 21828,
+        "sha256": "935472db0e6cc1a28aa6413e53af3e726d39a5b11b2419d7eb94f6eac41e8b59"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+        "bytes": 12496,
+        "sha256": "1e2c76976974445497ca76327f38082264f8e66a84b2b9e0f5cc8a3c0d0901bd"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/MacGameWindow",
+        "bytes": 60352,
+        "sha256": "4790b57234a1e5f7dcedcacf75fd8aaa6e0755b3a98128e1473b38c0f2dc6ea2"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/icon.icns",
+        "bytes": 32309,
+        "sha256": "932cce1b779c9a40d55f307036ecacb8f922f8e9a0db9efe3061c30608f2cdae"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/kamucl-mac.json",
+        "bytes": 725,
+        "sha256": "225a648770b29a2fb9f75232f1a40d82ff3d4f04ed594a3c7b6f1c311c4b1ca8"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/LICENSE.electron.txt",
+        "bytes": 1096,
+        "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+      },
+      {
+        "path": "KAMUCL.app/Contents/Resources/LICENSES.chromium.html",
+        "bytes": 20111209,
+        "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535"
+      },
+      {
+        "path": "KAMUCL.app/Contents/_CodeSignature/CodeResources",
+        "bytes": 7236,
+        "sha256": "22fb9d7f4cb8b731fbde9399c0d678fb46e0ece3b09a31086e6684a640597609"
+      }
+    ],
+    "outerFiles": [
+      {
+        "path": "安装说明.txt",
+        "bytes": 226,
+        "sha256": "097fbc32db3219d2c080717047d75f42271327703f8798e03f27f44e0272d6f9"
+      }
+    ],
+    "allRegularMembersDecoded": true,
+    "noFilesystemLinksFollowed": true
+  },
+  "finishedAt": "2026-10-13T21:50:31.041Z"
+}
