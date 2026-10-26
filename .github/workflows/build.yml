@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: windows-latest
@@ -20,17 +23,35 @@ jobs:
           node-version: 24
           cache: 'npm'
 
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
       - name: Install dependencies
-        run: npm ci                  
+        run: npm ci
+
+      - name: Build bridge mod
+        run: node scripts/build-bridge.cjs
 
       - name: Build application
         run: npm run build
 
+      - name: Verify bundled bridge jar
+        run: if (-not (Test-Path 'out/main/kamucl-bridge.jar')) { throw 'out/main/kamucl-bridge.jar missing after build' }
+
       - name: Build Windows portable
-        run: npx electron-builder --win portable
+        run: npx electron-builder --win portable --x64 --publish never
+
+      - name: Pack Windows ZIP
+        run: node scripts/pack-windows-zip.cjs
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: KAMUCL-portable
-          path: release/KAMUCL-*.exe
+          name: KAMUCL-windows-x64
+          path: |
+            release/KAMUCL-*.exe
+            release/KAMUCL-*-windows-x64*.zip
+          if-no-files-found: error
