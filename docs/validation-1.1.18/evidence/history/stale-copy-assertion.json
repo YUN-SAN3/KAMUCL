@@ -1,0 +1,307 @@
+{
+  "complete": false,
+  "version": "1.1.18",
+  "theme": "black-orange",
+  "directory": "E:\\KAMUCL\\out\\qa-offline118-black-orange-02ef8fc9-39d6-49c9-9492-b283bb6f89f1",
+  "observations": [
+    {
+      "label": "real native focus",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356353510,
+          "value": true
+        }
+      ]
+    },
+    {
+      "label": "coordinate [data-nav=home]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356353942,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 116.80000305175781,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "navigation home",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356354125,
+          "value": "page"
+        }
+      ]
+    },
+    {
+      "label": "coordinate .account-provider",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356354501,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1183.7999725341797,
+            "y": 204.60000610351562,
+            "width": 256.3999938964844,
+            "height": 44,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "account management view",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356354706,
+          "value": "账号"
+        }
+      ]
+    },
+    {
+      "label": "production account row 本地验证甲_87d7d6",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356355072,
+          "value": true
+        }
+      ]
+    },
+    {
+      "label": "coordinate account 本地验证甲_87d7d6",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356355079,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 780.8000183105469,
+            "y": 565.0000381469727,
+            "width": 678.4000244140625,
+            "height": 68.80000305175781,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "selected b6372ce5-71b9-3be5-830e-873d92e708ee",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356355260,
+          "value": {
+            "id": "b6372ce5-71b9-3be5-830e-873d92e708ee",
+            "type": "offline",
+            "username": "本地验证甲_87d7d6",
+            "uuid": "b6372ce5-71b9-3be5-830e-873d92e708ee"
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate [data-nav=skins]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356355267,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 380.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "navigation skins",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356355461,
+          "value": "page"
+        }
+      ]
+    },
+    {
+      "label": "skin account heading",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356355817,
+          "value": "本地验证甲_87d7d6"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "failure-state.png",
+      "bytes": 139305,
+      "sha256": "8413027d674eb380dab6aacbeae9458a90a9359673144b657f4e2ffe82c36de2",
+      "before": {
+        "hwnd": 13308210,
+        "foreground": 13308210,
+        "ownerPid": 1600,
+        "foregroundPid": 1600,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356356176,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 13308210,
+        "foreground": 13308210,
+        "ownerPid": 1600,
+        "foregroundPid": 1600,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356356243,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "zoom": 1.25,
+        "mainScroll": 0,
+        "editor": false,
+        "confirmation": false
+      },
+      "coverage": "Entire original viewport at the explicitly observed control section"
+    }
+  ],
+  "classification": "Actual owned Windows UI coordinate and keyboard input; genuine production PNG decoding and account-scoped disk storage. Deferred reply is an isolated scheduling fixture. No game launch or game-screen acceptance.",
+  "identity": {
+    "pid": 1600,
+    "ppid": 13728,
+    "windowId": 1,
+    "webContentsId": 1,
+    "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nc83Ah\\profile"
+  },
+  "initialViewport": {
+    "native": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "content": [
+        1361,
+        862
+      ],
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1361,
+        "height": 862
+      },
+      "minimum": [
+        960,
+        620
+      ],
+      "maximum": [
+        0,
+        0
+      ],
+      "zoom": 1,
+      "maximized": false,
+      "display": {
+        "id": 2422596671,
+        "scaleFactor": 1.25,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 1728
+        },
+        "workArea": {
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 1680
+        }
+      }
+    },
+    "renderer": {
+      "width": 1362,
+      "height": 862,
+      "rootClientWidth": 1362,
+      "rootClientHeight": 862,
+      "rootRectWidth": 1361.5999755859375,
+      "rootRectHeight": 862.4000244140625,
+      "visualViewport": {
+        "width": 1361.5999755859375,
+        "height": 862.4000244140625,
+        "scale": 1
+      },
+      "devicePixelRatio": 1.25,
+      "hasFocus": true,
+      "hidden": false
+    }
+  },
+  "setup": {
+    "complete": true,
+    "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nc83Ah\\profile"
+  },
+  "previousAccount": null,
+  "accounts": [
+    {
+      "id": "b6372ce5-71b9-3be5-830e-873d92e708ee",
+      "uuid": "b6372ce5-71b9-3be5-830e-873d92e708ee",
+      "username": "本地验证甲_87d7d6"
+    },
+    {
+      "id": "6a4a1782-cedf-3ef4-8a98-1017fe994089",
+      "uuid": "6a4a1782-cedf-3ef4-8a98-1017fe994089",
+      "username": "本地验证乙_87d7d6"
+    }
+  ],
+  "source": {
+    "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nc83Ah\\offline118-custom.png",
+    "sha256": "f8580d5b181734d194389a95b3e15d9b4f3d44a1c20ed8fb88d878fd9b010303"
+  },
+  "error": {
+    "name": "AssertionError",
+    "message": "Missing accurate offline hint 经校验",
+    "stack": "AssertionError [ERR_ASSERTION]: Missing accurate offline hint 经校验\n    at module.exports (E:\\KAMUCL\\scripts\\qa-offline118.cjs:133:74)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:233:9"
+  },
+  "restored": {
+    "complete": true
+  },
+  "finishedAt": "2026-10-07T06:59:16.624Z"
+}

@@ -61,10 +61,10 @@ async function imageData(url: string): Promise<string> {
     return 'data:' + type + ';base64,' + Buffer.concat(chunks).toString('base64')
   } finally { await reader.cancel().catch(() => undefined) }
 }
-let queue: Promise<unknown> = Promise.resolve()
+let queue: Promise<void> = Promise.resolve()
 export function getModIcons(version: string, folder: string, requested: string[], kind = 'mods'): Promise<Record<string, string>> {
   const names = [...new Set(requested)].filter(n => typeof n === 'string' && path.basename(n) === n && !/[\\/:\0]/.test(n) && /\.(?:jar(?:\.disabled)?|zip)$/i.test(n)).slice(0, 100)
-  const job = queue.catch(() => undefined).then(async () => {
+  const job = queue.then(async () => {
     const dir = await resolveResourceDirectory(folder, version, kind)
     const cacheDir = path.join(app.getPath('userData'), 'cache', 'mod-icons-v1')
     await fs.promises.mkdir(cacheDir, { recursive: true })
@@ -78,7 +78,7 @@ export function getModIcons(version: string, folder: string, requested: string[]
       else todo.push(name)
     } catch { /* file removed */ }
     if (!todo.length) return result
-    const identities = (await scanModDirectory(dir, true, todo)).filter(i => i.sha1)
+    const identities = (await scanModDirectory(dir, true, todo, 'icons')).filter(i => i.sha1)
     const matches = await matchModIcons(identities)
     let next = 0
     await Promise.all(Array.from({ length: 4 }, async () => {
@@ -93,6 +93,8 @@ export function getModIcons(version: string, folder: string, requested: string[]
     }))
     return result
   })
-  queue = job
+  // The serialization tail owns completion only, not the last page of base64
+  // images after its renderer has gone away. Callers still receive every result.
+  queue = job.then(() => undefined, () => undefined)
   return job
 }

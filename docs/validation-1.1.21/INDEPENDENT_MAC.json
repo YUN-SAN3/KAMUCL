@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 1,
+  "projectionCompleteForEvidenceSnapshot": true,
+  "readOnly": true,
+  "version": "1.1.21",
+  "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+  "sourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+  "primaryQASourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+  "supplementaryQASourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+  "finalTagCommit": null,
+  "finalRunObserved": true,
+  "fullPlatformQualified": false,
+  "modifiedScopeNativeQualified": true,
+  "rows": [
+    {
+      "scope": "All16 strict appearance rows plus separate strict smoke; source/editor/navigation/server display scope only. Native Darwin ARM64 Electron44.3 offscreen Chromium rendering/input and native PNG/JPEG/WebP codec on the exact original8e ASAR renderer, using disposable controlled IPC fixtures. All18 modified-scope fixture configurations qualify. Excludes physical OS shortcuts, visible Mac desktop/material, gameplay, public service installation and own updater/resourcepack/parity implementation.",
+      "reviewer": "updater121",
+      "ratings": {
+        "reasonableness": 9.2,
+        "functionality": 9.1,
+        "appearance": 8.7
+      },
+      "reviewBinding": {
+        "name": "updater121-263-mac-final-independent-review.json",
+        "bytes": 36635,
+        "sha256": "f0d26d47679e8ad1db08cb97cc2fd864f0a063b93aeb9ceddf67acbebf6dbca5"
+      },
+      "qualifiedAppearanceRows": 16,
+      "additionalQualifiedSmoke": 1,
+      "runId": 37831726301,
+      "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+      "receiptBinding": {
+        "name": "263-receipt.json",
+        "bytes": 238324,
+        "sha256": "59b12fcd2c71b82a9d82e90e60f72b80b3f0a9d56ae1fee09c0e6a4fc46971fc"
+      },
+      "originalAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+      "rendererIndexSHA256": "5520586b3dbe9554ba3901023891b6572e1fb7fc359fdbcaceae26aebfb2f3a9",
+      "criticalDefectsObservedWithinScope": []
+    },
+    {
+      "scope": "Both strict original community rows with six themes, two exact requested windows and100/125% page zoom; queue/dialog/dependency-controls scope only. Native Darwin ARM64 Electron44.3 offscreen Chromium rendering/input and native PNG/JPEG/WebP codec on the exact original8e ASAR renderer, using disposable controlled IPC fixtures. All18 modified-scope fixture configurations qualify. Excludes physical OS shortcuts, visible Mac desktop/material, gameplay, public service installation and own updater/resourcepack/parity implementation.",
+      "reviewer": "updater121",
+      "ratings": {
+        "reasonableness": 9.1,
+        "functionality": 9.2,
+        "appearance": 8.8
+      },
+      "reviewBinding": {
+        "name": "updater121-263-mac-final-independent-review.json",
+        "bytes": 36635,
+        "sha256": "f0d26d47679e8ad1db08cb97cc2fd864f0a063b93aeb9ceddf67acbebf6dbca5"
+      },
+      "qualifiedCommunityRows": 2,
+      "runId": 37831726301,
+      "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+      "receiptBinding": {
+        "name": "263-receipt.json",
+        "bytes": 238324,
+        "sha256": "59b12fcd2c71b82a9d82e90e60f72b80b3f0a9d56ae1fee09c0e6a4fc46971fc"
+      },
+      "originalAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+      "rendererIndexSHA256": "5520586b3dbe9554ba3901023891b6572e1fb7fc359fdbcaceae26aebfb2f3a9",
+      "criticalDefectsObservedWithinScope": []
+    },
+    {
+      "scope": "Controlled-IPC production community fixture only: two actual native ARM64 Electron processes, six themes, two physical windows and100/125% page zoom. Original installer, public networking/transfer overlap, physical desktop keys and whole Mac acceptance are outside this score.",
+      "reviewer": "appearance121",
+      "ratings": {
+        "reasonableness": 9.1,
+        "functionality": 9,
+        "appearance": 8.8
+      },
+      "reviewBinding": {
+        "name": "appearance121-mac-reuse263df7-community-independent-review.json",
+        "bytes": 35249,
+        "sha256": "c1859cc03c3c80330e1337f462540f3de906421fb623243b79f8ce604b8964c4"
+      },
+      "qualifiedCommunityRows": 2,
+      "originalPngHashesVerified": 60,
+      "manuallyViewedOriginalPng": 16,
+      "runId": 37831726301,
+      "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+      "receiptBinding": {
+        "name": "263-receipt.json",
+        "bytes": 238324,
+        "sha256": "59b12fcd2c71b82a9d82e90e60f72b80b3f0a9d56ae1fee09c0e6a4fc46971fc"
+      },
+      "originalAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+      "rendererIndexSHA256": "5520586b3dbe9554ba3901023891b6572e1fb7fc359fdbcaceae26aebfb2f3a9",
+      "criticalDefectsObservedWithinScope": []
+    }
+  ],
+  "fullPlatformAcceptance": false,
+  "wholeUIAcceptance": false,
+  "wholePlatformRatings": null,
+  "reviewers": [
+    {
+      "reviewer": "community121",
+      "role": "Independent raw native provenance, parity forwarding and bounded game/favorites/update readback; author of community/navigation/reuse work",
+      "productScores": null,
+      "excludedFromOwnScoring": [
+        "community product",
+        "navigation repair",
+        "reuse QA coordinator"
+      ],
+      "originalEvidenceReview": {
+        "runId": 37820579554,
+        "reportBinding": {
+          "name": "original-8e-fresh-runtime-independent-review.json",
+          "bytes": 47386,
+          "sha256": "c2e79b2b5d03b68c67fc3253181591aeac85bd48946fd5fb020d765f1f6c07de"
+        },
+        "gameReportBinding": {
+          "name": "original-8e-fresh-game-independent-review.json",
+          "bytes": 15034,
+          "sha256": "2c79ec8b342dba570716dd67cab101919454042da43fd7b0c68d612f374c3aaf"
+        },
+        "sourceBindingsVerified": 11,
+        "originalParityFilesHashVerified": 678,
+        "favoriteFilesHashVerifiedPerStage": 25,
+        "selectedPublicInstallerScreenshotsManuallyViewed": 4,
+        "controlledGalleryScreenshotsManuallyViewedPrivately": 3,
+        "favoritesErrorScreenshotsManuallyViewed": 2,
+        "gameStillsManuallyViewed": 3,
+        "limits": "Bound raw bytes and observed subset only; no whole platform, game pixels, physical audio, public self-update or unobserved native phases inferred"
+      },
+      "supplementaryEvidenceReview": {
+        "runId": 37826058947,
+        "artifactDigest": "sha256:96b2ae95c9ae2686d7cd82fe6fc0bdd13189ad6fc41ca56a56cf8ddd530b2dd3",
+        "receiptBinding": {
+          "name": "reuse-a844-receipt.json",
+          "bytes": 72852,
+          "sha256": "8b468bd1d5f613d653576e778aa0939893f9f1a8d83bbd29ba1d6464203a35c3"
+        },
+        "proofBinding": {
+          "name": "reuse-a844-custom-960x620-125-proof.json",
+          "bytes": 66665,
+          "sha256": "e5e92e111d7de84119f9758e2c5653b7ff070ee93e10b7473b9535353e7c551f"
+        },
+        "independentNativeRunPerformed": false,
+        "originalPNGsHashedAndDecoded": 17,
+        "originalPNGsManuallyViewed": 4,
+        "manuallyViewedNames": [
+          "normal.png",
+          "after-apply.png",
+          "opacity-100.png",
+          "failed-state.png"
+        ],
+        "selectionSubmissionEstablished": false,
+        "smokeAccepted": false,
+        "full18Accepted": false,
+        "latestScope": "Original failed run read-only audit; no candidate input fixes tested or qualified in this projection",
+        "historyOnly": true
+      }
+    },
+    {
+      "reviewer": "updater121",
+      "role": "Independent reviewer of appearance/community subset; updater/resourcepack/parity author scope excluded by reviewer",
+      "originalRunId": 37820579554,
+      "reportBinding": {
+        "name": "original-8e-updater-independent-review.json",
+        "bytes": 13802,
+        "sha256": "267d4427fa47d0fa91e445e49b04deb804eb2ace08cac68b05a3207f6d1d9a05"
+      },
+      "inputBindings": [
+        {
+          "name": "updater121-final-mac-fixture-artifact-audit.json",
+          "sha256": "3964a229d2e7c9f17ff0c38002d490ce490b965bebbdea1f56c5d56d66edb507"
+        },
+        {
+          "name": "updater121-final-mac-ui-artifact-audit.json",
+          "sha256": "9c4288a40c5dae551b0be95b14d7d3409bb80dd91f09685c4508a1fe8e801359"
+        }
+      ],
+      "packageAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+      "rendererIndexSHA256": "5520586b3dbe9554ba3901023891b6572e1fb7fc359fdbcaceae26aebfb2f3a9",
+      "observedSubsetRatings": {
+        "reasonableness": 9.1,
+        "functionality": 9,
+        "appearance": 8.7,
+        "scope": "Only independently inspected unchanged appearance/editor/navigation/alpha/codec and completed community/gallery controlled-IPC observations before original failures. These are not complete appearance, native shortcut, whole APP/DMG, native material or game acceptance ratings. No averaging with Windows ratings."
+      },
+      "wholePlatformRatings": null,
+      "completeAppearanceRatings": null,
+      "bindingAudit": {
+        "canonicalCommittedSourceChecked": true,
+        "WindowsRendererNotSubstituted": true,
+        "UIpngHashesVerified": 316,
+        "syntheticFixturePNGHashesVerified": 16,
+        "actualOriginalMacZIPRendererBytesVerified": 56,
+        "retainedActualAPPAndDMGModuleBytesVerified": 86
+      },
+      "originalPNGsManuallyViewed": 17,
+      "supplementaryA844NativeRatings": null
+    }
+  ],
+  "scoreBoundary": "Scores refer only to the named author, original evidence hash and expressly bounded observed subset. They are not averaged with Windows scores, do not score reviewer-owned modules and do not turn any failed original or supplementary run into a pass.",
+  "findings": [
+    {
+      "severity": "acceptance blocker",
+      "scope": "original primary run",
+      "finding": "Five failed jobs and two skipped jobs remain in the exact original 15-job result."
+    },
+    {
+      "severity": "unqualified evidence",
+      "scope": "modern game visual output",
+      "finding": "Install/world/save/normal-exit logs establish the runtime chain only; the original stills do not establish recognizable playable pixels or motion."
+    },
+    {
+      "severity": "scope boundary",
+      "scope": "controlled gallery",
+      "finding": "Synthetic IPC/JAR/progress and disposable storage exercise actual queue UI but do not qualify public services or original installer."
+    },
+    {
+      "severity": "qualified supplementary scope",
+      "scope": "263 supplementary fixture",
+      "finding": "Strict smoke plus18/18 actual native original-renderer fixture rows passed. The current independently reviewed appearance/community scores qualify only the named offscreen/controlled-IPC scope; original primary failures and whole-platformfalse remain."
+    }
+  ],
+  "privacy": {
+    "publicProjectionContainsPrivatePaths": false,
+    "userLogBodiesIncluded": false,
+    "userWorldBytesIncluded": false,
+    "privateGalleryScreenshotCopiesIncluded": false,
+    "originalRawFilesRetainedPrivately": true,
+    "publicImageCopiesIncluded": false
+  },
+  "evidenceBindings": {
+    "originalStatus": {
+      "name": "original-8e-final-15-job-status.json",
+      "bytes": 32762,
+      "sha256": "f17a854da2c7d6a2de742e045695cbdb6c97f8b065d6f3e249a6d75f101a0573"
+    },
+    "originalRuntimeReview": {
+      "name": "original-8e-fresh-runtime-independent-review.json",
+      "bytes": 47386,
+      "sha256": "c2e79b2b5d03b68c67fc3253181591aeac85bd48946fd5fb020d765f1f6c07de"
+    },
+    "originalGameReview": {
+      "name": "original-8e-fresh-game-independent-review.json",
+      "bytes": 15034,
+      "sha256": "2c79ec8b342dba570716dd67cab101919454042da43fd7b0c68d612f374c3aaf"
+    },
+    "originalFixtureAudit": {
+      "name": "original-8e-fixture-independent-audit.json",
+      "bytes": 68304,
+      "sha256": "b3c035b69fedde470bb2ed6dea259422140b6113cf34f7fc26efe8218ee54509"
+    },
+    "originalFixtureReceipt": {
+      "name": "original-8e-batch121-receipt.json",
+      "sha256": "b33b1e2575f987146248c22a3b7401195b03cb92081842554af2c22ba1f9cdc0"
+    },
+    "originalUpdaterReview": {
+      "name": "original-8e-updater-independent-review.json",
+      "bytes": 13802,
+      "sha256": "267d4427fa47d0fa91e445e49b04deb804eb2ace08cac68b05a3207f6d1d9a05"
+    },
+    "originalPackageOrigin": {
+      "name": "original-8e-package-origin-reuse.json",
+      "bytes": 86170,
+      "sha256": "1bf500a21f6bbdaaf711f79a898a4b7eac97def43fdb5341baf47aef8731a440"
+    },
+    "latestSupplementary": {
+      "run": {
+        "name": "263-run-api-original.json",
+        "bytes": 11974,
+        "sha256": "0265a4048929f56fbb5011df5e2e660df968cec46d03592041f7f5ef45654436"
+      },
+      "artifactMetadata": {
+        "name": "263-artifact-metadata-original.json",
+        "bytes": 733,
+        "sha256": "9dbb825207f7ac15c7ed3af6048375671a32c80d3a295e7ede7f64d25e811693"
+      },
+      "jobLog": {
+        "name": "263-job-original.log",
+        "bytes": 75448,
+        "sha256": "c60f8f143e80b7a1466ba502c61b1b0e530eda722b9549184180c6dad6205031"
+      },
+      "receipt": {
+        "name": "263-receipt.json",
+        "bytes": 238324,
+        "sha256": "59b12fcd2c71b82a9d82e90e60f72b80b3f0a9d56ae1fee09c0e6a4fc46971fc"
+      },
+      "audit": {
+        "name": "263-independent-raw-artifact-audit.json",
+        "bytes": 194237,
+        "sha256": "b8378d32db1ecd9b23074550c3c1fca5fc28c04002db47c0c9e139fe36daf13b"
+      },
+      "originalAsarAndSources": {
+        "name": "263-independent-asar-source-binding-audit.json",
+        "bytes": 28154,
+        "sha256": "c823b3b676d4a935c29ae4adef904990614e14c4993b6b420e3b04a498fd409c"
+      },
+      "actualDeadlineObservations": {
+        "name": "263-independent-deadline-observation-audit.json",
+        "bytes": 58892,
+        "sha256": "f4b3a3feeb49b832e4f8dc3963c581e02f4e1f7f73d9c2fe59cfe40d30732b66"
+      },
+      "updaterReview": {
+        "name": "updater121-263-mac-final-independent-review.json",
+        "bytes": 36635,
+        "sha256": "f0d26d47679e8ad1db08cb97cc2fd864f0a063b93aeb9ceddf67acbebf6dbca5"
+      },
+      "appearanceReview": {
+        "name": "appearance121-mac-reuse263df7-community-independent-review.json",
+        "bytes": 35249,
+        "sha256": "c1859cc03c3c80330e1337f462540f3de906421fb623243b79f8ce604b8964c4"
+      }
+    },
+    "historicalSupplementaryA844": {
+      "supplementaryRun": {
+        "name": "reuse-a844-run-api-original.json",
+        "bytes": 11974,
+        "sha256": "79239df277266a2970a41fab0e20fff30add3b11192c4aab92bf96b04af95574"
+      },
+      "supplementaryArtifactMetadata": {
+        "name": "reuse-a844-artifact-metadata-original.json",
+        "bytes": 734,
+        "sha256": "89260a6d3dfeff471f0a24356b6cf45375e77a58301f94b3f5a22cb036817c49"
+      },
+      "supplementaryReceipt": {
+        "name": "reuse-a844-receipt.json",
+        "bytes": 72852,
+        "sha256": "8b468bd1d5f613d653576e778aa0939893f9f1a8d83bbd29ba1d6464203a35c3"
+      },
+      "supplementaryProof": {
+        "name": "reuse-a844-custom-960x620-125-proof.json",
+        "bytes": 66665,
+        "sha256": "e5e92e111d7de84119f9758e2c5653b7ff070ee93e10b7473b9535353e7c551f"
+      },
+      "supplementaryJobLog": {
+        "name": "reuse-a844-job-original.log",
+        "bytes": 67439,
+        "sha256": "9bb9abbbb2c9d045cb372add9bdb4dee0956afb654b0a5659a684cfaf671a369"
+      },
+      "supplementaryStderr": {
+        "name": "reuse-a844-smoke-stderr-original.log",
+        "bytes": 2632,
+        "sha256": "15caff2919efbdacf1e4142f359245ef8ffcd757dfd0cb31d83a266ab66d0a69"
+      },
+      "supplementaryStdout": {
+        "name": "reuse-a844-smoke-stdout-original.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "supplementaryFailure": {
+        "name": "reuse-a844-smoke-failure-original.log",
+        "bytes": 394,
+        "sha256": "2fda5087afc7eef3c904953f24d31a996972f35109ffcab5678b0bf117a9d14f"
+      },
+      "supplementaryContracts": {
+        "name": "reuse-a844-contracts-original.log",
+        "bytes": 3553,
+        "sha256": "c15a9a46d3e2bdda333f7fa3c676514db86ba95fe46710a65c536ab35bdf5fcd"
+      }
+    }
+  },
+  "priorSupplementaryFailureSnapshots": [
+    {
+      "runId": 37826058947,
+      "qaSourceCommit": "a8440a1bfcc088b243c1c5cb7d2e3a541d91b6ef",
+      "smokeComplete": false,
+      "matrixExecuted": 0,
+      "matrixComplete": false,
+      "evidenceBindings": {
+        "acceptance": {
+          "name": "a844-MAC_ACCEPTANCE-failed-history.json",
+          "bytes": 40074,
+          "sha256": "4cac85956849ba508222399d85a094e4efa82cc8af3d0ecf778c266fe2647779"
+        },
+        "independent": {
+          "name": "a844-INDEPENDENT_MAC-failed-history.json",
+          "bytes": 9799,
+          "sha256": "98c7ceecea0c9a5408a8be2885949bda975a04f22618d906ef2e6659424a751c"
+        }
+      }
+    },
+    {
+      "runId": 37828551113,
+      "qaSourceCommit": "7528a9b47beb728635ff60d37f72a8d202ad6fcc",
+      "conclusion": "failure",
+      "smokeComplete": true,
+      "matrixExecuted": 18,
+      "qualifiedMatrixRows": 17,
+      "matrixComplete": false,
+      "actualRejectedIntervalMs": 149,
+      "requiredMinimumMs": 150,
+      "evidenceBindings": {
+        "acceptance": {
+          "name": "7528-MAC_ACCEPTANCE-failed-history.json",
+          "bytes": 42758,
+          "sha256": "7dbeff898af0047d660cb546ba66ad9bc8f8390087490fdc0726a1c517071d94"
+        },
+        "independent": {
+          "name": "7528-INDEPENDENT_MAC-failed-history.json",
+          "bytes": 13555,
+          "sha256": "692724dc1ffe51fdebc58378af525788db111d198b26bd29c1c49567e779896b"
+        },
+        "scopedScores": {
+          "name": "7528-INDEPENDENT_SCOPED_SCORES-history.json",
+          "bytes": 2998,
+          "sha256": "6a9664c5a8de25b2be4949a77d84cd0ad744bda04ea85f367d5520c4a3441996"
+        }
+      }
+    }
+  ],
+  "latestSupplementaryEvidenceReview": {
+    "reviewer": "community121",
+    "readOnly": true,
+    "runId": 37831726301,
+    "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+    "productScores": null,
+    "excludedFromOwnScoring": [
+      "community product",
+      "navigation repair",
+      "reuse coordinator"
+    ],
+    "full18Accepted": true,
+    "smokeAccepted": true,
+    "executedRows": 18,
+    "qualifiedRows": 18,
+    "childExitZeroRows": 18,
+    "originalPNGsHashedAndDecoded": 502,
+    "originalPNGsManuallyViewed": 0,
+    "originalAsarRendererFilesCompared": 147,
+    "canonicalUniqueSourceFilesVerified": 21,
+    "actualSettingsFailureIntervalsAudited": 85,
+    "actualDraftFailureIntervalsAudited": 17,
+    "originalConsumerThresholdUnchanged": true,
+    "bindings": {
+      "run": {
+        "name": "263-run-api-original.json",
+        "bytes": 11974,
+        "sha256": "0265a4048929f56fbb5011df5e2e660df968cec46d03592041f7f5ef45654436"
+      },
+      "artifactMetadata": {
+        "name": "263-artifact-metadata-original.json",
+        "bytes": 733,
+        "sha256": "9dbb825207f7ac15c7ed3af6048375671a32c80d3a295e7ede7f64d25e811693"
+      },
+      "jobLog": {
+        "name": "263-job-original.log",
+        "bytes": 75448,
+        "sha256": "c60f8f143e80b7a1466ba502c61b1b0e530eda722b9549184180c6dad6205031"
+      },
+      "receipt": {
+        "name": "263-receipt.json",
+        "bytes": 238324,
+        "sha256": "59b12fcd2c71b82a9d82e90e60f72b80b3f0a9d56ae1fee09c0e6a4fc46971fc"
+      },
+      "audit": {
+        "name": "263-independent-raw-artifact-audit.json",
+        "bytes": 194237,
+        "sha256": "b8378d32db1ecd9b23074550c3c1fca5fc28c04002db47c0c9e139fe36daf13b"
+      },
+      "originalAsarAndSources": {
+        "name": "263-independent-asar-source-binding-audit.json",
+        "bytes": 28154,
+        "sha256": "c823b3b676d4a935c29ae4adef904990614e14c4993b6b420e3b04a498fd409c"
+      },
+      "actualDeadlineObservations": {
+        "name": "263-independent-deadline-observation-audit.json",
+        "bytes": 58892,
+        "sha256": "f4b3a3feeb49b832e4f8dc3963c581e02f4e1f7f73d9c2fe59cfe40d30732b66"
+      },
+      "updaterReview": {
+        "name": "updater121-263-mac-final-independent-review.json",
+        "bytes": 36635,
+        "sha256": "f0d26d47679e8ad1db08cb97cc2fd864f0a063b93aeb9ceddf67acbebf6dbca5"
+      },
+      "appearanceReview": {
+        "name": "appearance121-mac-reuse263df7-community-independent-review.json",
+        "bytes": 35249,
+        "sha256": "c1859cc03c3c80330e1337f462540f3de906421fb623243b79f8ce604b8964c4"
+      }
+    },
+    "scope": "Only original receipt/proof/child/source/PNG and actual deadline readback. Scores are supplied by independent current-run reviewers; this reader gives no score for authored modules."
+  },
+  "skippedSupplementaryInvocations": [
+    {
+      "runId": 37831509135,
+      "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+      "status": "completed",
+      "conclusion": "skipped",
+      "nativeExecutionPerformed": false,
+      "qualifiedRows": 0,
+      "triggerDifference": "Required resume_mac_arm64 input omitted; unchanged workflow gate skipped the job. Corrected invocation is a distinct run.",
+      "evidenceBinding": {
+        "name": "263-omitted-input-skipped-history.json",
+        "bytes": 1035,
+        "sha256": "92465ace5694631a76d6d833c14f1e4d2fae87e9e5d29df2c14576cfeeb98af5"
+      }
+    }
+  ],
+  "modifiedScopeNativeQualification": {
+    "runId": 37831726301,
+    "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+    "scope": "Only the strict18 original-renderer appearance/community fixture rows, additional smoke and independently reviewed named visual/interaction scope. It does not replace primary APP/DMG, game, favorites, public self-update or whole-platform acceptance.",
+    "independentScoreRows": 3
+  },
+  "historicalFindings": [
+    {
+      "severity": "acceptance blocker",
+      "scope": "a844 supplementary fixture",
+      "finding": "Four completed CDP dispatches produced no trusted selection change and no target settings IPC. Smoke child exit1 correctly blocks all18 rows."
+    },
+    {
+      "severity": "acceptance blocker",
+      "scope": "7528 supplementary fixture",
+      "finding": "Row5 black-purple960x620@100 failed the unchanged150ms consumer at149ms despite actual trusted target submission, correct rollback/error/focus and a complete producer proof. Matrix17/18 remains incomplete."
+    }
+  ]
+}

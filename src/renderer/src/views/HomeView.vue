@@ -95,17 +95,26 @@ const banners = computed(() => {
 const { decorativeActive } = useMotion()
 watch(decorativeActive, active => active ? startBannerTimer() : stopBannerTimer())
 const bannerIndex = ref(0)
+const outgoingBanner = ref<number | null>(null)
+const upcomingBanner = ref(0)
+const bannerLayers = computed(() => [...new Set([bannerIndex.value, upcomingBanner.value, outgoingBanner.value])]
+  .filter((index): index is number => index !== null && !!banners.value[index]).sort((a, b) => a - b)
+  .map(index => ({ ...banners.value[index], index })))
 let bannerTimer: ReturnType<typeof setInterval> | null = null
 let playback: CarouselPlayback | null = null
 let playbackKey = ''
-/** 已加载就绪的轮播图（src 级缓存）：切换只在下一张就绪后发生，杜绝「先闪第一张」 */
+/** Only current/next/outgoing DOM images own decoded resources. */
 const readyBanners = new Set<string>()
-
-function preloadBanner(src: string) {
-  if (readyBanners.has(src)) return
-  const im = new Image()
-  im.onload = () => readyBanners.add(src)
-  im.src = src
+function syncBannerResources() {
+  upcomingBanner.value = playback?.upcomingIndex() ?? bannerIndex.value
+  const retained = new Set(bannerLayers.value.map(item => item.src))
+  for (const src of readyBanners) if (!retained.has(src)) readyBanners.delete(src)
+}
+function finishBannerExit(index: number, event: TransitionEvent) {
+  if (event.propertyName === 'opacity' && outgoingBanner.value === index && bannerIndex.value !== index) {
+    outgoingBanner.value = null
+    syncBannerResources()
+  }
 }
 const bannerScope = computed(() => instanceBanners.value.some(item => !failedBanners.value.has(item.path)) ? `instance:${currentVersion.value?.folder}:${currentVersion.value?.id}` : 'global')
 
@@ -119,26 +128,31 @@ function stopBannerTimer() {
 
 function startBannerTimer() {
   stopBannerTimer()
-  if (!banners.value.length) { playback = null; playbackKey = ''; bannerIndex.value = 0; return }
-  playbackKey = 'kamucl.carousel.' + bannerScope.value
+  outgoingBanner.value = null
+  if (!banners.value.length) { playback = null; playbackKey = ''; bannerIndex.value = 0; upcomingBanner.value = 0; readyBanners.clear(); return }
+  playbackKey = 'kamucl.carousel.' + bannerScope.value + (appearancePreview.value?.launchThumbnail.randomPlayback ? '.random' : '')
   let saved
   try { saved = JSON.parse(localStorage.getItem(playbackKey) ?? 'null') } catch { /* invalid bookmark */ }
   const settings = appearancePreview.value?.launchThumbnail
-  playback = new CarouselPlayback(banners.value.map(item => ({ path: item.path, durationMs: 1000 * carouselDuration(settings?.durations?.[item.path] ?? settings?.intervalSeconds) })), Date.now(), saved)
+  playback = new CarouselPlayback(banners.value.map(item => ({ path: item.path, durationMs: 1000 * carouselDuration(settings?.durations?.[item.path] ?? settings?.intervalSeconds) })), Date.now(), saved, settings?.randomPlayback === true)
   bannerIndex.value = playback.index
-  // 预加载全部轮播图：避免切到下一张时因图片未加载而短暂露出第一张
-  for (const item of banners.value) preloadBanner(item.src)
+  syncBannerResources()
   if (banners.value.length < 2 || !decorativeActive.value) return
   bannerTimer = setInterval(() => {
     if (document.hidden || !playback) return
     const nextIdx = playback.peekNext(Date.now())
     if (nextIdx !== playback.index && !readyBanners.has(banners.value[nextIdx]?.src ?? '')) return // 下一张未就绪，下一拍再试
-    bannerIndex.value = playback.tick(Date.now())
+    const index = playback.tick(Date.now())
+    if (index !== bannerIndex.value) {
+      outgoingBanner.value = bannerIndex.value
+      bannerIndex.value = index
+      syncBannerResources()
+    }
   }, 100)
 }
 
 watch(
-  () => JSON.stringify([instanceBanners.value, globalBanners.value, appearancePreview.value?.launchThumbnail.intervalSeconds, appearancePreview.value?.launchThumbnail.durations]),
+  () => JSON.stringify([instanceBanners.value, globalBanners.value, appearancePreview.value?.launchThumbnail.intervalSeconds, appearancePreview.value?.launchThumbnail.durations, appearancePreview.value?.launchThumbnail.randomPlayback]),
   () => {
     failedBanners.value = new Set()
     startBannerTimer()
@@ -468,6 +482,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   stopBannerTimer()
+  readyBanners.clear()
   skinRequestToken++
 })
 </script>
@@ -477,15 +492,17 @@ onUnmounted(() => {
     <div data-ui="HomeView:5fc354f9fa6d" class="home-main">
       <section data-ui="HomeView:53555cbc5ab3" class="hero-card" :class="{ 'no-banner': !banners.length }" data-edit="banner">
         <img data-ui="HomeView:1182a4262184"
-          v-for="(item, index) in banners"
+          v-for="item in bannerLayers"
           :key="item.path"
           :src="item.src"
           class="hero-image"
-          :class="{ active: index === bannerIndex }"
+          :class="{ active: item.index === bannerIndex }"
           :style="{ objectFit: item.fit }"
           alt=""
           aria-hidden="true"
           @error="onBannerError(item)"
+          @load="readyBanners.add(item.src)"
+          @transitionend="finishBannerExit(item.index, $event)"
         />
         <div data-ui="HomeView:5838d59b9e2a" v-if="banners.length" class="hero-shade"></div>
 

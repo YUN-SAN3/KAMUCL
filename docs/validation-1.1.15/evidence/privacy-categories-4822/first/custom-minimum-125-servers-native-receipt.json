@@ -1,0 +1,699 @@
+{
+  "complete": true,
+  "label": "custom-minimum-125-servers",
+  "frames": {
+    "first": {
+      "timestamp": 1185.5,
+      "observedAt": 1186.9000000059605,
+      "timeOrigin": 1791279563449.6,
+      "url": "file:///E:/KAMUCL/release/KAMUCL-runtime/1.1.15-d1225a7c725537ce/resources/app.asar/out/renderer/index.html",
+      "focus": true,
+      "hidden": false,
+      "finiteAnimations": 0,
+      "sidebar": {
+        "x": 0.6399999856948853,
+        "y": 0.6399999856948853,
+        "width": 208,
+        "height": 496.6399841308594,
+        "top": 0.6399999856948853,
+        "right": 208.63999998569489,
+        "bottom": 497.27998411655426,
+        "left": 0.6399999856948853
+      },
+      "scroll": 193.27999877929688,
+      "items": [
+        {
+          "nav": "home",
+          "label": "首页",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": -96.63999938964844,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": -96.63999938964844,
+            "right": 188.3199920654297,
+            "bottom": -48.63999938964844,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "game",
+          "label": "游戏版本",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": -44.63999938964844,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": -44.63999938964844,
+            "right": 188.3199920654297,
+            "bottom": 3.3600006103515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "resources",
+          "label": "资源管理",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 7.359999656677246,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 7.359999656677246,
+            "right": 188.3199920654297,
+            "bottom": 55.359999656677246,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "mods",
+          "label": "模组",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 63.3599967956543,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 63.3599967956543,
+            "right": 188.3199920654297,
+            "bottom": 103.3599967956543,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "packs",
+          "label": "资源包",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 107.36000061035156,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 107.36000061035156,
+            "right": 188.3199920654297,
+            "bottom": 147.36000061035156,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "shaders",
+          "label": "光影包",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 151.36000061035156,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 151.36000061035156,
+            "right": 188.3199920654297,
+            "bottom": 191.36000061035156,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "recordings",
+          "label": "录像",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 195.36000061035156,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 195.36000061035156,
+            "right": 188.3199920654297,
+            "bottom": 235.36000061035156,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "projections",
+          "label": "投影",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 239.36000061035156,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 239.36000061035156,
+            "right": 188.3199920654297,
+            "bottom": 279.36000061035156,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "bridge",
+          "label": "MOD 面板",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 283.3599853515625,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 283.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 323.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "servers",
+          "label": "服务器",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 327.3599853515625,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 327.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 367.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "friends",
+          "label": "联机",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 375.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 375.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 423.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "keys",
+          "label": "默认配置",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 427.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 427.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 475.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "skins",
+          "label": "皮肤",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 479.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 479.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 527.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "community",
+          "label": "社区资源",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 531.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 531.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 579.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "settings",
+          "label": "设置",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 583.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 583.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 631.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        }
+      ]
+    },
+    "second": {
+      "timestamp": 1189.7,
+      "observedAt": 1189.800000011921,
+      "timeOrigin": 1791279563449.6,
+      "url": "file:///E:/KAMUCL/release/KAMUCL-runtime/1.1.15-d1225a7c725537ce/resources/app.asar/out/renderer/index.html",
+      "focus": true,
+      "hidden": false,
+      "finiteAnimations": 0,
+      "sidebar": {
+        "x": 0.6399999856948853,
+        "y": 0.6399999856948853,
+        "width": 208,
+        "height": 496.6399841308594,
+        "top": 0.6399999856948853,
+        "right": 208.63999998569489,
+        "bottom": 497.27998411655426,
+        "left": 0.6399999856948853
+      },
+      "scroll": 193.27999877929688,
+      "items": [
+        {
+          "nav": "home",
+          "label": "首页",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": -96.63999938964844,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": -96.63999938964844,
+            "right": 188.3199920654297,
+            "bottom": -48.63999938964844,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "game",
+          "label": "游戏版本",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": -44.63999938964844,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": -44.63999938964844,
+            "right": 188.3199920654297,
+            "bottom": 3.3600006103515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "resources",
+          "label": "资源管理",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 7.359999656677246,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 7.359999656677246,
+            "right": 188.3199920654297,
+            "bottom": 55.359999656677246,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "mods",
+          "label": "模组",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 63.3599967956543,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 63.3599967956543,
+            "right": 188.3199920654297,
+            "bottom": 103.3599967956543,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "packs",
+          "label": "资源包",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 107.36000061035156,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 107.36000061035156,
+            "right": 188.3199920654297,
+            "bottom": 147.36000061035156,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "shaders",
+          "label": "光影包",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 151.36000061035156,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 151.36000061035156,
+            "right": 188.3199920654297,
+            "bottom": 191.36000061035156,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "recordings",
+          "label": "录像",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 195.36000061035156,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 195.36000061035156,
+            "right": 188.3199920654297,
+            "bottom": 235.36000061035156,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "projections",
+          "label": "投影",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 239.36000061035156,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 239.36000061035156,
+            "right": 188.3199920654297,
+            "bottom": 279.36000061035156,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "bridge",
+          "label": "MOD 面板",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 283.3599853515625,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 283.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 323.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "servers",
+          "label": "服务器",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 327.3599853515625,
+            "width": 175.67999267578125,
+            "height": 40,
+            "top": 327.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 367.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "animations": 0
+        },
+        {
+          "nav": "friends",
+          "label": "联机",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 375.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 375.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 423.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "keys",
+          "label": "默认配置",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 427.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 427.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 475.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "skins",
+          "label": "皮肤",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 479.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 479.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 527.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "community",
+          "label": "社区资源",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 531.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 531.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 579.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        },
+        {
+          "nav": "settings",
+          "label": "设置",
+          "rect": {
+            "x": 12.639999389648438,
+            "y": 583.3599853515625,
+            "width": 175.67999267578125,
+            "height": 48,
+            "top": 583.3599853515625,
+            "right": 188.3199920654297,
+            "bottom": 631.3599853515625,
+            "left": 12.639999389648438
+          },
+          "transform": "none",
+          "animations": 0
+        }
+      ]
+    }
+  },
+  "native": {
+    "before": {
+      "hwnd": 5900200,
+      "foreground": 5900200,
+      "ownerPid": 8604,
+      "foregroundPid": 8604,
+      "client": {
+        "left": 0,
+        "top": 0,
+        "right": 1201,
+        "bottom": 777
+      },
+      "origin": {
+        "x": 1069,
+        "y": 511
+      },
+      "monitor": {
+        "cbSize": 40,
+        "rcMonitor": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "rcWork": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2100
+        },
+        "dwFlags": 1
+      },
+      "dpi": 120,
+      "dpiAwareness": 2,
+      "focused": true,
+      "visible": true,
+      "minimized": false,
+      "observedAt": 1791279564640
+    },
+    "after": {
+      "hwnd": 5900200,
+      "foreground": 5900200,
+      "ownerPid": 8604,
+      "foregroundPid": 8604,
+      "client": {
+        "left": 0,
+        "top": 0,
+        "right": 1201,
+        "bottom": 777
+      },
+      "origin": {
+        "x": 1069,
+        "y": 511
+      },
+      "monitor": {
+        "cbSize": 40,
+        "rcMonitor": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "rcWork": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2100
+        },
+        "dwFlags": 1
+      },
+      "dpi": 120,
+      "dpiAwareness": 2,
+      "focused": true,
+      "visible": true,
+      "minimized": false,
+      "observedAt": 1791279565430
+    },
+    "contentBounds": {
+      "x": 855,
+      "y": 409,
+      "width": 961,
+      "height": 622
+    },
+    "display": {
+      "accelerometerSupport": "unknown",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1728
+      },
+      "colorDepth": 24,
+      "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+      "depthPerComponent": 8,
+      "detected": true,
+      "displayFrequency": 240,
+      "id": 2422596671,
+      "internal": false,
+      "label": "XG32UCWMG",
+      "maximumCursorSize": {
+        "width": 0,
+        "height": 0
+      },
+      "monochrome": false,
+      "nativeOrigin": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0,
+      "scaleFactor": 1.25,
+      "size": {
+        "width": 3072,
+        "height": 1728
+      },
+      "workArea": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      },
+      "workAreaSize": {
+        "width": 3072,
+        "height": 1680
+      },
+      "touchSupport": "unknown"
+    },
+    "physicalMonitorBounds": {
+      "left": 0,
+      "top": 0,
+      "right": 3840,
+      "bottom": 2160
+    },
+    "source": {
+      "id": "screen:0:0",
+      "display_id": "2422596671",
+      "size": {
+        "width": 3840,
+        "height": 2160
+      }
+    },
+    "zoom": 1.25,
+    "scale": 1.25,
+    "crops": [
+      {
+        "file": "custom-minimum-125-servers-native-application.png",
+        "bytes": 169120,
+        "sha256": "04e368e4b149a090796e408465103cc468c8c40ab7c1a9af3f941849711fb4a6",
+        "crop": {
+          "x": 1069,
+          "y": 511,
+          "width": 1201,
+          "height": 777
+        }
+      },
+      {
+        "file": "custom-minimum-125-servers-native-sidebar.png",
+        "bytes": 71249,
+        "sha256": "ba119156a6d78485f742f62a5c6ce66f8a9931227053b8e44a6cb3aabf00ab87",
+        "crop": {
+          "x": 1070,
+          "y": 512,
+          "width": 325,
+          "height": 776
+        }
+      }
+    ],
+    "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+  },
+  "classification": "Original CSS and history; read-only stable DOM, actual foreground HWND/PID and physical client crop. No injected CSS, additional resize or emulated focus. Pixel appearance requires independent visual review."
+}

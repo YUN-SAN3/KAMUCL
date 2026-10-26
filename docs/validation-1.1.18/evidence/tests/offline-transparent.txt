@@ -1,0 +1,1 @@
+{"complete":true,"theme":"transparent","directory":"E:\\KAMUCL\\out\\qa-offline118-transparent-b3e6e0cd-bd35-4099-8376-f071180d4162","screenshots":20,"recording":"E:\\KAMUCL\\out\\offline118-editor-a22f3933-fcf8-4ca8-9505-f8997ce91652-transparent"}

@@ -10,6 +10,7 @@ import {
   checkUpdate,
   errText,
   getPendingUpdate,
+  getSettings,
   getSystemInfo,
   getUpdateState,
   hideJava,
@@ -24,17 +25,31 @@ import {
   refreshJava,
   removePlugin,
   restoreUpdateBackup,
+  selectDir,
+  setDownloadFolder,
   setPluginEnabled
 } from '../api'
-import { enterEditMode, store, toast } from '../store'
-import { DEFAULT_CUSTOM_THEME, THEME_PRESETS } from '@shared/types'
+import { store, toast } from '../store'
+import AppearanceThemeCard from '../components/AppearanceThemeCard.vue'
+import UpdateSources from '../components/UpdateSources.vue'
 import { autoMemoryMB } from '@shared/memory'
 import MemoryOrganizer from '../components/MemoryOrganizer.vue'
-import type { LocalUpdateCheck, PluginInfo, ReleaseInfo, Settings, ThemeName, UpdateStateInfo } from '@shared/types'
+import type { LocalUpdateCheck, PluginInfo, ReleaseInfo, Settings, UpdateStateInfo } from '@shared/types'
 import { QQ_GROUP_NUMBER } from '@shared/branding'
+import { useMotion } from '../motion'
+const { systemReduced } = useMotion()
+import { usePlatformUpdate } from '../composables/usePlatformUpdate'
+const { systemInstaller, installAction, updateReadyMessage } = usePlatformUpdate()
+const systemMotionHelp = window.kamucl.platform === 'darwin'
+  ? '若需要动画，请在系统设置 → 辅助功能 → 显示中关闭“减少动态效果”。'
+  : window.kamucl.platform === 'win32'
+    ? '若需要动画，请在 Windows 设置 → 辅助功能 → 视觉效果开启动画效果。'
+    : '若需要动画，请检查本机桌面的辅助功能或动画设置。'
 import HomeLayoutEditor from '../components/HomeLayoutEditor.vue'
+import SelectMenu from '../components/SelectMenu.vue'
 import { settingsCatalog, settingsCategories, settingsScopes, scopeOfCategory, searchSettings, type SettingsCategory, type SettingsScope } from '@shared/settingsCatalog'
 import { updateSettings } from '../settingsUpdates'
+import { refreshInstalled } from '../store'
 
 const page = ref<HTMLElement | null>(null)
 /** 精确输入框自动聚焦 */
@@ -90,6 +105,76 @@ async function save(patch: Partial<Settings>) {
   }
 }
 
+const windowFitBusy = ref(false)
+const curseforgeKeyDraft = ref('')
+const curseforgeKeyBusy = ref(false)
+async function saveCurseforgeKey(clear = false) {
+  if (curseforgeKeyBusy.value) return
+  const key = clear ? '' : curseforgeKeyDraft.value.trim()
+  if (!clear && !key) return
+  curseforgeKeyBusy.value = true
+  try {
+    await updateSettings({ curseforgeApiKey: key })
+    curseforgeKeyDraft.value = ''
+    toast(clear ? '已清除自定义 CurseForge 密钥' : '已安全保存自定义 CurseForge 密钥', 'success')
+  } catch (error) {
+    toast('密钥保存失败，原设置保持不变：' + errText(error), 'error')
+  } finally { curseforgeKeyBusy.value = false }
+}
+async function changeWindowFit(event: Event) {
+  if (windowFitBusy.value) return
+  const input = event.target as HTMLInputElement
+  windowFitBusy.value = true
+  try { await updateSettings({ uiWindowAutoFit: input.checked }) }
+  catch (error) { toast('保存窗口自适应失败：' + errText(error), 'error') }
+  finally { windowFitBusy.value = false; input.checked = store.settings?.uiWindowAutoFit === true }
+}
+
+const defaultDownloadFolder = computed(() => store.settings?.folders.find(folder => folder.isDefault)?.path || store.settings?.activeFolder || store.settings?.gameDir || '')
+const windowSizeBusy = ref(false)
+const canRememberWindow = window.kamucl.platform === 'win32'
+async function toggleWindowSize(event: Event) {
+  const input = event.target as HTMLInputElement
+  if (!store.settings || windowSizeBusy.value) return
+  windowSizeBusy.value = true
+  try { await updateSettings({ rememberGameWindowSize: input.checked }) }
+  catch (error) { toast('保存窗口大小设置失败：' + errText(error), 'error') }
+  finally { windowSizeBusy.value = false; input.checked = store.settings?.rememberGameWindowSize === true }
+}
+const downloadFolderBusy = ref(false)
+const downloadFolderError = ref('')
+async function applyDownloadFolder(folder: string) {
+  if (!folder || downloadFolderBusy.value) return
+  downloadFolderBusy.value = true
+  downloadFolderError.value = ''
+  let committed = false
+  try {
+    const folders = await setDownloadFolder(folder)
+    committed = true
+    const selected = folders.find(item => item.isDefault)!.path
+    if (store.settings) store.settings = { ...store.settings, folders, activeFolder: selected, gameDir: selected }
+    store.settings = await getSettings()
+    store.resourceVersionId = ''
+    await refreshInstalled()
+    toast('默认下载位置已更改；已有游戏目录和存档保留，正在下载的任务继续使用原位置', 'success')
+  } catch (error) {
+    downloadFolderError.value = committed
+      ? '下载位置已保存，但列表暂未刷新。请重新打开页面重试：' + errText(error)
+      : '更改失败：' + errText(error)
+  } finally { downloadFolderBusy.value = false }
+}
+async function chooseNewDownloadFolder() {
+  if (downloadFolderBusy.value) return
+  downloadFolderBusy.value = true
+  downloadFolderError.value = ''
+  try {
+    const selected = await selectDir()
+    downloadFolderBusy.value = false
+    if (selected) await applyDownloadFolder(selected)
+  } catch (error) { downloadFolderError.value = '选择文件夹失败：' + errText(error) }
+  finally { downloadFolderBusy.value = false }
+}
+
 // ---------------- 关于与更新 ----------------
 const appVersion = __APP_VERSION__
 const showLicenses = ref(false)
@@ -122,14 +207,6 @@ async function onCheckUpdate() {
     updateCheckState.value = 'failed'
     toast('检查失败：断网或更新源不可达（已记日志）', 'error')
   }
-}
-
-const updateSource = computed(() => store.settings?.updateSource ?? 'auto')
-function onUpdateSourceChange(e: Event) {
-  void save({ updateSource: (e.target as HTMLSelectElement).value as Settings['updateSource'] })
-}
-function onUpdateMirrorChange(e: Event) {
-  void save({ updateMirrorUrl: (e.target as HTMLInputElement).value.trim() })
 }
 
 // 版本回退
@@ -198,7 +275,7 @@ async function onRestoreBackup() {
 async function onApplyPending() {
   try {
     await applyPendingUpdate()
-    toast('更新已就绪，下次手动启动时应用', 'success')
+    toast(updateReadyMessage(), 'success')
   } catch (e) {
     toast('安装失败：' + errText(e), 'error')
   }
@@ -222,7 +299,7 @@ async function confirmLocalUpdate() {
   try {
     await applyLocalUpdate(lu.check)
     await refreshUpdateState()
-    toast('本地更新已准备，下次手动启动时应用', 'success')
+    toast(updateReadyMessage('本地更新已准备'), 'success')
   } catch (e) {
     toast('安装更新失败：' + errText(e), 'error')
   }
@@ -251,28 +328,6 @@ function onToggleFeature(key: string, enabled: boolean) {
 }
 
 // ---------------- 主题 ----------------
-const themeOptions = computed(() => {
-  const customColors = store.settings?.custom.colors ?? DEFAULT_CUSTOM_THEME.colors
-  const named = (key: Exclude<ThemeName, 'custom'>) => ({ key, ...THEME_PRESETS[key] })
-  return [
-    named('transparent'),
-    named('blue-white'),
-    named('black-orange'),
-    named('black-pink'),
-    named('white-pink'),
-    {
-      key: 'custom' as const,
-      label: '个性化',
-      description: '自定义配色与图片，沿用统一的图一布局',
-      colors: customColors
-    }
-  ]
-})
-
-function chooseTheme(theme: ThemeName, _label: string) {
-  void save({ theme })
-}
-
 // ---------------- Java 列表 ----------------
 const javas = ref<Awaited<ReturnType<typeof listJava>>>([])
 const javaLoading = ref(true)
@@ -365,7 +420,7 @@ const stopJavaProgress = onProgress((event) => {
   javaScanText.value = event.text
   javaScanProgress.value = Math.max(0, Math.min(1, event.overall ?? event.progress))
 })
-onUnmounted(stopJavaProgress)
+onUnmounted(() => { stopJavaProgress(); curseforgeKeyDraft.value = '' })
 
 const javaLabel = (j: { major: number; path: string; version: string; architecture?: string }) =>
   `Java ${j.major}（${j.version} · ${j.architecture ?? '未知架构'}）· ${j.path}`
@@ -599,112 +654,39 @@ async function onRemovePlugin(p: PluginInfo) {
 
 <div data-ui="SettingsView:821acd5b45d3" class="settings-navigation">
       <label data-ui="SettingsView:213f2c95d295" class="settings-search"><input data-ui="SettingsView:a49601b2b97e" v-model="settingsQuery" class="input" type="search" placeholder="搜索：内存、Java、动画、下载…" aria-label="搜索设置" @keydown.esc="settingsQuery = ''" /></label>
-      <nav class="settings-scopes" aria-label="设置范围"><button v-for="item in settingsScopes" :key="item.id" class="btn btn-ghost" :aria-current="scope === item.id ? 'page' : undefined" @click="selectScope(item.id)">{{ item.label }}</button></nav>
+      <nav data-ui="SettingsView:f6863d2b3382" class="settings-scopes" aria-label="设置范围"><button data-ui="SettingsView:5b5d344ab29c" v-for="item in settingsScopes" :key="item.id" class="btn btn-ghost" :aria-current="scope === item.id ? 'page' : undefined" @click="selectScope(item.id)">{{ item.label }}</button></nav>
       <nav data-ui="SettingsView:59cf14ccb4be" class="settings-categories" aria-label="设置分类"><button data-ui="SettingsView:68ab6a2985c0" v-for="item in visibleCategories" :key="item.id" class="btn btn-ghost" :aria-current="category === item.id ? 'page' : undefined" @click="selectCategory(item.id)">{{ item.label }}</button></nav>
-      <div data-ui="SettingsView:9e789d8ad646" v-if="settingsQuery.trim()" class="settings-search-results" role="region" aria-label="设置搜索结果"><p data-ui="SettingsView:4c05037c5017" v-if="!searchMatches.length" class="muted">没有找到相关设置，试试“主题”“内存”或“下载”。</p><button data-ui="SettingsView:5bdb3d2f1359" v-for="item in searchMatches" :key="item.id" class="btn btn-ghost" @click="jumpSetting(item.id)"><strong data-ui="SettingsView:32a83676fd73">{{ item.name }}</strong><span class="muted">{{ settingsScopes.find(s => s.id === scopeOfCategory(item.category))?.label }} · {{ settingsCategories.find(c => c.id === item.category)?.label }} →</span></button></div>
+      <div data-ui="SettingsView:9e789d8ad646" v-if="settingsQuery.trim()" class="settings-search-results" role="region" aria-label="设置搜索结果"><p data-ui="SettingsView:4c05037c5017" v-if="!searchMatches.length" class="muted">没有找到相关设置，试试“主题”“内存”或“下载”。</p><button data-ui="SettingsView:5bdb3d2f1359" v-for="item in searchMatches" :key="item.id" class="btn btn-ghost" @click="jumpSetting(item.id)"><strong data-ui="SettingsView:32a83676fd73">{{ item.name }}</strong><span data-ui="SettingsView:82dbc5932250" class="muted">{{ settingsScopes.find(s => s.id === scopeOfCategory(item.category))?.label }} · {{ settingsCategories.find(c => c.id === item.category)?.label }} →</span></button></div>
     </div>
-    <div class="settings-body" tabindex="0" aria-label="设置内容">
+    <div data-ui="SettingsView:3f9566ff298f" class="settings-body" tabindex="0" aria-label="设置内容">
     <div data-ui="SettingsView:a82a0d33446b" v-if="!store.settings" class="card empty">
-      <span class="spin"></span>
-      <span>正在加载设置…</span>
+      <span data-ui="SettingsView:97a8ccc98948" class="spin"></span>
+      <span data-ui="SettingsView:65c5c2524d71">正在加载设置…</span>
     </div>
 
     <template v-else>
       <!-- 外观主题（PCL 式折叠卡片：标题行 + 箭头，展开内容统一内边距） -->
-      <details data-ui="SettingsView:24e434dcfefc" v-show="category === 'appearance'" data-section="theme" class="card group collapse" open>
-        <summary class="collapse-head">
-          <h3 class="group-title">主题</h3>
-          <span class="collapse-arrow" aria-hidden="true"></span>
-        </summary>
-        <div class="collapse-body">
-          <div data-ui="SettingsView:98eed5eaae97" class="theme-options">
-            <button data-ui="SettingsView:ae1494b5d771"
-              v-for="theme in themeOptions"
-              :key="theme.key"
-              class="theme-option"
-              :class="{ active: store.settings.theme === theme.key }"
-              :title="theme.description"
-              @click="chooseTheme(theme.key, theme.label)"
-            >
-              <span data-ui="SettingsView:ff8e35becbf3"
-                class="theme-preview"
-                :class="{ 'preview-custom': theme.key === 'custom', 'preview-transparent': theme.key === 'transparent' }"
-                :style="{ background: theme.colors.bg }"
-              >
-                <span data-ui="SettingsView:202a66a2a038"
-                  class="tp-side"
-                  :style="{
-                    background: theme.colors.sidebarBg,
-                    borderRight: '1px solid ' + theme.colors.border
-                  }"
-                >
-                  <span data-ui="SettingsView:f9ad546443d3" class="tp-dot" :style="{ background: theme.colors.accent }"></span>
-                </span>
-                <span data-ui="SettingsView:a397f44260a9" class="tp-main">
-                  <span data-ui="SettingsView:e0b92057c385"
-                    class="tp-top"
-                    :style="{
-                      background: theme.colors.card,
-                      borderBottom: '1px solid ' + theme.colors.border
-                    }"
-                  ></span>
-                  <span data-ui="SettingsView:b2cf2e01e30e" class="tp-body">
-                    <span data-ui="SettingsView:d9c43308480c"
-                      class="tp-block"
-                      :style="{
-                        background: theme.colors.card,
-                        border: '1px solid ' + theme.colors.border
-                      }"
-                    ></span>
-                    <span data-ui="SettingsView:fb0c4f0c22dd" class="tp-btn" :style="{ background: theme.colors.accent }"></span>
-                  </span>
-                </span>
-                <span data-ui="SettingsView:bb37f5272e76" v-if="theme.key === 'custom'" class="tp-custom-grad"></span>
-                <svg v-if="theme.key === 'custom'" class="tp-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.04 10 9c0 3.31-2.69 6-6 6h-1.77c-.28 0-.5.22-.5.5 0 .12.05.23.13.33.41.47.64 1.06.64 1.67A2.5 2.5 0 0 1 12 22Z" />
-                  <circle cx="7.5" cy="11.5" r="1" fill="currentColor" stroke="none" />
-                  <circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none" />
-                  <circle cx="16.5" cy="11.5" r="1" fill="currentColor" stroke="none" />
-                </svg>
-                <svg v-if="store.settings.theme === theme.key" class="tp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
-              </span>
-              <span data-ui="SettingsView:6e56a2fb3976" class="theme-label">{{ theme.label }}</span>
-            </button>
-          </div>
-
-          <div class="theme-tools"><p class="muted group-hint">选择基础配色；个性化可继续调整布局、文字和透明度。</p>
-          <button data-ui="SettingsView:16e9da51c37b"
-            class="btn personalize-btn"
-            @click="enterEditMode"
-          >
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3" />
-              <path d="M1 14h6M9 8h6M17 16h6" />
-            </svg>
-            个性化
-          </button></div>
-        </div>
-      </details>
+      <AppearanceThemeCard v-show="category === 'appearance'" />
 
       <!-- 功能管理 -->
       <details data-ui="SettingsView:12f88af0d6bb" v-show="category === 'features'" data-section="features" class="card group collapse" open>
-        <summary class="collapse-head">
-          <h3 class="group-title">功能管理</h3>
-          <span class="collapse-arrow" aria-hidden="true"></span>
+        <summary data-ui="SettingsView:77831ba75241" class="collapse-head">
+          <h3 data-ui="SettingsView:a6c68223d774" class="group-title">功能管理</h3>
+          <span data-ui="SettingsView:f0f97b5ffa53" class="collapse-arrow" aria-hidden="true"></span>
         </summary>
-        <div class="collapse-body feature-grid">
-          <p class="muted group-hint">
+        <div data-ui="SettingsView:d104611781f4" class="collapse-body feature-grid">
+          <p data-ui="SettingsView:a37f6be09b43" class="muted group-hint">
             关闭的功能将从侧边栏隐藏入口。核心功能（首页/游戏/设置）不可关闭。
           </p>
-          <template v-for="f in featureToggles" :key="f.key"><h4 v-if="f.key==='mods' || f.key==='friends'" class="feature-section-title">{{f.key==='mods'?'资源管理':'其他功能'}}</h4><div data-ui="SettingsView:bd3c6919b18c" class="feature-row">
+          <template v-for="f in featureToggles" :key="f.key"><h4 data-ui="SettingsView:67ed5304d938" v-if="f.key==='mods' || f.key==='friends'" class="feature-section-title">{{f.key==='mods'?'资源管理':'其他功能'}}</h4><div data-ui="SettingsView:bd3c6919b18c" class="feature-row">
             <span data-ui="SettingsView:fa3cacde91cf" class="feature-name">{{ f.label }}</span>
-            <span class="switch">
+            <span data-ui="SettingsView:ddd6149b4fc5" class="switch">
               <input data-ui="SettingsView:907bb2e68f36"
                 type="checkbox"
                 :checked="!store.settings.disabledFeatures.includes(f.key)"
                 @change="onToggleFeature(f.key, ($event.target as HTMLInputElement).checked)"
               />
-              <span class="switch-ui"></span>
+              <span data-ui="SettingsView:5ef29076637c" class="switch-ui"></span>
             </span>
           </div></template>
         </div>
@@ -712,106 +694,117 @@ async function onRemovePlugin(p: PluginInfo) {
 
       <!-- 个性化背景与启动卡图片；首页结构固定为图一布局。 -->
       <div data-ui="SettingsView:9816c9c5870a" class="background-settings" v-show="category === 'appearance'"><HomeLayoutEditor /></div>
-    <div data-ui="SettingsView:0683ad7389b1" v-if="store.settings && category === 'appearance'" class="card group group-inline setting-target" data-section="motion" tabindex="-1"><div><h3 class="group-title">减少动态效果</h3><p data-ui="SettingsView:53f72432b671" class="muted">停止装饰动画与自动轮播，缩短过渡。系统开启减少动态效果时也会自动生效。</p></div><label class="switch"><input data-ui="SettingsView:35ef39b7e9bc" type="checkbox" aria-label="减少动态效果" :checked="store.settings.reduceMotion === true" @change="save({ reduceMotion: ($event.target as HTMLInputElement).checked })"/><span data-ui="SettingsView:4490d3e5d395" class="switch-ui"/></label></div>
+      <div data-ui="SettingsView:6e353ae31f3c" v-if="store.settings && category === 'appearance'" class="card group group-inline setting-target" data-section="ui-window-fit" tabindex="-1">
+        <div data-ui="SettingsView:a01c31d661f3"><h3 data-ui="SettingsView:7a11978537e7" class="group-title">UI 窗口自适应</h3><p data-ui="SettingsView:0c4e326f9e92" class="muted">默认关闭。开启后按当前屏幕的可用区域调整窗口，并在较小窗口内适当缩小界面。适用于 1366 × 768 等小屏幕；不修改显示器分辨率、图片或游戏画质。</p><p data-ui="SettingsView:101d2050bfeb" class="muted">手动缩放仍可使用，关闭后恢复手动缩放比例。</p></div>
+        <label data-ui="SettingsView:413b509fd853" class="switch"><input data-ui="SettingsView:1cfe8caa5942" type="checkbox" aria-label="UI 窗口自适应" :checked="store.settings.uiWindowAutoFit === true" :disabled="windowFitBusy" @change="changeWindowFit" /><span data-ui="SettingsView:990eeb2df557" class="switch-ui" /></label>
+      </div>
+    <div data-ui="SettingsView:0683ad7389b1" v-if="store.settings && category === 'appearance'" class="card group group-inline setting-target" data-section="motion" tabindex="-1"><div data-ui="SettingsView:8464380631ed"><h3 data-ui="SettingsView:c37223f9bda7" class="group-title">减少动态效果</h3><p data-ui="SettingsView:53f72432b671" class="muted">停止装饰动画与自动轮播，缩短过渡。系统开启减少动态效果时也会自动生效。</p><p data-ui="SettingsView:1182a4d00aa1" v-if="systemReduced" class="muted" role="status">当前系统已关闭动画：启动时显示完整头像，皮肤保持站姿。{{ systemMotionHelp }}</p></div><label data-ui="SettingsView:372d19fc52db" class="switch"><input data-ui="SettingsView:35ef39b7e9bc" type="checkbox" aria-label="减少动态效果" :checked="store.settings.reduceMotion === true" @change="save({ reduceMotion: ($event.target as HTMLInputElement).checked })"/><span data-ui="SettingsView:4490d3e5d395" class="switch-ui"/></label></div>
 
+      <div v-show="category === 'downloads'" data-section="installation" data-ui="download-location:settings" class="card group directory-setting">
+        <h3 data-ui="SettingsView:c5658552d90d" class="group-title">默认下载位置</h3>
+        <p data-ui="SettingsView:eb7e5618a756" class="muted group-hint">新游戏版本、整合包和共享资源（依赖库、游戏素材、自动下载的 Java）保存在此处。</p>
+        <div data-ui="SettingsView:d32e87dadcdf" class="dir-row download-location-row">
+          <SelectMenu class="download-location-select" :model-value="defaultDownloadFolder" :options="store.settings.folders.map(folder => ({ value: folder.path, label: folder.name + (folder.isDefault ? '（默认）' : '') }))" :disabled="downloadFolderBusy" @change="applyDownloadFolder" />
+          <button class="btn btn-gold dir-btn" data-ui="download-location:change" :disabled="downloadFolderBusy" @click="chooseNewDownloadFolder">{{ downloadFolderBusy ? '更改中…' : '更改…' }}</button>
+          <button class="btn btn-ghost dir-btn" data-ui="download-location:manage" :disabled="downloadFolderBusy" @click="store.currentView = 'game'">游戏文件夹管理</button>
+        </div>
+        <input data-ui="download-location:path" class="input mono download-location-path" :value="defaultDownloadFolder" readonly aria-label="默认下载位置" :title="defaultDownloadFolder" />
+        <p data-ui="SettingsView:c7fc97abe7a2" class="muted group-hint">更改后只影响新任务；已有游戏、存档和正在下载的任务保留原位置。导入时可单独选择目标文件夹。压缩包下载与解压可能暂时使用系统临时目录。</p>
+        <p v-if="downloadFolderError" class="error" role="alert" data-ui="download-location:error">{{ downloadFolderError }}</p>
+      </div>
       <!-- 下载 + 下载目标文件夹：同一行横向排布，窄窗口自动换行 -->
       <div data-ui="SettingsView:9df9d3d48082" v-show="category === 'downloads'" class="settings-grid">
         <!-- 游戏文件夹统一在版本页管理，设置页只显示当前状态，避免双入口冲突。 -->
         <details data-ui="SettingsView:d0490715189c" class="card group collapse setting-target" data-section="downloads" tabindex="-1" open>
-          <summary class="collapse-head">
-            <h3 class="group-title">下载</h3>
-            <span class="collapse-arrow" aria-hidden="true"></span>
+          <summary data-ui="SettingsView:0aa4b44c28d2" class="collapse-head">
+            <h3 data-ui="SettingsView:3c521a2d07a0" class="group-title">下载</h3>
+            <span data-ui="SettingsView:53c4924a8276" class="collapse-arrow" aria-hidden="true"></span>
           </summary>
-          <div class="collapse-body">
-      <!-- 下载镜像（微软登录 Client ID 按隐私要求不在界面展示，登录固定使用内置默认应用） -->
+          <div data-ui="SettingsView:7d7409e56805" class="collapse-body">
+      <!-- 下载镜像；微软登录仅使用官方构建中的 KAMUCL 自有应用身份。 -->
       <div data-ui="SettingsView:95f82195a3e7" v-show="category === 'downloads'" data-section="mirror" class="download-mirror-group">
-        <div class="download-mirror-options">
-          <h3 class="group-title">下载镜像</h3>
+        <div data-ui="SettingsView:df1b5ac2d829" class="download-mirror-options">
+          <h3 data-ui="SettingsView:377562d71363" class="group-title">下载镜像</h3>
           <div data-ui="SettingsView:7039ff11fe3c" class="mirror-options">
             <label data-ui="SettingsView:3dd4d470872e" class="mirror-option" :class="{ active: store.settings.mirror === 'official' }">
               <input data-ui="SettingsView:2f522f16f088" v-model="store.settings.mirror" type="radio" value="official" @change="save({ mirror: 'official' })" />
-              <span>官方源</span>
+              <span data-ui="SettingsView:7f4f630df278">官方源</span>
             </label>
             <label data-ui="SettingsView:4948cbbe2972" class="mirror-option" :class="{ active: store.settings.mirror === 'bmclapi' }">
               <input data-ui="SettingsView:6cf3093424b7" v-model="store.settings.mirror" type="radio" value="bmclapi" @change="save({ mirror: 'bmclapi' })" />
-              <span>BMCLAPI 镜像（国内更快）</span>
+              <span data-ui="SettingsView:1063a9cd6367">BMCLAPI 镜像（国内更快）</span>
             </label>
           </div>
         </div>
       </div>
 
-            <label class="download-setting">最大线程数
+            <label data-ui="SettingsView:9ebdff18892c" class="download-setting">最大线程数
               <input data-ui="SettingsView:0975603bb2e6" class="input" type="number" min="1" max="64" :value="store.settings.downloadThreads" @change="save({ downloadThreads: Number(($event.target as HTMLInputElement).value) })" />
             </label>
-            <label class="download-setting">速度限制（KiB/s）
+            <label data-ui="SettingsView:d4cc8ddc9838" class="download-setting">速度限制（KiB/s）
               <input data-ui="SettingsView:f6bb60f3451f" class="input" type="number" min="0" max="1048576" :value="store.settings.downloadSpeedKBps" @change="save({ downloadSpeedKBps: Number(($event.target as HTMLInputElement).value) })" />
             </label>
-            <p class="muted group-hint">0 表示不限速。限制对全部下载任务合计生效；减少线程数后，已有连接完成时释放名额。</p>
+            <p data-ui="SettingsView:90ea63c0b339" class="muted group-hint">0 表示不限速。限制对全部下载任务合计生效；减少线程数后，已有连接完成时释放名额。</p>
             <details data-ui="SettingsView:d03dfc867050" class="advanced-setting"><summary data-ui="SettingsView:98629fe42230">高级 · CurseForge API Key</summary><label data-ui="SettingsView:5d8857a9ab59" class="download-setting download-setting-col">
-              <span>CurseForge API Key<small data-ui="SettingsView:a100ae255935" class="muted">（选填，官方 api.curseforge.com 通道）</small></span>
+              <span data-ui="SettingsView:4e5c4512e2a8">CurseForge API Key<small data-ui="SettingsView:a100ae255935" class="muted">（选填，官方 api.curseforge.com 通道）</small></span>
               <input data-ui="SettingsView:bb44d7c926e9"
                 class="input mono"
                 type="password"
-                :value="store.settings.curseforgeApiKey ?? ''"
-                placeholder="留空走镜像通道"
-                @change="save({ curseforgeApiKey: ($event.target as HTMLInputElement).value.trim() })"
+                v-model="curseforgeKeyDraft"
+                autocomplete="off"
+                :disabled="curseforgeKeyBusy"
+                :placeholder="store.settings.curseforgeApiKeyConfigured ? '已配置，输入新密钥可替换' : '输入自定义 API Key'"
+                @keyup.enter="saveCurseforgeKey()"
               />
             </label>
-            <p class="muted group-hint">CurseForge 官方 API 需要免费注册申请：<a data-ui="SettingsView:b8eb49f2eba5" class="upd-link" href="https://console.curseforge.com/" target="_blank" rel="noreferrer">console.curseforge.com</a>（注册 → 创建应用 → 复制 API Key 粘贴到上方）。填入后社区资源的 CurseForge 搜索与下载走官方通道，不受镜像波动影响。</p></details>
+            <div class="cf-key-actions">
+              <button class="btn btn-ghost btn-sm" :disabled="curseforgeKeyBusy || !curseforgeKeyDraft.trim()" @click="saveCurseforgeKey()">{{ curseforgeKeyBusy ? '保存中…' : '保存密钥' }}</button>
+              <button v-if="store.settings.curseforgeApiKeyConfigured" class="btn btn-ghost btn-sm" :disabled="curseforgeKeyBusy" @click="saveCurseforgeKey(true)">清除自定义密钥</button>
+              <span class="muted">{{ store.settings.curseforgeApiKeyConfigured ? '已配置，不回显已保存的密钥' : '未配置自定义密钥' }}</span>
+            </div>
+            <p data-ui="SettingsView:2afaeb170207" class="muted group-hint">CurseForge 官方 API 需要免费注册申请：<a data-ui="SettingsView:b8eb49f2eba5" class="upd-link" href="https://console.curseforge.com/" target="_blank" rel="noreferrer">console.curseforge.com</a>（注册 → 创建应用 → 复制 API Key 粘贴到上方）。填入后社区资源的 CurseForge 搜索与下载走官方通道，不受镜像波动影响。</p></details>
           </div>
         </details>
       </div>
-        <div v-show="category === 'directories'" data-section="installation" class="card group directory-setting">
-          <h3 class="group-title">新版本安装目录</h3>
-          <p class="muted group-hint">
-            新版本将安装到此目录；在游戏版本页管理绑定目录。
-          </p>
-          <div data-ui="SettingsView:df97f9cf717f" class="dir-row">
-            <input data-ui="SettingsView:d4e967de8849" class="input mono" :value="store.settings.activeFolder" readonly title="当前游戏文件夹" />
-            <button data-ui="SettingsView:849a63a7ca8c" class="btn btn-ghost dir-btn" @click="store.currentView = 'game'">
-              前往管理
-            </button>
-          </div>
-        </div>
 
       <!-- 默认版本隔离 -->
       <div data-ui="SettingsView:72c1d8b58f43" v-show="category === 'directories'" data-section="isolation" class="card group group-inline">
-        <div>
-          <h3 class="group-title">新版本默认开启版本隔离（推荐）</h3>
-          <p class="muted group-hint">
+        <div data-ui="SettingsView:1315e5bfd585">
+          <h3 data-ui="SettingsView:a0ad2fcbf796" class="group-title">新版本默认开启版本隔离（推荐）</h3>
+          <p data-ui="SettingsView:54184620a500" class="muted group-hint">
             仅影响新安装的版本。开启后独立保存存档、模组与配置；已有实例在游戏版本页调整。
           </p>
         </div>
-        <label class="switch">
+        <label data-ui="SettingsView:7ffae0fe364c" class="switch">
           <input data-ui="SettingsView:7af59c7c71ed"
             type="checkbox"
             :checked="store.settings.defaultIsolation"
             @change="save({ defaultIsolation: ($event.target as HTMLInputElement).checked })"
           />
-          <span class="switch-ui"></span>
+          <span data-ui="SettingsView:a6805d615f04" class="switch-ui"></span>
         </label>
       </div>
 
-      <div v-show="category === 'game'" class="runtime-grid">
+      <div data-ui="SettingsView:49e12a3919db" v-show="category === 'game'" class="runtime-grid">
       <!-- 内存 -->
       <details data-ui="SettingsView:af57e3969b2b" class="card group collapse setting-target" data-section="memory" tabindex="-1" open>
-        <summary class="collapse-head">
-          <h3 class="group-title">内存分配</h3>
-          <span class="collapse-arrow" aria-hidden="true"></span>
+        <summary data-ui="SettingsView:3d85eb6ecd9d" class="collapse-head">
+          <h3 data-ui="SettingsView:9a7e967e2291" class="group-title">内存分配</h3>
+          <span data-ui="SettingsView:1d0778d1c7b8" class="collapse-arrow" aria-hidden="true"></span>
         </summary>
-        <div class="collapse-body">
+        <div data-ui="SettingsView:e23da790569f" class="collapse-body">
           <div data-ui="SettingsView:c72d10bfcf7d" class="memory-auto-row">
-            <span class="java-auto-text">
-              <span class="java-auto-title">自动分配（推荐）</span>
-              <span class="muted java-auto-desc">按物理内存 1/4 自动分配（本机当前 {{ autoMemoryText }}，2-8GB 区间），启动时实时生效；开启后禁用手动调节。</span>
+            <span data-ui="SettingsView:e5cbfde2bea0" class="java-auto-text">
+              <span data-ui="SettingsView:5f69d2d3754e" class="java-auto-title">自动分配（推荐）</span>
+              <span data-ui="SettingsView:8e3734942c8b" class="muted java-auto-desc">按物理内存 1/4 自动分配（本机当前 {{ autoMemoryText }}，2-8GB 区间），启动时实时生效；开启后禁用手动调节。</span>
             </span>
-            <label class="switch">
+            <label data-ui="SettingsView:5afa3ec5d468" class="switch">
               <input data-ui="SettingsView:acfa8cbaf083"
                 :checked="memoryAuto"
                 type="checkbox"
                 @change="onMemoryAutoChange(($event.target as HTMLInputElement).checked)"
               />
-              <span class="switch-ui"></span>
+              <span data-ui="SettingsView:2a9267588521" class="switch-ui"></span>
             </label>
           </div>
           <template v-if="!memoryAuto">
@@ -845,7 +838,7 @@ async function onRemovePlugin(p: PluginInfo) {
               />
               <span data-ui="SettingsView:5c63bc2aa86a" v-else class="memory-value" title="点击精确输入（GB）" @click="startMemoryEdit">{{ memoryText }}</span>
             </div>
-            <p class="muted group-hint">拖动滑块以 0.5 GB 步进（上限随当前可用内存浮动，预留 1G 给系统）；需要精细调节（如 0.25 GB）时点右侧数值直接输入</p>
+            <p data-ui="SettingsView:c7ad9d43c06c" class="muted group-hint">拖动滑块以 0.5 GB 步进（上限随当前可用内存浮动，预留 1G 给系统）；需要精细调节（如 0.25 GB）时点右侧数值直接输入</p>
             <p data-ui="SettingsView:9377cfb85e03" v-if="memoryOverFree" class="memory-warn">
               当前分配超过可用内存，游戏可能启动失败或卡死系统；请调低或改回「自动分配」
             </p>
@@ -860,30 +853,30 @@ async function onRemovePlugin(p: PluginInfo) {
 
       <!-- Java -->
       <details data-ui="SettingsView:b128c0a66c1b" class="card group collapse setting-target" data-section="java" tabindex="-1" open>
-        <summary class="collapse-head">
-          <h3 class="group-title">Java 运行时</h3>
-          <span class="collapse-arrow" aria-hidden="true"></span>
+        <summary data-ui="SettingsView:a4c3bf3540ee" class="collapse-head">
+          <h3 data-ui="SettingsView:71ef8a822bf4" class="group-title">Java 运行时</h3>
+          <span data-ui="SettingsView:556ae4c0b4a4" class="collapse-arrow" aria-hidden="true"></span>
         </summary>
-        <div class="collapse-body">
+        <div data-ui="SettingsView:2680ccfc46ae" class="collapse-body">
           <label data-ui="SettingsView:2937d97802dc" class="java-auto-row">
-            <span class="java-auto-text">
-              <span class="java-auto-title">自动检测并下载所需 Java（推荐）</span>
-              <span class="muted java-auto-desc">
+            <span data-ui="SettingsView:0d87aa299341" class="java-auto-text">
+              <span data-ui="SettingsView:c6677e7d47e3" class="java-auto-title">自动检测并下载所需 Java（推荐）</span>
+              <span data-ui="SettingsView:9299ef0ab8d3" class="muted java-auto-desc">
                 启动时按游戏版本自动选择匹配的 Java；本机没有时自动下载安装。关闭后使用下方手动选择的 Java。
               </span>
             </span>
-            <span class="switch">
+            <span data-ui="SettingsView:6c7dc29133fc" class="switch">
               <input data-ui="SettingsView:84de310dd205"
                 type="checkbox"
                 :checked="store.settings.javaAuto"
                 @change="save({ javaAuto: ($event.target as HTMLInputElement).checked })"
               />
-              <span class="switch-ui"></span>
+              <span data-ui="SettingsView:3a5d5cac5431" class="switch-ui"></span>
             </span>
           </label>
           <div data-ui="SettingsView:033fa130c6ea" v-if="javaLoading" class="java-loading">
-            <span class="spin"></span>
-            <span class="muted">正在检测本机 Java…</span>
+            <span data-ui="SettingsView:9d3e8d9207ae" class="spin"></span>
+            <span data-ui="SettingsView:f482492d6fc3" class="muted">正在检测本机 Java…</span>
           </div>
           <template v-else>
             <select data-ui="SettingsView:47dcfd6bb554"
@@ -900,10 +893,10 @@ async function onRemovePlugin(p: PluginInfo) {
               未检测到本机 Java，将使用「自动选择」或在启动时自动下载。
             </p>
 
-            <details class="java-detected"><summary>本机 Java 与手动管理（{{ javas.length }}）</summary>
+            <details data-ui="SettingsView:4a4a9ec6663a" class="java-detected"><summary data-ui="SettingsView:e23d6518ed47">本机 Java 与手动管理（{{ javas.length }}）</summary>
             <div data-ui="SettingsView:205e9439c186" class="java-scan-row">
               <div data-ui="SettingsView:b5bbe482ca7a" class="java-scan-status">
-                <span class="muted">扫描注册表、PATH、启动器 Runtime 与全部本地固定磁盘</span>
+                <span data-ui="SettingsView:3e2d50286c09" class="muted">扫描注册表、PATH、启动器 Runtime 与全部本地固定磁盘</span>
                 <span data-ui="SettingsView:95cdba118743" v-if="javaRefreshing" class="muted java-scan-text" :title="javaScanText">
                   {{ javaScanText }}
                 </span>
@@ -923,7 +916,7 @@ async function onRemovePlugin(p: PluginInfo) {
             <!-- 已识别的 Java 列表（版本/位数/来源，支持移除） -->
             <div data-ui="SettingsView:6dc6e26726aa" v-if="javas.length" class="java-list">
               <div data-ui="SettingsView:6bd22de0fe44" class="java-list-head">
-                <span class="muted">已识别 {{ javas.length }} 个 Java</span>
+                <span data-ui="SettingsView:bcca822500ec" class="muted">已识别 {{ javas.length }} 个 Java</span>
               </div>
               <div data-ui="SettingsView:6cc4e456c280" v-for="j in javas" :key="j.path" class="java-item">
                 <span data-ui="SettingsView:b1a116a1a7bb" class="tag" :class="j.source === 'manual' ? 'tag-accent' : ''">
@@ -966,17 +959,17 @@ async function onRemovePlugin(p: PluginInfo) {
             placeholder="例如：-XX:+UseG1GC -XX:+ParallelRefProcEnabled"
             @change="save({ jvmArgs: store.settings!.jvmArgs })"
           />
-          <p class="muted group-hint">高级选项，留空则使用默认参数</p>
+          <p data-ui="SettingsView:1619a3a7af4e" class="muted group-hint">高级选项，留空则使用默认参数</p>
         </details>
       </div>
 
       <!-- 分辨率 + JVM 参数：同一行横向排布 -->
       <div data-ui="SettingsView:a1da38f817b5" v-show="category === 'display'" class="settings-grid">
         <div data-ui="SettingsView:5265f547a736" class="card group" data-section="resolution">
-          <h3 class="group-title">游戏窗口分辨率</h3>
+          <h3 data-ui="SettingsView:47a461e3d7d0" class="group-title">游戏窗口分辨率</h3>
           <div data-ui="SettingsView:7e472ba8461b" class="resolution-row">
-            <div class="res-field">
-              <span class="muted res-label">宽</span>
+            <div data-ui="SettingsView:5cdd1adaad21" class="res-field">
+              <span data-ui="SettingsView:5ff70fc575bb" class="muted res-label">宽</span>
               <input data-ui="SettingsView:a5f1bf93348f"
                 v-model.number="store.settings.resolution.width"
                 type="number"
@@ -988,8 +981,8 @@ async function onRemovePlugin(p: PluginInfo) {
               />
             </div>
             <span data-ui="SettingsView:bc7a0e5ae260" class="muted res-x">×</span>
-            <div class="res-field">
-              <span class="muted res-label">高</span>
+            <div data-ui="SettingsView:a3e6df15fa0b" class="res-field">
+              <span data-ui="SettingsView:aa77b3a60182" class="muted res-label">高</span>
               <input data-ui="SettingsView:c9736d13ba36"
                 v-model.number="store.settings.resolution.height"
                 type="number"
@@ -1002,7 +995,7 @@ async function onRemovePlugin(p: PluginInfo) {
             </div>
           </div>
           <div data-ui="SettingsView:f3d214648a71" class="resolution-mode">
-            <span class="muted res-label">模式</span>
+            <span data-ui="SettingsView:90c57ea1d879" class="muted res-label">模式</span>
             <select data-ui="SettingsView:6e8bb36bb0de" v-model="store.settings.resolution.mode" class="select" @change="saveResolution">
               <option value="windowed">窗口化</option>
               <option value="maximized">最大化</option>
@@ -1010,9 +1003,14 @@ async function onRemovePlugin(p: PluginInfo) {
             </select>
           </div>
           <p data-ui="SettingsView:2f107fd117d3" v-if="resolutionError" class="group-error">{{ resolutionError }}</p>
-          <p v-else class="muted group-hint">
+          <p data-ui="SettingsView:80e3d9022691" v-else class="muted group-hint">
             窗口化使用以上宽高；最大化使用启动时所在显示器的工作区；全屏不会修改显示器分辨率。
           </p>
+          <div data-ui="SettingsView:fdad433cd601" class="remember-window-row">
+            <div data-ui="SettingsView:e6e34f6fab36"><strong data-ui="SettingsView:73276765bbcc">退出游戏自动保存窗口化大小</strong><p data-ui="SettingsView:e62ce95cef85" class="muted group-hint">启用后从下次启动开始记录正常窗口化尺寸；异常退出不覆盖设置，实例专属尺寸单独保存。</p></div>
+            <label data-ui="SettingsView:aee9fe342146" class="switch"><input data-ui="SettingsView:1c13c6f8157b" type="checkbox" aria-label="退出游戏自动保存窗口化大小" :checked="store.settings.rememberGameWindowSize === true" :disabled="windowSizeBusy || !canRememberWindow" @change="toggleWindowSize"/><span data-ui="SettingsView:4833d59c75a6" class="switch-ui"></span></label>
+          </div>
+          <p data-ui="SettingsView:d70854df0dee" v-if="!canRememberWindow" class="muted group-hint">当前仅支持 Windows 游戏窗口。</p>
         </div>
 
       </div>
@@ -1021,45 +1019,45 @@ async function onRemovePlugin(p: PluginInfo) {
       <div data-ui="SettingsView:35d4b384db5b" v-show="category === 'general'" data-section="launch" class="settings-grid">
 
 
-        <div class="card group group-inline">
-          <div>
-            <h3 class="group-title">启动后关闭启动器</h3>
-            <p class="muted group-hint">游戏成功启动后自动退出 KAMUCL</p>
+        <div data-ui="SettingsView:67dc06128cde" class="card group group-inline">
+          <div data-ui="SettingsView:f4183aab56c6">
+            <h3 data-ui="SettingsView:984f729eb605" class="group-title">启动后关闭启动器</h3>
+            <p data-ui="SettingsView:b44d69e716b0" class="muted group-hint">游戏成功启动后自动退出 KAMUCL</p>
           </div>
-          <label class="switch">
+          <label data-ui="SettingsView:9a7401ab1a9a" class="switch">
             <input data-ui="SettingsView:f2f1ffcd2e84"
               v-model="store.settings.closeAfterLaunch"
               type="checkbox"
               @change="save({ closeAfterLaunch: store.settings!.closeAfterLaunch })"
             />
-            <span class="switch-ui"></span>
+            <span data-ui="SettingsView:1500dc389a2c" class="switch-ui"></span>
           </label>
         </div>
-        <div class="card group group-inline">
-          <div>
-            <h3 class="group-title">正版登录使用系统代理</h3>
-            <p class="muted group-hint">微软登录失败而浏览器正常时可开启。默认直连；开启后仍保留 TLS 证书校验。</p>
+        <div data-ui="SettingsView:39f185083aa5" class="card group group-inline">
+          <div data-ui="SettingsView:83aa14cbc25b">
+            <h3 data-ui="SettingsView:ebf81cec787e" class="group-title">正版登录使用系统代理</h3>
+            <p data-ui="SettingsView:661c21a8ae0c" class="muted group-hint">微软登录失败而浏览器正常时可开启。默认直连；开启后仍保留 TLS 证书校验。</p>
           </div>
-          <label class="switch">
+          <label data-ui="SettingsView:a729c0c443f6" class="switch">
             <input data-ui="SettingsView:41ae714db129"
               :checked="store.settings.msUseProxy === true"
               type="checkbox"
               @change="save({ msUseProxy: ($event.target as HTMLInputElement).checked })"
             />
-            <span class="switch-ui"></span>
+            <span data-ui="SettingsView:e5b45bd3ff81" class="switch-ui"></span>
           </label>
         </div>
       </div>
 
       <!-- 关于与更新 -->
       <details data-ui="SettingsView:7f23eec9c558" v-show="category === 'about'" class="card group collapse" open data-section="update">
-        <summary class="collapse-head">
-          <h3 class="group-title">关于与更新</h3>
-          <span class="collapse-arrow" aria-hidden="true"></span>
+        <summary data-ui="SettingsView:557954d1d62f" class="collapse-head">
+          <h3 data-ui="SettingsView:5b11a1127f08" class="group-title">关于与更新</h3>
+          <span data-ui="SettingsView:f4e8d0d1c4b5" class="collapse-arrow" aria-hidden="true"></span>
         </summary>
-        <div class="collapse-body">
-          <div class="upd-row">
-            <span class="upd-label">当前版本</span>
+        <div data-ui="SettingsView:37c9e71b5f27" class="collapse-body">
+          <div data-ui="SettingsView:adafc6ff9288" class="upd-row">
+            <span data-ui="SettingsView:3aeed3207223" class="upd-label">当前版本</span>
             <span data-ui="SettingsView:7f2b62d69ce5" class="upd-value">v{{ appVersion }}</span>
             <button data-ui="SettingsView:e3f1fccf0c78" class="btn btn-ghost btn-sm" @click="showLicenses = true">第三方许可</button>
             <ThirdPartyNotices v-if="showLicenses" @dismiss="showLicenses = false" />
@@ -1074,40 +1072,24 @@ async function onRemovePlugin(p: PluginInfo) {
             <span data-ui="SettingsView:5ae61f0d3e62" class="upd-failed-text">你的网络可能无法连接 GitHub，检查更新失败</span>
             <button data-ui="SettingsView:c30ef48b6984" class="btn btn-ghost btn-sm" @click="onCheckUpdate">重试</button>
           </div>
-          <div class="upd-row">
-            <span class="upd-label">自动安装更新</span>
-            <label class="switch">
+          <div data-ui="SettingsView:a74dc3e10dc2" class="upd-row">
+            <span data-ui="SettingsView:ff94c1ff533f" class="upd-label">自动安装更新</span>
+            <label data-ui="SettingsView:ca6bc7bd4811" class="switch">
               <input data-ui="SettingsView:bc540ac861a7"
                 :checked="store.settings.autoUpdate !== false"
                 type="checkbox"
                 @change="save({ autoUpdate: ($event.target as HTMLInputElement).checked })"
               />
-              <span class="switch-ui"></span>
+              <span data-ui="SettingsView:9a339a81103f" class="switch-ui"></span>
             </label>
-            <span data-ui="SettingsView:94871aad1da8" class="muted upd-auto-hint">发现新版本静默下载，下次启动时应用；关闭则弹窗询问</span>
+            <span data-ui="SettingsView:94871aad1da8" class="muted upd-auto-hint">{{ systemInstaller ? '发现新版本静默下载，下次启动打开系统安装器；关闭则弹窗询问' : '发现新版本静默下载，下次启动时应用；关闭则弹窗询问' }}</span>
           </div>
           <div data-ui="SettingsView:1c8ad9d5ad0b" v-if="pendingUpdate" class="upd-row upd-pending-row">
-            <span data-ui="SettingsView:0447f8159ad6" class="upd-pending-text">v{{ pendingUpdate.release.version }} 已就绪，下次启动时应用</span>
-            <button data-ui="SettingsView:5bd17b41383a" class="btn btn-gold btn-sm" @click="onApplyPending">下次启动应用</button>
+            <span data-ui="SettingsView:0447f8159ad6" class="upd-pending-text">{{ updateReadyMessage(`v${pendingUpdate.release.version} 已就绪`) }}</span>
+            <button data-ui="SettingsView:5bd17b41383a" class="btn btn-gold btn-sm" @click="onApplyPending">{{ installAction }}</button>
           </div>
-          <div class="upd-row">
-            <span class="upd-label">更新下载源</span>
-            <select data-ui="SettingsView:c67695800552" class="select upd-source" :value="updateSource" @change="onUpdateSourceChange">
-              <option value="auto">自动（直连优先，镜像加速）</option>
-              <option value="direct">仅 GitHub 直连</option>
-              <option value="mirror">仅自定义镜像</option>
-            </select>
-          </div>
-          <div data-ui="SettingsView:c63358a8e469" v-if="updateSource !== 'direct'" class="upd-row">
-            <span class="upd-label">自定义镜像</span>
-            <input data-ui="SettingsView:573dec07c5b6"
-              class="input mono upd-mirror"
-              :value="store.settings.updateMirrorUrl ?? ''"
-              placeholder="https://ghproxy.net/（留空用默认）"
-              @change="onUpdateMirrorChange"
-            />
-          </div>
-          <details class="update-maintenance"><summary>维护与恢复</summary>
+          <UpdateSources />
+          <details data-ui="SettingsView:91c2bf912316" class="update-maintenance"><summary data-ui="SettingsView:aa8b3fd4177b">维护与恢复</summary>
           <div data-ui="SettingsView:bb7974b118ee" class="upd-row upd-actions-row">
             <button data-ui="SettingsView:3752063389f8" class="btn btn-ghost btn-sm" @click="openRollback">版本回退…</button>
             <button data-ui="SettingsView:a671c86452da" v-if="updateState" class="btn btn-ghost btn-sm" :disabled="restoringBackup" @click="onRestoreBackup">
@@ -1116,7 +1098,7 @@ async function onRemovePlugin(p: PluginInfo) {
             <button data-ui="SettingsView:c7a44c22390c" class="btn btn-ghost btn-sm" @click="onPickLocalUpdate">从本地文件安装更新…</button>
           </div>
           </details>
-          <p class="muted group-hint">
+          <p data-ui="SettingsView:108b83a3465d" class="muted group-hint">
             更新包发布在 GitHub Releases；下载较慢时可到 KAMUCL 内测群（{{ store.settings.qqGroupNumber?.trim() || QQ_GROUP_NUMBER }}）获取，群内文件与 GitHub 版本一致。
           </p>
         </div>
@@ -1124,12 +1106,12 @@ async function onRemovePlugin(p: PluginInfo) {
 
       <!-- 插件系统 -->
       <details data-ui="SettingsView:034daafb11ff" v-show="category === 'features'" data-section="plugins" class="card group collapse" open>
-        <summary class="collapse-head">
-          <h3 class="group-title">插件</h3>
-          <span class="collapse-arrow" aria-hidden="true"></span>
+        <summary data-ui="SettingsView:c48b3c27dd89" class="collapse-head">
+          <h3 data-ui="SettingsView:539396c2c42e" class="group-title">插件</h3>
+          <span data-ui="SettingsView:23f8f0d45fa8" class="collapse-arrow" aria-hidden="true"></span>
         </summary>
-        <div class="collapse-body">
-          <p class="muted group-hint">
+        <div data-ui="SettingsView:7d99322bac74" class="collapse-body">
+          <p data-ui="SettingsView:89be6deab034" class="muted group-hint">
             JS 插件可更改界面、新增功能（启动器版 Mod）。插件拥有界面完全控制权，请只安装可信来源。
           </p>
           <div data-ui="SettingsView:3610ad90128d" v-if="plugins.length" class="plugin-list">
@@ -1148,11 +1130,11 @@ async function onRemovePlugin(p: PluginInfo) {
               >{{ pluginConfirmRemove === p.id ? '移入回收站' : '删除' }}</button>
               <label data-ui="SettingsView:1df38fea5b7b" class="switch" :title="p.enabled ? '停用插件' : '启用插件'">
                 <input data-ui="SettingsView:e7c877c0882e" type="checkbox" :checked="p.enabled" @change="onTogglePlugin(p, ($event.target as HTMLInputElement).checked)" />
-                <span class="switch-ui"></span>
+                <span data-ui="SettingsView:28edec50edc5" class="switch-ui"></span>
               </label>
             </div>
           </div>
-          <p v-else class="muted group-hint">还没有安装插件</p>
+          <p data-ui="SettingsView:fe8c8a6583e4" v-else class="muted group-hint">还没有安装插件</p>
           <div data-ui="SettingsView:70c23a4a8b21" class="plugin-actions">
             <button data-ui="SettingsView:2efffb3d4610" class="btn btn-ghost btn-sm" :disabled="pluginBusy" @click="onInstallPlugin">
               <span data-ui="SettingsView:f506d1f658b6" v-if="pluginBusy" class="spin"></span>
@@ -1169,8 +1151,8 @@ async function onRemovePlugin(p: PluginInfo) {
     <!-- 版本回退：历史版本列表 -->
     <UpdateDialogShell v-if="rollback.open" label="版本回退" @dismiss="rollback.open = false">
       <template #header>
-        <div class="upd-modal-head">
-          <h3 class="upd-modal-title">版本回退</h3>
+        <div data-ui="SettingsView:4df775f4a3b9" class="upd-modal-head">
+          <h3 data-ui="SettingsView:8225012f972d" class="upd-modal-title">版本回退</h3>
           <button data-ui="SettingsView:606774134bae" class="icon-btn" title="关闭" @click="rollback.open = false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
@@ -1178,7 +1160,7 @@ async function onRemovePlugin(p: PluginInfo) {
         <p data-ui="SettingsView:f683c36eb3d1" class="upd-modal-subtitle muted">当前 v{{ appVersion }} · 选择要恢复的历史版本</p>
       </template>
         <p data-ui="SettingsView:e60d0b9f406f" class="upd-risk">⚠ 旧版本可能不兼容新配置格式。回退前将自动备份当前版本，可随时还原。</p>
-        <div data-ui="SettingsView:057bbe26b76d" v-if="rollback.loading" class="empty"><span class="spin"></span></div>
+        <div data-ui="SettingsView:057bbe26b76d" v-if="rollback.loading" class="empty"><span data-ui="SettingsView:4f0800807c40" class="spin"></span></div>
         <div data-ui="SettingsView:5fc7aa4d0d0b" v-else class="upd-release-list">
           <label data-ui="SettingsView:75b890b63a58" v-for="r in rollback.list" :key="r.version" class="upd-release-item" :class="{ selected: rollback.selected === r.version }">
             <input data-ui="SettingsView:839c64939132" v-model="rollback.selected" type="radio" name="rollback-version" :value="r.version" />
@@ -1188,9 +1170,9 @@ async function onRemovePlugin(p: PluginInfo) {
               <span data-ui="SettingsView:b10e6198b84f" v-if="releaseSummary(r.body)" class="muted upd-release-summary">{{ releaseSummary(r.body) }}</span>
             </span>
           </label>
-          <div data-ui="SettingsView:b683a5ef98a2" v-if="!rollback.list.length" class="empty"><span>没有可回退的历史版本</span></div>
+          <div data-ui="SettingsView:b683a5ef98a2" v-if="!rollback.list.length" class="empty"><span data-ui="SettingsView:3a0956417c69">没有可回退的历史版本</span></div>
         </div>
-      <template #footer><div class="upd-modal-actions">
+      <template #footer><div data-ui="SettingsView:6900010059e5" class="upd-modal-actions">
           <button data-ui="SettingsView:64d5b7c61143" class="btn btn-ghost" @click="rollback.open = false">取消</button>
           <button data-ui="SettingsView:8a817c12df3a" class="btn btn-gold" :disabled="!rollback.selected" @click="confirmRollback">回退到选中版本</button>
         </div></template>
@@ -1199,26 +1181,26 @@ async function onRemovePlugin(p: PluginInfo) {
     <!-- 本地文件安装更新确认 -->
     <UpdateDialogShell v-if="localUpdate?.confirming" label="安装本地更新包" @dismiss="localUpdate = null">
       <template #header>
-        <div class="upd-modal-head">
-          <h3 class="upd-modal-title">安装本地更新包</h3>
+        <div data-ui="SettingsView:e3b6bce81002" class="upd-modal-head">
+          <h3 data-ui="SettingsView:5b400fb54b75" class="upd-modal-title">安装本地更新包</h3>
           <button data-ui="SettingsView:7162c61cf755" class="icon-btn" title="关闭" @click="localUpdate = null">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
         </div>
       </template>
         <p data-ui="SettingsView:d8da86ab7cbc" class="upd-local-file">{{ localUpdate.check.fileName }} · {{ (localUpdate.check.fileSize / 1048576).toFixed(1) }} MB</p>
-        <div class="upd-local-check">
-          <span>版本校验</span>
+        <div data-ui="SettingsView:6bd0a3b9b887" class="upd-local-check">
+          <span data-ui="SettingsView:4d74e5534f41">版本校验</span>
           <span data-ui="SettingsView:152ca71f54e0" v-if="localUpdate.check.versionOk" class="upd-ok">v{{ localUpdate.check.version }} ≥ 当前 v{{ appVersion }} ✓</span>
-          <span v-else class="upd-warn">⚠ {{ localUpdate.check.version ? `v${localUpdate.check.version} 低于当前 v${appVersion}` : '无法从文件名识别版本号' }}，继续需自担风险</span>
+          <span data-ui="SettingsView:e950885a700c" v-else class="upd-warn">⚠ {{ localUpdate.check.version ? `v${localUpdate.check.version} 低于当前 v${appVersion}` : '无法从文件名识别版本号' }}，继续需自担风险</span>
         </div>
-        <div class="upd-local-check">
-          <span>完整性校验</span>
+        <div data-ui="SettingsView:ee13e08992b5" class="upd-local-check">
+          <span data-ui="SettingsView:b5e490092529">完整性校验</span>
           <span data-ui="SettingsView:9df9b415ad42" v-if="localUpdate.check.sha256 === 'match'" class="upd-ok">SHA256 与 GitHub Release 一致 ✓</span>
           <span data-ui="SettingsView:5b6de8db67a7" v-else-if="localUpdate.check.sha256 === 'mismatch'" class="upd-warn">⚠ SHA256 不一致！文件可能被篡改（{{ localUpdate.check.detail }}）</span>
-          <span v-else class="upd-warn">⚠ 无法联网校验，请确认文件来自官方渠道，风险自担</span>
+          <span data-ui="SettingsView:f5a9e52452b4" v-else class="upd-warn">⚠ 无法联网校验，请确认文件来自官方渠道，风险自担</span>
         </div>
-      <template #footer><div class="upd-modal-actions">
+      <template #footer><div data-ui="SettingsView:49c0a8213107" class="upd-modal-actions">
           <button data-ui="SettingsView:3ccc5837a1e1" class="btn btn-ghost" @click="localUpdate = null">取消</button>
           <button data-ui="SettingsView:1b671fb6ec3e"
             class="btn"
@@ -1232,6 +1214,7 @@ async function onRemovePlugin(p: PluginInfo) {
 </template>
 
 <style scoped>
+.cf-key-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: var(--space-2); }
 .settings-navigation { position:sticky; top:0; z-index:15; padding:12px; margin-bottom:16px; border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface-solid); }
 .settings-search { display:flex; align-items:center; gap:12px; }
 .settings-search > span { white-space:nowrap; font-weight:600; }
@@ -1534,136 +1517,6 @@ async function onRemovePlugin(p: PluginInfo) {
   cursor: not-allowed;
 }
 
-/* 主题选择 */
-.theme-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: var(--space-3);
-}
-.theme-option {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  padding: 0;
-  border: none;
-  background: transparent;
-  font-family: inherit;
-  cursor: pointer;
-}
-.theme-preview {
-  position: relative;
-  display: flex;
-  width: 150px;
-  height: 84px;
-  border-radius: var(--radius-md);
-  border: 1.5px solid var(--border);
-  overflow: hidden;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.12s ease;
-}
-.theme-option:hover .theme-preview {
-  transform: translateY(-1px);
-  border-color: var(--border-strong);
-}
-.theme-option.active .theme-preview {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
-}
-.theme-option:active .theme-preview {
-  transform: scale(0.98);
-}
-.theme-label {
-  font-size: var(--text-sm);
-  color: var(--text-dim);
-  transition: color 0.16s ease;
-}
-.theme-option.active .theme-label {
-  color: var(--accent);
-  font-weight: 600;
-}
-/* 迷你界面：侧栏 + 顶栏 + 内容块（各主题预览固定用自身配色，不跟随当前主题） */
-.tp-side {
-  width: 26px;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  padding-top: var(--space-2);
-}
-.tp-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-.tp-main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.tp-top {
-  height: 14px;
-  flex-shrink: 0;
-}
-.tp-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 7px;
-}
-.tp-block {
-  flex: 1;
-  border-radius: 4px;
-}
-.tp-btn {
-  height: 12px;
-  flex-shrink: 0;
-  border-radius: 4px;
-}
-.tp-check {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--on-accent);
-  padding: 3.5px;
-}
-/* 自定义预览：彩虹渐变色块 + 调色盘图标 */
-.preview-custom {
-  align-items: center;
-  justify-content: center;
-  background: #16161d;
-}
-.tp-custom-grad {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #f43f5e 0%, #f97316 25%, #eab308 45%, #22c55e 65%, #3b82f6 85%, #a855f7 100%);
-  opacity: 0.85;
-}
-.tp-palette {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  color: #ffffff;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.45));
-}
-/* 「个性化」入口（选中自定义主题后出现） */
-.personalize-btn {
-  align-self: flex-start;
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-soft);
-  font-weight: 600;
-}
-.personalize-btn:hover:not(:disabled) {
-  filter: brightness(1.06);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
 /* 目录 */
 .dir-row {
   display: flex;
@@ -1677,6 +1530,9 @@ async function onRemovePlugin(p: PluginInfo) {
 .dir-btn {
   flex-shrink: 0;
 }
+.download-location-row { flex-wrap: wrap; align-items: center; }
+.download-location-select { flex: 1 1 220px; min-width: 0; }
+.download-location-path { width: 100%; margin-top: var(--space-3); font-size: var(--text-sm); }
 
 /* 内存 */
 .memory-row {
@@ -1756,6 +1612,9 @@ async function onRemovePlugin(p: PluginInfo) {
 }
 
 /* 分辨率 */
+.remember-window-row { display:flex; align-items:center; gap:20px; margin-top:18px; padding-top:16px; border-top:1px solid var(--border); }
+.remember-window-row > div { flex:1; min-width:0; }
+.remember-window-row .switch { flex-shrink:0; }
 .resolution-row {
   display: flex;
   align-items: center;
@@ -1861,16 +1720,6 @@ async function onRemovePlugin(p: PluginInfo) {
 .settings-body [data-section=motion] { padding:12px 18px;order:1; }
 .settings-body [data-section=motion] p { font-size:12px;line-height:1.6;margin:0; }
 .settings-body .background-settings { order:2;display:grid;gap:12px; }
-.theme-options { display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px; }
-.theme-option { flex-direction:row;justify-content:flex-start;gap:10px;min-height:48px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--radius-sm); }
-.theme-option.active { border-color:var(--accent);background:var(--accent-soft); }
-.theme-preview { width:46px;height:32px;flex:none;border-radius:5px; }
-.theme-option:hover .theme-preview,.theme-option:active .theme-preview { transform:none; }
-.theme-option.active .theme-preview { box-shadow:none; }
-.theme-label { font-size:13px;white-space:nowrap; }
-.tp-side { width:9px;padding-top:4px; }.tp-dot{width:4px;height:4px}.tp-top{height:6px}.tp-body{gap:2px;padding:3px}.tp-btn{height:4px}.tp-check{width:14px;height:14px;top:1px;right:1px;padding:2px}.tp-palette{width:20px;height:20px}
-.theme-tools { display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap; }
-.personalize-btn { min-height:32px;padding:5px 12px;margin-top:6px; }
 .feature-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px; }
 .feature-grid>.group-hint,.feature-section-title { grid-column:1/-1; }
 .feature-section-title { margin:8px 0 2px;font-size:12px;color:var(--text-dim); }

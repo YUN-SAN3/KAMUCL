@@ -1,0 +1,5 @@
+
+> kamucl@1.1.19 license:check
+> node scripts/check-licenses.cjs
+
+License check passed

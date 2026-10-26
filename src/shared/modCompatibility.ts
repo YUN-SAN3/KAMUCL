@@ -14,7 +14,8 @@ export function normalizeLoaderVersion(value: string, loader?: LoaderName, mc?: 
 /** Numeric components are not limited to semver's three fields (e.g. NeoForge 26.2.0.66).
  * Unknown/non-numeric versions remain distinct, never coerced to zero. */
 export function compareVersions(a: string, b: string): number {
-  const parse = (v: string) => /^(\d+(?:\.\d+)*)(?:-([^+]+))?(?:\+.*)?$/.exec(v.trim())
+  // Fabric's empty prerelease (`1.21-`) is the earliest version in that series.
+  const parse = (v: string) => /^(\d+(?:\.\d+)*)(?:-([^+]*))?(?:\+.*)?$/.exec(v.trim())
   const x = parse(a), y = parse(b)
   if (!x || !y) return a === b ? 0 : a < b ? -1 : 1
   const xs = x[1].split('.').map(Number), ys = y[1].split('.').map(Number)
@@ -22,7 +23,8 @@ export function compareVersions(a: string, b: string): number {
     const d = (xs[i] ?? 0) - (ys[i] ?? 0)
     if (d) return Math.sign(d)
   }
-  if (!x[2] || !y[2]) return x[2] === y[2] ? 0 : x[2] ? -1 : 1
+  if (x[2] === undefined || y[2] === undefined) return x[2] === y[2] ? 0 : x[2] === undefined ? 1 : -1
+  if (!x[2] || !y[2]) return x[2] === y[2] ? 0 : !x[2] ? -1 : 1
   const xp = x[2].split(/[.-]/), yp = y[2].split(/[.-]/)
   for (let i = 0; i < Math.max(xp.length, yp.length); i++) {
     const p = xp[i], q = yp[i]
@@ -109,12 +111,28 @@ export function matchesVersionRange(range: string, version: string): boolean {
 
 /** Metadata arrays express OR, not comma-delimited Maven intervals. */
 export function dependencyRange(value: unknown, dialect: 'fabric' | 'quilt' = 'fabric'): string {
+  // Fabric ^ always advances the major, including 0.x; generic/Quilt semver
+  // predicates retain their own behavior. Upper bounds exclude the next prereleases.
+  const fabricPredicate = (part: string): string => {
+    const m = /^(\^|~)(\d+(?:\.\d+)*)(?:-[^+]*)?(?:\+.*)?$/.exec(part)
+    if (m) {
+      const nums = m[2].split('.').map(Number), index = m[1] === '^' ? 0 : Math.min(1, nums.length - 1)
+      const upper = nums.slice(0, index + 1); upper[index]++
+      return `>=${part.slice(1)} <${upper.join('.')}-`
+    }
+    const wildcard = /^(\d+(?:\.\d+)*)\.(?:x|\*)(?:\.(?:x|\*))*$/i.exec(part)
+    if (wildcard) {
+      const upper = wildcard[1].split('.').map(Number); upper[upper.length - 1]++
+      return `>=${wildcard[1]}- <${upper.join('.')}-`
+    }
+    return part
+  }
   // Normalize nested any/all to bounded disjunctive normal form. Flattening with
   // join alone changes (A OR B) AND C into A OR (B AND C).
   const terms = (v: unknown, depth = 0): string[][] => {
     if (depth > 16) throw new Error('range too deep')
     if (typeof v === 'string') {
-      const range = v.trim()
+      const range = dialect === 'fabric' ? v.trim().replace(/(>=|<=|>|<|=|~|\^)\s+/g, '$1').split(/\s+/).map(fabricPredicate).join(' ') : v.trim()
       const normalized = dialect === 'quilt' && /^\d+(?:\.\d+)*(?:-[\w.-]+)?(?:\+[\w.-]+)?$/.test(range) ? '^' + range : range
       return normalized.split('||').map(part => part.trim().split(' && '))
     }

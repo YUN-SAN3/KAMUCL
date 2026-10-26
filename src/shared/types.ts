@@ -14,6 +14,11 @@ export interface Account {
   accessToken?: string
   /** 微软 OAuth refresh_token，用于静默续期 */
   refreshToken?: string
+  /** 微软令牌签发时的公开应用身份；旧账号缺失此字段必须重新授权。 */
+  msOAuthClientId?: string
+  /** 仅微软账号使用；身份变更、未知来源或缺少令牌时提示重新登录。 */
+  msReauthRequired?: boolean
+  msReauthReason?: 'application-changed' | 'identity-unknown' | 'credentials-missing'
   /** MC accessToken 过期时间（epoch 秒） */
   expiresAt?: number
   /** 外置 Yggdrasil 账号所属提供商。 */
@@ -29,9 +34,41 @@ export interface Account {
 
 /** 微软 device code 登录开始时返回给前端的展示信息 */
 export interface MsDeviceCodeInfo {
+  /** Public random correlation ID, unrelated to the device code or user credentials. */
+  operationId: string
   userCode: string
   verificationUri: string
   message: string
+}
+
+export interface MsLoginDone {
+  operationId: string
+  account: Account | null
+  error?: string | null
+}
+
+export type MicrosoftAuthFailureCode =
+  | 'APPLICATION_REJECTED' | 'ACCOUNT_REAUTH_REQUIRED' | 'USER_DECLINED'
+  | 'DEVICE_CODE_EXPIRED' | 'NETWORK_ERROR' | 'TLS_ERROR' | 'STORAGE_UNAVAILABLE'
+  | 'STORAGE_WRITE_FAILED' | 'PROTOCOL_ERROR' | 'NOT_OWNED' | 'PROFILE_MISSING'
+  | 'ACCOUNT_CHANGED' | 'CANCELLED' | 'RATE_LIMITED' | 'SERVICE_ERROR'
+
+export interface MicrosoftAuthFailure {
+  code: MicrosoftAuthFailureCode
+  message: string
+  stage: string
+  httpStatus?: number
+}
+
+export interface MicrosoftAuthStatus {
+  clientId: string
+  applicationName: 'KAMUCL'
+  authority: string
+  scopes: string
+  /** UUID/用户提供应用身份不代表服务批准；只有本次完整登录成功才升级。 */
+  serviceValidation: 'unverified' | 'verified-this-session'
+  reauthenticationRequiredAccounts: number
+  lastFailure?: MicrosoftAuthFailure
 }
 
 export interface YggdrasilProviderInput {
@@ -161,6 +198,7 @@ export type LoaderName = 'forge' | 'fabric' | 'quilt' | 'neoforge'
 
 export interface InstallOptions {
   favoriteMods?: import('./modFavorites').FavoriteSelection[]
+  favoriteInstallIntent?: import('./modFavorites').FavoriteInstallIntent
   recordingMod?: { kind: import("./recordings").RecordingKind; fileId: string }
   loader?: LoaderName
   loaderVersion?: string
@@ -360,7 +398,16 @@ export function normalizeThemeName(value: unknown): ThemeName {
   return 'transparent'
 }
 
+export interface VersionCategory { id: string; name: string }
+export type VersionCategoryAction =
+  | { type: 'create'; name: string }
+  | { type: 'rename'; id: string; name: string }
+  | { type: 'remove'; id: string }
+  | { type: 'assign'; target: { id: string; folder: string }; categoryId: string }
+
 export interface Settings {
+  /** Fit the launcher to available desktop space only when explicitly enabled. */
+  uiWindowAutoFit?: boolean
   /** Explicit reduction is additive to the operating system preference; absent means follow system. */
   reduceMotion?: boolean
   visualDesign?: import('./visualDesign').VisualDesign
@@ -384,6 +431,8 @@ export interface Settings {
   memoryOrganizeBeforeLaunch?: boolean
   jvmArgs: string
   resolution: GameResolution
+  /** Windows: remember the last observed normal game client size on clean exit; default off. */
+  rememberGameWindowSize?: boolean
   mirror: 'official' | 'bmclapi'
   /** 跨所有任务的 HTTP 并发上限。 */
   downloadThreads: number
@@ -391,7 +440,7 @@ export interface Settings {
   downloadSpeedKBps: number
   /** 新版本安装后默认开启版本隔离（独立游戏目录），可在设置中关闭 */
   defaultIsolation: boolean
-  /** 微软登录用的 Azure 应用 client_id（device code flow） */
+  /** 正式微软应用身份（兼容旧字段）；读取时规范化，设置不允许覆写。 */
   msClientId: string
   theme: ThemeName
   /** theme === 'custom' 时使用的自定义配色与布局 */
@@ -401,6 +450,9 @@ export interface Settings {
   /** 收藏的版本 id 列表（各列表置顶） */
   favoriteVersions: string[]
   favoriteInstanceOverrides?: Record<string, boolean>
+  /** User labels only; no instance directory is moved or removed. */
+  versionCategories?: VersionCategory[]
+  versionCategoryAssignments?: Record<string, string>
   /** 首页布局：模块顺序与显隐（main=主列，side=右栏，数组顺序即渲染顺序） */
   homeLayout: HomeLayout
   /** 背景自定义 */
@@ -423,10 +475,14 @@ export interface Settings {
   updateSource?: 'auto' | 'direct' | 'mirror'
   /** 自定义镜像前缀（拼接在 GitHub 文件 URL 前，如 https://ghproxy.net/） */
   updateMirrorUrl?: string
+  /** Additional update mirrors; the old singular field remains readable. */
+  updateMirrorUrls?: string[]
   /** 内测群号覆盖（免打包临时改；默认取 shared/branding.ts 的 QQ_GROUP_NUMBER） */
   qqGroupNumber?: string
-  /** CurseForge 官方 API Key（console.curseforge.com 免费申请）；留空走 MCIM 镜像兜底 */
+  /** 自定义 CurseForge 密钥，仅写入请求使用；所有 Settings 响应不返回此值。空文本清除。 */
   curseforgeApiKey?: string
+  /** 主进程安全存储是否已有自定义密钥；只读展示，不说明当前密钥服务可用。 */
+  curseforgeApiKeyConfigured?: boolean
   /** 自动安装更新（默认开启）：发现新版本静默下载，启动器关闭时自动安装；关闭则弹窗询问 */
   autoUpdate?: boolean
 }
@@ -563,6 +619,8 @@ export interface LaunchThumbnailSettings {
   /** Default/per-image dwell time, in seconds (1..120). */
   intervalSeconds?: number
   durations?: Record<string, number>
+  /** Shuffle enabled slides without modifying the saved display order. */
+  randomPlayback?: boolean
   fit: ImageFit
 }
 
@@ -596,6 +654,8 @@ export interface SkinInfo {
   state?: string
   /** 主进程下载纹理转的 dataURL（前端渲染更稳，不受 CORS 影响） */
   dataUrl?: string
+  /** Public texture download/decoding failure, without credentials or URL details. */
+  textureError?: string
 }
 
 export interface CapeInfo {
@@ -605,6 +665,7 @@ export interface CapeInfo {
   url?: string
   /** 披风纹理 dataURL */
   dataUrl?: string
+  textureError?: string
 }
 
 /** 当前微软账号的皮肤档案 */
@@ -629,6 +690,8 @@ export interface SkinHistoryEntry extends SkinHistoryItem {
 }
 export interface ParallelStage {
   id: string
+  /** Semantic child phase, so nested preparation does not hide Java→installer transitions. */
+  stage?: string
   label: string
   text: string
   progress: number
@@ -645,6 +708,8 @@ export interface ManualModpackFile {
 }
 export interface ManualModpackRequest { token: string; files: ManualModpackFile[] }
 export interface ProgressEvent {
+  /** Optional renderer-generated correlation ID; separates simultaneous MOD dialogs. */
+  operationId?: string
   manualFiles?: ManualModpackRequest | null
   /** Concurrent preparation lanes; absent once the task enters its final commit stage. */
   parallelStages?: ParallelStage[]
@@ -675,6 +740,7 @@ export interface ProgressEvent {
 }
 
 export interface LaunchState {
+  savedWindowSize?: { scope: 'global' | 'instance'; previous: GameResolution; resolution: GameResolution }
   launchId?: string
   versionId?: string
   folder?: string
@@ -726,6 +792,7 @@ export const IPC = {
   accountsSelected: 'accounts:selected', // () => Account | null
   accountsMsBegin: 'accounts:msBegin', // () => MsDeviceCodeInfo  开始 device code 流程
   accountsMsCancel: 'accounts:msCancel', // () => void
+  accountsMsStatus: 'accounts:msStatus', // () => MicrosoftAuthStatus  不含设备码或令牌
   accountsYggProviders: 'accounts:yggProviders', // () => YggdrasilProvider[]
   accountsYggProbe: 'accounts:yggProbe', // (YggdrasilProviderInput, allowInsecure?) => YggdrasilProviderCandidate
   accountsYggSaveProvider: 'accounts:yggSaveProvider', // (candidate, allowInsecure) => YggdrasilProvider[]
@@ -742,6 +809,7 @@ export const IPC = {
   versionsInstall: 'versions:install', // (versionId: string, opts?: InstallOptions) => void
   versionsRemove: 'versions:remove', // (versionId: string) => void
   versionsRename: 'versions:rename', // (id: string, newName: string) => void  重命名实例（目录+json id 同步改）
+  versionCategoriesUpdate: 'versions:categoriesUpdate', // (VersionCategoryAction) => Settings
   versionsCleanup: 'versions:cleanup', // (id: string) => boolean  清理安装失败残留目录
 
   // 游戏文件夹管理
@@ -750,6 +818,7 @@ export const IPC = {
   foldersRemove: 'folders:remove', // (path: string) => GameFolder[]，只解除登记、绝不删除磁盘文件
   foldersRename: 'folders:rename', // (path: string, displayName: string) => GameFolder[]
   foldersSetDefault: 'folders:setDefault', // (path: string) => GameFolder[]
+  foldersSetDownload: 'folders:setDownload', // (path: string) => GameFolder[]; register + select the default download root atomically
   foldersSetActive: 'folders:setActive', // (path: string) => void  切换活动文件夹（gameDir 跟随）
   foldersScan: 'folders:scan', // (path: string) => FolderScanResult
   foldersOpen: 'folders:open', // (path: string) => void
@@ -855,6 +924,7 @@ export const IPC = {
   defaultPacksRemove: 'defaultPacks:remove',
   defaultPacksMove: 'defaultPacks:move',
   defaultPacksSetEnabled: 'defaultPacks:setEnabled',
+  defaultPacksApply: 'defaultPacks:apply',
   // 桥接 MOD 实时配置面板（游戏目录 .kamucl-bridge.json 发现 + token 校验，仅本机）
   bridgeStatus: 'bridge:status', // (versionId: string) => BridgeStatus
   bridgeManifest: 'bridge:manifest', // (versionId: string) => { protocol, params: BridgeParam[] }
@@ -876,6 +946,9 @@ export const IPC = {
 
   // 社区资源
   communitySearch: 'community:search', // (q: CommunityQuery) => CommunitySearchPage
+  communitySearchStart: 'community:searchStart', // (requestId, query) => CommunitySearchSnapshot
+  communitySearchContinue: 'community:searchContinue', // (requestId, continuation) => CommunitySearchSnapshot
+  communitySearchCancel: 'community:searchCancel', // (requestId) => boolean; sender-owned subscription only
   communityProject: 'community:project', // (source, projectId, kind: 'mod') => CommunityModProject  校验来源与项目类型
   communityFiles: 'community:files', // (source: 'modrinth'|'curseforge', projectId: string) => CommunityFile[]
   communityDownload: 'community:download', // (file: CommunityFile, target: { versionId: string; kind: CommunityKind }) => string  同步下载完成返回保存路径；kind=modpack 时下载后自动进入整合包安装流程
@@ -884,9 +957,11 @@ export const IPC = {
   tasksPause: 'tasks:pause', // (taskId: string) => boolean
   tasksResume: 'tasks:resume', // (taskId: string) => boolean
 
-  // 皮肤/披风（均需当前选中账号为微软正版账号）
+  // 皮肤/披风；离线 PNG 仅保存到当前本机账号
   skinProfile: 'skin:profile', // () => ProfileSkins  拉取当前账号皮肤/披风档案
   skinUpload: 'skin:upload', // (filePath: string, variant: SkinVariant) => ProfileSkins  上传并返回最新档案
+  skinOfflineApply: 'skin:offlineApply', // (filePath, variant, capturedAccountId) => ProfileSkins
+  skinOfflineReset: 'skin:offlineReset', // (capturedAccountId) => ProfileSkins
   skinCape: 'skin:cape', // (capeId: string | null) => ProfileSkins  激活/卸下披风
   skinHistory: 'skin:history', // () => SkinHistoryEntry[]  历史皮肤（含 dataUrl 缩略）
   skinHistoryDelete: 'skin:historyDelete', // (id: string) => SkinHistoryEntry[]
@@ -898,6 +973,7 @@ export const IPC = {
   appOpenDir: 'app:openDir', // (rel?: string) => void  用系统资源管理器打开目录
   fsImportResources: 'fs:importResources',
   fsList: 'fs:list', // (rel: string) => FsEntry[]
+  fsPath: 'fs:path', // (rel: string, folder?: string) => string; backend-resolved native path
   fsRemove: 'fs:remove', // (rel: string, name: string) => FsEntry[]
   fsToggleDisable: 'fs:toggleDisable', // (rel: string, name: string) => FsEntry[] —— 模组禁用/启用（.jar ↔ .jar.disabled）
 
@@ -926,10 +1002,11 @@ export interface FsEntry {
 
 // ---------------- IPC 事件（主进程 -> 前端，on 订阅） ----------------
 export const IPC_EVENT = {
+  communitySearchUpdate: 'event:communitySearchUpdate', // sender-owned progressive snapshot; revisions only advance
   progress: 'event:progress', // (e: ProgressEvent)
   launchLog: 'event:launchLog', // (line: string)
   launchState: 'event:launchState', // (s: LaunchState)
-  msLoginDone: 'event:msLoginDone', // (account: Account | null)  null = 失败/取消
+  msLoginDone: 'event:msLoginDone', // (r: MsLoginDone)  与 begin 返回的公开 operationId 绑定
   installDone: 'event:installDone', // (r: { versionId: string; installedId?: string; ok: boolean; error?: string; taskId?: string; cancelled?: boolean; stage?: string })  installedId = 实际实例 id（含加载器后缀，成功时存在）；stage = 失败阶段；cancelled = 用户取消
   taskDone: 'event:taskDone', // (r: { taskId: string; ok: boolean; error?: string; cancelled?: boolean; stage?: string })  所有后台任务（含普通资源下载）的统一完成通知
   gameDirDone: 'event:gameDirDone', // (r: { ok: boolean; error?: string; gameDir?: string })  目录迁移结束（配置已切换/失败已回滚）
@@ -939,10 +1016,10 @@ export const IPC_EVENT = {
 } as const
 
 /**
- * 默认微软登录 client_id：Prism Launcher 注册的公开 Azure 应用，
- * 已在 consumers 租户实测支持 device code 流程；可在设置中替换为自注册应用
+ * KAMUCL 正式微软应用的公开 Client ID，由维护者提供。
+ * 应用注册标识不代表 Xbox/Minecraft 服务批准；不包含 client secret。
  */
-export const DEFAULT_MS_CLIENT_ID = 'c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb'
+export const DEFAULT_MS_CLIENT_ID = '06cc8cf6-4b8f-4631-8459-b2bd828808f8'
 
 // ---------------- 社区资源 ----------------
 export type CommunityKind = 'mod' | 'modpack' | 'resourcepack' | 'shader' | 'datapack'
@@ -980,6 +1057,7 @@ export interface CommunityResult {
 export type CommunityProjectReference = Pick<CommunityResult, 'source' | 'projectId' | 'title'> & Partial<Pick<CommunityResult, 'slug' | 'originalTitle'>>
 export interface CommunityModProject extends CommunityProjectReference {
   kind: 'mod'
+  iconUrl?: string
   description?: string
   author?: string
   license?: string
@@ -998,6 +1076,23 @@ export interface CommunitySearchPage {
   offset: number
   limit: number
   warnings?: string[]
+}
+
+/** Items are the complete visible prefix, never a delta to append twice. The
+ * total is the confirmed set, not an estimate of every matching repository item. */
+export interface CommunitySearchSnapshot extends CommunitySearchPage {
+  requestId: string
+  revision: number
+  query: CommunityQuery
+  phase: 'initial' | 'enriching' | 'ready' | 'failed'
+  discoveryHasMore: boolean
+  cursor?: string
+  totalKind: 'confirmed'
+  error?: string
+}
+export interface CommunitySearchContinuation {
+  mode: 'page' | 'discover'
+  cursor: string
 }
 
 export interface CommunityFile {
@@ -1027,7 +1122,7 @@ export interface ModRequirement { id: string; range: string }
 export interface ModInstallPlan {
   id: string
   target: InstalledVersion
-  files: Array<{ name: string; version: string; dependency: boolean; fileName: string }>
+  files: Array<{ name: string; version: string; dependency: boolean; fileName: string; source?: CommunitySource; projectId?: string }>
   missing: string[]
   warnings: string[]
 }
@@ -1201,6 +1296,8 @@ export interface ModInfo {
   /** 前置依赖 mod id 列表 */
   dependencies: string[]
   requirements?: ModRequirement[]
+  /** Actual JVM dependency/features from enabled JARs, including bundled mods. */
+  javaRequirements?: Array<{ loader: LoaderName; range: string; source: string; exclude?: boolean }>
   /** Multi-loader jars may contain several independent metadata descriptors. */
   variants?: Array<{ loader: LoaderName; mcRange: string; loaderRange?: string; requirements?: ModRequirement[] }>
   provides?: Array<{ id: string; version: string }>
@@ -1316,7 +1413,8 @@ export interface ServerPingResult {
   latencyMs: number
 }
 
-export interface SystemInfo {
+export interface SystemInfo extends Partial<import('./platform').PlatformInfo> {
+  credentialStorage?: { persistent: boolean; sessionOnly: boolean; message: string }
   /** macOS 系统辅助功能“降低透明度”；仅用于说明，不修改系统偏好。 */
   reducedTransparency?: boolean
   /** 物理内存总量（MB，向下取整） */

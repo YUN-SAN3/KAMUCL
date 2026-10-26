@@ -14,13 +14,22 @@ import { withFileJob } from '../src/main/core/fileJobs'
 import { probeModpack } from '../src/main/core/modpacks'
 const wait=(ms:number)=>new Promise(r=>setTimeout(r,ms))
 
-test('两版本并行安装共享库；取消一个不影响另一个，切换默认文件夹不改变在途目标',async()=>{
+test('两版本并行安装共享库；取消一个不影响另一个，切换默认文件夹不改变在途目标',{timeout:15000},async t=>{
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'kamucl-multi-install-'))
  const lib=Buffer.from('shared library'),client=crypto.randomBytes(512*1024),sha=(b:Buffer)=>crypto.createHash('sha1').update(b).digest('hex');let libraryRequests=0
+ let releaseClients!:()=>void
+ const clientCompletion=new Promise<void>(resolve=>releaseClients=resolve),clientRequests=new Set<string>(),pending:Promise<unknown>[]=[]
+ const ctrl=new AbortController(),timeline:{event:string;at:number}[]=[],observe=(event:string)=>timeline.push({event,at:performance.now()})
  const server=http.createServer((req,res)=>{
   if(req.url==='/lib'){libraryRequests++;setTimeout(()=>res.end(lib),50);return}
-  res.writeHead(200,{'content-length':client.length});let n=0
-  const timer=setInterval(()=>{if(n>=client.length){res.end();return}res.write(client.subarray(n,n+16384));n+=16384},5);res.on('close',()=>clearInterval(timer))
+  res.writeHead(200,{'content-length':client.length});res.write(client.subarray(0,16384));clientRequests.add(req.url!);observe('client-request:'+req.url)
+  // Hold real client transfers at a known unfinished state. A fixed sleep or
+  // a progress event cannot prove they have not already committed on fast hosts.
+  void clientCompletion.then(()=>{
+   if(res.destroyed)return
+   let n=16384
+   const timer=setInterval(()=>{if(n>=client.length){res.end();return}res.write(client.subarray(n,n+16384));n+=16384},5);res.on('close',()=>clearInterval(timer))
+  })
  });await new Promise<void>(r=>server.listen(0,'127.0.0.1',r))
  try{
   const output=await build({stdin:{contents:"export { installVersion } from './src/main/core/versions'; export { saveSettings } from './src/main/core/settings'",resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'cjs',packages:'external'})
@@ -29,17 +38,26 @@ test('两版本并行安装共享库；取消一个不影响另一个，切换�
   const api=mod.exports,folder=path.join(root,'game'),shared=path.join(root,'shared'),other=path.join(root,'other'),url=`http://127.0.0.1:${(server.address() as any).port}`
   api.saveSettings({gameDir:folder,activeFolder:folder,folders:[{path:folder,name:'game',isDefault:false},{path:shared,name:'shared',isDefault:true}],mirror:'official'})
   for(const id of ['a','b']){const dir=path.join(folder,'versions',id);fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,id+'.json'),JSON.stringify({id,libraries:[{name:'example:shared:1',downloads:{artifact:{path:'example/shared.jar',url:url+'/lib',sha1:sha(lib),size:lib.length}}}],downloads:{client:{url:url+'/'+id,sha1:sha(client),size:client.length}}}))}
-  const ctrl=new AbortController(),events:string[]=[]
-  const first=api.installVersion('a',{},(e:any)=>{if(e.stage==='client'||e.parallelStages?.some((s:any)=>s.id==='client'&&s.state==='running'))events.push('a')},ctrl.signal);const rejected=assert.rejects(first)
+  const events:string[]=[]
+  const first=api.installVersion('a',{},(e:any)=>{if(e.stage==='client'||e.parallelStages?.some((s:any)=>s.id==='client'&&s.state==='running'))events.push('a')},ctrl.signal)
+  const rejected=assert.rejects(first,(error:any)=>ctrl.signal.aborted&&(error===ctrl.signal.reason||error?.name==='AbortError'||/已取消/.test(error?.message??'')))
+  pending.push(first,rejected)
   const second=api.installVersion('b',{},(e:any)=>{if(e.stage==='client'||e.parallelStages?.some((s:any)=>s.id==='client'&&s.state==='running'))events.push('b')})
+  pending.push(second)
+  // Attach cleanup observation immediately so an assertion cannot leave an
+  // install using a directory that the fixture has already removed.
+  const settled=Promise.allSettled([first,rejected,second]);pending.push(settled)
   api.saveSettings({activeFolder:other,folders:[{path:other,name:'other',isDefault:true}]})
-  for(let n=0;n<100&&!['a','b'].every(x=>events.includes(x));n++)await wait(10)
+  for(let n=0;n<100&&!['a','b'].every(x=>events.includes(x)&&clientRequests.has('/'+x));n++)await wait(10)
   assert(events.includes('a')&&events.includes('b'),'两个客户端应同时开始下载')
+  assert.deepEqual([...clientRequests].sort(),['/a','/b'],'两个真实客户端请求必须正在传输')
   // Client transfers now start before the shared library finishes; wait for its reusable commit.
   for(let n=0;n<100&&!fs.existsSync(path.join(shared,'libraries/example/shared.jar'));n++)await wait(10)
-  ctrl.abort();await rejected;await second
+  assert.equal(sha(fs.readFileSync(path.join(shared,'libraries/example/shared.jar'))),sha(lib),'取消前共享库必须完成校验并提交')
+  assert(!fs.existsSync(path.join(folder,'versions/a/a.jar'))&&!fs.existsSync(path.join(folder,'versions/b/b.jar')),'取消前两个客户端均未完成')
+  observe('shared-committed');ctrl.abort();observe('abort-a');await rejected;observe('a-rejected');releaseClients();observe('release-b');await second;observe('b-completed')
   assert.equal(libraryRequests,1);assert(fs.readFileSync(path.join(folder,'versions/b/b.jar')).equals(client));assert(fs.existsSync(path.join(shared,'libraries/example/shared.jar')));assert(!fs.existsSync(path.join(other,'libraries')));assert(!fs.existsSync(path.join(folder,'versions/b/.installing')))
- }finally{server.closeAllConnections();await new Promise<void>(r=>server.close(()=>r()));fs.rmSync(root,{recursive:true,force:true})}
+ }finally{ctrl.abort();releaseClients();await Promise.allSettled(pending);server.closeAllConnections();await new Promise<void>(r=>server.close(()=>r()));t.diagnostic(JSON.stringify({timeline,clientRequests:[...clientRequests],libraryRequests}));fs.rmSync(root,{recursive:true,force:true})}
 })
 
 test('外层启动器分发ZIP识别唯一mrpack，保留包名和配置，不执行外层EXE',async()=>{

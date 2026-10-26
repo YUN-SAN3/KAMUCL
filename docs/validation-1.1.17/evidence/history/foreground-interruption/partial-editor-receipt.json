@@ -1,0 +1,73 @@
+{
+  "version": "1.1.17",
+  "theme": "black-orange",
+  "complete": false,
+  "layouts": [],
+  "occlusions": [],
+  "nativeBusy": false,
+  "queuedCancellation": false,
+  "uploadBusy": false,
+  "canvasCaptures": [
+    {
+      "source": "full visible compositor frame cropped with sharp",
+      "bounds": {
+        "x": 99.5999984741211,
+        "y": 93.80000305175781,
+        "width": 812,
+        "height": 210
+      },
+      "viewport": {
+        "width": 961.5999755859375,
+        "height": 622.4000244140625,
+        "offsetLeft": 0,
+        "offsetTop": 0,
+        "devicePixelRatio": 1.25
+      },
+      "frame": {
+        "width": 1202,
+        "height": 778
+      },
+      "scale": {
+        "x": 1.250000031736251,
+        "y": 1.2499999509679034
+      },
+      "crop": {
+        "left": 124,
+        "top": 117,
+        "width": 1016,
+        "height": 263
+      }
+    },
+    {
+      "source": "full visible compositor frame cropped with sharp",
+      "bounds": {
+        "x": 99.5999984741211,
+        "y": 93.80000305175781,
+        "width": 812,
+        "height": 210
+      },
+      "viewport": {
+        "width": 961.5999755859375,
+        "height": 622.4000244140625,
+        "offsetLeft": 0,
+        "offsetTop": 0,
+        "devicePixelRatio": 1.25
+      },
+      "frame": {
+        "width": 1202,
+        "height": 778
+      },
+      "scale": {
+        "x": 1.250000031736251,
+        "y": 1.2499999509679034
+      },
+      "crop": {
+        "left": 124,
+        "top": 117,
+        "width": 1016,
+        "height": 263
+      }
+    }
+  ],
+  "recordedAt": "2026-10-06T17:47:04.066Z"
+}

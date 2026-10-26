@@ -1,0 +1,19 @@
+  • electron-builder  version=26.15.3 os=10.0.26200
+  • loaded configuration  file=package.json ("build" field)
+  • author is missed in the package.json  appPackageFile=E:\KAMUCL\package.json
+  • executing @electron/rebuild  electronVersion=44.3.0 arch=x64 buildFromSource=false workspaceRoot=E:\KAMUCL projectDir=./ appDir=./
+  • installing native dependencies  arch=x64
+  • completed installing native dependencies
+  • packaging       platform=win32 arch=x64 electron=44.3.0 appOutDir=release\win-unpacked
+  • using custom unpacked Electron distribution  electronDist=node_modules\electron\dist
+  • copying unpacked Electron  source=E:\KAMUCL\node_modules\electron\dist destination=E:\KAMUCL\release\win-unpacked
+  • searching for node modules  pm=npm searchDir=E:\KAMUCL
+  • updating asar integrity executable resource  executablePath=release\win-unpacked\KAMUCL.exe
+Verified Windows ASAR: 18758505 bytes, 434 entries
+Pruned optional Windows DXC components: dxcompiler.dll (25744896 bytes), dxil.dll (1509760 bytes)
+  • signing with signtool.exe  path=release\win-unpacked\KAMUCL.exe
+  • signing with signtool.exe  path=release\win-unpacked\resources\app.asar.unpacked\out\main\GameWindowFocus.exe
+  • signing with signtool.exe  path=release\win-unpacked\resources\app.asar.unpacked\out\main\WindowMaterial.exe
+  • building        target=portable file=release\KAMUCL-1.1.15.exe archs=x64
+  • signing with signtool.exe  path=release\win-unpacked\resources\elevate.exe
+  • signing with signtool.exe  path=release\KAMUCL-1.1.15.exe

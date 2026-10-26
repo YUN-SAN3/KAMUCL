@@ -1,0 +1,6586 @@
+{
+  "complete": false,
+  "version": "1.1.17",
+  "directory": "E:\\KAMUCL\\out\\qa-ux117-black-orange-88242aaf-eaee-4a40-805b-703fe30fd57d",
+  "theme": "black-orange",
+  "observations": [
+    {
+      "label": "actual focus",
+      "samples": [
+        {
+          "at": 1791305099990,
+          "value": true
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=settings]",
+      "samples": [
+        {
+          "at": 1791305099996,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 484.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation settings",
+      "samples": [
+        {
+          "at": 1791305100314,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target :is(.settings-scopes button):nth-of-type(2)",
+      "samples": [
+        {
+          "at": 1791305100674,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 408.1999931335449,
+            "y": 161.8000030517578,
+            "width": 97.5999984741211,
+            "height": 38,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target :is(.settings-categories button):nth-of-type(2)",
+      "samples": [
+        {
+          "at": 1791305100861,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 358.8000183105469,
+            "y": 206.8000030517578,
+            "width": 76,
+            "height": 32,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "window size option persisted",
+      "samples": [
+        {
+          "at": 1791305101262,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 1362,
+                "height": 863
+              },
+              "content": [
+                1361,
+                862
+              ],
+              "zoom": 1,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 1362,
+              "height": 862,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "rememberGameWindowSize": true,
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": false,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "failed save restores actual checkbox",
+      "samples": [
+        {
+          "at": 1791305102391,
+          "value": {
+            "failed": true,
+            "checked": true,
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "rememberGameWindowSize": true,
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": false,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "persisted window preference after reload",
+      "samples": [
+        {
+          "at": 1791305102751,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 1362,
+                "height": 863
+              },
+              "content": [
+                1361,
+                862
+              ],
+              "zoom": 1,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 1362,
+              "height": 862,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "rememberGameWindowSize": true,
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": false,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=settings]",
+      "samples": [
+        {
+          "at": 1791305102755,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 484.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation settings",
+      "samples": [
+        {
+          "at": 1791305102943,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target :is(.settings-scopes button):nth-of-type(1)",
+      "samples": [
+        {
+          "at": 1791305103302,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 297.10000228881836,
+            "y": 161.8000030517578,
+            "width": 112.5999984741211,
+            "height": 38,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target :is(.settings-categories button):nth-of-type(5)",
+      "samples": [
+        {
+          "at": 1791305103489,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 579.2999877929688,
+            "y": 206.8000030517578,
+            "width": 89,
+            "height": 32,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-ui=\"SettingsView:e3f1fccf0c78\"]",
+      "samples": [
+        {
+          "at": 1791305103690,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 463.5250053405762,
+            "y": 319.70001220703125,
+            "width": 90.5999984741211,
+            "height": 32,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual Markdown headings rendered",
+      "samples": [
+        {
+          "at": 1791305103862,
+          "value": {
+            "headings": 8,
+            "strong": 0,
+            "unsafe": false,
+            "text": "Third-party notices / 第三方声明The root MIT license covers original KAMUCL contributions only. Third-partycopyright, license and trademark rights remain with their respective holders.VoxLink protocol integration — LGPL-3.0-onlyUpstream: https://github.co"
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=skins]",
+      "samples": [
+        {
+          "at": 1791305104503,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 380.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation skins",
+      "samples": [
+        {
+          "at": 1791305104675,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "real skin model rendered",
+      "samples": [
+        {
+          "at": 1791305105032,
+          "value": {
+            "seconds": 0.4640000000000003,
+            "arm": -0.4529135540784304,
+            "leg": 0.4529135540784304,
+            "crouch": 0,
+            "flight": 0,
+            "fallbacks": 0,
+            "state": "walk"
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target .history-preview",
+      "samples": [
+        {
+          "at": 1791305105036,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 330.62500762939453,
+            "y": 635.7999877929688,
+            "width": 138.0500030517578,
+            "height": 168,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "unused history selected",
+      "samples": [
+        {
+          "at": 1791305105219,
+          "value": "尚未使用的公开测试皮肤 · 仅预览，未更换账号皮肤返回当前皮肤"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-seg=walk]",
+      "samples": [
+        {
+          "at": 1791305105223,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 437.8000183105469,
+            "y": 208.80000591278076,
+            "width": 44,
+            "height": 28.399999618530273,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual walk pose",
+      "samples": [
+        {
+          "at": 1791305105407,
+          "value": {
+            "seconds": 0.8389000000059595,
+            "arm": -0.5417433193519702,
+            "leg": 0.5417433193519702,
+            "crouch": 0,
+            "flight": 0,
+            "fallbacks": 0,
+            "state": "walk"
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-seg=idle]",
+      "samples": [
+        {
+          "at": 1791305105876,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 483.8000183105469,
+            "y": 208.80000591278076,
+            "width": 44,
+            "height": 28.399999618530273,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual idle pose",
+      "samples": [
+        {
+          "at": 1791305106047,
+          "value": {
+            "seconds": 1.480599999994035,
+            "arm": 0.22016726528644628,
+            "leg": -0.22016726528644628,
+            "crouch": 0,
+            "flight": 0,
+            "fallbacks": 0,
+            "state": "idle"
+          }
+        },
+        {
+          "at": 1791305106139,
+          "value": {
+            "seconds": 1.5722999999821132,
+            "arm": 0.07092275196148304,
+            "leg": -0.07092275196148304,
+            "crouch": 0,
+            "flight": 0,
+            "fallbacks": 0,
+            "state": "idle"
+          }
+        },
+        {
+          "at": 1791305106233,
+          "value": {
+            "seconds": 1.6679999999999944,
+            "arm": -0.0002101883473553735,
+            "leg": 0.0002101883473553735,
+            "crouch": 0,
+            "flight": 0,
+            "fallbacks": 0,
+            "state": "idle"
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-seg=crouch]",
+      "samples": [
+        {
+          "at": 1791305106704,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 529.8000183105469,
+            "y": 208.80000591278076,
+            "width": 44,
+            "height": 28.399999618530273,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual crouch pose",
+      "samples": [
+        {
+          "at": 1791305106888,
+          "value": {
+            "seconds": 2.3222999999821066,
+            "arm": 0.22950281568015204,
+            "leg": -0.13766221200130185,
+            "crouch": 0.918406036788502,
+            "flight": 0,
+            "fallbacks": 0,
+            "state": "crouch"
+          }
+        },
+        {
+          "at": 1791305106980,
+          "value": {
+            "seconds": 2.413900000005949,
+            "arm": 0.24470131031560063,
+            "leg": -0.14696448869003376,
+            "crouch": 0.9773682162556688,
+            "flight": 0,
+            "fallbacks": 0,
+            "state": "crouch"
+          }
+        },
+        {
+          "at": 1791305107076,
+          "value": {
+            "seconds": 2.5097999999821066,
+            "arm": 0.248925985668271,
+            "leg": -0.14951705035532126,
+            "crouch": 0.9940893531294974,
+            "flight": 0,
+            "fallbacks": 0,
+            "state": "crouch"
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-seg=fly]",
+      "samples": [
+        {
+          "at": 1791305107543,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 575.7999877929688,
+            "y": 208.80000591278076,
+            "width": 44,
+            "height": 28.399999618530273,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual fly pose",
+      "samples": [
+        {
+          "at": 1791305107715,
+          "value": {
+            "seconds": 3.1474000000059412,
+            "arm": -0.08191928947290605,
+            "leg": -0.015980758839664683,
+            "crouch": 0.10294013974352854,
+            "flight": 0.8970590751134951,
+            "fallbacks": 0,
+            "state": "fly"
+          }
+        },
+        {
+          "at": 1791305107807,
+          "value": {
+            "seconds": 3.2389999999999795,
+            "arm": -0.1094413963182615,
+            "leg": -0.014071941765589725,
+            "crouch": 0.028552590051545854,
+            "flight": 0.9714471921727099,
+            "fallbacks": 0,
+            "state": "fly"
+          }
+        },
+        {
+          "at": 1791305107902,
+          "value": {
+            "seconds": 3.3346999999880578,
+            "arm": -0.11723683742251069,
+            "leg": -0.02013572576169265,
+            "crouch": 0.007477867456938748,
+            "flight": 0.99252207550802,
+            "fallbacks": 0,
+            "state": "fly"
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-seg=crouch]",
+      "samples": [
+        {
+          "at": 1791305108476,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 529.8000183105469,
+            "y": 208.80000591278076,
+            "width": 44,
+            "height": 28.399999618530273,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-seg=fly]",
+      "samples": [
+        {
+          "at": 1791305109255,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 575.7999877929688,
+            "y": 208.80000591278076,
+            "width": 44,
+            "height": 28.399999618530273,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-seg=walk]",
+      "samples": [
+        {
+          "at": 1791305110035,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 437.8000183105469,
+            "y": 208.80000591278076,
+            "width": 44,
+            "height": 28.399999618530273,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target .skin-editor-entry",
+      "samples": [
+        {
+          "at": 1791305112872,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1277.200023651123,
+            "y": 119.9000015258789,
+            "width": 85.5999984741211,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "editor close visible",
+      "samples": [
+        {
+          "at": 1791305113088,
+          "value": {
+            "x": 1219.1185302734375,
+            "y": 44.24892807006836,
+            "width": 35.99453353881836,
+            "height": 35.994564056396484,
+            "bottom": 80.24349212646484,
+            "viewport": 860
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "native visual X closes saved editor",
+      "samples": [
+        {
+          "at": 1791305113804,
+          "value": false
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target .skin-editor-entry",
+      "samples": [
+        {
+          "at": 1791305113817,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 894.0000114440918,
+            "y": 107.9000015258789,
+            "width": 85.5999984741211,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "editor close visible",
+      "samples": [
+        {
+          "at": 1791305114004
+        },
+        {
+          "at": 1791305114096
+        },
+        {
+          "at": 1791305114191
+        },
+        {
+          "at": 1791305114285
+        },
+        {
+          "at": 1791305114380
+        },
+        {
+          "at": 1791305114474
+        },
+        {
+          "at": 1791305114569
+        },
+        {
+          "at": 1791305114663
+        },
+        {
+          "at": 1791305114755
+        },
+        {
+          "at": 1791305114847
+        },
+        {
+          "at": 1791305114941
+        },
+        {
+          "at": 1791305115036
+        },
+        {
+          "at": 1791305115130
+        },
+        {
+          "at": 1791305115224
+        },
+        {
+          "at": 1791305115316
+        },
+        {
+          "at": 1791305115407
+        },
+        {
+          "at": 1791305115502
+        },
+        {
+          "at": 1791305115595
+        },
+        {
+          "at": 1791305115687
+        },
+        {
+          "at": 1791305115780
+        },
+        {
+          "at": 1791305115875
+        },
+        {
+          "at": 1791305115968
+        },
+        {
+          "at": 1791305116062
+        },
+        {
+          "at": 1791305116155
+        },
+        {
+          "at": 1791305116249
+        },
+        {
+          "at": 1791305116343
+        },
+        {
+          "at": 1791305116438
+        },
+        {
+          "at": 1791305116532
+        },
+        {
+          "at": 1791305116625
+        },
+        {
+          "at": 1791305116717
+        },
+        {
+          "at": 1791305116811
+        },
+        {
+          "at": 1791305116905
+        },
+        {
+          "at": 1791305116998
+        },
+        {
+          "at": 1791305117089
+        },
+        {
+          "at": 1791305117184
+        },
+        {
+          "at": 1791305117277
+        },
+        {
+          "at": 1791305117372
+        },
+        {
+          "at": 1791305117467
+        },
+        {
+          "at": 1791305117562
+        },
+        {
+          "at": 1791305117654
+        },
+        {
+          "at": 1791305117749
+        },
+        {
+          "at": 1791305117842
+        },
+        {
+          "at": 1791305117935
+        },
+        {
+          "at": 1791305118029
+        },
+        {
+          "at": 1791305118121
+        },
+        {
+          "at": 1791305118214
+        },
+        {
+          "at": 1791305118308
+        },
+        {
+          "at": 1791305118402
+        },
+        {
+          "at": 1791305118496
+        },
+        {
+          "at": 1791305118589
+        },
+        {
+          "at": 1791305118683
+        },
+        {
+          "at": 1791305118776
+        },
+        {
+          "at": 1791305118871
+        },
+        {
+          "at": 1791305118964
+        },
+        {
+          "at": 1791305119058
+        },
+        {
+          "at": 1791305119151
+        },
+        {
+          "at": 1791305119244
+        },
+        {
+          "at": 1791305119336
+        },
+        {
+          "at": 1791305119431
+        },
+        {
+          "at": 1791305119524
+        },
+        {
+          "at": 1791305119619
+        },
+        {
+          "at": 1791305119712
+        },
+        {
+          "at": 1791305119804
+        },
+        {
+          "at": 1791305119899
+        },
+        {
+          "at": 1791305119992
+        },
+        {
+          "at": 1791305120087
+        },
+        {
+          "at": 1791305120180
+        },
+        {
+          "at": 1791305120274
+        },
+        {
+          "at": 1791305120367
+        },
+        {
+          "at": 1791305120461
+        },
+        {
+          "at": 1791305120553
+        },
+        {
+          "at": 1791305120644
+        },
+        {
+          "at": 1791305120737
+        },
+        {
+          "at": 1791305120830
+        },
+        {
+          "at": 1791305120923
+        },
+        {
+          "at": 1791305121018
+        },
+        {
+          "at": 1791305121113
+        },
+        {
+          "at": 1791305121207
+        },
+        {
+          "at": 1791305121300
+        },
+        {
+          "at": 1791305121395
+        },
+        {
+          "at": 1791305121488
+        },
+        {
+          "at": 1791305121583
+        },
+        {
+          "at": 1791305121674
+        },
+        {
+          "at": 1791305121769
+        },
+        {
+          "at": 1791305121864
+        },
+        {
+          "at": 1791305121959
+        },
+        {
+          "at": 1791305122053
+        },
+        {
+          "at": 1791305122148
+        },
+        {
+          "at": 1791305122244
+        },
+        {
+          "at": 1791305122337
+        },
+        {
+          "at": 1791305122431
+        },
+        {
+          "at": 1791305122526
+        },
+        {
+          "at": 1791305122619
+        },
+        {
+          "at": 1791305122713
+        },
+        {
+          "at": 1791305122808
+        },
+        {
+          "at": 1791305122903
+        },
+        {
+          "at": 1791305122997
+        },
+        {
+          "at": 1791305123090
+        },
+        {
+          "at": 1791305123184
+        },
+        {
+          "at": 1791305123276
+        },
+        {
+          "at": 1791305123371
+        },
+        {
+          "at": 1791305123466
+        },
+        {
+          "at": 1791305123558
+        },
+        {
+          "at": 1791305123649
+        },
+        {
+          "at": 1791305123742
+        },
+        {
+          "at": 1791305123836
+        },
+        {
+          "at": 1791305123929
+        },
+        {
+          "at": 1791305124024
+        },
+        {
+          "at": 1791305124117
+        },
+        {
+          "at": 1791305124210
+        },
+        {
+          "at": 1791305124304
+        },
+        {
+          "at": 1791305124398
+        },
+        {
+          "at": 1791305124490
+        },
+        {
+          "at": 1791305124582
+        },
+        {
+          "at": 1791305124676
+        },
+        {
+          "at": 1791305124771
+        },
+        {
+          "at": 1791305124866
+        },
+        {
+          "at": 1791305124960
+        },
+        {
+          "at": 1791305125054
+        },
+        {
+          "at": 1791305125147
+        },
+        {
+          "at": 1791305125239
+        },
+        {
+          "at": 1791305125332
+        },
+        {
+          "at": 1791305125424
+        },
+        {
+          "at": 1791305125517
+        },
+        {
+          "at": 1791305125609
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "window-size-setting.png",
+      "bytes": 104502,
+      "sha256": "d2b0839c079342f7ad929d2368086a6e167c465a07e40231f16401d9e11f6fa2",
+      "before": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305101677,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305102116,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1362,
+        "height": 862
+      }
+    },
+    {
+      "file": "third-party-rendered.png",
+      "bytes": 247927,
+      "sha256": "dab159b80561f348f1bcd5c92de462b6e8baabad65a60f9f333b5074a9f16f10",
+      "before": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305104266,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305104330,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1362,
+        "height": 862
+      }
+    },
+    {
+      "file": "history-walk.png",
+      "bytes": 122757,
+      "sha256": "67a0dcbc8a99e7bceffecae39a0dd075c85b0451396854d1d9fd9e97f34e87b2",
+      "before": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305105813,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305105873,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1362,
+        "height": 862
+      }
+    },
+    {
+      "file": "history-idle.png",
+      "bytes": 117912,
+      "sha256": "eae1559b16d064505d5ac72778835724e7aaad5e4376893ce279862600ae4486",
+      "before": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305106640,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305106701,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1362,
+        "height": 862
+      }
+    },
+    {
+      "file": "history-crouch.png",
+      "bytes": 120511,
+      "sha256": "dcf7a9d18e5626e187bf1c88c4fdcbd08448acea5a52c5e7f3c595d727b08b89",
+      "before": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305107480,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305107540,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1362,
+        "height": 862
+      }
+    },
+    {
+      "file": "history-fly.png",
+      "bytes": 117152,
+      "sha256": "0ba5e89b4c87344ba82c505953a8180eee5b75b72294d0dd1d4be20146dfacc4",
+      "before": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305108310,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305108369,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1362,
+        "height": 862
+      }
+    },
+    {
+      "file": "editor-1360-zoom-1.png",
+      "bytes": 222538,
+      "sha256": "9e878bad6f88266696ff72e0b73dc67c09ffe9b4451428edc7ac5625ca7fc2c5",
+      "before": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305113504,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 4656518,
+        "foreground": 4656518,
+        "ownerPid": 54048,
+        "foregroundPid": 54048,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791305113588,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1360,
+        "height": 860
+      }
+    }
+  ],
+  "classification": "Actual Windows portable UI, foreground-checked coordinate/keyboard input. Synthetic provider/installation responses, not live services. Actual host display unchanged; 1366x768/DPI geometry is separately unit-tested.",
+  "identity": {
+    "pid": 54048,
+    "ppid": 8956,
+    "windowId": 2,
+    "webContentsId": 2,
+    "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\profile",
+    "electron": "44.3.0",
+    "arch": "x64"
+  },
+  "nativeFocus": {
+    "hwnd": 4656518,
+    "pid": 54048,
+    "before": 4656518,
+    "simpleSet": true,
+    "attached": false,
+    "detached": null,
+    "after": 4656518
+  },
+  "initial": {
+    "native": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "content": [
+        1361,
+        862
+      ],
+      "zoom": 1,
+      "maximized": false,
+      "workArea": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      }
+    },
+    "renderer": {
+      "width": 1362,
+      "height": 862,
+      "hasFocus": true,
+      "hidden": false,
+      "theme": "black-orange"
+    },
+    "settings": {
+      "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+      "folders": [
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+          "name": "独立验证目录",
+          "isDefault": true
+        },
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\second-games",
+          "name": "整合包收藏",
+          "isDefault": false
+        }
+      ],
+      "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+      "javaPath": "",
+      "javaAuto": true,
+      "javaCustom": [],
+      "javaHidden": [],
+      "memoryMB": 4096,
+      "memoryAuto": true,
+      "jvmArgs": "",
+      "resolution": {
+        "width": 854,
+        "height": 480,
+        "mode": "windowed",
+        "fullscreen": false
+      },
+      "rememberGameWindowSize": false,
+      "mirror": "bmclapi",
+      "downloadThreads": 16,
+      "downloadSpeedKBps": 0,
+      "defaultIsolation": true,
+      "reduceMotion": false,
+      "uiWindowAutoFit": false,
+      "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+      "theme": "black-orange",
+      "custom": {
+        "colors": {
+          "accent": "#2563eb",
+          "bg": "#edf0f7",
+          "card": "#ffffff",
+          "text": "#1b2437",
+          "textDim": "#68718a",
+          "border": "#e1e6f0",
+          "sidebarBg": "#f5f7fb",
+          "sidebarText": "#1b2437",
+          "bannerText": "#ffffff"
+        },
+        "layout": {
+          "sidebarWidth": 208,
+          "bannerHeight": 430,
+          "radius": 14
+        }
+      },
+      "disabledFeatures": [],
+      "favoriteVersions": [],
+      "versionCategories": [],
+      "versionCategoryAssignments": {},
+      "homeLayout": {
+        "main": [
+          {
+            "key": "banner",
+            "visible": true
+          },
+          {
+            "key": "logDrawer",
+            "visible": true
+          },
+          {
+            "key": "recentGames",
+            "visible": true
+          }
+        ],
+        "side": [
+          {
+            "key": "accountCard",
+            "visible": true
+          },
+          {
+            "key": "sysInfo",
+            "visible": true
+          },
+          {
+            "key": "quickActions",
+            "visible": true
+          },
+          {
+            "key": "authorCard",
+            "visible": true
+          }
+        ]
+      },
+      "background": {
+        "mode": "none",
+        "color": "#1b2437",
+        "image": "",
+        "opacity": 0.5,
+        "blur": 0,
+        "fit": "crop"
+      },
+      "launchThumbnail": {
+        "image": "",
+        "fit": "crop",
+        "images": [],
+        "order": [
+          "builtin:piston",
+          "builtin:brewer",
+          "builtin:cannon",
+          "builtin:cactus",
+          "builtin:farmer",
+          "builtin:camp",
+          "builtin:sunset"
+        ],
+        "disabled": [],
+        "randomPlayback": false,
+        "intervalSeconds": 6.5,
+        "durations": {}
+      },
+      "skinEditorPalette": {
+        "custom": [],
+        "recent": [],
+        "color": "#d88c58",
+        "alpha": 1
+      },
+      "closeAfterLaunch": false,
+      "configVersion": 1,
+      "autoUpdate": false,
+      "visualDesign": {
+        "version": 1,
+        "pages": {}
+      }
+    }
+  },
+  "failureSetup": {
+    "owned": true
+  },
+  "failureRecovery": {
+    "failed": true,
+    "checked": true,
+    "settings": {
+      "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+      "folders": [
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+          "name": "独立验证目录",
+          "isDefault": true
+        },
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\second-games",
+          "name": "整合包收藏",
+          "isDefault": false
+        }
+      ],
+      "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Q1s8Fu\\games",
+      "javaPath": "",
+      "javaAuto": true,
+      "javaCustom": [],
+      "javaHidden": [],
+      "memoryMB": 4096,
+      "memoryAuto": true,
+      "jvmArgs": "",
+      "resolution": {
+        "width": 854,
+        "height": 480,
+        "mode": "windowed",
+        "fullscreen": false
+      },
+      "rememberGameWindowSize": true,
+      "mirror": "bmclapi",
+      "downloadThreads": 16,
+      "downloadSpeedKBps": 0,
+      "defaultIsolation": true,
+      "reduceMotion": false,
+      "uiWindowAutoFit": false,
+      "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+      "theme": "black-orange",
+      "custom": {
+        "colors": {
+          "accent": "#2563eb",
+          "bg": "#edf0f7",
+          "card": "#ffffff",
+          "text": "#1b2437",
+          "textDim": "#68718a",
+          "border": "#e1e6f0",
+          "sidebarBg": "#f5f7fb",
+          "sidebarText": "#1b2437",
+          "bannerText": "#ffffff"
+        },
+        "layout": {
+          "sidebarWidth": 208,
+          "bannerHeight": 430,
+          "radius": 14
+        }
+      },
+      "disabledFeatures": [],
+      "favoriteVersions": [],
+      "versionCategories": [],
+      "versionCategoryAssignments": {},
+      "homeLayout": {
+        "main": [
+          {
+            "key": "banner",
+            "visible": true
+          },
+          {
+            "key": "logDrawer",
+            "visible": true
+          },
+          {
+            "key": "recentGames",
+            "visible": true
+          }
+        ],
+        "side": [
+          {
+            "key": "accountCard",
+            "visible": true
+          },
+          {
+            "key": "sysInfo",
+            "visible": true
+          },
+          {
+            "key": "quickActions",
+            "visible": true
+          },
+          {
+            "key": "authorCard",
+            "visible": true
+          }
+        ]
+      },
+      "background": {
+        "mode": "none",
+        "color": "#1b2437",
+        "image": "",
+        "opacity": 0.5,
+        "blur": 0,
+        "fit": "crop"
+      },
+      "launchThumbnail": {
+        "image": "",
+        "fit": "crop",
+        "images": [],
+        "order": [
+          "builtin:piston",
+          "builtin:brewer",
+          "builtin:cannon",
+          "builtin:cactus",
+          "builtin:farmer",
+          "builtin:camp",
+          "builtin:sunset"
+        ],
+        "disabled": [],
+        "randomPlayback": false,
+        "intervalSeconds": 6.5,
+        "durations": {}
+      },
+      "skinEditorPalette": {
+        "custom": [],
+        "recent": [],
+        "color": "#d88c58",
+        "alpha": 1
+      },
+      "closeAfterLaunch": false,
+      "configVersion": 1,
+      "autoUpdate": false,
+      "visualDesign": {
+        "version": 1,
+        "pages": {}
+      }
+    }
+  },
+  "license": {
+    "headings": 8,
+    "strong": 0,
+    "unsafe": false,
+    "text": "Third-party notices / 第三方声明The root MIT license covers original KAMUCL contributions only. Third-partycopyright, license and trademark rights remain with their respective holders.VoxLink protocol integration — LGPL-3.0-onlyUpstream: https://github.co"
+  },
+  "historySetup": {
+    "owned": true
+  },
+  "poses": {
+    "walk": {
+      "seconds": 0.8389000000059595,
+      "arm": -0.5417433193519702,
+      "leg": 0.5417433193519702,
+      "crouch": 0,
+      "flight": 0,
+      "fallbacks": 0,
+      "state": "walk"
+    },
+    "idle": {
+      "seconds": 1.6679999999999944,
+      "arm": -0.0002101883473553735,
+      "leg": 0.0002101883473553735,
+      "crouch": 0,
+      "flight": 0,
+      "fallbacks": 0,
+      "state": "idle"
+    },
+    "crouch": {
+      "seconds": 2.5097999999821066,
+      "arm": 0.248925985668271,
+      "leg": -0.14951705035532126,
+      "crouch": 0.9940893531294974,
+      "flight": 0,
+      "fallbacks": 0,
+      "state": "crouch"
+    },
+    "fly": {
+      "seconds": 3.3346999999880578,
+      "arm": -0.11723683742251069,
+      "leg": -0.02013572576169265,
+      "crouch": 0.007477867456938748,
+      "flight": 0.99252207550802,
+      "fallbacks": 0,
+      "state": "fly"
+    }
+  },
+  "poseRecording": {
+    "version": "1.1.17",
+    "directory": "E:\\KAMUCL\\out\\ux117-poses-166baad8-0139-436b-83dc-3fb1b48199e1-black-orange",
+    "capture": {
+      "format": "jpeg",
+      "quality": 70,
+      "maxWidth": 960,
+      "maxHeight": 620,
+      "everyNthFrame": 1
+    },
+    "source": "actual Page.startScreencast full compositor frames scaled to fit 960x620, JPEG quality70, acknowledged before decode and buffered in memory until recording stops; no interpolated frames",
+    "startedAt": "2026-10-06T16:45:08.371Z",
+    "frames": [
+      {
+        "file": "frame-0000.jpg",
+        "receivedAt": 1791305108383,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.380374
+      },
+      {
+        "file": "frame-0001.jpg",
+        "receivedAt": 1791305108395,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.392895
+      },
+      {
+        "file": "frame-0002.jpg",
+        "receivedAt": 1791305108402,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.400583
+      },
+      {
+        "file": "frame-0003.jpg",
+        "receivedAt": 1791305108411,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.408999
+      },
+      {
+        "file": "frame-0004.jpg",
+        "receivedAt": 1791305108423,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.42139
+      },
+      {
+        "file": "frame-0005.jpg",
+        "receivedAt": 1791305108432,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.4298
+      },
+      {
+        "file": "frame-0006.jpg",
+        "receivedAt": 1791305108444,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.44217
+      },
+      {
+        "file": "frame-0007.jpg",
+        "receivedAt": 1791305108452,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.450572
+      },
+      {
+        "file": "frame-0008.jpg",
+        "receivedAt": 1791305108461,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.458872
+      },
+      {
+        "file": "frame-0009.jpg",
+        "receivedAt": 1791305108474,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.471355
+      },
+      {
+        "file": "frame-0010.jpg",
+        "receivedAt": 1791305108482,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.479849
+      },
+      {
+        "file": "frame-0011.jpg",
+        "receivedAt": 1791305108492,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.489868
+      },
+      {
+        "file": "frame-0012.jpg",
+        "receivedAt": 1791305108503,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.500586
+      },
+      {
+        "file": "frame-0013.jpg",
+        "receivedAt": 1791305108511,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.508884
+      },
+      {
+        "file": "frame-0014.jpg",
+        "receivedAt": 1791305108524,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.521549
+      },
+      {
+        "file": "frame-0015.jpg",
+        "receivedAt": 1791305108532,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.529955
+      },
+      {
+        "file": "frame-0016.jpg",
+        "receivedAt": 1791305108545,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.542676
+      },
+      {
+        "file": "frame-0017.jpg",
+        "receivedAt": 1791305108553,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.550615
+      },
+      {
+        "file": "frame-0018.jpg",
+        "receivedAt": 1791305108561,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.559027
+      },
+      {
+        "file": "frame-0019.jpg",
+        "receivedAt": 1791305108573,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.571566
+      },
+      {
+        "file": "frame-0020.jpg",
+        "receivedAt": 1791305108582,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.580286
+      },
+      {
+        "file": "frame-0021.jpg",
+        "receivedAt": 1791305108594,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.592206
+      },
+      {
+        "file": "frame-0022.jpg",
+        "receivedAt": 1791305108603,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.600731
+      },
+      {
+        "file": "frame-0023.jpg",
+        "receivedAt": 1791305108611,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.609036
+      },
+      {
+        "file": "frame-0024.jpg",
+        "receivedAt": 1791305108623,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.621421
+      },
+      {
+        "file": "frame-0025.jpg",
+        "receivedAt": 1791305108632,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.629697
+      },
+      {
+        "file": "frame-0026.jpg",
+        "receivedAt": 1791305108645,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.642349
+      },
+      {
+        "file": "frame-0027.jpg",
+        "receivedAt": 1791305108653,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.650599
+      },
+      {
+        "file": "frame-0028.jpg",
+        "receivedAt": 1791305108661,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.659354
+      },
+      {
+        "file": "frame-0029.jpg",
+        "receivedAt": 1791305108673,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.671445
+      },
+      {
+        "file": "frame-0030.jpg",
+        "receivedAt": 1791305108682,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.679699
+      },
+      {
+        "file": "frame-0031.jpg",
+        "receivedAt": 1791305108694,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.69148
+      },
+      {
+        "file": "frame-0032.jpg",
+        "receivedAt": 1791305108702,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.700524
+      },
+      {
+        "file": "frame-0033.jpg",
+        "receivedAt": 1791305108711,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.708862
+      },
+      {
+        "file": "frame-0034.jpg",
+        "receivedAt": 1791305108723,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.72152
+      },
+      {
+        "file": "frame-0035.jpg",
+        "receivedAt": 1791305108732,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.729894
+      },
+      {
+        "file": "frame-0036.jpg",
+        "receivedAt": 1791305108744,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.742249
+      },
+      {
+        "file": "frame-0037.jpg",
+        "receivedAt": 1791305108753,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.750764
+      },
+      {
+        "file": "frame-0038.jpg",
+        "receivedAt": 1791305108761,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.758875
+      },
+      {
+        "file": "frame-0039.jpg",
+        "receivedAt": 1791305108773,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.771551
+      },
+      {
+        "file": "frame-0040.jpg",
+        "receivedAt": 1791305108782,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.77991
+      },
+      {
+        "file": "frame-0041.jpg",
+        "receivedAt": 1791305108794,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.792281
+      },
+      {
+        "file": "frame-0042.jpg",
+        "receivedAt": 1791305108803,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.800561
+      },
+      {
+        "file": "frame-0043.jpg",
+        "receivedAt": 1791305108811,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.808878
+      },
+      {
+        "file": "frame-0044.jpg",
+        "receivedAt": 1791305108823,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.821363
+      },
+      {
+        "file": "frame-0045.jpg",
+        "receivedAt": 1791305108831,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.829673
+      },
+      {
+        "file": "frame-0046.jpg",
+        "receivedAt": 1791305108844,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.842322
+      },
+      {
+        "file": "frame-0047.jpg",
+        "receivedAt": 1791305108852,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.849587
+      },
+      {
+        "file": "frame-0048.jpg",
+        "receivedAt": 1791305108861,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.858792
+      },
+      {
+        "file": "frame-0049.jpg",
+        "receivedAt": 1791305108873,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.87138
+      },
+      {
+        "file": "frame-0050.jpg",
+        "receivedAt": 1791305108882,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.879657
+      },
+      {
+        "file": "frame-0051.jpg",
+        "receivedAt": 1791305108894,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.892157
+      },
+      {
+        "file": "frame-0052.jpg",
+        "receivedAt": 1791305108902,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.900569
+      },
+      {
+        "file": "frame-0053.jpg",
+        "receivedAt": 1791305108911,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.909042
+      },
+      {
+        "file": "frame-0054.jpg",
+        "receivedAt": 1791305108923,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.921427
+      },
+      {
+        "file": "frame-0055.jpg",
+        "receivedAt": 1791305108932,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.929737
+      },
+      {
+        "file": "frame-0056.jpg",
+        "receivedAt": 1791305108945,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.942355
+      },
+      {
+        "file": "frame-0057.jpg",
+        "receivedAt": 1791305108954,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.95089
+      },
+      {
+        "file": "frame-0058.jpg",
+        "receivedAt": 1791305108962,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.958995
+      },
+      {
+        "file": "frame-0059.jpg",
+        "receivedAt": 1791305108976,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.97219
+      },
+      {
+        "file": "frame-0060.jpg",
+        "receivedAt": 1791305108983,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.980437
+      },
+      {
+        "file": "frame-0061.jpg",
+        "receivedAt": 1791305108997,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305108.99289
+      },
+      {
+        "file": "frame-0062.jpg",
+        "receivedAt": 1791305109004,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.000801
+      },
+      {
+        "file": "frame-0063.jpg",
+        "receivedAt": 1791305109015,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.010028
+      },
+      {
+        "file": "frame-0064.jpg",
+        "receivedAt": 1791305109024,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.021437
+      },
+      {
+        "file": "frame-0065.jpg",
+        "receivedAt": 1791305109035,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.029804
+      },
+      {
+        "file": "frame-0066.jpg",
+        "receivedAt": 1791305109048,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.042607
+      },
+      {
+        "file": "frame-0067.jpg",
+        "receivedAt": 1791305109051,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.04829
+      },
+      {
+        "file": "frame-0068.jpg",
+        "receivedAt": 1791305109061,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.058905
+      },
+      {
+        "file": "frame-0069.jpg",
+        "receivedAt": 1791305109074,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.07155
+      },
+      {
+        "file": "frame-0070.jpg",
+        "receivedAt": 1791305109082,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.080008
+      },
+      {
+        "file": "frame-0071.jpg",
+        "receivedAt": 1791305109095,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.092924
+      },
+      {
+        "file": "frame-0072.jpg",
+        "receivedAt": 1791305109104,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.100542
+      },
+      {
+        "file": "frame-0073.jpg",
+        "receivedAt": 1791305109112,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.10965
+      },
+      {
+        "file": "frame-0074.jpg",
+        "receivedAt": 1791305109125,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.121468
+      },
+      {
+        "file": "frame-0075.jpg",
+        "receivedAt": 1791305109132,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.12974
+      },
+      {
+        "file": "frame-0076.jpg",
+        "receivedAt": 1791305109144,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.1422
+      },
+      {
+        "file": "frame-0077.jpg",
+        "receivedAt": 1791305109154,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.150504
+      },
+      {
+        "file": "frame-0078.jpg",
+        "receivedAt": 1791305109161,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.158963
+      },
+      {
+        "file": "frame-0079.jpg",
+        "receivedAt": 1791305109173,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.171386
+      },
+      {
+        "file": "frame-0080.jpg",
+        "receivedAt": 1791305109183,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.179831
+      },
+      {
+        "file": "frame-0081.jpg",
+        "receivedAt": 1791305109195,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.192434
+      },
+      {
+        "file": "frame-0082.jpg",
+        "receivedAt": 1791305109203,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.200914
+      },
+      {
+        "file": "frame-0083.jpg",
+        "receivedAt": 1791305109211,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.209324
+      },
+      {
+        "file": "frame-0084.jpg",
+        "receivedAt": 1791305109224,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.222023
+      },
+      {
+        "file": "frame-0085.jpg",
+        "receivedAt": 1791305109232,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.230592
+      },
+      {
+        "file": "frame-0086.jpg",
+        "receivedAt": 1791305109240,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.238187
+      },
+      {
+        "file": "frame-0087.jpg",
+        "receivedAt": 1791305109253,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.250744
+      },
+      {
+        "file": "frame-0088.jpg",
+        "receivedAt": 1791305109261,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.258888
+      },
+      {
+        "file": "frame-0089.jpg",
+        "receivedAt": 1791305109271,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.26878
+      },
+      {
+        "file": "frame-0090.jpg",
+        "receivedAt": 1791305109282,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.279782
+      },
+      {
+        "file": "frame-0091.jpg",
+        "receivedAt": 1791305109294,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.292151
+      },
+      {
+        "file": "frame-0092.jpg",
+        "receivedAt": 1791305109302,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.300572
+      },
+      {
+        "file": "frame-0093.jpg",
+        "receivedAt": 1791305109311,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.309
+      },
+      {
+        "file": "frame-0094.jpg",
+        "receivedAt": 1791305109323,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.321354
+      },
+      {
+        "file": "frame-0095.jpg",
+        "receivedAt": 1791305109332,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.329859
+      },
+      {
+        "file": "frame-0096.jpg",
+        "receivedAt": 1791305109344,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.34216
+      },
+      {
+        "file": "frame-0097.jpg",
+        "receivedAt": 1791305109353,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.350694
+      },
+      {
+        "file": "frame-0098.jpg",
+        "receivedAt": 1791305109361,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.359118
+      },
+      {
+        "file": "frame-0099.jpg",
+        "receivedAt": 1791305109373,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.371553
+      },
+      {
+        "file": "frame-0100.jpg",
+        "receivedAt": 1791305109382,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.379896
+      },
+      {
+        "file": "frame-0101.jpg",
+        "receivedAt": 1791305109390,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.388043
+      },
+      {
+        "file": "frame-0102.jpg",
+        "receivedAt": 1791305109402,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.400477
+      },
+      {
+        "file": "frame-0103.jpg",
+        "receivedAt": 1791305109411,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.408844
+      },
+      {
+        "file": "frame-0104.jpg",
+        "receivedAt": 1791305109423,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.421336
+      },
+      {
+        "file": "frame-0105.jpg",
+        "receivedAt": 1791305109432,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.42974
+      },
+      {
+        "file": "frame-0106.jpg",
+        "receivedAt": 1791305109440,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.438172
+      },
+      {
+        "file": "frame-0107.jpg",
+        "receivedAt": 1791305109452,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.450598
+      },
+      {
+        "file": "frame-0108.jpg",
+        "receivedAt": 1791305109461,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.458848
+      },
+      {
+        "file": "frame-0109.jpg",
+        "receivedAt": 1791305109471,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.468619
+      },
+      {
+        "file": "frame-0110.jpg",
+        "receivedAt": 1791305109482,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.480048
+      },
+      {
+        "file": "frame-0111.jpg",
+        "receivedAt": 1791305109489,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.487261
+      },
+      {
+        "file": "frame-0112.jpg",
+        "receivedAt": 1791305109502,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.5005
+      },
+      {
+        "file": "frame-0113.jpg",
+        "receivedAt": 1791305109511,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.50881
+      },
+      {
+        "file": "frame-0114.jpg",
+        "receivedAt": 1791305109523,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.521472
+      },
+      {
+        "file": "frame-0115.jpg",
+        "receivedAt": 1791305109532,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.529793
+      },
+      {
+        "file": "frame-0116.jpg",
+        "receivedAt": 1791305109540,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.538218
+      },
+      {
+        "file": "frame-0117.jpg",
+        "receivedAt": 1791305109552,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.550541
+      },
+      {
+        "file": "frame-0118.jpg",
+        "receivedAt": 1791305109561,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.558948
+      },
+      {
+        "file": "frame-0119.jpg",
+        "receivedAt": 1791305109573,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.571496
+      },
+      {
+        "file": "frame-0120.jpg",
+        "receivedAt": 1791305109582,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.579774
+      },
+      {
+        "file": "frame-0121.jpg",
+        "receivedAt": 1791305109590,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.588167
+      },
+      {
+        "file": "frame-0122.jpg",
+        "receivedAt": 1791305109602,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.600548
+      },
+      {
+        "file": "frame-0123.jpg",
+        "receivedAt": 1791305109611,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.608809
+      },
+      {
+        "file": "frame-0124.jpg",
+        "receivedAt": 1791305109623,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.621419
+      },
+      {
+        "file": "frame-0125.jpg",
+        "receivedAt": 1791305109632,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.629881
+      },
+      {
+        "file": "frame-0126.jpg",
+        "receivedAt": 1791305109640,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.63807
+      },
+      {
+        "file": "frame-0127.jpg",
+        "receivedAt": 1791305109652,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.650512
+      },
+      {
+        "file": "frame-0128.jpg",
+        "receivedAt": 1791305109661,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.658844
+      },
+      {
+        "file": "frame-0129.jpg",
+        "receivedAt": 1791305109674,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.671655
+      },
+      {
+        "file": "frame-0130.jpg",
+        "receivedAt": 1791305109682,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.679713
+      },
+      {
+        "file": "frame-0131.jpg",
+        "receivedAt": 1791305109690,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.688076
+      },
+      {
+        "file": "frame-0132.jpg",
+        "receivedAt": 1791305109702,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.700493
+      },
+      {
+        "file": "frame-0133.jpg",
+        "receivedAt": 1791305109711,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.708817
+      },
+      {
+        "file": "frame-0134.jpg",
+        "receivedAt": 1791305109724,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.721687
+      },
+      {
+        "file": "frame-0135.jpg",
+        "receivedAt": 1791305109732,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.729833
+      },
+      {
+        "file": "frame-0136.jpg",
+        "receivedAt": 1791305109740,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.737617
+      },
+      {
+        "file": "frame-0137.jpg",
+        "receivedAt": 1791305109753,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.750528
+      },
+      {
+        "file": "frame-0138.jpg",
+        "receivedAt": 1791305109761,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.759163
+      },
+      {
+        "file": "frame-0139.jpg",
+        "receivedAt": 1791305109774,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.772033
+      },
+      {
+        "file": "frame-0140.jpg",
+        "receivedAt": 1791305109781,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.779689
+      },
+      {
+        "file": "frame-0141.jpg",
+        "receivedAt": 1791305109790,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.788424
+      },
+      {
+        "file": "frame-0142.jpg",
+        "receivedAt": 1791305109802,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.800516
+      },
+      {
+        "file": "frame-0143.jpg",
+        "receivedAt": 1791305109811,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.809158
+      },
+      {
+        "file": "frame-0144.jpg",
+        "receivedAt": 1791305109823,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.821381
+      },
+      {
+        "file": "frame-0145.jpg",
+        "receivedAt": 1791305109832,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.830268
+      },
+      {
+        "file": "frame-0146.jpg",
+        "receivedAt": 1791305109840,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.838042
+      },
+      {
+        "file": "frame-0147.jpg",
+        "receivedAt": 1791305109853,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.850791
+      },
+      {
+        "file": "frame-0148.jpg",
+        "receivedAt": 1791305109861,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.858829
+      },
+      {
+        "file": "frame-0149.jpg",
+        "receivedAt": 1791305109873,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.871447
+      },
+      {
+        "file": "frame-0150.jpg",
+        "receivedAt": 1791305109881,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.878813
+      },
+      {
+        "file": "frame-0151.jpg",
+        "receivedAt": 1791305109890,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.888001
+      },
+      {
+        "file": "frame-0152.jpg",
+        "receivedAt": 1791305109903,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.900721
+      },
+      {
+        "file": "frame-0153.jpg",
+        "receivedAt": 1791305109910,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.908377
+      },
+      {
+        "file": "frame-0154.jpg",
+        "receivedAt": 1791305109923,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.921428
+      },
+      {
+        "file": "frame-0155.jpg",
+        "receivedAt": 1791305109932,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.929652
+      },
+      {
+        "file": "frame-0156.jpg",
+        "receivedAt": 1791305109940,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.938418
+      },
+      {
+        "file": "frame-0157.jpg",
+        "receivedAt": 1791305109952,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.950577
+      },
+      {
+        "file": "frame-0158.jpg",
+        "receivedAt": 1791305109961,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.958999
+      },
+      {
+        "file": "frame-0159.jpg",
+        "receivedAt": 1791305109973,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.971337
+      },
+      {
+        "file": "frame-0160.jpg",
+        "receivedAt": 1791305109981,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.979734
+      },
+      {
+        "file": "frame-0161.jpg",
+        "receivedAt": 1791305109990,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305109.988179
+      },
+      {
+        "file": "frame-0162.jpg",
+        "receivedAt": 1791305110003,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.000656
+      },
+      {
+        "file": "frame-0163.jpg",
+        "receivedAt": 1791305110011,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.008909
+      },
+      {
+        "file": "frame-0164.jpg",
+        "receivedAt": 1791305110023,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.021392
+      },
+      {
+        "file": "frame-0165.jpg",
+        "receivedAt": 1791305110032,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.029695
+      },
+      {
+        "file": "frame-0166.jpg",
+        "receivedAt": 1791305110040,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.038451
+      },
+      {
+        "file": "frame-0167.jpg",
+        "receivedAt": 1791305110050,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.048007
+      },
+      {
+        "file": "frame-0168.jpg",
+        "receivedAt": 1791305110061,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.058864
+      },
+      {
+        "file": "frame-0169.jpg",
+        "receivedAt": 1791305110074,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.071524
+      },
+      {
+        "file": "frame-0170.jpg",
+        "receivedAt": 1791305110082,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.079984
+      },
+      {
+        "file": "frame-0171.jpg",
+        "receivedAt": 1791305110090,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.088403
+      },
+      {
+        "file": "frame-0172.jpg",
+        "receivedAt": 1791305110103,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.100667
+      },
+      {
+        "file": "frame-0173.jpg",
+        "receivedAt": 1791305110111,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.108782
+      },
+      {
+        "file": "frame-0174.jpg",
+        "receivedAt": 1791305110124,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.121448
+      },
+      {
+        "file": "frame-0175.jpg",
+        "receivedAt": 1791305110132,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.129685
+      },
+      {
+        "file": "frame-0176.jpg",
+        "receivedAt": 1791305110140,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.137973
+      },
+      {
+        "file": "frame-0177.jpg",
+        "receivedAt": 1791305110152,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.150576
+      },
+      {
+        "file": "frame-0178.jpg",
+        "receivedAt": 1791305110161,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.158796
+      },
+      {
+        "file": "frame-0179.jpg",
+        "receivedAt": 1791305110173,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.171289
+      },
+      {
+        "file": "frame-0180.jpg",
+        "receivedAt": 1791305110181,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.179743
+      },
+      {
+        "file": "frame-0181.jpg",
+        "receivedAt": 1791305110190,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.187985
+      },
+      {
+        "file": "frame-0182.jpg",
+        "receivedAt": 1791305110203,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.200566
+      },
+      {
+        "file": "frame-0183.jpg",
+        "receivedAt": 1791305110211,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.20881
+      },
+      {
+        "file": "frame-0184.jpg",
+        "receivedAt": 1791305110223,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.221304
+      },
+      {
+        "file": "frame-0185.jpg",
+        "receivedAt": 1791305110231,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.229622
+      },
+      {
+        "file": "frame-0186.jpg",
+        "receivedAt": 1791305110240,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.237979
+      },
+      {
+        "file": "frame-0187.jpg",
+        "receivedAt": 1791305110252,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.250435
+      },
+      {
+        "file": "frame-0188.jpg",
+        "receivedAt": 1791305110261,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.258955
+      },
+      {
+        "file": "frame-0189.jpg",
+        "receivedAt": 1791305110274,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.271966
+      },
+      {
+        "file": "frame-0190.jpg",
+        "receivedAt": 1791305110282,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.279635
+      },
+      {
+        "file": "frame-0191.jpg",
+        "receivedAt": 1791305110290,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.287939
+      },
+      {
+        "file": "frame-0192.jpg",
+        "receivedAt": 1791305110303,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.300479
+      },
+      {
+        "file": "frame-0193.jpg",
+        "receivedAt": 1791305110311,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.308792
+      },
+      {
+        "file": "frame-0194.jpg",
+        "receivedAt": 1791305110324,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.321608
+      },
+      {
+        "file": "frame-0195.jpg",
+        "receivedAt": 1791305110331,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.328895
+      },
+      {
+        "file": "frame-0196.jpg",
+        "receivedAt": 1791305110340,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.338183
+      },
+      {
+        "file": "frame-0197.jpg",
+        "receivedAt": 1791305110353,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.35054
+      },
+      {
+        "file": "frame-0198.jpg",
+        "receivedAt": 1791305110361,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.358954
+      },
+      {
+        "file": "frame-0199.jpg",
+        "receivedAt": 1791305110373,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.371354
+      },
+      {
+        "file": "frame-0200.jpg",
+        "receivedAt": 1791305110383,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.380093
+      },
+      {
+        "file": "frame-0201.jpg",
+        "receivedAt": 1791305110390,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.387996
+      },
+      {
+        "file": "frame-0202.jpg",
+        "receivedAt": 1791305110403,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.400734
+      },
+      {
+        "file": "frame-0203.jpg",
+        "receivedAt": 1791305110411,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.409051
+      },
+      {
+        "file": "frame-0204.jpg",
+        "receivedAt": 1791305110423,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.420967
+      },
+      {
+        "file": "frame-0205.jpg",
+        "receivedAt": 1791305110432,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.429907
+      },
+      {
+        "file": "frame-0206.jpg",
+        "receivedAt": 1791305110440,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.438231
+      },
+      {
+        "file": "frame-0207.jpg",
+        "receivedAt": 1791305110453,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.451112
+      },
+      {
+        "file": "frame-0208.jpg",
+        "receivedAt": 1791305110461,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.458784
+      },
+      {
+        "file": "frame-0209.jpg",
+        "receivedAt": 1791305110474,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.471476
+      },
+      {
+        "file": "frame-0210.jpg",
+        "receivedAt": 1791305110482,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.479658
+      },
+      {
+        "file": "frame-0211.jpg",
+        "receivedAt": 1791305110490,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.487999
+      },
+      {
+        "file": "frame-0212.jpg",
+        "receivedAt": 1791305110503,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.500883
+      },
+      {
+        "file": "frame-0213.jpg",
+        "receivedAt": 1791305110511,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.508901
+      },
+      {
+        "file": "frame-0214.jpg",
+        "receivedAt": 1791305110523,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.521481
+      },
+      {
+        "file": "frame-0215.jpg",
+        "receivedAt": 1791305110533,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.530457
+      },
+      {
+        "file": "frame-0216.jpg",
+        "receivedAt": 1791305110540,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.538124
+      },
+      {
+        "file": "frame-0217.jpg",
+        "receivedAt": 1791305110553,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.55062
+      },
+      {
+        "file": "frame-0218.jpg",
+        "receivedAt": 1791305110561,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.559021
+      },
+      {
+        "file": "frame-0219.jpg",
+        "receivedAt": 1791305110574,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.571606
+      },
+      {
+        "file": "frame-0220.jpg",
+        "receivedAt": 1791305110582,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.579974
+      },
+      {
+        "file": "frame-0221.jpg",
+        "receivedAt": 1791305110591,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.588253
+      },
+      {
+        "file": "frame-0222.jpg",
+        "receivedAt": 1791305110603,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.600752
+      },
+      {
+        "file": "frame-0223.jpg",
+        "receivedAt": 1791305110611,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.608816
+      },
+      {
+        "file": "frame-0224.jpg",
+        "receivedAt": 1791305110624,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.621575
+      },
+      {
+        "file": "frame-0225.jpg",
+        "receivedAt": 1791305110633,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.62999
+      },
+      {
+        "file": "frame-0226.jpg",
+        "receivedAt": 1791305110640,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.638013
+      },
+      {
+        "file": "frame-0227.jpg",
+        "receivedAt": 1791305110653,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.650719
+      },
+      {
+        "file": "frame-0228.jpg",
+        "receivedAt": 1791305110661,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.658956
+      },
+      {
+        "file": "frame-0229.jpg",
+        "receivedAt": 1791305110674,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.671867
+      },
+      {
+        "file": "frame-0230.jpg",
+        "receivedAt": 1791305110682,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.679859
+      },
+      {
+        "file": "frame-0231.jpg",
+        "receivedAt": 1791305110691,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.688171
+      },
+      {
+        "file": "frame-0232.jpg",
+        "receivedAt": 1791305110702,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.700415
+      },
+      {
+        "file": "frame-0233.jpg",
+        "receivedAt": 1791305110711,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.708937
+      },
+      {
+        "file": "frame-0234.jpg",
+        "receivedAt": 1791305110723,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.721271
+      },
+      {
+        "file": "frame-0235.jpg",
+        "receivedAt": 1791305110731,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.72963
+      },
+      {
+        "file": "frame-0236.jpg",
+        "receivedAt": 1791305110740,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.738019
+      },
+      {
+        "file": "frame-0237.jpg",
+        "receivedAt": 1791305110752,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.750682
+      },
+      {
+        "file": "frame-0238.jpg",
+        "receivedAt": 1791305110760,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.758459
+      },
+      {
+        "file": "frame-0239.jpg",
+        "receivedAt": 1791305110773,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.771336
+      },
+      {
+        "file": "frame-0240.jpg",
+        "receivedAt": 1791305110781,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.779595
+      },
+      {
+        "file": "frame-0241.jpg",
+        "receivedAt": 1791305110790,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.787921
+      },
+      {
+        "file": "frame-0242.jpg",
+        "receivedAt": 1791305110802,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.800485
+      },
+      {
+        "file": "frame-0243.jpg",
+        "receivedAt": 1791305110811,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.808944
+      },
+      {
+        "file": "frame-0244.jpg",
+        "receivedAt": 1791305110823,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.820716
+      },
+      {
+        "file": "frame-0245.jpg",
+        "receivedAt": 1791305110831,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.829602
+      },
+      {
+        "file": "frame-0246.jpg",
+        "receivedAt": 1791305110840,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.838059
+      },
+      {
+        "file": "frame-0247.jpg",
+        "receivedAt": 1791305110852,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.850619
+      },
+      {
+        "file": "frame-0248.jpg",
+        "receivedAt": 1791305110861,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.858778
+      },
+      {
+        "file": "frame-0249.jpg",
+        "receivedAt": 1791305110873,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.871297
+      },
+      {
+        "file": "frame-0250.jpg",
+        "receivedAt": 1791305110882,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.879607
+      },
+      {
+        "file": "frame-0251.jpg",
+        "receivedAt": 1791305110890,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.888347
+      },
+      {
+        "file": "frame-0252.jpg",
+        "receivedAt": 1791305110902,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.900622
+      },
+      {
+        "file": "frame-0253.jpg",
+        "receivedAt": 1791305110911,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.908782
+      },
+      {
+        "file": "frame-0254.jpg",
+        "receivedAt": 1791305110924,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.92172
+      },
+      {
+        "file": "frame-0255.jpg",
+        "receivedAt": 1791305110932,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.929767
+      },
+      {
+        "file": "frame-0256.jpg",
+        "receivedAt": 1791305110940,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.938164
+      },
+      {
+        "file": "frame-0257.jpg",
+        "receivedAt": 1791305110952,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.950439
+      },
+      {
+        "file": "frame-0258.jpg",
+        "receivedAt": 1791305110960,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.95833
+      },
+      {
+        "file": "frame-0259.jpg",
+        "receivedAt": 1791305110973,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.971306
+      },
+      {
+        "file": "frame-0260.jpg",
+        "receivedAt": 1791305110982,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.979681
+      },
+      {
+        "file": "frame-0261.jpg",
+        "receivedAt": 1791305110990,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305110.988001
+      },
+      {
+        "file": "frame-0262.jpg",
+        "receivedAt": 1791305111002,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.000472
+      },
+      {
+        "file": "frame-0263.jpg",
+        "receivedAt": 1791305111011,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.008788
+      },
+      {
+        "file": "frame-0264.jpg",
+        "receivedAt": 1791305111023,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.020967
+      },
+      {
+        "file": "frame-0265.jpg",
+        "receivedAt": 1791305111031,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.029635
+      },
+      {
+        "file": "frame-0266.jpg",
+        "receivedAt": 1791305111039,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.036995
+      },
+      {
+        "file": "frame-0267.jpg",
+        "receivedAt": 1791305111052,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.05044
+      },
+      {
+        "file": "frame-0268.jpg",
+        "receivedAt": 1791305111060,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.05871
+      },
+      {
+        "file": "frame-0269.jpg",
+        "receivedAt": 1791305111073,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.071266
+      },
+      {
+        "file": "frame-0270.jpg",
+        "receivedAt": 1791305111081,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.079571
+      },
+      {
+        "file": "frame-0271.jpg",
+        "receivedAt": 1791305111090,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.087928
+      },
+      {
+        "file": "frame-0272.jpg",
+        "receivedAt": 1791305111102,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.100487
+      },
+      {
+        "file": "frame-0273.jpg",
+        "receivedAt": 1791305111111,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.108846
+      },
+      {
+        "file": "frame-0274.jpg",
+        "receivedAt": 1791305111123,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.121286
+      },
+      {
+        "file": "frame-0275.jpg",
+        "receivedAt": 1791305111130,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.128411
+      },
+      {
+        "file": "frame-0276.jpg",
+        "receivedAt": 1791305111140,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.138008
+      },
+      {
+        "file": "frame-0277.jpg",
+        "receivedAt": 1791305111152,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.150449
+      },
+      {
+        "file": "frame-0278.jpg",
+        "receivedAt": 1791305111161,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.15875
+      },
+      {
+        "file": "frame-0279.jpg",
+        "receivedAt": 1791305111173,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.17134
+      },
+      {
+        "file": "frame-0280.jpg",
+        "receivedAt": 1791305111181,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.179573
+      },
+      {
+        "file": "frame-0281.jpg",
+        "receivedAt": 1791305111190,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.187971
+      },
+      {
+        "file": "frame-0282.jpg",
+        "receivedAt": 1791305111203,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.200513
+      },
+      {
+        "file": "frame-0283.jpg",
+        "receivedAt": 1791305111211,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.208898
+      },
+      {
+        "file": "frame-0284.jpg",
+        "receivedAt": 1791305111223,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.220546
+      },
+      {
+        "file": "frame-0285.jpg",
+        "receivedAt": 1791305111231,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.229662
+      },
+      {
+        "file": "frame-0286.jpg",
+        "receivedAt": 1791305111240,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.237904
+      },
+      {
+        "file": "frame-0287.jpg",
+        "receivedAt": 1791305111252,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.250584
+      },
+      {
+        "file": "frame-0288.jpg",
+        "receivedAt": 1791305111261,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.258818
+      },
+      {
+        "file": "frame-0289.jpg",
+        "receivedAt": 1791305111273,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.27127
+      },
+      {
+        "file": "frame-0290.jpg",
+        "receivedAt": 1791305111282,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.27984
+      },
+      {
+        "file": "frame-0291.jpg",
+        "receivedAt": 1791305111290,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.287953
+      },
+      {
+        "file": "frame-0292.jpg",
+        "receivedAt": 1791305111303,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.300596
+      },
+      {
+        "file": "frame-0293.jpg",
+        "receivedAt": 1791305111311,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.308702
+      },
+      {
+        "file": "frame-0294.jpg",
+        "receivedAt": 1791305111323,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.321274
+      },
+      {
+        "file": "frame-0295.jpg",
+        "receivedAt": 1791305111332,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.329747
+      },
+      {
+        "file": "frame-0296.jpg",
+        "receivedAt": 1791305111340,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.338069
+      },
+      {
+        "file": "frame-0297.jpg",
+        "receivedAt": 1791305111352,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.3505
+      },
+      {
+        "file": "frame-0298.jpg",
+        "receivedAt": 1791305111361,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.358718
+      },
+      {
+        "file": "frame-0299.jpg",
+        "receivedAt": 1791305111373,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.371255
+      },
+      {
+        "file": "frame-0300.jpg",
+        "receivedAt": 1791305111382,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.379721
+      },
+      {
+        "file": "frame-0301.jpg",
+        "receivedAt": 1791305111390,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.388085
+      },
+      {
+        "file": "frame-0302.jpg",
+        "receivedAt": 1791305111403,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.400527
+      },
+      {
+        "file": "frame-0303.jpg",
+        "receivedAt": 1791305111411,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.408842
+      },
+      {
+        "file": "frame-0304.jpg",
+        "receivedAt": 1791305111423,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.421241
+      },
+      {
+        "file": "frame-0305.jpg",
+        "receivedAt": 1791305111432,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.42966
+      },
+      {
+        "file": "frame-0306.jpg",
+        "receivedAt": 1791305111440,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.437898
+      },
+      {
+        "file": "frame-0307.jpg",
+        "receivedAt": 1791305111452,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.450393
+      },
+      {
+        "file": "frame-0308.jpg",
+        "receivedAt": 1791305111460,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.458709
+      },
+      {
+        "file": "frame-0309.jpg",
+        "receivedAt": 1791305111473,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.471221
+      },
+      {
+        "file": "frame-0310.jpg",
+        "receivedAt": 1791305111481,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.479706
+      },
+      {
+        "file": "frame-0311.jpg",
+        "receivedAt": 1791305111490,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.488089
+      },
+      {
+        "file": "frame-0312.jpg",
+        "receivedAt": 1791305111502,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.500505
+      },
+      {
+        "file": "frame-0313.jpg",
+        "receivedAt": 1791305111511,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.508764
+      },
+      {
+        "file": "frame-0314.jpg",
+        "receivedAt": 1791305111523,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.521221
+      },
+      {
+        "file": "frame-0315.jpg",
+        "receivedAt": 1791305111531,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.529548
+      },
+      {
+        "file": "frame-0316.jpg",
+        "receivedAt": 1791305111540,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.537882
+      },
+      {
+        "file": "frame-0317.jpg",
+        "receivedAt": 1791305111552,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.550526
+      },
+      {
+        "file": "frame-0318.jpg",
+        "receivedAt": 1791305111561,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.558805
+      },
+      {
+        "file": "frame-0319.jpg",
+        "receivedAt": 1791305111573,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.571349
+      },
+      {
+        "file": "frame-0320.jpg",
+        "receivedAt": 1791305111581,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.579697
+      },
+      {
+        "file": "frame-0321.jpg",
+        "receivedAt": 1791305111590,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.588047
+      },
+      {
+        "file": "frame-0322.jpg",
+        "receivedAt": 1791305111602,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.600552
+      },
+      {
+        "file": "frame-0323.jpg",
+        "receivedAt": 1791305111611,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.608873
+      },
+      {
+        "file": "frame-0324.jpg",
+        "receivedAt": 1791305111623,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.621267
+      },
+      {
+        "file": "frame-0325.jpg",
+        "receivedAt": 1791305111631,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.629682
+      },
+      {
+        "file": "frame-0326.jpg",
+        "receivedAt": 1791305111640,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.638009
+      },
+      {
+        "file": "frame-0327.jpg",
+        "receivedAt": 1791305111652,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.650602
+      },
+      {
+        "file": "frame-0328.jpg",
+        "receivedAt": 1791305111661,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.658978
+      },
+      {
+        "file": "frame-0329.jpg",
+        "receivedAt": 1791305111673,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.671274
+      },
+      {
+        "file": "frame-0330.jpg",
+        "receivedAt": 1791305111682,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.679654
+      },
+      {
+        "file": "frame-0331.jpg",
+        "receivedAt": 1791305111690,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.687934
+      },
+      {
+        "file": "frame-0332.jpg",
+        "receivedAt": 1791305111702,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.700563
+      },
+      {
+        "file": "frame-0333.jpg",
+        "receivedAt": 1791305111711,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.708808
+      },
+      {
+        "file": "frame-0334.jpg",
+        "receivedAt": 1791305111723,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.721306
+      },
+      {
+        "file": "frame-0335.jpg",
+        "receivedAt": 1791305111732,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.729816
+      },
+      {
+        "file": "frame-0336.jpg",
+        "receivedAt": 1791305111740,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.737904
+      },
+      {
+        "file": "frame-0337.jpg",
+        "receivedAt": 1791305111754,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.75071
+      },
+      {
+        "file": "frame-0338.jpg",
+        "receivedAt": 1791305111763,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.759286
+      },
+      {
+        "file": "frame-0339.jpg",
+        "receivedAt": 1791305111776,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.771883
+      },
+      {
+        "file": "frame-0340.jpg",
+        "receivedAt": 1791305111783,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.779973
+      },
+      {
+        "file": "frame-0341.jpg",
+        "receivedAt": 1791305111791,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.78821
+      },
+      {
+        "file": "frame-0342.jpg",
+        "receivedAt": 1791305111803,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.800589
+      },
+      {
+        "file": "frame-0343.jpg",
+        "receivedAt": 1791305111811,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.808803
+      },
+      {
+        "file": "frame-0344.jpg",
+        "receivedAt": 1791305111824,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.821308
+      },
+      {
+        "file": "frame-0345.jpg",
+        "receivedAt": 1791305111833,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.829671
+      },
+      {
+        "file": "frame-0346.jpg",
+        "receivedAt": 1791305111842,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.838444
+      },
+      {
+        "file": "frame-0347.jpg",
+        "receivedAt": 1791305111853,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.850531
+      },
+      {
+        "file": "frame-0348.jpg",
+        "receivedAt": 1791305111863,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.859017
+      },
+      {
+        "file": "frame-0349.jpg",
+        "receivedAt": 1791305111875,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.871632
+      },
+      {
+        "file": "frame-0350.jpg",
+        "receivedAt": 1791305111885,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.880125
+      },
+      {
+        "file": "frame-0351.jpg",
+        "receivedAt": 1791305111890,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.885698
+      },
+      {
+        "file": "frame-0352.jpg",
+        "receivedAt": 1791305111904,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.901407
+      },
+      {
+        "file": "frame-0353.jpg",
+        "receivedAt": 1791305111912,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.908979
+      },
+      {
+        "file": "frame-0354.jpg",
+        "receivedAt": 1791305111924,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.921578
+      },
+      {
+        "file": "frame-0355.jpg",
+        "receivedAt": 1791305111933,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.930094
+      },
+      {
+        "file": "frame-0356.jpg",
+        "receivedAt": 1791305111941,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.93853
+      },
+      {
+        "file": "frame-0357.jpg",
+        "receivedAt": 1791305111953,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.950608
+      },
+      {
+        "file": "frame-0358.jpg",
+        "receivedAt": 1791305111961,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.958794
+      },
+      {
+        "file": "frame-0359.jpg",
+        "receivedAt": 1791305111975,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.972037
+      },
+      {
+        "file": "frame-0360.jpg",
+        "receivedAt": 1791305111983,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.97983
+      },
+      {
+        "file": "frame-0361.jpg",
+        "receivedAt": 1791305111991,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305111.988236
+      },
+      {
+        "file": "frame-0362.jpg",
+        "receivedAt": 1791305112003,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305112.000556
+      },
+      {
+        "file": "frame-0363.jpg",
+        "receivedAt": 1791305112011,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791305112.008806
+      }
+    ],
+    "elapsed": 3.628432035446167,
+    "fps": 100.04321328161905,
+    "intervals": [
+      0.012521028518676758,
+      0.007688045501708984,
+      0.008415937423706055,
+      0.012391090393066406,
+      0.008409976959228516,
+      0.012369871139526367,
+      0.008402109146118164,
+      0.008300065994262695,
+      0.012482881546020508,
+      0.008494138717651367,
+      0.01001882553100586,
+      0.010718107223510742,
+      0.008297920227050781,
+      0.012665033340454102,
+      0.008405923843383789,
+      0.012721061706542969,
+      0.00793910026550293,
+      0.008411884307861328,
+      0.012539148330688477,
+      0.008719921112060547,
+      0.011919975280761719,
+      0.008524894714355469,
+      0.008305072784423828,
+      0.012385129928588867,
+      0.008275985717773438,
+      0.012651920318603516,
+      0.008249998092651367,
+      0.008754968643188477,
+      0.012090921401977539,
+      0.008254051208496094,
+      0.011780977249145508,
+      0.009044170379638672,
+      0.008337974548339844,
+      0.012657880783081055,
+      0.00837397575378418,
+      0.01235508918762207,
+      0.008514881134033203,
+      0.008111000061035156,
+      0.012676000595092773,
+      0.008359193801879883,
+      0.012370824813842773,
+      0.008280038833618164,
+      0.008316993713378906,
+      0.012485027313232422,
+      0.008310079574584961,
+      0.012649059295654297,
+      0.007264852523803711,
+      0.009205102920532227,
+      0.012588024139404297,
+      0.008276939392089844,
+      0.01250004768371582,
+      0.008411884307861328,
+      0.008472919464111328,
+      0.012385129928588867,
+      0.008310079574584961,
+      0.012617826461791992,
+      0.008535146713256836,
+      0.008105039596557617,
+      0.013194799423217773,
+      0.008247137069702148,
+      0.012452840805053711,
+      0.007911205291748047,
+      0.009226799011230469,
+      0.01140904426574707,
+      0.008367061614990234,
+      0.012803077697753906,
+      0.005682945251464844,
+      0.010614871978759766,
+      0.01264500617980957,
+      0.008458137512207031,
+      0.012916088104248047,
+      0.007617950439453125,
+      0.009107828140258789,
+      0.011818170547485352,
+      0.008271932601928711,
+      0.012459993362426758,
+      0.008304119110107422,
+      0.008458852767944336,
+      0.012423038482666016,
+      0.008445024490356445,
+      0.012603044509887695,
+      0.008479833602905273,
+      0.008409976959228516,
+      0.012699127197265625,
+      0.008569002151489258,
+      0.007595062255859375,
+      0.012557029724121094,
+      0.008143901824951172,
+      0.009891986846923828,
+      0.011002063751220703,
+      0.012368917465209961,
+      0.008420944213867188,
+      0.008428096771240234,
+      0.012353897094726562,
+      0.008505105972290039,
+      0.012300968170166016,
+      0.008533954620361328,
+      0.008424043655395508,
+      0.012434959411621094,
+      0.008342981338500977,
+      0.008147001266479492,
+      0.012434005737304688,
+      0.008367061614990234,
+      0.012491941452026367,
+      0.008404016494750977,
+      0.008432149887084961,
+      0.012425899505615234,
+      0.008249998092651367,
+      0.009771108627319336,
+      0.0114288330078125,
+      0.007213115692138672,
+      0.013238906860351562,
+      0.008310079574584961,
+      0.012661933898925781,
+      0.008321046829223633,
+      0.008424997329711914,
+      0.01232290267944336,
+      0.008407115936279297,
+      0.012547969818115234,
+      0.00827789306640625,
+      0.008393049240112305,
+      0.01238107681274414,
+      0.008260965347290039,
+      0.01260995864868164,
+      0.008461952209472656,
+      0.008189201354980469,
+      0.012441873550415039,
+      0.008332014083862305,
+      0.012810945510864258,
+      0.00805807113647461,
+      0.008363008499145508,
+      0.012417078018188477,
+      0.008323907852172852,
+      0.012870073318481445,
+      0.008145809173583984,
+      0.007784128189086914,
+      0.012911081314086914,
+      0.008634805679321289,
+      0.012870073318481445,
+      0.007656097412109375,
+      0.008734941482543945,
+      0.012091875076293945,
+      0.008642196655273438,
+      0.012223005294799805,
+      0.00888681411743164,
+      0.0077741146087646484,
+      0.012748956680297852,
+      0.008038043975830078,
+      0.012618064880371094,
+      0.0073659420013427734,
+      0.009187936782836914,
+      0.012720108032226562,
+      0.0076558589935302734,
+      0.013051033020019531,
+      0.008224010467529297,
+      0.008765935897827148,
+      0.012159109115600586,
+      0.008421897888183594,
+      0.01233816146850586,
+      0.00839686393737793,
+      0.008445024490356445,
+      0.012476921081542969,
+      0.008253097534179688,
+      0.01248311996459961,
+      0.008302927017211914,
+      0.008755922317504883,
+      0.009556055068969727,
+      0.010857105255126953,
+      0.012659788131713867,
+      0.008460044860839844,
+      0.008419036865234375,
+      0.012264013290405273,
+      0.008115053176879883,
+      0.012665987014770508,
+      0.008236885070800781,
+      0.008288145065307617,
+      0.012603044509887695,
+      0.00821995735168457,
+      0.012492895126342773,
+      0.008454084396362305,
+      0.008241891860961914,
+      0.012581110000610352,
+      0.008244037628173828,
+      0.01249384880065918,
+      0.008317947387695312,
+      0.008357048034667969,
+      0.012456178665161133,
+      0.008519887924194336,
+      0.013010978698730469,
+      0.007668972015380859,
+      0.008304119110107422,
+      0.012539863586425781,
+      0.008313179016113281,
+      0.01281595230102539,
+      0.007287025451660156,
+      0.009287834167480469,
+      0.012356996536254883,
+      0.008414030075073242,
+      0.012400150299072266,
+      0.008738994598388672,
+      0.007902860641479492,
+      0.01273798942565918,
+      0.008316993713378906,
+      0.011916160583496094,
+      0.008939981460571289,
+      0.008323907852172852,
+      0.012881040573120117,
+      0.00767207145690918,
+      0.012691974639892578,
+      0.00818181037902832,
+      0.008341073989868164,
+      0.012884140014648438,
+      0.008017778396606445,
+      0.012580156326293945,
+      0.008975982666015625,
+      0.007667064666748047,
+      0.012495994567871094,
+      0.008400917053222656,
+      0.012584924697875977,
+      0.00836801528930664,
+      0.008279085159301758,
+      0.012499094009399414,
+      0.008063793182373047,
+      0.012759208679199219,
+      0.008414983749389648,
+      0.008022785186767578,
+      0.01270604133605957,
+      0.008237123489379883,
+      0.012910842895507812,
+      0.007992029190063477,
+      0.008311986923217773,
+      0.012243986129760742,
+      0.00852203369140625,
+      0.012334108352661133,
+      0.008358955383300781,
+      0.008388996124267578,
+      0.012663125991821289,
+      0.007776975631713867,
+      0.01287698745727539,
+      0.008258819580078125,
+      0.008326053619384766,
+      0.012563943862915039,
+      0.008459091186523438,
+      0.011771917343139648,
+      0.008886098861694336,
+      0.008456945419311523,
+      0.012560129165649414,
+      0.00815892219543457,
+      0.012518882751464844,
+      0.008310079574584961,
+      0.008739948272705078,
+      0.012274980545043945,
+      0.008160114288330078,
+      0.01293802261352539,
+      0.008046865463256836,
+      0.008397102355957031,
+      0.012274980545043945,
+      0.007890939712524414,
+      0.01297616958618164,
+      0.008374929428100586,
+      0.008320093154907227,
+      0.01247096061706543,
+      0.0083160400390625,
+      0.012178897857666016,
+      0.008667945861816406,
+      0.007359981536865234,
+      0.013445138931274414,
+      0.008270025253295898,
+      0.012555837631225586,
+      0.008305072784423828,
+      0.008357048034667969,
+      0.012558937072753906,
+      0.008358955383300781,
+      0.012439966201782227,
+      0.007125139236450195,
+      0.009597063064575195,
+      0.012440919876098633,
+      0.008301019668579102,
+      0.01258993148803711,
+      0.008233070373535156,
+      0.008398056030273438,
+      0.012541770935058594,
+      0.008385181427001953,
+      0.011647939682006836,
+      0.009115934371948242,
+      0.008242130279541016,
+      0.012679815292358398,
+      0.008234024047851562,
+      0.012452125549316406,
+      0.008569955825805664,
+      0.008112907409667969,
+      0.012643098831176758,
+      0.008105993270874023,
+      0.012572050094604492,
+      0.008472919464111328,
+      0.008322000503540039,
+      0.012431144714355469,
+      0.008217811584472656,
+      0.012537002563476562,
+      0.008466005325317383,
+      0.008363962173461914,
+      0.01244211196899414,
+      0.008315086364746094,
+      0.012398958206176758,
+      0.008419036865234375,
+      0.008237838745117188,
+      0.012495040893554688,
+      0.0083160400390625,
+      0.012511968612670898,
+      0.008485078811645508,
+      0.008383035659790039,
+      0.012415885925292969,
+      0.008259057998657227,
+      0.012456893920898438,
+      0.008327007293701172,
+      0.008334159851074219,
+      0.012643814086914062,
+      0.008279085159301758,
+      0.012543916702270508,
+      0.00834798812866211,
+      0.008350133895874023,
+      0.012505054473876953,
+      0.008320808410644531,
+      0.012394189834594727,
+      0.008414983749389648,
+      0.008327007293701172,
+      0.01259303092956543,
+      0.008375883102416992,
+      0.012295961380004883,
+      0.008379936218261719,
+      0.008280038833618164,
+      0.012629032135009766,
+      0.008244991302490234,
+      0.012498140335083008,
+      0.00850987434387207,
+      0.008088111877441406,
+      0.012805938720703125,
+      0.008575916290283203,
+      0.012597084045410156,
+      0.008090019226074219,
+      0.008236885070800781,
+      0.012379169464111328,
+      0.008213996887207031,
+      0.012504816055297852,
+      0.008363008499145508,
+      0.008773088455200195,
+      0.012087106704711914,
+      0.008485794067382812,
+      0.012615203857421875,
+      0.00849294662475586,
+      0.0055730342864990234,
+      0.01570892333984375,
+      0.0075719356536865234,
+      0.012598991394042969,
+      0.008516073226928711,
+      0.008435964584350586,
+      0.012078046798706055,
+      0.008186101913452148,
+      0.013242959976196289,
+      0.007792949676513672,
+      0.008405923843383789,
+      0.01232004165649414,
+      0.008249998092651367
+    ]
+  },
+  "walkMotion": {
+    "a": {
+      "seconds": 7.842900000005888,
+      "arm": 0.5697967770240804,
+      "leg": -0.5697967770240809,
+      "crouch": 7.498353093509105e-20,
+      "flight": 4.103983649881738e-15,
+      "fallbacks": 0,
+      "state": "walk"
+    },
+    "b": {
+      "seconds": 8.297099999993979,
+      "arm": 0.14876683791985829,
+      "leg": -0.14876683791985829,
+      "crouch": 1.298297245877827e-22,
+      "flight": 7.105814574644935e-18,
+      "fallbacks": 0,
+      "state": "walk"
+    }
+  },
+  "nativeClose": [
+    {
+      "config": {
+        "width": 1360,
+        "height": 860,
+        "zoom": 1
+      },
+      "receipt": {
+        "hwnd": 4656518,
+        "pid": 54048,
+        "css": {
+          "x": 1237.2000732421875,
+          "y": 62.10000228881836
+        },
+        "physical": {
+          "x": 2616,
+          "y": 589
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "originalCursor": {
+          "x": 1888,
+          "y": 1318
+        },
+        "sent": 2,
+        "afterForeground": 4656518,
+        "cursorRestored": true
+      }
+    }
+  ],
+  "error": {
+    "name": "Error",
+    "message": "Actual state did not become ready: editor close visible",
+    "stack": "Error: Actual state did not become ready: editor close visible\n    at until (E:\\KAMUCL\\scripts\\qa-ux117.cjs:26:11)\n    at async module.exports (E:\\KAMUCL\\scripts\\qa-ux117.cjs:105:41)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:233:9"
+  },
+  "__qaWindow117Restored": {
+    "complete": true,
+    "absent": true
+  },
+  "__qaSkin117Restored": {
+    "complete": true
+  },
+  "__qaCommunity116Restored": {
+    "complete": true,
+    "absent": true
+  },
+  "finishedAt": "2026-10-06T16:45:25.747Z"
+}

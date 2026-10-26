@@ -1,0 +1,11 @@
+// Optional network-condition qualification only; no native GUI, downloads,
+// generated game world or performance acceptance is claimed by these tests.
+const test=require('node:test'),assert=require('node:assert/strict'),{qaDownloadMirror,verifyQaMirrorSetting}=require('./verify-favorites-113.cjs')
+test('no mirror environment preserves the existing official default path',()=>{const prior=process.env.KAMUCL_QA_DOWNLOAD_MIRROR;try{delete process.env.KAMUCL_QA_DOWNLOAD_MIRROR;assert.equal(qaDownloadMirror(),null)}finally{if(prior===undefined)delete process.env.KAMUCL_QA_DOWNLOAD_MIRROR;else process.env.KAMUCL_QA_DOWNLOAD_MIRROR=prior}})
+test('only the exact bmclapi literal is accepted',()=>assert.equal(qaDownloadMirror('bmclapi'),'bmclapi'))
+for(const value of ['', 'official','BMCLAPI','Bmclapi',' bmclapi','bmclapi ','bmclapi\n','bmclapi,official','https://bmclapi2.bangbang93.com',true,4,null,{},['bmclapi']])test('reject mirror override '+JSON.stringify(value),()=>assert.throws(()=>qaDownloadMirror(value)))
+const evidence=()=>({threads:4,before:{mirror:'official',downloadThreads:4,downloadSpeedKBps:0},after:{mirror:'bmclapi',downloadThreads:4,downloadSpeedKBps:0},calls:[{index:4,channel:'settings:set',startedAt:100,completedAt:105,arguments:[{mirror:'bmclapi'}]}]})
+test('accept only the original dedicated mirror commit after four-thread UI change',()=>assert(verifyQaMirrorSetting(evidence())))
+for(const [name,change]of[
+ ['16-thread condition',e=>{e.threads=16}],['mirror preseeded before UI',e=>{e.before.mirror='bmclapi'}],['thread change omitted',e=>{e.before.downloadThreads=16}],['uncommitted mirror',e=>{e.after.mirror='official'}],['thread setting changed during mirror commit',e=>{e.after.downloadThreads=16}],['speed cap changed',e=>{e.after.downloadSpeedKBps=1}],['missing actual mirror handler call',e=>{e.calls=[]}],['duplicate actual mirror handler calls',e=>{e.calls.push({...e.calls[0]})}],['wrong handler channel',e=>{e.calls[0].channel='game:launch'}],['other setting mutation in the mirror call',e=>{e.calls[0].arguments[0].downloadThreads=4}],['failed original mirror call',e=>{e.calls[0].error={name:'Error'}}],['call not yet completed',e=>{delete e.calls[0].completedAt}]
+])test('reject '+name,()=>{const e=evidence();change(e);assert.throws(()=>verifyQaMirrorSetting(e))})

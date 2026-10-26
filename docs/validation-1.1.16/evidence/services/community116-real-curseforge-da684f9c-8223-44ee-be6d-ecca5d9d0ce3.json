@@ -1,0 +1,436 @@
+{
+  "complete": true,
+  "classification": "Real public curseforge metadata through current source; Electron profile is private test adapter, no UI, download or game qualification; headers/credentials not recorded",
+  "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL real public search116 vNOCIT",
+  "queries": [
+    {
+      "query": {
+        "keyword": "玉",
+        "source": "curseforge",
+        "kind": "mod",
+        "mcVersion": "1.20.1",
+        "loader": "fabric",
+        "sort": "relevance",
+        "offset": 0,
+        "limit": 10
+      },
+      "result": {
+        "items": [
+          {
+            "source": "curseforge",
+            "projectId": "324717",
+            "slug": "jade",
+            "title": "Jade 高亮显示 | Jade 🔍",
+            "author": "Snownee",
+            "description": "Shows information about what you are looking at. (Hwyla/WAILA fork for Minecraft 1.16+)",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/207/323/256/256/636965628804677340.png",
+            "downloads": 274896439,
+            "updatedAt": "2026-10-02T23:54:08.643Z",
+            "categories": [
+              "Map and Information",
+              "Utility & QoL"
+            ],
+            "originalTitle": "Jade 🔍"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1111833",
+            "slug": "jadens-nether-expansion",
+            "title": "Jaden's Nether Expansion",
+            "author": "ThatJadenXgamer",
+            "description": "Nether Expansion is a Vanilla Friendly mod that aims to improve & add new content to every aspect of The Nether",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1089/159/256/256/638632113299109573.png",
+            "downloads": 19346876,
+            "updatedAt": "2026-08-27T12:29:30.093Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "Mobs",
+              "Dimensions",
+              "Ores and Resources",
+              "Biomes"
+            ],
+            "originalTitle": "Jaden's Nether Expansion"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "594387",
+            "slug": "kubejs-additions",
+            "title": "KubeJS Additions",
+            "author": "ILIKEPIEFOO2",
+            "description": "[NEW] Custom JEI Categories & Jade Integration",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/511/545/256/256/637830420779583100.png",
+            "downloads": 6675662,
+            "updatedAt": "2026-06-21T01:45:58.4Z",
+            "categories": [
+              "API and Library",
+              "Energy, Fluid, and Item Transport",
+              "Utility & QoL",
+              "KubeJS"
+            ],
+            "originalTitle": "KubeJS Additions"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "656665",
+            "slug": "jade-addons-fabric",
+            "title": "Jade Addons (Fabric)",
+            "author": "Snownee",
+            "description": "Jade 🔍's additional mod supports for Fabric",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/586/254/256/256/637954131015787648.png",
+            "downloads": 5600694,
+            "updatedAt": "2026-08-31T13:44:50.517Z",
+            "categories": [
+              "Map and Information",
+              "Utility & QoL",
+              "Addons"
+            ],
+            "originalTitle": "Jade Addons (Fabric)"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1190275",
+            "slug": "jadens-nether-expansion-delight",
+            "title": "Jaden's Nether Expansion Delight",
+            "author": "Chaolux",
+            "description": "Adds 30+ foods, linking Jaden's Nether Expansion and Farmer's Delight in a Vanilla style.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1168/113/256/256/638738830571587698.png",
+            "downloads": 1748153,
+            "updatedAt": "2026-06-11T18:17:32.887Z",
+            "categories": [
+              "Food",
+              "Addons",
+              "Cosmetic",
+              "Farming"
+            ],
+            "originalTitle": "Jaden's Nether Expansion Delight"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1209806",
+            "slug": "jade-vs",
+            "title": "Jade VS",
+            "author": "zyxkad",
+            "description": "Provides compatibility between Jade and Valkyrien Skies",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1188/458/256/256/638763017594708404.png",
+            "downloads": 288965,
+            "updatedAt": "2026-04-18T23:52:51.62Z",
+            "categories": [
+              "Addons"
+            ],
+            "originalTitle": "Jade VS"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1611326",
+            "slug": "hud-saturation",
+            "title": "AppleStats :timmer+ AppleSkin+ Jade +GUI Clock+Coordinates+Horse Stat",
+            "author": "minecraftdestined",
+            "description": "HUD:A lightweight Jade alternative ,effect timmer ,Target Info,Saturation and Coordinates Monitor ,Waila,HWYLA,show Horse speed and jump stats,death location,Death Finder",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1921/431/256/256/639197186148354237.png",
+            "downloads": 26668,
+            "updatedAt": "2026-10-02T09:11:03.957Z",
+            "categories": [
+              "Utility & QoL",
+              "Map and Information",
+              "Food"
+            ],
+            "originalTitle": "AppleStats :timmer+ AppleSkin+ Jade +GUI Clock+Coordinates+Horse Stat"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1414723",
+            "slug": "jade-additional-entities",
+            "title": "Jade Additional Entities",
+            "author": "legendenv2",
+            "description": "An addon mod for Jade that expands to modded entities highlighting relevant information",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1582/969/256/256/639024730614643799.jpeg",
+            "downloads": 117572,
+            "updatedAt": "2026-02-25T02:15:14.313Z",
+            "categories": [
+              "Addons",
+              "Utility & QoL",
+              "Mobs"
+            ],
+            "originalTitle": "Jade Additional Entities"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1678431",
+            "slug": "jade-grass-fix",
+            "title": "Jade Grass Fix",
+            "author": "Kosmo",
+            "description": "Makes Jade detect entities behind non-solid grass and vegetation.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/2043/656/256/256/639248520575668033.png",
+            "downloads": 8203,
+            "updatedAt": "2026-10-05T18:36:26.47Z",
+            "categories": [
+              "Utility & QoL",
+              "Bug Fixes",
+              "Mobs",
+              "Cosmetic"
+            ],
+            "originalTitle": "Jade Grass Fix"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1640810",
+            "slug": "seamless-ores",
+            "title": "Seamless Ores",
+            "author": "ChillPavz",
+            "description": "Universal ore variants for granite, diorite, andesite, tuff, basalt and blackstone, so every ore blends into the stone it generates in. Supports vanilla and modded ores, keeps the same veins and drops, and works with Terralith, JEI, REI, and Jade",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1966/32/256/256/639215490199150669.png",
+            "downloads": 7261,
+            "updatedAt": "2026-10-03T19:54:16.243Z",
+            "categories": [
+              "World Gen",
+              "Ores and Resources"
+            ],
+            "originalTitle": "Seamless Ores"
+          }
+        ],
+        "total": 17,
+        "offset": 0,
+        "limit": 10,
+        "warnings": [
+          "中文别名检索：玉 → jade"
+        ]
+      }
+    },
+    {
+      "query": {
+        "keyword": "物品管理器",
+        "source": "curseforge",
+        "kind": "mod",
+        "mcVersion": "1.20.1",
+        "loader": "fabric",
+        "sort": "relevance",
+        "offset": 0,
+        "limit": 10
+      },
+      "result": {
+        "items": [
+          {
+            "source": "curseforge",
+            "projectId": "238222",
+            "slug": "jei",
+            "title": "JEI物品管理器 | Just Enough Items (JEI)",
+            "author": "mezz",
+            "description": "View Items and Recipes",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/29/69/256/256/635838945588716414.jpeg",
+            "downloads": 631925164,
+            "updatedAt": "2026-10-05T09:43:07.263Z",
+            "categories": [
+              "Map and Information",
+              "API and Library"
+            ],
+            "originalTitle": "Just Enough Items (JEI)"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "240630",
+            "slug": "just-enough-resources-jer",
+            "title": "Just Enough Resources (JER)",
+            "author": "way2muchnoise",
+            "description": "A JEI addon that adds mob drops, ore gen, ..",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/32/419/256/256/635880199659979425.png",
+            "downloads": 243020050,
+            "updatedAt": "2026-09-28T20:24:18.42Z",
+            "categories": [
+              "Map and Information",
+              "Addons",
+              "Ores and Resources",
+              "Biomes",
+              "Mobs"
+            ],
+            "originalTitle": "Just Enough Resources (JER)"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "417645",
+            "slug": "just-enough-professions-jep",
+            "title": "Just Enough Professions (JEP)",
+            "author": "Mrbysco",
+            "description": "A JEI addon that adds profession workstations",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/311/84/256/256/637401177607519178.png",
+            "downloads": 110352249,
+            "updatedAt": "2026-09-17T21:20:50.923Z",
+            "categories": [
+              "Addons",
+              "Map and Information",
+              "Utility & QoL"
+            ],
+            "originalTitle": "Just Enough Professions (JEP)"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "899386",
+            "slug": "justenoughbreeding",
+            "title": "Just Enough Breeding (JEBr)",
+            "author": "Christofmeg",
+            "description": "JEI/REI/EMI plugin that displays breeding information",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/862/389/256/256/638270817972208061.png",
+            "downloads": 54164114,
+            "updatedAt": "2026-10-05T09:09:29.537Z",
+            "categories": [
+              "Utility & QoL",
+              "Map and Information",
+              "Addons",
+              "Mobs"
+            ],
+            "originalTitle": "Just Enough Breeding (JEBr)"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "580555",
+            "slug": "emi",
+            "title": "EMI 物品管理 | EMI",
+            "author": "EmilyPloszaj",
+            "description": "Featureful and accessible modern item and recipe viewer with JEI compatibility",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/545/351/256/256/637878590194850929.png",
+            "downloads": 48958448,
+            "updatedAt": "2026-05-13T06:38:20.833Z",
+            "categories": [
+              "Map and Information",
+              "API and Library"
+            ],
+            "originalTitle": "EMI"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "391382",
+            "slug": "more-overlays-updated",
+            "title": "More Overlays Updated",
+            "author": "RiDGo8",
+            "description": "Adds NEI-like light overlay for mob spawns, a chunk border overlay and a JEI item search overlay. (updated for 1.16.5, 1.19, 1.21, 26.1) NEW: light level number overlay",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/281/235/256/256/637284767664087511.png",
+            "downloads": 55770245,
+            "updatedAt": "2026-09-25T11:37:19.45Z",
+            "categories": [
+              "Map and Information",
+              "Utility & QoL",
+              "Addons"
+            ],
+            "originalTitle": "More Overlays Updated"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "835861",
+            "slug": "item-obliterator",
+            "title": "Item Obliterator (Modpack Utils Series)",
+            "author": "ElocinDev",
+            "description": "JSON based item tweaking. Disable items, recipes, trades, creative tabs, JEI/REI/EMI, and more.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1008/38/256/256/638530580859670653.png",
+            "downloads": 43512407,
+            "updatedAt": "2025-06-25T22:00:53.77Z",
+            "categories": [
+              "Utility & QoL"
+            ],
+            "originalTitle": "Item Obliterator (Modpack Utils Series)"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1167848",
+            "slug": "distraction-free-recipes",
+            "title": "Distraction Free Recipes (EMI / REI / JEI)",
+            "author": "Txni",
+            "description": "Automatically hides the recipe viewer when not searching.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1145/593/256/256/638711642517202621.png",
+            "downloads": 23213042,
+            "updatedAt": "2026-01-03T08:46:04.95Z",
+            "categories": [
+              "Utility & QoL",
+              "Performance",
+              "Cosmetic"
+            ],
+            "originalTitle": "Distraction Free Recipes (EMI / REI / JEI)"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1205426",
+            "slug": "advanced-loot-info",
+            "title": "Advanced Loot Info (ALI)",
+            "author": "yanny7777",
+            "description": "EMI/JEI/REI plugin for displaying advanced information about loot tables and villager trades",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1183/928/256/256/638757664474110500.png",
+            "downloads": 14922267,
+            "updatedAt": "2026-09-28T19:33:17.717Z",
+            "categories": [
+              "Addons",
+              "Map and Information",
+              "API and Library"
+            ],
+            "originalTitle": "Advanced Loot Info (ALI)"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "532286",
+            "slug": "just-enough-effect-descriptions-jeed",
+            "title": "Just Enough Effect Descriptions (JEED)",
+            "author": "MehVahdJukaar",
+            "description": "JEI/REI/EMI plugin that displays information on all potion and status effects",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/438/886/256/256/637685255314420532.png",
+            "downloads": 33508553,
+            "updatedAt": "2026-10-06T11:54:39.277Z",
+            "categories": [
+              "Map and Information",
+              "Addons"
+            ],
+            "originalTitle": "Just Enough Effect Descriptions (JEED)"
+          }
+        ],
+        "total": 132,
+        "offset": 0,
+        "limit": 10,
+        "warnings": [
+          "中文别名检索：jei、rei、emi"
+        ]
+      }
+    }
+  ],
+  "records": [
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=jade&index=0&pageSize=10&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=4",
+      "startedAt": 1791292179770,
+      "status": 200,
+      "finishedAt": 1791292180405
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=%E7%89%A9%E5%93%81%E7%AE%A1%E7%90%86%E5%99%A8&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=4",
+      "startedAt": 1791292180415,
+      "status": 200,
+      "finishedAt": 1791292180719
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=jei&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=4",
+      "startedAt": 1791292180415,
+      "status": 200,
+      "finishedAt": 1791292181038
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=rei&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=4",
+      "startedAt": 1791292180719,
+      "status": 200,
+      "finishedAt": 1791292181299
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=emi&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=4",
+      "startedAt": 1791292181127,
+      "status": 200,
+      "finishedAt": 1791292181490
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=rei&index=50&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=4",
+      "startedAt": 1791292181382,
+      "status": 200,
+      "finishedAt": 1791292181703
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=emi&index=50&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=4",
+      "startedAt": 1791292181569,
+      "status": 200,
+      "finishedAt": 1791292181918
+    }
+  ],
+  "sourceSha256": "1b14fcb7b26f9329d248b1a316eaecd731f8690e3eccdd6e43f97e14361738e1",
+  "finishedAt": "2026-10-06T13:09:41.921Z"
+}

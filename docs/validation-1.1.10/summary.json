@@ -1,0 +1,112 @@
+{
+  "version": "1.1.10",
+  "date": "2026-10-03 14:43",
+  "artifacts": [
+    {
+      "name": "KAMUCL-1.1.10.exe",
+      "bytes": 97277567,
+      "sha256": "92e93260179b75f36d3e145ad70f7c4e818042d6de60fadf3949a372249b50da"
+    },
+    {
+      "name": "KAMUCL-1.1.10-windows-x64.zip",
+      "bytes": 97309139,
+      "sha256": "76cfb0eebf917a639b6551b0d360c47ddc71850239799a303430dce1fca95442"
+    },
+    {
+      "name": "KAMUCL-1.1.10-windows-x64-unpacked.zip",
+      "bytes": 143049447,
+      "sha256": "d1b42165dedeed4d32f53559da120af90fd083001959deb63f23013bb2a5edd7"
+    }
+  ],
+  "tests": {
+    "count": 788,
+    "pass": 788,
+    "fail": 0,
+    "source": "out/test-110-product-final.log"
+  },
+  "typescript": true,
+  "license": true,
+  "build": true,
+  "themes": [
+    "transparent",
+    "black-orange",
+    "blue-white",
+    "custom"
+  ],
+  "nativeStartup": {
+    "firstPaintMs": 266,
+    "assemblyMs": 3438,
+    "fps": 59.963156814787475,
+    "medianFrameMs": 15.721000000000458,
+    "p95FrameMs": 30.737999999999374
+  },
+  "mac": "deferred by user",
+  "uncovered": [
+    "Affected users actual PCs are unavailable; only reproduced code defects and local/system-preference paths verified",
+    "Real platform/CDN favorite icons: GUI metadata and response are fixtures; native image decode and actual IPC persistence tested",
+    "Physical audio listening not repeated",
+    "Mac architectures not built or tested",
+    "Screencast raw timing retained; no universal GPU/FPS qualification implied"
+  ],
+  "historicalFailures": [
+    "One metadata unit test initially exposed an extra undefined property; return contract corrected and entire suite rerun",
+    "First minimize check used document.hidden while QA focus emulation kept it visible; switched to actual native visibility and verified unchanged pose during minimize",
+    "One GUI trial ran old compiled assets; final QA uses newly built EXE",
+    "First wallpaper fixture was outside managed directory and correctly rejected; final actual managed wallpaper asserted present",
+    "Archive verification read a still-being-written unpacked ZIP; failure retained and final complete archive rerun",
+    "Default electron-builder external runtime acquisition stalled; own builder stopped; final packaging uses exact installed Electron 44.3.0 runtime with full runtime hash verification",
+    "Initial added minimum-window coordinate trial occurred during disclosure size transition; wait for settled geometry plus exact elementFromPoint hit, all four themes now pass unchanged product with Space-key verification"
+  ],
+  "windowsPackage": {
+    "complete": true,
+    "asarSHA256": "b8eaa62b2c977623a19f255b6c84d8b7379877c525f76ced7b6190731010d802",
+    "sizes": {
+      "exe": 97277567,
+      "zip": 97309139,
+      "unpackedZip": 143049447
+    },
+    "portable": {
+      "pass": true,
+      "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-Jzu2Kr",
+      "results": [
+        {
+          "phase": "cold",
+          "firstPaintMs": 491,
+          "electronEntryMs": 5623,
+          "cache": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-Jzu2Kr\\KAMUCL-runtime\\1.1.10-6a4e15aaeb951757\\cache.ready",
+          "cacheMtime": 1791009777485.5994
+        },
+        {
+          "phase": "warm",
+          "firstPaintMs": 333,
+          "electronEntryMs": 217,
+          "cache": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-Jzu2Kr\\KAMUCL-runtime\\1.1.10-6a4e15aaeb951757\\cache.ready",
+          "cacheMtime": 1791009777485.5994
+        }
+      ]
+    },
+    "zipped": {
+      "pass": true,
+      "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-DeTM5i",
+      "results": [
+        {
+          "phase": "cold",
+          "firstPaintMs": 505,
+          "electronEntryMs": 5772,
+          "cache": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-DeTM5i\\KAMUCL-runtime\\1.1.10-6a4e15aaeb951757\\cache.ready",
+          "cacheMtime": 1791009786271.928
+        },
+        {
+          "phase": "warm",
+          "firstPaintMs": 411,
+          "electronEntryMs": 292,
+          "cache": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-DeTM5i\\KAMUCL-runtime\\1.1.10-6a4e15aaeb951757\\cache.ready",
+          "cacheMtime": 1791009786271.928
+        }
+      ]
+    },
+    "filesVerified": 27
+  },
+  "minimumWindowAndZoom": true,
+  "nativeKeyboardSelection": true
+}

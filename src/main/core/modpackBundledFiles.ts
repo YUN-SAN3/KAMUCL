@@ -1,5 +1,5 @@
 import crypto from 'node:crypto'
-import type AdmZip from 'adm-zip'
+import type { PackZip, PackEntry } from './streamPackZip'
 
 const normalize = (value: string): string => value.replace(/\\/g, '/').replace(/^\.\//, '')
 
@@ -22,10 +22,10 @@ export function isPackResource(rel: string): boolean {
 
 /** Preserve the author's real destination/name, including ZIP packs and disabled mods. */
 export class BundledModpackFiles {
-  private readonly entries = new Map<number, Array<{ entry: AdmZip.IZipEntry; rel: string }>>()
-  private readonly hashes = new Map<AdmZip.IZipEntry, string>()
+  private readonly entries = new Map<number, Array<{ entry: PackEntry; rel: string }>>()
+  private readonly hashes = new Map<PackEntry, string>()
 
-  constructor(zip: AdmZip, overridesPrefix: string | null) {
+  constructor(zip: PackZip, overridesPrefix: string | null) {
     if (!overridesPrefix) return
     const prefix = normalize(overridesPrefix).replace(/\/+$/, '') + '/'
     const paths = new Set<string>()
@@ -53,7 +53,7 @@ export class BundledModpackFiles {
       signal?.throwIfAborted()
       let hash = this.hashes.get(entry)
       if (!hash) {
-        hash = crypto.createHash('sha1').update(entry.getData()).digest('hex')
+        hash = entry.digest ? await entry.digest('sha1', signal) : crypto.createHash('sha1').update(await entry.getData()).digest('hex')
         this.hashes.set(entry, hash)
         await new Promise<void>(resolve => setImmediate(resolve))
         signal?.throwIfAborted()

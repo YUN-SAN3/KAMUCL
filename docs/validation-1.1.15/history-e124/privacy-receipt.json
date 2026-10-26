@@ -1,0 +1,580 @@
+{
+  "schema": 1,
+  "classification": "Implementation acceptance receipt, not independent scoring; only fresh sixth native run is passing",
+  "version": "1.1.15",
+  "scope": "Windows server address privacy and version categories/favorite filter",
+  "recordedAt": "2026-10-06T07:58:04.819Z",
+  "complete": true,
+  "application": {
+    "path": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+    "bytes": 97288273,
+    "sha256": "e12438d964cb5e10056925067a351e5d8037083da00aa099a1283721db07d868"
+  },
+  "driver": {
+    "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-e1cd74e9-093a-437c-a6c9-4dad8ed21ee5\\summary.json",
+    "bytes": 1664,
+    "sha256": "7b26ba98715ba87704d6cc93e8b78ae7549636e95edfc010fce1961e6eebee5d"
+  },
+  "privateSyntheticRoot": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB",
+  "phases": [
+    {
+      "phase": "first",
+      "mainPID": 27980,
+      "wrapperPID": 29616,
+      "harnessPID": 18624,
+      "operations": 153,
+      "nativeCoordinates": 77,
+      "screenshots": 14,
+      "fixtureFiles": 88
+    },
+    {
+      "phase": "restart",
+      "mainPID": 48588,
+      "wrapperPID": 49668,
+      "harnessPID": 45264,
+      "operations": 14,
+      "nativeCoordinates": 7,
+      "screenshots": 2,
+      "fixtureFiles": 88
+    }
+  ],
+  "themes": [
+    {
+      "theme": "transparent",
+      "configuredWindowMinimum": [
+        960,
+        620
+      ],
+      "requestedContent": [
+        {
+          "width": 2,
+          "height": 2
+        },
+        {
+          "width": 1,
+          "height": 1
+        }
+      ],
+      "actualOuter": {
+        "x": 855,
+        "y": 409,
+        "width": 962,
+        "height": 623
+      },
+      "actualContent": {
+        "x": 855,
+        "y": 409,
+        "width": 961,
+        "height": 622
+      },
+      "zoom": 1.25,
+      "renderer": {
+        "width": 769,
+        "height": 498,
+        "pixelRatio": 1.5625,
+        "theme": "transparent"
+      },
+      "originalWin32Query": {
+        "handleBytes": "4c103a0100000000",
+        "handleHex": "0x13a104c",
+        "pid": 27980,
+        "beforePid": 27980,
+        "afterPid": 27980,
+        "threadBefore": 16464,
+        "threadAfter": 16464,
+        "clientOK": true,
+        "windowOK": true,
+        "clientRectAsReported": {
+          "left": 0,
+          "top": 0,
+          "right": 960,
+          "bottom": 621
+        },
+        "windowRectAsReported": {
+          "left": 848,
+          "top": 409,
+          "right": 1823,
+          "bottom": 1038
+        },
+        "dpi": 120,
+        "scale": 1.25,
+        "queryDpiContext": "24592",
+        "queryDpiAwareness": 0,
+        "observedAt": 1791273092458,
+        "classification": "Read-only Win32 client/outer rectangle and DPI of the exact owned HWND in the recorded observer thread DPI context; may be DPI virtualized, not claimed physical pixels. Electron getter/renderer remain original."
+      }
+    },
+    {
+      "theme": "black-orange",
+      "configuredWindowMinimum": [
+        960,
+        620
+      ],
+      "requestedContent": [
+        {
+          "width": 2,
+          "height": 2
+        },
+        {
+          "width": 1,
+          "height": 1
+        }
+      ],
+      "actualOuter": {
+        "x": 855,
+        "y": 409,
+        "width": 962,
+        "height": 623
+      },
+      "actualContent": {
+        "x": 855,
+        "y": 409,
+        "width": 961,
+        "height": 622
+      },
+      "zoom": 1.25,
+      "renderer": {
+        "width": 769,
+        "height": 498,
+        "pixelRatio": 1.5625,
+        "theme": "black-orange"
+      },
+      "originalWin32Query": {
+        "handleBytes": "4c103a0100000000",
+        "handleHex": "0x13a104c",
+        "pid": 27980,
+        "beforePid": 27980,
+        "afterPid": 27980,
+        "threadBefore": 16464,
+        "threadAfter": 16464,
+        "clientOK": true,
+        "windowOK": true,
+        "clientRectAsReported": {
+          "left": 0,
+          "top": 0,
+          "right": 960,
+          "bottom": 621
+        },
+        "windowRectAsReported": {
+          "left": 848,
+          "top": 409,
+          "right": 1823,
+          "bottom": 1038
+        },
+        "dpi": 120,
+        "scale": 1.25,
+        "queryDpiContext": "24592",
+        "queryDpiAwareness": 0,
+        "observedAt": 1791273096195,
+        "classification": "Read-only Win32 client/outer rectangle and DPI of the exact owned HWND in the recorded observer thread DPI context; may be DPI virtualized, not claimed physical pixels. Electron getter/renderer remain original."
+      }
+    },
+    {
+      "theme": "blue-white",
+      "configuredWindowMinimum": [
+        960,
+        620
+      ],
+      "requestedContent": [
+        {
+          "width": 2,
+          "height": 2
+        },
+        {
+          "width": 1,
+          "height": 1
+        }
+      ],
+      "actualOuter": {
+        "x": 855,
+        "y": 409,
+        "width": 962,
+        "height": 623
+      },
+      "actualContent": {
+        "x": 855,
+        "y": 409,
+        "width": 961,
+        "height": 622
+      },
+      "zoom": 1.25,
+      "renderer": {
+        "width": 769,
+        "height": 498,
+        "pixelRatio": 1.5625,
+        "theme": "blue-white"
+      },
+      "originalWin32Query": {
+        "handleBytes": "4c103a0100000000",
+        "handleHex": "0x13a104c",
+        "pid": 27980,
+        "beforePid": 27980,
+        "afterPid": 27980,
+        "threadBefore": 16464,
+        "threadAfter": 16464,
+        "clientOK": true,
+        "windowOK": true,
+        "clientRectAsReported": {
+          "left": 0,
+          "top": 0,
+          "right": 960,
+          "bottom": 621
+        },
+        "windowRectAsReported": {
+          "left": 848,
+          "top": 409,
+          "right": 1823,
+          "bottom": 1038
+        },
+        "dpi": 120,
+        "scale": 1.25,
+        "queryDpiContext": "24592",
+        "queryDpiAwareness": 0,
+        "observedAt": 1791273100138,
+        "classification": "Read-only Win32 client/outer rectangle and DPI of the exact owned HWND in the recorded observer thread DPI context; may be DPI virtualized, not claimed physical pixels. Electron getter/renderer remain original."
+      }
+    },
+    {
+      "theme": "custom",
+      "configuredWindowMinimum": [
+        960,
+        620
+      ],
+      "requestedContent": [
+        {
+          "width": 2,
+          "height": 2
+        },
+        {
+          "width": 1,
+          "height": 1
+        }
+      ],
+      "actualOuter": {
+        "x": 855,
+        "y": 409,
+        "width": 962,
+        "height": 623
+      },
+      "actualContent": {
+        "x": 855,
+        "y": 409,
+        "width": 961,
+        "height": 622
+      },
+      "zoom": 1.25,
+      "renderer": {
+        "width": 769,
+        "height": 498,
+        "pixelRatio": 1.5625,
+        "theme": "custom"
+      },
+      "originalWin32Query": {
+        "handleBytes": "4c103a0100000000",
+        "handleHex": "0x13a104c",
+        "pid": 27980,
+        "beforePid": 27980,
+        "afterPid": 27980,
+        "threadBefore": 16464,
+        "threadAfter": 16464,
+        "clientOK": true,
+        "windowOK": true,
+        "clientRectAsReported": {
+          "left": 0,
+          "top": 0,
+          "right": 960,
+          "bottom": 621
+        },
+        "windowRectAsReported": {
+          "left": 848,
+          "top": 409,
+          "right": 1823,
+          "bottom": 1038
+        },
+        "dpi": 120,
+        "scale": 1.25,
+        "queryDpiContext": "24592",
+        "queryDpiAwareness": 0,
+        "observedAt": 1791273104202,
+        "classification": "Read-only Win32 client/outer rectangle and DPI of the exact owned HWND in the recorded observer thread DPI context; may be DPI virtualized, not claimed physical pixels. Electron getter/renderer remain original."
+      }
+    }
+  ],
+  "checks": {
+    "nativePrivacyDomAndAttributes": true,
+    "explicitRevealHideSwitchLeaveReentry": true,
+    "hiddenNativeWindowReclaimsReveal": true,
+    "copySyntheticRawAtBrowserBoundary": true,
+    "explicitEditShowsRawAndCancelHides": true,
+    "nativeCategoryCreateRenameAssignFilterDelete": true,
+    "deletePreserves88FixtureFileHashes": true,
+    "legacyGlobalFavoriteAndScopedFalseCompatible": true,
+    "separateNativeProcessRestartPersistence": true,
+    "fourActualThemesAtStableNativeMinimum125Percent": true,
+    "all77FirstPhaseCoordinatesHaveOriginalFiveTrustedEvents": true,
+    "naturalOwnedLauncherExit0BothPhases": true,
+    "observerSourcesMatchRecordedBytes": true
+  },
+  "observerSources": [
+    {
+      "path": "E:\\KAMUCL\\scripts\\qa-privacy-categories115.cjs",
+      "bytes": 39485,
+      "sha256": "07750d6bdeb7f5c6f8d587dc06c2986376d23caf0d6ed6894080079705194c91"
+    },
+    {
+      "path": "E:\\KAMUCL\\scripts\\qa-coordinate-geometry114.cjs",
+      "bytes": 8161,
+      "sha256": "f5256990685a9cbb03ba7b713bd287fd5dc8f24ca121db0b4c1bb9860f55afce"
+    },
+    {
+      "path": "E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs",
+      "bytes": 59884,
+      "sha256": "5a1602e0480f468ebe0449ee23c45aecdeeba850e11f917b53ac0efb1bea7698"
+    },
+    {
+      "path": "E:\\KAMUCL\\scripts\\verify-favorites-113.cjs",
+      "bytes": 47353,
+      "sha256": "299fef1f0320c40e72ffbe8c3965ec477d542bc4567eb7779e6a4f1608a5bd38"
+    }
+  ],
+  "qaPureTests": {
+    "pass": 22,
+    "fail": 0,
+    "skip": 0,
+    "ownTests": 10,
+    "sharedGeometryTests": 12,
+    "originalLog": {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-qa-qualification-v3.log",
+      "bytes": 2377,
+      "sha256": "26e3f6684f07e5f9256afac19341495e2233d84da3022c8141e4731ad7465d75"
+    }
+  },
+  "priorFailures": [
+    {
+      "directory": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-fb8e56c3-d504-423d-824d-5571c9898cae",
+      "failure": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-fb8e56c3-d504-423d-824d-5571c9898cae\\failure.json",
+        "bytes": 1104,
+        "sha256": "e303664e6387857be17326ae97952421e2221f500afb6d4cb0ecda6722c03551"
+      },
+      "cause": "Windows unsupported app.isHidden QA call before business input",
+      "passed": false,
+      "reusedInPassingRun": false
+    },
+    {
+      "directory": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-0bd22b3b-9c77-4f77-afdd-879d893c8819",
+      "failure": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-0bd22b3b-9c77-4f77-afdd-879d893c8819\\failure.json",
+        "bytes": 1104,
+        "sha256": "aec3b564f7cc84c288984db4bdf393a7eb380e364c186963bba4033e390faf0b"
+      },
+      "cause": "Strict native/renderer mapping rejected fractional native initialization; no business input",
+      "passed": false,
+      "reusedInPassingRun": false
+    },
+    {
+      "directory": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-cba18c08-7e97-48cf-ad68-21c4000c4db2",
+      "failure": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-cba18c08-7e97-48cf-ad68-21c4000c4db2\\failure.json",
+        "bytes": 1104,
+        "sha256": "62914199f58c8c6b95bc3d7fd1b78446fac1cc5851a45a8be0817a6ce4f73000"
+      },
+      "cause": "Actual scroll ancestor clipped sidebar coordinate; only partial business/theme coverage",
+      "passed": false,
+      "reusedInPassingRun": false
+    },
+    {
+      "directory": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-30227b59-ee56-45b8-abef-cfdb194281da",
+      "failure": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-30227b59-ee56-45b8-abef-cfdb194281da\\failure.json",
+        "bytes": 1104,
+        "sha256": "d4ac63bbe33efa696aa209c6330f155eb333d882d1150451149defe87e642499"
+      },
+      "cause": "Extra QA exact requested outer-size equality was false; partial coverage retained",
+      "passed": false,
+      "reusedInPassingRun": false
+    },
+    {
+      "directory": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-11aa8fe6-e60b-4044-9c65-7aeeac709dfb",
+      "failure": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-11aa8fe6-e60b-4044-9c65-7aeeac709dfb\\failure.json",
+        "bytes": 1104,
+        "sha256": "656c9d48b7e9a7893cf3ec6c02cbd876502c7b9888c1c127470693af45301646"
+      },
+      "cause": "Extra QA exact requested content-size equality was false; partial coverage retained",
+      "passed": false,
+      "reusedInPassingRun": false
+    }
+  ],
+  "publicEvidenceAllowlist": [
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-e1cd74e9-093a-437c-a6c9-4dad8ed21ee5\\summary.json",
+      "bytes": 1664,
+      "sha256": "7b26ba98715ba87704d6cc93e8b78ae7549636e95edfc010fce1961e6eebee5d"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\summary.json",
+      "bytes": 7470599,
+      "sha256": "0ee80e6b0f9ee33aa9ea3cb8d50b3b5b38a49ff9832e46d52ef155b053dbf127"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\live.json",
+      "bytes": 7470599,
+      "sha256": "0ee80e6b0f9ee33aa9ea3cb8d50b3b5b38a49ff9832e46d52ef155b053dbf127"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-e1cd74e9-093a-437c-a6c9-4dad8ed21ee5\\first-driver.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\qa-owned-process-119-f884eb9d-0cf8-4ead-8341-6aedba79b926.json",
+      "bytes": 1007,
+      "sha256": "efeba52524fbe7423a0c8edbc0ad5922dd77a4517ca5fa6b206254e41dc5a1e6"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\servers-default-hidden.png",
+      "bytes": 171667,
+      "sha256": "ffba62be9bc20adc483cff31fc915248b3b5d7ece38ce1c14dce262468696be2"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\category-assigned-and-filtered.png",
+      "bytes": 130144,
+      "sha256": "25974c5cc70cb4caea9061879f8bd81e2186e114f996d98bdace3e44e54ef998"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\transparent-minimum-125-servers.png",
+      "bytes": 102721,
+      "sha256": "2af7d1192637d011f80962534b26541201cb5cea11d008109717ba8d9fb7e6c1"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\transparent-actual-minimum-125-category-manager.png",
+      "bytes": 150000,
+      "sha256": "e8ceabf50bbf70d95fdcac04285193d1e384bffa7c40008b2c0f0d7349d946b5"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\transparent-actual-minimum-125-favorites.png",
+      "bytes": 110057,
+      "sha256": "c69104ae6fc7bb2a4afeebfead36d13667e0e6556516410848c5a31e2ff11c17"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\black-orange-minimum-125-servers.png",
+      "bytes": 114783,
+      "sha256": "e0bf3b74a8bf79a25212f7ba50cdc4844db393146cae38130941b91694553fce"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\black-orange-actual-minimum-125-category-manager.png",
+      "bytes": 180201,
+      "sha256": "e1057837530b73c3431ea6abab9717dcc7ef32af8766825b9b20b30a58175156"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\black-orange-actual-minimum-125-favorites.png",
+      "bytes": 118265,
+      "sha256": "2cadf3db7b0c97fa334b0c00f798d136fc153b7280e8149bf4f1e7067b0ad5da"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\blue-white-minimum-125-servers.png",
+      "bytes": 117737,
+      "sha256": "b86b5ec077d497b27cdf81c5e3ab1fe1eea06e88f89cfd9a178ec2cdd9196d54"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\blue-white-actual-minimum-125-category-manager.png",
+      "bytes": 245632,
+      "sha256": "6841d560fe4f27ee6cae29609cfd3cf4d82dde4bed003038cc6b85fb95469953"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\blue-white-actual-minimum-125-favorites.png",
+      "bytes": 120123,
+      "sha256": "75453f5ef0638abcd3e64a4e9e57f1d0c63394fdee0f6973b282e96622f1893e"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\custom-minimum-125-servers.png",
+      "bytes": 115177,
+      "sha256": "4465b36970f11946153ba3ef8f246cb2b9f23502cba6c8af1951ac7a8f597348"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\custom-actual-minimum-125-category-manager.png",
+      "bytes": 193271,
+      "sha256": "ad551d377cfa8e0a8ab90b4aa2812af3fe5fec5c167d70b34d702e657a2ad505"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\custom-actual-minimum-125-favorites.png",
+      "bytes": 115873,
+      "sha256": "2965506927de15490efabf07643fb700d1d8694c60cef94bba586e242de93e95"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\restart\\summary.json",
+      "bytes": 820382,
+      "sha256": "359ed8ed81af7b4d24a79a6e5160ebf1562e4c0df0d20d1b2e21f991edbb3080"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\restart\\live.json",
+      "bytes": 820382,
+      "sha256": "359ed8ed81af7b4d24a79a6e5160ebf1562e4c0df0d20d1b2e21f991edbb3080"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-e1cd74e9-093a-437c-a6c9-4dad8ed21ee5\\restart-driver.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\qa-owned-process-119-7c7ed1c2-b24e-4540-9961-26d41b147189.json",
+      "bytes": 1005,
+      "sha256": "159e1ccdfae15484aa2d6a8539aaa1063e903d73842d1331d1a693b8e8ec0506"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\restart\\servers-default-hidden.png",
+      "bytes": 175308,
+      "sha256": "0cf1d8d483f71eb5f029ce4c5eadb564f44ee98a0ea9e4f2bdbaf0975f01674e"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\restart\\native-restart-category-persisted.png",
+      "bytes": 166981,
+      "sha256": "f38778a8627993c22ae001c76f66dc91f4d119c9ae9945c7682a484c682af183"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\process.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-qa-qualification-v3.log",
+      "bytes": 2377,
+      "sha256": "26e3f6684f07e5f9256afac19341495e2233d84da3022c8141e4731ad7465d75"
+    }
+  ],
+  "publicEvidencePolicy": {
+    "onlyExplicitAllowlist": true,
+    "profileDirectoryExcluded": true,
+    "gameAndSaveDirectoriesExcluded": true,
+    "userFilesExcluded": true,
+    "publicFixturesOnly": true,
+    "syntheticServers": [
+      "127.0.0.1:9",
+      "127.0.0.1:10"
+    ],
+    "syntheticAccount": "ui-fixture / 界面验证账户 / 00000000000000000000000000000001",
+    "realCredentialsFoundInOriginalSummaries": false,
+    "credentialKeysScanned": [
+      "access_token",
+      "refresh_token",
+      "privateKey",
+      "client_secret",
+      "password"
+    ],
+    "applicationClientIdIsPublicConfigurationNotCredential": true,
+    "originalPathsRetainedAsQaProvenance": true,
+    "screenshots": "Page.captureScreenshot of application document only; no native desktop/window capture",
+    "visualPrivacyReview": "Await independent reviewer of all 16 original PNG; implementer does not self-score"
+  },
+  "uncovered": [
+    "Public server connectivity and game launch (synthetic jar fixtures are never launched)",
+    "Native OS clipboard write/read (browser boundary observed without changing user clipboard)",
+    "Physical display/compositor recordings and audio listening",
+    "Exact logical outer/client 960×620 is not claimed: actual native outer 962×623/content 961×622 and CSS769×498 were recorded",
+    "Win32 query observer DPI awareness is 0: reported rectangle values may be virtualized and are not physical pixels",
+    "Full native PID-tree post-exit census unavailable in Windows owned lifecycle helper; original tracked launcher exit/close0 evidence is retained",
+    "No recording was produced by this module; original PNG and input/state ledgers cannot establish compositor/audio timing"
+  ],
+  "independentScores": null
+}

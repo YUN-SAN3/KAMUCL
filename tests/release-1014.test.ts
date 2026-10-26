@@ -7,6 +7,7 @@ import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 import { compareSemver, isNewerVersion, parseSemver } from '../src/shared/semver'
 import { parseSha256Sums, shouldPrompt, checkLatest, sha256File } from '../src/main/core/selfUpdate'
 import { buildUpdaterScript, updateDownloadCandidates } from '../src/main/core/applyUpdate'
+import { UPDATE_MIRROR_PRESETS } from '../src/shared/updateMirrors'
 import { renderMarkdownLite } from '../src/renderer/src/markdownLite'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
@@ -43,12 +44,12 @@ test('sha256 sums parser: standard sha256sum format', () => {
   assert.equal(sums.get('KAMUCL-1.0.14-windows-x64.zip'), 'b'.repeat(64))
 })
 
-test('download candidates honor source setting: auto=direct+mirror, direct only, mirror only', () => {
+test('download candidates honor source setting: auto=direct+presets, direct only, mirror presets+custom', () => {
   const url = 'https://github.com/x/KAMUCL-1.0.14.exe'
   const auto = updateDownloadCandidates(url, { updateSource: 'auto', updateMirrorUrl: 'https://ghproxy.net/' })
-  assert.deepEqual(auto, [url, 'https://ghproxy.net/' + url])
+  assert.deepEqual(auto, [url, ...UPDATE_MIRROR_PRESETS.map(prefix => prefix + url)])
   assert.deepEqual(updateDownloadCandidates(url, { updateSource: 'direct', updateMirrorUrl: '' }), [url])
-  assert.deepEqual(updateDownloadCandidates(url, { updateSource: 'mirror', updateMirrorUrl: 'https://m.example/' }), ['https://m.example/' + url])
+  assert.deepEqual(updateDownloadCandidates(url, { updateSource: 'mirror', updateMirrorUrl: 'https://m.example/' }), [...UPDATE_MIRROR_PRESETS.map(prefix => prefix + url), 'https://m.example/' + url])
 })
 
 test('markdown lite: escapes HTML, renders headings/bold/code/lists/links only', () => {

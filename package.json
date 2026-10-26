@@ -1,8 +1,9 @@
 {
   "name": "kamucl",
   "productName": "KAMUCL",
-  "version": "1.1.9",
+  "version": "1.1.23",
   "description": "KAMUCL - 简约美观的一键式 Minecraft 启动器",
+  "homepage": "https://github.com/kamubaba-i/KAMUCL",
   "main": "out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
@@ -12,6 +13,10 @@
     "dist": "npm run dist:win",
     "dist:win": "npm run build && electron-builder --win portable --x64 --publish never && node scripts/pack-windows-zip.cjs",
     "dist:mac": "node scripts/pack-mac.mjs",
+    "dist:linux": "node scripts/pack-linux.cjs",
+    "prepare:harmonyos": "node scripts/prepare-harmonyos.cjs",
+    "dist:harmonyos": "node scripts/build-harmonyos.cjs",
+    "verify:harmonyos": "node scripts/verify-harmonyos.cjs",
     "dist:all": "node scripts/dist-platform.cjs",
     "license:check": "node scripts/check-licenses.cjs"
   },
@@ -42,7 +47,9 @@
       "out/main/WindowMaterial.exe",
       "out/main/GameWindowFocus.exe",
       "out/main/MacGameWindow",
-      "out/main/kamucl-bridge.jar"
+      "out/main/LinuxGameWindow",
+      "out/main/kamucl-bridge.jar",
+      "out/main/kamucl-offline-skin.jar"
     ],
     "beforePack": "scripts/portable-build-hook.cjs",
     "afterPack": "scripts/verify-windows-runtime.cjs",
@@ -74,8 +81,11 @@
       "unpackDirName": false,
       "artifactName": "KAMUCL-${version}.exe"
     },
+    "appImage": {
+      "executableArgs": []
+    },
     "mac": {
-      "minimumSystemVersion": "11.0.0",
+      "minimumSystemVersion": "13.0.0",
       "target": [
         "zip"
       ],
@@ -83,13 +93,34 @@
       "icon": "build/icon-512.png",
       "identity": null,
       "artifactName": "KAMUCL-${version}-mac-${arch}.${ext}"
+    },
+    "linux": {
+      "maintainer": "kamubaba-i <325699197+kamubaba-i@users.noreply.github.com>",
+      "target": [
+        "AppImage",
+        "deb",
+        "tar.gz"
+      ],
+      "category": "Game",
+      "executableName": "kamucl",
+      "icon": "build/icon-512.png",
+      "artifactName": "KAMUCL-${version}-linux-${arch}.${ext}",
+      "desktop": {
+        "entry": {
+          "Name": "KAMUCL",
+          "Comment": "Minecraft launcher",
+          "Categories": "Game;",
+          "StartupWMClass": "KAMUCL"
+        }
+      },
+      "synopsis": "Minecraft launcher"
     }
   },
   "dependencies": {
     "@iarna/toml": "2.2.5",
-    "adm-zip": "^0.6.0",
+    "adm-zip": "0.6.1",
     "koffi": "^3.2.1",
-    "undici": "^6.28.0",
+    "undici": "6.28.1",
     "ws": "8.22.0"
   },
   "devDependencies": {
@@ -105,7 +136,7 @@
     "electron-builder": "^26.15.3",
     "electron-vite": "^2.3.0",
     "minecraft-data": "3.117.0",
-    "sharp": "^0.35.4",
+    "sharp": "0.35.5",
     "skinview-utils": "0.7.1",
     "three": "^0.185.1",
     "tsx": "^4.23.13",

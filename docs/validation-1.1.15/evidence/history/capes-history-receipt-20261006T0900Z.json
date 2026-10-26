@@ -1,0 +1,337 @@
+{
+  "schema": "kamucl-capes115-final-or-history-receipt",
+  "generatedAt": "2026-10-06T09:00:07.829Z",
+  "requiredSuccess": false,
+  "runs": [
+    {
+      "schema": "kamucl-capes115-immutable-binding",
+      "generatedAt": "2026-10-06T09:00:07.792Z",
+      "proof": {
+        "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\proof.json",
+        "bytes": 1194983,
+        "sha256": "4391603f5d4953aeb8c1d287e2eddc80bb41b61918b1dc109e92a15afb718020"
+      },
+      "theme": "black-orange",
+      "success": false,
+      "classification": "Actual packaged renderer, original trusted inputs and WebGL uploads; synthetic IPC accounts/public texture fixtures. No user account, Microsoft request, product-cache or game-world acceptance inferred",
+      "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 daqBAV",
+      "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 daqBAV\\profile",
+      "application": null,
+      "identity": {
+        "pid": 36100,
+        "windowId": 1,
+        "webContentsId": 1
+      },
+      "observedFixtureType": "Synthetic Microsoft account/profile IPC; SHA-pinned public PNG originals. No actual Microsoft login, original user aliases, game launch, human hearing or motion FPS qualification claimed",
+      "sourceProvenanceAvailable": false,
+      "checks": [
+        {
+          "label": "Historical run remains failed; no missing visual, input, cleanup or source proof is filled",
+          "passed": true
+        }
+      ],
+      "historicalError": {
+        "name": "Error",
+        "message": "Original actual cape activation cape-aurora deadline elapsed"
+      },
+      "counts": {
+        "publicOriginals": 3,
+        "derivedCapes": 5,
+        "screenshots": 3,
+        "operations": 3,
+        "originalInputs": 9,
+        "gpuRows": 3
+      },
+      "allowlist": [
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\proof.json",
+          "bytes": 1194983,
+          "sha256": "4391603f5d4953aeb8c1d287e2eddc80bb41b61918b1dc109e92a15afb718020"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\mojang_cape.png",
+          "bytes": 1076,
+          "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\legacy_cape.png",
+          "bytes": 589,
+          "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\hd_cape.png",
+          "bytes": 284580,
+          "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\cape-aurora.png",
+          "bytes": 284580,
+          "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\cape-hero.png",
+          "bytes": 589,
+          "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\cape-twisted.png",
+          "bytes": 1063,
+          "sha256": "2cd76cb38ca1fc78f1475d5d5e7e2895df7005b2ca334b7f03d1b4d1908814c3"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\cape-pan.png",
+          "bytes": 1076,
+          "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\cape-common.png",
+          "bytes": 875,
+          "sha256": "03dab697472e8b7934e749469432ff571c5565e8c7a8a3736ad50688a668aa84"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\01-incomplete-capes.png",
+          "bytes": 97242,
+          "sha256": "e5c576e7693592d3a4572a843eadb4ec943502b125ac33b8af99e4198a2ec3c2"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\02-refreshed-five-capes.png",
+          "bytes": 126457,
+          "sha256": "f6da021f540dc94881712ee70891ef0bc3381c39b8f0ae7d85d3586f509f8920"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-f8d2f35a-e14f-458f-9462-308067c2c4be\\original-failure.png",
+          "bytes": 112921,
+          "sha256": "486b9378888f4c7c7ac8bac3534fa3fe57e0c067dd8a3104f722b0d49688f3b3"
+        }
+      ],
+      "qualifiedFunctionalEvidence": false,
+      "visualScore": null,
+      "visualClassification": "Clear original screenshots require independent visual review; functional binding does not assign an appearance score or infer correct back pose.",
+      "processExitQualification": "The proof is saved before runner close; exact owned child close packet and after inventory must be linked separately. No process release is inferred from hook restoration."
+    },
+    {
+      "schema": "kamucl-capes115-immutable-binding",
+      "generatedAt": "2026-10-06T09:00:07.808Z",
+      "proof": {
+        "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-2d2f4b19-811c-459d-8cf2-78b0324901fe\\proof.json",
+        "bytes": 1412,
+        "sha256": "383181d4f7e757155497005dba81e9457400312193115ffbd131c2e260d8f3df"
+      },
+      "theme": "black-orange",
+      "success": false,
+      "classification": "Actual packaged renderer, original trusted inputs and WebGL uploads; synthetic IPC accounts/public texture fixtures. No user account, Microsoft request, product-cache or game-world acceptance inferred",
+      "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 sSoEOC",
+      "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 sSoEOC\\profile",
+      "application": null,
+      "identity": null,
+      "observedFixtureType": "Synthetic Microsoft account/profile IPC; SHA-pinned public PNG originals. No actual Microsoft login, original user aliases, game launch, human hearing or motion FPS qualification claimed",
+      "sourceProvenanceAvailable": false,
+      "checks": [
+        {
+          "label": "Historical run remains failed; no missing visual, input, cleanup or source proof is filled",
+          "passed": true
+        }
+      ],
+      "historicalError": {
+        "name": "TimeoutError",
+        "message": "The operation was aborted due to timeout"
+      },
+      "counts": {
+        "publicOriginals": 0,
+        "derivedCapes": 0,
+        "screenshots": 0,
+        "operations": 0,
+        "originalInputs": 0,
+        "gpuRows": 0
+      },
+      "allowlist": [
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-2d2f4b19-811c-459d-8cf2-78b0324901fe\\proof.json",
+          "bytes": 1412,
+          "sha256": "383181d4f7e757155497005dba81e9457400312193115ffbd131c2e260d8f3df"
+        }
+      ],
+      "qualifiedFunctionalEvidence": false,
+      "visualScore": null,
+      "visualClassification": "Clear original screenshots require independent visual review; functional binding does not assign an appearance score or infer correct back pose.",
+      "processExitQualification": "The proof is saved before runner close; exact owned child close packet and after inventory must be linked separately. No process release is inferred from hook restoration."
+    },
+    {
+      "schema": "kamucl-capes115-immutable-binding",
+      "generatedAt": "2026-10-06T09:00:07.813Z",
+      "proof": {
+        "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\proof.json",
+        "bytes": 1332539,
+        "sha256": "01421db178935207f2fdab2080ce0e8dfefa5f71ace34574c3e4c7c60af8571f"
+      },
+      "theme": "black-orange",
+      "success": false,
+      "classification": "Actual packaged renderer, original trusted inputs and WebGL uploads; synthetic IPC accounts/public texture fixtures. No user account, Microsoft request, product-cache or game-world acceptance inferred",
+      "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 20vuHA",
+      "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 20vuHA\\profile",
+      "application": {
+        "path": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+        "bytes": 97291324,
+        "sha256": "64081699ee0572b26a24753fd5c44ef71d1a11da30b2f6fc748fa1f40c896ac9"
+      },
+      "identity": {
+        "pid": 444,
+        "windowId": 1,
+        "webContentsId": 1
+      },
+      "observedFixtureType": "Synthetic Microsoft account/profile IPC; SHA-pinned public PNG originals. No actual Microsoft login, original user aliases, game launch, human hearing or motion FPS qualification claimed",
+      "sourceProvenanceAvailable": false,
+      "checks": [
+        {
+          "label": "Historical run remains failed; no missing visual, input, cleanup or source proof is filled",
+          "passed": true
+        }
+      ],
+      "historicalError": {
+        "name": "Error",
+        "message": "Original coordinate deadline elapsed before two stable owned observations"
+      },
+      "counts": {
+        "publicOriginals": 3,
+        "derivedCapes": 5,
+        "screenshots": 16,
+        "operations": 22,
+        "originalInputs": 48,
+        "gpuRows": 8
+      },
+      "allowlist": [
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\proof.json",
+          "bytes": 1332539,
+          "sha256": "01421db178935207f2fdab2080ce0e8dfefa5f71ace34574c3e4c7c60af8571f"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\mojang_cape.png",
+          "bytes": 1076,
+          "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\legacy_cape.png",
+          "bytes": 589,
+          "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\hd_cape.png",
+          "bytes": 284580,
+          "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\cape-aurora.png",
+          "bytes": 284580,
+          "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\cape-hero.png",
+          "bytes": 589,
+          "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\cape-twisted.png",
+          "bytes": 1063,
+          "sha256": "2cd76cb38ca1fc78f1475d5d5e7e2895df7005b2ca334b7f03d1b4d1908814c3"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\cape-pan.png",
+          "bytes": 1076,
+          "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\cape-common.png",
+          "bytes": 875,
+          "sha256": "03dab697472e8b7934e749469432ff571c5565e8c7a8a3736ad50688a668aa84"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\01-incomplete-capes.png",
+          "bytes": 91327,
+          "sha256": "1672b518a05f09879c997b344588ecbe6f5f003e58750e743e673cf094e9d71b"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\02-refreshed-five-capes.png",
+          "bytes": 126612,
+          "sha256": "83ec9e826a5fa2aea1cc063e069ac608e12a63c0faca811b5cafcb88ede63637"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-aurora-thumbnail.png",
+          "bytes": 123810,
+          "sha256": "fbabc274075d772e1e4d59bee2f8770be38b199c85d094320d88eafa72787df3"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-aurora-3d.png",
+          "bytes": 107804,
+          "sha256": "42e2485ef08254e021bcdd0804c778c4b86819820bc2d59dce1dbe5b7fdb2340"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-hero-thumbnail.png",
+          "bytes": 139804,
+          "sha256": "ffdffbf30ec4801ed64a0b37e5fac51361f6c286860e9d6e536eba532d12ae98"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-hero-3d.png",
+          "bytes": 100317,
+          "sha256": "46707291884492c5bb0ac15c17d6aad1919ed6e7dc5b409bc8425bbb4b3e39ef"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-twisted-thumbnail.png",
+          "bytes": 140222,
+          "sha256": "afa1cb9761cf8b06f5a7020874f40e73213f624c911baf1db2150f4f8ea9a556"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-twisted-3d.png",
+          "bytes": 112106,
+          "sha256": "7883daff9e29eadd35979acb530ee716ea04297b6880ab9a21e5903dae0fc2ba"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-common-thumbnail.png",
+          "bytes": 125788,
+          "sha256": "cc9b296af76980c9cafe0268464e52fd2cd9fee0e29924233ba317aea6af1678"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-common-3d.png",
+          "bytes": 113060,
+          "sha256": "0a327ee1229ca5f298c8b844e5e68edcfdb5904f34b58427620780e24ba09e4b"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-pan-thumbnail.png",
+          "bytes": 144214,
+          "sha256": "eef08d00724c64e1ffdda7015e802d5444ac4d5b9bdf2baf8d3a53b14a3d8880"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\03-active-cape-pan-3d.png",
+          "bytes": 110458,
+          "sha256": "c97968bcab23d0b898a93a418147a9d7730e8b063b2b7264384f292af7affc7f"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\04-unworn.png",
+          "bytes": 115727,
+          "sha256": "205297f62bd89c5f80a66a50eb7926a7429d35b2d4a8a0fde8b19269e3a73d80"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\05-confirm-before-cancel.png",
+          "bytes": 188817,
+          "sha256": "7a716819ea89ce6d0918875587054eb7722afdb4109e422f66ff8d4ea209978d"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\05-cancel-zero-upload.png",
+          "bytes": 117512,
+          "sha256": "f5137186ea31605f56cbb7039808d91f48878fc838341813d10976e3da7e9130"
+        },
+        {
+          "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-71a05b18-4357-4315-85b2-5c10143e57eb\\original-failure.png",
+          "bytes": 115236,
+          "sha256": "5612f44564bf4990fd6fb6ddbd3a8941cd255df855c8b0389205f5eb4d8710c9"
+        }
+      ],
+      "qualifiedFunctionalEvidence": false,
+      "visualScore": null,
+      "visualClassification": "Clear original screenshots require independent visual review; functional binding does not assign an appearance score or infer correct back pose.",
+      "processExitQualification": "The proof is saved before runner close; exact owned child close packet and after inventory must be linked separately. No process release is inferred from hook restoration."
+    }
+  ],
+  "allFourThemesQualified": false,
+  "classification": "Original per-run evidence, file hashes and actual owned inputs; historical failures remain separate. No visual score or public account behavior inferred."
+}

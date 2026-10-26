@@ -8,11 +8,31 @@ export function cacheableProfile(profile: ProfileSkins): ProfileSkins | null {
   const png = (value?: string) => typeof value === 'string' && value.length < 2_000_000 && value.startsWith('data:image/png;base64,iVBOR') ? value : undefined
   const skins = (profile.skins ?? []).slice(0, 8).map(s => ({
     variant: s.variant === 'slim' ? 'slim' as const : 'classic' as const,
-    url: String(s.url ?? ''), state: s.state, dataUrl: png(s.dataUrl)
-  })).filter(s => s.dataUrl)
-  if (!skins.length) return null
+    url: String(s.url ?? ''), state: s.state, dataUrl: png(s.dataUrl),
+    textureError: typeof s.textureError === 'string' ? s.textureError.slice(0, 160) : undefined
+  }))
+  if (!skins.some(s => s.dataUrl)) return null
   return { username: String(profile.username ?? ''), skins,
-    capes: (profile.capes ?? []).slice(0, 16).map(c => ({ id: c.id, alias: c.alias, active: c.active, url: c.url, dataUrl: png(c.dataUrl) })) }
+    capes: (profile.capes ?? []).slice(0, 16).map(c => ({ id: c.id, alias: c.alias, active: c.active, url: c.url, dataUrl: png(c.dataUrl),
+      textureError: typeof c.textureError === 'string' ? c.textureError.slice(0, 160) : undefined })) }
+}
+
+export function incompleteProfile(profile: ProfileSkins): boolean {
+  return [...profile.skins, ...profile.capes].some(texture => texture.url && (!texture.dataUrl || texture.textureError))
+}
+
+/** A failed refresh may retain public pixels only when their source identity is unchanged. */
+function retainDownloadedTextures(fresh: ProfileSkins, cached: ProfileSkins | null): ProfileSkins {
+  if (!cached) return fresh
+  return { ...fresh,
+    skins: fresh.skins.map(skin => {
+      const old = cached.skins.find(item => item.url === skin.url)
+      return !skin.dataUrl && old?.dataUrl ? { ...skin, dataUrl: old.dataUrl } : skin
+    }),
+    capes: fresh.capes.map(cape => {
+      const old = cached.capes.find(item => item.id === cape.id && item.url === cape.url)
+      return !cape.dataUrl && old?.dataUrl ? { ...cape, dataUrl: old.dataUrl } : cape
+    }) }
 }
 export class SkinProfileCache {
   private memory = new Map<string, ProfileSkins>()
@@ -31,12 +51,13 @@ export class SkinProfileCache {
   }
   async get(key: string, load: () => Promise<ProfileSkins>, refresh = false): Promise<ProfileSkins> {
     const cached = this.read(key)
-    if (cached && !refresh) { console.info('[KAMUCL] Skin profile: cache hit, no network'); return structuredClone(cached) }
+    // Failed cape downloads must not become a permanent successful cache hit.
+    if (cached && !refresh && !incompleteProfile(cached)) { console.info('[KAMUCL] Skin profile: cache hit, no network'); return structuredClone(cached) }
     if (this.pending.has(key)) return this.pending.get(key)!
     const work = (async () => {
       const started = Date.now()
       try {
-        const fresh = await load()
+        const fresh = retainDownloadedTextures(await load(), cached)
         const publicProfile = cacheableProfile(fresh)
         if (publicProfile) {
           this.memory.set(key, publicProfile)

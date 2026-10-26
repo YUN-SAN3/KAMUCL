@@ -4,7 +4,7 @@
  * 通过 IPC fs:list / fs:remove / app:openDir 管理游戏目录下的子目录。
  */
 import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
-import { getModIcons, importResources, applyModUpdates, checkModUpdates, copyText, errText, listFs, openDir, removeFs, toggleDisableFs } from '../api'
+import { getModIcons, importResources, applyModUpdates, checkModUpdates, copyText, errText, fsPath, listFs, openDir, removeFs, toggleDisableFs } from '../api'
 import { displayVersionName as versionLabel, activeInstalled, selectedInstance, refreshInstalled, store, toast } from '../store'
 import { resourceDisplayName, pageSelection } from '@shared/uiPresentation'
 import ContentSkeleton from './ContentSkeleton.vue'
@@ -40,6 +40,7 @@ const PAGE_SIZE = 100
 const entries = ref<FsEntry[]>([])
 const loading = ref(true)
 const loadError = ref('')
+const resolvedPath = ref('')
 const opening = ref(false)
 
 // ---------------- 版本上下文（模组/资源包/光影包按游戏版本管理） ----------------
@@ -66,13 +67,14 @@ async function load() {
   const generation = ++loadGeneration
   const v = currentVersion.value
   const context = JSON.stringify([effectiveRel.value, v?.folder || activeFolder.value])
-  if (context !== loadedContext) { entries.value = []; selection.value = new Set(); page.value = 1 }
-  loadedContext = context; loadError.value = ''
+  if (context !== loadedContext) { entries.value = []; resolvedPath.value = ''; selection.value = new Set(); page.value = 1 }
+  loadedContext = context; loadError.value = ''; resolvedPath.value = ''
   if (!v) { loading.value = false; return }
   loading.value = true
   try {
-    const result = await listFs(effectiveRel.value, v.folder || activeFolder.value)
-    if (generation === loadGeneration) { entries.value = result; page.value = Math.min(page.value, pageCount.value); selection.value = new Set([...selection.value].filter(name => result.some(e => e.name === name))); void loadCatalog(generation) }
+    const folder = v.folder || activeFolder.value, rel = effectiveRel.value
+    const [result, directory] = await Promise.all([listFs(rel, folder), fsPath(rel, folder)])
+    if (generation === loadGeneration) { entries.value = result; resolvedPath.value = directory; page.value = Math.min(page.value, pageCount.value); selection.value = new Set([...selection.value].filter(name => result.some(e => e.name === name))); void loadCatalog(generation) }
   } catch (e) { if (generation === loadGeneration) loadError.value = errText(e) }
   finally { if (generation === loadGeneration) loading.value = false }
 }
@@ -113,7 +115,7 @@ const migrationOpen=ref(false)
 const updateIcons=ref<Record<string,string>>({})
 
 /** 中间省略的路径：versions/neo…2.0.75/mods */
-const fullPath = computed(() => currentVersion.value?.gameDirectory ? currentVersion.value.gameDirectory + '/' + props.rel : effectiveRel.value)
+const fullPath = computed(() => resolvedPath.value)
 const displayPath = computed(() => fullPath.value.length > 80 ? fullPath.value.slice(0,38) + '…' + fullPath.value.slice(-36) : fullPath.value)
 const pageMods = computed(() => visibleEntries.value.filter(isModEntry).map(e => e.name))
 const pageChecked = computed(() => pageSelection(pageMods.value, selection.value))
@@ -122,7 +124,8 @@ const resourceCount = computed(() => props.rel === 'mods' ? entries.value.filter
 const readableName = (e: FsEntry) => props.rel === 'resourcepacks' ? resourceDisplayName(e.name) : e.name
 
 async function copyPath() {
-  const ok = await copyText(currentVersion.value?.gameDirectory ? currentVersion.value.gameDirectory + '/' + props.rel : effectiveRel.value)
+  if (!fullPath.value) { toast('目录尚未读取，请刷新后重试', 'info'); return }
+  const ok = await copyText(fullPath.value)
   toast(ok ? '已复制完整路径' : '复制失败', ok ? 'success' : 'error')
 }
 

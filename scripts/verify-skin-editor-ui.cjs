@@ -1,5 +1,71 @@
 // Real coordinate interaction in the isolated Electron harness; no production account request.
-const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),sharp=require('sharp')
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),sharp=require('sharp'),{execFileSync}=require('node:child_process')
+// Runs only in the disposable QA renderer. Production Vue omits DOM component
+// expandos; walk the actual mounted VNode tree, without saving or editing pixels.
+function installSkinFixtureDiagnostic(){
+  const componentInstances=()=>{
+    const root=document.querySelector('#app')?.__vue_app__?._container?._vnode
+    if(!root)throw Error('Mounted production Vue root is unavailable for skin diagnostics')
+    const seen=new WeakSet(),instances=[]
+    const visit=node=>{
+      if(!node||typeof node!=='object'||seen.has(node))return
+      seen.add(node)
+      if(Array.isArray(node)){for(const child of node)visit(child);return}
+      if(node.component){instances.push(node.component);visit(node.component.subTree)}
+      if(Array.isArray(node.children))visit(node.children)
+      visit(node.ssContent);visit(node.ssFallback);visit(node.suspense?.activeBranch)
+    }
+    visit(root);return instances
+  }
+  const current=()=>{
+    const instances=componentInstances(),viewers=instances.filter(i=>i.props?.editCanvas instanceof HTMLCanvasElement)
+    if(viewers.length!==1)throw Error('Expected one actual skin document viewer; found '+viewers.length)
+    const viewer=viewers[0],canvas=viewer.props.editCanvas
+    if(canvas.width!==64||canvas.height!==64)throw Error('Actual skin document is not 64 x 64')
+    const palettes=instances.filter(i=>typeof i.props?.color==='string'&&typeof i.props?.alphaEnabled==='boolean'&&Array.isArray(i.props.custom)&&Array.isArray(i.props.recent))
+    if(palettes.length!==1)throw Error('Expected one actual skin palette; found '+palettes.length)
+    return{viewer,palette:palettes[0],canvas,context:canvas.getContext('2d')}
+  }
+  const inputs=()=>[...document.querySelectorAll('.skin-color-palette input')].map(e=>({label:e.getAttribute('aria-label'),value:e.value,invalid:e.getAttribute('aria-invalid'),disabled:!!e.disabled}))
+  const state=()=>{
+    const{viewer,palette,context}=current(),p=viewer.props,c=palette.props,rendered=document.querySelector('.skin-editor .viewer3d canvas'),r=rendered?.getBoundingClientRect()
+    return{at:performance.now(),viewerId:viewer.uid,paletteId:palette.uid,
+      viewer:{variant:p.variant,layer:p.layer,editMode:p.editMode,editDisabled:!!p.editDisabled,revision:p.revision,hiddenParts:[...(p.hiddenParts||[])],paused:p.paused},
+      palette:{color:c.color,alpha:c.alpha,alphaEnabled:c.alphaEnabled},inputs:inputs(),
+      header:document.querySelector('.editor-header p')?.textContent,
+      selectedTool:document.querySelector('.editor-tool[aria-pressed="true"]')?.textContent.trim(),
+      selectedView:document.querySelector('.view-tools [aria-pressed="true"]')?.textContent.trim(),
+      history:[...document.querySelectorAll('.editor-tool-rail button')].slice(-2).map(e=>({text:e.textContent.trim(),disabled:!!e.disabled})),
+      documentFocus:document.hasFocus(),hidden:document.hidden,active:document.activeElement?.getAttribute('aria-label')||document.activeElement?.className,
+      renderedCanvas:r?{x:r.x,y:r.y,width:r.width,height:r.height}:null,
+      rgba:Array.from(context.getImageData(0,0,64,64).data)}
+  }
+  const events=[],restores=[],wrapped=new WeakSet(),types=['pointerdown','pointermove','pointerup','pointercancel','lostpointercapture']
+  let actualPointer
+  const observer=event=>{
+    if(!event.isTrusted||!event.target?.closest?.('.skin-editor .viewer3d'))return
+    actualPointer={type:event.type,x:event.clientX,y:event.clientY,button:event.button,buttons:event.buttons,trusted:event.isTrusted}
+    const{viewer}=current(),props=viewer.vnode.props
+    if(!props||wrapped.has(props))return
+    wrapped.add(props)
+    for(const[name,kind]of [['onStroke','stroke'],['onPixel','pixel'],['onGap','gap'],['onRotate','rotate']]){
+      const original=props[name]
+      if(typeof original!=='function'&&!Array.isArray(original))continue
+      const wrap=fn=>function(...args){
+        const before=state(),index=kind==='pixel'?(args[1]*64+args[0])*4:undefined
+        const record={kind,args,at:performance.now(),pointer:{...actualPointer},before:{header:before.header,viewer:before.viewer,palette:before.palette,selectedTool:before.selectedTool},texelBefore:index===undefined?undefined:before.rgba.slice(index,index+4)}
+        events.push(record)
+        try{return fn.apply(this,args)}
+        finally{const after=state();record.after={header:after.header,viewer:after.viewer,palette:after.palette,selectedTool:after.selectedTool};record.texelAfter=index===undefined?undefined:after.rgba.slice(index,index+4);record.changedBytes=after.rgba.reduce((n,v,i)=>n+(v!==before.rgba[i]),0)}
+      }
+      const wrapper=Array.isArray(original)?original.map(wrap):wrap(original)
+      props[name]=wrapper;restores.push({props,name,original,wrapper})
+    }
+  }
+  for(const type of types)document.addEventListener(type,observer,true)
+  window.__skinFixtureDiagnostic={snapshot:state,events,finish(){for(const type of types)document.removeEventListener(type,observer,true);for(const{props,name,original,wrapper}of restores)if(props[name]===wrapper)props[name]=original;return{events,restoredListeners:restores.length}}}
+  return state()
+}
 module.exports=async({call,evaluate,main,nav,wait,root,screenshot,version})=>{
   const theme=process.env.KAMUCL_TEST_THEME||'black-orange', proof={version,theme,complete:false,layouts:[],occlusions:[],nativeBusy:false,queuedCancellation:false,uploadBusy:false},output=path.join(root,'skin-editor-118.png')
   const persist=()=>fs.writeFileSync('out/skin-editor-ui-'+theme+'.json',JSON.stringify({...proof,recordedAt:new Date().toISOString()},null,2))
@@ -79,7 +145,78 @@ module.exports=async({call,evaluate,main,nav,wait,root,screenshot,version})=>{
     }
     assert.fail('skin canvas never reached a fully visible stable viewport for compositor capture')
   }
-  const makeDirty=async()=>{await evaluate(`(()=>{const e=document.querySelector('.palette-hex');e.value=e.value==='#1177ee'?'#ee7733':'#1177ee';e.dispatchEvent(new Event('input',{bubbles:true}))})()`);await pose('正面');await gesture();assert(await evaluate(`document.querySelector('.editor-header p').textContent.includes('有未保存更改')`),'native-close fixture must actually be dirty')}
+  async function checkHeadVisibility(width,height,zoom){
+    const record={width,height,zoom,classification:'one original trusted head-button click; read-only actual events, DOM and mounted document state',samples:[]};
+    (proof.partVisibilityObservations??=[]).push(record)
+    let installed=false
+    const observe=async label=>{
+      const actual=await evaluate('window.__skinPartObservation.snapshot()'),rgba=actual.document.rgba
+      actual.document.rgbaSHA256=crypto.createHash('sha256').update(Buffer.from(rgba)).digest('hex');delete actual.document.rgba
+      record.samples.push({label,...actual});persist();return actual
+    }
+    try{
+      await evaluate('('+installSkinFixtureDiagnostic.toString()+')()')
+      await evaluate(`(()=>{
+        const types=['pointerdown','pointerup','pointercancel','click'],events=[];
+        const snapshot=()=>({at:performance.now(),document:window.__skinFixtureDiagnostic.snapshot(),buttons:[...document.querySelectorAll('.part-tools button')].map(e=>{const r=e.getBoundingClientRect();return{name:e.textContent.trim(),pressed:e.getAttribute('aria-pressed'),disabled:!!e.disabled,inert:!!e.closest('[inert]'),rect:{x:r.x,y:r.y,width:r.width,height:r.height}}}),dialog:!!document.querySelector('.skin-close-dialog'),busy:document.querySelector('.editor-operation-status')?.textContent});
+        const observer=e=>{const b=e.target?.closest?.('.part-tools button');if(!b)return;events.push({type:e.type,at:performance.now(),trusted:e.isTrusted,name:b.textContent.trim(),button:e.button,buttons:e.buttons,x:e.clientX,y:e.clientY,pressed:b.getAttribute('aria-pressed'),disabled:!!b.disabled,inert:!!b.closest('[inert]'),documentFocus:document.hasFocus(),hidden:document.hidden})};
+        for(const type of types)document.addEventListener(type,observer,true);
+        window.__skinPartObservation={snapshot,events,finish(){for(const type of types)document.removeEventListener(type,observer,true);return events}};
+      })()`);installed=true
+      await observe('before original head click');await clickText('.part-tools','头部');await observe('after original click and unchanged coordinate settling')
+      await until('actual head visibility settled',`(()=>{const s=window.__skinPartObservation.snapshot(),b=s.buttons.find(b=>b.name==='头部');return{ready:b?.pressed==='false'&&s.document.viewer.hiddenParts.includes('head'),at:s.at,button:b,viewer:s.document.viewer,documentFocus:s.document.documentFocus,hidden:s.document.hidden,dialog:s.dialog,busy:s.busy}})()`,state=>{record.samples.push({label:'pending actual head visibility',...state});persist()})
+      await observe('actual head visibility settled')
+      const clicks=await evaluate("window.__skinPartObservation.events.filter(e=>e.type==='click'&&e.trusted&&e.name==='头部')")
+      assert.equal(clicks.length,1,'visibility must follow exactly one real original head-button click')
+      assert.equal(await evaluate(`[...document.querySelectorAll('.part-tools button')].find(b=>b.textContent.trim()==='头部').getAttribute('aria-pressed')`),'false')
+      record.complete=true
+    }catch(error){
+      record.complete=false;record.failure={at:new Date().toISOString(),message:error.message,stack:error.stack};persist()
+      try{await observe('failed original head click')}catch(observationError){record.failure.observationError=observationError.message}
+      try{const frame=await call('Page.captureScreenshot',{format:'png',fromSurface:true,captureBeyondViewport:false}),name='extension-118-skin-head-click-failure-'+width+'-'+height+'-'+zoom+'-'+theme+'.png';fs.writeFileSync(path.join('out',name),Buffer.from(frame.data,'base64'));record.failure.screenshot=name}catch(captureError){record.failure.captureError=captureError.message}
+      throw error
+    }finally{
+      if(installed)try{record.events=await evaluate('window.__skinPartObservation.finish()')}catch(error){record.cleanupError=error.message}
+      try{record.fixtureListenersRestored=await evaluate('window.__skinFixtureDiagnostic.finish().restoredListeners')}catch(error){record.cleanupError=error.message}
+      persist()
+    }
+  }
+  const makeDirty=async()=>{
+    const record={sequence:(proof.fixtureDiagnostics??=[]).length+1,classification:'single original fixture stroke; read-only document observation and original listeners forwarded',snapshots:[]};proof.fixtureDiagnostics.push(record)
+    const snapshot=async(label,expression='window.__skinFixtureDiagnostic.snapshot()')=>{const actual=await evaluate(expression),rgba=actual.rgba;assert(Array.isArray(rgba)&&rgba.length===64*64*4,'diagnostic must read the actual 64 x 64 skin document');const sha256=crypto.createHash('sha256').update(Buffer.from(rgba)).digest('hex');delete actual.rgba;record.snapshots.push({label,sha256,...actual});return rgba}
+    let installed=false,initial,last
+    try{
+      initial=await snapshot('before colour toggle',`(${installSkinFixtureDiagnostic.toString()})()`);installed=true
+      // Preserve the original toggle and exactly one original pose/gesture. The
+      // diagnostic does not choose another colour, retry a stroke, or wait longer.
+      await evaluate(`(()=>{const e=document.querySelector('.palette-hex');e.value=e.value==='#1177ee'?'#ee7733':'#1177ee';e.dispatchEvent(new Event('input',{bubbles:true}))})()`)
+      await snapshot('after colour toggle');await pose('正面');await snapshot('before single gesture');await gesture();last=await snapshot('after single gesture')
+      record.changedTexels=[];for(let i=0;i<last.length;i+=4)if(last.slice(i,i+4).some((v,k)=>v!==initial[i+k]))record.changedTexels.push({x:(i/4)%64,y:Math.floor(i/256),before:initial.slice(i,i+4),after:last.slice(i,i+4)})
+      assert(await evaluate(`document.querySelector('.editor-header p').textContent.includes('有未保存更改')`),'native-close fixture must actually be dirty')
+      record.dirtyAssertionPassed=true
+    }catch(error){
+      record.dirtyAssertionPassed=false;record.failure={message:error.message,stack:error.stack};persist()
+      // Capture immediately, without the normal screenshot helper's settling
+      // wait. The failed assertion remains failed even if capture also fails.
+      record.failure.captures=[]
+      if(process.platform==='darwin')try{
+        const bounds=await main(`(()=>{const w=testElectron.BrowserWindow.getAllWindows().find(w=>!w.isDestroyed()&&/\\/renderer\\/index\\.html(?:[?#]|$)/.test(w.webContents.getURL()));if(!w)throw Error('Owned native skin window unavailable');return w.getBounds()})()`),region=[bounds.x,bounds.y,bounds.width,bounds.height].map(Math.round)
+        assert(region.every(Number.isFinite)&&region[2]>0&&region[3]>0,'valid native failed skin bounds required')
+        const file=path.resolve('out','extension-118-skin-dirty-fixture-native-failure-'+record.sequence+'-'+theme+'.png')
+        execFileSync('/usr/sbin/screencapture',['-x','-R'+region.join(','),file],{timeout:10000})
+        const bytes=fs.readFileSync(file);assert(bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])),'actual native failed skin PNG required')
+        record.failure.captures.push({source:'actual native screen pixels; no added settling wait',file,bounds,bytes:bytes.length})
+      }catch(captureError){record.failure.nativeScreenshotError=captureError.message}
+      try{
+        const file=path.resolve('out','extension-118-skin-dirty-fixture-compositor-failure-'+record.sequence+'-'+theme+'.png'),bytes=Buffer.from((await call('Page.captureScreenshot',{format:'png',fromSurface:true,captureBeyondViewport:false})).data,'base64')
+        fs.writeFileSync(file,bytes);record.failure.captures.push({source:'actual full visible compositor pixels; no added settling wait',file,bytes:bytes.length})
+      }catch(captureError){record.failure.compositorScreenshotError=captureError.message}
+      throw error
+    }finally{
+      if(installed){const trace=await evaluate(`window.__skinFixtureDiagnostic.finish()`);record.events=trace.events;record.restoredListeners=trace.restoredListeners}
+      persist()
+    }
+  }
   const cancelConfirm=async()=>{await key('Escape');assert(!await evaluate(`!!document.querySelector('.skin-close-dialog')`));assert(await evaluate(`document.activeElement?.getAttribute('aria-label')==='关闭绘制皮肤'`),'close cancellation restores X focus')}
   const visibleError=async(scope,text)=>{
     const state=await until('visible operation error',`(()=>{const e=document.querySelector(${JSON.stringify(scope+' .editor-operation-error')}),r=e?.getBoundingClientRect(),hit=r&&document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return{ready:!!e&&e.textContent.includes(${JSON.stringify(text)})&&r.width>0&&r.height>0&&r.top>=0&&r.bottom<=innerHeight&&e.contains(hit),text:e?.textContent,rect:r&&{left:r.left,top:r.top,right:r.right,bottom:r.bottom},hit:hit?.className}})()`)
@@ -123,7 +260,7 @@ module.exports=async({call,evaluate,main,nav,wait,root,screenshot,version})=>{
       await pose('正面');await gesture();const painted=await png();assert.notEqual(painted,baseline,'left stroke changes actual PNG pixels')
       await clickText('.editor-tool-rail','撤销');assert.equal(await png(),baseline,'one undo removes the full stroke');await clickText('.editor-tool-rail','重做');assert.equal(await png(),painted)
       await pose('背面');await pose('俯视');await pose('仰视');assert.equal(await png(),painted,'quick views preserve pixels')
-      await clickText('.part-tools','头部');assert.equal(await evaluate(`[...document.querySelectorAll('.part-tools button')].find(b=>b.textContent.trim()==='头部').getAttribute('aria-pressed')`),'false');await clickText('.control-heading','全部显示');assert.equal(await png(),painted,'part visibility preserves pixels')
+      await checkHeadVisibility(width,height,zoom);await clickText('.control-heading','全部显示');assert.equal(await png(),painted,'part visibility preserves pixels')
       await makeDirty();await coordinateClick('[aria-label="关闭绘制皮肤"]');await until('visible dirty confirmation',`!!document.querySelector('.skin-close-dialog')`)
       const layout=await evaluate(`(()=>{const d=document.querySelector('.skin-close-dialog'),r=d.getBoundingClientRect(),x=document.querySelector('.editor-close').getBoundingClientRect(),f=document.querySelector('.editor-footer').getBoundingClientRect();return{innerWidth,innerHeight,confirm:{left:r.left,top:r.top,right:r.right,bottom:r.bottom},x:{top:x.top,right:x.right,bottom:x.bottom},footer:{top:f.top,bottom:f.bottom},focus:document.activeElement.textContent.trim(),role:d.getAttribute('role')}})()`)
       assert(layout.confirm.top>=0&&layout.confirm.bottom<=layout.innerHeight&&layout.confirm.right<=layout.innerWidth);assert(layout.x.top>=0&&layout.x.bottom<=layout.innerHeight);assert(layout.footer.bottom<=layout.innerHeight);assert.equal(layout.role,'alertdialog');assert.equal(layout.focus,'继续绘制')
@@ -149,3 +286,4 @@ module.exports=async({call,evaluate,main,nav,wait,root,screenshot,version})=>{
     persist()
   }
 }
+module.exports.installSkinFixtureDiagnostic=installSkinFixtureDiagnostic

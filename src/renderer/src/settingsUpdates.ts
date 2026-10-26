@@ -8,7 +8,10 @@ let revision = 0
 export async function updateSettings(patch: Partial<Settings>): Promise<void> {
   const current = ++revision
   const snapshot = JSON.parse(JSON.stringify(patch)) as Partial<Settings>
-  if (store.settings) store.settings = { ...store.settings, ...snapshot }
+  const publicPatch = { ...snapshot }
+  // Write-only secrets belong to their input and the main-process request, never the global UI store.
+  delete publicPatch.curseforgeApiKey
+  if (store.settings) store.settings = { ...store.settings, ...publicPatch }
   const result = pending.then(() => saveSettings(snapshot))
   pending = result.catch(() => undefined)
   try {

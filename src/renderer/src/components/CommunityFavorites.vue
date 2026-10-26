@@ -3,9 +3,9 @@ import { computed, onMounted, ref, watch } from 'vue'
 import SelectMenu from './SelectMenu.vue'
 import ConfirmModal from './ConfirmModal.vue'
 import { favorites, favoriteBusy, favoriteErrors, clearFavoriteErrors, linkFavorite, loadFavorites, removeFavorites } from '../modFavorites'
-import { filterFavorites, type FavoriteFilter, type ModFavorite } from '@shared/modFavorites'
+import { favoriteIconUrl, filterFavorites, type FavoriteFilter, type ModFavorite } from '@shared/modFavorites'
 import type { CommunityProjectReference, CommunitySource } from '@shared/types'
-import { errText } from '../api'
+import { communityProject, errText } from '../api'
 
 const props = defineProps<{ keyword?: string }>()
 const emit = defineEmits<{ (event: 'download', project: CommunityProjectReference): void; (event: 'details', project: CommunityProjectReference): void; (event: 'browse'): void }>()
@@ -14,6 +14,24 @@ watch(() => props.keyword, value => { keyword.value = value ?? '' })
 const visible = computed(() => filterFavorites(favorites.value, {keyword: keyword.value, source: source.value, sort: sort.value}))
 const selected = ref(new Set<string>()), pendingRemoval = ref<string[]>([]), removing = ref(false)
 const loading = ref(false), loadError = ref('')
+const projectIcons = ref(new Map<string, string>()), failedIcons = ref(new Set<string>()), iconRevision = ref(0)
+function icon(record: ModFavorite) { return favoriteIconUrl(record.iconUrl) || projectIcons.value.get(record.key) }
+// Old favorites have no artwork field. Fetch their verified MOD metadata in a
+// bounded queue without delaying the list or writing over favorite mutations.
+watch(() => `${iconRevision.value}|` + favorites.value.map(record => `${record.key}:${record.iconUrl || ''}`).join('|'), async (_value, _previous, cleanup) => {
+  let stale = false; cleanup(() => { stale = true })
+  const pending = favorites.value.filter(record => record.source && record.projectId && !icon(record))
+  await Promise.all(Array.from({length: Math.min(3, pending.length)}, async () => {
+    while (!stale && pending.length) {
+      const record = pending.shift()!
+      try {
+        const project = await communityProject(record.source!, record.projectId!)
+        const url = favoriteIconUrl(project.iconUrl)
+        if (!stale && url) projectIcons.value = new Map(projectIcons.value).set(record.key, url)
+      } catch { /* Artwork is optional; installation and favorite state stay usable offline. */ }
+    }
+  }))
+}, { immediate: true })
 const allSelected = computed(() => visible.value.length > 0 && visible.value.every(f => selected.value.has(f.key)))
 const someSelected = computed(() => visible.value.some(f => selected.value.has(f.key)))
 const selectionBusy = computed(() => [...selected.value].some(key => favoriteBusy.value.has(key)))
@@ -24,8 +42,9 @@ function select(key: string, enabled: boolean) { const next = new Set(selected.v
 function selectVisible(enabled: boolean) { const next = new Set(selected.value); for (const f of visible.value) enabled ? next.add(f.key) : next.delete(f.key); selected.value = next }
 async function refresh() {
   loading.value = true; loadError.value = ''
+  failedIcons.value = new Set()
   try { await loadFavorites(true) } catch (error) { loadError.value = errText(error) }
-  finally { loading.value = false }
+  finally { loading.value = false; iconRevision.value++ }
 }
 onMounted(() => void refresh())
 async function cancelSelected() {
@@ -63,7 +82,7 @@ const sortOptions = [{value:'newest',label:'最近收藏'},{value:'oldest',label
     <div v-else-if="!visible.length && !loadError" class="card favorite-empty"><strong>没有匹配的收藏</strong><span class="muted">尝试其他名称或来源。</span><button class="btn btn-ghost" @click="keyword = ''; source = 'all'">清除筛选</button></div>
     <div v-else class="favorite-list">
       <article v-for="record in visible" :key="record.key" class="card favorite-card" :data-favorite-key="record.key" :aria-busy="favoriteBusy.has(record.key)">
-        <div class="favorite-card-top"><label class="favorite-select"><input type="checkbox" :aria-label="`选择收藏 ${record.name}`" :checked="selected.has(record.key)" :disabled="favoriteBusy.has(record.key)" @change="select(record.key, ($event.target as HTMLInputElement).checked)" /><span class="sr-only">选择 {{ record.name }}</span></label><span class="favorite-monogram" aria-hidden="true">{{ record.name.charAt(0).toUpperCase() }}</span><div class="favorite-title"><h3 :title="record.name">{{ record.name }}</h3><span class="tag" :class="record.source === 'modrinth' ? 'tag-success' : record.source === 'curseforge' ? 'tag-cf' : 'tag-danger'">{{ record.source === 'modrinth' ? 'Modrinth' : record.source === 'curseforge' ? 'CurseForge' : '来源未关联' }}</span></div></div>
+        <div class="favorite-card-top"><label class="favorite-select"><input type="checkbox" :aria-label="`选择收藏 ${record.name}`" :checked="selected.has(record.key)" :disabled="favoriteBusy.has(record.key)" @change="select(record.key, ($event.target as HTMLInputElement).checked)" /><span class="sr-only">选择 {{ record.name }}</span></label><span class="favorite-icon" aria-hidden="true"><img v-if="icon(record) && !failedIcons.has(record.key)" :src="icon(record)" alt="" loading="lazy" referrerpolicy="no-referrer" @error="failedIcons = new Set([...failedIcons, record.key])" /><svg v-else viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m12 3 9 5v8l-9 5-9-5V8Z M3 8l9 5 9-5 M12 13v8" /></svg></span><div class="favorite-title"><h3 :title="record.name">{{ record.name }}</h3><span class="tag" :class="record.source === 'modrinth' ? 'tag-success' : record.source === 'curseforge' ? 'tag-cf' : 'tag-danger'">{{ record.source === 'modrinth' ? 'Modrinth' : record.source === 'curseforge' ? 'CurseForge' : '来源未关联' }}</span></div></div>
         <p class="favorite-identity muted" :title="record.projectId || record.sha1 || record.key">{{ record.projectId ? `项目 ID · ${record.projectId}` : `文件 SHA1 · ${record.sha1 || record.key.slice(5)}` }}</p>
         <p v-if="!record.source || !record.projectId" class="favorite-link-hint">关联来源项目后，可查询兼容版本并下载。</p><p v-else class="favorite-link-hint muted">下载时按 Minecraft 版本和加载器查询兼容文件。</p>
         <p v-if="favoriteErrors.get(record.key)" class="favorites-status" role="alert">{{ favoriteErrors.get(record.key) }}</p><div class="favorite-card-foot"><small class="muted">收藏于 {{ new Date(record.added).toLocaleDateString('zh-CN') }}</small><div class="favorite-card-actions"><button class="icon-btn favorite-remove" :disabled="favoriteBusy.has(record.key)" :aria-label="`取消收藏 ${record.name}`" title="取消收藏" @click="removeFavorites([record.key])"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3L3 9.6l6.2-.9Z" /></svg></button><button v-if="record.source && record.projectId" class="btn btn-ghost btn-sm favorite-details" :disabled="favoriteBusy.has(record.key)" @click="emit('details', project(record))">查看详情</button><button v-if="record.source && record.projectId" class="btn btn-gold btn-sm favorite-download" :disabled="favoriteBusy.has(record.key)" @click="emit('download', project(record))">选择版本并安装</button><button v-else class="btn btn-ghost btn-sm favorite-link" :disabled="favoriteBusy.has(record.key)" @click="openLink(record)">关联项目</button></div></div>
@@ -86,8 +105,8 @@ const sortOptions = [{value:'newest',label:'最近收藏'},{value:'oldest',label
 .favorites-status { display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:var(--danger);font-size:13px; }
 .favorite-list { display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,310px),1fr));gap:14px; }
 .favorite-card { min-width:0;padding:18px;display:flex;flex-direction:column;gap:12px;transition:border-color 160ms; }.favorite-card:focus-within { border-color:var(--accent); }
-.favorite-card-top { display:flex;align-items:center;gap:12px; }.favorite-monogram { display:grid;place-items:center;flex:none;width:42px;height:42px;border:1px solid var(--border);border-radius:11px;background:var(--accent-soft);color:var(--accent-2);font-size:19px;font-weight:700; }
-.favorite-title { min-width:0; }.favorite-title h3 { font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0 0 6px; }.tag { font-size:10px;padding:3px 7px; }.tag-cf { color:#f7a063;background:rgba(247,160,99,.12); }
+.favorite-card-top { display:flex;align-items:center;gap:12px; }.favorite-icon { display:grid;place-items:center;flex:none;width:42px;height:42px;border:1px solid var(--border);border-radius:11px;background:var(--accent-soft);color:var(--accent-2);font-size:19px;font-weight:700; }
+.favorite-icon img { width:100%;height:100%;object-fit:contain;border-radius:inherit; }.favorite-title { min-width:0; }.favorite-title h3 { font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0 0 6px; }.tag { font-size:10px;padding:3px 7px; }.tag-cf { color:#f7a063;background:rgba(247,160,99,.12); }
 .favorite-identity { font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0; }.favorite-link-hint { font-size:12px;line-height:1.65;margin:0;min-height:40px; }
 .favorite-card-foot { display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--border); }.favorite-card-foot small { font-size:10px; }.favorite-card-actions { display:flex;align-items:center;gap:5px;margin-left:auto;flex-wrap:wrap; }.favorite-remove { color:var(--accent-2); }
 .favorite-empty { display:flex;flex-direction:column;align-items:center;gap:12px;padding:44px 24px;text-align:center; }.favorite-empty svg { color:var(--text-dim); }.favorite-empty .muted { font-size:13px; }

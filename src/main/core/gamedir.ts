@@ -5,7 +5,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { ProgressEvent } from '../../shared/types'
-import { getSettings, saveSettings } from './settings'
+import { getSettings } from './settings'
+import { setDownloadGameFolder } from './gameFolders'
 import { gameDir as currentGameDir } from './paths'
 
 export type ProgressEmit = (e: ProgressEvent) => void
@@ -165,7 +166,7 @@ export async function migrateGameDir(
   }
 
   // 全部完成才切换配置（之前的任何失败都不会破坏现状）
-  saveSettings({ gameDir: resolved })
+  setDownloadGameFolder(resolved)
   emit({ stage: 'migrate', progress: 1, text: '游戏目录已切换' })
   return resolved
 }

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 import { mergeKeysIntoOptions } from '../src/main/core/keybindings'
+import { createAppearanceAssetActions } from '../src/main/core/appearanceAssetActions'
 
 const read = (file: string) => fs.readFileSync(file, 'utf8')
 
@@ -15,7 +16,7 @@ test('microsoft login: every pipeline step is labeled and written to launcher lo
   // 失败写 launcherLog（不再只进 console）且错误原因透传给前端
   assert.match(accounts, /logScope\('ms-auth'\)/)
   assert.match(accounts, /authLog\.error\('微软登录失败', e\)/)
-  assert.match(accounts, /onDone\(null, signal\.aborted \? undefined : message\)/)
+  assert.match(accounts, /onDone\(null, signal\.aborted \? undefined : message, operation\.publicId\)/)
   const ipc = read('src/main/ipc.ts')
   assert.match(ipc, /msLoginDone[\s\S]*?error: error \?\? null/)
   // 前端显示具体原因，取消与失败区分
@@ -50,12 +51,37 @@ test('background auto-switch: multi-image, strategy (off/order/random), startup 
   assert.match(app, /clearInterval\(bgSwitchTimer\)/)
   // 多图导入 IPC 与受管清理
   const ipc = read('src/main/ipc.ts')
-  assert.match(ipc, /appearanceImportBackgroundMulti/)
-  assert.match(ipc, /multiSelections/)
-  assert.match(ipc, /for \(const image of previous\.images \?\? \[\]\) appearance\.removeGlobalImage/)
+  assert.match(ipc, /import \{ registerAppearanceAssetHandlers \} from '\.\/assetsSettings'/)
+  assert.match(ipc, /registerAppearanceAssetHandlers\(getWin\)/)
+  const assets = read('src/main/assetsSettings.ts')
+  assert.match(assets, /multiSelections/)
+  assert.match(assets, /ipcMain\.handle\(IPC\.appearanceImportBackgroundMulti,[\s\S]*?pick\('添加背景图片（可多选）', true\)[\s\S]*?actions\.multipleImages\(sources, 'background'\)/)
+  assert.match(assets, /ipcMain\.handle\(IPC\.appearanceResetBackground, \(\) => actions\.resetBackground\(\)\)/)
   const editor = read('src/renderer/src/components/HomeLayoutEditor.vue')
   assert.match(editor, /pickImageMulti/)
   assert.match(editor, /switchMode/)
+})
+
+test('extracted appearance actions commit before cleaning every old managed background and preserve multi-selection behavior', async () => {
+  let current: any = { background: { mode: 'image', image: 'old-primary', images: ['old-secondary', 'old-primary'], switchMode: 'order' }, launchThumbnail: { image: '', images: [] } }
+  const calls: string[] = []
+  const actions = createAppearanceAssetActions({
+    getSettings: () => current,
+    saveSettings: patch => { calls.push('save'); current = { ...current, ...patch }; return current },
+    importImage: async (source, purpose) => { calls.push(`import:${purpose}:${source}`); return { path: `managed-${source}` } },
+    removeImage: (image, purpose) => calls.push(`remove:${purpose}:${image}`)
+  })
+  await actions.singleBackground('single')
+  assert.deepEqual(current.background.images, ['managed-single'])
+  assert.equal(current.background.switchMode, 'off')
+  assert.deepEqual(calls, ['import:background:single', 'save', 'remove:background:old-primary', 'remove:background:old-secondary'])
+  calls.length = 0
+  await actions.multipleImages(['first', 'second'], 'background')
+  assert.deepEqual(current.background.images, ['managed-single', 'managed-first', 'managed-second'])
+  assert.deepEqual(calls, ['import:background:first', 'import:background:second', 'save'])
+  calls.length = 0
+  actions.resetBackground()
+  assert.deepEqual(calls, ['save', 'remove:background:managed-single', 'remove:background:managed-first', 'remove:background:managed-second'])
 })
 
 test('default config page: renamed, key sync switch, vanilla-aligned categories (1.0.12 起仅保留键位)', () => {

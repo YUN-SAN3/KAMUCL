@@ -1,0 +1,2223 @@
+{
+  "exe": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+  "exeSha": "4822890c6cc94353a16687d812fdfb0be9379dad1c0258ef4b1a35c14d686df9",
+  "theme": "transparent",
+  "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb",
+  "classification": "Actual portable EXE and native desktop compositor crop; first capture before any window mutation; quarter phase uses explicit owned bounds, not a claim of physical Snap",
+  "phases": [
+    {
+      "pid": 54668,
+      "hwnd": 28644086,
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1361,
+        "height": 862
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": false,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1701,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281586110
+        },
+        "after": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1701,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281587007
+        },
+        "contentBounds": {
+          "x": 855,
+          "y": 409,
+          "width": 1361,
+          "height": 862
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "cold-initial-unmoved-native-application.png",
+            "bytes": 748176,
+            "sha256": "ba150f813442eeb4f7341dad7f94ff28c11b6c2a55a8e131cc5a86190c950719",
+            "crop": {
+              "x": 1069,
+              "y": 511,
+              "width": 1701,
+              "height": 1077
+            }
+          },
+          {
+            "file": "cold-initial-unmoved-native-sidebar.png",
+            "bytes": 57475,
+            "sha256": "a261e6523e3d13c62005afc27cb5a25c43ad842fb685d093df6d286c1c91993a",
+            "crop": {
+              "x": 1070,
+              "y": 512,
+              "width": 260,
+              "height": 1076
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        },
+        "after": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-initial-unmoved-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-initial-unmoved-renderer.png",
+      "phase": "initial-unmoved",
+      "launch": "cold"
+    },
+    {
+      "pid": 54668,
+      "hwnd": 28644086,
+      "bounds": {
+        "x": 20,
+        "y": 20,
+        "width": 1538,
+        "height": 841
+      },
+      "contentBounds": {
+        "x": 20,
+        "y": 20,
+        "width": 1536,
+        "height": 840
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": false,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1920,
+            "bottom": 1050
+          },
+          "origin": {
+            "x": 25,
+            "y": 25
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281588369
+        },
+        "after": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1920,
+            "bottom": 1050
+          },
+          "origin": {
+            "x": 25,
+            "y": 25
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281589262
+        },
+        "contentBounds": {
+          "x": 20,
+          "y": 20,
+          "width": 1536,
+          "height": 840
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "cold-quarter-request-native-application.png",
+            "bytes": 945790,
+            "sha256": "38604999b59c2d854780c38a1541af73b09684423d87c1bc81313970be99ea26",
+            "crop": {
+              "x": 25,
+              "y": 25,
+              "width": 1920,
+              "height": 1050
+            }
+          },
+          {
+            "file": "cold-quarter-request-native-sidebar.png",
+            "bytes": 128155,
+            "sha256": "fcb6ca7f522c835596138e2cc37fdb162e76eb992185716b0555a0c2e93df381",
+            "crop": {
+              "x": 26,
+              "y": 26,
+              "width": 260,
+              "height": 1048
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        },
+        "after": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-quarter-request-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-quarter-request-renderer.png",
+      "phase": "quarter-request",
+      "launch": "cold"
+    },
+    {
+      "pid": 54668,
+      "hwnd": 28644086,
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1361,
+        "height": 862
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": false,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1701,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281590602
+        },
+        "after": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1701,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281591410
+        },
+        "contentBounds": {
+          "x": 855,
+          "y": 409,
+          "width": 1361,
+          "height": 862
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "cold-same-bounds-restored-native-application.png",
+            "bytes": 735325,
+            "sha256": "ac9faf0961e0fb175710ec717f10f4fb880fd67244076d6f57b02594235ff8b5",
+            "crop": {
+              "x": 1069,
+              "y": 511,
+              "width": 1701,
+              "height": 1077
+            }
+          },
+          {
+            "file": "cold-same-bounds-restored-native-sidebar.png",
+            "bytes": 57397,
+            "sha256": "c3d2b509feb861cf8dd8e576abcc912cddccf01b3e88eb4e19ec48036247368b",
+            "crop": {
+              "x": 1070,
+              "y": 512,
+              "width": 260,
+              "height": 1076
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        },
+        "after": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-same-bounds-restored-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-same-bounds-restored-renderer.png",
+      "phase": "same-bounds-restored",
+      "launch": "cold"
+    },
+    {
+      "pid": 54668,
+      "hwnd": 28644086,
+      "bounds": {
+        "x": -7,
+        "y": -7,
+        "width": 3088,
+        "height": 1696
+      },
+      "contentBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": true,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 3840,
+            "bottom": 2100
+          },
+          "origin": {
+            "x": 0,
+            "y": 0
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281592745
+        },
+        "after": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 3840,
+            "bottom": 2100
+          },
+          "origin": {
+            "x": 0,
+            "y": 0
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281593964
+        },
+        "contentBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 1680
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "cold-maximized-native-application.png",
+            "bytes": 2458198,
+            "sha256": "71f86d41d07459a4f8c6f1dec378ad24d7458c9af520520b611a993e20c4d477",
+            "crop": {
+              "x": 0,
+              "y": 0,
+              "width": 3840,
+              "height": 2100
+            }
+          },
+          {
+            "file": "cold-maximized-native-sidebar.png",
+            "bytes": 219956,
+            "sha256": "8611608738368981296fa578bb1dfc952bc3426256b609fe64ca9c5501c901f1",
+            "crop": {
+              "x": 1,
+              "y": 1,
+              "width": 260,
+              "height": 2098
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        },
+        "after": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-maximized-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-maximized-renderer.png",
+      "phase": "maximized",
+      "launch": "cold"
+    },
+    {
+      "pid": 54668,
+      "hwnd": 28644086,
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1361,
+        "height": 862
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": false,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1701,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281595345
+        },
+        "after": {
+          "hwnd": 28644086,
+          "foreground": 28644086,
+          "ownerPid": 54668,
+          "foregroundPid": 54668,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1701,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281596146
+        },
+        "contentBounds": {
+          "x": 855,
+          "y": 409,
+          "width": 1361,
+          "height": 862
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "cold-unmaximized-native-application.png",
+            "bytes": 765199,
+            "sha256": "1465abee03a02271ea0625b5727c87f28f6ccfea3b4dd720a35c3e2e2de152b2",
+            "crop": {
+              "x": 1069,
+              "y": 511,
+              "width": 1701,
+              "height": 1077
+            }
+          },
+          {
+            "file": "cold-unmaximized-native-sidebar.png",
+            "bytes": 57446,
+            "sha256": "abd2938bd0d4e45ab9b53056d76575f38c0dab23db15d86fa80eaae279667cbf",
+            "crop": {
+              "x": 1070,
+              "y": 512,
+              "width": 260,
+              "height": 1076
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        },
+        "after": {
+          "handle": 28644086,
+          "pid": 54668,
+          "ownedHandle": 28644086,
+          "ownedPid": 54668
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-unmaximized-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-unmaximized-renderer.png",
+      "phase": "unmaximized",
+      "launch": "cold"
+    },
+    {
+      "pid": 47724,
+      "hwnd": 8000344,
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 862
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": false,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1702,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281602573
+        },
+        "after": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1702,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281603531
+        },
+        "contentBounds": {
+          "x": 855,
+          "y": 409,
+          "width": 1362,
+          "height": 862
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "warm-initial-unmoved-native-application.png",
+            "bytes": 707916,
+            "sha256": "986821559a49587c318ace8972865738d60d448d589279db715022d39bac61d2",
+            "crop": {
+              "x": 1069,
+              "y": 511,
+              "width": 1702,
+              "height": 1077
+            }
+          },
+          {
+            "file": "warm-initial-unmoved-native-sidebar.png",
+            "bytes": 57511,
+            "sha256": "67460808e6026726ac66efaf43fda35f39bba77f33989edeff90925a74dfb475",
+            "crop": {
+              "x": 1070,
+              "y": 512,
+              "width": 260,
+              "height": 1076
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        },
+        "after": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-initial-unmoved-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-initial-unmoved-renderer.png",
+      "phase": "initial-unmoved",
+      "launch": "warm"
+    },
+    {
+      "pid": 47724,
+      "hwnd": 8000344,
+      "bounds": {
+        "x": 20,
+        "y": 20,
+        "width": 1538,
+        "height": 841
+      },
+      "contentBounds": {
+        "x": 20,
+        "y": 20,
+        "width": 1536,
+        "height": 840
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": false,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1920,
+            "bottom": 1050
+          },
+          "origin": {
+            "x": 25,
+            "y": 25
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281604884
+        },
+        "after": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1920,
+            "bottom": 1050
+          },
+          "origin": {
+            "x": 25,
+            "y": 25
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281605740
+        },
+        "contentBounds": {
+          "x": 20,
+          "y": 20,
+          "width": 1536,
+          "height": 840
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "warm-quarter-request-native-application.png",
+            "bytes": 923787,
+            "sha256": "2af827c0a860c41fc8c1ac28dc191cf6b0dd5e68c696e67576dbf875497c036e",
+            "crop": {
+              "x": 25,
+              "y": 25,
+              "width": 1920,
+              "height": 1050
+            }
+          },
+          {
+            "file": "warm-quarter-request-native-sidebar.png",
+            "bytes": 128155,
+            "sha256": "fcb6ca7f522c835596138e2cc37fdb162e76eb992185716b0555a0c2e93df381",
+            "crop": {
+              "x": 26,
+              "y": 26,
+              "width": 260,
+              "height": 1048
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        },
+        "after": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-quarter-request-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-quarter-request-renderer.png",
+      "phase": "quarter-request",
+      "launch": "warm"
+    },
+    {
+      "pid": 47724,
+      "hwnd": 8000344,
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 862
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": false,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1702,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281607110
+        },
+        "after": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1702,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281607915
+        },
+        "contentBounds": {
+          "x": 855,
+          "y": 409,
+          "width": 1362,
+          "height": 862
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "warm-same-bounds-restored-native-application.png",
+            "bytes": 709033,
+            "sha256": "74dcb4558bea6d7bb06c3f5551873a4abd332bfe0873a151957e1e011ec6e842",
+            "crop": {
+              "x": 1069,
+              "y": 511,
+              "width": 1702,
+              "height": 1077
+            }
+          },
+          {
+            "file": "warm-same-bounds-restored-native-sidebar.png",
+            "bytes": 57615,
+            "sha256": "04faa1b09ee485e9e0c4ae2c93c9ceaf9e860e983814f609fb3e2f068102dea5",
+            "crop": {
+              "x": 1070,
+              "y": 512,
+              "width": 260,
+              "height": 1076
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        },
+        "after": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-same-bounds-restored-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-same-bounds-restored-renderer.png",
+      "phase": "same-bounds-restored",
+      "launch": "warm"
+    },
+    {
+      "pid": 47724,
+      "hwnd": 8000344,
+      "bounds": {
+        "x": -7,
+        "y": -7,
+        "width": 3088,
+        "height": 1696
+      },
+      "contentBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": true,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 3840,
+            "bottom": 2100
+          },
+          "origin": {
+            "x": 0,
+            "y": 0
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281609262
+        },
+        "after": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 3840,
+            "bottom": 2100
+          },
+          "origin": {
+            "x": 0,
+            "y": 0
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281610461
+        },
+        "contentBounds": {
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 1680
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "warm-maximized-native-application.png",
+            "bytes": 2537184,
+            "sha256": "d320d2f27b88a363ff8e9818d5d1422c510d47efda8778965ef38b0415d0273b",
+            "crop": {
+              "x": 0,
+              "y": 0,
+              "width": 3840,
+              "height": 2100
+            }
+          },
+          {
+            "file": "warm-maximized-native-sidebar.png",
+            "bytes": 219956,
+            "sha256": "8611608738368981296fa578bb1dfc952bc3426256b609fe64ca9c5501c901f1",
+            "crop": {
+              "x": 1,
+              "y": 1,
+              "width": 260,
+              "height": 2098
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        },
+        "after": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-maximized-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-maximized-renderer.png",
+      "phase": "maximized",
+      "launch": "warm"
+    },
+    {
+      "pid": 47724,
+      "hwnd": 8000344,
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 862
+      },
+      "dpi": 120,
+      "style": 2097408,
+      "layered": false,
+      "opacity": 1,
+      "visible": true,
+      "focused": true,
+      "minimized": false,
+      "maximized": false,
+      "theme": "transparent",
+      "nativeCapture": {
+        "before": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1702,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281611857
+        },
+        "after": {
+          "hwnd": 8000344,
+          "foreground": 8000344,
+          "ownerPid": 47724,
+          "foregroundPid": 47724,
+          "client": {
+            "left": 0,
+            "top": 0,
+            "right": 1702,
+            "bottom": 1077
+          },
+          "origin": {
+            "x": 1069,
+            "y": 511
+          },
+          "monitor": {
+            "cbSize": 40,
+            "rcMonitor": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2160
+            },
+            "rcWork": {
+              "left": 0,
+              "top": 0,
+              "right": 3840,
+              "bottom": 2100
+            },
+            "dwFlags": 1
+          },
+          "dpi": 120,
+          "dpiAwareness": 2,
+          "focused": true,
+          "visible": true,
+          "minimized": false,
+          "observedAt": 1791281612673
+        },
+        "contentBounds": {
+          "x": 855,
+          "y": 409,
+          "width": 1362,
+          "height": 862
+        },
+        "display": {
+          "accelerometerSupport": "unknown",
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1728
+          },
+          "colorDepth": 24,
+          "colorSpace": "{primaries:P3, transfer:SRGB, matrix:RGB, range:FULL}",
+          "depthPerComponent": 8,
+          "detected": true,
+          "displayFrequency": 240,
+          "id": 2422596671,
+          "internal": false,
+          "label": "XG32UCWMG",
+          "maximumCursorSize": {
+            "width": 0,
+            "height": 0
+          },
+          "monochrome": false,
+          "nativeOrigin": {
+            "x": 0,
+            "y": 0
+          },
+          "rotation": 0,
+          "scaleFactor": 1.25,
+          "size": {
+            "width": 3072,
+            "height": 1728
+          },
+          "workArea": {
+            "x": 0,
+            "y": 0,
+            "width": 3072,
+            "height": 1680
+          },
+          "workAreaSize": {
+            "width": 3072,
+            "height": 1680
+          },
+          "touchSupport": "unknown"
+        },
+        "physicalMonitorBounds": {
+          "left": 0,
+          "top": 0,
+          "right": 3840,
+          "bottom": 2160
+        },
+        "source": {
+          "id": "screen:0:0",
+          "display_id": "2422596671",
+          "size": {
+            "width": 3840,
+            "height": 2160
+          }
+        },
+        "zoom": 1,
+        "scale": 1.25,
+        "crops": [
+          {
+            "file": "warm-unmaximized-native-application.png",
+            "bytes": 792715,
+            "sha256": "30abfd6dcd168d726a8981f98a136bea3b9f6d1b60c27b6fc202a9109b5ec657",
+            "crop": {
+              "x": 1069,
+              "y": 511,
+              "width": 1702,
+              "height": 1077
+            }
+          },
+          {
+            "file": "warm-unmaximized-native-sidebar.png",
+            "bytes": 57589,
+            "sha256": "c65fa4cf8be2bd9f82e77b58688717899e83e29d102bc5b5be961ea8b101073d",
+            "crop": {
+              "x": 1070,
+              "y": 512,
+              "width": 260,
+              "height": 1076
+            }
+          }
+        ],
+        "classification": "Actual GetForegroundWindow/HWND/PID checked before, after source and after crop; per-monitor-aware Win32 client physical origin/rect, original native screen cropped in memory only"
+      },
+      "foreground": {
+        "before": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        },
+        "after": {
+          "handle": 8000344,
+          "pid": 47724,
+          "ownedHandle": 8000344,
+          "ownedPid": 47724
+        }
+      },
+      "nativeFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-unmaximized-native-application.png",
+      "rendererFile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-unmaximized-renderer.png",
+      "phase": "unmaximized",
+      "launch": "warm"
+    }
+  ],
+  "launches": [
+    {
+      "launch": "cold",
+      "owned": {
+        "label": "initial-backdrop-cold",
+        "pid": 39560,
+        "startedAt": "2026-10-06T10:12:59.886Z",
+        "events": [
+          {
+            "event": "exit",
+            "at": 235946182.0196,
+            "code": 0,
+            "signal": null
+          },
+          {
+            "event": "close",
+            "at": 235946182.0848,
+            "code": 0,
+            "signal": null
+          }
+        ],
+        "closed": true,
+        "code": 0,
+        "signal": null,
+        "awaitedClose": true,
+        "finishedAt": "2026-10-06T10:13:16.484Z"
+      }
+    },
+    {
+      "launch": "warm",
+      "owned": {
+        "label": "initial-backdrop-warm",
+        "pid": 48560,
+        "startedAt": "2026-10-06T10:13:16.523Z",
+        "events": [
+          {
+            "event": "exit",
+            "at": 235962667.7499,
+            "code": 0,
+            "signal": null
+          },
+          {
+            "event": "close",
+            "at": 235962667.7947,
+            "code": 0,
+            "signal": null
+          }
+        ],
+        "closed": true,
+        "code": 0,
+        "signal": null,
+        "awaitedClose": true,
+        "finishedAt": "2026-10-06T10:13:32.970Z"
+      }
+    }
+  ],
+  "startedAt": "2026-10-06T10:12:59.818Z",
+  "readiness": {
+    "theme": "transparent",
+    "text": true,
+    "ready": "complete"
+  },
+  "gpu": {
+    "2d_canvas": "enabled",
+    "direct_rendering_display_compositor": "disabled_off_ok",
+    "gpu_compositing": "enabled",
+    "multiple_raster_threads": "enabled_on",
+    "opengl": "enabled_on",
+    "rasterization": "enabled",
+    "raw_draw": "disabled_off_ok",
+    "skia_graphite": "disabled_off",
+    "trees_in_viz": "disabled_off",
+    "video_decode": "enabled",
+    "video_encode": "enabled",
+    "webgl": "enabled",
+    "webgpu": "disabled_off",
+    "webnn": "disabled_off"
+  },
+  "owned": {
+    "label": "initial-backdrop-warm",
+    "pid": 48560,
+    "startedAt": "2026-10-06T10:13:16.523Z",
+    "events": [
+      {
+        "event": "exit",
+        "at": 235962667.7499,
+        "code": 0,
+        "signal": null
+      },
+      {
+        "event": "close",
+        "at": 235962667.7947,
+        "code": 0,
+        "signal": null
+      }
+    ],
+    "closed": true,
+    "code": 0,
+    "signal": null,
+    "awaitedClose": true,
+    "finishedAt": "2026-10-06T10:13:32.970Z"
+  },
+  "finishedAt": "2026-10-06T10:13:32.971Z",
+  "passed": true
+}

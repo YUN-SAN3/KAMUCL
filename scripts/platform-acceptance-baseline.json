@@ -1,0 +1,1384 @@
+{
+  "schema": 1,
+  "baselineVersion": "1.1.10",
+  "baselineCommit": "85bfe93c016a004b7ddbd397c6b8769bedd25c50",
+  "channels": [
+    "accounts:addOffline",
+    "accounts:list",
+    "accounts:msBegin",
+    "accounts:msCancel",
+    "accounts:refresh",
+    "accounts:remove",
+    "accounts:select",
+    "accounts:selected",
+    "accounts:yggLogin",
+    "accounts:yggProbe",
+    "accounts:yggProviders",
+    "accounts:yggRemoveProvider",
+    "accounts:yggRuntime",
+    "accounts:yggSaveProvider",
+    "accounts:yggSelectProfile",
+    "app:openDir",
+    "app:selectDir",
+    "app:selectFile",
+    "app:selectImage",
+    "app:systemInfo",
+    "appearance:draftApply",
+    "appearance:draftDiscard",
+    "appearance:draftRead",
+    "appearance:draftSave",
+    "appearance:exportTheme",
+    "appearance:importBackground",
+    "appearance:importBackgroundMulti",
+    "appearance:importLaunchThumbnail",
+    "appearance:importTheme",
+    "appearance:resetBackground",
+    "appearance:resetLaunchThumbnail",
+    "appearance:resetTheme",
+    "boot:renderer-ready",
+    "boot:stage",
+    "bridge:install",
+    "bridge:installed",
+    "bridge:manifest",
+    "bridge:reset",
+    "bridge:set",
+    "bridge:status",
+    "center:backups",
+    "center:dependencyApply",
+    "center:dependencyPlan",
+    "center:diagnose",
+    "center:file",
+    "center:operation",
+    "center:overview",
+    "center:screenshots",
+    "center:worlds",
+    "community:download",
+    "community:files",
+    "community:project",
+    "community:search",
+    "defaultPacks:get",
+    "defaultPacks:import",
+    "defaultPacks:move",
+    "defaultPacks:pick",
+    "defaultPacks:remove",
+    "defaultPacks:setEnabled",
+    "direct:host",
+    "direct:overview",
+    "direct:prepareJoin",
+    "direct:resolve",
+    "direct:state",
+    "direct:stop",
+    "event:gameDirDone",
+    "event:installDone",
+    "event:launchLog",
+    "event:launchState",
+    "event:msLoginDone",
+    "event:progress",
+    "event:taskDone",
+    "event:updatePrompt",
+    "event:updateReady",
+    "event:updateSlowHint",
+    "exitHistory:ack",
+    "exitHistory:clear",
+    "exitHistory:list",
+    "files:dragError",
+    "folders:add",
+    "folders:contextMenu",
+    "folders:list",
+    "folders:open",
+    "folders:remove",
+    "folders:rename",
+    "folders:scan",
+    "folders:setActive",
+    "folders:setDefault",
+    "frp:create-tunnel",
+    "frp:delete-tunnel",
+    "frp:event",
+    "frp:nodes",
+    "frp:start",
+    "frp:status",
+    "frp:stop",
+    "fs:drag",
+    "fs:importResources",
+    "fs:list",
+    "fs:remove",
+    "fs:toggleDisable",
+    "game:kill",
+    "game:launch",
+    "game:restart",
+    "game:restartCancel",
+    "gameDir:migrate",
+    "gameOptions:get",
+    "gameOptions:set",
+    "import:probe",
+    "java:addCustom",
+    "java:cancelScan",
+    "java:hide",
+    "java:list",
+    "java:pickAdd",
+    "java:refresh",
+    "kamucl:mem-trim",
+    "keys:getDefault",
+    "keys:reset",
+    "keys:setDefault",
+    "launch:exportLogs",
+    "loaders:fabricApi",
+    "loaders:list",
+    "mascots:batch",
+    "mascots:reset",
+    "mascots:slap",
+    "mascots:sound",
+    "mascots:state",
+    "memory:organize",
+    "modpack:install",
+    "modpack:openFile",
+    "modpack:probe",
+    "modpack:supplyFiles",
+    "mods:applyUpdates",
+    "mods:catalog",
+    "mods:checkUpdates",
+    "mods:commit",
+    "mods:crossDuplicates",
+    "mods:discard",
+    "mods:duplicates",
+    "mods:favorite",
+    "mods:favoriteLink",
+    "mods:favoriteLocal",
+    "mods:favoriteRemove",
+    "mods:favorites",
+    "mods:favoriteVersions",
+    "mods:icons",
+    "mods:install",
+    "mods:migrationApply",
+    "mods:migrationPlan",
+    "mods:parse",
+    "mods:prepare",
+    "mods:setEnabled",
+    "mods:setLocked",
+    "mods:supplementalKeep",
+    "mods:supplementalList",
+    "mods:supplementalPending",
+    "mods:supplementalRetry",
+    "mods:targets",
+    "mods:versionApply",
+    "mods:versionChoices",
+    "mods:versionPlan",
+    "plugins:install",
+    "plugins:list",
+    "plugins:openDir",
+    "plugins:readCode",
+    "plugins:remove",
+    "plugins:setEnabled",
+    "projections:analyze",
+    "projections:convert",
+    "projections:discardAnalysis",
+    "projections:drag",
+    "projections:import",
+    "projections:list",
+    "projections:open",
+    "projections:operate",
+    "projections:versions",
+    "recordings:drag",
+    "recordings:import",
+    "recordings:list",
+    "recordings:modVersions",
+    "recordings:open",
+    "recordings:operate",
+    "servers:add",
+    "servers:bind",
+    "servers:edit",
+    "servers:favorite",
+    "servers:list",
+    "servers:ping",
+    "servers:prepareLaunch",
+    "servers:remove",
+    "servers:syncFromDat",
+    "settings:get",
+    "settings:set",
+    "skin:avatar",
+    "skin:cape",
+    "skin:editorSave",
+    "skin:editorUpload",
+    "skin:history",
+    "skin:historyDelete",
+    "skin:historyRename",
+    "skin:profile",
+    "skin:upload",
+    "skin:uploadHistory",
+    "tasks:cancel",
+    "tasks:pause",
+    "tasks:resume",
+    "tc:cancel-install",
+    "tc:event",
+    "tc:install",
+    "tc:start",
+    "tc:status",
+    "tc:stop",
+    "update:apply",
+    "update:applyLocal",
+    "update:applyPending",
+    "update:check",
+    "update:getConfigStatus",
+    "update:getPending",
+    "update:getState",
+    "update:listReleases",
+    "update:pickLocalFile",
+    "update:resetSettings",
+    "update:restoreBackup",
+    "update:skip",
+    "update:start",
+    "versions:catalog",
+    "versions:cleanup",
+    "versions:install",
+    "versions:installed",
+    "versions:isolationPlan",
+    "versions:manifest",
+    "versions:remove",
+    "versions:rename",
+    "versions:resetThumbnail",
+    "versions:setIcon",
+    "versions:setIsolation",
+    "versions:setJava",
+    "versions:setResolution",
+    "versions:setThumbnailFit",
+    "versions:uploadIcon",
+    "versions:uploadThumbnail",
+    "voxlink:event",
+    "voxlink:lobby",
+    "voxlink:mods:bypass",
+    "voxlink:mods:cancel",
+    "voxlink:mods:check",
+    "voxlink:mods:download",
+    "voxlink:mods:progress",
+    "voxlink:settings",
+    "voxlink:start",
+    "voxlink:status",
+    "voxlink:stop",
+    "voxlink:tickets:cancel",
+    "voxlink:tickets:delete",
+    "voxlink:tickets:detail",
+    "voxlink:tickets:list",
+    "voxlink:tickets:pick",
+    "voxlink:tickets:poll",
+    "voxlink:tickets:progress",
+    "voxlink:tickets:release",
+    "voxlink:tickets:reply",
+    "voxlink:tickets:retract",
+    "voxlink:tickets:submit",
+    "voxlink:tryDirect",
+    "voxlink:usePlayerRelay",
+    "voxlink:useTurnRelay",
+    "window:caption-pointerdown",
+    "window:close",
+    "window:mascotClose",
+    "window:mascotPending",
+    "window:mascotQuit",
+    "window:maximize",
+    "window:minimize",
+    "window:skinEditorBusy",
+    "window:skinEditorClose",
+    "window:skinEditorDirty",
+    "window:skinEditorPrefsPending",
+    "window:skinEditorQuit",
+    "window:visibility",
+    "world:import",
+    "world:probe"
+  ],
+  "functions": [
+    {
+      "id": "appearance-01",
+      "acceptance": "黑紫、黑橙、浅色和自定义主题；对照相同数据、CSS视口、缩放、字体、图标、圆角与内容布局"
+    },
+    {
+      "id": "appearance-02",
+      "acceptance": "内置/导入壁纸、透明度和深浅主题清晰可读；系统桌面材质差异单列"
+    },
+    {
+      "id": "appearance-03",
+      "acceptance": "配置预览、应用、取消、未应用草稿与主题导入导出往返"
+    },
+    {
+      "id": "appearance-04",
+      "acceptance": "内置与导入图片混播、稳定ID、勾选、时长、拖动/键盘排序、停用不删文件、全关底色、实例图优先"
+    },
+    {
+      "id": "appearance-05",
+      "acceptance": "完整随机轮次、相邻不重复、原列表顺序不变、隐藏暂停、设置与主题往返持久化"
+    },
+    {
+      "id": "appearance-06",
+      "acceptance": "全部路由可用；最小窗口与100/125/150%缩放、菜单与弹窗、失焦、隐藏/恢复、原生窗控语义"
+    },
+    {
+      "id": "appearance-07",
+      "acceptance": "勾选、半选、禁用、焦点、键盘Space、异步失败恢复、主题保持一致"
+    },
+    {
+      "id": "appearance-08",
+      "acceptance": "真实冷/暖启动碎片、组装、实际就绪门控；减少动态效果保持完整头像并准确说明"
+    },
+    {
+      "id": "skin-01",
+      "acceptance": "真实账号档案、上传、披风切换、历史预览/重命名/删除/重用、失败恢复"
+    },
+    {
+      "id": "skin-02",
+      "acceptance": "真实帧姿态进展；LOGO闲置不占用，互动结束恢复；暂停为自然站姿"
+    },
+    {
+      "id": "skin-03",
+      "acceptance": "固定标题/关闭/底栏；工具栏/预览/色板；未登录可编辑，新建/导入/读当前，Slim与Classic"
+    },
+    {
+      "id": "skin-04",
+      "acceptance": "画笔、橡皮、吸色、填充、基础层不透明、外层透明、部位显隐与全部显示"
+    },
+    {
+      "id": "skin-05",
+      "acceptance": "左键绘制，中键或Alt左键旋转、滚轮缩放、预设视角/恢复、灯光和扩大预览；旋转不修改文档"
+    },
+    {
+      "id": "skin-06",
+      "acceptance": "HEX/RGB/HSV/透明度校验、最近使用、预设/自定义色板、撤销重做"
+    },
+    {
+      "id": "skin-07",
+      "acceptance": "PNG导出重读，上传；导航/窗口/退出所有关闭意图，保存冻结、保存取消/失败、Esc继续与焦点恢复"
+    },
+    {
+      "id": "mascot-01",
+      "acceptance": "同纹理识别特征、大头短身、最近邻采样48x72画布，人物位于LOGO原位且品牌稳定"
+    },
+    {
+      "id": "mascot-02",
+      "acceptance": "约380ms平滑转为正面人物，不拍打不计数；实际模型/纹理/反馈图就绪后才接收"
+    },
+    {
+      "id": "mascot-03",
+      "acceptance": "接受点击恰好一次接触/音效/计数，队列最多32，超限忙碌，长按键重复忽略"
+    },
+    {
+      "id": "mascot-04",
+      "acceptance": "180ms转身、150ms拍打、75ms掌击接触、约500ms局部手印、队列结束回正，连续拍打实际呈现"
+    },
+    {
+      "id": "mascot-05",
+      "acceptance": "静音、音量、削波、接触同步、重启增量持久化、只重置卡慕且保留六人历史"
+    },
+    {
+      "id": "mascot-06",
+      "acceptance": "Enter/Space、真实原生焦点、关闭焦点返回、隐藏暂停/恢复、接受动作关闭排空、保存失败重试、渲染/音频资源释放"
+    },
+    {
+      "id": "accounts-01",
+      "acceptance": "增加/删除/选择/重启持久化，公开展示字段不泄露凭据"
+    },
+    {
+      "id": "accounts-02",
+      "acceptance": "设备码登录、取消、刷新、实际认证/许可证检查与真实游戏启动"
+    },
+    {
+      "id": "accounts-03",
+      "acceptance": "来源探测/安全确认、配置、登录、多角色选择、刷新、authlib-injector下载校验与启动"
+    },
+    {
+      "id": "accounts-04",
+      "acceptance": "使用系统保护存储，Linux密钥环不可用时会话登录明确提示；旧密文保留、刷新后密文不回退、移除账号清理缓存"
+    },
+    {
+      "id": "install-01",
+      "acceptance": "目录/清单、原版、Forge、NeoForge、Fabric、Quilt、兼容性提示、录像模组/收藏/Fabric API选择与安装"
+    },
+    {
+      "id": "install-02",
+      "acceptance": "扫描/取消扫描、手动设置、按版本与架构选择、自动获取/校验、损坏修复、运行健康、权限和架构准确提示"
+    },
+    {
+      "id": "install-03",
+      "acceptance": "注册/解绑/重命名/默认/活动目录、路径去重、实例名称与图标/专属图、版本删除和安装残留清理"
+    },
+    {
+      "id": "install-04",
+      "acceptance": "共享和独立目录规划、迁移不覆盖已有文件、配置保留、中文/空格/§路径"
+    },
+    {
+      "id": "install-05",
+      "acceptance": "进度、限速/并发/镜像/代理、暂停/继续/取消、失败重试和哈希、所有下载完成状态一致"
+    },
+    {
+      "id": "game-01",
+      "acceptance": "对应平台原生Java/LWJGL，真实画面、进入世界/服务器、Mod加载；架构不可用不能假启动"
+    },
+    {
+      "id": "game-02",
+      "acceptance": "内存/JVM、分辨率、全屏/最大化、自动配置和实例覆盖优先级"
+    },
+    {
+      "id": "game-03",
+      "acceptance": "真实PID和窗口聚焦、保存/正常关窗、重启/取消、启动器退出游戏保持存活、其他游戏不被结束"
+    },
+    {
+      "id": "game-04",
+      "acceptance": "缺Java/缺库/模组故障可诊断，日志导出脱敏，退出记录和恢复一致"
+    },
+    {
+      "id": "import-01",
+      "acceptance": "Modrinth/PCL、CurseForge、完整客户端、嵌套整合包优先于夹带存档；损坏清单不降级"
+    },
+    {
+      "id": "import-02",
+      "acceptance": "独立目录导入私有独.zip：46模组/4材质/2光影/1存档及配置，MC1.20.1 Forge47.4.23；哈希与存档完整、启动；私有数据不公开"
+    },
+    {
+      "id": "import-03",
+      "acceptance": "普通存档/目录/ZIP，模组文件/目录，多入口拖入与顶部导入共用分类"
+    },
+    {
+      "id": "import-04",
+      "acceptance": "路径穿越/重复目标/特殊文件名、下载失败、补充文件、取消与事务回滚，不删除旧误导入实例"
+    },
+    {
+      "id": "resources-01",
+      "acceptance": "图标、列表/筛选/排序/批量选择、启停、锁定、删除、版本切换、更新、依赖、查重、跨版本迁移"
+    },
+    {
+      "id": "resources-02",
+      "acceptance": "导入、列表、启停、删除、打开目录；隔离目标正确"
+    },
+    {
+      "id": "resources-03",
+      "acceptance": "录像导入/预览/操作/拖出/打开，录像模组按版本兼容安装"
+    },
+    {
+      "id": "resources-04",
+      "acceptance": "导入/预览/转换/操作/拖出/打开，实际格式与目标目录正确"
+    },
+    {
+      "id": "community-01",
+      "acceptance": "Modrinth与CurseForge，各资源类型、中文搜索、分页、筛选、详情、兼容文件下载/安装"
+    },
+    {
+      "id": "community-02",
+      "acceptance": "两平台卡片/详情/收藏页共享队列，重复去重、批量取消、搜索/筛选/排序、旧项目关联与逐项Mod安装"
+    },
+    {
+      "id": "community-03",
+      "acceptance": "新收藏保存项目图标，旧收藏补图，实际解码与失败占位；真实平台/CDN证据与夹具分列"
+    },
+    {
+      "id": "instance-01",
+      "acceptance": "概览、世界/备份/截图、预览、打开/导出、备份/恢复/清理、依赖补充与运行诊断"
+    },
+    {
+      "id": "instance-02",
+      "acceptance": "用户图片、收藏、所有历史人物计数、设置、实例/存档与凭据安全；打包不含私有资料"
+    },
+    {
+      "id": "instance-03",
+      "acceptance": "运行/启动器退出历史、查看/确认/清除、错误和原始失败保留"
+    },
+    {
+      "id": "defaults-01",
+      "acceptance": "按键记录/恢复，默认游戏选项，资源包顺序/勾选/导入；启动应用正确且不覆盖未选项"
+    },
+    {
+      "id": "defaults-02",
+      "acceptance": "内置桥接Mod安装、游戏内实际握手、参数manifest读取/设置/重置、失连与关闭恢复"
+    },
+    {
+      "id": "network-01",
+      "acceptance": "列表/增删改/收藏/Ping、实例绑定、servers.dat同步、QuickPlay准备与进入"
+    },
+    {
+      "id": "network-02",
+      "acceptance": "房主/加入/邀请、UPnP/公网校验、局域网端口、会话停止与游戏关联"
+    },
+    {
+      "id": "network-03",
+      "acceptance": "房主/加入/大厅、直连/中继、设置、Mod同步、工单/附件、取消和安全日志"
+    },
+    {
+      "id": "network-04",
+      "acceptance": "对应架构工具下载与包/程序哈希，房主/加入、后台工具停止、无遗留进程"
+    },
+    {
+      "id": "network-05",
+      "acceptance": "对应架构frpc下载/哈希，节点/隧道查询创建删除、启停/恢复、多隧道、凭据脱敏"
+    },
+    {
+      "id": "settings-01",
+      "acceptance": "外观/登录行为/下载/功能插件/关于更新/运行环境/游戏窗口/目录隔离，各项生效/失败恢复"
+    },
+    {
+      "id": "settings-02",
+      "acceptance": "JS/文件夹安装、源码读取、启停/卸载、插件资源协议，原生Harmony不能只显示列表而不执行"
+    },
+    {
+      "id": "settings-03",
+      "acceptance": "实际打包依赖/原生工具许可、对应源码/通知可读，源码清洁解压和构建一致"
+    },
+    {
+      "id": "settings-04",
+      "acceptance": "Windows系统级PSAPI整理保留；非Windows已批准例外，明确不可用且不影响安全启动/其他游戏"
+    },
+    {
+      "id": "update-01",
+      "acceptance": "只匹配当前OS/架构/安装形式的官方附件，版本/大小/SHA256正确，错误平台拒绝"
+    },
+    {
+      "id": "update-02",
+      "acceptance": "检查/缓存/跳过/列表/下载、选择本地、校验/暂存、备份/替换/重启、状态真实"
+    },
+    {
+      "id": "update-03",
+      "acceptance": "损坏包、权限/复制/重启失败、未确认启动、恢复备份；原生DEB安装器待确认不能记完成"
+    },
+    {
+      "id": "update-04",
+      "acceptance": "每种包干净安装/解压、冷暖启动、重启持久化、架构/依赖/签名与权限、无用户数据泄露"
+    }
+  ],
+  "transports": {
+    "accounts:addOffline": [
+      "invoke"
+    ],
+    "accounts:list": [
+      "invoke"
+    ],
+    "accounts:msBegin": [
+      "invoke"
+    ],
+    "accounts:msCancel": [
+      "invoke"
+    ],
+    "accounts:refresh": [
+      "invoke"
+    ],
+    "accounts:remove": [
+      "invoke"
+    ],
+    "accounts:select": [
+      "invoke"
+    ],
+    "accounts:selected": [
+      "invoke"
+    ],
+    "accounts:yggLogin": [
+      "invoke"
+    ],
+    "accounts:yggProbe": [
+      "invoke"
+    ],
+    "accounts:yggProviders": [
+      "invoke"
+    ],
+    "accounts:yggRemoveProvider": [
+      "invoke"
+    ],
+    "accounts:yggRuntime": [
+      "invoke"
+    ],
+    "accounts:yggSaveProvider": [
+      "invoke"
+    ],
+    "accounts:yggSelectProfile": [
+      "invoke"
+    ],
+    "app:openDir": [
+      "invoke"
+    ],
+    "app:selectDir": [
+      "invoke"
+    ],
+    "app:selectFile": [
+      "invoke"
+    ],
+    "app:selectImage": [
+      "invoke"
+    ],
+    "app:systemInfo": [
+      "invoke"
+    ],
+    "appearance:draftApply": [
+      "invoke"
+    ],
+    "appearance:draftDiscard": [
+      "invoke"
+    ],
+    "appearance:draftRead": [
+      "invoke"
+    ],
+    "appearance:draftSave": [
+      "invoke"
+    ],
+    "appearance:exportTheme": [
+      "invoke"
+    ],
+    "appearance:importBackground": [
+      "invoke"
+    ],
+    "appearance:importBackgroundMulti": [
+      "invoke"
+    ],
+    "appearance:importLaunchThumbnail": [
+      "invoke"
+    ],
+    "appearance:importTheme": [
+      "invoke"
+    ],
+    "appearance:resetBackground": [
+      "invoke"
+    ],
+    "appearance:resetLaunchThumbnail": [
+      "invoke"
+    ],
+    "appearance:resetTheme": [
+      "invoke"
+    ],
+    "boot:renderer-ready": [
+      "send"
+    ],
+    "boot:stage": [
+      "send"
+    ],
+    "bridge:install": [
+      "invoke"
+    ],
+    "bridge:installed": [
+      "invoke"
+    ],
+    "bridge:manifest": [
+      "invoke"
+    ],
+    "bridge:reset": [
+      "invoke"
+    ],
+    "bridge:set": [
+      "invoke"
+    ],
+    "bridge:status": [
+      "invoke"
+    ],
+    "center:backups": [
+      "invoke"
+    ],
+    "center:dependencyApply": [
+      "invoke"
+    ],
+    "center:dependencyPlan": [
+      "invoke"
+    ],
+    "center:diagnose": [
+      "invoke"
+    ],
+    "center:file": [
+      "invoke"
+    ],
+    "center:operation": [
+      "invoke"
+    ],
+    "center:overview": [
+      "invoke"
+    ],
+    "center:screenshots": [
+      "invoke"
+    ],
+    "center:worlds": [
+      "invoke"
+    ],
+    "community:download": [
+      "invoke"
+    ],
+    "community:files": [
+      "invoke"
+    ],
+    "community:project": [
+      "invoke"
+    ],
+    "community:search": [
+      "invoke"
+    ],
+    "defaultPacks:get": [
+      "invoke"
+    ],
+    "defaultPacks:import": [
+      "invoke"
+    ],
+    "defaultPacks:move": [
+      "invoke"
+    ],
+    "defaultPacks:pick": [
+      "invoke"
+    ],
+    "defaultPacks:remove": [
+      "invoke"
+    ],
+    "defaultPacks:setEnabled": [
+      "invoke"
+    ],
+    "direct:host": [
+      "invoke"
+    ],
+    "direct:overview": [
+      "invoke"
+    ],
+    "direct:prepareJoin": [
+      "invoke"
+    ],
+    "direct:resolve": [
+      "invoke"
+    ],
+    "direct:state": [
+      "invoke"
+    ],
+    "direct:stop": [
+      "invoke"
+    ],
+    "event:gameDirDone": [
+      "event"
+    ],
+    "event:installDone": [
+      "event"
+    ],
+    "event:launchLog": [
+      "event"
+    ],
+    "event:launchState": [
+      "event"
+    ],
+    "event:msLoginDone": [
+      "event"
+    ],
+    "event:progress": [
+      "event"
+    ],
+    "event:taskDone": [
+      "event"
+    ],
+    "event:updatePrompt": [
+      "event"
+    ],
+    "event:updateReady": [
+      "event"
+    ],
+    "event:updateSlowHint": [
+      "event"
+    ],
+    "exitHistory:ack": [
+      "invoke"
+    ],
+    "exitHistory:clear": [
+      "invoke"
+    ],
+    "exitHistory:list": [
+      "invoke"
+    ],
+    "files:dragError": [
+      "event"
+    ],
+    "folders:add": [
+      "invoke"
+    ],
+    "folders:contextMenu": [
+      "invoke"
+    ],
+    "folders:list": [
+      "invoke"
+    ],
+    "folders:open": [
+      "invoke"
+    ],
+    "folders:remove": [
+      "invoke"
+    ],
+    "folders:rename": [
+      "invoke"
+    ],
+    "folders:scan": [
+      "invoke"
+    ],
+    "folders:setActive": [
+      "invoke"
+    ],
+    "folders:setDefault": [
+      "invoke"
+    ],
+    "frp:create-tunnel": [
+      "invoke"
+    ],
+    "frp:delete-tunnel": [
+      "invoke"
+    ],
+    "frp:event": [
+      "event"
+    ],
+    "frp:nodes": [
+      "invoke"
+    ],
+    "frp:start": [
+      "invoke"
+    ],
+    "frp:status": [
+      "invoke"
+    ],
+    "frp:stop": [
+      "invoke"
+    ],
+    "fs:drag": [
+      "send"
+    ],
+    "fs:importResources": [
+      "invoke"
+    ],
+    "fs:list": [
+      "invoke"
+    ],
+    "fs:remove": [
+      "invoke"
+    ],
+    "fs:toggleDisable": [
+      "invoke"
+    ],
+    "game:kill": [
+      "invoke"
+    ],
+    "game:launch": [
+      "invoke"
+    ],
+    "game:restart": [
+      "invoke"
+    ],
+    "game:restartCancel": [
+      "invoke"
+    ],
+    "gameDir:migrate": [
+      "invoke"
+    ],
+    "gameOptions:get": [
+      "invoke"
+    ],
+    "gameOptions:set": [
+      "invoke"
+    ],
+    "import:probe": [
+      "invoke"
+    ],
+    "java:addCustom": [
+      "invoke"
+    ],
+    "java:cancelScan": [
+      "invoke"
+    ],
+    "java:hide": [
+      "invoke"
+    ],
+    "java:list": [
+      "invoke"
+    ],
+    "java:pickAdd": [
+      "invoke"
+    ],
+    "java:refresh": [
+      "invoke"
+    ],
+    "kamucl:mem-trim": [
+      "event"
+    ],
+    "keys:getDefault": [
+      "invoke"
+    ],
+    "keys:reset": [
+      "invoke"
+    ],
+    "keys:setDefault": [
+      "invoke"
+    ],
+    "launch:exportLogs": [
+      "invoke"
+    ],
+    "loaders:fabricApi": [
+      "invoke"
+    ],
+    "loaders:list": [
+      "invoke"
+    ],
+    "mascots:batch": [
+      "invoke"
+    ],
+    "mascots:reset": [
+      "invoke"
+    ],
+    "mascots:slap": [
+      "invoke"
+    ],
+    "mascots:sound": [
+      "invoke"
+    ],
+    "mascots:state": [
+      "invoke"
+    ],
+    "memory:organize": [
+      "invoke"
+    ],
+    "modpack:install": [
+      "invoke"
+    ],
+    "modpack:openFile": [
+      "invoke"
+    ],
+    "modpack:probe": [
+      "invoke"
+    ],
+    "modpack:supplyFiles": [
+      "invoke"
+    ],
+    "mods:applyUpdates": [
+      "invoke"
+    ],
+    "mods:catalog": [
+      "invoke"
+    ],
+    "mods:checkUpdates": [
+      "invoke"
+    ],
+    "mods:commit": [
+      "invoke"
+    ],
+    "mods:crossDuplicates": [
+      "invoke"
+    ],
+    "mods:discard": [
+      "invoke"
+    ],
+    "mods:duplicates": [
+      "invoke"
+    ],
+    "mods:favorite": [
+      "invoke"
+    ],
+    "mods:favoriteLink": [
+      "invoke"
+    ],
+    "mods:favoriteLocal": [
+      "invoke"
+    ],
+    "mods:favoriteRemove": [
+      "invoke"
+    ],
+    "mods:favorites": [
+      "invoke"
+    ],
+    "mods:favoriteVersions": [
+      "invoke"
+    ],
+    "mods:icons": [
+      "invoke"
+    ],
+    "mods:install": [
+      "invoke"
+    ],
+    "mods:migrationApply": [
+      "invoke"
+    ],
+    "mods:migrationPlan": [
+      "invoke"
+    ],
+    "mods:parse": [
+      "invoke"
+    ],
+    "mods:prepare": [
+      "invoke"
+    ],
+    "mods:setEnabled": [
+      "invoke"
+    ],
+    "mods:setLocked": [
+      "invoke"
+    ],
+    "mods:supplementalKeep": [
+      "invoke"
+    ],
+    "mods:supplementalList": [
+      "invoke"
+    ],
+    "mods:supplementalPending": [
+      "event"
+    ],
+    "mods:supplementalRetry": [
+      "invoke"
+    ],
+    "mods:targets": [
+      "invoke"
+    ],
+    "mods:versionApply": [
+      "invoke"
+    ],
+    "mods:versionChoices": [
+      "invoke"
+    ],
+    "mods:versionPlan": [
+      "invoke"
+    ],
+    "plugins:install": [
+      "invoke"
+    ],
+    "plugins:list": [
+      "invoke"
+    ],
+    "plugins:openDir": [
+      "invoke"
+    ],
+    "plugins:readCode": [
+      "invoke"
+    ],
+    "plugins:remove": [
+      "invoke"
+    ],
+    "plugins:setEnabled": [
+      "invoke"
+    ],
+    "projections:analyze": [
+      "invoke"
+    ],
+    "projections:convert": [
+      "invoke"
+    ],
+    "projections:discardAnalysis": [
+      "invoke"
+    ],
+    "projections:drag": [
+      "send"
+    ],
+    "projections:import": [
+      "invoke"
+    ],
+    "projections:list": [
+      "invoke"
+    ],
+    "projections:open": [
+      "invoke"
+    ],
+    "projections:operate": [
+      "invoke"
+    ],
+    "projections:versions": [
+      "invoke"
+    ],
+    "recordings:drag": [
+      "send"
+    ],
+    "recordings:import": [
+      "invoke"
+    ],
+    "recordings:list": [
+      "invoke"
+    ],
+    "recordings:modVersions": [
+      "invoke"
+    ],
+    "recordings:open": [
+      "invoke"
+    ],
+    "recordings:operate": [
+      "invoke"
+    ],
+    "servers:add": [
+      "invoke"
+    ],
+    "servers:bind": [
+      "invoke"
+    ],
+    "servers:edit": [
+      "invoke"
+    ],
+    "servers:favorite": [
+      "invoke"
+    ],
+    "servers:list": [
+      "invoke"
+    ],
+    "servers:ping": [
+      "invoke"
+    ],
+    "servers:prepareLaunch": [
+      "invoke"
+    ],
+    "servers:remove": [
+      "invoke"
+    ],
+    "servers:syncFromDat": [
+      "invoke"
+    ],
+    "settings:get": [
+      "invoke"
+    ],
+    "settings:set": [
+      "invoke"
+    ],
+    "skin:avatar": [
+      "invoke"
+    ],
+    "skin:cape": [
+      "invoke"
+    ],
+    "skin:editorSave": [
+      "invoke"
+    ],
+    "skin:editorUpload": [
+      "invoke"
+    ],
+    "skin:history": [
+      "invoke"
+    ],
+    "skin:historyDelete": [
+      "invoke"
+    ],
+    "skin:historyRename": [
+      "invoke"
+    ],
+    "skin:profile": [
+      "invoke"
+    ],
+    "skin:upload": [
+      "invoke"
+    ],
+    "skin:uploadHistory": [
+      "invoke"
+    ],
+    "tasks:cancel": [
+      "invoke"
+    ],
+    "tasks:pause": [
+      "invoke"
+    ],
+    "tasks:resume": [
+      "invoke"
+    ],
+    "tc:cancel-install": [
+      "invoke"
+    ],
+    "tc:event": [
+      "event"
+    ],
+    "tc:install": [
+      "invoke"
+    ],
+    "tc:start": [
+      "invoke"
+    ],
+    "tc:status": [
+      "invoke"
+    ],
+    "tc:stop": [
+      "invoke"
+    ],
+    "update:apply": [
+      "invoke"
+    ],
+    "update:applyLocal": [
+      "invoke"
+    ],
+    "update:applyPending": [
+      "invoke"
+    ],
+    "update:check": [
+      "invoke"
+    ],
+    "update:getConfigStatus": [
+      "invoke"
+    ],
+    "update:getPending": [
+      "invoke"
+    ],
+    "update:getState": [
+      "invoke"
+    ],
+    "update:listReleases": [
+      "invoke"
+    ],
+    "update:pickLocalFile": [
+      "invoke"
+    ],
+    "update:resetSettings": [
+      "invoke"
+    ],
+    "update:restoreBackup": [
+      "invoke"
+    ],
+    "update:skip": [
+      "invoke"
+    ],
+    "update:start": [
+      "invoke"
+    ],
+    "versions:catalog": [
+      "invoke"
+    ],
+    "versions:cleanup": [
+      "invoke"
+    ],
+    "versions:install": [
+      "invoke"
+    ],
+    "versions:installed": [
+      "invoke"
+    ],
+    "versions:isolationPlan": [
+      "invoke"
+    ],
+    "versions:manifest": [
+      "invoke"
+    ],
+    "versions:remove": [
+      "invoke"
+    ],
+    "versions:rename": [
+      "invoke"
+    ],
+    "versions:resetThumbnail": [
+      "invoke"
+    ],
+    "versions:setIcon": [
+      "invoke"
+    ],
+    "versions:setIsolation": [
+      "invoke"
+    ],
+    "versions:setJava": [
+      "invoke"
+    ],
+    "versions:setResolution": [
+      "invoke"
+    ],
+    "versions:setThumbnailFit": [
+      "invoke"
+    ],
+    "versions:uploadIcon": [
+      "invoke"
+    ],
+    "versions:uploadThumbnail": [
+      "invoke"
+    ],
+    "voxlink:event": [
+      "event"
+    ],
+    "voxlink:lobby": [
+      "invoke"
+    ],
+    "voxlink:mods:bypass": [
+      "invoke"
+    ],
+    "voxlink:mods:cancel": [
+      "invoke"
+    ],
+    "voxlink:mods:check": [
+      "invoke"
+    ],
+    "voxlink:mods:download": [
+      "invoke"
+    ],
+    "voxlink:mods:progress": [
+      "event"
+    ],
+    "voxlink:settings": [
+      "invoke"
+    ],
+    "voxlink:start": [
+      "invoke"
+    ],
+    "voxlink:status": [
+      "invoke"
+    ],
+    "voxlink:stop": [
+      "invoke"
+    ],
+    "voxlink:tickets:cancel": [
+      "invoke"
+    ],
+    "voxlink:tickets:delete": [
+      "invoke"
+    ],
+    "voxlink:tickets:detail": [
+      "invoke"
+    ],
+    "voxlink:tickets:list": [
+      "invoke"
+    ],
+    "voxlink:tickets:pick": [
+      "invoke"
+    ],
+    "voxlink:tickets:poll": [
+      "invoke"
+    ],
+    "voxlink:tickets:progress": [
+      "event"
+    ],
+    "voxlink:tickets:release": [
+      "invoke"
+    ],
+    "voxlink:tickets:reply": [
+      "invoke"
+    ],
+    "voxlink:tickets:retract": [
+      "invoke"
+    ],
+    "voxlink:tickets:submit": [
+      "invoke"
+    ],
+    "voxlink:tryDirect": [
+      "invoke"
+    ],
+    "voxlink:usePlayerRelay": [
+      "invoke"
+    ],
+    "voxlink:useTurnRelay": [
+      "invoke"
+    ],
+    "window:caption-pointerdown": [
+      "event"
+    ],
+    "window:close": [
+      "send"
+    ],
+    "window:mascotClose": [
+      "event"
+    ],
+    "window:mascotPending": [
+      "send"
+    ],
+    "window:mascotQuit": [
+      "send"
+    ],
+    "window:maximize": [
+      "send"
+    ],
+    "window:minimize": [
+      "send"
+    ],
+    "window:skinEditorBusy": [
+      "send"
+    ],
+    "window:skinEditorClose": [
+      "event"
+    ],
+    "window:skinEditorDirty": [
+      "send"
+    ],
+    "window:skinEditorPrefsPending": [
+      "send"
+    ],
+    "window:skinEditorQuit": [
+      "send"
+    ],
+    "window:visibility": [
+      "event",
+      "invoke"
+    ],
+    "world:import": [
+      "invoke"
+    ],
+    "world:probe": [
+      "invoke"
+    ]
+  }
+}

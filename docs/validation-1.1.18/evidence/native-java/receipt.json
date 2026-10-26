@@ -1,0 +1,100 @@
+{
+  "at": "2026-10-07T06:36:27.088Z",
+  "platform": "win32",
+  "architecture": "x64",
+  "sources": {
+    "java.ts": "2c86d8a13eae39db0bdfc89043036c7e66b2b51653244d4d839e2e37a552ead2",
+    "javaCompatibility.ts": "420b2903f8a7fc75daffa6cb1ed7d9332fe6a195c98ab6f3fef14c4309c73d95",
+    "javaMetadata.ts": "f7bb629881780b1fcbabed4644043c5f392c44b57fdfe5dc07171b6a4e9dca0b",
+    "javaPreparation.ts": "de9bd7f3f6e97e67c3dcef12a8a296e897bc56f0cb85a3683be4d7d4a72c291f",
+    "javaRuntimeHealth.ts": "7b72ecdc87ed1c9a776957e6dbe6e9d38b3c47dc3eda5484a6216e4ff60b3369"
+  },
+  "runtimes": [
+    {
+      "path": "E:\\KAMUCL\\out\\java118-runtime\\unpacked\\zulu8.96.0.205-ca-jre8.0.504-win_x64\\bin\\java.exe",
+      "major": 8,
+      "version": "1.8.0_504",
+      "is64Bit": true,
+      "architecture": "x64",
+      "vendor": "Azul Systems, Inc."
+    },
+    {
+      "path": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+      "major": 17,
+      "version": "17.0.12",
+      "is64Bit": true,
+      "architecture": "x64",
+      "vendor": "Oracle Corporation"
+    },
+    {
+      "path": "C:\\Program Files\\Java\\jdk-21.0.12\\bin\\java.exe",
+      "major": 21,
+      "version": "21.0.12",
+      "is64Bit": true,
+      "architecture": "x64",
+      "vendor": "Oracle Corporation"
+    },
+    {
+      "path": "C:\\Program Files\\Java\\jdk-25.0.2\\bin\\java.exe",
+      "major": 25,
+      "version": "25.0.2",
+      "is64Bit": true,
+      "architecture": "x64",
+      "vendor": "Oracle Corporation"
+    }
+  ],
+  "decisions": [
+    {
+      "game": "1.12.2",
+      "selected": 8,
+      "requestedDownload": 8,
+      "path": "E:\\KAMUCL\\out\\java118-runtime\\unpacked\\zulu8.96.0.205-ca-jre8.0.504-win_x64\\bin\\java.exe"
+    },
+    {
+      "game": "1.20.1",
+      "selected": 17,
+      "requestedDownload": 17,
+      "path": "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe"
+    },
+    {
+      "game": "1.21.11",
+      "selected": 21,
+      "requestedDownload": null,
+      "path": "C:\\Program Files\\Java\\jdk-21.0.12\\bin\\java.exe"
+    },
+    {
+      "game": "26.1",
+      "selected": 25,
+      "requestedDownload": null,
+      "path": "C:\\Program Files\\Java\\jdk-25.0.2\\bin\\java.exe"
+    }
+  ],
+  "metadata": [
+    {
+      "game": "21w18a",
+      "major": 8,
+      "source": "Mojang javaVersion"
+    },
+    {
+      "game": "21w19a",
+      "major": 16,
+      "source": "Mojang javaVersion"
+    },
+    {
+      "game": "24w13a",
+      "major": 17,
+      "source": "Mojang javaVersion"
+    },
+    {
+      "game": "24w14a",
+      "major": 21,
+      "source": "Mojang javaVersion"
+    },
+    {
+      "game": "26.3",
+      "major": 25,
+      "source": "Mojang javaVersion"
+    }
+  ],
+  "manualForge25Allowed": true
+}

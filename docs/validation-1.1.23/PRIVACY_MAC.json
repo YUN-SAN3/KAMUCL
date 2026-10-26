@@ -1,0 +1,3379 @@
+{
+  "schemaVersion": 1,
+  "version": "1.1.23",
+  "observedAt": "2026-10-13T21:48:04.494Z",
+  "complete": true,
+  "mode": "mac",
+  "classification": "Read-only actual release bytes, complete regular ZIP/EXE payload and ASAR/JAR decoded members; no credential, game, distributed binary or player-profile execution",
+  "driverSHA256": "9a137768381fe84583dd28636130d1759346c640c75ae9cb89acd8ecaf30606a",
+  "scannerSHA256": "9f04e5883b622a69390b285049205148aedd6475ae74b404ee261bfe762e73b4",
+  "classificationSourceSHA256": "4d03552ffa829283ce38102b8a37e2e35cf3b5302d0b3cef331b36cc6ebfb153",
+  "classificationReuseBasis": [
+    {
+      "file": "out/security122-final-windows-artifacts.json",
+      "sha256": "4d24d0f00b776db541977144b989e02bed14c001a122090a4b65d419764da53b"
+    },
+    {
+      "file": "out/security122-final-mac-artifacts.json",
+      "sha256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727"
+    }
+  ],
+  "artifacts": [
+    {
+      "coverage": {
+        "label": "final-1.1.23-mac-arm64",
+        "name": "KAMUCL-1.1.23-mac-arm64.zip",
+        "bytes": 129902007,
+        "sha256": "fdf51a02e61bdcace37f1c891a20d4a1b958b649ec3a0c1286bc73f995339a1e",
+        "entries": 122,
+        "files": 69,
+        "decompressedBytes": 292468565,
+        "scannedBytes": 292468565,
+        "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+        "excludedEntries": [],
+        "sensitiveStateFileNames": [],
+        "asar": [
+          {
+            "entry": "KAMUCL.app/Contents/Resources/app.asar",
+            "bytes": 22034314,
+            "sha256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+            "members": 461,
+            "scannedBytes": 21912534,
+            "fileHashes": [
+              {
+                "path": "node_modules/@iarna/toml/LICENSE",
+                "bytes": 752,
+                "sha256": "d4dc58571be1260e45f2fb8ab174e0a838c9ca361720e1b0e2ca020c037988b2"
+              },
+              {
+                "path": "node_modules/@iarna/toml/lib/create-date.js",
+                "bytes": 485,
+                "sha256": "3941f4748f25f11c5ccf55c85ddc41e06e85379482e5885a8aff8b964d6a2ad8"
+              },
+              {
+                "path": "node_modules/@iarna/toml/lib/create-datetime-float.js",
+                "bytes": 663,
+                "sha256": "aa5ac5619fafcb487edf249d3a8bbd9d672626299966eba6945afbc96470c6c1"
+              },
+              {
+                "path": "node_modules/@iarna/toml/lib/create-datetime.js",
+                "bytes": 197,
+                "sha256": "b83215e9dd32e34332c7ddd9b868e03e321dcb28cde830d1b7951df68325bbbf"
+              },
+              {
+                "path": "node_modules/@iarna/toml/lib/create-time.js",
+                "bytes": 508,
+                "sha256": "2d40222ea3f60c1c95cf3f60e3b1554f39cc3a0d5ef5ff8bfb031635fa987707"
+              },
+              {
+                "path": "node_modules/@iarna/toml/lib/format-num.js",
+                "bytes": 120,
+                "sha256": "b4f02ed3ea839792827aacd1bd1492f0150f53024a006832579cd6ec43e92801"
+              },
+              {
+                "path": "node_modules/@iarna/toml/lib/parser-debug.js",
+                "bytes": 1986,
+                "sha256": "3e202f84762b40144f338b1040a597aa2a0fa1537abbb22e13cd5480313df2ce"
+              },
+              {
+                "path": "node_modules/@iarna/toml/lib/parser.js",
+                "bytes": 2975,
+                "sha256": "175e4cc273aea2e0505e0f0000bcba471f8da041d219a9ab73978567e8f66029"
+              },
+              {
+                "path": "node_modules/@iarna/toml/lib/toml-parser.js",
+                "bytes": 45566,
+                "sha256": "805ffd1b4e183566a15546024ca98b3f94ee39778ff43782d432c7c981c32191"
+              },
+              {
+                "path": "node_modules/@iarna/toml/package.json",
+                "bytes": 1366,
+                "sha256": "d6b5341d37b721c3a5334460432d775ba4d31f67d9764567cd933d90fc281ec0"
+              },
+              {
+                "path": "node_modules/@iarna/toml/parse-async.js",
+                "bytes": 863,
+                "sha256": "277f98c122d6f3c6755d2a1bf81bece2472696e0e899f02a193d8ad57255493f"
+              },
+              {
+                "path": "node_modules/@iarna/toml/parse-pretty-error.js",
+                "bytes": 1045,
+                "sha256": "4e9783b41b343c62be4d3bf3b21fb7972bfc27523e913a782c4624c008a80eb1"
+              },
+              {
+                "path": "node_modules/@iarna/toml/parse-stream.js",
+                "bytes": 1625,
+                "sha256": "b1ce5edabc3a7a4db886c9a5a0903cd2e20ffbcd338405b7b08da853b04c5913"
+              },
+              {
+                "path": "node_modules/@iarna/toml/parse-string.js",
+                "bytes": 415,
+                "sha256": "cd9e497870ffda7ad1e266b86580c270388a45c2d04e75acd985a42a0597fdb0"
+              },
+              {
+                "path": "node_modules/@iarna/toml/parse.js",
+                "bytes": 227,
+                "sha256": "a103f6919f045c44cddda84af4cd44b94fe4a253f8d07a81d779db06ab081976"
+              },
+              {
+                "path": "node_modules/@iarna/toml/stringify.js",
+                "bytes": 8292,
+                "sha256": "dc41912d4bcbb2352a338314caa4b16463061d1615dc0d9bcec6953638232ae1"
+              },
+              {
+                "path": "node_modules/@iarna/toml/toml.js",
+                "bytes": 97,
+                "sha256": "b6bdf7ac57047ec0a2fab0e34c42d500fb95a3234fa649c3ff5725aef9d09eb0"
+              },
+              {
+                "path": "node_modules/adm-zip/LICENSE",
+                "bytes": 1106,
+                "sha256": "6bb5b2d4c07d793ca928daa63a8899c6914fafb5ac3aa04ec10cae07f3d57dca"
+              },
+              {
+                "path": "node_modules/adm-zip/adm-zip.js",
+                "bytes": 42604,
+                "sha256": "c49feb0ff54bd8e1ab04dbeaca52fb34f4b543cc09180e826ec4966b4d4e3e2e"
+              },
+              {
+                "path": "node_modules/adm-zip/headers/entryHeader.js",
+                "bytes": 13562,
+                "sha256": "cfd649eede629531c4910b0829eca60a5ea47d255bf6aa72ae174b31c2ea2184"
+              },
+              {
+                "path": "node_modules/adm-zip/headers/index.js",
+                "bytes": 94,
+                "sha256": "536e4b5bf009a3d9f6eccfbbc4157cb6de663d889e0826ea5f6e5fa17aaeb8bf"
+              },
+              {
+                "path": "node_modules/adm-zip/headers/mainHeader.js",
+                "bytes": 7141,
+                "sha256": "ed5a2b3fc7c8a6937e07447eb3e55e08a0655d2f24fe04039e7008845d221a25"
+              },
+              {
+                "path": "node_modules/adm-zip/methods/deflater.js",
+                "bytes": 1021,
+                "sha256": "6dc41b2460594cfa5136b797653c166b2f7403820a40f2fca17cca35a5de1b5f"
+              },
+              {
+                "path": "node_modules/adm-zip/methods/index.js",
+                "bytes": 128,
+                "sha256": "d67714f1a04be942f90be77069af3ff4214aa8ee84b26edeff3a87eb0d8e2dc0"
+              },
+              {
+                "path": "node_modules/adm-zip/methods/inflater.js",
+                "bytes": 2727,
+                "sha256": "f8a51dcbe6d2b782a3e460d34d79a50a4f52526c078a85add0ab5d6f4424dac8"
+              },
+              {
+                "path": "node_modules/adm-zip/methods/zipcrypto.js",
+                "bytes": 5806,
+                "sha256": "23365c7eda0ea098385dc7ec649517fc110ce2764d2e707c37bf6b528604e25a"
+              },
+              {
+                "path": "node_modules/adm-zip/package.json",
+                "bytes": 924,
+                "sha256": "cf43810f1d0e9a9973b1723d56b9909077a9f4fbfec0b7418899564cc370beb4"
+              },
+              {
+                "path": "node_modules/adm-zip/util/constants.js",
+                "bytes": 6374,
+                "sha256": "208e943a2e5faad056047f3c7991cce3cde637d8e272a564f2546210ebdf2069"
+              },
+              {
+                "path": "node_modules/adm-zip/util/decoder.js",
+                "bytes": 130,
+                "sha256": "73a0ebb00c4dce2124f07acf0b34374cb03a4384cccd1cd6f58aee27c35953d9"
+              },
+              {
+                "path": "node_modules/adm-zip/util/errors.js",
+                "bytes": 3077,
+                "sha256": "331816da9dcdcb6b56305b9742154b1ca582324950fa2a42dec90466fd8fda82"
+              },
+              {
+                "path": "node_modules/adm-zip/util/fattr.js",
+                "bytes": 1892,
+                "sha256": "31c93eb386a2bfbf19ad92a6bf20d510a8f1e7e90cc71d33dd888f89da12362d"
+              },
+              {
+                "path": "node_modules/adm-zip/util/index.js",
+                "bytes": 226,
+                "sha256": "dc5b230ed853947ea55c0bf69f0e525fbeffefff09aa3da296d541bb8898314e"
+              },
+              {
+                "path": "node_modules/adm-zip/util/utils.js",
+                "bytes": 17063,
+                "sha256": "4767587fd6a8f7b8a2b59f5e2253b2b21e8cfe5148c58587f5d54dfee74573cc"
+              },
+              {
+                "path": "node_modules/adm-zip/zipEntry.js",
+                "bytes": 16539,
+                "sha256": "39b1e511560263e9a4e8c9dbb2e781082d60ddb572a4608b07c8ab0dc62892d6"
+              },
+              {
+                "path": "node_modules/adm-zip/zipFile.js",
+                "bytes": 17146,
+                "sha256": "2d031ceb4273a7481a1bf896aa443eb739504a9b2ef12a1e1789d210a5d5aa30"
+              },
+              {
+                "path": "node_modules/koffi/LICENSE.txt",
+                "bytes": 1117,
+                "sha256": "22bcbbbacd739b026a8dc484f62a31484ce4c4e31f3408b60b29b4e41d62b290"
+              },
+              {
+                "path": "node_modules/koffi/cnoke.cjs",
+                "bytes": 30576,
+                "sha256": "b7023245315bfb3f89280a3cf4ee56a9ba8e75dc87b56bf7eec3c21d92d58c56"
+              },
+              {
+                "path": "node_modules/koffi/doc/benchmarks.md",
+                "bytes": 4562,
+                "sha256": "8b61a0b915efb580335cb0bed8ec49609717f43848710cd68ea219752521f484"
+              },
+              {
+                "path": "node_modules/koffi/doc/callbacks.md",
+                "bytes": 7909,
+                "sha256": "f1e3f14a1d84a5b6d6d7d6d3015a9859043f4d3773b932d361bc49f08a240284"
+              },
+              {
+                "path": "node_modules/koffi/doc/composites.md",
+                "bytes": 16117,
+                "sha256": "83d107330187f08088a7e2b1aa98f06585dcf2f0719aae66a47af6fb95edc40d"
+              },
+              {
+                "path": "node_modules/koffi/doc/contribute.md",
+                "bytes": 5744,
+                "sha256": "72cecf31345e1d4e46d564bc4aa5020c5a445968cc2a818b337bf3a1019a4cbe"
+              },
+              {
+                "path": "node_modules/koffi/doc/index.md",
+                "bytes": 2869,
+                "sha256": "3da263b2eb27dd0122e8c6feba2eb4e5f2683a2306084109249037872e8adb6b"
+              },
+              {
+                "path": "node_modules/koffi/doc/load.md",
+                "bytes": 7526,
+                "sha256": "7b9d19a90f00c1cc47537ac65742e577fad22ec2fd18d400d4485fe4e00022c4"
+              },
+              {
+                "path": "node_modules/koffi/doc/migration.md",
+                "bytes": 8909,
+                "sha256": "3826d5c78a612cd11d0319d7c4e0afebde3c5c67a7848fcb5016fc9c4ccd3333"
+              },
+              {
+                "path": "node_modules/koffi/doc/misc.md",
+                "bytes": 3790,
+                "sha256": "df10e522dd8c9512c949073d243cb9cff4dceaea69139c98c773ababb067f4c3"
+              },
+              {
+                "path": "node_modules/koffi/doc/output.md",
+                "bytes": 9366,
+                "sha256": "78a692be2e23954ad024345806b2d4937a45113be6c48cfc2fdd53dc49c32580"
+              },
+              {
+                "path": "node_modules/koffi/doc/pointers.md",
+                "bytes": 15051,
+                "sha256": "628890dec2cbe8304e006effaaead83e36d5e6b3695f3b7bf7e8add1d26f513c"
+              },
+              {
+                "path": "node_modules/koffi/doc/primitives.md",
+                "bytes": 7561,
+                "sha256": "3b4cab3721ecd6cad4ccc0ba251f9edae24e3b03bb94ac22234b5c8718a7f346"
+              },
+              {
+                "path": "node_modules/koffi/doc/start.md",
+                "bytes": 3008,
+                "sha256": "95c57729bd5b4477e39a8950fd4f1e6c8121cf5fba58907d16f2c8d5bdf92b8d"
+              },
+              {
+                "path": "node_modules/koffi/doc/types.md",
+                "bytes": 2828,
+                "sha256": "d8a1acfcc5f416038f05b6f53a93445e80cba70755592d6ceaf5b9df9b3c5440"
+              },
+              {
+                "path": "node_modules/koffi/doc/unions.md",
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "path": "node_modules/koffi/doc/values.md",
+                "bytes": 6324,
+                "sha256": "f712dc80674c1711b76edc64b1a55c06e5003e17b542afe071bc20cdfed161ba"
+              },
+              {
+                "path": "node_modules/koffi/index.cjs",
+                "bytes": 50,
+                "sha256": "a200e15ec168d00cb3155794808a98243051c61dd7f6989c23c57ee220c918b9"
+              },
+              {
+                "path": "node_modules/koffi/index.js",
+                "bytes": 85,
+                "sha256": "34508972d2e18b79fd4a289943568a68bbaf18badd2e82a25c8deb1af27f6225"
+              },
+              {
+                "path": "node_modules/koffi/indirect.cjs",
+                "bytes": 53,
+                "sha256": "f36c7fd3caa9c43da3db45e1ee272892087b4001b6f575fffb76dd80574829b1"
+              },
+              {
+                "path": "node_modules/koffi/indirect.js",
+                "bytes": 91,
+                "sha256": "5c5045c5b5ec2083535efdfdbd95f5212545ce29a4b7f33a683504a35e5b6a02"
+              },
+              {
+                "path": "node_modules/koffi/lib/native/base/base.hh",
+                "bytes": 175756,
+                "sha256": "08b1350be29988726a91f989c68de818bfc128015e50b0bc39b64ca3081c007e"
+              },
+              {
+                "path": "node_modules/koffi/lib/native/base/unicode.inc",
+                "bytes": 36653,
+                "sha256": "a337b5e53a6c72534fcf093c58d7fbf12f7b1075f068ea83a09c91e34373b5a4"
+              },
+              {
+                "path": "node_modules/koffi/package.json",
+                "bytes": 1760,
+                "sha256": "b57cbd14c1cbc3589402b8f6e5ff5aa2deb9b6b148d4048b53086cef533ee8e4"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/CMakeLists.txt",
+                "bytes": 9607,
+                "sha256": "270a032caefcc8e084d8e5c3303ec79de24127c7e28e9b4903a9024324ab16d0"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/index.cjs",
+                "bytes": 11008,
+                "sha256": "3135201866d6611f4e47c7976140409c3d6a69a4c77f201f18543518764407f3"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/index.js",
+                "bytes": 9572,
+                "sha256": "7cc6d02a3724003738c3348db17ff823c707acff481efdee5e7250350ea3c174"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/indirect.cjs",
+                "bytes": 10942,
+                "sha256": "42a293ef83bbbcb1399a1d9782d3ad5762c83f3a592d4aaf5993f66cd6d15082"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/indirect.js",
+                "bytes": 9516,
+                "sha256": "9ad745b77d0c9d7ebd504f8d4b6ce2e1a0b33976da199c81e7ea58d51f02c92d"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/arm32_asm.S",
+                "bytes": 4149,
+                "sha256": "8226b9db2dba1fdd1f3bbb0a38adf60f20a753560dc90fa9ec68d63d6b6c2aa2"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/arm64_asm.S",
+                "bytes": 5252,
+                "sha256": "c9317394dbd8942a9167c91057529fda6d14282be7227ffbe64394a0c2af1b74"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/arm64_asm.asm",
+                "bytes": 4290,
+                "sha256": "11a7a8355a848dd50d4ddbd09ad51b5cc5822fded3664ecafc6fee6abf6c63d7"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/loong64_asm.S",
+                "bytes": 4648,
+                "sha256": "436bc1cd9796956ca135d154345ff3871360d5e86ca39570299fb0dbab5f0acf"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/riscv64_asm.S",
+                "bytes": 4373,
+                "sha256": "30d96912e2bbca5a12c904a9474ffbd60bb2265e51dda3b984cee2a6423efe6a"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/x64sysv_asm.S",
+                "bytes": 5486,
+                "sha256": "4daa7ee2445cdd047d582af8c9079447c85b3d58db9806fb734eb6a2440ea411"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/x64win_asm.S",
+                "bytes": 3883,
+                "sha256": "cf309cb28046d9656e683deed3a4e9f5e44266f129593dd154d0c88f822854d3"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/x64win_asm.asm",
+                "bytes": 4708,
+                "sha256": "2e3e8014820b352cb0eb775c03996edcd8438917b0ca43e975cda3d4f5bfc467"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/x86_asm.S",
+                "bytes": 4658,
+                "sha256": "d10bf04332429f032a59108c11c14087061c972231f39b7efccb35a16689f397"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/abi/x86_asm.asm",
+                "bytes": 3875,
+                "sha256": "e24a7ae3e2a95bef4bf6e695653bb6a6931c782f6045d3acfe5a1e6e18c8b8c5"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/call.hh",
+                "bytes": 6037,
+                "sha256": "363f5fd8f69089251fc18592ec896c7b5afd099d49d79349443c5cc2adbe2748"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/errno.inc",
+                "bytes": 8776,
+                "sha256": "f2fea4a329fbf7aa7e5a6c52daacc480d70d782344e37fd7e62019f6b914201a"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/ffi.hh",
+                "bytes": 9398,
+                "sha256": "a157b30d96ce2af4f301735c2dbab0f673b05064a08186c210694b65542d030b"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/interp.hh",
+                "bytes": 3402,
+                "sha256": "c6ffe5b7e59f8cefa9b036398308ae1d1c0e2216c28414e991ccfa434d21d82d"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/parser.hh",
+                "bytes": 1253,
+                "sha256": "cfd9e374884cdc0f60716de41bbe110d361bc10d0a8539942e37d34c86b525ae"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/primitives.inc",
+                "bytes": 857,
+                "sha256": "34f524982a6e921a63c6766619b337b6d15f0a5cdefbf252481dda4b4369afda"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/static.cjs",
+                "bytes": 3251,
+                "sha256": "ca1e8bb6a3262025530cfb99e6ba27e3581c4aabfaeabfdd502baccb3755bc70"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/static.js",
+                "bytes": 3334,
+                "sha256": "bc048698847efedfc65544a87617c31a81eb2a5fd1de5363d2be161e78792f11"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/trampolines.cjs",
+                "bytes": 2033,
+                "sha256": "82895e2a78b911b297e7497d9d6033ab87a0afe64f4904615dacfa318d83adfa"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/type.hh",
+                "bytes": 2070,
+                "sha256": "3874032e5ea22422146199e4359d8a25e6f553604dd569cc92004a58758c464e"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/util.hh",
+                "bytes": 13621,
+                "sha256": "8161249f0ac57a619cffb665f3c528caa4ad3e88f3644ed958eccbc55312eacc"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/uv.def",
+                "bytes": 134,
+                "sha256": "4a40dc700dc66214fc1c464db8c4b78b82845e3b7b4e6103418ac519346ca4d2"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/uv.hh",
+                "bytes": 2536,
+                "sha256": "6ad3aeceec4070cbf5fe1f9e54a75b58dc57c2686174c654b341ff9215d70aca"
+              },
+              {
+                "path": "node_modules/koffi/src/koffi/src/win32.hh",
+                "bytes": 3932,
+                "sha256": "46b0b57a2771e1f2647d49711ca249029dc93e92a17007302a78dd58fe3bd4f2"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-addon-api/LICENSE.md",
+                "bytes": 1150,
+                "sha256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-addon-api/README.md",
+                "bytes": 4994,
+                "sha256": "9c9fcf38e120933aac37fe2cbdcb85abb59ecb1a674abe944c9b627dff8539a6"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-addon-api/napi-inl.deprecated.h",
+                "bytes": 6323,
+                "sha256": "b66ed1e565e735bbfabcc2f72d466ab7c5414d3ef8851d1af440b81be7f2375c"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-addon-api/napi-inl.h",
+                "bytes": 243618,
+                "sha256": "965fe706f18a2acd7fde0c7dfd1e450cf2d855d2cec03d9d75021c1226f10a72"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-addon-api/napi.h",
+                "bytes": 125640,
+                "sha256": "f213cbbe041af5f4b8021bd88dd000dc99d7dd7f2e06aac58a2ab8b407ff4a8a"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-api-headers/LICENSE",
+                "bytes": 1064,
+                "sha256": "a553508f516031c91f3af1148d44970cb81bbae6c4f091be6835d39cc252238c"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-api-headers/README.md",
+                "bytes": 2741,
+                "sha256": "63a4e81d19f02b164d51c4721ff3e88c81d410640de7e1d3520a2c406f0a7d83"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-api-headers/def/js_native_api.def",
+                "bytes": 2734,
+                "sha256": "77653a554fbb27f6c5666f4ba05f87d26f0de72bc3d0439961ac030030c2be66"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-api-headers/def/node_api.def",
+                "bytes": 3550,
+                "sha256": "e0d5e3da0520a42e26b563f6321291081bd15bdd20821d46818e5f47900f77d6"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-api-headers/include/js_native_api.h",
+                "bytes": 31081,
+                "sha256": "0953395662ea63697cd7a77a9320d94aa2829f9c9569abf3a74272b7a2923ce8"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-api-headers/include/js_native_api_types.h",
+                "bytes": 6744,
+                "sha256": "21eebde05d2ee59d315ac27d4aa82434ca88508a0b2cf5819802a00ca523831d"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-api-headers/include/node_api.h",
+                "bytes": 10370,
+                "sha256": "2d4560831e525b47b060ec8a0864ab73993df9e20215ce9f0fe7b24cd31af32a"
+              },
+              {
+                "path": "node_modules/koffi/vendor/node-api-headers/include/node_api_types.h",
+                "bytes": 1930,
+                "sha256": "a25356630d3058f0a0c8937d9f297e9471e037fda58c2696d8a505c2bd99cb00"
+              },
+              {
+                "path": "node_modules/undici/LICENSE",
+                "bytes": 1090,
+                "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Agent.md",
+                "bytes": 2797,
+                "sha256": "6cf9a18ddc0f07ccb0819db288dced8f710e58f1ae7d6d76bfb989ffce498201"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/BalancedPool.md",
+                "bytes": 2817,
+                "sha256": "2a6ccb2f8ec194336e342d313c437bb9f3e0634ca0d168800ea12fd6b62f4429"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/CacheStorage.md",
+                "bytes": 1078,
+                "sha256": "37e458d8baff658682379bf4196a9085fd7bae0aa76560a23896a9f5d447e498"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Client.md",
+                "bytes": 11596,
+                "sha256": "71eb2fe49cd6a5aad1ad4aad6e20d4467081a084b01346e4febc41913173ed53"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Connector.md",
+                "bytes": 3464,
+                "sha256": "c363feda8c4bb65f09379df7f2d0164f88336a2487b3043876c275b2d04a01ed"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/ContentType.md",
+                "bytes": 1130,
+                "sha256": "b7418622c803d210b744fa1e705505a1c62829ec95b557fbc3071cc68b4fdcbd"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Cookies.md",
+                "bytes": 2043,
+                "sha256": "1669eb09d53cac17ffaa721bb64c01b04d3e15954eafdc68ee9bdfa552ae049b"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Debug.md",
+                "bytes": 2297,
+                "sha256": "4586368c30c64c85a6b368487c06723d58a5e2b4b8360eb0dd64b8abd130078a"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/DiagnosticsChannel.md",
+                "bytes": 6271,
+                "sha256": "75410ee4b45ee20e2901e74b206d1947ef4c2f357e30e4eaa1b1b563ee05dff9"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/DispatchInterceptor.md",
+                "bytes": 1524,
+                "sha256": "3b5b39f333b1c3c405d1515bf1305478891f399ffb723aa759efe68a5cfb40be"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Dispatcher.md",
+                "bytes": 42084,
+                "sha256": "cb32a577e2e2364b0ec4bfc80ed71094a9089911864e0202ebe72f705ef2fd47"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/EnvHttpProxyAgent.md",
+                "bytes": 5704,
+                "sha256": "512b3ae7fd348df4ae3ec7b4b0d265bc4406a8113a63abfc7dc4b2f325fed24c"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Errors.md",
+                "bytes": 3877,
+                "sha256": "20d0dd0af0d969b67001245573650a7a28369fb8252751dadc990949d9ebf30c"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/EventSource.md",
+                "bytes": 1236,
+                "sha256": "4f6abf7c96d473ffb15fe5224df7bc994fe03ae22b5903dbf8bd8f6fee6a9ab6"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Fetch.md",
+                "bytes": 2124,
+                "sha256": "0c17cc35dcc4e67d01aaa7e0526a99d5bbd73fb7eaaab41250226da950821f1b"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/MockAgent.md",
+                "bytes": 15248,
+                "sha256": "a4c9d4ebacb7809e97222e96d00b21bee60c36561100870f26ac3567431f8c81"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/MockClient.md",
+                "bytes": 2021,
+                "sha256": "41298451fbb43c0290386b7b0cd8e2336a2e7f3d8587f18cf674445ab95a3a1c"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/MockErrors.md",
+                "bytes": 595,
+                "sha256": "862b81346856a128b577cb7825500cb5b09095203f97f6e01dcb3a583b50947b"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/MockPool.md",
+                "bytes": 16229,
+                "sha256": "e2c99fb959c6706a6aaa4643e0432b634ee1358a83c7cd30ea75e2badd9a852a"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Pool.md",
+                "bytes": 2769,
+                "sha256": "cb25bc88b8f381c8f8cfaa52fce333146b85e614c808611a139594888480f112"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/PoolStats.md",
+                "bytes": 775,
+                "sha256": "d143e045fcd7c3d3c67ea04dd34baff4a0290bbe7c92fe940a41e1696513ed5e"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/ProxyAgent.md",
+                "bytes": 5031,
+                "sha256": "980712e8cbdeed1c30a79873f83a0143d8a2c035ed79c6e34dfabb3973cfdebf"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/RedirectHandler.md",
+                "bytes": 3206,
+                "sha256": "4d9def1d8620827ac89fdf0101c40c2d4b2599758b66d4f8d2a5cfe69f65f064"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/RetryAgent.md",
+                "bytes": 2015,
+                "sha256": "5b585108b2f7b95db18afbae234d3c4b2ec37ae2c9eae7c495c48468cef154fc"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/RetryHandler.md",
+                "bytes": 4375,
+                "sha256": "9208c40a9ddd00f79b5964bf59c6c85aa3391fd5d0b9c69741524d001073287a"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/Util.md",
+                "bytes": 732,
+                "sha256": "c61bedd14de49978130b2a390bde9e83b79c7ed34a0decdb4a3c4eec1f925fb9"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/WebSocket.md",
+                "bytes": 1923,
+                "sha256": "aef4ee1140c0326962907d719279e3728ec9777e24428f2fd20a545758d28392"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/api/api-lifecycle.md",
+                "bytes": 7751,
+                "sha256": "b2492da7af8ece58cac58a84883d09fd8e5f92569344b8efcd57f8a68e404f02"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/best-practices/client-certificate.md",
+                "bytes": 2053,
+                "sha256": "f04bc4291917e454069c88f1a81326f0935a205930034930c01096b5d37e566b"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/best-practices/mocking-request.md",
+                "bytes": 3341,
+                "sha256": "869f18e979b17c9bbefe3008912065355ba404720f59eb38ff5de8ac7b82915c"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/best-practices/proxy.md",
+                "bytes": 3328,
+                "sha256": "0b7edcbf4991f03699687ed0298f1583b6bc6f58c8b80ff4942be785fc98608c"
+              },
+              {
+                "path": "node_modules/undici/docs/docs/best-practices/writing-tests.md",
+                "bytes": 648,
+                "sha256": "4fb1816618ab3a119e872f23d8d9d46c3521f9aea055dd5bc75c58847892641f"
+              },
+              {
+                "path": "node_modules/undici/index-fetch.js",
+                "bytes": 1558,
+                "sha256": "3b99e505f9dc3ac97b44fb6bd77b67987b2e9c4ec936270971326de28993de8c"
+              },
+              {
+                "path": "node_modules/undici/index.js",
+                "bytes": 6057,
+                "sha256": "c42e75dd4f2dfa00b8bafa7b85b8594ab367b2d8d22dcf72a67585f1f5ee41ee"
+              },
+              {
+                "path": "node_modules/undici/lib/api/abort-signal.js",
+                "bytes": 1057,
+                "sha256": "940054d80e9a82a4dda26fbe0b26ec3fb8ef2d283ab1b74febc4c698dfb40c5f"
+              },
+              {
+                "path": "node_modules/undici/lib/api/api-connect.js",
+                "bytes": 2565,
+                "sha256": "33229ace71010bfb1c2df21c0751d96042ec7c9d1e6b8ae3d5067fec4936e86f"
+              },
+              {
+                "path": "node_modules/undici/lib/api/api-pipeline.js",
+                "bytes": 5445,
+                "sha256": "1fff148ec69841c6a31c12350f9afe788a72fcb9c42a4082462987c31b345eb1"
+              },
+              {
+                "path": "node_modules/undici/lib/api/api-request.js",
+                "bytes": 5734,
+                "sha256": "dba2cdb7c724d7898cc11c4f2635e7cfbbdeadbf141b8b07d063c41782b126b8"
+              },
+              {
+                "path": "node_modules/undici/lib/api/api-stream.js",
+                "bytes": 5320,
+                "sha256": "b2687896c2a99be3ef9e6d9d4befde55158a4336eb39b5081b600aa360215145"
+              },
+              {
+                "path": "node_modules/undici/lib/api/api-upgrade.js",
+                "bytes": 2576,
+                "sha256": "efa17f0b83ad86f8135b1576dab81fe6b7983b29dd1223d092c0f734bd6498bd"
+              },
+              {
+                "path": "node_modules/undici/lib/api/index.js",
+                "bytes": 264,
+                "sha256": "a7b4b74ea6b81b2401f8659c138df54fd3f2c45450741682c026abb4cf133096"
+              },
+              {
+                "path": "node_modules/undici/lib/api/readable.js",
+                "bytes": 9085,
+                "sha256": "7c1ab798eb492b3b5fb55425d84d9ee115bfc39e763b4c64befeaf30937c8434"
+              },
+              {
+                "path": "node_modules/undici/lib/api/util.js",
+                "bytes": 2374,
+                "sha256": "8fb5cca52bdf03160ca7b4a41eab2088c6d4213240aa7f70425b3c71102df9c3"
+              },
+              {
+                "path": "node_modules/undici/lib/core/connect.js",
+                "bytes": 7286,
+                "sha256": "24ed02e5a7080d7873ffc0b02870393d87529f7a8b0a6783f59a00a14bd8aabb"
+              },
+              {
+                "path": "node_modules/undici/lib/core/constants.js",
+                "bytes": 2610,
+                "sha256": "962e2278404f3c0b0d45bf67eb1966c39dc33c04b89e2e9f4a955ac057272b82"
+              },
+              {
+                "path": "node_modules/undici/lib/core/diagnostics.js",
+                "bytes": 5687,
+                "sha256": "b07763ed42b4463f95fad4bc042e04c894587ce2ed52fb3c7ebd22d77f8d005c"
+              },
+              {
+                "path": "node_modules/undici/lib/core/errors.js",
+                "bytes": 12171,
+                "sha256": "aaca1e0952616cb68db77153f24e1c2a7da3ee54d699b507f40d88eecc62b061"
+              },
+              {
+                "path": "node_modules/undici/lib/core/request.js",
+                "bytes": 11222,
+                "sha256": "dd77a5199e35cdd6fc2f1962e6b18f00b11c24db43ac8025d45b2ff0113ab106"
+              },
+              {
+                "path": "node_modules/undici/lib/core/symbols.js",
+                "bytes": 2547,
+                "sha256": "c27f3539f763111179c821a91e391025ffc5a19bdadaf33dda85c2b6ccd796f4"
+              },
+              {
+                "path": "node_modules/undici/lib/core/tree.js",
+                "bytes": 3455,
+                "sha256": "7f2625127a44664c9fd531c0938b00a8fbac467e2ad15e65dbef48cb5029a385"
+              },
+              {
+                "path": "node_modules/undici/lib/core/util.js",
+                "bytes": 19042,
+                "sha256": "ebbaa1263b06489bc467b6b62d95b247f38006f94d17131482ea03685ef18da9"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/agent.js",
+                "bytes": 4006,
+                "sha256": "6bf76d0a07820033b65fc831839a17794a6582874d7d4573f900a5a00393a6f7"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/balanced-pool.js",
+                "bytes": 5531,
+                "sha256": "6beac1850ec97449ab72f87a623547c0152acf27b65fe3faa432a3f00782209d"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/client-h1.js",
+                "bytes": 40937,
+                "sha256": "323c176fd2dfe86326972b3ad9ed4dbb57819c5f16fe4e49c528b54c7833382b"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/client-h2.js",
+                "bytes": 18623,
+                "sha256": "bc902c3b3999ec669a0a5dd05204e7efba6d07f98e5af766483bb74d02487220"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/client.js",
+                "bytes": 17057,
+                "sha256": "bf715aab5839b1f88ff42eedf69eff8badb43e671c0fd7e785cfc28102e69ab6"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/dispatcher-base.js",
+                "bytes": 4847,
+                "sha256": "9a627a0e5a9e3a17d4fd3c0df1c52f5d421e995b193ae3d196984aa43eec37aa"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/dispatcher.js",
+                "bytes": 1437,
+                "sha256": "e76ad1e0766f839303d2208843df639a642edd0c218cf3bb468af6d740f70d78"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/env-http-proxy-agent.js",
+                "bytes": 4479,
+                "sha256": "96a0cbb0dc557f76e2d11c9969d8b5e840a5565bb6501dcbed2f7406be37fa5e"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/fixed-queue.js",
+                "bytes": 4222,
+                "sha256": "244a0b8b734395490f13430449e06754ec6ea7b102447d6b77e8eef3cb20c979"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/pool-base.js",
+                "bytes": 4558,
+                "sha256": "5263c1112ec9be6d7cf1548f916c6ed903379db97fb0eb6d4a7a7dd397134fc6"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/pool-stats.js",
+                "bytes": 553,
+                "sha256": "b77bfdc27744e464ec58099982b0b1c4c2d5926e5c8e3929bf1321772b29d593"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/pool.js",
+                "bytes": 3013,
+                "sha256": "5ccc278d8e34fad79d6ba2b656a73da0c6cc2225715522021c1fb4586633990b"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/proxy-agent.js",
+                "bytes": 8135,
+                "sha256": "3bf00deb1018c397adb7049a85d6a6d9a116f639441a4ac0b6b762976f5d13a9"
+              },
+              {
+                "path": "node_modules/undici/lib/dispatcher/retry-agent.js",
+                "bytes": 684,
+                "sha256": "465e9429750441852cb0ed19bd669dbe2eca2b531ce6966040551a9b6550ae30"
+              },
+              {
+                "path": "node_modules/undici/lib/global.js",
+                "bytes": 871,
+                "sha256": "2743c8128f9004d7d82dfae10cdcae10b27806b7c5d378b94f2c50651f3b6dbc"
+              },
+              {
+                "path": "node_modules/undici/lib/handler/decorator-handler.js",
+                "bytes": 858,
+                "sha256": "56e55b0a2683669007c43454030b2d488f5577aeb693ef7d4b74a3b03b89fb12"
+              },
+              {
+                "path": "node_modules/undici/lib/handler/redirect-handler.js",
+                "bytes": 7700,
+                "sha256": "35945253f190fd6149839d9b4c4d6d99d966fca3da64fc84d803aa071fb96fac"
+              },
+              {
+                "path": "node_modules/undici/lib/handler/retry-handler.js",
+                "bytes": 11635,
+                "sha256": "f1e17458ff05f8a6201db88702caa84bd56ac8b6a252dc140ab18bec9ca1f252"
+              },
+              {
+                "path": "node_modules/undici/lib/interceptor/dns.js",
+                "bytes": 9338,
+                "sha256": "bca388666ef90bc4a89f125c786af07760e55c2fc8f7510bbe2f647d10b59c86"
+              },
+              {
+                "path": "node_modules/undici/lib/interceptor/dump.js",
+                "bytes": 2514,
+                "sha256": "3bfd2bfbd074fd23e1867b5d14962b065bdfb43ab8c83d30a4108939be651cf8"
+              },
+              {
+                "path": "node_modules/undici/lib/interceptor/redirect-interceptor.js",
+                "bytes": 661,
+                "sha256": "dc4f2739771211d5dd3940d6b41abcced797de6cce9431665037ace2149ab3d9"
+              },
+              {
+                "path": "node_modules/undici/lib/interceptor/redirect.js",
+                "bytes": 588,
+                "sha256": "377a3f459d5652d2668d49b0668cf259e537745abb9174ad0677ecae7fb31427"
+              },
+              {
+                "path": "node_modules/undici/lib/interceptor/response-error.js",
+                "bytes": 2148,
+                "sha256": "aece2c6eee6314919df653a0c5bcd89f9d5243241c11186546455af26722e57d"
+              },
+              {
+                "path": "node_modules/undici/lib/interceptor/retry.js",
+                "bytes": 419,
+                "sha256": "488cf270ae143cc13a6ecf82ba523314fdbb17fd9ee08677c4488d4410f047c3"
+              },
+              {
+                "path": "node_modules/undici/lib/llhttp/constants.js",
+                "bytes": 11002,
+                "sha256": "3cba0763867e5e3753f3efbf22853e42b3da26e2353ff77d06156d923eb4d8bd"
+              },
+              {
+                "path": "node_modules/undici/lib/llhttp/llhttp-wasm.js",
+                "bytes": 64920,
+                "sha256": "f6e22d23d57d86c1e613ce26ef1eb4e997e81663987a8127eef758ce5f20a655"
+              },
+              {
+                "path": "node_modules/undici/lib/llhttp/llhttp_simd-wasm.js",
+                "bytes": 64960,
+                "sha256": "1b8fa2e4e50e4f5774dde59855f0d34d112ef9900caf97aea4b2e6ec4ca9e3f1"
+              },
+              {
+                "path": "node_modules/undici/lib/llhttp/utils.js",
+                "bytes": 394,
+                "sha256": "0c72c339551b7e963cada1733f0d95e059d340e0f77c5d704c3e2e5989dc86a3"
+              },
+              {
+                "path": "node_modules/undici/lib/mock/mock-agent.js",
+                "bytes": 4556,
+                "sha256": "746d3abcf9f8e352549833e1a18e8880989e4f6541b23f90491adfa148a49663"
+              },
+              {
+                "path": "node_modules/undici/lib/mock/mock-client.js",
+                "bytes": 1513,
+                "sha256": "e5fa1ccc3f1025276166affcca04f04e6659631b9f106019fdd95f264061d792"
+              },
+              {
+                "path": "node_modules/undici/lib/mock/mock-errors.js",
+                "bytes": 740,
+                "sha256": "30c997cff400a8cf3f0a9b2eadeb1923c6506a9743ba892f14fae741c49b9840"
+              },
+              {
+                "path": "node_modules/undici/lib/mock/mock-interceptor.js",
+                "bytes": 6824,
+                "sha256": "0794f09f20e76f5b4d74d603e6557fe5462d09e8a7c307306bfc1efcfbbc460e"
+              },
+              {
+                "path": "node_modules/undici/lib/mock/mock-pool.js",
+                "bytes": 1499,
+                "sha256": "9526cb9c0a989987cdde04e15647e8fab21166b711a6b6dba4ffcc781d8045f0"
+              },
+              {
+                "path": "node_modules/undici/lib/mock/mock-symbols.js",
+                "bytes": 769,
+                "sha256": "2bb0167aca64371dc350fa9ee1077018517d3fd43f0d48ed068cdfc3e0530950"
+              },
+              {
+                "path": "node_modules/undici/lib/mock/mock-utils.js",
+                "bytes": 10783,
+                "sha256": "7979b322a2c7a47cf864eee799febae6c33cfc923d270e1d19e1e5714f698511"
+              },
+              {
+                "path": "node_modules/undici/lib/mock/pending-interceptors-formatter.js",
+                "bytes": 1186,
+                "sha256": "9d3737f40ba601fd7a9c6dd28a328e6797686ff08da712dcd0a0f011d5639f8d"
+              },
+              {
+                "path": "node_modules/undici/lib/mock/pluralizer.js",
+                "bytes": 495,
+                "sha256": "d5d71bf11a309f2368693f40737a011ae59734ea1b45c27678c6d49f9888ef33"
+              },
+              {
+                "path": "node_modules/undici/lib/util/timers.js",
+                "bytes": 11737,
+                "sha256": "bea70a68b7d31ea58611892c54795399d6bd3bcc4aca635081d40a5b4a564f7a"
+              },
+              {
+                "path": "node_modules/undici/lib/web/cache/cache.js",
+                "bytes": 21080,
+                "sha256": "4f6c667a0566e1e916dbfa23a3ede274d151433c073c131e058df42bc6e5e504"
+              },
+              {
+                "path": "node_modules/undici/lib/web/cache/cachestorage.js",
+                "bytes": 3663,
+                "sha256": "bf271e7d5bd3b6e3adfd7b0a092490bf17ae10dcb396f35efd3c28f7fd496567"
+              },
+              {
+                "path": "node_modules/undici/lib/web/cache/symbols.js",
+                "bytes": 90,
+                "sha256": "499a6cdb7a77eb92655c929145116c0724e81caa6c351f23232f55dff05e073d"
+              },
+              {
+                "path": "node_modules/undici/lib/web/cache/util.js",
+                "bytes": 1020,
+                "sha256": "638d5c2424a730e6d2400ac518765b3fc9b50e2b3816b65fb7b46f93c66a5930"
+              },
+              {
+                "path": "node_modules/undici/lib/web/cookies/constants.js",
+                "bytes": 306,
+                "sha256": "85a24ae49eb5954e15363049bbc68967f01aae7260246daa3f49ad375429acb4"
+              },
+              {
+                "path": "node_modules/undici/lib/web/cookies/index.js",
+                "bytes": 4247,
+                "sha256": "55f0e191558a019507374c918a08060ca5b9d5810b1bc4901cf5dd2dd5293ff5"
+              },
+              {
+                "path": "node_modules/undici/lib/web/cookies/parse.js",
+                "bytes": 12481,
+                "sha256": "550f060bdae6ac7d0215be1e21a9e95a439486f58883c49c38ed18b8c4aebbe4"
+              },
+              {
+                "path": "node_modules/undici/lib/web/cookies/util.js",
+                "bytes": 9261,
+                "sha256": "51941b2fb0a6f29e389b91236050b1fc4bdaf57051ae53145767219a9d3c5f09"
+              },
+              {
+                "path": "node_modules/undici/lib/web/eventsource/eventsource-stream.js",
+                "bytes": 11935,
+                "sha256": "dbb92bfb71772f46449f2f30217091ce66d6c51e0491c17ac02d32a000ad8739"
+              },
+              {
+                "path": "node_modules/undici/lib/web/eventsource/eventsource.js",
+                "bytes": 14143,
+                "sha256": "12709d9420c06126f1886d16e4c74b38a9d81023ee8e907c49cabf46bb098245"
+              },
+              {
+                "path": "node_modules/undici/lib/web/eventsource/util.js",
+                "bytes": 788,
+                "sha256": "23db924c5eed1b4421811da40e78ed6dc754cdf165cc8eb6e9f1b9cf1dc424d7"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/LICENSE",
+                "bytes": 1071,
+                "sha256": "a21d6c8d3fc631198b97e57584697f7f9c37805c71c6cf9a12e4442b40394b88"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/body.js",
+                "bytes": 17339,
+                "sha256": "edc925847d383b21cc286c27972075aea26cc52d2c87c0bc5bc9d0d3aa1a3543"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/constants.js",
+                "bytes": 3395,
+                "sha256": "d6c377a0ce91b947a1299845516886be525f474aedad65c7dde35f2c9301b97e"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/data-url.js",
+                "bytes": 21989,
+                "sha256": "9593cb61a2844fabc1849f6343c0fbb132d4ab885195ee1a87eeee54579dcaaa"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/dispatcher-weakref.js",
+                "bytes": 1083,
+                "sha256": "9f34f1dda099666ef510e41399c00c66da21d0482780aa82aaf6478acd687479"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/file.js",
+                "bytes": 3300,
+                "sha256": "29a79309900579667fb5df3a0629f508bde34464f2c08a29990de2fea1b21078"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/formdata-parser.js",
+                "bytes": 15227,
+                "sha256": "a99daed7968ae5031a50d020a881a97afbeb613fa1db13a98561ce8e6b8f4384"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/formdata.js",
+                "bytes": 7756,
+                "sha256": "2755aa6653a131084c3c9d8123a8556a5bb4de4102cbe291b7134a1975faa9d8"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/global.js",
+                "bytes": 890,
+                "sha256": "6b38813b82ec8d5002009640515d35f83ab96d4f8e0066d71fae89324079a289"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/headers.js",
+                "bytes": 20603,
+                "sha256": "8492ae2455a524b46017cb74e6a7353d63ea705914a4fb28e718b7b6d2de4470"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/index.js",
+                "bytes": 82477,
+                "sha256": "ec5fa587004c3d852f4e29ca4726eff00bede5cc4793dc6431b0c13ca0576c9f"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/request.js",
+                "bytes": 34565,
+                "sha256": "eed7953967abb30acad4c7ae54417e61d2c53bd3393a6f1929270865724345ad"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/response.js",
+                "bytes": 19205,
+                "sha256": "103a92a5e44ee47822ad5892b6134b8b237fad505a4ccf9fb4d2963af1c49fb6"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/symbols.js",
+                "bytes": 181,
+                "sha256": "dd88b1385665e69fca2465f33dc99d4f69919441555e5504ce65b55019e077a7"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/util.js",
+                "bytes": 50492,
+                "sha256": "85ee9fbb5c6083b521ac108959dddc4029e3549350da5e4ec10bfc2077846039"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fetch/webidl.js",
+                "bytes": 20571,
+                "sha256": "c1197b314e62c8dc9e1cce920b59679474ccb2e74dc4779a7d33ee1ecd0c91d0"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fileapi/encoding.js",
+                "bytes": 6618,
+                "sha256": "1104cabac55bb11fb9ce5127017f7c1b5dd816e63e2ec1a1c8eb40d7dfb4ad20"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fileapi/filereader.js",
+                "bytes": 8515,
+                "sha256": "758f05d98581fa73a36df3efde7db45b209df05f9fbbdcd21ab90cd527c2feb2"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fileapi/progressevent.js",
+                "bytes": 1651,
+                "sha256": "a4efded37a5b1bf78ae1a3c9a09c90615e24f1b8fcaed5310a317f43bd40ffc6"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fileapi/symbols.js",
+                "bytes": 317,
+                "sha256": "ac1dd1e588f039bee4917ff017e32af5eb727d68683d869acf1479828480c371"
+              },
+              {
+                "path": "node_modules/undici/lib/web/fileapi/util.js",
+                "bytes": 11526,
+                "sha256": "7fe9d4d9e553ff05bbd5fe63e9c2d1d75acf4e47291936a513bcab712a1e907b"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/connection.js",
+                "bytes": 14235,
+                "sha256": "8d39465ab30bccbfc599f00ab276fdfdbad43913ca881083aafe8ba34f2ff7d1"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/constants.js",
+                "bytes": 1073,
+                "sha256": "55527aeddaa0d2ca2a9b57080be9ee3113f674dce45069cf6d494d5149f8767c"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/events.js",
+                "bytes": 7353,
+                "sha256": "156e4faea9fae2665344d5af1d08efb0cb6dc1deb96a787879e411fd80d55d2d"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/frame.js",
+                "bytes": 2307,
+                "sha256": "a60454364e7f2ec5db26c6ff03d20262d35fb2f1a0b2f6d625fd644be21cb118"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/permessage-deflate.js",
+                "bytes": 3104,
+                "sha256": "da8d8dc29515bce2ba4def5c3f811f8644eeb5d4819bc521d5811fbbdda4afb7"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/receiver.js",
+                "bytes": 16127,
+                "sha256": "279aa204e739cf532ad06edd575b563c5b73ee0864ccacfd9c21ce9826378a47"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/sender.js",
+                "bytes": 2291,
+                "sha256": "147f118843cdbbb884b39b2f4644cbec6671a530018e3baedafadf04339e4dcd"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/symbols.js",
+                "bytes": 330,
+                "sha256": "8b0fefd6a165e147061da314db2f1d5f7e870b6720835e540d0be3376c6132fa"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/util.js",
+                "bytes": 9355,
+                "sha256": "0a391dc293d65810a39c9c336904e98956fba902eb4402e55556e3dbe151ac46"
+              },
+              {
+                "path": "node_modules/undici/lib/web/websocket/websocket.js",
+                "bytes": 18741,
+                "sha256": "9b3173f0a96feda58e36293002f2341ca3c1c3340e9e1e070f149a4dcfe28f8c"
+              },
+              {
+                "path": "node_modules/undici/package.json",
+                "bytes": 1450,
+                "sha256": "37eabf0ce493ce94e2fcc8f198147ca9cebfa219bc4c272497bdfc0c4a7444b6"
+              },
+              {
+                "path": "node_modules/undici/scripts/strip-comments.js",
+                "bytes": 260,
+                "sha256": "dda77b813446eda232f84105181302ab39e3e58c8d92d3350ac1ce3eace5f4c4"
+              },
+              {
+                "path": "node_modules/undici/types/README.md",
+                "bytes": 455,
+                "sha256": "c8cced6ec588c55b07e35733258cb7d6b63e3426ee7490aa9267aab4bda0fb20"
+              },
+              {
+                "path": "node_modules/ws/LICENSE",
+                "bytes": 1183,
+                "sha256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef"
+              },
+              {
+                "path": "node_modules/ws/browser.js",
+                "bytes": 176,
+                "sha256": "010da44addea1d88b2b732540c3f1fd0cbcb28926b96623d4c64222e0ead2d0e"
+              },
+              {
+                "path": "node_modules/ws/index.js",
+                "bytes": 796,
+                "sha256": "924564d5be26d59b9682c4263f68320e48dde7240bd2d1ad17ec305537429dd2"
+              },
+              {
+                "path": "node_modules/ws/lib/buffer-util.js",
+                "bytes": 3056,
+                "sha256": "8b0a45739132f82e25ea13163780abf547ccfe989267f3eb7abb475beec92da3"
+              },
+              {
+                "path": "node_modules/ws/lib/constants.js",
+                "bytes": 503,
+                "sha256": "391e823142b8b370e55a2fd32b022deaf03b8415c56000009674ebc86a0b4f86"
+              },
+              {
+                "path": "node_modules/ws/lib/event-target.js",
+                "bytes": 7321,
+                "sha256": "c45d3c6e12d170c860c0c3f1a050aa0f864d9806632b609a1e607d675aba128c"
+              },
+              {
+                "path": "node_modules/ws/lib/extension.js",
+                "bytes": 6183,
+                "sha256": "852564f0f6b460287043803eae732666fb5610f676874354fc89f06aa4e986ed"
+              },
+              {
+                "path": "node_modules/ws/lib/limiter.js",
+                "bytes": 1034,
+                "sha256": "e0469d4b83f6ba764b15f80e1766b75c136fbff68f048f4c050f0b1c7f065f69"
+              },
+              {
+                "path": "node_modules/ws/lib/permessage-deflate.js",
+                "bytes": 14669,
+                "sha256": "16a91536988a53c23047ee5882392068728a839a244178c3b09b8c54982f58b0"
+              },
+              {
+                "path": "node_modules/ws/lib/receiver.js",
+                "bytes": 17439,
+                "sha256": "a6ada33c9a2d54eaf595824b821ea89ca2c6395f89aa06755c52142148274884"
+              },
+              {
+                "path": "node_modules/ws/lib/sender.js",
+                "bytes": 16886,
+                "sha256": "d0791d30c3defd44dcabbddb879a901c757993fea2c00a7ffea01d53b23b4b77"
+              },
+              {
+                "path": "node_modules/ws/lib/stream.js",
+                "bytes": 4204,
+                "sha256": "a56fcb6e2b152097ee820b6f5410b1f71e59819b45d08d9f8bda588fe39070ec"
+              },
+              {
+                "path": "node_modules/ws/lib/subprotocol.js",
+                "bytes": 1498,
+                "sha256": "be3f6323d6f549568577dcba9004c1479d95c65a7abb0fe0c582875b9fac0b7c"
+              },
+              {
+                "path": "node_modules/ws/lib/validation.js",
+                "bytes": 3903,
+                "sha256": "41ce8e83d0d434132e1704895fedb91f6703a701b42d91c80954ab29b2845593"
+              },
+              {
+                "path": "node_modules/ws/lib/websocket-server.js",
+                "bytes": 17022,
+                "sha256": "6d8dd89a841748c80445fd5fcdb5ba8005369b53cc3525135e11304c8b9c55e5"
+              },
+              {
+                "path": "node_modules/ws/lib/websocket.js",
+                "bytes": 37848,
+                "sha256": "7ccf305925f0cdb74e06b75b4c84de134b1bd771a220ef409b24520def08128f"
+              },
+              {
+                "path": "node_modules/ws/package.json",
+                "bytes": 1385,
+                "sha256": "95662acace1e91018caee5e0f4fb93c9401c379bdc7ff5fa06bd0c7cd098f8b8"
+              },
+              {
+                "path": "node_modules/ws/wrapper.mjs",
+                "bytes": 554,
+                "sha256": "fe154662301fd558f935f9c217fccbe7a7dac02ff39e648a000589403ff27c7f"
+              },
+              {
+                "path": "LICENSE",
+                "bytes": 1294,
+                "sha256": "f923c2cdb93960e41cdd23c35eaec2d21e70f9a81086296028a2c3f4e578e1e2"
+              },
+              {
+                "path": "THIRD_PARTY_NOTICES.md",
+                "bytes": 12023,
+                "sha256": "d4e988499a433e311a7dea93d9e7f049642754c6123331ca74bffd09c8b24660"
+              },
+              {
+                "path": "docs/CORRESPONDING_SOURCE.md",
+                "bytes": 3114,
+                "sha256": "59f2156f63e0fa1e1cfaad4efa740c6680e43ab0948799af2b662e0f94bd47a1"
+              },
+              {
+                "path": "licenses/7zip-19.00-COPYING.txt",
+                "bytes": 26530,
+                "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+              },
+              {
+                "path": "licenses/7zip-19.00.txt",
+                "bytes": 4103,
+                "sha256": "ce1b78c504c4f3d51cc93bc4a8c7f487425361ee0b7df60949f443f9d092be0e"
+              },
+              {
+                "path": "licenses/FFmpeg-COPYING.LGPLv2.1",
+                "bytes": 26517,
+                "sha256": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30"
+              },
+              {
+                "path": "licenses/FFmpeg-COPYING.LGPLv3",
+                "bytes": 7651,
+                "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+              },
+              {
+                "path": "licenses/FFmpeg-LICENSE.txt",
+                "bytes": 4346,
+                "sha256": "2e1d16c72fd74e12063776371da757322f8b77589386532f4fd8634bde7de1af"
+              },
+              {
+                "path": "licenses/GPL-3.0.txt",
+                "bytes": 35149,
+                "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+              },
+              {
+                "path": "licenses/LGPL-2.1.txt",
+                "bytes": 26530,
+                "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+              },
+              {
+                "path": "licenses/LGPL-3.0.txt",
+                "bytes": 7633,
+                "sha256": "6557adc4bc1d59232e27567a185dd70cf2ecca3154018b0be61ea29cf9e814e2"
+              },
+              {
+                "path": "licenses/NSIS-3.0.4.1-COPYING.txt",
+                "bytes": 15488,
+                "sha256": "3c8de989f6504d52f5f8dfafedb6668cd47201f5d01f1319570727c091425dd6"
+              },
+              {
+                "path": "licenses/Nsis7z-SDK-License.txt",
+                "bytes": 466,
+                "sha256": "e3702485b31cfa0d43f597ccc4550ffb171e9793b0d98b2179d68096b75de64f"
+              },
+              {
+                "path": "licenses/StdUtils-LGPL-CLARIFICATION.txt",
+                "bytes": 2703,
+                "sha256": "49287ffa37d51910a8cb595d7ab64ebd2d42525384b16d4322783a0e57a77194"
+              },
+              {
+                "path": "licenses/StdUtils-README.txt",
+                "bytes": 1350,
+                "sha256": "7d1b40bfdf3d6ef857b361929f8bfa3de38f53968ab1c084fac50ce0086e23f1"
+              },
+              {
+                "path": "licenses/adm-zip.txt",
+                "bytes": 1106,
+                "sha256": "6bb5b2d4c07d793ca928daa63a8899c6914fafb5ac3aa04ec10cae07f3d57dca"
+              },
+              {
+                "path": "licenses/authlib-injector-AGPL-exception.txt",
+                "bytes": 35009,
+                "sha256": "3ae6da2502108d2bf777508663a6c4ca55fb937137507bebb642e4506c0ccd0b"
+              },
+              {
+                "path": "licenses/iarna-toml.txt",
+                "bytes": 751,
+                "sha256": "22754885597e9864dbb792209ce75e58d691cba24c55beaa45023b218515e33e"
+              },
+              {
+                "path": "licenses/koffi.txt",
+                "bytes": 1117,
+                "sha256": "22bcbbbacd739b026a8dc484f62a31484ce4c4e31f3408b60b29b4e41d62b290"
+              },
+              {
+                "path": "licenses/minecraft-data.txt",
+                "bytes": 1338,
+                "sha256": "81ca556083602e2074b4a0ed450f7c0a1e64d373cf98691147e8e9ef5d2d32d0"
+              },
+              {
+                "path": "licenses/node-addon-api.txt",
+                "bytes": 1150,
+                "sha256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c"
+              },
+              {
+                "path": "licenses/node-api-headers.txt",
+                "bytes": 1064,
+                "sha256": "a553508f516031c91f3af1148d44970cb81bbae6c4f091be6835d39cc252238c"
+              },
+              {
+                "path": "licenses/skinview-utils.txt",
+                "bytes": 1140,
+                "sha256": "7eb7128de2e4de70932ce370c2c602136b4d7648fce9fc4a50c93fc59be94d94"
+              },
+              {
+                "path": "licenses/skinview3d.txt",
+                "bytes": 1140,
+                "sha256": "7eb7128de2e4de70932ce370c2c602136b4d7648fce9fc4a50c93fc59be94d94"
+              },
+              {
+                "path": "licenses/source/7zip-19.00-source.7z",
+                "bytes": 1071569,
+                "sha256": "9ba70a5e8485cf9061b30a2a84fe741de5aeb8dd271aab8889da0e9b3bf1868e"
+              },
+              {
+                "path": "licenses/source/Nsis7z_19.00.7z",
+                "bytes": 461078,
+                "sha256": "6f2f3730049926f40442ee0c8b7d3e3dee7ace544d82467ff8059ea3f4201c58"
+              },
+              {
+                "path": "licenses/source/README.md",
+                "bytes": 2225,
+                "sha256": "e4f43c41edb6ee00efd9904f9b9c3859d6f1da2b3982d600ed01a1cc389e82dc"
+              },
+              {
+                "path": "licenses/source/stdutils-1.14.tar.gz",
+                "bytes": 222751,
+                "sha256": "3687ab4e09005a8a0b93c1a07a36285d93466070e94b8bf6f12781fb53c419e1"
+              },
+              {
+                "path": "licenses/three.txt",
+                "bytes": 1081,
+                "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
+              },
+              {
+                "path": "licenses/undici.txt",
+                "bytes": 1090,
+                "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27"
+              },
+              {
+                "path": "licenses/vue-reactivity.txt",
+                "bytes": 1091,
+                "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175"
+              },
+              {
+                "path": "licenses/vue-runtime-core.txt",
+                "bytes": 1091,
+                "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175"
+              },
+              {
+                "path": "licenses/vue-runtime-dom.txt",
+                "bytes": 1091,
+                "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175"
+              },
+              {
+                "path": "licenses/vue-shared.txt",
+                "bytes": 1091,
+                "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175"
+              },
+              {
+                "path": "licenses/vue.txt",
+                "bytes": 1091,
+                "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175"
+              },
+              {
+                "path": "licenses/ws.txt",
+                "bytes": 1183,
+                "sha256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef"
+              },
+              {
+                "path": "out/main/curseforgeChannel-C9iXbsqg.js",
+                "bytes": 1475,
+                "sha256": "22dc941b52c53b1465638041ed672d351abcfc3629249136bbbb4839e1579b54"
+              },
+              {
+                "path": "out/main/defaultGameOptions-BCmdVmzm.js",
+                "bytes": 9550,
+                "sha256": "2eec8dabb4fefaf70e55690bf5775498f3ab2f9bdfd33a2d28bce81c08184d76"
+              },
+              {
+                "path": "out/main/defaultResourcePacks-MPQE0V6B.js",
+                "bytes": 12188,
+                "sha256": "e30e0dc7c3ff666aad1ae3a0e40927d4e2f8f84bc845bdbc422e48bf8603226a"
+              },
+              {
+                "path": "out/main/index-BnvP7ea9.js",
+                "bytes": 6889,
+                "sha256": "7dd595d73774189e739adac9494b9c51163c3881775f4c62d858eb4590896d35"
+              },
+              {
+                "path": "out/main/index.js",
+                "bytes": 1020893,
+                "sha256": "98122173886e4bbf973c30cb1bf0eaff84d5eff0e06215220130d4ed863f000f"
+              },
+              {
+                "path": "out/main/instanceCenter-BvQVO5_8.js",
+                "bytes": 11703,
+                "sha256": "82f208a5d0490199b7e151f4b7f858dd0393eaf7eb19edeec68cf4822fa448af"
+              },
+              {
+                "path": "out/main/ipc-CvMTyEF1.js",
+                "bytes": 139978,
+                "sha256": "a7399b55e768116620250d0d9c7c73a8a11d695204eba7334d4070c7a538f678"
+              },
+              {
+                "path": "out/main/keybindings-5462CZ5v.js",
+                "bytes": 6166,
+                "sha256": "97ac7e0ab44183d0167b4c000fefa24d91422316f0de6e39dcdd86bfa5c196ca"
+              },
+              {
+                "path": "out/main/keybindings-Db6logXO.js",
+                "bytes": 1733,
+                "sha256": "11ebb3168201c1a3c85903eefcb98c985c9085208987d0cfb2ddcb2fc1ce1436"
+              },
+              {
+                "path": "out/main/memoryOrganizer-CxJOm-Dn.js",
+                "bytes": 3581,
+                "sha256": "3a7bfca7fb1ce3703cf86751251e96386619c22e1e400c74931106b7feae7a99"
+              },
+              {
+                "path": "out/main/modCompatibility-BIvvRZ1G.js",
+                "bytes": 43190,
+                "sha256": "532ee94f02108f43d0798da59aeac853c192d6d5d56b3490934c473c8bcc98bf"
+              },
+              {
+                "path": "out/main/modFavorites-Re4gFE0b.js",
+                "bytes": 32776,
+                "sha256": "9a57db7f1f1b7cb556ad8acf0284adef60e1c0b76e1742a047df96d83fbf7d4e"
+              },
+              {
+                "path": "out/main/modMetadata-B6uXh2-U.js",
+                "bytes": 45986,
+                "sha256": "753622153845a0bcb7d9f936c1df2f0091e3b3330d91c412b98576c6ae546550"
+              },
+              {
+                "path": "out/main/modScanWorker.cjs",
+                "bytes": 1599,
+                "sha256": "ac97dd878b655eaaa9092e860109849d92b29ddb321e209915bc560a1f49a787"
+              },
+              {
+                "path": "out/main/modTransaction-DxlN7YZO.js",
+                "bytes": 62404,
+                "sha256": "fc4cc515a688aea1e6bdbbe7fc7c3b3583f62fe39c3dd354dd8928b361346df3"
+              },
+              {
+                "path": "out/main/modpacks-DRIzwSXz.js",
+                "bytes": 62621,
+                "sha256": "b51c7ff610438accb9952df7e7399c3220abda8edc939029e7a5b85ee8d09b49"
+              },
+              {
+                "path": "out/main/plugins-P5XXqstH.js",
+                "bytes": 4572,
+                "sha256": "bb4884bcf426eeab8ef2e4c94897f9875f3e6a07c6fd962d534c4b62dc602f3b"
+              },
+              {
+                "path": "out/main/projectionConversion-Cr8_EyNz.js",
+                "bytes": 1905549,
+                "sha256": "15016ac6a8b9645b104b5b58a4a76769a2fe8a5c7e0354b7be4af2f2173ca779"
+              },
+              {
+                "path": "out/main/projectionWorker.cjs",
+                "bytes": 1812,
+                "sha256": "50c7eef10bbfe2d443e28690420f973f064aa4d2c3b25af1dc6f0388ab46875f"
+              },
+              {
+                "path": "out/main/recordingMods-UuqKsl_A.js",
+                "bytes": 2409,
+                "sha256": "541dcc3b51a0eff174303ebe5fd77c1aa2226d835f63d3add1d8db344fa46d13"
+              },
+              {
+                "path": "out/main/supplementalMods-DPUx4mUM.js",
+                "bytes": 4037,
+                "sha256": "9649df83944c207140b4bcfe2a79c8e15c37d728fda80cbf47af617a20948c3b"
+              },
+              {
+                "path": "out/preload/index.js",
+                "bytes": 355,
+                "sha256": "e0b8f0ea8d27e38c824f18d49c775358e28ea2a6c4276f213848b598b6b6b5aa"
+              },
+              {
+                "path": "out/preload/splash.js",
+                "bytes": 645,
+                "sha256": "a5981dbd0bab52b2e2dd6fc96349b5ad9b98b2d635c99424173a197004da548c"
+              },
+              {
+                "path": "out/renderer/assets/AccountsView-DzwhccDe.js",
+                "bytes": 50750,
+                "sha256": "a3a310303f26f2abe5efc096a8c8a8b6734f6b85e51e8556e9a6514e512cd2da"
+              },
+              {
+                "path": "out/renderer/assets/AccountsView-jW9PmeuP.css",
+                "bytes": 10509,
+                "sha256": "d2eddb60be2c3824dba4d0d57a5607362ca796e32f7a8d88556b7923831bb5f9"
+              },
+              {
+                "path": "out/renderer/assets/BridgeView-7AuzN7iD.js",
+                "bytes": 22448,
+                "sha256": "2433b10ce0f388510ca052b0e54e8ca6bcc132aa20346bb8005f12e476b483d0"
+              },
+              {
+                "path": "out/renderer/assets/BridgeView-BT5l8TAd.css",
+                "bytes": 4514,
+                "sha256": "e14cc91bd58750b3bfb671eb91ad44698078190e8ba713ab9b8d23c60c1b043d"
+              },
+              {
+                "path": "out/renderer/assets/CommunityView-943HERJw.js",
+                "bytes": 142302,
+                "sha256": "72a71e7d407e62f67c3b206a81c9dbed2ad5c47d07d56bae9979f68c91081000"
+              },
+              {
+                "path": "out/renderer/assets/CommunityView-D28t333R.css",
+                "bytes": 23255,
+                "sha256": "5ffc7f89e22f0c684ac2611eb36cdbcbdca43832384f773318c79227fb050130"
+              },
+              {
+                "path": "out/renderer/assets/ConnectionPanel.vue_vue_type_script_setup_true_lang-BXXBwtT_.js",
+                "bytes": 2736,
+                "sha256": "cd9d2d8a14033dae49da005f00e3efb8c2c0b22c1f7c679dcdd927d5a88390e5"
+              },
+              {
+                "path": "out/renderer/assets/ContentSkeleton-EajBTAHq.css",
+                "bytes": 586,
+                "sha256": "1cafa67154caf8d3ab0955e77160d969c7f2cf2c944279bab42ac4c66497158c"
+              },
+              {
+                "path": "out/renderer/assets/ContentSkeleton-h1zSW6QV.js",
+                "bytes": 2619,
+                "sha256": "1e465258d4df78f4328d4ccb76338bb6a03a68710e22a0a9a8fb1107e588edd3"
+              },
+              {
+                "path": "out/renderer/assets/FileManager-DAIQBPzZ.js",
+                "bytes": 114808,
+                "sha256": "59e782c35f464c3b32c3721dc0c9fedc53d217121bf793f286ef82a81273ebf3"
+              },
+              {
+                "path": "out/renderer/assets/FileManager-my-4LZ5D.css",
+                "bytes": 22676,
+                "sha256": "148148190777fdc7f8cd2e1bb5ba92ae29b491ce5171917c62c283bfce01c74b"
+              },
+              {
+                "path": "out/renderer/assets/FriendConnectView-B-5W-4sr.css",
+                "bytes": 5135,
+                "sha256": "17d13b36f388c8a0244e4c1a945846c2c636058bd1d7bc726a188d875feb7a7c"
+              },
+              {
+                "path": "out/renderer/assets/FriendConnectView-BPW_1hVu.js",
+                "bytes": 9638,
+                "sha256": "c7ca17b7d73021fda19881837ee448ffee53af0facb05aa292f70200a684706f"
+              },
+              {
+                "path": "out/renderer/assets/FrpPanel-CfoZ94UC.css",
+                "bytes": 12210,
+                "sha256": "afea34d4e9ba731026b5dde4b30cd4005e56fbf67f1e68a7893daf41ab2fb260"
+              },
+              {
+                "path": "out/renderer/assets/FrpPanel-W8n1WNgU.js",
+                "bytes": 42764,
+                "sha256": "19fd0f2d735e9c520e2738a722dee954295a84eafc370239fc309d5b4debf2da"
+              },
+              {
+                "path": "out/renderer/assets/GameView-B0129gFc.js",
+                "bytes": 175296,
+                "sha256": "b455b29dc2a95efeda8d1bb1447ccc5d3ff28222d2c0f5066ee9894ed0a5f22b"
+              },
+              {
+                "path": "out/renderer/assets/GameView-EWZJiMFZ.css",
+                "bytes": 33340,
+                "sha256": "39e496d25d16502b15ef339e45c55152ab97d274cd6d0f35073605ec2fcd67a9"
+              },
+              {
+                "path": "out/renderer/assets/InstanceCenter-CsiiSpGK.js",
+                "bytes": 50568,
+                "sha256": "a2c97c4fef003a844fa8e92532eb8f45f21528701ce3dae76f64b0ff47b1bf8c"
+              },
+              {
+                "path": "out/renderer/assets/InstanceCenter-D_i8gW0K.css",
+                "bytes": 5635,
+                "sha256": "d615a8361edbf71429c265c86151ea8c4e450c460194ef2ac1f4f11913c0c342"
+              },
+              {
+                "path": "out/renderer/assets/KeysView-C7N8ZOMu.js",
+                "bytes": 62957,
+                "sha256": "34e39dc19591a5d72c4e123ab77b7802867b5e647c143cab5c43e948ec8a67c5"
+              },
+              {
+                "path": "out/renderer/assets/KeysView-H82G0T6m.css",
+                "bytes": 11214,
+                "sha256": "538289443f954e864d2fcbc9d3e9c2b21894d4987d7724061a050740fefdd387"
+              },
+              {
+                "path": "out/renderer/assets/MascotStage-Bxftr94m.js",
+                "bytes": 72316,
+                "sha256": "92dfcc82bcd7c9af12a43bf6404c6a18fd97753b3fe21d38ca1395641392f74b"
+              },
+              {
+                "path": "out/renderer/assets/MascotStage-DWCq4Dyb.css",
+                "bytes": 2840,
+                "sha256": "6402c462d1dd4be8a1897dbfbd6ad293916305ec4ad14e7a7df5776268494127"
+              },
+              {
+                "path": "out/renderer/assets/ModsView-B8AEnQgR.js",
+                "bytes": 955,
+                "sha256": "95300025d16805c2d743029d8fa6b13490a51908b4c6f1c2c125877fff446021"
+              },
+              {
+                "path": "out/renderer/assets/PacksView-tpLkCU6J.js",
+                "bytes": 987,
+                "sha256": "606d4ae8612c8278ef1cd56ce9bc80f36443b1535132862c14d63e59e867c577"
+              },
+              {
+                "path": "out/renderer/assets/ProjectionsView-Dp9tI4Ld.css",
+                "bytes": 4531,
+                "sha256": "855409930713d85252aa50251952d34b4bc725d5fc8b6661da904c34f70185a2"
+              },
+              {
+                "path": "out/renderer/assets/ProjectionsView-ql6S16lB.js",
+                "bytes": 36350,
+                "sha256": "c244a2cd0cad27a40142f8ff1b1970bc3e1209330a70c654a496e78c8def6367"
+              },
+              {
+                "path": "out/renderer/assets/RecordingsView-CD2oTJ_H.css",
+                "bytes": 3781,
+                "sha256": "77f6df2b0dcde5898eb88a4fbbb64d35d3055ee7dc9522233683f333448e611c"
+              },
+              {
+                "path": "out/renderer/assets/RecordingsView-CkMKFuiO.js",
+                "bytes": 24314,
+                "sha256": "65b16963dee62b675d0e88f5b7c70e8fb3cab8b718fd0d0b76d2d44267a9baee"
+              },
+              {
+                "path": "out/renderer/assets/SelectMenu-BGnvDZZ3.js",
+                "bytes": 9140,
+                "sha256": "bbf1f8ba6cd2618d32ca1ff24ae07f5fcd535d341a4ea6b15032f86c26df13ca"
+              },
+              {
+                "path": "out/renderer/assets/SelectMenu-DShRHZC1.css",
+                "bytes": 3562,
+                "sha256": "c51f7ef0318f37ac3612113099e1276597c2808b8ff70dcdd58efa1646333439"
+              },
+              {
+                "path": "out/renderer/assets/ServersView-BLCB5P7v.js",
+                "bytes": 57989,
+                "sha256": "87c16cd6b938ed64edb9a45d0bc18c7846b31a5d258a69100fdba2e416a4efda"
+              },
+              {
+                "path": "out/renderer/assets/ServersView-EqcX99i9.css",
+                "bytes": 13554,
+                "sha256": "9495ca3c8003e3456c75da1797ea5852de119f94a94570024d29cf98b40507ae"
+              },
+              {
+                "path": "out/renderer/assets/SettingsView-DQ6csXGV.css",
+                "bytes": 39905,
+                "sha256": "d00f9759d57b47aadda12dc2967da2a547386321fb04cd88369adec61605b388"
+              },
+              {
+                "path": "out/renderer/assets/SettingsView-jgKUueI0.js",
+                "bytes": 174652,
+                "sha256": "41d5b37e5abc504e44ddb77c8e5cd7fe30c9a09870559d7817ce3db1f877d340"
+              },
+              {
+                "path": "out/renderer/assets/ShadersView-CeKB6HvR.js",
+                "bytes": 1041,
+                "sha256": "e0836575ba9a35504ad667ff38f073127f462bda1212fe8fb2a8e55915b6b177"
+              },
+              {
+                "path": "out/renderer/assets/SkinsView-BrnDVpak.js",
+                "bytes": 120088,
+                "sha256": "469198e7cae329c9cce47f3b94208f03b30fc966a53b4fcd66d55b6f8b017950"
+              },
+              {
+                "path": "out/renderer/assets/SkinsView-uE0tE1RW.css",
+                "bytes": 35074,
+                "sha256": "1ce1440e9e9950ac0e277a0dba7a5eb0be209265fa434f4cb77b4a207ab90dd2"
+              },
+              {
+                "path": "out/renderer/assets/TerracottaPanel-CE9u-vBO.css",
+                "bytes": 5760,
+                "sha256": "69839502a2e59c9be5f13ece5c5dd09348b89268177b20f183724667076028e3"
+              },
+              {
+                "path": "out/renderer/assets/TerracottaPanel-Vb--xZOt.js",
+                "bytes": 28732,
+                "sha256": "bb16d3d82c2ae4ac6e6fb9fb83cb58cc65373c35e2c17c6f15887f34c6e3c025"
+              },
+              {
+                "path": "out/renderer/assets/ThirdPartyNotices-CgBuT8G3.css",
+                "bytes": 756,
+                "sha256": "d408974ca79da356a6f340ff236abd0cd5d435647c0d34adb4ffb9d402a017b6"
+              },
+              {
+                "path": "out/renderer/assets/ThirdPartyNotices-JbINqz1d.js",
+                "bytes": 194566,
+                "sha256": "37f620cfdedb47419af29bc1b5b2ee97bbc6cfca583d10a24643aaa271fb815a"
+              },
+              {
+                "path": "out/renderer/assets/UiGlyph.vue_vue_type_script_setup_true_lang-DLqtcP9K.js",
+                "bytes": 2333,
+                "sha256": "24400084c39182c2887a52bb29d59ac60e96816eb2c92de0dcc72e0fe3080109"
+              },
+              {
+                "path": "out/renderer/assets/VoxLinkPanel-Ctt8n4D6.js",
+                "bytes": 86614,
+                "sha256": "eada524bd3d45b791f996320f5ef67d5a99fe01f877ff946ee5026e926e642db"
+              },
+              {
+                "path": "out/renderer/assets/VoxLinkPanel-D9fuG8qD.css",
+                "bytes": 9183,
+                "sha256": "cc4d4d642de0608acd902a6509d141f9bd2b7035643145b525aa51976c3ed301"
+              },
+              {
+                "path": "out/renderer/assets/brewer-_t6hu0qJ.webp",
+                "bytes": 1405068,
+                "sha256": "38f39f80451353784a5217c781d35f131961074eb3f0a2bdc59bc37a84e77a16"
+              },
+              {
+                "path": "out/renderer/assets/cactus-ZHT28Bbx.webp",
+                "bytes": 1391550,
+                "sha256": "0530b9aeec17c0f538b25e7c4ebfc4c9064f166964fea333e8994a7ad9caadfb"
+              },
+              {
+                "path": "out/renderer/assets/camp-KA8qI3ns.webp",
+                "bytes": 1413784,
+                "sha256": "66783d4aa2371fdb8e95df9fe17103345f6fad27ab35640ae1ebec2e59981ebe"
+              },
+              {
+                "path": "out/renderer/assets/cannon-CrDDsD5Q.webp",
+                "bytes": 1543372,
+                "sha256": "4b0a8804c5ac58292c28056783b6a19ae39c417d39898e9f2000aed751326a64"
+              },
+              {
+                "path": "out/renderer/assets/connection-BGdzdtl5.css",
+                "bytes": 12568,
+                "sha256": "0f700f965b423258f6fe75bfd636cbe0aec8eca8f55e10abac5dfd3a25b8d3d3"
+              },
+              {
+                "path": "out/renderer/assets/farmer-3krkG6Tm.webp",
+                "bytes": 1588558,
+                "sha256": "c186d9793565bbc22aafa68de3df9cf6e02c73d252aab596771941cf7957e252"
+              },
+              {
+                "path": "out/renderer/assets/index-CZV0tK3M.css",
+                "bytes": 120699,
+                "sha256": "594a0d2e68560bc189ce2fbbd2ae01ce8b560e9478b659177b62c93e9963fecd"
+              },
+              {
+                "path": "out/renderer/assets/index-D9J3UxMH.js",
+                "bytes": 1921894,
+                "sha256": "c692fccbdd499bb68239dc2ab567fe8f39900ad61029ee8b96c3df359ac06531"
+              },
+              {
+                "path": "out/renderer/assets/modFavorites-VHvH78WF.js",
+                "bytes": 2920,
+                "sha256": "8293ea358bb1ca8d9bc0f17e0ee796ca8d2e6e19609dd36e34d60df3b6686378"
+              },
+              {
+                "path": "out/renderer/assets/piston-CXXgq7BE.webp",
+                "bytes": 1406146,
+                "sha256": "bdfbc3e3b189a0e6e012a7fd381cd5a829c7b5143ba869d51ee35c072cf3197d"
+              },
+              {
+                "path": "out/renderer/assets/plugins-t1_H4_k3.js",
+                "bytes": 1751,
+                "sha256": "7f428de6fee270ba894b07405414a3e7493804903ed31dd242fe848cc81a7233"
+              },
+              {
+                "path": "out/renderer/assets/settingsUpdates-BTsW56u_.js",
+                "bytes": 834,
+                "sha256": "0eaf1cbfa7c39d542d3ac747d1b392a6a5bee6109c4be55be41cafcc4b6f97d2"
+              },
+              {
+                "path": "out/renderer/assets/splash-D5-Isy3u.css",
+                "bytes": 1325,
+                "sha256": "de9819187b78f5dea1f09812ab1d6cda9d1177ef077df4d9f7b1d54bd031154c"
+              },
+              {
+                "path": "out/renderer/assets/splash-face-D7cFdy8J.js",
+                "bytes": 5165,
+                "sha256": "0a7f3d8cce8e90694708445599c8aa35f651146cb25f417de026da9af376ee4b"
+              },
+              {
+                "path": "out/renderer/assets/splash-k65xAguc.js",
+                "bytes": 8537,
+                "sha256": "49f2660058a35fa7a7f8cad881b103e39a139bfbbaadf2a303edd04067b73cfe"
+              },
+              {
+                "path": "out/renderer/assets/sunset--N5hnz1m.webp",
+                "bytes": 1582702,
+                "sha256": "0c4586a2ff009492b82f543fe64fea4a6210d952d7c382a270e889e508e38766"
+              },
+              {
+                "path": "out/renderer/assets/uiPresentation-DBTJW4DM.js",
+                "bytes": 615,
+                "sha256": "ad10ad0c3f6abaa3f5e4ec06a40c66c2bfd35f563db54a4db186c43fbe811a0f"
+              },
+              {
+                "path": "out/renderer/index.html",
+                "bytes": 607,
+                "sha256": "6f3802d0b9b6433648e25a569bef7d2d56a497426ed00849494564e52df7d4e5"
+              },
+              {
+                "path": "out/renderer/mobs/allay.png",
+                "bytes": 176,
+                "sha256": "58e583cf63056a135b65f2bb73c544f1a47baa928af358f5b02fd7bc803b8234"
+              },
+              {
+                "path": "out/renderer/mobs/armadillo.png",
+                "bytes": 251,
+                "sha256": "254962e3c73b16565de26ec27ae31c6b88f246e5abf3b1d2bfd3e010c30df786"
+              },
+              {
+                "path": "out/renderer/mobs/axolotl.png",
+                "bytes": 171,
+                "sha256": "00e71ca81cecfbdd3184e62dfbaebe7c43f5e35b372c237f1dc874b52652a4f5"
+              },
+              {
+                "path": "out/renderer/mobs/bat.png",
+                "bytes": 396,
+                "sha256": "73046e9a33db7621294f1e02a8cacf1f8ba9459bbf0cf815589b55051432bd4d"
+              },
+              {
+                "path": "out/renderer/mobs/bee.png",
+                "bytes": 228,
+                "sha256": "9f3f84e5778570de143732a4dbb198c2bb4b763cfe1bf18ef5fb6d890d77d325"
+              },
+              {
+                "path": "out/renderer/mobs/blaze.png",
+                "bytes": 218,
+                "sha256": "765744fc9e40af244d416349b1c8cd35cabd7fecc16e3ccc70153c7f95e23192"
+              },
+              {
+                "path": "out/renderer/mobs/bogged.png",
+                "bytes": 236,
+                "sha256": "e3ad7651831754bb9ba878536df772b20f7c261b6101ca570e895c37e8183e9d"
+              },
+              {
+                "path": "out/renderer/mobs/breeze.png",
+                "bytes": 204,
+                "sha256": "6e7b19c20630640196eb50667df4cb0ccab7dc381789f12f76cfeb099521cdac"
+              },
+              {
+                "path": "out/renderer/mobs/camel.png",
+                "bytes": 239,
+                "sha256": "46e5aee66f437b81550e0d7e71a7cd2ae0272ec686b983bc20e31699c78228c3"
+              },
+              {
+                "path": "out/renderer/mobs/cat.png",
+                "bytes": 175,
+                "sha256": "b30e0ac590bfbfdc7a3499cc21a2c5a0ac81375361a145a24d6110b7445e2734"
+              },
+              {
+                "path": "out/renderer/mobs/cave_spider.png",
+                "bytes": 172,
+                "sha256": "4fb2536ee802cbaad248f175b641dd1e67977196256872c5b33b5aa251b53d65"
+              },
+              {
+                "path": "out/renderer/mobs/chicken.png",
+                "bytes": 287,
+                "sha256": "5c570fe435fca55fb61d1bc00f6eabc9c9aeba2b5c31832682247517c0eabdd5"
+              },
+              {
+                "path": "out/renderer/mobs/cod.png",
+                "bytes": 194,
+                "sha256": "593563c140ff5115f720b3901a25daafee67bb77cebce751cffaabef269322b3"
+              },
+              {
+                "path": "out/renderer/mobs/copper_golem.png",
+                "bytes": 208,
+                "sha256": "e947fae000286506c265b2d5c20b73915d97c1797e8817563cfed7a3baafcc63"
+              },
+              {
+                "path": "out/renderer/mobs/cow.png",
+                "bytes": 194,
+                "sha256": "0ac9d05e7a1714c736a95a0ca8a85900b8c331c0e2da6cc744df086e59f00a4f"
+              },
+              {
+                "path": "out/renderer/mobs/creaking.png",
+                "bytes": 214,
+                "sha256": "9136949fec26016c8a9d82e8f4022fc2ceecc448085fd3465577c8e2d07454de"
+              },
+              {
+                "path": "out/renderer/mobs/creeper.png",
+                "bytes": 577,
+                "sha256": "88336194570c75abfe3dc4f6c04040510cb41f3f3837f9c27af4063595992067"
+              },
+              {
+                "path": "out/renderer/mobs/dolphin.png",
+                "bytes": 191,
+                "sha256": "46e2de785604fef3e330fe96023ed69040e617c5e525252ca1ca0a46c98bd0ec"
+              },
+              {
+                "path": "out/renderer/mobs/donkey.png",
+                "bytes": 249,
+                "sha256": "66c5ca40de2505bd593ecddc6f7891cae77e02d1936bfa00886a3df2e4ad6f50"
+              },
+              {
+                "path": "out/renderer/mobs/drowned.png",
+                "bytes": 221,
+                "sha256": "4e104987fc3e65425269607848c7a1581f94ea8eab3c4d5d2fed27c1f73b5c54"
+              },
+              {
+                "path": "out/renderer/mobs/elder_guardian.png",
+                "bytes": 327,
+                "sha256": "ee9708a53e4853b53440bf2f1bb9477f972f76c57f13e6b0a307f48c265d1fa3"
+              },
+              {
+                "path": "out/renderer/mobs/ender_dragon.png",
+                "bytes": 317,
+                "sha256": "3b048df95b600d2ecbb34bdb63db8f92db9b1e9ced369090b08d2022a0207c2d"
+              },
+              {
+                "path": "out/renderer/mobs/enderman.png",
+                "bytes": 155,
+                "sha256": "91db168527a87cd644e737b245686cd737042ec6131e5c90a884a3aa7cad5aa2"
+              },
+              {
+                "path": "out/renderer/mobs/endermite.png",
+                "bytes": 174,
+                "sha256": "f0a3ad90b4515a2bf0c52502e9a03a115fb44e93fa9ada86dec87b9ef2a9a6df"
+              },
+              {
+                "path": "out/renderer/mobs/evoker.png",
+                "bytes": 223,
+                "sha256": "ead5f8fe2f511ae043509000bfbd8329734e6da1dd30a9c5687d26b15ab8a80e"
+              },
+              {
+                "path": "out/renderer/mobs/fox.png",
+                "bytes": 217,
+                "sha256": "3a8e5727c3196f710142d0f0ad87c51e554edb6823512e85fb285c70ef79c7bb"
+              },
+              {
+                "path": "out/renderer/mobs/frog.png",
+                "bytes": 235,
+                "sha256": "6dfde650f9c7404e21e712061a936fc952b7b1a34df3ee8a50d67832c2004bd9"
+              },
+              {
+                "path": "out/renderer/mobs/ghast.png",
+                "bytes": 221,
+                "sha256": "c49903350a4870be02e5bf844efc5159a060e73fe89ed127033aa31cd2282087"
+              },
+              {
+                "path": "out/renderer/mobs/glow_squid.png",
+                "bytes": 258,
+                "sha256": "5fde659253861c77541c2882e8058a315f2218c331641a0c9772cc2d20de2c63"
+              },
+              {
+                "path": "out/renderer/mobs/goat.png",
+                "bytes": 341,
+                "sha256": "7b031398f28a097a9a1cbf9019ba8d926e1d380f63256ad6d2057d5fdd20a11f"
+              },
+              {
+                "path": "out/renderer/mobs/guardian.png",
+                "bytes": 362,
+                "sha256": "e88eddd5aac824cd6aa20be73fababad3c675e554c8ea9d1b51483b3e5aa1c6c"
+              },
+              {
+                "path": "out/renderer/mobs/happy_ghast.png",
+                "bytes": 207,
+                "sha256": "b01f128f47a9d463f9df1aa606a30a8f1433abb45b52ef76db5ceed7668bbc4e"
+              },
+              {
+                "path": "out/renderer/mobs/hoglin.png",
+                "bytes": 262,
+                "sha256": "06a4779a748c21e40dfa17386fb25122e0a3ae2f956931224eee061e1945b1ac"
+              },
+              {
+                "path": "out/renderer/mobs/horse.png",
+                "bytes": 257,
+                "sha256": "5f97bd63e9a7451e26f4ed943f2deb03efcb83bd160fb881e9a06fddecc5768e"
+              },
+              {
+                "path": "out/renderer/mobs/husk.png",
+                "bytes": 231,
+                "sha256": "4c6518ff70f536847f8d527d5a506022eb4826d3cdcf049f9b1ad58c3674f400"
+              },
+              {
+                "path": "out/renderer/mobs/iron_golem.png",
+                "bytes": 224,
+                "sha256": "b7287aa95dbf41d92e9d3a505f0af8eb56dc66619716fa7aae8a2b3c509496fc"
+              },
+              {
+                "path": "out/renderer/mobs/llama.png",
+                "bytes": 219,
+                "sha256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac"
+              },
+              {
+                "path": "out/renderer/mobs/magma_cube.png",
+                "bytes": 199,
+                "sha256": "5f8bfe6318056dc02c862f5f0ba1d26a4d9b1bb2800c8b0d5f0ef3ec7dab2b79"
+              },
+              {
+                "path": "out/renderer/mobs/mooshroom.png",
+                "bytes": 204,
+                "sha256": "c2f72592936cd02e814e02b76adc221d7a44109cf6d5ca462dd022f288eb6501"
+              },
+              {
+                "path": "out/renderer/mobs/mule.png",
+                "bytes": 249,
+                "sha256": "a28d39062e8f8652ce9fb16615db5172498aebe1443751b68fac9c760d2011f3"
+              },
+              {
+                "path": "out/renderer/mobs/ocelot.png",
+                "bytes": 195,
+                "sha256": "e20b2834216256b3e2c9491e3f1ab3937f7781f8e2f14fd3861102a8f2335ba7"
+              },
+              {
+                "path": "out/renderer/mobs/panda.png",
+                "bytes": 258,
+                "sha256": "9148f7a3deeb96f76439958967e0dec6860f7f612cf985be10816a3f2d74dc71"
+              },
+              {
+                "path": "out/renderer/mobs/parrot.png",
+                "bytes": 222,
+                "sha256": "e57ca6fe46a34c13d4179e5c11825944a462411db2a5eaca23537ce1e39ba477"
+              },
+              {
+                "path": "out/renderer/mobs/phantom.png",
+                "bytes": 161,
+                "sha256": "2e3e55ad61bade42ef4c8809979023cc6502ca0b1092eb794e0d6eef91168dde"
+              },
+              {
+                "path": "out/renderer/mobs/pig.png",
+                "bytes": 199,
+                "sha256": "acae9bb4417f19faeae6334dd4487d25264c00c0690105377350386d97915323"
+              },
+              {
+                "path": "out/renderer/mobs/piglin.png",
+                "bytes": 216,
+                "sha256": "e29051c1c14b4530b5312264a351e49a1b80b9cec18a84104fad3a90d59ad279"
+              },
+              {
+                "path": "out/renderer/mobs/piglin_brute.png",
+                "bytes": 226,
+                "sha256": "5efa04c61f4f49140156b8c182f9a603316475ea7f72f10abf1ba6899a365053"
+              },
+              {
+                "path": "out/renderer/mobs/pillager.png",
+                "bytes": 385,
+                "sha256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65"
+              },
+              {
+                "path": "out/renderer/mobs/polar_bear.png",
+                "bytes": 259,
+                "sha256": "2985c0a5732c79fde76e1688a45bba7e75f90c22362027c4db5dcd53c54828d6"
+              },
+              {
+                "path": "out/renderer/mobs/pufferfish.png",
+                "bytes": 205,
+                "sha256": "a4f8d7c49221f0133f2f1d579a2519b6486c3b69cfbeae1284b6fbb91571d6e1"
+              },
+              {
+                "path": "out/renderer/mobs/rabbit.png",
+                "bytes": 167,
+                "sha256": "ea5f25b9fa91dcd32b1f128d79031fc5f78a6c76397e3bedb2189bff8e29a687"
+              },
+              {
+                "path": "out/renderer/mobs/ravager.png",
+                "bytes": 248,
+                "sha256": "8ce477c9cbd18934dc1310f633d45ea6ee97731e4c83c4662a7c8728160a9e11"
+              },
+              {
+                "path": "out/renderer/mobs/salmon.png",
+                "bytes": 270,
+                "sha256": "87a8226c542d22803ab127307c9914e62a6558d1250540d3fd778c40975edfb5"
+              },
+              {
+                "path": "out/renderer/mobs/sheep.png",
+                "bytes": 232,
+                "sha256": "ddecce3420e872f5aa4344e40acc23006afc8cd821e9a5d270d925399b0e74a6"
+              },
+              {
+                "path": "out/renderer/mobs/shulker.png",
+                "bytes": 420,
+                "sha256": "0bbd1548da251bae55f892986dcdec1bf2fe77d04117ad7689d7ec5a39757076"
+              },
+              {
+                "path": "out/renderer/mobs/silverfish.png",
+                "bytes": 216,
+                "sha256": "b81b245b1a220c43e201d07bab9f3ba817ea2a38f2267f1d4ffb79356ce249e0"
+              },
+              {
+                "path": "out/renderer/mobs/skeleton.png",
+                "bytes": 200,
+                "sha256": "80c62d8175b9c7b538590d3876ee3dd02d04b3c09f33f546d6cf5fc1a29a90dc"
+              },
+              {
+                "path": "out/renderer/mobs/skeleton_horse.png",
+                "bytes": 216,
+                "sha256": "40aa58c2fafc14146fa8b913ad1d1c77b1977589a7f0861884d2ce061ebd501c"
+              },
+              {
+                "path": "out/renderer/mobs/slime.png",
+                "bytes": 300,
+                "sha256": "3228e4d2c7eed3cb59e078576b7390950253adb3b8e50ea40d92638acebd49e7"
+              },
+              {
+                "path": "out/renderer/mobs/sniffer.png",
+                "bytes": 368,
+                "sha256": "1af8113771ed63740dde074573437d5d396e778d5c5128768d25ef6628b8ce44"
+              },
+              {
+                "path": "out/renderer/mobs/snow_golem.png",
+                "bytes": 4035,
+                "sha256": "8c94528abb4943fd10f3653986c6ac2bf028ace88d3b3199eb8611bad96725f0"
+              },
+              {
+                "path": "out/renderer/mobs/spider.png",
+                "bytes": 176,
+                "sha256": "bb17e3051dfc22a62f3acbec1a196fff3f0940b691ed60c7e3207fc7fc175253"
+              },
+              {
+                "path": "out/renderer/mobs/squid.png",
+                "bytes": 224,
+                "sha256": "c1f68053c3e3b8682243a3f02c76db9aa681a586f8447812bfbe392ec80c1fac"
+              },
+              {
+                "path": "out/renderer/mobs/stray.png",
+                "bytes": 211,
+                "sha256": "c3cd8e0344a75e719874b2c41e57360d602e04003a8349604c7bf812456bf211"
+              },
+              {
+                "path": "out/renderer/mobs/strider.png",
+                "bytes": 274,
+                "sha256": "9c8551ace5994ec831e03fe3cdeff7fad09d7bff6570adef529f5d9fb8057347"
+              },
+              {
+                "path": "out/renderer/mobs/tadpole.png",
+                "bytes": 149,
+                "sha256": "00cc02afd6a5bb8460bae2061b146193325426f442c4a100e56d7413dafddddf"
+              },
+              {
+                "path": "out/renderer/mobs/trader_llama.png",
+                "bytes": 219,
+                "sha256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac"
+              },
+              {
+                "path": "out/renderer/mobs/tropical_fish.png",
+                "bytes": 224,
+                "sha256": "de00e0f56c81e267959b37090f213d2684a38d637bac9939fc621e9f0b12c9e6"
+              },
+              {
+                "path": "out/renderer/mobs/turtle.png",
+                "bytes": 224,
+                "sha256": "c126bd723b9cfdd1728d899cbe3d6ff295fe2be42b0bfcfce8c65439239ab72b"
+              },
+              {
+                "path": "out/renderer/mobs/vex.png",
+                "bytes": 179,
+                "sha256": "2dd126529eac9cc675b7885132bbc18af8976ab305473ad838b807719918f290"
+              },
+              {
+                "path": "out/renderer/mobs/villager.png",
+                "bytes": 196,
+                "sha256": "cfeebe39ee8df5a0d770ea2b9ba9605d0f506e5c2e12c56e8481f912eb9a938a"
+              },
+              {
+                "path": "out/renderer/mobs/vindicator.png",
+                "bytes": 385,
+                "sha256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65"
+              },
+              {
+                "path": "out/renderer/mobs/wandering_trader.png",
+                "bytes": 297,
+                "sha256": "677fa59716bc1bfc775621760dfc63add31232638d7652e51fc6a8dc6503f96b"
+              },
+              {
+                "path": "out/renderer/mobs/warden.png",
+                "bytes": 285,
+                "sha256": "44701545b94a58f02cc0a54da306ddfa301f5f2a065052026bcf8d006ba1f5b0"
+              },
+              {
+                "path": "out/renderer/mobs/witch.png",
+                "bytes": 208,
+                "sha256": "c81f9d177a43b7988829679be0d5dd11bee57177dfe1dc649f60361bc223562d"
+              },
+              {
+                "path": "out/renderer/mobs/wither.png",
+                "bytes": 201,
+                "sha256": "c929375c68de20b543a11dda5ccd3a4730114d42026976e8a2c478a75f7adc9a"
+              },
+              {
+                "path": "out/renderer/mobs/wither_skeleton.png",
+                "bytes": 195,
+                "sha256": "9c134d7ac4b1e4582887696643e31e63550cf9781ab67c4fc1fc28d37e9ee9d5"
+              },
+              {
+                "path": "out/renderer/mobs/wolf.png",
+                "bytes": 230,
+                "sha256": "b8e97df6f3df58fd679e6735dff05acd082d46cafa930e1843e54ebd9fe2e79d"
+              },
+              {
+                "path": "out/renderer/mobs/zoglin.png",
+                "bytes": 704,
+                "sha256": "b33814d008bfeb876a880749a49dcaf47c6ef6023f95a800f2ed4bb98c99fa33"
+              },
+              {
+                "path": "out/renderer/mobs/zombie.png",
+                "bytes": 236,
+                "sha256": "648784a72340af43e5e8cda6a21d2f8f1e807f9cb5054fe6e32951d756fcf876"
+              },
+              {
+                "path": "out/renderer/mobs/zombie_horse.png",
+                "bytes": 202,
+                "sha256": "d9b4a220bb0ae757ffba03f13fc0ac037a1038f3b75f61a6872d10e930fb0248"
+              },
+              {
+                "path": "out/renderer/mobs/zombie_villager.png",
+                "bytes": 261,
+                "sha256": "f25f235b8a4c3674d0a4b41ab6fdc877ed5ba14ace9f14694fe21b556118027d"
+              },
+              {
+                "path": "out/renderer/mobs/zombified_piglin.png",
+                "bytes": 263,
+                "sha256": "c5d5f0264b6ac24b8edb27a27228d16b09ca14e78f693e11005adaa3e38ce019"
+              },
+              {
+                "path": "out/renderer/splash.html",
+                "bytes": 632,
+                "sha256": "8e50df72c6dce2e5cedaf5f7cc9340a14fb1bcaa2ad7676ba6ec67b2f924ab06"
+              },
+              {
+                "path": "package.json",
+                "bytes": 413,
+                "sha256": "b744c15362c62bcbd4983fc4beb4806200a43a59c1d6f548e78f6f7f214c7455"
+              }
+            ],
+            "unpackedOuterBindings": [
+              {
+                "path": "node_modules/@koromix/koffi-darwin-arm64/index.js",
+                "outerMember": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/index.js",
+                "bytes": 55,
+                "sha256": "0decaa09f32cdb5b9aa1ed250f9c4ba9a4a15adc761cda6c6d1613e378f1cd0b"
+              },
+              {
+                "path": "node_modules/@koromix/koffi-darwin-arm64/package.json",
+                "outerMember": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/package.json",
+                "bytes": 653,
+                "sha256": "250106f6147c8e0e2e792fb30163ce7bbc63399eccfe98c538b0dbba4e0923b8"
+              },
+              {
+                "path": "node_modules/@koromix/koffi-darwin-arm64/darwin_arm64/koffi.node",
+                "outerMember": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/darwin_arm64/koffi.node",
+                "bytes": 1224408,
+                "sha256": "07bae31b943d7dcadfa0350e2a95944cb4dfb84b7f097cfd126478e370b9c705"
+              },
+              {
+                "path": "out/main/MacGameWindow",
+                "outerMember": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/MacGameWindow",
+                "bytes": 60352,
+                "sha256": "4790b57234a1e5f7dcedcacf75fd8aaa6e0755b3a98128e1473b38c0f2dc6ea2"
+              },
+              {
+                "path": "out/main/kamucl-bridge.jar",
+                "outerMember": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+                "bytes": 21828,
+                "sha256": "935472db0e6cc1a28aa6413e53af3e726d39a5b11b2419d7eb94f6eac41e8b59"
+              },
+              {
+                "path": "out/main/kamucl-offline-skin.jar",
+                "outerMember": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+                "bytes": 12496,
+                "sha256": "1e2c76976974445497ca76327f38082264f8e66a84b2b9e0f5cc8a3c0d0901bd"
+              }
+            ],
+            "links": []
+          }
+        ],
+        "nestedJars": [
+          {
+            "label": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+            "name": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+            "bytes": 21828,
+            "sha256": "935472db0e6cc1a28aa6413e53af3e726d39a5b11b2419d7eb94f6eac41e8b59",
+            "entries": 19,
+            "files": 15,
+            "decompressedBytes": 38421,
+            "scannedBytes": 38421,
+            "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+            "excludedEntries": [],
+            "sensitiveStateFileNames": [],
+            "asar": [],
+            "nestedJars": [],
+            "fileHashes": [
+              {
+                "path": "cn/kamucl/bridge/BridgeServer.class",
+                "bytes": 12983,
+                "sha256": "16475af169b8c28e4adfd15f554cd769a7189917794cf3668019cb6238040cc8",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/BridgeServer$Handler.class",
+                "bytes": 388,
+                "sha256": "c0c6224df6af641372577a1d5d331f3b0c9be73e95cce25a05091fb05dbf8859",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/DemoBehavior.class",
+                "bytes": 2738,
+                "sha256": "06892393ae482a701dcec87f36e5d846aa506310b62d5994e41155bf52e6fac7",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/DemoModule.class",
+                "bytes": 4013,
+                "sha256": "d3b8fc523128815c95dd5daa5f2a3fbd84e0753b49949bcc6445455a4f6d956a",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/KamuclBridgeMod.class",
+                "bytes": 1674,
+                "sha256": "e4c6c5fa6d2c2f60ce89c667c33df4c37d7333ac86971c7c03ce9d2395f2df86",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/Param.class",
+                "bytes": 2344,
+                "sha256": "55be487c97ef7f99cb9dcd435d1e23b392177e95e4e2190d337101b46505b9a6",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/Param$Apply.class",
+                "bytes": 1149,
+                "sha256": "c2fe71738305fcc5353d6016420e4295838e6f7a61eb2e011832471dd8f993a2",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/Param$Builder.class",
+                "bytes": 1863,
+                "sha256": "eb4a645e22ba11b6ffad977384dae448d29ab88c0188cd47d4d15926c5236085",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/Param$Kind.class",
+                "bytes": 1117,
+                "sha256": "7ff8d0d36b2ea13ea00b021e8972e02a3418600d1376320afd23bd86ec0ae3f2",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/Param$Scope.class",
+                "bytes": 1028,
+                "sha256": "d14f91332a25c32e9be6c25aca55755f0ac959287ed5d473e1ea0ea0e34cce17",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/ParamRegistry.class",
+                "bytes": 6891,
+                "sha256": "854f2f49de529864c735a2b51ba04d0a87e8ac6eed66453def659988fed3b4a0",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/ParamRegistry$1.class",
+                "bytes": 475,
+                "sha256": "61b00a8e11da5d9b40a5e7c26f3e95348c62686230210c4b8ee3020533b1f2c6",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/bridge/ParamRegistry$2.class",
+                "bytes": 1197,
+                "sha256": "efc4d65553b1f34f3db58615325be2329ecac9abcb1f1a1a404e37bd962e7f7d",
+                "symlink": false
+              },
+              {
+                "path": "fabric.mod.json",
+                "bytes": 494,
+                "sha256": "8923838839235298a8e9066fd0abf7772d640c07b4a19a9fe983187e60ddf7fa",
+                "symlink": false
+              },
+              {
+                "path": "META-INF/MANIFEST.MF",
+                "bytes": 67,
+                "sha256": "0b442902586bc8c1dd23c197dee0f6e409e61d71cc6292ac755ad5203b247ad4",
+                "symlink": false
+              }
+            ]
+          },
+          {
+            "label": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+            "name": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+            "bytes": 12496,
+            "sha256": "1e2c76976974445497ca76327f38082264f8e66a84b2b9e0f5cc8a3c0d0901bd",
+            "entries": 11,
+            "files": 7,
+            "decompressedBytes": 20384,
+            "scannedBytes": 20384,
+            "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+            "excludedEntries": [],
+            "sensitiveStateFileNames": [],
+            "asar": [],
+            "nestedJars": [],
+            "fileHashes": [
+              {
+                "path": "cn/kamucl/skin/OfflineSkinAgent.class",
+                "bytes": 6116,
+                "sha256": "f43bdf1901aa52d4f2d20e6c44106318a52d87415e1593996c0eeb0177c02b3c",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/skin/OfflineSkinAgent$1.class",
+                "bytes": 708,
+                "sha256": "6c30c9b1a522a5a42631fb5d9461af90e83646a74f87b9e8bde3db09439543e4",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/skin/OfflineSkinAgent$Provider.class",
+                "bytes": 10315,
+                "sha256": "ceaa3c8f2682b3e973187c6c45fc120767fc589d193b7d1db89b30552a1dd70c",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/skin/OfflineSkinAgent$Provider$1.class",
+                "bytes": 842,
+                "sha256": "8b3315a6326363a38290b2aea646231498a7931b92c17dd7aaffa2c433e7b0f1",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/skin/OfflineSkinAgent$Provider$2.class",
+                "bytes": 1357,
+                "sha256": "22655d60a180302e10966b4b79cff1225d7a5128c8531ae0f470e5499f90bf96",
+                "symlink": false
+              },
+              {
+                "path": "cn/kamucl/skin/OfflineSkinAgent$Provider$2$1.class",
+                "bytes": 870,
+                "sha256": "7e40d55a7a9037577d392781e678a6acc063e52de22fc891b670736644dddc85",
+                "symlink": false
+              },
+              {
+                "path": "META-INF/MANIFEST.MF",
+                "bytes": 176,
+                "sha256": "51b5b61f1e634d887305b1df4e73a9aa0b10401c4a0dd73c0a6619e024ff7f92",
+                "symlink": false
+              }
+            ]
+          }
+        ],
+        "fileHashes": [
+          {
+            "path": "KAMUCL.app/Contents/_CodeSignature/CodeResources",
+            "bytes": 7236,
+            "sha256": "22fb9d7f4cb8b731fbde9399c0d678fb46e0ece3b09a31086e6684a640597609",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Electron Framework",
+            "bytes": 35,
+            "sha256": "36542878344780f376c0b91f24aeffb4cb21243d6c1dfd8f222add6cc617018e",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Helpers",
+            "bytes": 24,
+            "sha256": "bdc8c4c00015b2f00fce2e3f6206da685496214b15b40d45d626a3df37fb2486",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Libraries",
+            "bytes": 26,
+            "sha256": "9dcdccdc395427c6812de3e13a093956d81b0f87a4396d96d650f1b28079080b",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Resources",
+            "bytes": 26,
+            "sha256": "59991b51b8ee15b59f07ec45942957a4ce90494257766964f5df60b7c7998e42",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/_CodeSignature/CodeResources",
+            "bytes": 4939,
+            "sha256": "ef761453dc71473f07b18c293695fbac7f3ed59326078481bb837b91f2fc5e74",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+            "bytes": 200442848,
+            "sha256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/chrome_crashpad_handler",
+            "bytes": 1238640,
+            "sha256": "2a1034bc98295fbf62b9421b27caf3beb2532dfa787a71b6102d272375c1732b",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib",
+            "bytes": 2317968,
+            "sha256": "73fc0f18b5d30dbed26bf1c2ecbd061f4cd793ebf905a0c884c9ba10ef4c1e41",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libvk_swiftshader.dylib",
+            "bytes": 16607280,
+            "sha256": "ae9a01c0c49c9969606cf90f206776aac51e0ff4689d42936e52f5cb1e8b26bd",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/vk_swiftshader_icd.json",
+            "bytes": 110,
+            "sha256": "d717d915e31e7c27948b80b36ab34e2d897888114c5c7d0af835f93eb53e58f5",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/chrome_100_percent.pak",
+            "bytes": 662674,
+            "sha256": "f50e6f15a39f086092c26abdb922b298780b63decc316b798b5f0ad7a5468a2e",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/chrome_200_percent.pak",
+            "bytes": 1337098,
+            "sha256": "d923367c81374695f88d6176aa6fe8d0c41b1a43f5188ef43c3f0a53dd06f96d",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/en.lproj/locale.pak",
+            "bytes": 584413,
+            "sha256": "e647fca0c580bd485a4e40705ed4ad87f0a72bc7e03c4858720c30d2e4f1269d",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/icudtl.dat",
+            "bytes": 10876560,
+            "sha256": "9f48c7f9c7c94d516a14870707e910ab94d75ae640ff6842c4af53276cd26ebe",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/Info.plist",
+            "bytes": 920,
+            "sha256": "6a5b5a7bf2b045433aa8b8e75e85fdb44a6f27b915d3711c87dd71b849f31437",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/MainMenu.nib",
+            "bytes": 2005,
+            "sha256": "4b2168de2d6d9a09b20faaa23139d5f25f73b2595671de25872d191b6939d819",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/resources.pak",
+            "bytes": 12397264,
+            "sha256": "5cf8fb2fd2e4c8cb3ce7fd8181bca067838325ea6593a62cb2dcfef3ff299c72",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/v8_context_snapshot.arm64.bin",
+            "bytes": 742208,
+            "sha256": "cd29af76d5abcdec992f1e2011e17757465ffac84059fe1daa1aec6d2216c174",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/Current",
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/_CodeSignature/CodeResources",
+            "bytes": 2200,
+            "sha256": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/Info.plist",
+            "bytes": 1126,
+            "sha256": "0d755aa1c8e6c53d89da6906e3bc32d3e36e63b5846734532b4ae72645f2500f",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/MacOS/KAMUCL Helper (GPU)",
+            "bytes": 220544,
+            "sha256": "1b1994f3afa4c6259c60a0e1f5e302bbe7bbe3d87639b6f2d2b373585e398e3c",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/PkgInfo",
+            "bytes": 8,
+            "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/_CodeSignature/CodeResources",
+            "bytes": 2200,
+            "sha256": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/Info.plist",
+            "bytes": 1138,
+            "sha256": "7f7421f151c64ec14b479a75d11d8ab2f5f5e99f4d7fae6906afe77e3e51ab1c",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/MacOS/KAMUCL Helper (Plugin)",
+            "bytes": 220560,
+            "sha256": "e142ac7afcf82cf680e15273035e10d8741abdec72cb8adc871606b03e4b446f",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/PkgInfo",
+            "bytes": 8,
+            "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/_CodeSignature/CodeResources",
+            "bytes": 2200,
+            "sha256": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/Info.plist",
+            "bytes": 1146,
+            "sha256": "e31822dbddd83122db5f0dceb4065660155577f1df35a3502d9617454855b2b7",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/MacOS/KAMUCL Helper (Renderer)",
+            "bytes": 220560,
+            "sha256": "d00750be48c662bdf6935dd2bb1a9e9d59710c929b52ad331dbc8d0c7cb9a661",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/PkgInfo",
+            "bytes": 8,
+            "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/_CodeSignature/CodeResources",
+            "bytes": 2200,
+            "sha256": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/Info.plist",
+            "bytes": 1104,
+            "sha256": "7ccc2cbb46d96f5ea2064493ab7ace4c54fd48a2923b0a8af17f28ad6a5abf2b",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/MacOS/KAMUCL Helper",
+            "bytes": 220544,
+            "sha256": "82338fa259b1df31b001ce6bbaf2f528958cc71c3a7a45747e9eb2822c67a93b",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/PkgInfo",
+            "bytes": 8,
+            "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Mantle",
+            "bytes": 23,
+            "sha256": "f69b5e653cd4897d6ecebea03691fd06b4ae0d6638aac3bf3fa4e134efa6a05a",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Resources",
+            "bytes": 26,
+            "sha256": "59991b51b8ee15b59f07ec45942957a4ce90494257766964f5df60b7c7998e42",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Versions/A/_CodeSignature/CodeResources",
+            "bytes": 2442,
+            "sha256": "41b27daab76e01def237a2fb452d86d6442b461fa28013fc3abfd1a86d89c743",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Versions/A/Mantle",
+            "bytes": 144064,
+            "sha256": "edbf84813646bd6b2063714949856ba9b90d8e8f2e989473b514f65ab2f69726",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Versions/A/Resources/Info.plist",
+            "bytes": 1020,
+            "sha256": "e93f0b4aaebea9bc158392ffa0c1150c16a0f30aecf11501b7871ce485f1a823",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Mantle.framework/Versions/Current",
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/ReactiveObjC",
+            "bytes": 29,
+            "sha256": "2ad8d1454b30b433501d7aee80dbc75b3829f37cede077bf61e42b402225eaa3",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Resources",
+            "bytes": 26,
+            "sha256": "59991b51b8ee15b59f07ec45942957a4ce90494257766964f5df60b7c7998e42",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/_CodeSignature/CodeResources",
+            "bytes": 2442,
+            "sha256": "95920ec9421fbb6d2efe69b0b33724d9e685b6c563f467ec8baa8c0a8df5444a",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/ReactiveObjC",
+            "bytes": 368832,
+            "sha256": "c000ef1336b553c5dd5ee367dbe16f94991578f12aea191b7c8ef78e95304c39",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Versions/A/Resources/Info.plist",
+            "bytes": 1138,
+            "sha256": "4ded0fe1f4647f5b1862a2a98998aa7c3ade9bd925d097258e24667c446e7496",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/ReactiveObjC.framework/Versions/Current",
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Resources",
+            "bytes": 26,
+            "sha256": "59991b51b8ee15b59f07ec45942957a4ce90494257766964f5df60b7c7998e42",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Squirrel",
+            "bytes": 25,
+            "sha256": "ed47862045e18d686e255b35409006f90f8b56c804dbb498111d269e6ed54051",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/A/_CodeSignature/CodeResources",
+            "bytes": 2660,
+            "sha256": "ad38f08d4acbc6b8fcf4ed4d5e24196b8788f22dd921bcb4a6ab1c486fad2e1a",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/A/Resources/Info.plist",
+            "bytes": 1175,
+            "sha256": "f61ab349887360a2d84603ecff17ab6633cb7fe2e8e72861f4e38e9120f472bf",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/A/Resources/ShipIt",
+            "bytes": 125744,
+            "sha256": "cf44159cf38dd0801ad832497d16e425a3c79454c8d5fcae0e3f56949816ed12",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/A/Squirrel",
+            "bytes": 145872,
+            "sha256": "945773ec6b9b838d23c419ee9dc475a2a4b935c31ff79ccd9bd66535c9e09f11",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Frameworks/Squirrel.framework/Versions/Current",
+            "bytes": 1,
+            "sha256": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+            "symlink": true
+          },
+          {
+            "path": "KAMUCL.app/Contents/Info.plist",
+            "bytes": 3816,
+            "sha256": "6da62d1836317653928ac284885199875723547438722f81985128464bc8c67f",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/MacOS/KAMUCL",
+            "bytes": 51920,
+            "sha256": "53daa26090e27c740b2e2ddc4b71b043b897a34767a1be967dc320680c47be8d",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/PkgInfo",
+            "bytes": 8,
+            "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/app.asar",
+            "bytes": 22034314,
+            "sha256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/darwin_arm64/koffi.node",
+            "bytes": 1224408,
+            "sha256": "07bae31b943d7dcadfa0350e2a95944cb4dfb84b7f097cfd126478e370b9c705",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/index.js",
+            "bytes": 55,
+            "sha256": "0decaa09f32cdb5b9aa1ed250f9c4ba9a4a15adc761cda6c6d1613e378f1cd0b",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/package.json",
+            "bytes": 653,
+            "sha256": "250106f6147c8e0e2e792fb30163ce7bbc63399eccfe98c538b0dbba4e0923b8",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+            "bytes": 21828,
+            "sha256": "935472db0e6cc1a28aa6413e53af3e726d39a5b11b2419d7eb94f6eac41e8b59",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+            "bytes": 12496,
+            "sha256": "1e2c76976974445497ca76327f38082264f8e66a84b2b9e0f5cc8a3c0d0901bd",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/MacGameWindow",
+            "bytes": 60352,
+            "sha256": "4790b57234a1e5f7dcedcacf75fd8aaa6e0755b3a98128e1473b38c0f2dc6ea2",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/icon.icns",
+            "bytes": 32309,
+            "sha256": "932cce1b779c9a40d55f307036ecacb8f922f8e9a0db9efe3061c30608f2cdae",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/kamucl-mac.json",
+            "bytes": 725,
+            "sha256": "225a648770b29a2fb9f75232f1a40d82ff3d4f04ed594a3c7b6f1c311c4b1ca8",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/LICENSE.electron.txt",
+            "bytes": 1096,
+            "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d",
+            "symlink": false
+          },
+          {
+            "path": "KAMUCL.app/Contents/Resources/LICENSES.chromium.html",
+            "bytes": 20111209,
+            "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535",
+            "symlink": false
+          }
+        ],
+        "otherCompressedMembers": [],
+        "decodedOtherContainers": []
+      },
+      "nativeMembers": [
+        {
+          "path": "KAMUCL.app/Contents/MacOS/KAMUCL",
+          "bytes": 51920,
+          "sha256": "53daa26090e27c740b2e2ddc4b71b043b897a34767a1be967dc320680c47be8d"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+          "bytes": 12496,
+          "sha256": "1e2c76976974445497ca76327f38082264f8e66a84b2b9e0f5cc8a3c0d0901bd"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+          "bytes": 21828,
+          "sha256": "935472db0e6cc1a28aa6413e53af3e726d39a5b11b2419d7eb94f6eac41e8b59"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/MacGameWindow",
+          "bytes": 60352,
+          "sha256": "4790b57234a1e5f7dcedcacf75fd8aaa6e0755b3a98128e1473b38c0f2dc6ea2"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/darwin_arm64/koffi.node",
+          "bytes": 1224408,
+          "sha256": "07bae31b943d7dcadfa0350e2a95944cb4dfb84b7f097cfd126478e370b9c705"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/MacOS/KAMUCL Helper (GPU)",
+          "bytes": 220544,
+          "sha256": "1b1994f3afa4c6259c60a0e1f5e302bbe7bbe3d87639b6f2d2b373585e398e3c"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/MacOS/KAMUCL Helper (Renderer)",
+          "bytes": 220560,
+          "sha256": "d00750be48c662bdf6935dd2bb1a9e9d59710c929b52ad331dbc8d0c7cb9a661"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Electron Framework",
+          "bytes": 35,
+          "sha256": "36542878344780f376c0b91f24aeffb4cb21243d6c1dfd8f222add6cc617018e"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "bytes": 200442848,
+          "sha256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libvk_swiftshader.dylib",
+          "bytes": 16607280,
+          "sha256": "ae9a01c0c49c9969606cf90f206776aac51e0ff4689d42936e52f5cb1e8b26bd"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib",
+          "bytes": 2317968,
+          "sha256": "73fc0f18b5d30dbed26bf1c2ecbd061f4cd793ebf905a0c884c9ba10ef4c1e41"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/MacOS/KAMUCL Helper (Plugin)",
+          "bytes": 220560,
+          "sha256": "e142ac7afcf82cf680e15273035e10d8741abdec72cb8adc871606b03e4b446f"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/MacOS/KAMUCL Helper",
+          "bytes": 220544,
+          "sha256": "82338fa259b1df31b001ce6bbaf2f528958cc71c3a7a45747e9eb2822c67a93b"
+        }
+      ],
+      "findings": [
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+          "line": null,
+          "byteOffset": 7874209,
+          "fingerprint": "cd7a894b7eaaac6b",
+          "valueLength": 51,
+          "memberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+          "contextSHA256": "3f4dea280becf33f61959cc4ff78b32af571f04b6e4223a4c7e17e22f568fcaf",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure"
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+          "line": null,
+          "byteOffset": 4974377,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60,
+          "memberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+          "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure"
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "line": null,
+          "byteOffset": 184941441,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure"
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "line": null,
+          "byteOffset": 187210424,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "contextSHA256": "a929663a4da94982ed3560af45345773cd32304157dfc2d25a1575d6e82ce6d3",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure"
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar!out/main/index.js",
+          "line": 50,
+          "byteOffset": 460419,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60,
+          "memberSHA256": "98122173886e4bbf973c30cb1bf0eaff84d5eff0e06215220130d4ed863f000f",
+          "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure"
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar!out/renderer/assets/AccountsView-DzwhccDe.js",
+          "line": 280,
+          "byteOffset": 8242,
+          "fingerprint": "35cef3ee281eadc0",
+          "valueLength": 17,
+          "memberSHA256": "a3a310303f26f2abe5efc096a8c8a8b6734f6b85e51e8556e9a6514e512cd2da",
+          "contextSHA256": "f598f12e47917f7a5cf4579f805e7f8fab6d0788bfca0c13933c8a5d74dca747",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure"
+        }
+      ],
+      "decisions": [
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+          "line": null,
+          "byteOffset": 7874209,
+          "fingerprint": "cd7a894b7eaaac6b",
+          "valueLength": 51,
+          "memberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+          "contextSHA256": "3f4dea280becf33f61959cc4ff78b32af571f04b6e4223a4c7e17e22f568fcaf",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+          "status": "false-positive-ui-prose",
+          "reason": "Exact reviewed Chinese password-input UI prose in the verified application ASAR; no actual credential. Both text and raw-container encodings are identified.",
+          "evidence": "out/security122-final-mac-artifacts.json",
+          "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+          "contexts": [
+            {
+              "memberSHA256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+              "contextSHA256": "3f4dea280becf33f61959cc4ff78b32af571f04b6e4223a4c7e17e22f568fcaf",
+              "originalByteOffset": 7860453,
+              "representation": "original-byte/text-match"
+            }
+          ],
+          "matchedPriorByteContext": {
+            "memberSHA256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+            "contextSHA256": "3f4dea280becf33f61959cc4ff78b32af571f04b6e4223a4c7e17e22f568fcaf",
+            "originalByteOffset": 7860453,
+            "representation": "original-byte/text-match"
+          },
+          "currentMemberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+          "currentContextSHA256": "3f4dea280becf33f61959cc4ff78b32af571f04b6e4223a4c7e17e22f568fcaf",
+          "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+          "line": null,
+          "byteOffset": 4974377,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60,
+          "memberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+          "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+          "status": "opaque-application-key-ownership-pending",
+          "reason": "Same built-in application-key value in the verified application ASAR as the reviewed source/baseline bundle. No independent ownership/distribution authorization established; value not disclosed or tested.",
+          "evidence": "out/security122-final-mac-artifacts.json",
+          "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+          "contexts": [
+            {
+              "memberSHA256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+              "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+              "originalByteOffset": 4973974,
+              "representation": "original-byte/text-match"
+            }
+          ],
+          "matchedPriorByteContext": {
+            "memberSHA256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+            "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+            "originalByteOffset": 4973974,
+            "representation": "original-byte/text-match"
+          },
+          "currentMemberSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+          "currentContextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+          "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "line": null,
+          "byteOffset": 184941441,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+          "status": "false-positive-chromium-example",
+          "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account.",
+          "evidence": "out/security122-final-mac-artifacts.json",
+          "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+          "contexts": [
+            {
+              "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+              "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+              "originalByteOffset": 184941441,
+              "representation": "original-byte/text-match"
+            },
+            {
+              "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+              "contextSHA256": "a929663a4da94982ed3560af45345773cd32304157dfc2d25a1575d6e82ce6d3",
+              "originalByteOffset": 187210424,
+              "representation": "original-byte/text-match"
+            }
+          ],
+          "matchedPriorByteContext": {
+            "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+            "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+            "originalByteOffset": 184941441,
+            "representation": "original-byte/text-match"
+          },
+          "currentMemberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "currentContextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+          "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "line": null,
+          "byteOffset": 187210424,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "contextSHA256": "a929663a4da94982ed3560af45345773cd32304157dfc2d25a1575d6e82ce6d3",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+          "status": "false-positive-chromium-example",
+          "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account.",
+          "evidence": "out/security122-final-mac-artifacts.json",
+          "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+          "contexts": [
+            {
+              "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+              "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+              "originalByteOffset": 184941441,
+              "representation": "original-byte/text-match"
+            },
+            {
+              "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+              "contextSHA256": "a929663a4da94982ed3560af45345773cd32304157dfc2d25a1575d6e82ce6d3",
+              "originalByteOffset": 187210424,
+              "representation": "original-byte/text-match"
+            }
+          ],
+          "matchedPriorByteContext": {
+            "memberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+            "contextSHA256": "b66b4b3b1d5670bde9e0dc765a681b974faeceaf8c2ee5fc95d94f711ddf0433",
+            "originalByteOffset": 184941441,
+            "representation": "original-byte/text-match"
+          },
+          "currentMemberSHA256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf",
+          "currentContextSHA256": "a929663a4da94982ed3560af45345773cd32304157dfc2d25a1575d6e82ce6d3",
+          "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar!out/main/index.js",
+          "line": 50,
+          "byteOffset": 460419,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60,
+          "memberSHA256": "98122173886e4bbf973c30cb1bf0eaff84d5eff0e06215220130d4ed863f000f",
+          "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+          "status": "opaque-application-key-ownership-pending",
+          "reason": "Same built-in application-key value in the verified application ASAR as the reviewed source/baseline bundle. No independent ownership/distribution authorization established; value not disclosed or tested.",
+          "evidence": "out/security122-final-mac-artifacts.json",
+          "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+          "contexts": [
+            {
+              "memberSHA256": "27cd7fa562ea15bf0cc5471bd6050377a0ea5c33580ea812c76a6b8964455138",
+              "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+              "originalByteOffset": 460224,
+              "representation": "original-byte/text-match"
+            }
+          ],
+          "matchedPriorByteContext": {
+            "memberSHA256": "27cd7fa562ea15bf0cc5471bd6050377a0ea5c33580ea812c76a6b8964455138",
+            "contextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+            "originalByteOffset": 460224,
+            "representation": "original-byte/text-match"
+          },
+          "currentMemberSHA256": "98122173886e4bbf973c30cb1bf0eaff84d5eff0e06215220130d4ed863f000f",
+          "currentContextSHA256": "17f91e627aa65efdc6a92904013a8c6a1a822ab338f906934481c7a6eeb0efa4",
+          "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.23-mac-arm64:KAMUCL.app/Contents/Resources/app.asar!out/renderer/assets/AccountsView-DzwhccDe.js",
+          "line": 280,
+          "byteOffset": 8242,
+          "fingerprint": "35cef3ee281eadc0",
+          "valueLength": 17,
+          "memberSHA256": "a3a310303f26f2abe5efc096a8c8a8b6734f6b85e51e8556e9a6514e512cd2da",
+          "contextSHA256": "f598f12e47917f7a5cf4579f805e7f8fab6d0788bfca0c13933c8a5d74dca747",
+          "contextRule": "Original bytes from match-assignment offset minus64 through valueLength*4+192, bounded1024; no context or value disclosure",
+          "status": "false-positive-ui-prose",
+          "reason": "Exact reviewed Chinese password-input UI prose in the verified application ASAR; no actual credential. Both text and raw-container encodings are identified.",
+          "evidence": "out/security122-final-mac-artifacts.json",
+          "evidenceSHA256": "46eeeb402a5194ad3bfdbdb016c04445897f65bb1606214525a263379dc5f727",
+          "contexts": [
+            {
+              "memberSHA256": "964d1b826daa1f8f64346197298cca7ac85541ab5dcdb3cdc36bfd54e66d8ae0",
+              "contextSHA256": "f598f12e47917f7a5cf4579f805e7f8fab6d0788bfca0c13933c8a5d74dca747",
+              "originalByteOffset": 8242,
+              "representation": "original-byte/text-match"
+            }
+          ],
+          "matchedPriorByteContext": {
+            "memberSHA256": "964d1b826daa1f8f64346197298cca7ac85541ab5dcdb3cdc36bfd54e66d8ae0",
+            "contextSHA256": "f598f12e47917f7a5cf4579f805e7f8fab6d0788bfca0c13933c8a5d74dca747",
+            "originalByteOffset": 8242,
+            "representation": "original-byte/text-match"
+          },
+          "currentMemberSHA256": "a3a310303f26f2abe5efc096a8c8a8b6734f6b85e51e8556e9a6514e512cd2da",
+          "currentContextSHA256": "f598f12e47917f7a5cf4579f805e7f8fab6d0788bfca0c13933c8a5d74dca747",
+          "reuse": "Exact reviewed value fingerprint and logical member scope, plus actual whole-member SHA or original-byte context SHA equality. No fixture-path exemption or new history audit."
+        }
+      ]
+    },
+    {
+      "coverage": {
+        "name": "KAMUCL-1.1.23-mac-arm64.dmg",
+        "bytes": 141317086,
+        "sha256": "f508554a9163e03290ca0d6f8f182d1c02b23858d38eb8392571d986b0db6458",
+        "scannedRawBytes": 141317086,
+        "compressedFilesystemDecodedOnThisHost": false,
+        "nativeMountAndStrictSignedAppEvidence": "0c4f449b5938a89181e954d2e77b74e36486197c12d0e99743d868fe7bebb674",
+        "nativeAppASAR": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+        "decodedCoverageQualification": "Original native mounted DMG passed strict signed APP identity; its same ASAR is fully member-scanned through the actual ZIP. DMG filesystem-only outer files are not independently byte-decoded on Windows, and no broader DMG privacy absence is claimed."
+      },
+      "findings": [],
+      "decisions": []
+    }
+  ],
+  "limits": [
+    "Regex/byte scanning cannot prove absence of unknown, encrypted or image-pixel secrets; no binary decompilation.",
+    "New candidates remain pending regardless of fixture paths. Previously reviewed exact fingerprints/logical member contexts are classified with SHA-bound evidence.",
+    "Source, handoff and Git history are separate root audits; this pass does not claim a fresh history audit.",
+    "Mac DMG filesystem decode is separately qualified; raw compressed bytes alone are not full decoded privacy coverage."
+  ],
+  "nativeBindings": [
+    {
+      "file": "out\\mac-community123-run-38469671596\\mac-community123-arm64-38469671596\\release\\mac-package-arm64.json",
+      "sha256": "2dd792158fd8d0bc472896c5fa051d8d00fab603142c4b17c32a48db680d1b92"
+    },
+    {
+      "file": "out\\mac-community123-run-38469671596\\mac-community123-arm64-38469671596\\release\\mac-community123-proof\\receipt.json",
+      "sha256": "0c4f449b5938a89181e954d2e77b74e36486197c12d0e99743d868fe7bebb674"
+    }
+  ],
+  "reusedRuntimeSource": {
+    "name": "KAMUCL-1.1.23-runtime-source.zip",
+    "bytes": 38905320,
+    "sha256": "af40243e21439aa77af20319c00fbb8d83f76975e88d6cd2249d15ff73d8ebe3",
+    "exactByteEquality": true,
+    "decodedEvidence": "out/security122-final-KAMUCL-1.1.22-runtime-source.json",
+    "decodedEvidenceSHA256": "d5c5190e20d2fe514e26f3506e973e31343707faec7925f3075e1b79d3ad4adb",
+    "decodedFiles": 14,
+    "decodedScannedBytes": 38903156,
+    "classification": "Exact byte/hash reuse of previously decoded outer same-runtime corresponding-source ZIP; its 14 outer files were byte-scanned, nested source tar/xz/other compressed files were not recursively decoded. No fresh history or universal secret-absence audit."
+  },
+  "unknownCandidates": 0,
+  "unreviewedCompressedMembers": 0,
+  "applicationKeyOwnershipPending": 2,
+  "secretAbsenceProven": false,
+  "allArtifactFilesystemPrivacyCoverage": "ZIP complete; raw DMG plus exact native mounted signed-APP/ASAR binding only; DMG filesystem outer content not independently scanned",
+  "finishedAt": "2026-10-13T21:48:12.543Z"
+}

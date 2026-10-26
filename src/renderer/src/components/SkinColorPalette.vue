@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PercentSlider from './PercentSlider.vue'
 import { computed, reactive, ref, watch } from 'vue'
 import { hsvToRgb, parseSkinChannels, parseSkinHex, rgbToHsv, rgbToSkinHex, SKIN_COLOR_PRESETS, type HsvColor } from '@shared/skinColors'
 
@@ -90,7 +91,7 @@ function addCustom() { if (!selectedCustom.value && props.custom.length < 256) e
       <div class="palette-channel-row"><span>RGB</span><label v-for="(name, index) in ['R', 'G', 'B']" :key="name">{{ name }}<input type="text" inputmode="numeric" :value="drafts.rgb[index]" :aria-label="`RGB ${name}`" :aria-invalid="!rgbValid" @focus="focusedGroup='rgb'" @input="editChannels('rgb', index, $event)" @blur="finishEditing" @keydown.enter="finishEditing"></label></div>
       <div class="palette-channel-row"><span>HSV</span><label v-for="(name, index) in ['H', 'S', 'V']" :key="name">{{ name }}<input type="text" inputmode="decimal" :value="drafts.hsv[index]" :aria-label="`HSV ${name}`" :aria-invalid="!hsvValid" @focus="focusedGroup='hsv'" @input="editChannels('hsv', index, $event)" @blur="finishEditing" @keydown.enter="finishEditing"></label></div>
     </div>
-    <div class="palette-alpha-row"><label>透明度 <input class="palette-alpha" type="range" min="0" max="100" step="1" :value="shownAlpha * 100" :disabled="!alphaEnabled" aria-label="画笔透明度" @input="alphaSlider"></label><label class="palette-alpha-number"><input type="text" inputmode="decimal" :value="drafts.alpha" :disabled="!alphaEnabled" :aria-invalid="!alphaValid" aria-label="画笔透明度百分比" @focus="focusedGroup='alpha'" @input="alpha" @blur="finishEditing" @keydown.enter="finishEditing">%</label></div>
+    <div class="palette-alpha-row"><label>透明度 <PercentSlider data-ui="SkinColorPalette:e4c5634c0d78" class="palette-alpha" :model-value="shownAlpha * 100" :disabled="!alphaEnabled" aria-label="画笔透明度" @update:model-value="focusedGroup='';emit('update:alpha',$event / 100)" /></label><label class="palette-alpha-number"><input type="text" inputmode="decimal" :value="drafts.alpha" :disabled="!alphaEnabled" :aria-invalid="!alphaValid" aria-label="画笔透明度百分比" @focus="focusedGroup='alpha'" @input="alpha" @blur="finishEditing" @keydown.enter="finishEditing">%</label></div>
     <p v-if="!alphaEnabled" class="palette-help">基础层保持 100% 不透明；切换外层可调整。</p>
     <p v-if="!hexValid || !rgbValid || !hsvValid || !alphaValid" class="palette-help palette-error" role="status">请输入完整且有效的颜色；画笔仍使用上一个有效值。</p>
     <div class="palette-group"><span>常用颜色</span><div class="palette-swatches"><button v-for="c in SKIN_COLOR_PRESETS" :key="c" type="button" class="palette-swatch" :class="{selected: color===c}" :style="{backgroundColor:c}" :aria-label="`选择颜色 ${c}`" :title="c.toUpperCase()" :aria-pressed="color===c" @click="choose(c)"></button></div></div>

@@ -1,0 +1,54 @@
+{
+  "complete": true,
+  "queryFromRetainedDriver": { "keyword": "悠然一派", "source": "all", "kind": "mod", "mcVersion": "1.20.1", "loader": "forge", "limit": 1, "offsets": [0, 1, 2] },
+  "queryQualification": "Explicit caller tuple read from the retained private live120-all.ts driver; the original HTTP receipt itself stores pages and requests, not a query field.",
+  "startedAt": "2026-10-07T17:04:42.274Z",
+  "finishedAt": "2026-10-07T17:04:43.624Z",
+  "classification": "Real public Modrinth/CurseForge metadata through actual production merged search and pagination, using a Node HTTP transport. No GUI/install/game/Electron proxy validation. Provider authentication headers are never recorded.",
+  "sourceSHA256": "80cf44037d59bea99a3cec94b39c3faad8ed1d4ed710354dedcecfb97324b92d",
+  "rawReceiptSHA256": "9b19f7a2b47d56897f6ece275d45271a02e0ab1466e1851df7bffe488261024b",
+  "pages": [
+    {
+      "offset": 0,
+      "total": 2,
+      "limit": 1,
+      "warnings": [
+        "中文别名检索：悠然一派 → atmospheric；保留原中文结果，仅补充来源标识完全匹配的项目。"
+      ],
+      "projects": [
+        {
+          "source": "modrinth",
+          "projectId": "U9sJOFmJ",
+          "slug": "atmospheric",
+          "title": "悠然一派 | Atmospheric"
+        }
+      ]
+    },
+    {
+      "offset": 1,
+      "total": 2,
+      "limit": 1,
+      "warnings": [
+        "中文别名检索：悠然一派 → atmospheric；保留原中文结果，仅补充来源标识完全匹配的项目。"
+      ],
+      "projects": [
+        {
+          "source": "curseforge",
+          "projectId": "362393",
+          "slug": "atmospheric",
+          "title": "悠然一派 | Atmospheric"
+        }
+      ]
+    },
+    {
+      "offset": 2,
+      "total": 2,
+      "limit": 1,
+      "warnings": [
+        "中文别名检索：悠然一派 → atmospheric；保留原中文结果，仅补充来源标识完全匹配的项目。"
+      ],
+      "projects": []
+    }
+  ],
+  "curation": "Public result identity and pagination only; no original transport requests, credentials, user archives or raw logs."
+}

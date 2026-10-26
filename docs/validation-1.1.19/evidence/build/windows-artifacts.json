@@ -1,0 +1,17 @@
+[
+  {
+    "name": "KAMUCL-1.1.19.exe",
+    "bytes": 97323050,
+    "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65"
+  },
+  {
+    "name": "KAMUCL-1.1.19-windows-x64.zip",
+    "bytes": 97355049,
+    "sha256": "9cae56424bdc95b309a7aab937c673bd2c407801a17dce339bd516c2cfc3bcc4"
+  },
+  {
+    "name": "KAMUCL-1.1.19-windows-x64-unpacked.zip",
+    "bytes": 142990165,
+    "sha256": "6bc7a4ef2da326e01915559abf77480754722a291dfab233b37cb9e2e5948dde"
+  }
+]

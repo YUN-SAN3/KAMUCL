@@ -2,18 +2,19 @@
  * 樱花穿透（natfrp.com / SakuraFrp）FRP 客户端封装。
  *
  * 用法：spawn frpc -f <accessKey>:<tunnelId>，解析 stdout/stderr 识别启动状态、远程地址。
- * 访问密钥、隧道 ID 持久化到 userData/frp-config.json，日志对密钥做打码处理。
+ * 访问密钥由系统安全存储加密持久化，隧道 ID 保留为元数据；运行日志对密钥做打码处理。
  *
  * 文档：https://doc.natfrp.com/frpc/usage.html
  * 启动成功后会输出形如 "[xxxxx.natfrp.cloud:yyyyy] start proxy success" 的日志行，
  * 失败会输出 "invalid token" / "tunnel not exists" / "login to server failed" 等。
  */
 import { spawn, type ChildProcess } from 'node:child_process'
-import { app } from 'electron'
+import { app, safeStorage } from 'electron'
 import fs from 'node:fs'
 import path from 'node:path'
 import { downloadAll } from './download'
 import { parseFrpLine, frpLineReader } from './frpLog'
+import { FrpSecureStore } from './frpSecureStore'
 
 /** 默认本地转发目标（MC 局域网开放端口） */
 export const DEFAULT_LOCAL_HOST = '127.0.0.1'
@@ -24,6 +25,10 @@ export const FRPC_OFFICIAL_URL_WIN_AMD64 =
 
 export function frpcAsset(platform = process.platform, arch = process.arch): { url: string; sha256?: string } {
   if (platform === 'win32') return { url: FRPC_OFFICIAL_URL_WIN_AMD64 }
+  if (platform === 'linux' && (arch === 'x64' || arch === 'arm64')) return {
+    url: `https://nya.globalslb.net/natfrp/client/frpc/0.51.0-sakura-14/frpc_linux_${arch === 'x64' ? 'amd64' : 'arm64'}`,
+    sha256: arch === 'x64' ? '8d3fcf1e24537719c36c6270c122fcdc09954d22ae9dd74105241675e6dce4d0' : '7f1bf530eb6b46b47e9b1e4bb022d689b5f26f5132581c29c5f43d922a42e595'
+  }
   const sha256 = arch === 'arm64' ? '465db9daea0e14e3adaa89926640afa8b44737dadc1cf0b75f9b091850d2e331'
     : arch === 'x64' ? '74ee362350314dd5ac8936fbe2299fc76671051e10beb46c8dd37c36a4503935' : undefined
   if (platform !== 'darwin' || !sha256) throw new Error(`樱花穿透暂不支持 ${platform}/${arch}`)
@@ -35,6 +40,10 @@ export interface FrpConfig {
   tunnelId: string
   /** 本地转发端口；0 表示交给 MC 局域网自动检测 */
   localPort: number
+  /** Main-process migration state; never emitted to renderer with raw credentials. */
+  credentialLocked?: boolean
+  credentialConfigured?: boolean
+  secureIdentity?: string
 }
 
 export type FrpStatus =
@@ -111,30 +120,15 @@ function sanitize(raw: string, key: string): string {
   return out
 }
 
-function readConfig(): FrpConfig | null {
-  try {
-    const raw = fs.readFileSync(configFile(), 'utf8')
-    const parsed = JSON.parse(raw) as Partial<FrpConfig>
-    if (!parsed || typeof parsed !== 'object') return null
-    if (typeof parsed.accessKey !== 'string' || typeof parsed.tunnelId !== 'string') return null
-    return {
-      accessKey: parsed.accessKey,
-      tunnelId: parsed.tunnelId,
-      localPort: typeof parsed.localPort === 'number' ? parsed.localPort : 0
-    }
-  } catch {
-    return null
-  }
-}
+const legacySecureStore = new FrpSecureStore(safeStorage)
+function readConfig(): FrpConfig | null { return legacySecureStore.readLegacy(configFile()) }
 
-function writeConfig(cfg: FrpConfig): void {
-  fs.mkdirSync(path.dirname(configFile()), { recursive: true })
-  fs.writeFileSync(configFile(), JSON.stringify(cfg, null, 2), 'utf8')
-}
+function writeConfig(cfg: FrpConfig): void { legacySecureStore.writeLegacy(configFile(), cfg) }
 
 export function loadFrpConfig(): FrpConfig | null {
   return readConfig()
 }
+export function clearSavedFrpConfig(): void { legacySecureStore.clearLegacy(configFile()) }
 
 export function saveFrpConfig(cfg: FrpConfig): FrpConfig {
   const next: FrpConfig = {
@@ -170,7 +164,12 @@ export function ensureFrpcInstalled(onLog?: (line: string) => void): Promise<str
 }
 
 function killProcessTree(pid: number): void {
-  if (!pid || process.platform !== 'win32') return
+  if (!pid) return
+  if (process.platform !== 'win32') {
+    // Only the private group we created; never another client or the JVM group.
+    try { process.kill(-pid, 'SIGTERM') } catch { /* already stopped */ }
+    return
+  }
   try {
     // taskkill /T /F /PID <pid> 兜底：frpc 子进程不会因 parent.kill 全部退出
     const { spawn: spawnSync } = require('node:child_process') as typeof import('node:child_process')
@@ -237,7 +236,7 @@ export class FrpController {
     }
     return {
       status: this.session.status,
-      config: this.session.config,
+      config: { tunnelId: this.session.config.tunnelId, localPort: this.session.config.localPort, accessKey: '' },
       remoteAddress: this.session.remoteAddress,
       pid: this.session.pid,
       startedAt: this.session.startedAt,
@@ -284,6 +283,7 @@ export class FrpController {
     const startedAt = new Date().toISOString()
     const proc = spawn(target, args, {
       windowsHide: true,
+      detached: process.platform !== 'win32',
       stdio: ['ignore', 'pipe', 'pipe']
     })
     const pid = proc.pid ?? 0

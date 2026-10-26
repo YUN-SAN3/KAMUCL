@@ -5,7 +5,7 @@ import SkinColorPalette from './SkinColorPalette.vue'
 import UiGlyph from './UiGlyph.vue'
 import { loadImage, migrateLegacySkin } from '../skin-render'
 import { makeBaseOpaque, paintSkinPixel, type SkinFace } from '@shared/skinPixels'
-import { parseSkinHex, rememberSkinColor, rgbToSkinHex, skinBrushRgba } from '@shared/skinColors'
+import { parseSkinHex, rememberSkinColor, rgbToSkinHex, sampleSkinBrush, skinBrushIsInvisible, skinBrushRgba } from '@shared/skinColors'
 import { normalizeSkinPalettePreferences } from '@shared/skinPalettePreferences'
 import type { SkinEditorPaletteSettings } from '@shared/types'
 import { store, toast } from '../store'
@@ -26,6 +26,8 @@ const palettePreferences = ref(normalizeSkinPalettePreferences(store.settings?.s
 const color = computed({ get: () => palettePreferences.value.color, set: value => { const rgb = parseSkinHex(value); if (rgb) palettePreferences.value.color = rgbToSkinHex(rgb) } })
 const alpha = computed({ get: () => palettePreferences.value.alpha, set: value => { if (Number.isFinite(value)) palettePreferences.value.alpha = Math.max(0, Math.min(1, value)) } })
 const tool = ref('brush'), revision = ref(0), dirty = ref(false), busy = ref(false), busyText = ref(''), finishingClose = ref(false), askClose = ref(false), uploadConfirm = ref(false)
+const sampleHint = ref('')
+const invisibleBrush = computed(() => ['brush', 'fill'].includes(tool.value) && skinBrushIsInvisible(alpha.value, layer.value === 'outer'))
 const operationError = ref('')
 const hiddenParts = ref<string[]>([]), undo = ref<Uint8ClampedArray[]>([]), redo = ref<Uint8ClampedArray[]>([])
 type CloseIntent = SkinCloseIntent<typeof store.currentView>
@@ -61,7 +63,10 @@ onMounted(()=>{contentResize=new ResizeObserver(()=>{const el=contentElement.val
 const drawingTools = [{key:'brush',name:'绘制',shortcut:'B'},{key:'erase',name:'橡皮',shortcut:'E'},{key:'pick',name:'吸色',shortcut:'I'},{key:'fill',name:'填色',shortcut:'G'}]
 function toggleLighting(){if(!blocked.value){endGesture();studioLight.value=!studioLight.value;viewer.value?.setLighting(studioLight.value)}}
 function togglePreview(){if(!blocked.value){endGesture();previewExpanded.value=!previewExpanded.value}}
-const uploadState = computed(() => store.selectedAccount?.type === 'microsoft' ? `上传至 ${store.selectedAccount.username}` : '上传需要微软正版账号；可编辑与保存 PNG')
+const isOffline = computed(() => store.selectedAccount?.type === 'offline')
+const canApplySkin = computed(() => isOffline.value || store.selectedAccount?.type === 'microsoft')
+const uploadTarget = shallowRef<{ id: string; username: string; type: string; variant: 'classic' | 'slim' }>()
+const uploadState = computed(() => isOffline.value ? '应用到此离线账号，下次启动游戏在本机显示' : store.selectedAccount?.type === 'microsoft' ? `上传至 ${store.selectedAccount.username}` : '请选择离线或微软正版账号；可编辑与保存 PNG')
 let snapshot: Uint8ClampedArray | undefined, last: {x:number;y:number;key:string} | undefined
 const pixels = () => ctx.getImageData(0,0,64,64)
 const canEdit = () => !disposed && !blocked.value
@@ -76,7 +81,11 @@ function stroke(active: boolean) { if(!active){commit();return}if(canEdit()){sna
 function paint(x:number,y:number,face:SkinFace) {
   if(!canEdit())return
   const image=pixels(), i=(y*64+x)*4
-  if(tool.value==='pick'){color.value='#'+Array.from(image.data.slice(i,i+3)).map(v=>v.toString(16).padStart(2,'0')).join('');if(layer.value==='outer')alpha.value=image.data[i+3]/255;return}
+  if(tool.value==='pick'){
+    const sample=sampleSkinBrush(image.data.slice(i,i+4),layer.value==='outer')
+    if(!sample){sampleHint.value='此处是透明像素，已保留当前画笔颜色与透明度。';return}
+    color.value=sample.color;if(layer.value==='outer')alpha.value=sample.alpha;sampleHint.value='';return
+  }
   const before=new Uint8ClampedArray(image.data)
   const value=tool.value==='erase'?(layer.value==='outer'?[0,0,0,0]:[255,255,255,255]):skinBrushRgba(color.value,alpha.value,layer.value==='outer')
   if(!value)return
@@ -105,12 +114,16 @@ async function save(){
   beginOperation('正在保存皮肤…')
   try{const saved=await window.kamucl.invoke('skin:editorSave',canvas.value.toDataURL('image/png'));if(saved){dirty.value=false;toast('皮肤 PNG 已保存','success')}return !!saved}catch(error){failOperation(error);return false}finally{finishOperation()}
 }
-function openUpload(){if(canEdit()){endGesture();operationError.value='';uploadConfirm.value=true}}
+function openUpload(){if(canEdit()&&canApplySkin.value&&store.selectedAccount){endGesture();operationError.value='';uploadTarget.value={id:store.selectedAccount.id,username:store.selectedAccount.username,type:store.selectedAccount.type,variant:variant.value};uploadConfirm.value=true}}
 async function upload(){
   if(busy.value||finishingClose.value||disposed)return
-  beginOperation('正在上传皮肤…')
-  try{await refreshSkinAfter(window.kamucl.invoke('skin:editorUpload',canvas.value.toDataURL('image/png'),variant.value,store.selectedAccount?.id));uploadConfirm.value=false;emit('uploaded');toast('皮肤已上传，预览与历史已更新','success')}catch(error){failOperation(error)}finally{finishOperation()}
+  const target=uploadTarget.value
+  if(!target||target.id!==store.selectedAccount?.id){uploadConfirm.value=false;failOperation(Error('账号已变更，请重新确认应用账号'));return}
+  const local=target.type==='offline'
+  beginOperation(local?'正在应用本地皮肤…':'正在上传皮肤…')
+  try{await refreshSkinAfter(window.kamucl.invoke('skin:editorUpload',canvas.value.toDataURL('image/png'),target.variant,target.id));uploadConfirm.value=false;if(local)dirty.value=false;emit('uploaded');toast(local?`已应用到「${target.username}」离线账号，下次启动游戏生效`:'皮肤已上传，预览与历史已更新','success')}catch(error){failOperation(error)}finally{finishOperation()}
 }
+watch(()=>store.selectedAccount?.id,()=>{if(!busy.value){uploadConfirm.value=false;uploadTarget.value=undefined}})
 function requestClose(intent:CloseIntent={kind:'editor'}){if(disposed)return;closeIntent.value=mergeSkinCloseIntent(closeIntent.value,intent);if(finishingClose.value)return;endGesture();uploadConfirm.value=false;processClose()}
 function processClose(){if(!closeIntent.value||busy.value||finishingClose.value||disposed)return;if(dirty.value)askClose.value=true;else void finishClose()}
 function cancelClose(){if(finishingClose.value)return;askClose.value=false;closeIntent.value=undefined;void nextTick(()=>closeButton.value?.focus({preventScroll:true}))}
@@ -137,6 +150,7 @@ function keys(event:KeyboardEvent){
   else if(!event.ctrlKey&&!event.metaKey&&!event.altKey&&['b','e','i','g'].includes(key)){event.preventDefault();tool.value=({b:'brush',e:'erase',i:'pick',g:'fill'} as Record<string,string>)[key]}
 }
 watch([tool,color,alpha],()=>viewer.value?.finishGesture(),{flush:'sync'})
+watch([tool,color,alpha,layer],()=>{sampleHint.value=''}, {flush:'sync'})
 let restoringView=false
 watch(()=>store.currentView,(next,old)=>{if(restoringView||next===old||!(dirty.value||busy.value||finishingClose.value))return;restoringView=true;store.currentView=old;restoringView=false;requestClose({kind:'navigate',destination:next})},{flush:'sync'})
 watch(dirty,value=>window.kamucl.send('window:skinEditorDirty',value),{flush:'sync'})
@@ -147,7 +161,7 @@ onBeforeUnmount(()=>{endGesture();disposed=true;contentResize?.disconnect();clea
 <template>
   <Teleport to="body">
     <div class="modal-mask skin-editor-mask" @keydown="keys"><section class="modal skin-editor" role="dialog" aria-modal="true" aria-label="绘制皮肤" :inert="finishingClose || askClose || uploadConfirm">
-      <header class="editor-header"><div><h2>绘制皮肤</h2><p class="muted">64 × 64 像素 · {{dirty?'有未保存更改':'已保存'}}</p></div><button ref="closeButton" class="icon-btn editor-close" :disabled="finishingClose" @click="requestClose()" aria-label="关闭绘制皮肤" data-modal-dismiss><UiGlyph name="close" /></button></header>
+      <header class="editor-header"><div><h2>绘制皮肤</h2><p class="muted">64 × 64 像素 · {{dirty?'有未保存更改':'已保存'}}</p></div><button ref="closeButton" type="button" class="icon-btn editor-close" :disabled="finishingClose" @click="requestClose()" aria-label="关闭绘制皮肤" data-modal-dismiss><UiGlyph name="close" /></button></header>
       <div ref="contentElement" class="editor-content" :style="{'--editor-tool-max-height':`${toolRailHeight}px`}" :class="{'preview-expanded':previewExpanded}" :inert="busy">
         <nav class="editor-tool-rail" aria-label="绘制工具">
           <button v-for="item in drawingTools" :key="item.key" class="editor-tool" :class="{selected:tool===item.key}" :aria-pressed="tool===item.key" :title="`${item.name} (${item.shortcut})`" :disabled="blocked" @click="tool=item.key"><UiGlyph :name="item.key" :size="24" /><span>{{item.name}}</span></button>
@@ -168,11 +182,13 @@ onBeforeUnmount(()=>{endGesture();disposed=true;contentResize?.disconnect();clea
         <div class="tools file-tools"><button class="btn" @click="newSkin"><UiGlyph name="file" />新建</button><button class="btn" @click="fileInput?.click()"><UiGlyph name="image" />导入 PNG</button><input ref="fileInput" class="file-input" type="file" accept="image/png" @change="choose"><button class="btn" :disabled="!current" @click="current&&importImage(current)"><UiGlyph name="folder" />读取当前皮肤</button></div>
         <div class="editor-options"><label>模型<select v-model="variant" aria-label="皮肤模型"><option value="classic">经典 Classic</option><option value="slim">纤细 Slim</option></select></label><label>图层<select v-model="layer" aria-label="皮肤图层"><option value="inner">基础层（不透明）</option><option value="outer">外层（可透明）</option></select></label></div>
         <SkinColorPalette v-model:color="color" v-model:alpha="alpha" :alpha-enabled="layer==='outer'" :custom="palettePreferences.custom" :recent="palettePreferences.recent" @update:custom="palettePreferences.custom=$event" />
+        <p v-if="sampleHint" class="editor-sample-hint muted" role="status">{{sampleHint}}</p>
+        <div v-if="invisibleBrush" class="editor-zero-alpha" role="status"><span>当前画笔透明度为 {{Math.round(alpha*1000)/10}}%，不会添加可见颜色。</span><button class="btn btn-ghost btn-sm" :disabled="blocked" @click="endGesture();alpha=1">恢复不透明（100%）</button></div>
       </aside></div>
-      <footer class="editor-footer"><button class="btn btn-ghost editor-upload" :disabled="blocked||store.selectedAccount?.type!=='microsoft'" @click="openUpload"><UiGlyph name="upload" />{{store.selectedAccount?.type==='microsoft'?`上传至 ${store.selectedAccount.username}`:'上传到当前账号'}}</button><div class="editor-footer-save"><button class="btn" :disabled="finishingClose" @click="requestClose()">取消</button><button class="btn btn-gold" :disabled="blocked" @click="save"><UiGlyph name="download" />保存 PNG…</button></div><p v-if="finishingClose||busy||store.selectedAccount?.type!=='microsoft'" class="muted editor-operation-status" role="status">{{finishingClose?'正在保存调色板偏好…':busy?busyText+(closeIntent?' 完成后处理关闭请求。':''):uploadState}}</p><button v-if="busy&&closeIntent" class="btn btn-ghost btn-sm" @click="cancelClose">取消关闭</button><p v-if="operationError" class="editor-operation-error" role="alert">{{operationError}}</p></footer>
+      <footer class="editor-footer"><button class="btn btn-ghost editor-upload" :disabled="blocked||!canApplySkin" @click="openUpload"><UiGlyph name="upload" />{{isOffline?'应用到离线账号':store.selectedAccount?.type==='microsoft'?`上传至 ${store.selectedAccount.username}`:'应用到当前账号'}}</button><div class="editor-footer-save"><button class="btn" :disabled="finishingClose" @click="requestClose()">取消</button><button class="btn btn-gold" :disabled="blocked" @click="save"><UiGlyph name="download" />保存 PNG…</button></div><p v-if="finishingClose||busy||isOffline||!canApplySkin" class="muted editor-operation-status" role="status">{{finishingClose?'正在保存调色板偏好…':busy?busyText+(closeIntent?' 完成后处理关闭请求。':''):uploadState}}</p><button v-if="busy&&closeIntent" class="btn btn-ghost btn-sm" @click="cancelClose">取消关闭</button><p v-if="operationError" class="editor-operation-error" role="alert">{{operationError}}</p></footer>
     </section></div>
     <div v-if="askClose" class="modal-mask skin-confirm-mask" @keydown="keys"><section class="modal skin-close-dialog editor-confirm" role="alertdialog" aria-modal="true" aria-label="保存皮肤更改" aria-describedby="skin-unsaved-description"><h2>皮肤尚未保存</h2><p id="skin-unsaved-description">保存当前皮肤后退出，或放弃本次未保存的修改。</p><div class="modal-actions"><button class="btn btn-gold" :disabled="busy" @click="saveClose">保存并退出</button><button class="btn" :disabled="busy" @click="finishClose">放弃更改</button><button class="btn" data-modal-initial-focus data-modal-dismiss @click="cancelClose">{{busy?'取消关闭':'继续绘制'}}</button></div><p v-if="busy" class="muted" role="status">{{busyText}}</p><p v-if="operationError" class="editor-operation-error" role="alert">{{operationError}}</p></section></div>
-    <div v-if="uploadConfirm" class="modal-mask skin-confirm-mask" @keydown="keys"><section class="modal skin-upload-dialog editor-confirm" role="alertdialog" aria-modal="true" aria-label="确认上传皮肤"><h2>上传皮肤</h2><p>将上传至 {{store.selectedAccount?.username}}，使用{{variant==='slim'?'纤细':'经典'}}模型。</p><div class="modal-actions"><button class="btn btn-gold" :disabled="busy" @click="upload">{{busy?'正在上传…':'确认上传'}}</button><button class="btn" data-modal-initial-focus data-modal-dismiss @click="cancelUpload">{{busy?'完成后关闭编辑器':'取消'}}</button></div><p v-if="operationError" class="editor-operation-error" role="alert">{{operationError}}</p></section></div>
+    <div v-if="uploadConfirm" class="modal-mask skin-confirm-mask" @keydown="keys"><section class="modal skin-upload-dialog editor-confirm" role="alertdialog" aria-modal="true" :aria-label="uploadTarget?.type==='offline'?'确认应用本地皮肤':'确认上传皮肤'"><h2>{{uploadTarget?.type==='offline'?'应用到离线账号':'上传皮肤'}}</h2><p>{{uploadTarget?.type==='offline'?'将保存到离线账号':'将上传至'}} {{uploadTarget?.username}}，使用{{uploadTarget?.variant==='slim'?'纤细':'经典'}}模型。</p><p v-if="uploadTarget?.type==='offline'" class="muted offline-skin-hint">仅在本机游戏显示，下次启动生效。首次启动会从作者官方来源下载并校验 authlib-injector 皮肤加载组件，之后可在断网时使用缓存；其他玩家看到的皮肤由服务器决定。</p><div class="modal-actions"><button class="btn btn-gold" :disabled="busy" @click="upload">{{busy?(uploadTarget?.type==='offline'?'正在应用…':'正在上传…'):(uploadTarget?.type==='offline'?'确认应用':'确认上传')}}</button><button class="btn" data-modal-initial-focus data-modal-dismiss @click="cancelUpload">{{busy?'完成后关闭编辑器':'取消'}}</button></div><p v-if="operationError" class="editor-operation-error" role="alert">{{operationError}}</p></section></div>
   </Teleport>
 </template>
 
@@ -184,6 +200,10 @@ onBeforeUnmount(()=>{endGesture();disposed=true;contentResize?.disconnect();clea
 @media(max-height:620px) and (max-width:980px){.editor-header{padding:8px 16px}.editor-header h2{font-size:18px}.editor-header>div{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.editor-header p{font-size:11px;margin:0}.editor-footer{padding:7px 16px;gap:4px 8px}.editor-footer .btn{min-height:30px;font-size:11px}.editor-footer-save .btn{min-width:86px}.editor-operation-status{font-size:10px}.editor-content{padding-bottom:10px}.editor-model{height:clamp(224px,calc(100dvh - 172px),450px);min-height:224px}.editor-preview{min-height:120px}.editor-tool{min-height:42px;gap:3px;font-size:10px}.editor-tool svg{width:18px;height:18px}.editor-tool-rail{gap:5px}.editor-controls{padding:6px 8px;margin-top:6px}.editor-view-controls{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px}.view-tools{margin:0;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.view-tools .btn{min-height:28px;font-size:10px}.view-tools svg{display:none}.editor-part-controls{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px}.editor-part-controls .control-heading{display:contents}.editor-part-controls .control-label{grid-column:1;grid-row:1;white-space:nowrap}.editor-show-all{grid-column:3;grid-row:1;white-space:nowrap;font-size:10px;padding:4px}.part-tools{grid-column:2;grid-row:1;margin:0;gap:4px}.part-tools .btn{font-size:10px;min-height:26px;padding:4px 6px}.editor-empty-parts{grid-column:1 / -1}.preview-camera{top:8px;right:8px;gap:5px}.preview-light{top:8px;left:8px}.preview-camera>.icon-btn,.preview-light{width:28px;height:28px}.preview-zoom .icon-btn{width:26px;height:26px}.editor-pointer-help{font-size:10px;bottom:5px}}
 </style>
 <style scoped>
+.editor-sample-hint{margin:10px 2px;font-size:12px;line-height:1.6}.editor-zero-alpha{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--accent-soft);color:var(--text);font-size:12px;line-height:1.6}.editor-zero-alpha .btn{margin-left:auto;color:var(--text);border:1px solid var(--border);white-space:normal}
+.skin-editor-mask{ -webkit-app-region:no-drag; }
+.editor-close{position:relative;z-index:1;-webkit-app-region:no-drag;}
+.editor-close :deep(svg){pointer-events:none;display:block;}
 .preview-zoom{display:flex;flex-direction:column}
 @media(max-width:980px){.editor-tool-rail{max-height:var(--editor-tool-max-height);overflow-y:auto}.editor-model{height:var(--editor-tool-max-height);min-height:var(--editor-tool-max-height);overflow:auto}}
 </style>

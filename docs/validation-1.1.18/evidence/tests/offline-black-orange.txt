@@ -1,0 +1,1 @@
+{"complete":true,"theme":"black-orange","directory":"E:\\KAMUCL\\out\\qa-offline118-black-orange-29ed7488-de87-4431-befa-049e77d9ff72","screenshots":20,"recording":"E:\\KAMUCL\\out\\offline118-editor-07033711-37ad-4bb0-8e79-a5146a7270ca-black-orange"}

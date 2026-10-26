@@ -1,0 +1,79 @@
+{
+  "version": "1.1.19",
+  "theme": "black-orange",
+  "legacy": false,
+  "complete": false,
+  "directory": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-9522dffe-03a6-4788-9958-24719797b75f",
+  "steps": [],
+  "screenshots": [
+    {
+      "file": "failure.png",
+      "bytes": 579644,
+      "sha256": "ab65581240c3905a08fa01be43ae236232239fbae76c169673508cffd9a16531",
+      "focus": {
+        "hwnd": 17762214,
+        "foreground": 17762214,
+        "ownerPid": 28636,
+        "foregroundPid": 28636,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791360883618,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    }
+  ],
+  "classification": "Owned actual Electron window, trusted coordinates and keyboard; read-only mounted Vue/canvas observation. Synthetic account/profile only; no game or server request.",
+  "identity": {
+    "pid": 28636,
+    "ppid": 48760,
+    "windowId": 1,
+    "webContentsId": 1
+  },
+  "window": {
+    "requested": {
+      "width": 960,
+      "height": 620,
+      "zoom": 1
+    },
+    "actual": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 962,
+        "height": 623
+      },
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 961,
+        "height": 622
+      },
+      "zoom": 1,
+      "displayScaleFactor": 1.25
+    },
+    "renderer": {
+      "inner": {
+        "width": 962,
+        "height": 622
+      },
+      "client": {
+        "width": 962,
+        "height": 622
+      },
+      "visual": {
+        "width": 961.5999755859375,
+        "height": 622.4000244140625,
+        "scale": 1
+      },
+      "devicePixelRatio": 1.25
+    }
+  },
+  "error": {
+    "message": "Expected values to be strictly equal:\n\n962 !== 960\n",
+    "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n962 !== 960\n\n    at module.exports (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:45:644)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:235:9"
+  }
+}

@@ -6,7 +6,7 @@ import os from 'node:os'
 import http from 'node:http'
 import crypto from 'node:crypto'
 import { downloadFile, mirrorUrl } from '../src/main/core/download'
-import { downloadModpackFiles } from '../src/main/core/modpackDownloads'
+import { downloadModpackFiles, modpackCachedFile } from '../src/main/core/modpackDownloads'
 import { downloadLimiter } from '../src/main/core/downloadLimits'
 
 test('模组镜像只转换文档明确支持的 CDN 文件路径，官方模式保持原地址',()=>{
@@ -28,16 +28,33 @@ test('分段取消保留已接收字节，重新下载从每段断点恢复并�
  }finally{server.closeAllConnections();await new Promise<void>(r=>server.close(()=>r()));fs.rmSync(root,{recursive:true,force:true})}
 })
 
-test('整合包失败后重试复用已校验缓存；实例修改不污染缓存；损坏缓存重新下载',async()=>{
+test('整合包失败后重试复用已校验缓存；实例修改不污染缓存；损坏缓存重新下载',{timeout:15000},async()=>{
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'kamucl-pack-cache-')),a=Buffer.from('first mod'),b=Buffer.from('second mod');let fail=true,aRequests=0
- const server=http.createServer((req,res)=>{if(req.url==='/a'){aRequests++;res.end(a)}else setTimeout(()=>{res.statusCode=fail?404:200;res.end(b)},50)})
+ const verified=Promise.withResolvers<void>()
+ const server=http.createServer((req,res)=>{if(req.url==='/a'){aRequests++;res.end(a)}else if(fail)void verified.promise.then(()=>{res.statusCode=404;res.end(b)});else res.end(b)})
  await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));const url=`http://127.0.0.1:${(server.address() as any).port}`,cache=path.join(root,'cache'),instance=path.join(root,'instance')
  const tasks=[a,b].map((data,i)=>({url:url+'/'+(i?'b':'a'),dest:path.join(instance,i+'.jar'),size:data.length,sha1:crypto.createHash('sha1').update(data).digest('hex')}))
  try{
-  await assert.rejects(downloadModpackFiles(tasks,()=>{},'official',undefined,cache));assert.equal(aRequests,1)
+  downloadLimiter.configure({downloadThreads:8,downloadSpeedKBps:0})
+  const firstCache=modpackCachedFile({sha1:tasks[0].sha1,fileName:'0.jar'},cache)
+  await assert.rejects(downloadModpackFiles(tasks,done=>{if(done>=1){assert.deepEqual(fs.readFileSync(firstCache),a,'failure begins only after an actually verified and published cache file');verified.resolve()}},'official',undefined,cache));assert.equal(aRequests,1)
   fail=false;await downloadModpackFiles(tasks,()=>{},'official',undefined,cache);assert.equal(aRequests,1);assert(fs.readFileSync(tasks[0].dest).equals(a))
   fs.writeFileSync(tasks[0].dest,'changed by game');await downloadModpackFiles(tasks,()=>{},'official',undefined,cache);assert(fs.readFileSync(tasks[0].dest).equals(a));assert.equal(aRequests,1)
   const cachedA=fs.readdirSync(cache).find(n=>fs.readFileSync(path.join(cache,n)).equals(a))!;fs.writeFileSync(path.join(cache,cachedA),'corrupted');await downloadModpackFiles(tasks,()=>{},'official',undefined,cache);assert.equal(aRequests,2)
+ }finally{server.closeAllConnections();await new Promise<void>(r=>server.close(()=>r()));fs.rmSync(root,{recursive:true,force:true})}
+})
+
+test('cancelled incomplete transfer is not a reusable verified cache and retry downloads it again', {timeout:15000}, async()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'kamucl-pack-incomplete-')),a=Buffer.from('unfinished first mod'),b=Buffer.from('second mod'),received=Promise.withResolvers<void>();let fail=true,aRequests=0
+ const server=http.createServer((req,res)=>{if(req.url==='/a'){aRequests++;res.writeHead(200,{'content-length':a.length});if(fail){res.write(a.subarray(0,4));received.resolve()}else res.end(a)}else if(fail)void received.promise.then(()=>{res.statusCode=404;res.end('failure before first transfer completes')});else res.end(b)})
+ await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));const url=`http://127.0.0.1:${(server.address() as any).port}`,cache=path.join(root,'cache'),instance=path.join(root,'instance')
+ const tasks=[a,b].map((data,i)=>({url:url+'/'+(i?'b':'a'),dest:path.join(instance,i+'.jar'),size:data.length,sha1:crypto.createHash('sha1').update(data).digest('hex')}))
+ try{
+  downloadLimiter.configure({downloadThreads:8,downloadSpeedKBps:0})
+  await assert.rejects(downloadModpackFiles(tasks,()=>{},'official',undefined,cache),/404/)
+  assert.equal(aRequests,1);assert(!fs.existsSync(modpackCachedFile({sha1:tasks[0].sha1,fileName:'0.jar'},cache)))
+  fail=false;await downloadModpackFiles(tasks,()=>{},'official',undefined,cache)
+  assert.equal(aRequests,2);assert.deepEqual(fs.readFileSync(tasks[0].dest),a);assert.deepEqual(fs.readFileSync(tasks[1].dest),b)
  }finally{server.closeAllConnections();await new Promise<void>(r=>server.close(()=>r()));fs.rmSync(root,{recursive:true,force:true})}
 })
 

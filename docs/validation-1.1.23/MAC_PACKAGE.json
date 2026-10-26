@@ -1,0 +1,61 @@
+{
+  "version": "1.1.23",
+  "arch": "arm64",
+  "commit": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+  "runtimeVersion": "44.3.0",
+  "frameworkVersion": "44.3.0",
+  "minimum": "13.0.0",
+  "signing": "ad-hoc; not Developer ID or notarized",
+  "packageIntegrity": true,
+  "nativeAcceptance": "separate required native APP/DMG/game/tools/update jobs",
+  "appAsarSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+  "buildIdentity": {
+    "schemaVersion": 1,
+    "product": "KAMUCL",
+    "platform": "darwin",
+    "version": "1.1.23",
+    "arch": "arm64",
+    "sourceCommit": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+    "runtimeVersion": "44.3.0",
+    "minimumSystemVersion": "13.0.0",
+    "appAsarSHA256": "3c82801a1afa2b754a884c43412bd7885d928648ad2e9c0ace666c96053511e8",
+    "runtimeNotices": [
+      {
+        "name": "LICENSE.electron.txt",
+        "bytes": 1096,
+        "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+      },
+      {
+        "name": "LICENSES.chromium.html",
+        "bytes": 20111209,
+        "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535"
+      }
+    ],
+    "signing": "ad-hoc; not Developer ID or notarized"
+  },
+  "buildIdentitySHA256": "225a648770b29a2fb9f75232f1a40d82ff3d4f04ed594a3c7b6f1c311c4b1ca8",
+  "runtimeNotices": [
+    {
+      "name": "LICENSE.electron.txt",
+      "bytes": 1096,
+      "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+    },
+    {
+      "name": "LICENSES.chromium.html",
+      "bytes": 20111209,
+      "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535"
+    }
+  ],
+  "assets": [
+    {
+      "name": "KAMUCL-1.1.23-mac-arm64.zip",
+      "bytes": 129902007,
+      "sha256": "fdf51a02e61bdcace37f1c891a20d4a1b958b649ec3a0c1286bc73f995339a1e"
+    },
+    {
+      "name": "KAMUCL-1.1.23-mac-arm64.dmg",
+      "bytes": 141317086,
+      "sha256": "f508554a9163e03290ca0d6f8f182d1c02b23858d38eb8392571d986b0db6458"
+    }
+  ]
+}

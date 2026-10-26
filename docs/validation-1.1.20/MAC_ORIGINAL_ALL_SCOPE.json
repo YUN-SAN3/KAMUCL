@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T20:51:20.545Z",
+  "run": 37680785679,
+  "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37680785679",
+  "artifactSourceCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+  "productionSourceCommit": "6af4611d819f652b14bd37e6b67b4f32a761fc28",
+  "version": "1.1.20",
+  "nativeAllPassed": false,
+  "statusCounts": {
+    "success": 8,
+    "failure": 6,
+    "skipped": 1
+  },
+  "collectionComplete": true,
+  "originalEvidenceIndexSHA256": "3d39dfdaa3b429709c3d0502fffbbb6d0beeff32a92bbe02c1003cea28d1ce1e",
+  "nativeTests": {
+    "total": 1477,
+    "pass": 1472,
+    "fail": 0,
+    "platformSkip": 5
+  },
+  "platformTestSkips": [
+    "Linux updater performs real swap, receipt and failure restoration without concurrent launchers",
+    "idle game plus concurrent mod-discovery output cannot exhaust Windows I/O workers",
+    "reviewed Windows runtime removes only DXC, with no partial pruning on a changed second DLL",
+    "native updater keeps the original filename, accepts an immediately closed healthy launcher, and never relaunches on replacement failure",
+    "Windows rejects trailing-dot and trailing-space archive segments before installing or changing existing instances"
+  ],
+  "qaOnlyChangedPaths": [
+    ".github/workflows/mac-build.yml",
+    "scripts/mac-boot-failure120-tests.cjs",
+    "scripts/mac-boot-failure120.cjs",
+    "scripts/mac-boot-observer120-tests.cjs",
+    "scripts/mac-boot-observer120.cjs",
+    "scripts/mac-current-evidence120-tests.cjs",
+    "scripts/mac-current-evidence120.cjs",
+    "scripts/mac-opengl-capability120-tests.cjs",
+    "scripts/mac-opengl-capability120.swift",
+    "scripts/mac-parity-coordinate114-tests.cjs",
+    "scripts/qa-native-mac120-tests.cjs",
+    "scripts/qa-native-mac120.cjs",
+    "scripts/qa-native-mac120.swift",
+    "scripts/qa-ux116.cjs",
+    "scripts/verify-mac-batch120-reuse-tests.cjs",
+    "scripts/verify-mac-batch120.cjs",
+    "scripts/verify-mac-extra.cjs",
+    "scripts/verify-mac-opengl120.cjs",
+    "scripts/verify-mac-parity-ui.cjs",
+    "scripts/verify-mac.cjs",
+    "scripts/verify-ui-refinement.cjs",
+    "tests/all.test.ts"
+  ],
+  "package": {
+    "archiveArtifactId": 11509975002,
+    "archiveAPIDigest": "sha256:c9edd19db7211b0f5358828195417fffb3f18f537e4c85497b270e6bd51b9e0b",
+    "assets": [
+      {
+        "name": "KAMUCL-1.1.20-mac-arm64.zip",
+        "bytes": 125935198,
+        "sha256": "0b06dd56486a6b0dbe76313a1e2124a4848efa919352f7efd7e3e69805ff4ebe"
+      },
+      {
+        "name": "KAMUCL-1.1.20-mac-arm64.dmg",
+        "bytes": 135777035,
+        "sha256": "8c4ea12185ac0139e572bba7e9fcff9cd2782489865275f79b739c7b7449a7d1"
+      }
+    ],
+    "innerAsar": {
+      "bytes": 19835385,
+      "sha256": "75eb10c3394ee2bc1f8578dc2572ffa979c120a8369f92ebc4251b68de652ecf"
+    },
+    "signing": "Strict deep verification passed; ad-hoc only, not Developer ID/notarized",
+    "arch": "arm64",
+    "runtime": "44.3.0",
+    "minimumSystemVersion": "13.0.0"
+  },
+  "jobs": [
+    {
+      "id": 112995968503,
+      "name": "package (macos-26, arm64)",
+      "conclusion": "success",
+      "originalLog": {
+        "bytes": 292419,
+        "sha256": "8fa957b071c66c9421d1b00be26c02c01181d4ad074ade78279f4d4fefbda32f"
+      },
+      "scope": "Native ARM64 ZIP/DMG package, strict signature/payload identity and full native tests. Ad-hoc only."
+    },
+    {
+      "id": 112999109779,
+      "name": "batch120 (dmg)",
+      "conclusion": "failure",
+      "originalLog": {
+        "bytes": 32321,
+        "sha256": "47255cd571a8c7ad3dc6bdc967426a67744e87ff3abe1c9eac45cf9b19ccff5a"
+      },
+      "scope": "Original four-theme batch failed: black natural readiness at 10000ms, blue foreign foreground PID, transparent/custom text concatenation. Three-theme synthetic download-status production IPC/UI succeeded."
+    },
+    {
+      "id": 112999109787,
+      "name": "integration (macos-26, arm64, tools)",
+      "conclusion": "success",
+      "originalLog": {
+        "bytes": 63044,
+        "sha256": "1c2c8d1ce77fccdbef48c2be6e5eea8ebc4fcf4c4238d77f595f1aa24990bc85"
+      },
+      "scope": "Exact-source local tool coordinators; a successful group is not every live remote endpoint or physical-Mac evidence."
+    },
+    {
+      "id": 112999109805,
+      "name": "favorites (app)",
+      "conclusion": "failure",
+      "originalLog": {
+        "bytes": 61516,
+        "sha256": "37583310dec60f5311201103fc557a3efc0ae8cc435fc048fdc6c8e7354e537e"
+      },
+      "scope": "Actual two-source verified installation completed; original 1.20.1 world/normal restoration failed. Independent accelerated 3.2/4.1 NSGL format/context both nil."
+    },
+    {
+      "id": 112999109809,
+      "name": "download-location (app)",
+      "conclusion": "success",
+      "originalLog": {
+        "bytes": 26292,
+        "sha256": "c62789eadafcb00329848821b16df4e936464e15b7335eb8a04f4a4b90efc42d"
+      },
+      "scope": "Actual owned APP default-directory UI/controlled transactions."
+    },
+    {
+      "id": 112999109890,
+      "name": "parity (macos-26, arm64)",
+      "conclusion": "success",
+      "originalLog": {
+        "bytes": 29767,
+        "sha256": "96b43d5abca9a1db134998f2afb1912aedc9fcbd2997bbd72458cd9cf078abc5"
+      },
+      "scope": "Actual APP: four-theme/240-route first phase, real public MOD transaction with checksum readback and restart persistence. Explicit authenticated/audio/multiplayer/Intel exclusions."
+    },
+    {
+      "id": 112999109916,
+      "name": "favorites (dmg)",
+      "conclusion": "failure",
+      "originalLog": {
+        "bytes": 63507,
+        "sha256": "a22b009a92b3c1d55c3ff504dd3d79fe98173e09d8f80ca34b7c2848efb5678b"
+      },
+      "scope": "Actual two-source verified installation completed; original 1.20.1 world/normal restoration failed. Independent accelerated 3.2/4.1 NSGL format/context both nil."
+    },
+    {
+      "id": 112999109920,
+      "name": "integration (macos-26, arm64, startup)",
+      "conclusion": "success",
+      "originalLog": {
+        "bytes": 64736,
+        "sha256": "b70fa332e659fd6f6a486ff3198f41234df0e19f51ca56642463cb3728b5adec"
+      },
+      "scope": "Exact-source startup coordinators. Separate batch cold natural 10000ms readiness remains failed."
+    },
+    {
+      "id": 112999109969,
+      "name": "game (macos-26, arm64)",
+      "conclusion": "success",
+      "originalLog": {
+        "bytes": 59115,
+        "sha256": "9f1ac4316f88f43db6a31b29c66a2cf59083ce312d0d2511c910a85cb81bd145"
+      },
+      "scope": "Actual 26.2 Fabric world/save/normal exit0/native focus/Dock reopening. No FPS, clear-render, physical-Mac or 1.20.1 substitution."
+    },
+    {
+      "id": 112999109997,
+      "name": "download-location (dmg)",
+      "conclusion": "success",
+      "originalLog": {
+        "bytes": 28469,
+        "sha256": "aa107a85c3b76aa728786c5009bb59ce44de78b43192e5784f2cf20c6a9dbfb2"
+      },
+      "scope": "Actual mounted DMG default-directory UI/controlled transactions."
+    },
+    {
+      "id": 112999110007,
+      "name": "integration (macos-26, arm64, update)",
+      "conclusion": "success",
+      "originalLog": {
+        "bytes": 66813,
+        "sha256": "9d5b7f723407661fd8a3150febbf313b9a493b98284b1b0eac68daaf1705008e"
+      },
+      "scope": "Controlled local signed-app update/tamper rejection/rollback transactions. Not a published live-service upgrade."
+    },
+    {
+      "id": 112999110038,
+      "name": "ui (macos-26, arm64, dmg)",
+      "conclusion": "failure",
+      "originalLog": {
+        "bytes": 34263,
+        "sha256": "9c271d5ac9181ec839962316062e69822fe0b10868bc65dc8a4f5a7e6386079b"
+      },
+      "scope": "Original main UI/skin/material verification passed; current module Cmd-minus keyDown zoom/reset executed but strict actual keyUp reception gate failed."
+    },
+    {
+      "id": 112999110082,
+      "name": "batch120 (app)",
+      "conclusion": "failure",
+      "originalLog": {
+        "bytes": 30387,
+        "sha256": "2d09cc020322de453c7f99150f4611b9490aa6e026430dce12a0119e8cbdd0d1"
+      },
+      "scope": "Original four-theme batch failed: black natural readiness at 10000ms, other three custom text replacement concatenated. Three-theme synthetic download-status production IPC/UI succeeded."
+    },
+    {
+      "id": 112999110092,
+      "name": "ui (macos-26, arm64, app)",
+      "conclusion": "failure",
+      "originalLog": {
+        "bytes": 32723,
+        "sha256": "80ee8a20431daf0b9c923492eebe26b678a0155f848607256d944e664d315c90"
+      },
+      "scope": "Original main UI/skin/material verification passed; current module Cmd-minus keyDown zoom/reset executed but strict actual keyUp reception gate failed."
+    },
+    {
+      "id": 112999112063,
+      "name": "resources",
+      "conclusion": "skipped",
+      "originalLog": null,
+      "scope": "Intentionally requested resource_comparison=false; not a passed resource benchmark."
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "mac-ui-arm64-dmg",
+      "id": 11510795144,
+      "apiDigest": "sha256:ca10f16913a7a392f0ef8821e7abe38420e633cb4beb205c1a9188b1cdb37a54",
+      "bytes": 55220700,
+      "sha256": "ca10f16913a7a392f0ef8821e7abe38420e633cb4beb205c1a9188b1cdb37a54"
+    },
+    {
+      "name": "mac-download-location-arm64-dmg",
+      "id": 11510500381,
+      "apiDigest": "sha256:bc139c2bb9c8cb4abeeae08d707eae891e761c6be8fd028f8474ebfd16406343",
+      "bytes": 1985023,
+      "sha256": "bc139c2bb9c8cb4abeeae08d707eae891e761c6be8fd028f8474ebfd16406343"
+    },
+    {
+      "name": "mac-batch120-arm64-app",
+      "id": 11510401660,
+      "apiDigest": "sha256:5afb05c8b427a75131ab890043d833ccc688138ab48a48d9514dfb253876ef7d",
+      "bytes": 34969704,
+      "sha256": "5afb05c8b427a75131ab890043d833ccc688138ab48a48d9514dfb253876ef7d"
+    },
+    {
+      "name": "mac-update-arm64",
+      "id": 11510311063,
+      "apiDigest": "sha256:832d47c3daba9a03561e4cf6717549512ca3246b846e9e9202116d979874502f",
+      "bytes": 3656,
+      "sha256": "832d47c3daba9a03561e4cf6717549512ca3246b846e9e9202116d979874502f"
+    },
+    {
+      "name": "mac-favorites-arm64-app",
+      "id": 11510276001,
+      "apiDigest": "sha256:ef3e93855ae812e6d402f409bc11aa5f640f8768b1573ee90ab29191042f4c59",
+      "bytes": 2407817,
+      "sha256": "ef3e93855ae812e6d402f409bc11aa5f640f8768b1573ee90ab29191042f4c59"
+    },
+    {
+      "name": "mac-packages-arm64",
+      "id": 11509975002,
+      "apiDigest": "sha256:c9edd19db7211b0f5358828195417fffb3f18f537e4c85497b270e6bd51b9e0b",
+      "bytes": 259993424,
+      "sha256": "c9edd19db7211b0f5358828195417fffb3f18f537e4c85497b270e6bd51b9e0b"
+    },
+    {
+      "name": "mac-startup-arm64",
+      "id": 11509966735,
+      "apiDigest": "sha256:87a7eaede0f59fa15e68289c2dd03f02a02536a1a9bfcee3104f7c8b5db0102d",
+      "bytes": 422351,
+      "sha256": "87a7eaede0f59fa15e68289c2dd03f02a02536a1a9bfcee3104f7c8b5db0102d"
+    },
+    {
+      "name": "mac-batch120-arm64-dmg",
+      "id": 11509871042,
+      "apiDigest": "sha256:3928466ac53c80de8b6e4fdd9c776c935e083d19901bd55ad385d56bf06d3b6c",
+      "bytes": 31184877,
+      "sha256": "3928466ac53c80de8b6e4fdd9c776c935e083d19901bd55ad385d56bf06d3b6c"
+    },
+    {
+      "name": "mac-favorites-arm64-dmg",
+      "id": 11509817147,
+      "apiDigest": "sha256:e27b15f341b838337443a7cab4cb77266674fb871ac34c4906b6725a427c4d80",
+      "bytes": 2422017,
+      "sha256": "e27b15f341b838337443a7cab4cb77266674fb871ac34c4906b6725a427c4d80"
+    },
+    {
+      "name": "mac-game-arm64",
+      "id": 11509687380,
+      "apiDigest": "sha256:fe1b8f7113b87a505f2153aec4898d9108445221f4db55efd91428f6e980a51e",
+      "bytes": 1268217,
+      "sha256": "fe1b8f7113b87a505f2153aec4898d9108445221f4db55efd91428f6e980a51e"
+    },
+    {
+      "name": "mac-parity-arm64-app",
+      "id": 11509681416,
+      "apiDigest": "sha256:7bc2b1998aabb7ebbaa234803ce8752be294c7ef5003878becd4152badd31ed6",
+      "bytes": 60998258,
+      "sha256": "7bc2b1998aabb7ebbaa234803ce8752be294c7ef5003878becd4152badd31ed6"
+    },
+    {
+      "name": "mac-ui-arm64-app",
+      "id": 11509632971,
+      "apiDigest": "sha256:f3617d1a73fa5f087bfb4015f946a1834ef6ed3af26695253ba4dee6ff6536db",
+      "bytes": 54666856,
+      "sha256": "f3617d1a73fa5f087bfb4015f946a1834ef6ed3af26695253ba4dee6ff6536db"
+    },
+    {
+      "name": "mac-tools-arm64",
+      "id": 11509270900,
+      "apiDigest": "sha256:63ec8de8a8f94ab2abed6e6d5e734228f57a84d490bf0a14101b4604f57cb4c2",
+      "bytes": 11939,
+      "sha256": "63ec8de8a8f94ab2abed6e6d5e734228f57a84d490bf0a14101b4604f57cb4c2"
+    },
+    {
+      "name": "mac-download-location-arm64-app",
+      "id": 11509153269,
+      "apiDigest": "sha256:d5ff880910989a9addfa11849d7300e7802c9833a08d6612df3547e4edbf6410",
+      "bytes": 1983762,
+      "sha256": "d5ff880910989a9addfa11849d7300e7802c9833a08d6612df3547e4edbf6410"
+    },
+    {
+      "name": "mac-filesystem-tests-arm64",
+      "id": 11508699280,
+      "apiDigest": "sha256:0d621a89746210582a8e7d9528378be3407b16954df5455a80ec0b5bcdf020c5",
+      "bytes": 65837,
+      "sha256": "0d621a89746210582a8e7d9528378be3407b16954df5455a80ec0b5bcdf020c5"
+    }
+  ],
+  "limits": [
+    "Scoped ad279 community-input QA repair reuses these exact immutable product bytes and is a separate evidence source, not the original all result.",
+    "Original batch black 10s acceptance failed on APP and DMG; independent 250ms RAF samples after failure were 0 and 1, system-reduced, later natural reveal. No unique startup CPU/GPU cause proven.",
+    "DMG blue-white foreign foreground PID3945 vs owned3268 hard failure; no captured foreign identity/cause and no forced foreign focus.",
+    "Raw signing is ad-hoc, no Developer ID/notarization. No physical ARM64 Mac connected.",
+    "Integration tools/startup use exact-source local coordinators. Update uses controlled local archive/tamper/rollback transactions, not a published live-service upgrade.",
+    "Page screenshots and native full-CI-desktop captures are separate; neither still images nor collection completeness establish full motion/FPS or artificial audio listening.",
+    "Original user modpacks were never uploaded to GitHub."
+  ],
+  "keyUpExplanation": [
+    {
+      "url": "https://raw.githubusercontent.com/electron/electron/v44.3.0/shell/browser/mac/electron_application.mm",
+      "lines": "101-106",
+      "claim": "Version-pinned Electron application delegates sendEvent to its superclass."
+    },
+    {
+      "url": "https://chromium.googlesource.com/chromium/src/+/refs/heads/main/chrome/browser/chrome_browser_application_mac.mm",
+      "lines": "368-381",
+      "claim": "Chrome documents default NSApplication Command-keyUp swallowing and explicitly forwards to the key window.",
+      "qualification": "Read-only source explanation consistent with observed native posted/receiver gap, not a captured NSApplication event boundary or a changed failed acceptance."
+    }
+  ],
+  "scopedRerun": {
+    "run": 37683666380,
+    "qaSourceCommit": "ad279ae2f0e556165d557bc7121153bd34a23d60",
+    "artifactSourceCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+    "originalRun": 37680785679,
+    "originalArtifact": 11509975002,
+    "scope": "APP/DMG batch only. Strict immutable asset/manifest/source-diff validation. Pending results are not original all or rebuilt artifacts.",
+    "results": "pending"
+  },
+  "supersedesProjectionSHA256": "830145ad2ac913205d339a36c4f8f004ca69b3a8887d6b2abf1f6055ce95456f",
+  "projectionCorrection": "Add actual ZIP/DMG basenames omitted from the first projection. Original raw evidence, assets, hashes, scopes and results are unchanged."
+}

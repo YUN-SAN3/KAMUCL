@@ -1,0 +1,610 @@
+{
+  "kind": "Actual production community orchestration; five distinct Chinese MCmod public names, official metadata only. No native GUI, download, installation or game claim.",
+  "sources": [
+    {
+      "file": "src/main/core/community.ts",
+      "sha256": "f39678ca78f97a106d3ecc0d080f1a7c7325a3370862f20f033d123e4b365634"
+    },
+    {
+      "file": "src/main/core/community-zh.ts",
+      "sha256": "63884f90ff0e82192eb172117986bad5baffb0038340f74e2d808e703c87fbb5"
+    },
+    {
+      "file": "src/main/core/mcmodSearch.ts",
+      "sha256": "e3535488d3566fa1a9327214ca1164662ab1114cc963da1861307a5760eb7a51"
+    }
+  ],
+  "samples": [
+    {
+      "keyword": "无尽贪婪：接口",
+      "source": "curseforge",
+      "mcVersion": "1.12.2",
+      "loader": "forge",
+      "elapsedMs": 1608.7204000000002,
+      "page": {
+        "items": [
+          {
+            "source": "curseforge",
+            "projectId": "312149",
+            "slug": "avaritia-io",
+            "title": "无尽贪婪：接口 | Avaritia IO",
+            "author": "tfarecnim",
+            "description": "Adds some items that bridge the gap between Ender IO and Avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/187/237/256/256/636838220281305559.png",
+            "downloads": 2040017,
+            "updatedAt": "2019-10-02T12:37:27.17Z",
+            "categories": [
+              "Technology",
+              "Addons"
+            ],
+            "originalTitle": "Avaritia IO"
+          }
+        ],
+        "total": 1,
+        "offset": 0,
+        "limit": 20,
+        "warnings": [
+          "MC百科中文名称关联：仅使用百科条目明确链接且当前版本／加载器筛选匹配的来源项目。"
+        ]
+      },
+      "requests": [
+        {
+          "at": "2026-10-06T16:38:31.350Z",
+          "url": "https://search.mcmod.cn/s?key=%E6%97%A0%E5%B0%BD%E8%B4%AA%E5%A9%AA%EF%BC%9A%E6%8E%A5%E5%8F%A3&filter=1",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:38:31.643Z",
+          "url": "https://www.mcmod.cn/class/1637.html",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:38:32.264Z",
+          "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=%E6%97%A0%E5%B0%BD%E8%B4%AA%E5%A9%AA%EF%BC%9A%E6%8E%A5%E5%8F%A3&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.12.2&modLoaderType=1",
+          "status": 200,
+          "contentType": "application/json; charset=utf-8"
+        },
+        {
+          "at": "2026-10-06T16:38:32.825Z",
+          "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=avaritia-io&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.12.2&modLoaderType=1",
+          "status": 200,
+          "contentType": "application/json; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "keyword": "起源",
+      "source": "modrinth",
+      "mcVersion": "1.20.1",
+      "loader": "fabric",
+      "elapsedMs": 1952.7672999999995,
+      "page": {
+        "items": [
+          {
+            "source": "modrinth",
+            "projectId": "Axb71oHN",
+            "slug": "chaoswitchsorigingrimoire",
+            "title": "Chaos Witch's Origin Grimoire__混沌魔女的起源魔导书",
+            "author": "Chaos-Witch",
+            "description": "A mod for Minecraft 1.20.1 that supports both Forge and Fabric. On top of significantly reducing the difficulty of obtaining rare resources and advanced equipment by optimizing and altering vanilla crafting recipes, it also adds some magical items and game",
+            "iconUrl": "https://cdn.modrinth.com/data/Axb71oHN/ecf72195eaab5554e812db61562732df4a234141_96.webp",
+            "downloads": 728,
+            "updatedAt": "2026-07-19T03:57:57.190074+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "game-mechanics",
+              "magic"
+            ],
+            "originalTitle": "Chaos Witch's Origin Grimoire__混沌魔女的起源魔导书"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "3BeIrqZR",
+            "slug": "origins",
+            "title": "起源 | Origins",
+            "author": "Apace",
+            "description": "Players choose an Origin at the beginning of the game to gain benefits and drawbacks",
+            "iconUrl": "https://cdn.modrinth.com/data/3BeIrqZR/icon.png",
+            "downloads": 3037439,
+            "updatedAt": "2026-07-26T16:43:12.799850+00:00",
+            "categories": [
+              "adventure",
+              "fabric",
+              "forge",
+              "quilt"
+            ],
+            "originalTitle": "Origins"
+          }
+        ],
+        "total": 2,
+        "offset": 0,
+        "limit": 20,
+        "warnings": [
+          "MC百科中文名称关联：仅使用百科条目明确链接且当前版本／加载器筛选匹配的来源项目。"
+        ]
+      },
+      "requests": [
+        {
+          "at": "2026-10-06T16:38:40.973Z",
+          "url": "https://search.mcmod.cn/s?key=%E8%B5%B7%E6%BA%90&filter=1",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:38:41.250Z",
+          "url": "https://www.mcmod.cn/class/25903.html",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:38:41.328Z",
+          "url": "https://www.mcmod.cn/class/3111.html",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:38:41.972Z",
+          "url": "https://api.modrinth.com/v2/search?query=%E8%B5%B7%E6%BA%90&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "at": "2026-10-06T16:38:42.313Z",
+          "url": "https://api.modrinth.com/v2/search?query=origins-neoforge&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "at": "2026-10-06T16:38:42.532Z",
+          "url": "https://api.modrinth.com/v2/search?query=origins&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        }
+      ]
+    },
+    {
+      "keyword": "起源：职业",
+      "source": "modrinth",
+      "mcVersion": "1.20.1",
+      "loader": "fabric",
+      "elapsedMs": 1319.1015000000007,
+      "page": {
+        "items": [
+          {
+            "source": "modrinth",
+            "projectId": "FiDptjtR",
+            "slug": "origins-classes",
+            "title": "起源：职业 | Origins: Classes",
+            "author": "Apace",
+            "description": "Add-on for Origins which allows choosing classes in addition to origins.",
+            "iconUrl": "https://cdn.modrinth.com/data/FiDptjtR/39f2455c7b3938fb575b86f0e5f268981252682c_96.webp",
+            "downloads": 473973,
+            "updatedAt": "2023-07-01T18:58:20.124614+00:00",
+            "categories": [
+              "adventure",
+              "fabric",
+              "quilt"
+            ],
+            "originalTitle": "Origins: Classes"
+          }
+        ],
+        "total": 1,
+        "offset": 0,
+        "limit": 20,
+        "warnings": [
+          "MC百科中文名称关联：仅使用百科条目明确链接且当前版本／加载器筛选匹配的来源项目。"
+        ]
+      },
+      "requests": [
+        {
+          "at": "2026-10-06T16:38:50.951Z",
+          "url": "https://search.mcmod.cn/s?key=%E8%B5%B7%E6%BA%90%EF%BC%9A%E8%81%8C%E4%B8%9A&filter=1",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:38:51.224Z",
+          "url": "https://www.mcmod.cn/class/3134.html",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:38:51.783Z",
+          "url": "https://api.modrinth.com/v2/search?query=%E8%B5%B7%E6%BA%90%EF%BC%9A%E8%81%8C%E4%B8%9A&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "at": "2026-10-06T16:38:52.118Z",
+          "url": "https://api.modrinth.com/v2/search?query=origins-classes&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        }
+      ]
+    },
+    {
+      "keyword": "车万女仆：万法皆通",
+      "source": "curseforge",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "elapsedMs": 1840.9843,
+      "page": {
+        "items": [
+          {
+            "source": "curseforge",
+            "projectId": "1290017",
+            "slug": "touhou-little-maid-spell",
+            "title": "车万女仆：万法皆通 | Touhou Little Maid: Spell",
+            "author": "yimeng261",
+            "description": "Touhou Little Maid now can use spell books to cast spells",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1720/272/256/256/639094003048654215.jpg",
+            "downloads": 1299210,
+            "updatedAt": "2026-09-29T09:29:05.923Z",
+            "categories": [
+              "Addons"
+            ],
+            "originalTitle": "Touhou Little Maid: Spell"
+          }
+        ],
+        "total": 1,
+        "offset": 0,
+        "limit": 20,
+        "warnings": [
+          "MC百科中文名称关联：仅使用百科条目明确链接且当前版本／加载器筛选匹配的来源项目。"
+        ]
+      },
+      "requests": [
+        {
+          "at": "2026-10-06T16:51:28.101Z",
+          "url": "https://search.mcmod.cn/s?key=%E8%BD%A6%E4%B8%87%E5%A5%B3%E4%BB%86%EF%BC%9A%E4%B8%87%E6%B3%95%E7%9A%86%E9%80%9A&filter=1",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:51:28.430Z",
+          "url": "https://www.mcmod.cn/class/20314.html",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:51:29.146Z",
+          "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=%E8%BD%A6%E4%B8%87%E5%A5%B3%E4%BB%86%EF%BC%9A%E4%B8%87%E6%B3%95%E7%9A%86%E9%80%9A&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=1",
+          "status": 200,
+          "contentType": "application/json; charset=utf-8"
+        },
+        {
+          "at": "2026-10-06T16:51:29.736Z",
+          "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=touhou-little-maid-spell&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=1",
+          "status": 200,
+          "contentType": "application/json; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "keyword": "无尽贪婪：重生",
+      "source": "curseforge",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "elapsedMs": 2741.8982,
+      "page": {
+        "items": [
+          {
+            "source": "curseforge",
+            "projectId": "623969",
+            "slug": "re-avaritia",
+            "title": "无尽贪婪：重生 | Re:Avaritia[Forge/Fabric/Neoforge]",
+            "author": "cnlimiter",
+            "description": "A reforged version of Avaritia.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1094/963/256/256/638639860775632975.jpg",
+            "downloads": 1849121,
+            "updatedAt": "2026-10-06T13:52:59.41Z",
+            "categories": [
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Re:Avaritia[Forge/Fabric/Neoforge]"
+          }
+        ],
+        "total": 1,
+        "offset": 0,
+        "limit": 20,
+        "warnings": [
+          "MC百科中文名称关联：仅使用百科条目明确链接且当前版本／加载器筛选匹配的来源项目。"
+        ]
+      },
+      "requests": [
+        {
+          "at": "2026-10-06T16:53:26.715Z",
+          "url": "https://search.mcmod.cn/s?key=%E6%97%A0%E5%B0%BD%E8%B4%AA%E5%A9%AA%EF%BC%9A%E9%87%8D%E7%94%9F&filter=1",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:53:27.080Z",
+          "url": "https://www.mcmod.cn/class/6439.html",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:53:28.270Z",
+          "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=%E6%97%A0%E5%B0%BD%E8%B4%AA%E5%A9%AA%EF%BC%9A%E9%87%8D%E7%94%9F&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=1",
+          "status": 200,
+          "contentType": "application/json; charset=utf-8"
+        },
+        {
+          "at": "2026-10-06T16:53:29.278Z",
+          "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=re-avaritia&index=0&pageSize=50&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=1",
+          "status": 200,
+          "contentType": "application/json; charset=utf-8"
+        }
+      ]
+    }
+  ],
+  "historicalFallbacks": [
+    {
+      "keyword": "气动工艺：重制版",
+      "source": "curseforge",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "elapsedMs": 669.0617999999995,
+      "page": {
+        "items": [],
+        "total": 0,
+        "offset": 0,
+        "limit": 20,
+        "warnings": [
+          "MC百科中文检索暂不可用，已保留原中文关键词和内置别名检索；可稍后重试。"
+        ]
+      },
+      "requests": [
+        {
+          "at": "2026-10-06T16:39:00.242Z",
+          "url": "https://search.mcmod.cn/s?key=%E6%B0%94%E5%8A%A8%E5%B7%A5%E8%89%BA%EF%BC%9A%E9%87%8D%E5%88%B6%E7%89%88&filter=1",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:39:00.789Z",
+          "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=%E6%B0%94%E5%8A%A8%E5%B7%A5%E8%89%BA%EF%BC%9A%E9%87%8D%E5%88%B6%E7%89%88&index=0&pageSize=20&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=1",
+          "status": 200,
+          "contentType": "application/json; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "keyword": "车万女仆",
+      "source": "curseforge",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "elapsedMs": 986.7164000000048,
+      "page": {
+        "items": [
+          {
+            "source": "curseforge",
+            "projectId": "1631516",
+            "slug": "touhou-little-maid-love-loathe",
+            "title": "车万女仆：爱憎分明 [Touhou Little Maid：Love & Loathe]",
+            "author": "JumDa5he",
+            "description": "A maid behavior mod where trust and fear decide between loyalty, rebellion, obsession, or cold detachment.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1952/318/256/256/639209977335437030.png",
+            "downloads": 8586,
+            "updatedAt": "2026-09-27T01:03:15.503Z",
+            "categories": [
+              "Addons"
+            ],
+            "originalTitle": "车万女仆：爱憎分明 [Touhou Little Maid：Love & Loathe]"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1681684",
+            "slug": "maid-file-manager",
+            "title": "车万女仆档案（迁移）管理器（Maid File Manager）",
+            "author": "zgxh_zhr",
+            "description": "A Touhou Little Maid addon that lets you pack up your maid (along with her memories and persona) and take her with you across worlds and versions — now for Forge, NeoForge, and Fabric.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/2026/815/256/256/639241303350321274.jpg",
+            "downloads": 697,
+            "updatedAt": "2026-10-03T16:46:23.213Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "车万女仆档案（迁移）管理器（Maid File Manager）"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1677167",
+            "slug": "maidreform",
+            "title": "MaidReform",
+            "author": "ChiZhou",
+            "description": "Added more configurable mechanisms to Touhou Little Maid. 为车万女仆添加更多可配置功能机制。",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/2020/200/256/256/639238287925381345.png",
+            "downloads": 580,
+            "updatedAt": "2026-09-10T13:08:51.437Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "MaidReform"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1722659",
+            "slug": "gtm-1-20-1",
+            "title": "[GTM] 血汗工厂-移植版",
+            "author": "jiuduyang",
+            "description": "血汗工厂（GTMaid）是一款基于车万女仆（Touhou Little Maid）与格雷科技社区版：非官方版（GregTech CE: Unofficial）开发的联动拓展附属。",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/2086/394/256/256/639265523051433713.png",
+            "downloads": 12,
+            "updatedAt": "2026-10-04T13:50:26.997Z",
+            "categories": [
+              "Energy, Fluid, and Item Transport",
+              "Utility & QoL"
+            ],
+            "originalTitle": "[GTM] 血汗工厂-移植版"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1658053",
+            "slug": "tlm-beyond-space",
+            "title": "[车万女仆_超时空救援]TLM Beyond Space",
+            "author": "novice333",
+            "description": "An unofficial Touhou Little Maid addon featuring cross-dimensional distress rescue, configurable combat support, weapon cases, and safe maid recall.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1991/879/256/256/639226501094234826.png",
+            "downloads": 105,
+            "updatedAt": "2026-09-03T13:17:46.057Z",
+            "categories": [
+              "Utility & QoL",
+              "Mobs"
+            ],
+            "originalTitle": "[车万女仆_超时空救援]TLM Beyond Space"
+          }
+        ],
+        "total": 5,
+        "offset": 0,
+        "limit": 20,
+        "warnings": [
+          "MC百科中文检索暂不可用，已保留原中文关键词和内置别名检索；可稍后重试。"
+        ]
+      },
+      "requests": [
+        {
+          "at": "2026-10-06T16:39:08.904Z",
+          "url": "https://search.mcmod.cn/s?key=%E8%BD%A6%E4%B8%87%E5%A5%B3%E4%BB%86&filter=1",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:39:08.996Z",
+          "url": "https://search.mcmod.cn/s?key=%E8%BD%A6%E4%B8%87%E5%A5%B3%E4%BB%86&filter=1&page=2",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:39:09.777Z",
+          "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=%E8%BD%A6%E4%B8%87%E5%A5%B3%E4%BB%86&index=0&pageSize=20&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=1",
+          "status": 200,
+          "contentType": "application/json; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "keyword": "车万女仆",
+      "source": "curseforge",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "elapsedMs": 1617.4963000000002,
+      "page": {
+        "items": [
+          {
+            "source": "curseforge",
+            "projectId": "1631516",
+            "slug": "touhou-little-maid-love-loathe",
+            "title": "车万女仆：爱憎分明 [Touhou Little Maid：Love & Loathe]",
+            "author": "JumDa5he",
+            "description": "A maid behavior mod where trust and fear decide between loyalty, rebellion, obsession, or cold detachment.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1952/318/256/256/639209977335437030.png",
+            "downloads": 8586,
+            "updatedAt": "2026-09-27T01:03:15.503Z",
+            "categories": [
+              "Addons"
+            ],
+            "originalTitle": "车万女仆：爱憎分明 [Touhou Little Maid：Love & Loathe]"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1681684",
+            "slug": "maid-file-manager",
+            "title": "车万女仆档案（迁移）管理器（Maid File Manager）",
+            "author": "zgxh_zhr",
+            "description": "A Touhou Little Maid addon that lets you pack up your maid (along with her memories and persona) and take her with you across worlds and versions — now for Forge, NeoForge, and Fabric.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/2026/815/256/256/639241303350321274.jpg",
+            "downloads": 699,
+            "updatedAt": "2026-10-03T16:46:23.213Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "车万女仆档案（迁移）管理器（Maid File Manager）"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1677167",
+            "slug": "maidreform",
+            "title": "MaidReform",
+            "author": "ChiZhou",
+            "description": "Added more configurable mechanisms to Touhou Little Maid. 为车万女仆添加更多可配置功能机制。",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/2020/200/256/256/639238287925381345.png",
+            "downloads": 580,
+            "updatedAt": "2026-09-10T13:08:51.437Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "MaidReform"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1722659",
+            "slug": "gtm-1-20-1",
+            "title": "[GTM] 血汗工厂-移植版",
+            "author": "jiuduyang",
+            "description": "血汗工厂（GTMaid）是一款基于车万女仆（Touhou Little Maid）与格雷科技社区版：非官方版（GregTech CE: Unofficial）开发的联动拓展附属。",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/2086/394/256/256/639265523051433713.png",
+            "downloads": 12,
+            "updatedAt": "2026-10-04T13:50:26.997Z",
+            "categories": [
+              "Energy, Fluid, and Item Transport",
+              "Utility & QoL"
+            ],
+            "originalTitle": "[GTM] 血汗工厂-移植版"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1658053",
+            "slug": "tlm-beyond-space",
+            "title": "[车万女仆_超时空救援]TLM Beyond Space",
+            "author": "novice333",
+            "description": "An unofficial Touhou Little Maid addon featuring cross-dimensional distress rescue, configurable combat support, weapon cases, and safe maid recall.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1991/879/256/256/639226501094234826.png",
+            "downloads": 105,
+            "updatedAt": "2026-09-03T13:17:46.057Z",
+            "categories": [
+              "Utility & QoL",
+              "Mobs"
+            ],
+            "originalTitle": "[车万女仆_超时空救援]TLM Beyond Space"
+          }
+        ],
+        "total": 5,
+        "offset": 0,
+        "limit": 20,
+        "warnings": [
+          "MC百科中文检索暂不可用，已保留原中文关键词和内置别名检索；可稍后重试。"
+        ]
+      },
+      "requests": [
+        {
+          "at": "2026-10-06T16:51:18.634Z",
+          "url": "https://search.mcmod.cn/s?key=%E8%BD%A6%E4%B8%87%E5%A5%B3%E4%BB%86&filter=1",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:51:18.887Z",
+          "url": "https://search.mcmod.cn/s?key=%E8%BD%A6%E4%B8%87%E5%A5%B3%E4%BB%86&filter=1&page=2",
+          "status": 200,
+          "contentType": "text/html; charset=UTF-8"
+        },
+        {
+          "at": "2026-10-06T16:51:19.889Z",
+          "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=%E8%BD%A6%E4%B8%87%E5%A5%B3%E4%BB%86&index=0&pageSize=20&sortField=2&sortOrder=desc&gameVersion=1.20.1&modLoaderType=1",
+          "status": 200,
+          "contentType": "application/json; charset=utf-8"
+        }
+      ]
+    }
+  ],
+  "receipts": [
+    "five-live-receipt.json",
+    "additional-live-receipt.json",
+    "reavaritia-live-receipt.json"
+  ]
+}

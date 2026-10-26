@@ -1,0 +1,136 @@
+{
+  "reviewer": "compliance_scope_audit",
+  "at": "2026-10-13T21:25:44.361Z",
+  "version": "1.1.23",
+  "platform": "win32",
+  "arch": "x64",
+  "scope": "Independent changed-product review: progressive Chinese community MOD search, its status/actions, cancellation, return/resume and frozen filters. Reviewer did not implement product backend/UI. QA implementation is not itself independently scored here.",
+  "productBuildCommit": "eac26dce109add58103106c73352353b6be7f97a",
+  "qaCorrectionCommit": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+  "evidence": [
+    {
+      "file": "out/community123-ui-Y9SeOt/proof.json",
+      "bytes": 23722809,
+      "sha256": "02e1680a5202b2d775cb233060790016479041f7078756b591bf6a61b01c973a"
+    },
+    {
+      "file": "out/community123-windows-native-r2/receipt.json",
+      "bytes": 1958354,
+      "sha256": "bc39cd3e2f54c5cc4c61ebd1308837ff5a845c2813572a2916b0be4477bd4d82"
+    },
+    {
+      "file": "out/community123-original-windows-renderer-files.json",
+      "bytes": 21683,
+      "sha256": "a5a243707d02ecf4bd8b2b1e516a793d0c21781e14eac1ed7edfc94754c12622"
+    },
+    {
+      "file": "out/mac123-first-failure-independent.json",
+      "bytes": 2667,
+      "sha256": "113659d7ad0a5ae07d974cdf564d6472ac054404f5d0aa6cc0daa3120303e6d2"
+    }
+  ],
+  "checks": {
+    "exactOriginalRendererFiles": 147,
+    "coordinateMatrices": 16,
+    "requiredFlagsPerMatrix": 16,
+    "originalUiImagesVerified": 160,
+    "originalNativeImagesVerified": 2,
+    "realTrustedReceiverClicks": 481,
+    "realTrustedReceiverInput": 112,
+    "strictNativeSourceProjectSlugIdentities": 4,
+    "metadataFiles": [
+      {
+        "key": "modrinth:QeB3NRC5",
+        "files": 36
+      },
+      {
+        "key": "curseforge:233785",
+        "files": 9
+      },
+      {
+        "key": "curseforge:623969",
+        "files": 84
+      },
+      {
+        "key": "curseforge:624491",
+        "files": 84
+      }
+    ],
+    "supplementalDownload": {
+      "bytes": 180194,
+      "sha1": "3d19e40c5f97186857db98e622c01c2cd0030497",
+      "sha256": "cb05087c39f0d860611aa1fae7cf63560214d1b71378a7c903c18dc370b5c3ce"
+    }
+  },
+  "visualInspection": {
+    "sampledOriginalImages": [
+      {
+        "file": "out/community123-ui-Y9SeOt/blue-white-960x620-125-failed-before-snapshot.png",
+        "sha256": "a1c67568891ea7d110e82e8f040458a6bc1aae14011c8b519ff79975babc7e53"
+      },
+      {
+        "file": "out/community123-ui-Y9SeOt/black-orange-960x620-125-failed-before-snapshot.png",
+        "sha256": "d42006dbb783f3528c28a06a5cd451007be65c9e913fe8bba36bd21f71fe2faa"
+      },
+      {
+        "file": "out/community123-ui-Y9SeOt/black-pink-960x620-125-failed-before-snapshot.png",
+        "sha256": "cbd93e7916caf349e4b6edc4aa2126383ba132a8e80b876fd0bbb06e055da6c2"
+      },
+      {
+        "file": "out/community123-ui-Y9SeOt/custom-960x620-125-failed-before-snapshot.png",
+        "sha256": "bc8e5a3f20472812a84733edc049d67279ab1c5ab6314c30d892bd380ef7862d"
+      },
+      {
+        "file": "out/community123-ui-Y9SeOt/black-orange-960x620-125-partial.png",
+        "sha256": "9742364b4563ef0b0a0623826efb75744ece701833ccb583fe0eda751546c743"
+      },
+      {
+        "file": "out/community123-ui-Y9SeOt/blue-white-1366x768-100-ready.png",
+        "sha256": "3c01b91526f48ea8b83d3d599aaf955acf21327e0da25bfae686699a547dbe98"
+      }
+    ],
+    "nativeFrame": {
+      "file": "out/community123-windows-native-r2/original-live-wujin.png",
+      "classification": "Original live screenshot taken during existing CSS card fade-in; its intermediate opacity is preserved, not treated as a stationary-state or FPS result"
+    },
+    "observations": [
+      "All four sampled themes retain readable type, distinct selected state, status and reachable retry at 960x620 / 125%.",
+      "Filter choices wrap within content; vertical scrolling is expected at the largest text scale. No overlapping control found in successful strict coordinate matrices.",
+      "Partial and ready count copy distinguishes verified count from pending candidates; failure visibly stops loading and enables retry."
+    ]
+  },
+  "scores": {
+    "rationality": {
+      "value": 9.2,
+      "outOf": 10,
+      "basis": "Explicit verified project identities, preserved version/loader filters, fast partial results and user-controlled additional discovery; confirmed totals are not represented as complete repository counts."
+    },
+    "functionality": {
+      "value": 9,
+      "outOf": 10,
+      "basis": "Original ASAR bytes, all 16 current flags in 16 coordinate matrices, real source-bound target details/files and supplemental full payload hash; no critical changed-scope finding."
+    },
+    "appearance": {
+      "value": 8.9,
+      "outOf": 10,
+      "basis": "Original four-theme screenshots and minimum/zoom layouts plus native live frame; clear status and action hierarchy. Minimum-window large-zoom filters need normal vertical scrolling."
+    }
+  },
+  "releaseGate": {
+    "minimum": 8.5,
+    "changedWindowsScopePassed": true,
+    "criticalFindings": []
+  },
+  "historicalFailures": [
+    "Original observer syntax, queued-selection timing and synchronous-scroll old-popup observations were corrected only in QA; raw failure directories retained.",
+    "Original cached-ready fixture incorrectly returned initial phase. Windows and first Mac gate failures retained; coherent fixture contract corrected without product changes.",
+    "First original native smoke clicked submit during an existing disabled browse query; QA now waits actual enabled state, first receipt retained."
+  ],
+  "limits": [
+    "Controlled IPC coordinates are distinguished from real-service native APP checks.",
+    "Target 无尽 files received exact project/file/hash metadata checks, not actual game installation or target-JAR full downloads. AppleSkin payload hash is a separately classified small supplemental check.",
+    "Real-service counts are observations, not a proof of all repository projects; discoveryHasMore remains accurate.",
+    "No full game, physical audio, frame-rate/DWM/desktop-material, unchanged old Mac whole-platform, real OAuth or notarization pass is inferred.",
+    "Mac final package acceptance remains separate and pending; scores apply only to this Windows changed scope."
+  ]
+}

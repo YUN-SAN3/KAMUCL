@@ -1,0 +1,74 @@
+{
+  "complete": true,
+  "classification": "Actual disposable Win32 GLFW-class fixture, not Minecraft gameplay; exact child PID, read-only client rectangles, visibility, borderless rejection, clean close. Observer per-monitor DPI-aware; no other process input/focus/size changes.",
+  "directory": "E:\\KAMUCL\\out\\game-window-size117-95e7c1a9-0201-46fe-9153-0c9a84c741ca",
+  "pid": 56500,
+  "samples": [
+    {
+      "receipt": {
+        "command": "ready",
+        "pid": 56500,
+        "width": 1000,
+        "height": 600
+      },
+      "observed": {
+        "pid": 56500,
+        "width": 1000,
+        "height": 600,
+        "windowed": true
+      }
+    },
+    {
+      "receipt": {
+        "command": "resize",
+        "pid": 56500,
+        "width": 1280,
+        "height": 720
+      },
+      "observed": {
+        "pid": 56500,
+        "width": 1280,
+        "height": 720,
+        "windowed": true
+      }
+    },
+    {
+      "receipt": {
+        "command": "hide",
+        "pid": 56500,
+        "width": 1280,
+        "height": 720
+      },
+      "observed": null
+    },
+    {
+      "receipt": {
+        "command": "show",
+        "pid": 56500,
+        "width": 1280,
+        "height": 720
+      },
+      "observed": {
+        "pid": 56500,
+        "width": 1280,
+        "height": 720,
+        "windowed": true
+      }
+    },
+    {
+      "receipt": {
+        "command": "borderless",
+        "pid": 56500,
+        "width": 1280,
+        "height": 720
+      },
+      "observed": null
+    }
+  ],
+  "exit": {
+    "code": 0,
+    "signal": null
+  },
+  "stderr": "",
+  "sourceSha256": "780ff7c73e2322c12c2d08cbad82fabe0f177806736eb8d492677fd064dae548"
+}

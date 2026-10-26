@@ -1,0 +1,3185 @@
+{
+  "classification": "Real provider metadata through production search code, independent temporary settings and proxy HTTP transport. Not GUI, MOD install, account login or game validation.",
+  "complete": true,
+  "startedAt": "2026-10-13T20:55:33.061Z",
+  "source": [
+    {
+      "file": "src/main/core/community.ts",
+      "sha256": "1b246e2437c72849711d3c3824f767aa3d4dcba447cc610c42d96e082c76c353"
+    },
+    {
+      "file": "src/main/core/community-zh.ts",
+      "sha256": "86739a2394bf44efec8afa2c2edd836e55ccb96ca1e36f54f5cbf5b8c2ffa43a"
+    },
+    {
+      "file": "src/main/core/communitySearchSession.ts",
+      "sha256": "783fa5e52fd1c9e7a97bf9c93895d4f76389d68ebe63c3fee99e9e1ccde803c1"
+    },
+    {
+      "file": "src/main/core/communitySearchBudget.ts",
+      "sha256": "782007766d2c512ee90b9bde53dcf4982208a4c01dbf1844b11912225c3b8874"
+    },
+    {
+      "file": "src/main/core/mcmodSearch.ts",
+      "sha256": "50d7abe61a517b012add6220e3f34e9a2d979c9120da792ac82d95107ceb902d"
+    }
+  ],
+  "requests": [
+    {
+      "url": "https://search.mcmod.cn/s?key=%E6%97%A0%E5%B0%BD&filter=1",
+      "at": "2026-10-13T20:55:33.252Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=%E6%97%A0%E5%B0%BD&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:33.260Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=%E6%97%A0%E5%B0%BD&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:33.261Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=avaritia&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:33.261Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=avaritia&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:33.409Z",
+      "status": 200
+    },
+    {
+      "url": "https://search.mcmod.cn/s?key=%E6%97%A0%E5%B0%BD&filter=1&page=2",
+      "at": "2026-10-13T20:55:33.744Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=avaritia-endless&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:33.837Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=re-avaritia&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:33.858Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/20914.html",
+      "at": "2026-10-13T20:55:34.042Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/18714.html",
+      "at": "2026-10-13T20:55:34.111Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=re-avaritia&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:34.309Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=avaritia-1-10&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:34.333Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/20311.html",
+      "at": "2026-10-13T20:55:34.379Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/505.html",
+      "at": "2026-10-13T20:55:34.638Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=wjys&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:34.662Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/5438.html",
+      "at": "2026-10-13T20:55:34.664Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=avaritias-delight&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:34.753Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=avaritias-delight&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:34.894Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=endless-deep-space&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:34.909Z",
+      "status": 200
+    },
+    {
+      "url": "https://search.mcmod.cn/s?key=%E6%97%A0%E5%B0%BD&filter=1",
+      "at": "2026-10-13T20:55:35.149Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=%E6%97%A0%E5%B0%BD&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:35.149Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=avaritia&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:35.149Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=re-avaritia&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:35.149Z",
+      "status": 200
+    },
+    {
+      "url": "https://search.mcmod.cn/s?key=%E6%97%A0%E5%B0%BD&filter=1&page=2",
+      "at": "2026-10-13T20:55:35.249Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/20914.html",
+      "at": "2026-10-13T20:55:35.343Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/18714.html",
+      "at": "2026-10-13T20:55:35.398Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/20311.html",
+      "at": "2026-10-13T20:55:35.562Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/6130.html",
+      "at": "2026-10-13T20:55:35.641Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/16781.html",
+      "at": "2026-10-13T20:55:35.859Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=avaritias-delight&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:35.859Z",
+      "status": 200
+    },
+    {
+      "url": "https://search.mcmod.cn/s?key=%E6%97%A0%E5%B0%BD&filter=1",
+      "at": "2026-10-13T20:55:36.143Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=%E6%97%A0%E5%B0%BD&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:36.144Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=avaritia&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:36.144Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=avaritia-endless&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:36.144Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=re-avaritia&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:36.226Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=avaritia-1-10&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:36.237Z",
+      "status": 200
+    },
+    {
+      "url": "https://search.mcmod.cn/s?key=%E6%97%A0%E5%B0%BD&filter=1&page=2",
+      "at": "2026-10-13T20:55:36.245Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/20914.html",
+      "at": "2026-10-13T20:55:36.314Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/18714.html",
+      "at": "2026-10-13T20:55:36.314Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/20311.html",
+      "at": "2026-10-13T20:55:36.512Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=wjys&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:36.513Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/6130.html",
+      "at": "2026-10-13T20:55:36.591Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/16781.html",
+      "at": "2026-10-13T20:55:36.802Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=avaritias-delight&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:36.803Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=infinite-dungeons&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:36.834Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.curseforge.com/v1/mods/search?gameId=432&classId=6&searchFilter=endlesssword&index=0&pageSize=50&sortField=2&sortOrder=desc",
+      "at": "2026-10-13T20:55:37.057Z",
+      "status": 200
+    },
+    {
+      "url": "https://search.mcmod.cn/s?key=%E6%9C%BA%E6%A2%B0&filter=1",
+      "at": "2026-10-13T20:55:37.299Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=%E6%9C%BA%E6%A2%B0&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:37.299Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=create&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:37.299Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=create-stuff-additions&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:37.299Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=flywheel&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:37.401Z",
+      "status": 200
+    },
+    {
+      "url": "https://search.mcmod.cn/s?key=%E6%9C%BA%E6%A2%B0&filter=1&page=2",
+      "at": "2026-10-13T20:55:37.534Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=createaddition&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:37.566Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=create-fabric&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:37.681Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/4959.html",
+      "at": "2026-10-13T20:55:37.734Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/5174.html",
+      "at": "2026-10-13T20:55:37.892Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=mekanism&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:37.977Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/9136.html",
+      "at": "2026-10-13T20:55:38.091Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=mechanical-tech&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:38.121Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/9106.html",
+      "at": "2026-10-13T20:55:38.334Z",
+      "status": 200
+    },
+    {
+      "url": "https://www.mcmod.cn/class/13488.html",
+      "at": "2026-10-13T20:55:38.359Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=creates-delight&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:38.571Z",
+      "status": 200
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=create-wizardry&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%5D",
+      "at": "2026-10-13T20:55:38.625Z",
+      "status": 200
+    }
+  ],
+  "searches": [
+    {
+      "query": {
+        "keyword": "无尽",
+        "kind": "mod",
+        "source": "all",
+        "mcVersion": "",
+        "loader": "",
+        "sort": "relevance",
+        "offset": 0,
+        "limit": 40
+      },
+      "updates": [
+        {
+          "elapsedMs": 6,
+          "revision": 2,
+          "phase": "enriching",
+          "total": 0
+        },
+        {
+          "elapsedMs": 500,
+          "revision": 3,
+          "phase": "enriching",
+          "total": 1
+        },
+        {
+          "elapsedMs": 593,
+          "revision": 4,
+          "phase": "enriching",
+          "total": 17
+        },
+        {
+          "elapsedMs": 801,
+          "revision": 5,
+          "phase": "enriching",
+          "total": 59
+        },
+        {
+          "elapsedMs": 868,
+          "revision": 6,
+          "phase": "enriching",
+          "total": 59
+        },
+        {
+          "elapsedMs": 1065,
+          "revision": 7,
+          "phase": "enriching",
+          "total": 59
+        },
+        {
+          "elapsedMs": 1401,
+          "revision": 8,
+          "phase": "enriching",
+          "total": 109
+        },
+        {
+          "elapsedMs": 1419,
+          "revision": 9,
+          "phase": "enriching",
+          "total": 109
+        },
+        {
+          "elapsedMs": 1511,
+          "revision": 10,
+          "phase": "enriching",
+          "total": 109
+        },
+        {
+          "elapsedMs": 1650,
+          "revision": 11,
+          "phase": "enriching",
+          "total": 111
+        },
+        {
+          "elapsedMs": 1736,
+          "revision": 12,
+          "phase": "enriching",
+          "total": 111
+        },
+        {
+          "elapsedMs": 1889,
+          "revision": 13,
+          "phase": "enriching",
+          "total": 112
+        },
+        {
+          "elapsedMs": 1902,
+          "revision": 14,
+          "phase": "enriching",
+          "total": 112
+        },
+        {
+          "elapsedMs": 1902,
+          "revision": 15,
+          "phase": "ready",
+          "total": 112
+        }
+      ],
+      "snapshot": {
+        "requestId": "live-1",
+        "revision": 15,
+        "query": {
+          "keyword": "无尽",
+          "kind": "mod",
+          "source": "all",
+          "sort": "relevance",
+          "offset": 0,
+          "limit": 40
+        },
+        "phase": "ready",
+        "items": [
+          {
+            "source": "curseforge",
+            "projectId": "261348",
+            "slug": "avaritia-1-10",
+            "title": "无尽贪婪 1.1x | Avaritia 1.1x",
+            "author": "covers1624",
+            "description": "A parody mod to end all mods",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/89/671/256/256/636233050095191830.png",
+            "downloads": 33860176,
+            "updatedAt": "2024-01-19T10:27:55.27Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "Avaritia 1.1x"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "233785",
+            "slug": "avaritia",
+            "title": "无尽贪婪 | Avaritia",
+            "author": "Spiteful_Fox",
+            "description": "A parody mod to end all mods",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/22/771/256/256/635747450636713490.png",
+            "downloads": 11222859,
+            "updatedAt": "2018-01-12T23:23:10.977Z",
+            "categories": [
+              "Magic",
+              "Food",
+              "Armor, Tools, and Weapons",
+              "Energy"
+            ],
+            "originalTitle": "Avaritia"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "QeB3NRC5",
+            "slug": "re-avaritia",
+            "title": "无尽贪婪：重生 | Re:Avaritia",
+            "author": "cnlimiter",
+            "description": "A reforge version of Avaritia!",
+            "iconUrl": "https://cdn.modrinth.com/data/QeB3NRC5/1210384df94542778a35b4dc803de45e25cdf89b_96.webp",
+            "downloads": 2621177,
+            "updatedAt": "2026-10-10T07:54:22.556387+00:00",
+            "categories": [
+              "adventure",
+              "decoration",
+              "equipment",
+              "fabric",
+              "food",
+              "forge",
+              "mobs",
+              "neoforge"
+            ],
+            "originalTitle": "Re:Avaritia"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "623969",
+            "slug": "re-avaritia",
+            "title": "无尽贪婪：重生 | Re:Avaritia[Forge/Fabric/Neoforge]",
+            "author": "cnlimiter",
+            "description": "A reforged version of Avaritia.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1094/963/256/256/638639860775632975.jpg",
+            "downloads": 1879209,
+            "updatedAt": "2026-10-10T07:58:41.187Z",
+            "categories": [
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Re:Avaritia[Forge/Fabric/Neoforge]"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "624491",
+            "slug": "avaritia-endless",
+            "title": "无尽贪婪·伪 | Avaritia Endless",
+            "author": "yuoft0",
+            "description": "Endless greed · fake",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/548/705/256/256/637884743283315095.png",
+            "downloads": 410248,
+            "updatedAt": "2026-10-10T09:27:07.127Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "Food"
+            ],
+            "originalTitle": "Avaritia Endless"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "gtX73iTU",
+            "slug": "avaritias-delight",
+            "title": "无尽乐事 | Avaritia's Delight",
+            "author": "MHanHanBing",
+            "description": "Add avaritia style food base on farmer's delight.",
+            "iconUrl": "https://cdn.modrinth.com/data/gtX73iTU/0066c719413ffd9c9c0d2a386e0075780329e511.png",
+            "downloads": 46438,
+            "updatedAt": "2026-06-30T12:34:25.812511+00:00",
+            "categories": [
+              "food",
+              "forge",
+              "neoforge",
+              "storage",
+              "utility"
+            ],
+            "originalTitle": "Avaritia's Delight"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1289374",
+            "slug": "avaritias-delight",
+            "title": "无尽乐事 | Avaritia's Delight",
+            "author": "IAFEnvoy",
+            "description": "Add avaritia style food base on farmer's delight.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1320/559/256/256/638858614315283147.png",
+            "downloads": 36752,
+            "updatedAt": "2026-06-30T12:42:33.233Z",
+            "categories": [
+              "Utility & QoL",
+              "Food",
+              "Farming",
+              "Storage"
+            ],
+            "originalTitle": "Avaritia's Delight"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "565570",
+            "slug": "endless-deep-space",
+            "title": "无尽深空 | Endless Deep Space",
+            "author": "yezi_muma",
+            "description": "This MOD adds many dimensions. ￼ ￼",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/477/561/256/256/637772458746323642.png",
+            "downloads": 3811,
+            "updatedAt": "2023-12-07T11:44:31.91Z",
+            "categories": [
+              "World Gen",
+              "Dimensions",
+              "Mobs",
+              "Biomes",
+              "Ores and Resources"
+            ],
+            "originalTitle": "Endless Deep Space"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1213109",
+            "slug": "wjys",
+            "title": "无尽药水 | WJYS",
+            "author": "yantuo_",
+            "description": "Infinite Potions",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1191/901/256/256/638766905672038812.jpg",
+            "downloads": 264,
+            "updatedAt": "2025-07-31T18:33:38.743Z",
+            "categories": [
+              "Food",
+              "MCreator",
+              "Adventure and RPG"
+            ],
+            "originalTitle": "WJYS"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "248873",
+            "slug": "avaritiaddons",
+            "title": "Avaritiaddons",
+            "author": "WanionCane",
+            "description": "A Mod that tries to expand the meaning of Infinity!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/47/689/256/256/636068532851030450.png",
+            "downloads": 5160374,
+            "updatedAt": "2023-09-09T16:25:25.683Z",
+            "categories": [
+              "Addons",
+              "Storage"
+            ],
+            "originalTitle": "Avaritiaddons"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "286652",
+            "slug": "avaritia-tweaks",
+            "title": "Avaritia Tweaks",
+            "author": "Jacky",
+            "description": "Enhances Avaritia to another level!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/139/927/256/256/636531770395692735.png",
+            "downloads": 4805228,
+            "updatedAt": "2023-05-07T02:57:39.547Z",
+            "categories": [
+              "Addons",
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia Tweaks"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "269583",
+            "slug": "refined-avaritia",
+            "title": "Refined Avaritia",
+            "author": "PricelessKoala",
+            "description": "A mod that brings Refined Storage autocrafting to Avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/102/14/256/256/636327328099042365.png",
+            "downloads": 4783950,
+            "updatedAt": "2019-08-02T19:02:47.177Z",
+            "categories": [
+              "Addons",
+              "Technology"
+            ],
+            "originalTitle": "Refined Avaritia"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1083158",
+            "slug": "avaritianeo",
+            "title": "AvaritiaNeo",
+            "author": "AquaThree",
+            "description": "​This project is an unofficial remaster mod for Avaritia.​",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1585/80/256/256/639025858317580427.png",
+            "downloads": 2675989,
+            "updatedAt": "2026-07-16T05:54:27.42Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "Storage",
+              "Food"
+            ],
+            "originalTitle": "AvaritiaNeo"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "308383",
+            "slug": "packagedavaritia",
+            "title": "PackagedAvaritia",
+            "author": "TheLMiffy1111",
+            "description": "Avaritia Autocrafting with PackagedAuto",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1366/227/256/256/638887204042515983.png",
+            "downloads": 2188346,
+            "updatedAt": "2025-09-09T20:25:41.683Z",
+            "categories": [
+              "Automation",
+              "Addons",
+              "Applied Energistics 2"
+            ],
+            "originalTitle": "PackagedAvaritia"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "312149",
+            "slug": "avaritia-io",
+            "title": "Avaritia IO",
+            "author": "tfarecnim",
+            "description": "Adds some items that bridge the gap between Ender IO and Avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/187/237/256/256/636838220281305559.png",
+            "downloads": 2043376,
+            "updatedAt": "2019-10-02T12:37:27.17Z",
+            "categories": [
+              "Technology",
+              "Addons"
+            ],
+            "originalTitle": "Avaritia IO"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "301144",
+            "slug": "avaritia-recipe-generator",
+            "title": "Avaritia Recipe Generator",
+            "author": "TechDweebPlays",
+            "description": "UI to automatically generate Crafttweaker scripts for the Avaritia 9x9 and Vanilla 3x3 workbenches",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/167/263/256/256/636702471063169879.png",
+            "downloads": 1814316,
+            "updatedAt": "2018-08-20T23:58:10.75Z",
+            "categories": [
+              "Miscellaneous",
+              "Server Utility"
+            ],
+            "originalTitle": "Avaritia Recipe Generator"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "271236",
+            "slug": "more-avaritia",
+            "title": "More Avaritia",
+            "author": "chocolate_milkk__",
+            "description": "Adds Avaritia recipes to creative items from other mods. Makes Avaritia much more useful!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/106/514/256/256/636359996883667335.jpeg",
+            "downloads": 1282185,
+            "updatedAt": "2022-11-01T18:10:13.74Z",
+            "categories": [
+              "Addons",
+              "Technology"
+            ],
+            "originalTitle": "More Avaritia"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "430116",
+            "slug": "avaritia-lite",
+            "title": "Avaritia Lite",
+            "author": "NotTouchedGrass",
+            "description": "Avaritia for newest version (but with bugs)",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1005/542/256/256/638526958095537201.png",
+            "downloads": 1115941,
+            "updatedAt": "2026-01-30T09:32:07.56Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "MCreator"
+            ],
+            "originalTitle": "Avaritia Lite"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "261519",
+            "slug": "avaritia-additions",
+            "title": "Avaritia Additions",
+            "author": "abused_master",
+            "description": "Addon for Avaritia 1.10 adding in most of the items/blocks that arnt available in 1.10.2",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/89/926/256/256/636235215447131922.png",
+            "downloads": 690160,
+            "updatedAt": "2017-04-12T04:17:25.027Z",
+            "categories": [
+              "Cosmetic",
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia Additions"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "416599",
+            "slug": "avaritia-furnace",
+            "title": "Avaritia Furnace",
+            "author": "inzhefop",
+            "description": "An incredible furnace in the style of the Avaritia mod.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1997/744/256/256/639229045193046359.png",
+            "downloads": 601726,
+            "updatedAt": "2026-10-11T19:11:24.57Z",
+            "categories": [
+              "Miscellaneous",
+              "MCreator"
+            ],
+            "originalTitle": "Avaritia Furnace"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1327524",
+            "slug": "avaritia-expand",
+            "title": "Avaritia : Expand",
+            "author": "cu6",
+            "description": "Added more items to Re:Avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1401/271/256/256/638908238824729720.png",
+            "downloads": 400457,
+            "updatedAt": "2026-03-18T19:47:47.367Z",
+            "categories": [
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia : Expand"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "GkKw6pl3",
+            "slug": "more_avaritia",
+            "title": "MoreAvaritia",
+            "author": "wzz",
+            "description": "add more fun items for avaritia greed",
+            "iconUrl": "https://cdn.modrinth.com/data/GkKw6pl3/59fb7de60122e6e4c93298071edb23ba97f93f9a_96.webp",
+            "downloads": 372519,
+            "updatedAt": "2026-10-03T04:45:20.081425+00:00",
+            "categories": [
+              "equipment",
+              "forge",
+              "magic",
+              "neoforge"
+            ],
+            "originalTitle": "MoreAvaritia"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "j5gjLUvf",
+            "slug": "avaritianeo",
+            "title": "AvaritiaNeo",
+            "author": "AquaThree",
+            "description": "​This project is an unofficial remaster mod for Avaritia.​",
+            "iconUrl": "https://cdn.modrinth.com/data/j5gjLUvf/8ef6dd6f976e2fdfacc9bdbb827ce51b4ef0ab88_96.webp",
+            "downloads": 332684,
+            "updatedAt": "2026-07-16T05:44:58.777433+00:00",
+            "categories": [
+              "equipment",
+              "fabric",
+              "food",
+              "forge",
+              "neoforge",
+              "storage"
+            ],
+            "originalTitle": "AvaritiaNeo"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "891434",
+            "slug": "avaritia-universal",
+            "title": "Avaritia Universal",
+            "author": "Rembyyyy",
+            "description": "This mod adds very strong armor and tools",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/853/536/256/256/638257189816565032.png",
+            "downloads": 314013,
+            "updatedAt": "2026-09-09T08:18:52.937Z",
+            "categories": [
+              "Adventure and RPG",
+              "Armor, Tools, and Weapons",
+              "Food",
+              "Magic",
+              "Cosmetic"
+            ],
+            "originalTitle": "Avaritia Universal"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1019865",
+            "slug": "avaritia-item",
+            "title": "Avaritia Item",
+            "author": "i_xiaotian",
+            "description": "a mod help you create items with effects like avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/997/555/256/256/638515203692742638.png",
+            "downloads": 260314,
+            "updatedAt": "2024-05-19T06:39:02.203Z",
+            "categories": [
+              "Server Utility",
+              "CraftTweaker"
+            ],
+            "originalTitle": "Avaritia Item"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1300008",
+            "slug": "asgardandelion-for-botania",
+            "title": "Avaritia Asgardandelions For Botania",
+            "author": "Beecube31",
+            "description": "Good old Asgardandelions (and a few more xtreme ones) from 1.12.2 and 1.7.10 modpacks is going back to new versions!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1448/381/256/256/638939725352708058.png",
+            "downloads": 155642,
+            "updatedAt": "2025-09-20T10:04:57.28Z",
+            "categories": [
+              "Addons",
+              "Utility & QoL"
+            ],
+            "originalTitle": "Avaritia Asgardandelions For Botania"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1165010",
+            "slug": "avaritia-1-1x-unofficial",
+            "title": "Avaritia 1.1x Unofficial Extended Life",
+            "author": "xXjudeXx",
+            "description": "This is Unofficial Extended Life for Avaritia. Where you will find many Bug Fixes and Changes to keep this project Alive.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1142/718/256/256/638707398997158910_animated.gif",
+            "downloads": 137486,
+            "updatedAt": "2026-04-17T12:17:40.7Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "Avaritia 1.1x Unofficial Extended Life"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "aA94MQL4",
+            "slug": "packagedavaritia",
+            "title": "PackagedAvaritia",
+            "author": "TheLMiffy1111",
+            "description": "Avaritia Autocrafting with PackagedAuto",
+            "iconUrl": "https://cdn.modrinth.com/data/aA94MQL4/3f3dcfbc8dfbb9e29a67f99ac3f378a82660dd46.png",
+            "downloads": 117814,
+            "updatedAt": "2025-09-09T20:18:28.385138+00:00",
+            "categories": [
+              "forge",
+              "neoforge",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "PackagedAvaritia"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1347675",
+            "slug": "avaritia-integration",
+            "title": "Avaritia Integration",
+            "author": "cnlimiter",
+            "description": "This mod add capability between Re:Avaritia and many other mods.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1442/807/256/256/638935514499997610.jpg",
+            "downloads": 88938,
+            "updatedAt": "2026-09-07T15:30:21.42Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "Adventure and RPG"
+            ],
+            "originalTitle": "Avaritia Integration"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1028302",
+            "slug": "avaritia-lite-extended",
+            "title": "Avaritia Extended",
+            "author": "NotTouchedGrass",
+            "description": "Addon for Avaritia that adds more stuffs",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1005/854/256/256/638527516924481764.png",
+            "downloads": 85438,
+            "updatedAt": "2026-02-11T21:30:32.797Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "Addons"
+            ],
+            "originalTitle": "Avaritia Extended"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "913129",
+            "slug": "avaritia-1-1x-kedition",
+            "title": "Avaritia 1.1x Kedition",
+            "author": "LordPhantom2805",
+            "description": "add some integration from avaritia 1.0",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/877/597/256/256/638303096535392256.png",
+            "downloads": 63878,
+            "updatedAt": "2026-04-04T07:10:56.973Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "Avaritia 1.1x Kedition"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "621549",
+            "slug": "avaritia1-2x",
+            "title": "Avaritia1.2x",
+            "author": "Zkev1",
+            "description": "Infinity, OP Armor, Tools.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/544/232/256/256/637875693467717982.png",
+            "downloads": 47983,
+            "updatedAt": "2025-09-18T15:43:08.043Z",
+            "categories": [
+              "Miscellaneous",
+              "Utility & QoL",
+              "Food",
+              "Magic",
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia1.2x"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "933135",
+            "slug": "avaritia-continued",
+            "title": "Avaritia Continued",
+            "author": "Ocle_42",
+            "description": "Unofficial sequel to the Avaritia mod",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/900/237/256/256/638346670534692367.png",
+            "downloads": 46461,
+            "updatedAt": "2023-11-30T07:36:05.98Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "MCreator"
+            ],
+            "originalTitle": "Avaritia Continued"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "652032",
+            "slug": "avaritia-unofficial",
+            "title": "Avaritia Remastered",
+            "author": "bern1mi",
+            "description": "A Remastered version of Avaritia that add new singularities/items for end game to expand the meaning of Infinity!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/581/21/256/256/637945540171109571.png",
+            "downloads": 38518,
+            "updatedAt": "2023-04-23T14:55:01.147Z",
+            "categories": [
+              "MCreator",
+              "Adventure and RPG",
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia Remastered"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1350879",
+            "slug": "avaritia-tweak",
+            "title": "Avaritia Tweak",
+            "author": "cnlimiter",
+            "description": "Recipe editor for Re:Avaritia!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1449/404/256/256/638940301921940673.png",
+            "downloads": 32836,
+            "updatedAt": "2026-08-20T01:36:56.263Z",
+            "categories": [
+              "Utility & QoL",
+              "CraftTweaker",
+              "KubeJS"
+            ],
+            "originalTitle": "Avaritia Tweak"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1335253",
+            "slug": "avariria-progression-expansion",
+            "title": "Create: Avaritia Progression Expansion",
+            "author": "TheProKnightGamer",
+            "description": "Adds a annoying yet necessary ingredient to the Avaritia mod.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1535/518/256/256/638996937235996751.png",
+            "downloads": 21071,
+            "updatedAt": "2026-10-10T16:09:10.47Z",
+            "categories": [
+              "Addons",
+              "Create"
+            ],
+            "originalTitle": "Create: Avaritia Progression Expansion"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "hx29Sv6m",
+            "slug": "avaritia-x-create",
+            "title": "Avaritia x Create",
+            "author": "JustMili",
+            "description": "Avaritia and Create, two of the greatest combined.",
+            "iconUrl": "https://cdn.modrinth.com/data/hx29Sv6m/3036d76e059f78a145ef1f60800a5a384d409b70_96.webp",
+            "downloads": 20624,
+            "updatedAt": "2025-05-17T22:20:52.011898+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Avaritia x Create"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "Tou7IhLO",
+            "slug": "avaritia-at-home",
+            "title": "Avaritia at Home",
+            "author": "UnicornMaster",
+            "description": "This mod has many of the same items as Avaritia including the sword of the cosmos which can kill anything instantly. Mod now supports extreme crafting and REI for viewing the recipes.",
+            "iconUrl": "https://cdn.modrinth.com/data/Tou7IhLO/fde830bf6f620c98065f678dd44bff14e3778905_96.webp",
+            "downloads": 19044,
+            "updatedAt": "2024-10-05T02:15:33.547565+00:00",
+            "categories": [
+              "adventure",
+              "decoration",
+              "equipment",
+              "fabric",
+              "food",
+              "game-mechanics",
+              "magic",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Avaritia at Home"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "BkPKnLSX",
+            "slug": "avaritia-spear",
+            "title": "Avaritia Spear",
+            "author": "lying-ice",
+            "description": "An addon for Re-Avaritia that brings the infinity spear to life.",
+            "iconUrl": "https://cdn.modrinth.com/data/BkPKnLSX/9c35766b8aa503349f3254eaeae61677cec3e6f9_96.webp",
+            "downloads": 12792,
+            "updatedAt": "2026-10-10T04:28:43.800731+00:00",
+            "categories": [
+              "equipment",
+              "forge",
+              "neoforge"
+            ],
+            "originalTitle": "Avaritia Spear"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1026516",
+            "slug": "avaritiareborn",
+            "title": "AvaritiaReborn",
+            "author": "IAFEnvoy",
+            "description": "Avaritia Mod for Fabric",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1004/9/256/256/638524901605535039.png",
+            "downloads": 11933,
+            "updatedAt": "2024-07-11T04:13:50.08Z",
+            "categories": [
+              "Utility & QoL"
+            ],
+            "originalTitle": "AvaritiaReborn"
+          }
+        ],
+        "total": 112,
+        "offset": 0,
+        "limit": 40,
+        "warnings": [
+          "“无尽”未提供所选来源的 MOD 项目链接，未自动关联下载。",
+          "还有相关百科条目未核对，可继续查找；当前数量只统计已确认项目。",
+          "当前数量仅统计已确认项目，仍有相关项目待查找。"
+        ],
+        "discoveryHasMore": true,
+        "totalKind": "confirmed",
+        "cursor": "976c9c05-656d-40fb-9fde-e20e2e781167"
+      },
+      "elapsedMs": 1902
+    },
+    {
+      "query": {
+        "keyword": "无尽",
+        "kind": "mod",
+        "source": "modrinth",
+        "mcVersion": "",
+        "loader": "",
+        "sort": "relevance",
+        "offset": 0,
+        "limit": 40
+      },
+      "updates": [
+        {
+          "elapsedMs": 1,
+          "revision": 2,
+          "phase": "enriching",
+          "total": 0
+        },
+        {
+          "elapsedMs": 251,
+          "revision": 3,
+          "phase": "enriching",
+          "total": 1
+        },
+        {
+          "elapsedMs": 298,
+          "revision": 4,
+          "phase": "enriching",
+          "total": 17
+        },
+        {
+          "elapsedMs": 422,
+          "revision": 5,
+          "phase": "enriching",
+          "total": 17
+        },
+        {
+          "elapsedMs": 992,
+          "revision": 6,
+          "phase": "enriching",
+          "total": 17
+        },
+        {
+          "elapsedMs": 993,
+          "revision": 7,
+          "phase": "ready",
+          "total": 17
+        }
+      ],
+      "snapshot": {
+        "requestId": "live-2",
+        "revision": 7,
+        "query": {
+          "keyword": "无尽",
+          "kind": "mod",
+          "source": "modrinth",
+          "sort": "relevance",
+          "offset": 0,
+          "limit": 40
+        },
+        "phase": "ready",
+        "items": [
+          {
+            "source": "modrinth",
+            "projectId": "QeB3NRC5",
+            "slug": "re-avaritia",
+            "title": "无尽贪婪：重生 | Re:Avaritia",
+            "author": "cnlimiter",
+            "description": "A reforge version of Avaritia!",
+            "iconUrl": "https://cdn.modrinth.com/data/QeB3NRC5/1210384df94542778a35b4dc803de45e25cdf89b_96.webp",
+            "downloads": 2621177,
+            "updatedAt": "2026-10-10T07:54:22.556387+00:00",
+            "categories": [
+              "adventure",
+              "decoration",
+              "equipment",
+              "fabric",
+              "food",
+              "forge",
+              "mobs",
+              "neoforge"
+            ],
+            "originalTitle": "Re:Avaritia"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "gtX73iTU",
+            "slug": "avaritias-delight",
+            "title": "无尽乐事 | Avaritia's Delight",
+            "author": "MHanHanBing",
+            "description": "Add avaritia style food base on farmer's delight.",
+            "iconUrl": "https://cdn.modrinth.com/data/gtX73iTU/0066c719413ffd9c9c0d2a386e0075780329e511.png",
+            "downloads": 46438,
+            "updatedAt": "2026-06-30T12:34:25.812511+00:00",
+            "categories": [
+              "food",
+              "forge",
+              "neoforge",
+              "storage",
+              "utility"
+            ],
+            "originalTitle": "Avaritia's Delight"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "GkKw6pl3",
+            "slug": "more_avaritia",
+            "title": "MoreAvaritia",
+            "author": "wzz",
+            "description": "add more fun items for avaritia greed",
+            "iconUrl": "https://cdn.modrinth.com/data/GkKw6pl3/59fb7de60122e6e4c93298071edb23ba97f93f9a_96.webp",
+            "downloads": 372519,
+            "updatedAt": "2026-10-03T04:45:20.081425+00:00",
+            "categories": [
+              "equipment",
+              "forge",
+              "magic",
+              "neoforge"
+            ],
+            "originalTitle": "MoreAvaritia"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "j5gjLUvf",
+            "slug": "avaritianeo",
+            "title": "AvaritiaNeo",
+            "author": "AquaThree",
+            "description": "​This project is an unofficial remaster mod for Avaritia.​",
+            "iconUrl": "https://cdn.modrinth.com/data/j5gjLUvf/8ef6dd6f976e2fdfacc9bdbb827ce51b4ef0ab88_96.webp",
+            "downloads": 332684,
+            "updatedAt": "2026-07-16T05:44:58.777433+00:00",
+            "categories": [
+              "equipment",
+              "fabric",
+              "food",
+              "forge",
+              "neoforge",
+              "storage"
+            ],
+            "originalTitle": "AvaritiaNeo"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "aA94MQL4",
+            "slug": "packagedavaritia",
+            "title": "PackagedAvaritia",
+            "author": "TheLMiffy1111",
+            "description": "Avaritia Autocrafting with PackagedAuto",
+            "iconUrl": "https://cdn.modrinth.com/data/aA94MQL4/3f3dcfbc8dfbb9e29a67f99ac3f378a82660dd46.png",
+            "downloads": 117814,
+            "updatedAt": "2025-09-09T20:18:28.385138+00:00",
+            "categories": [
+              "forge",
+              "neoforge",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "PackagedAvaritia"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "hx29Sv6m",
+            "slug": "avaritia-x-create",
+            "title": "Avaritia x Create",
+            "author": "JustMili",
+            "description": "Avaritia and Create, two of the greatest combined.",
+            "iconUrl": "https://cdn.modrinth.com/data/hx29Sv6m/3036d76e059f78a145ef1f60800a5a384d409b70_96.webp",
+            "downloads": 20624,
+            "updatedAt": "2025-05-17T22:20:52.011898+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Avaritia x Create"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "Tou7IhLO",
+            "slug": "avaritia-at-home",
+            "title": "Avaritia at Home",
+            "author": "UnicornMaster",
+            "description": "This mod has many of the same items as Avaritia including the sword of the cosmos which can kill anything instantly. Mod now supports extreme crafting and REI for viewing the recipes.",
+            "iconUrl": "https://cdn.modrinth.com/data/Tou7IhLO/fde830bf6f620c98065f678dd44bff14e3778905_96.webp",
+            "downloads": 19044,
+            "updatedAt": "2024-10-05T02:15:33.547565+00:00",
+            "categories": [
+              "adventure",
+              "decoration",
+              "equipment",
+              "fabric",
+              "food",
+              "game-mechanics",
+              "magic",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Avaritia at Home"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "BkPKnLSX",
+            "slug": "avaritia-spear",
+            "title": "Avaritia Spear",
+            "author": "lying-ice",
+            "description": "An addon for Re-Avaritia that brings the infinity spear to life.",
+            "iconUrl": "https://cdn.modrinth.com/data/BkPKnLSX/9c35766b8aa503349f3254eaeae61677cec3e6f9_96.webp",
+            "downloads": 12792,
+            "updatedAt": "2026-10-10T04:28:43.800731+00:00",
+            "categories": [
+              "equipment",
+              "forge",
+              "neoforge"
+            ],
+            "originalTitle": "Avaritia Spear"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "4FNy63rk",
+            "slug": "neo-avaritia",
+            "title": "Neo: Avaritia",
+            "author": "Jorik_Smith",
+            "description": "A Neoforge version of Avaritia! With some fixes for modpacks",
+            "iconUrl": "https://cdn.modrinth.com/data/4FNy63rk/b15da5fe03ac78d75d318df0c2f1f2d3b6f42039_96.webp",
+            "downloads": 11519,
+            "updatedAt": "2024-05-05T16:03:02.053454+00:00",
+            "categories": [
+              "adventure",
+              "fabric",
+              "magic",
+              "neoforge",
+              "technology"
+            ],
+            "originalTitle": "Neo: Avaritia"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "ItF9rhBe",
+            "slug": "avaritia-furnace",
+            "title": "Avaritia Furnace",
+            "author": "realzhefop",
+            "description": "An incredible furnace in Avaritia Style",
+            "iconUrl": "https://cdn.modrinth.com/data/ItF9rhBe/icon.png",
+            "downloads": 8768,
+            "updatedAt": "2024-02-09T22:43:52.465719+00:00",
+            "categories": [
+              "forge",
+              "utility"
+            ],
+            "originalTitle": "Avaritia Furnace"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "JvLcW8hR",
+            "slug": "avaritia-armor",
+            "title": "Re:Avaritia: Armor",
+            "author": "ringoway",
+            "description": "Adds new armor levels to match the Re: Avaritia",
+            "iconUrl": "https://cdn.modrinth.com/data/JvLcW8hR/cb23f276a0885b84e0a9b4dfbe188444ffa38a83.png",
+            "downloads": 5785,
+            "updatedAt": "2026-08-28T10:07:21.910594+00:00",
+            "categories": [
+              "forge",
+              "neoforge"
+            ],
+            "originalTitle": "Re:Avaritia: Armor"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "FtdXrVIN",
+            "slug": "re-avaritia-io",
+            "title": "Re:Avaritia IO",
+            "author": "A8T1N",
+            "description": "This MOD is an unofficial one that has Reforged everything in Avaritia IO.",
+            "iconUrl": "https://cdn.modrinth.com/data/FtdXrVIN/e940dcabc92e6c92e6bd8697ec210fb4239572f3.png",
+            "downloads": 5573,
+            "updatedAt": "2025-11-23T13:39:12.080833+00:00",
+            "categories": [
+              "neoforge",
+              "technology"
+            ],
+            "originalTitle": "Re:Avaritia IO"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "UNDqhG6X",
+            "slug": "avaritia-nirvana",
+            "title": "Avaritia: Nirvana",
+            "author": "YW20120720@163.com",
+            "description": "Avaritia: Nirvana is a Minecraft mod built around the concept of \"infinity.\" Inspired by Avaritia, it offers ultimate-tier equipment, tools, and materials that transcend the limits of vanilla gameplay.",
+            "iconUrl": "https://cdn.modrinth.com/data/UNDqhG6X/fc3beba56a083f5289334318b085beb12d192a0e_96.webp",
+            "downloads": 4754,
+            "updatedAt": "2026-07-04T05:33:03.384490+00:00",
+            "categories": [
+              "cursed",
+              "decoration",
+              "equipment",
+              "game-mechanics",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "Avaritia: Nirvana"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "vmk8CtuF",
+            "slug": "avaritia-tweak",
+            "title": "Avaritia Tweak",
+            "author": "cnlimiter",
+            "description": "Recipe editor for Re:Avaritia!",
+            "iconUrl": "https://cdn.modrinth.com/data/vmk8CtuF/b8fd8be0644aa0cad570ca2a26cd3f648ede473c_96.webp",
+            "downloads": 2219,
+            "updatedAt": "2026-07-27T08:00:52.610133+00:00",
+            "categories": [
+              "forge",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "Avaritia Tweak"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "C4j56TTP",
+            "slug": "ad-astra-re-avaritia-patch",
+            "title": "Ad Astra: Re-Avaritia Patch",
+            "author": "Ainz_Bloodfallen",
+            "description": "A patch to give full infinity armor immunity to the planetary and space conditions/effects added by Ad Astra.",
+            "iconUrl": "https://cdn.modrinth.com/data/C4j56TTP/f8e820a7488af7cd8e172089f6fac38da80585d3_96.webp",
+            "downloads": 1530,
+            "updatedAt": "2026-07-26T17:01:21.135975+00:00",
+            "categories": [
+              "forge",
+              "utility"
+            ],
+            "originalTitle": "Ad Astra: Re-Avaritia Patch"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "qMwUnxho",
+            "slug": "re-avaritia-curio-infinity-elytra-patch",
+            "title": "Re-Avaritia: Curio Infinity Elytra Patch",
+            "author": "Ainz_Bloodfallen",
+            "description": "A patch to make Re-Avaritia's infinity elytra correctly work with curios back slot.",
+            "iconUrl": "https://cdn.modrinth.com/data/qMwUnxho/f8e820a7488af7cd8e172089f6fac38da80585d3_96.webp",
+            "downloads": 1236,
+            "updatedAt": "2026-07-26T17:07:27.234782+00:00",
+            "categories": [
+              "forge",
+              "utility"
+            ],
+            "originalTitle": "Re-Avaritia: Curio Infinity Elytra Patch"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "NNOA0TN1",
+            "slug": "moreemc",
+            "title": "MoreEMC-添加了EMC",
+            "author": "whrx666",
+            "description": "为整合包《等价无尽机械》预配置的 EMC 值。\nPre-configured EMC values for the modpack \"PeojectE Avaritia Create\".",
+            "iconUrl": "https://cdn.modrinth.com/data/NNOA0TN1/4c2c7b7a307f9bd25e0118678b46e66c283e393f_96.webp",
+            "downloads": 11595,
+            "updatedAt": "2026-04-26T13:13:26.844326+00:00",
+            "categories": [
+              "economy",
+              "forge",
+              "magic",
+              "management",
+              "utility"
+            ],
+            "originalTitle": "MoreEMC-添加了EMC"
+          }
+        ],
+        "total": 17,
+        "offset": 0,
+        "limit": 40,
+        "warnings": [
+          "“无尽”未提供所选来源的 MOD 项目链接，未自动关联下载。",
+          "“无尽药水”未提供所选来源的 MOD 项目链接，未自动关联下载。",
+          "“无尽地牢”未提供所选来源的 MOD 项目链接，未自动关联下载。",
+          "“无尽拔刀剑”未提供所选来源的 MOD 项目链接，未自动关联下载。",
+          "MC百科中文检索暂不可用，已保留其他已确认结果；可继续查找重试。",
+          "当前数量仅统计已确认项目，仍有相关项目待查找。"
+        ],
+        "discoveryHasMore": true,
+        "totalKind": "confirmed",
+        "cursor": "af2eda57-b5a7-487e-94ec-8bb8d15b6d6f"
+      },
+      "elapsedMs": 993
+    },
+    {
+      "query": {
+        "keyword": "无尽",
+        "kind": "mod",
+        "source": "curseforge",
+        "mcVersion": "",
+        "loader": "",
+        "sort": "relevance",
+        "offset": 0,
+        "limit": 40
+      },
+      "updates": [
+        {
+          "elapsedMs": 1,
+          "revision": 2,
+          "phase": "enriching",
+          "total": 0
+        },
+        {
+          "elapsedMs": 84,
+          "revision": 3,
+          "phase": "enriching",
+          "total": 1
+        },
+        {
+          "elapsedMs": 97,
+          "revision": 4,
+          "phase": "enriching",
+          "total": 42
+        },
+        {
+          "elapsedMs": 167,
+          "revision": 5,
+          "phase": "enriching",
+          "total": 92
+        },
+        {
+          "elapsedMs": 174,
+          "revision": 6,
+          "phase": "enriching",
+          "total": 92
+        },
+        {
+          "elapsedMs": 259,
+          "revision": 7,
+          "phase": "enriching",
+          "total": 92
+        },
+        {
+          "elapsedMs": 431,
+          "revision": 8,
+          "phase": "enriching",
+          "total": 94
+        },
+        {
+          "elapsedMs": 726,
+          "revision": 9,
+          "phase": "enriching",
+          "total": 94
+        },
+        {
+          "elapsedMs": 926,
+          "revision": 10,
+          "phase": "enriching",
+          "total": 95
+        },
+        {
+          "elapsedMs": 1154,
+          "revision": 11,
+          "phase": "enriching",
+          "total": 96
+        },
+        {
+          "elapsedMs": 1154,
+          "revision": 12,
+          "phase": "ready",
+          "total": 96
+        }
+      ],
+      "snapshot": {
+        "requestId": "live-3",
+        "revision": 12,
+        "query": {
+          "keyword": "无尽",
+          "kind": "mod",
+          "source": "curseforge",
+          "sort": "relevance",
+          "offset": 0,
+          "limit": 40
+        },
+        "phase": "ready",
+        "items": [
+          {
+            "source": "curseforge",
+            "projectId": "261348",
+            "slug": "avaritia-1-10",
+            "title": "无尽贪婪 1.1x | Avaritia 1.1x",
+            "author": "covers1624",
+            "description": "A parody mod to end all mods",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/89/671/256/256/636233050095191830.png",
+            "downloads": 33860176,
+            "updatedAt": "2024-01-19T10:27:55.27Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "Avaritia 1.1x"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "233785",
+            "slug": "avaritia",
+            "title": "无尽贪婪 | Avaritia",
+            "author": "Spiteful_Fox",
+            "description": "A parody mod to end all mods",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/22/771/256/256/635747450636713490.png",
+            "downloads": 11222859,
+            "updatedAt": "2018-01-12T23:23:10.977Z",
+            "categories": [
+              "Magic",
+              "Food",
+              "Armor, Tools, and Weapons",
+              "Energy"
+            ],
+            "originalTitle": "Avaritia"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "623969",
+            "slug": "re-avaritia",
+            "title": "无尽贪婪：重生 | Re:Avaritia[Forge/Fabric/Neoforge]",
+            "author": "cnlimiter",
+            "description": "A reforged version of Avaritia.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1094/963/256/256/638639860775632975.jpg",
+            "downloads": 1879209,
+            "updatedAt": "2026-10-10T07:58:41.187Z",
+            "categories": [
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Re:Avaritia[Forge/Fabric/Neoforge]"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "550228",
+            "slug": "infinite-dungeons",
+            "title": "无尽地牢 | Infinite Dungeons",
+            "author": "mcrobertx22",
+            "description": "Spawn new dungeons to conquer.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/459/306/256/256/637735099550577282.png",
+            "downloads": 950814,
+            "updatedAt": "2024-07-03T17:33:11.607Z",
+            "categories": [
+              "Structures",
+              "Adventure and RPG"
+            ],
+            "originalTitle": "Infinite Dungeons"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "624491",
+            "slug": "avaritia-endless",
+            "title": "无尽贪婪·伪 | Avaritia Endless",
+            "author": "yuoft0",
+            "description": "Endless greed · fake",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/548/705/256/256/637884743283315095.png",
+            "downloads": 410248,
+            "updatedAt": "2026-10-10T09:27:07.127Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "Food"
+            ],
+            "originalTitle": "Avaritia Endless"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1289374",
+            "slug": "avaritias-delight",
+            "title": "无尽乐事 | Avaritia's Delight",
+            "author": "IAFEnvoy",
+            "description": "Add avaritia style food base on farmer's delight.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1320/559/256/256/638858614315283147.png",
+            "downloads": 36752,
+            "updatedAt": "2026-06-30T12:42:33.233Z",
+            "categories": [
+              "Utility & QoL",
+              "Food",
+              "Farming",
+              "Storage"
+            ],
+            "originalTitle": "Avaritia's Delight"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1156697",
+            "slug": "endlesssword",
+            "title": "无尽拔刀剑 | EndlessSword",
+            "author": "yuoft0",
+            "description": "Endless greed and sword pulling attachments.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1133/645/256/256/638694061276632530.png",
+            "downloads": 7763,
+            "updatedAt": "2026-08-22T01:17:57.153Z",
+            "categories": [
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "EndlessSword"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1213109",
+            "slug": "wjys",
+            "title": "无尽药水 | WJYS",
+            "author": "yantuo_",
+            "description": "Infinite Potions",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1191/901/256/256/638766905672038812.jpg",
+            "downloads": 264,
+            "updatedAt": "2025-07-31T18:33:38.743Z",
+            "categories": [
+              "Food",
+              "MCreator",
+              "Adventure and RPG"
+            ],
+            "originalTitle": "WJYS"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "248873",
+            "slug": "avaritiaddons",
+            "title": "Avaritiaddons",
+            "author": "WanionCane",
+            "description": "A Mod that tries to expand the meaning of Infinity!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/47/689/256/256/636068532851030450.png",
+            "downloads": 5160374,
+            "updatedAt": "2023-09-09T16:25:25.683Z",
+            "categories": [
+              "Addons",
+              "Storage"
+            ],
+            "originalTitle": "Avaritiaddons"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "286652",
+            "slug": "avaritia-tweaks",
+            "title": "Avaritia Tweaks",
+            "author": "Jacky",
+            "description": "Enhances Avaritia to another level!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/139/927/256/256/636531770395692735.png",
+            "downloads": 4805228,
+            "updatedAt": "2023-05-07T02:57:39.547Z",
+            "categories": [
+              "Addons",
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia Tweaks"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "269583",
+            "slug": "refined-avaritia",
+            "title": "Refined Avaritia",
+            "author": "PricelessKoala",
+            "description": "A mod that brings Refined Storage autocrafting to Avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/102/14/256/256/636327328099042365.png",
+            "downloads": 4783950,
+            "updatedAt": "2019-08-02T19:02:47.177Z",
+            "categories": [
+              "Addons",
+              "Technology"
+            ],
+            "originalTitle": "Refined Avaritia"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1083158",
+            "slug": "avaritianeo",
+            "title": "AvaritiaNeo",
+            "author": "AquaThree",
+            "description": "​This project is an unofficial remaster mod for Avaritia.​",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1585/80/256/256/639025858317580427.png",
+            "downloads": 2675989,
+            "updatedAt": "2026-07-16T05:54:27.42Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "Storage",
+              "Food"
+            ],
+            "originalTitle": "AvaritiaNeo"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "308383",
+            "slug": "packagedavaritia",
+            "title": "PackagedAvaritia",
+            "author": "TheLMiffy1111",
+            "description": "Avaritia Autocrafting with PackagedAuto",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1366/227/256/256/638887204042515983.png",
+            "downloads": 2188346,
+            "updatedAt": "2025-09-09T20:25:41.683Z",
+            "categories": [
+              "Automation",
+              "Addons",
+              "Applied Energistics 2"
+            ],
+            "originalTitle": "PackagedAvaritia"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "312149",
+            "slug": "avaritia-io",
+            "title": "Avaritia IO",
+            "author": "tfarecnim",
+            "description": "Adds some items that bridge the gap between Ender IO and Avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/187/237/256/256/636838220281305559.png",
+            "downloads": 2043376,
+            "updatedAt": "2019-10-02T12:37:27.17Z",
+            "categories": [
+              "Technology",
+              "Addons"
+            ],
+            "originalTitle": "Avaritia IO"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "301144",
+            "slug": "avaritia-recipe-generator",
+            "title": "Avaritia Recipe Generator",
+            "author": "TechDweebPlays",
+            "description": "UI to automatically generate Crafttweaker scripts for the Avaritia 9x9 and Vanilla 3x3 workbenches",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/167/263/256/256/636702471063169879.png",
+            "downloads": 1814316,
+            "updatedAt": "2018-08-20T23:58:10.75Z",
+            "categories": [
+              "Miscellaneous",
+              "Server Utility"
+            ],
+            "originalTitle": "Avaritia Recipe Generator"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "271236",
+            "slug": "more-avaritia",
+            "title": "More Avaritia",
+            "author": "chocolate_milkk__",
+            "description": "Adds Avaritia recipes to creative items from other mods. Makes Avaritia much more useful!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/106/514/256/256/636359996883667335.jpeg",
+            "downloads": 1282185,
+            "updatedAt": "2022-11-01T18:10:13.74Z",
+            "categories": [
+              "Addons",
+              "Technology"
+            ],
+            "originalTitle": "More Avaritia"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "430116",
+            "slug": "avaritia-lite",
+            "title": "Avaritia Lite",
+            "author": "NotTouchedGrass",
+            "description": "Avaritia for newest version (but with bugs)",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1005/542/256/256/638526958095537201.png",
+            "downloads": 1115941,
+            "updatedAt": "2026-01-30T09:32:07.56Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "MCreator"
+            ],
+            "originalTitle": "Avaritia Lite"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "261519",
+            "slug": "avaritia-additions",
+            "title": "Avaritia Additions",
+            "author": "abused_master",
+            "description": "Addon for Avaritia 1.10 adding in most of the items/blocks that arnt available in 1.10.2",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/89/926/256/256/636235215447131922.png",
+            "downloads": 690160,
+            "updatedAt": "2017-04-12T04:17:25.027Z",
+            "categories": [
+              "Cosmetic",
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia Additions"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "416599",
+            "slug": "avaritia-furnace",
+            "title": "Avaritia Furnace",
+            "author": "inzhefop",
+            "description": "An incredible furnace in the style of the Avaritia mod.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1997/744/256/256/639229045193046359.png",
+            "downloads": 601726,
+            "updatedAt": "2026-10-11T19:11:24.57Z",
+            "categories": [
+              "Miscellaneous",
+              "MCreator"
+            ],
+            "originalTitle": "Avaritia Furnace"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1327524",
+            "slug": "avaritia-expand",
+            "title": "Avaritia : Expand",
+            "author": "cu6",
+            "description": "Added more items to Re:Avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1401/271/256/256/638908238824729720.png",
+            "downloads": 400457,
+            "updatedAt": "2026-03-18T19:47:47.367Z",
+            "categories": [
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia : Expand"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "891434",
+            "slug": "avaritia-universal",
+            "title": "Avaritia Universal",
+            "author": "Rembyyyy",
+            "description": "This mod adds very strong armor and tools",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/853/536/256/256/638257189816565032.png",
+            "downloads": 314013,
+            "updatedAt": "2026-09-09T08:18:52.937Z",
+            "categories": [
+              "Adventure and RPG",
+              "Armor, Tools, and Weapons",
+              "Food",
+              "Magic",
+              "Cosmetic"
+            ],
+            "originalTitle": "Avaritia Universal"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1019865",
+            "slug": "avaritia-item",
+            "title": "Avaritia Item",
+            "author": "i_xiaotian",
+            "description": "a mod help you create items with effects like avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/997/555/256/256/638515203692742638.png",
+            "downloads": 260314,
+            "updatedAt": "2024-05-19T06:39:02.203Z",
+            "categories": [
+              "Server Utility",
+              "CraftTweaker"
+            ],
+            "originalTitle": "Avaritia Item"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1300008",
+            "slug": "asgardandelion-for-botania",
+            "title": "Avaritia Asgardandelions For Botania",
+            "author": "Beecube31",
+            "description": "Good old Asgardandelions (and a few more xtreme ones) from 1.12.2 and 1.7.10 modpacks is going back to new versions!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1448/381/256/256/638939725352708058.png",
+            "downloads": 155642,
+            "updatedAt": "2025-09-20T10:04:57.28Z",
+            "categories": [
+              "Addons",
+              "Utility & QoL"
+            ],
+            "originalTitle": "Avaritia Asgardandelions For Botania"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1165010",
+            "slug": "avaritia-1-1x-unofficial",
+            "title": "Avaritia 1.1x Unofficial Extended Life",
+            "author": "xXjudeXx",
+            "description": "This is Unofficial Extended Life for Avaritia. Where you will find many Bug Fixes and Changes to keep this project Alive.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1142/718/256/256/638707398997158910_animated.gif",
+            "downloads": 137486,
+            "updatedAt": "2026-04-17T12:17:40.7Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "Avaritia 1.1x Unofficial Extended Life"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1347675",
+            "slug": "avaritia-integration",
+            "title": "Avaritia Integration",
+            "author": "cnlimiter",
+            "description": "This mod add capability between Re:Avaritia and many other mods.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1442/807/256/256/638935514499997610.jpg",
+            "downloads": 88938,
+            "updatedAt": "2026-09-07T15:30:21.42Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "Adventure and RPG"
+            ],
+            "originalTitle": "Avaritia Integration"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1028302",
+            "slug": "avaritia-lite-extended",
+            "title": "Avaritia Extended",
+            "author": "NotTouchedGrass",
+            "description": "Addon for Avaritia that adds more stuffs",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1005/854/256/256/638527516924481764.png",
+            "downloads": 85438,
+            "updatedAt": "2026-02-11T21:30:32.797Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "Addons"
+            ],
+            "originalTitle": "Avaritia Extended"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "913129",
+            "slug": "avaritia-1-1x-kedition",
+            "title": "Avaritia 1.1x Kedition",
+            "author": "LordPhantom2805",
+            "description": "add some integration from avaritia 1.0",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/877/597/256/256/638303096535392256.png",
+            "downloads": 63878,
+            "updatedAt": "2026-04-04T07:10:56.973Z",
+            "categories": [
+              "Miscellaneous"
+            ],
+            "originalTitle": "Avaritia 1.1x Kedition"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "621549",
+            "slug": "avaritia1-2x",
+            "title": "Avaritia1.2x",
+            "author": "Zkev1",
+            "description": "Infinity, OP Armor, Tools.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/544/232/256/256/637875693467717982.png",
+            "downloads": 47983,
+            "updatedAt": "2025-09-18T15:43:08.043Z",
+            "categories": [
+              "Miscellaneous",
+              "Utility & QoL",
+              "Food",
+              "Magic",
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia1.2x"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "933135",
+            "slug": "avaritia-continued",
+            "title": "Avaritia Continued",
+            "author": "Ocle_42",
+            "description": "Unofficial sequel to the Avaritia mod",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/900/237/256/256/638346670534692367.png",
+            "downloads": 46461,
+            "updatedAt": "2023-11-30T07:36:05.98Z",
+            "categories": [
+              "Armor, Tools, and Weapons",
+              "MCreator"
+            ],
+            "originalTitle": "Avaritia Continued"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "652032",
+            "slug": "avaritia-unofficial",
+            "title": "Avaritia Remastered",
+            "author": "bern1mi",
+            "description": "A Remastered version of Avaritia that add new singularities/items for end game to expand the meaning of Infinity!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/581/21/256/256/637945540171109571.png",
+            "downloads": 38518,
+            "updatedAt": "2023-04-23T14:55:01.147Z",
+            "categories": [
+              "MCreator",
+              "Adventure and RPG",
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "Avaritia Remastered"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1350879",
+            "slug": "avaritia-tweak",
+            "title": "Avaritia Tweak",
+            "author": "cnlimiter",
+            "description": "Recipe editor for Re:Avaritia!",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1449/404/256/256/638940301921940673.png",
+            "downloads": 32836,
+            "updatedAt": "2026-08-20T01:36:56.263Z",
+            "categories": [
+              "Utility & QoL",
+              "CraftTweaker",
+              "KubeJS"
+            ],
+            "originalTitle": "Avaritia Tweak"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1335253",
+            "slug": "avariria-progression-expansion",
+            "title": "Create: Avaritia Progression Expansion",
+            "author": "TheProKnightGamer",
+            "description": "Adds a annoying yet necessary ingredient to the Avaritia mod.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1535/518/256/256/638996937235996751.png",
+            "downloads": 21071,
+            "updatedAt": "2026-10-10T16:09:10.47Z",
+            "categories": [
+              "Addons",
+              "Create"
+            ],
+            "originalTitle": "Create: Avaritia Progression Expansion"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1026516",
+            "slug": "avaritiareborn",
+            "title": "AvaritiaReborn",
+            "author": "IAFEnvoy",
+            "description": "Avaritia Mod for Fabric",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1004/9/256/256/638524901605535039.png",
+            "downloads": 11933,
+            "updatedAt": "2024-07-11T04:13:50.08Z",
+            "categories": [
+              "Utility & QoL"
+            ],
+            "originalTitle": "AvaritiaReborn"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1296447",
+            "slug": "re-avaritia-the-end-addon-forge",
+            "title": "Re:Avaritia THE END Addon",
+            "author": "Love_Vivi",
+            "description": " Adds the best endgame items. All items are of the highest difficulty and take a lot of time to craft. These items give advantageous effects to the user.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1334/900/256/256/638867802404872612.png",
+            "downloads": 11673,
+            "updatedAt": "2025-10-04T04:41:03.397Z",
+            "categories": [
+              "Addons"
+            ],
+            "originalTitle": "Re:Avaritia THE END Addon"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1388464",
+            "slug": "re-avaritia-io-neo",
+            "title": "Avaritia IO [Re/Neo]",
+            "author": "A8T1N",
+            "description": "This MOD is an unofficial one that has Reforged everything in Avaritia IO.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1528/81/256/256/638992444470481042.png",
+            "downloads": 10025,
+            "updatedAt": "2025-11-23T13:20:02.413Z",
+            "categories": [
+              "Addons",
+              "Technology"
+            ],
+            "originalTitle": "Avaritia IO [Re/Neo]"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1412675",
+            "slug": "re-avaritia-armor",
+            "title": "Re:Avaritia: Armor",
+            "author": "ringoway",
+            "description": "Adds new armor levels to match the Re: Avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1577/415/256/256/639021982524897754.png",
+            "downloads": 10025,
+            "updatedAt": "2026-08-28T10:12:10.223Z",
+            "categories": [
+              "Addons"
+            ],
+            "originalTitle": "Re:Avaritia: Armor"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1218906",
+            "slug": "avaritia-plus",
+            "title": "avaritia plus",
+            "author": "kaioss_21",
+            "description": "A mod that add tools armor and gem",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1197/824/256/256/638773977375919472.jpg",
+            "downloads": 8542,
+            "updatedAt": "2025-03-14T21:47:14.397Z",
+            "categories": [
+              "Armor, Tools, and Weapons"
+            ],
+            "originalTitle": "avaritia plus"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1174803",
+            "slug": "avaritia-1-16-5-cosmic-particle-fix",
+            "title": "Avaritia cosmic particle fix",
+            "author": "grave_knuth60",
+            "description": "This mod fixes a cosmic particle rendering bug in Avaritia",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1151/974/256/256/638720080017824438.png",
+            "downloads": 7984,
+            "updatedAt": "2025-10-25T15:04:38.58Z",
+            "categories": [
+              "Bug Fixes"
+            ],
+            "originalTitle": "Avaritia cosmic particle fix"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1241573",
+            "slug": "more-blocks-for-avaritia-universal",
+            "title": "More Blocks for Avaritia Universal",
+            "author": "N1NJ4",
+            "description": "More Blocks for Avaritia Universal (1.2X)",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1222/537/256/256/638800924778209181.png",
+            "downloads": 7600,
+            "updatedAt": "2026-06-06T14:57:10.417Z",
+            "categories": [
+              "Ores and Resources",
+              "Armor, Tools, and Weapons",
+              "MCreator",
+              "Storage"
+            ],
+            "originalTitle": "More Blocks for Avaritia Universal"
+          },
+          {
+            "source": "curseforge",
+            "projectId": "1520918",
+            "slug": "ad-astra-re-avaritia-patch",
+            "title": "Ad Astra: Re-Avaritia Patch",
+            "author": "Ainz_Bloodfallen",
+            "description": "A patch to give full infinity armor immunity to the planetary and space conditions/effects added by Ad Astra.",
+            "iconUrl": "https://media.forgecdn.net/avatars/thumbnails/1768/464/256/256/639123880333808098.png",
+            "downloads": 5536,
+            "updatedAt": "2026-09-08T15:29:39.497Z",
+            "categories": [
+              "Addons"
+            ],
+            "originalTitle": "Ad Astra: Re-Avaritia Patch"
+          }
+        ],
+        "total": 96,
+        "offset": 0,
+        "limit": 40,
+        "warnings": [
+          "“无尽”未提供所选来源的 MOD 项目链接，未自动关联下载。",
+          "MC百科中文检索暂不可用，已保留其他已确认结果；可继续查找重试。",
+          "当前数量仅统计已确认项目，仍有相关项目待查找。"
+        ],
+        "discoveryHasMore": true,
+        "totalKind": "confirmed",
+        "cursor": "f00ed529-11bd-4c65-bf85-f076c139617e"
+      },
+      "elapsedMs": 1154
+    },
+    {
+      "query": {
+        "keyword": "机械",
+        "kind": "mod",
+        "source": "modrinth",
+        "mcVersion": "",
+        "loader": "",
+        "sort": "relevance",
+        "offset": 0,
+        "limit": 40
+      },
+      "updates": [
+        {
+          "elapsedMs": 1,
+          "revision": 2,
+          "phase": "enriching",
+          "total": 0
+        },
+        {
+          "elapsedMs": 237,
+          "revision": 3,
+          "phase": "enriching",
+          "total": 1
+        },
+        {
+          "elapsedMs": 269,
+          "revision": 4,
+          "phase": "enriching",
+          "total": 7
+        },
+        {
+          "elapsedMs": 437,
+          "revision": 5,
+          "phase": "enriching",
+          "total": 56
+        },
+        {
+          "elapsedMs": 594,
+          "revision": 6,
+          "phase": "enriching",
+          "total": 56
+        },
+        {
+          "elapsedMs": 794,
+          "revision": 7,
+          "phase": "enriching",
+          "total": 60
+        },
+        {
+          "elapsedMs": 1036,
+          "revision": 8,
+          "phase": "enriching",
+          "total": 64
+        },
+        {
+          "elapsedMs": 1069,
+          "revision": 9,
+          "phase": "enriching",
+          "total": 65
+        },
+        {
+          "elapsedMs": 1104,
+          "revision": 10,
+          "phase": "enriching",
+          "total": 115
+        },
+        {
+          "elapsedMs": 1593,
+          "revision": 11,
+          "phase": "enriching",
+          "total": 116
+        },
+        {
+          "elapsedMs": 1679,
+          "revision": 12,
+          "phase": "enriching",
+          "total": 117
+        },
+        {
+          "elapsedMs": 1679,
+          "revision": 13,
+          "phase": "ready",
+          "total": 117
+        }
+      ],
+      "snapshot": {
+        "requestId": "live-4",
+        "revision": 13,
+        "query": {
+          "keyword": "机械",
+          "kind": "mod",
+          "source": "modrinth",
+          "sort": "relevance",
+          "offset": 0,
+          "limit": 40
+        },
+        "phase": "ready",
+        "items": [
+          {
+            "source": "modrinth",
+            "projectId": "LNytGWDc",
+            "slug": "create",
+            "title": "机械动力 | Create",
+            "author": "simibubi",
+            "description": "Aesthetic Technology that empowers the Player",
+            "iconUrl": "https://cdn.modrinth.com/data/LNytGWDc/61d716699bcf1ec42ed4926a9e1c7311be6087e2_96.webp",
+            "downloads": 27523320,
+            "updatedAt": "2026-04-21T22:19:59.671226+00:00",
+            "categories": [
+              "decoration",
+              "forge",
+              "neoforge",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "kU1G12Nn",
+            "slug": "createaddition",
+            "title": "机械动力：附加 | Create Crafts & Additions",
+            "author": "mrh0",
+            "description": "Create Crafts & Additions extends Create and acts as a bridge between electricity and kinetic energy",
+            "iconUrl": "https://cdn.modrinth.com/data/kU1G12Nn/d8d1ec226747a800ba175f70ad00a80f37047cb6_96.webp",
+            "downloads": 11133663,
+            "updatedAt": "2026-10-01T17:49:19.395097+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "food",
+              "forge",
+              "neoforge",
+              "quilt",
+              "storage",
+              "technology",
+              "transportation",
+              "utility"
+            ],
+            "originalTitle": "Create Crafts & Additions"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "Xbc0uyRg",
+            "slug": "create-fabric",
+            "title": "机械动力（fabric） | Create Fabric",
+            "author": "tropheusj",
+            "description": "Building Tools and Aesthetic Technology",
+            "iconUrl": "https://cdn.modrinth.com/data/Xbc0uyRg/bb29eb217b1fd159579409b06ec7b976afd30b14_96.webp",
+            "downloads": 10778411,
+            "updatedAt": "2025-12-02T17:58:00.305396+00:00",
+            "categories": [
+              "decoration",
+              "equipment",
+              "fabric",
+              "quilt",
+              "technology"
+            ],
+            "originalTitle": "Create Fabric"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "aq9qUUQG",
+            "slug": "create-stuff-additions",
+            "title": "机械动力附属 | Create Stuff 'N Additions",
+            "author": "furti-two",
+            "description": "🧲 Dominate your environment with Create technology",
+            "iconUrl": "https://cdn.modrinth.com/data/aq9qUUQG/5bdb5c6598670bae17d6295757066d43c7364d61_96.webp",
+            "downloads": 2729605,
+            "updatedAt": "2026-08-17T21:09:14.710308+00:00",
+            "categories": [
+              "equipment",
+              "forge",
+              "game-mechanics",
+              "neoforge",
+              "transportation",
+              "utility"
+            ],
+            "originalTitle": "Create Stuff 'N Additions"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "OeGdeWEj",
+            "slug": "create-wizardry",
+            "title": "机械动力：巫术 | Create: Wizardry",
+            "author": "thetruezeraora",
+            "description": "This is an addon mod for Create adding enhanced compatibility with Iron's Spells and Spellbooks. Happy spellcasting!",
+            "iconUrl": "https://cdn.modrinth.com/data/OeGdeWEj/c3a7a57658b5fc2a53709662ed6a39b3e6fcedc9_96.webp",
+            "downloads": 448132,
+            "updatedAt": "2026-06-28T14:29:09.024402+00:00",
+            "categories": [
+              "forge",
+              "magic",
+              "neoforge",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create: Wizardry"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "5lpsZoRi",
+            "slug": "flywheel",
+            "title": "机械动力前置 | Flywheel (Legacy)",
+            "author": "jozufozu",
+            "description": "An accessory rendering engine for block entities and entities.",
+            "iconUrl": "https://cdn.modrinth.com/data/5lpsZoRi/1c3d6bf00107070bf0d74cb0283ccfc3c34fd821_96.webp",
+            "downloads": 267034,
+            "updatedAt": "2023-01-15T21:00:51.391570+00:00",
+            "categories": [
+              "forge",
+              "library",
+              "utility"
+            ],
+            "originalTitle": "Flywheel (Legacy)"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "Y90FLPCZ",
+            "slug": "creates-delight",
+            "title": "机械动力乐事 | Create's Delight",
+            "author": "phoupraw",
+            "description": "Create-style food processings and variant foods.",
+            "iconUrl": "https://cdn.modrinth.com/data/Y90FLPCZ/f50e847bf173ff423c43a384ca8debc82c0ccccf.png",
+            "downloads": 11323,
+            "updatedAt": "2023-04-09T18:39:57.039664+00:00",
+            "categories": [
+              "fabric",
+              "food"
+            ],
+            "originalTitle": "Create's Delight"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "aRG3E1dr",
+            "slug": "mechanical-tech",
+            "title": "机械科技 | Mechanical Tech",
+            "author": "Eng1N33R",
+            "description": "Wind, water and muscle! Primitive vanilla-esque technology without electricity or magic.",
+            "iconUrl": "https://cdn.modrinth.com/data/aRG3E1dr/11acf68c956c3ed11c9da94a863f216745a51e99_96.webp",
+            "downloads": 550,
+            "updatedAt": "2020-12-11T07:21:35.393036+00:00",
+            "categories": [
+              "fabric",
+              "technology"
+            ],
+            "originalTitle": "Mechanical Tech"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "Ce6I4WUE",
+            "slug": "mekanism",
+            "title": "通用机械 | Mekanism",
+            "author": "pupnewfster",
+            "description": "High-tech machinery, powerful energy generation, fancy gadgets and more. Now on Modrinth!",
+            "iconUrl": "https://cdn.modrinth.com/data/Ce6I4WUE/ea185eb1300a64867f89101d4798e71a54ef6bed_96.webp",
+            "downloads": 3844016,
+            "updatedAt": "2026-04-10T10:30:23.231981+00:00",
+            "categories": [
+              "equipment",
+              "forge",
+              "neoforge",
+              "storage",
+              "technology",
+              "worldgen"
+            ],
+            "originalTitle": "Mekanism"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "UW0IjVT0",
+            "slug": "create-biotech",
+            "title": "Create: Biotech - 机械动力：生物科技",
+            "author": "Nobodiiiii",
+            "description": "A Create addon that brings living creatures into the factory. | 一个把活体生物接进工厂里的机械动力附属模组。",
+            "iconUrl": "https://cdn.modrinth.com/data/UW0IjVT0/88c5d5dfc790f5650867762d1d637ebb46854d94_96.webp",
+            "downloads": 93609,
+            "updatedAt": "2026-09-25T15:28:57.303379+00:00",
+            "categories": [
+              "forge",
+              "mobs",
+              "neoforge",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create: Biotech - 机械动力：生物科技"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "wCFy2Fr8",
+            "slug": "machine-lifeform",
+            "title": "Machine Lifeform机械生命",
+            "author": "Entropy777",
+            "description": "\"You will be update\"--Infinite evolution of Machine Lifeform.",
+            "iconUrl": "https://cdn.modrinth.com/data/wCFy2Fr8/1d97fd3816e6b743831f912ff835d7b5e0c28d66.png",
+            "downloads": 940,
+            "updatedAt": "2025-06-26T08:32:43.427092+00:00",
+            "categories": [
+              "adventure",
+              "forge",
+              "mobs",
+              "neoforge"
+            ],
+            "originalTitle": "Machine Lifeform机械生命"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "ZzjhlDgM",
+            "slug": "create-steam-n-rails",
+            "title": "Create: Steam 'n' Rails",
+            "author": "IThundxr",
+            "description": "Adding depth to Create's rail network & steam system",
+            "iconUrl": "https://cdn.modrinth.com/data/ZzjhlDgM/efac0150d612ab52768620dd53a7e8c27ce2fb0d_96.webp",
+            "downloads": 13361575,
+            "updatedAt": "2026-08-27T09:52:42.617773+00:00",
+            "categories": [
+              "adventure",
+              "decoration",
+              "fabric",
+              "forge",
+              "neoforge",
+              "quilt",
+              "technology",
+              "transportation",
+              "utility"
+            ],
+            "originalTitle": "Create: Steam 'n' Rails"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "UT2M39wf",
+            "slug": "copycats",
+            "title": "Create: Copycats+",
+            "author": "Lysine",
+            "description": "All the copycats you've ever wanted, combined into a single mod!",
+            "iconUrl": "https://cdn.modrinth.com/data/UT2M39wf/17960b56556c644249686a22172eda0924f8bbe0_96.webp",
+            "downloads": 10760660,
+            "updatedAt": "2026-09-06T13:50:50.337605+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "forge",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "Create: Copycats+"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "oWaK0Q19",
+            "slug": "create-aeronautics",
+            "title": "Create Aeronautics",
+            "author": "ryanhcode",
+            "description": "Build anything from airships to planes and cars!",
+            "iconUrl": "https://cdn.modrinth.com/data/oWaK0Q19/f66b5589924884ffd81acb27f3ccb775867a962e_96.webp",
+            "downloads": 9003649,
+            "updatedAt": "2026-08-29T18:45:10.016528+00:00",
+            "categories": [
+              "adventure",
+              "decoration",
+              "game-mechanics",
+              "neoforge",
+              "technology",
+              "transportation"
+            ],
+            "originalTitle": "Create Aeronautics"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "GWp4jCJj",
+            "slug": "create-big-cannons",
+            "title": "Create Big Cannons",
+            "author": "realRobotix",
+            "description": "A Minecraft mod for building large cannons with the Create mod.",
+            "iconUrl": "https://cdn.modrinth.com/data/GWp4jCJj/39d228c7abac7bb782db7d3f203a24beb164455f_96.webp",
+            "downloads": 7960865,
+            "updatedAt": "2026-06-22T22:26:11.297547+00:00",
+            "categories": [
+              "adventure",
+              "equipment",
+              "fabric",
+              "forge",
+              "game-mechanics",
+              "neoforge",
+              "quilt",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create Big Cannons"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "sMvUb4Rb",
+            "slug": "create-deco",
+            "title": "Create Deco",
+            "author": "talrey",
+            "description": "Industrial decoration themed around the aesthetics of the Create mod.",
+            "iconUrl": "https://cdn.modrinth.com/data/sMvUb4Rb/b60e1330b10bd1d7b1f2c0b7337a25f73b0eb555_96.webp",
+            "downloads": 7809171,
+            "updatedAt": "2026-04-18T03:49:59.780319+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "forge",
+              "neoforge",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create Deco"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "GmjmRQ0A",
+            "slug": "slice-and-dice",
+            "title": "Create Slice & Dice",
+            "author": "possible_triangle",
+            "description": "Making automation for Farmers Delight more sensible",
+            "iconUrl": "https://cdn.modrinth.com/data/GmjmRQ0A/d2d4a1a5cfc7f1ececf50dc977021c62654ccdc8_96.webp",
+            "downloads": 7661661,
+            "updatedAt": "2026-09-20T09:52:46.095806+00:00",
+            "categories": [
+              "fabric",
+              "food",
+              "forge",
+              "neoforge",
+              "technology"
+            ],
+            "originalTitle": "Create Slice & Dice"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "Vg5TIO6d",
+            "slug": "create-connected",
+            "title": "Create: Connected",
+            "author": "Lysine",
+            "description": "QoL blocks that you wish existed in Create - Highly configurable, disable what you don't need",
+            "iconUrl": "https://cdn.modrinth.com/data/Vg5TIO6d/2e69151b9664c7f03f0568c5fdf1d44aa98db452_96.webp",
+            "downloads": 7210010,
+            "updatedAt": "2026-08-31T12:36:37.840468+00:00",
+            "categories": [
+              "decoration",
+              "forge",
+              "neoforge",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create: Connected"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "ZM3tt6p1",
+            "slug": "create-diesel-generators",
+            "title": "Create: Diesel Generators",
+            "author": "GeorgeVI",
+            "description": "A Create addon that adds compact diesel generators (engines), simple industrial features and crude oil refinery",
+            "iconUrl": "https://cdn.modrinth.com/data/ZM3tt6p1/53719ad7b62929d86b6b02bd8f54d15da0217885_96.webp",
+            "downloads": 6176430,
+            "updatedAt": "2026-07-30T17:45:22.322468+00:00",
+            "categories": [
+              "forge",
+              "neoforge",
+              "technology"
+            ],
+            "originalTitle": "Create: Diesel Generators"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "JWGBpFUP",
+            "slug": "create-enchantment-industry",
+            "title": "Create: Enchantment Industry",
+            "author": "MarbleGateKeeper",
+            "description": "Automatic Enchanting, with Create",
+            "iconUrl": "https://cdn.modrinth.com/data/JWGBpFUP/9571cd419c5eee9f2017f0b6f7cf6e81c665723b_96.webp",
+            "downloads": 6028560,
+            "updatedAt": "2026-10-09T04:22:16.261668+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "neoforge",
+              "storage",
+              "technology"
+            ],
+            "originalTitle": "Create: Enchantment Industry"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "FTeXqI9v",
+            "slug": "create-new-age",
+            "title": "Create: New Age",
+            "author": "nullBlade",
+            "description": "Create: New Age is an addon for the Create mod that adds integration with electricity.",
+            "iconUrl": "https://cdn.modrinth.com/data/FTeXqI9v/1ac4b41d0ddd54fd432fd61edfa70c2d66ccf4ae_96.webp",
+            "downloads": 5602910,
+            "updatedAt": "2026-06-08T07:57:09.605943+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "neoforge",
+              "technology"
+            ],
+            "originalTitle": "Create: New Age"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "btq68HMO",
+            "slug": "create-central-kitchen",
+            "title": "Create: Central Kitchen",
+            "author": "MarbleGateKeeper",
+            "description": "Offering more tools and methods to automate food processing of other mod in Create.",
+            "iconUrl": "https://cdn.modrinth.com/data/btq68HMO/d5c04195d567b0d7314bfadd993eb1ba44dd9c38_96.webp",
+            "downloads": 5504641,
+            "updatedAt": "2026-10-09T04:14:40.488911+00:00",
+            "categories": [
+              "food",
+              "forge",
+              "neoforge",
+              "technology"
+            ],
+            "originalTitle": "Create: Central Kitchen"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "gJ5afkVv",
+            "slug": "bellsandwhistles",
+            "title": "Create: Bells & Whistles",
+            "author": "a0ax",
+            "description": "Additions and adornments for the modern Create engineer. Available for both Fabric & Forge!",
+            "iconUrl": "https://cdn.modrinth.com/data/gJ5afkVv/56ec1e3caca241855a19b65ad391aa20a79259f5_96.webp",
+            "downloads": 4949341,
+            "updatedAt": "2025-03-13T14:13:00.225043+00:00",
+            "categories": [
+              "decoration",
+              "equipment",
+              "fabric",
+              "forge",
+              "neoforge",
+              "quilt",
+              "technology",
+              "transportation",
+              "utility"
+            ],
+            "originalTitle": "Create: Bells & Whistles"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "x49wilh8",
+            "slug": "create-design-n-decor",
+            "title": "Create: Design n' Decor",
+            "author": "LopyLuna",
+            "description": "a create addon that adds decor blocks to spice up your factory!",
+            "iconUrl": "https://cdn.modrinth.com/data/x49wilh8/c52e15692d7911bd7a74413ca97d4e98ece0cefb_96.webp",
+            "downloads": 4787134,
+            "updatedAt": "2026-05-28T00:28:08.071744+00:00",
+            "categories": [
+              "decoration",
+              "economy",
+              "fabric",
+              "forge",
+              "neoforge",
+              "quilt",
+              "storage",
+              "utility"
+            ],
+            "originalTitle": "Create: Design n' Decor"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "r4Knci2k",
+            "slug": "interiors",
+            "title": "Create: Interiors",
+            "author": "a0ax",
+            "description": "A complement to the Create mod that adds new furniture.",
+            "iconUrl": "https://cdn.modrinth.com/data/r4Knci2k/d0dd0604c63c68eaaf9ab5aa0a7166e9904412a8_96.webp",
+            "downloads": 4753655,
+            "updatedAt": "2026-01-29T02:53:20.966212+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "forge",
+              "neoforge",
+              "quilt",
+              "technology",
+              "transportation",
+              "utility"
+            ],
+            "originalTitle": "Create: Interiors"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "ndHYMY2K",
+            "slug": "iris-flw-compat",
+            "title": "Iris & Oculus Flywheel Compat",
+            "author": "leon-o",
+            "description": "Enable Flywheel's optimizations when using shaderpacks.",
+            "iconUrl": "https://cdn.modrinth.com/data/ndHYMY2K/7d3794f7fdc4974ce4386bfc3e0ec27140a33de5.png",
+            "downloads": 4422011,
+            "updatedAt": "2026-05-06T13:06:20.354757+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "neoforge",
+              "optimization"
+            ],
+            "originalTitle": "Iris & Oculus Flywheel Compat"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "UbFnAd4l",
+            "slug": "create-jetpack",
+            "title": "Create Jetpack",
+            "author": "possible_triangle",
+            "description": "Upgrade your backtank and utilize the pressurized air to fly",
+            "iconUrl": "https://cdn.modrinth.com/data/UbFnAd4l/bb045c85270cd6a59ec939530fc77343cae2f526_96.webp",
+            "downloads": 4183539,
+            "updatedAt": "2026-07-31T05:28:22.197253+00:00",
+            "categories": [
+              "equipment",
+              "fabric",
+              "forge",
+              "neoforge",
+              "technology"
+            ],
+            "originalTitle": "Create Jetpack"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "IAnP4np7",
+            "slug": "create-structures",
+            "title": "Create: Structures",
+            "author": "FusionSwarly",
+            "description": "Add-on for Create that implements naturally generating structures containing early-game Create contraptions and items.",
+            "iconUrl": "https://cdn.modrinth.com/data/IAnP4np7/694d235f12ba11b0c6e6cd9428dab3cfcf233d10_96.webp",
+            "downloads": 3705671,
+            "updatedAt": "2023-10-16T19:20:17.180213+00:00",
+            "categories": [
+              "adventure",
+              "datapack",
+              "fabric",
+              "forge",
+              "technology",
+              "worldgen"
+            ],
+            "originalTitle": "Create: Structures"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "JmybsfWs",
+            "slug": "create-dreams-and-desires",
+            "title": "Create: Dreams & Desires",
+            "author": "LopyLuna",
+            "description": "A mod that adds random stuff & that may try to fit within creates theme!",
+            "iconUrl": "https://cdn.modrinth.com/data/JmybsfWs/10e9ec54bd09e581dda15fc57eb754eca199ef10_96.webp",
+            "downloads": 3590302,
+            "updatedAt": "2026-05-04T11:52:18.941922+00:00",
+            "categories": [
+              "decoration",
+              "equipment",
+              "fabric",
+              "forge",
+              "game-mechanics",
+              "neoforge",
+              "quilt",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create: Dreams & Desires"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "ResbpANg",
+            "slug": "create-ore-excavation",
+            "title": "Create Ore Excavation",
+            "author": "tom5454",
+            "description": "Extract resources using machines powered by Rotational Force",
+            "iconUrl": "https://cdn.modrinth.com/data/ResbpANg/45cf8d089b09c9bf997d46c353baacf95572db43_96.webp",
+            "downloads": 3550016,
+            "updatedAt": "2026-09-27T17:37:39.966104+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "neoforge",
+              "technology",
+              "worldgen"
+            ],
+            "originalTitle": "Create Ore Excavation"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "dzb1a5WV",
+            "slug": "create-dragons-plus",
+            "title": "Create: Dragons Plus",
+            "author": "MarbleGateKeeper",
+            "description": "Provide convenient features to players and dev utilities for Create addon developers.",
+            "iconUrl": "https://cdn.modrinth.com/data/dzb1a5WV/b31b508ca740a1f8eadc18c753190f2605cb6651_96.webp",
+            "downloads": 3332769,
+            "updatedAt": "2026-09-21T05:07:00.460593+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "game-mechanics",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "Create: Dragons Plus"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "L1RT5SJc",
+            "slug": "create-goggles",
+            "title": "Create Goggles",
+            "author": "Robocraft999",
+            "description": "Adds Goggle Helmets and Armored Backtanks for Create Mod",
+            "iconUrl": "https://cdn.modrinth.com/data/L1RT5SJc/b06854807a8f2de721be7484c3777c8ef8d616ee_96.webp",
+            "downloads": 3292606,
+            "updatedAt": "2026-05-11T19:53:34.961292+00:00",
+            "categories": [
+              "decoration",
+              "equipment",
+              "fabric",
+              "forge",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "Create Goggles"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "E6867niZ",
+            "slug": "rechiseled-create",
+            "title": "Rechiseled: Create",
+            "author": "SuperMartijn642",
+            "description": "Rechiseled: Create adds new decorative variants of blocks in Create!",
+            "iconUrl": "https://cdn.modrinth.com/data/E6867niZ/160d0983c4d1af06a9f3b0100f3da0f827901f7f_96.webp",
+            "downloads": 2948497,
+            "updatedAt": "2026-06-22T21:24:49.470726+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "forge",
+              "neoforge",
+              "quilt",
+              "technology"
+            ],
+            "originalTitle": "Rechiseled: Create"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "15fFZ3f4",
+            "slug": "create-framed",
+            "title": "Create: Framed",
+            "author": "DakotaPrideModding",
+            "description": "A Create mod addon that adds more Framed Glass variants.",
+            "iconUrl": "https://cdn.modrinth.com/data/15fFZ3f4/a74ff994ba01da0df3ac9f751bd4c27b11708233_96.webp",
+            "downloads": 2763777,
+            "updatedAt": "2026-07-08T16:18:16.072112+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "forge",
+              "neoforge",
+              "quilt",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create: Framed"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "gOPAFzp0",
+            "slug": "create-contraption-terminals",
+            "title": "Create Contraption Terminals",
+            "author": "tom5454",
+            "description": "Allows Tom's Simple Storage Terminals to work on Create contraptions.",
+            "iconUrl": "https://cdn.modrinth.com/data/gOPAFzp0/52b05061fcf8c8368c3e92b6ca3a76c79041c3b7_96.webp",
+            "downloads": 2645688,
+            "updatedAt": "2026-08-12T11:56:14.189226+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "game-mechanics",
+              "neoforge",
+              "storage",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create Contraption Terminals"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "wPQ6GgFE",
+            "slug": "create-power-loader",
+            "title": "Create: Power Loader",
+            "author": "Lysine",
+            "description": "A Create mod add-on adding immersive chunk loaders.",
+            "iconUrl": "https://cdn.modrinth.com/data/wPQ6GgFE/2f6c7a922eeb1b1064737e95b3ba1794b0c2c980.png",
+            "downloads": 2628955,
+            "updatedAt": "2026-05-22T08:06:31.350364+00:00",
+            "categories": [
+              "forge",
+              "game-mechanics",
+              "neoforge",
+              "technology",
+              "utility"
+            ],
+            "originalTitle": "Create: Power Loader"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "OFVYKsAk",
+            "slug": "mekanism-generators",
+            "title": "Mekanism Generators",
+            "author": "pupnewfster",
+            "description": "Advanced energy generation for Mekanism.",
+            "iconUrl": "https://cdn.modrinth.com/data/OFVYKsAk/ea185eb1300a64867f89101d4798e71a54ef6bed_96.webp",
+            "downloads": 2605753,
+            "updatedAt": "2026-04-10T10:30:35.764560+00:00",
+            "categories": [
+              "forge",
+              "neoforge",
+              "technology"
+            ],
+            "originalTitle": "Mekanism Generators"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "lMYIHZNH",
+            "slug": "createbetterfps",
+            "title": "CreateBetterFps",
+            "author": "MoePus",
+            "description": "Improve your Create FPS when shaderpack is on, up to 50%",
+            "iconUrl": "https://cdn.modrinth.com/data/lMYIHZNH/4f72dc6090f7cc20ebe314103151f86101bf4691_96.webp",
+            "downloads": 2569716,
+            "updatedAt": "2026-09-19T06:08:24.178562+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "neoforge",
+              "optimization"
+            ],
+            "originalTitle": "CreateBetterFps"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "AEZO385x",
+            "slug": "create-enchantment-industry-fabric-legacy",
+            "title": "[DEPRECATED]Create Enchantment Industry - Fabric Legacy",
+            "author": "MarbleGateKeeper",
+            "description": "Automatic Enchanting, with Create",
+            "iconUrl": "https://cdn.modrinth.com/data/AEZO385x/f4ff4014f74e7547eb868afe958b6c4a8d834907_96.webp",
+            "downloads": 2467895,
+            "updatedAt": "2024-03-09T21:00:19.603753+00:00",
+            "categories": [
+              "fabric",
+              "quilt",
+              "storage",
+              "technology"
+            ],
+            "originalTitle": "[DEPRECATED]Create Enchantment Industry - Fabric Legacy"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "hSSqdyU1",
+            "slug": "create-encased",
+            "title": "Create Encased",
+            "author": "iglee42",
+            "description": "Allow to use all casing on shafts/cogwheels/pipes",
+            "iconUrl": "https://cdn.modrinth.com/data/hSSqdyU1/e7229e03d0795915092cdab361ee4406e0b27153_96.webp",
+            "downloads": 2464243,
+            "updatedAt": "2026-07-31T21:23:24.823753+00:00",
+            "categories": [
+              "decoration",
+              "forge",
+              "neoforge"
+            ],
+            "originalTitle": "Create Encased"
+          }
+        ],
+        "total": 117,
+        "offset": 0,
+        "limit": 40,
+        "warnings": [
+          "“机械工程”未提供所选来源的 MOD 项目链接，未自动关联下载。",
+          "“机械龙库”未提供所选来源的 MOD 项目链接，未自动关联下载。",
+          "还有相关百科条目未核对，可继续查找；当前数量只统计已确认项目。",
+          "当前数量仅统计已确认项目，仍有相关项目待查找。"
+        ],
+        "discoveryHasMore": true,
+        "totalKind": "confirmed",
+        "cursor": "ae313510-97ae-4e6f-9967-57a543eb4113"
+      },
+      "elapsedMs": 1679
+    }
+  ],
+  "finishedAt": "2026-10-13T20:55:38.986Z"
+}

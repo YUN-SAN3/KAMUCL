@@ -1,0 +1,276 @@
+{
+  "version": "1.1.20",
+  "artifactSourceCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+  "qaSourceCommit": "ad279ae2f0e556165d557bc7121153bd34a23d60",
+  "run": 37683666380,
+  "scopedIndexSHA256": "aecbb2bdd601e00312ab2123c3c51353a8b4287e17c5656da458a0fa30d0f911",
+  "originalsUnmodified": true,
+  "membersDecoded": true,
+  "rows": [
+    {
+      "stage": "app",
+      "theme": "black-orange",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/black-orange-community120-960-1-all-native.png",
+      "bytes": 152383,
+      "sha256": "f45d1e1678fdd05b2e726f4ac177fe672e145f0faca4b343cbca1e094ec04a33",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "black-orange",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/black-orange-community120-960-1.25-custom-native.png",
+      "bytes": 138430,
+      "sha256": "9c58f3ce621899faa5be717af794fd0634d8dfd1a2c5ed2beb14d1847c40f701",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "black-orange",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/black-orange-community120-custom-exact-route-return-native.png",
+      "bytes": 216613,
+      "sha256": "782fca01b2c81416a9e9dc799978c651697d5067cf202a20513ff5e0d6a33bac",
+      "dimensions": [
+        1392,
+        1012
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "black-orange",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/black-orange-960-1-wait-native.png",
+      "bytes": 387049,
+      "sha256": "38e1e6fdc3fa51063f70017d628ec746babda88e50818c98a7e70ed9ee7ba193",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "blue-white",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/blue-white-community120-960-1-all-native.png",
+      "bytes": 153601,
+      "sha256": "fa8345e856c6222b4ed66f2212bc4568f0e1c8e446670bbcc2b34536c9654854",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "blue-white",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/blue-white-community120-960-1.25-custom-native.png",
+      "bytes": 139371,
+      "sha256": "315b80e0dd8f3c1a010ff01a04878eddbc5526c6717ee605809b59cb8dea11c1",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "blue-white",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/blue-white-community120-custom-exact-route-return-native.png",
+      "bytes": 219499,
+      "sha256": "b070b10954ca5356665a2e8be8175305753e481074516153465bc39dc89261a5",
+      "dimensions": [
+        1392,
+        1012
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "blue-white",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/blue-white-960-1-wait-native.png",
+      "bytes": 392662,
+      "sha256": "e8119821e8743901470f9dce6c854c77dabc55d7a7f65a2649fd910711d22a83",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "transparent",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/transparent-community120-960-1-all-native.png",
+      "bytes": 131573,
+      "sha256": "b3f461b61d4ad272755b7c3cca911d6acb418deecc3058ec02a498cf1c01e953",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "transparent",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/transparent-community120-960-1.25-custom-native.png",
+      "bytes": 118934,
+      "sha256": "25ba0fb489eb61caa23de66ea459e7b43d72746895efdf1593b58f35f2201db6",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "transparent",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/transparent-community120-custom-exact-route-return-native.png",
+      "bytes": 188182,
+      "sha256": "c4c566aac0d0666329e2330ea4e3b0a9cba24a91291221229495c9127d25c450",
+      "dimensions": [
+        1392,
+        1012
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "transparent",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/transparent-960-1-wait-native.png",
+      "bytes": 381921,
+      "sha256": "ffffac78cf9951eab079c6efbbd12edcfad4acfc4927178f6bbfc99f9ac3e89d",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "custom",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/custom-community120-960-1-all-native.png",
+      "bytes": 154845,
+      "sha256": "ac3ef23498f905cc94c1df3b6416e79eae043f16b80b902e8d3d667346412526",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "custom",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/custom-community120-960-1.25-custom-native.png",
+      "bytes": 141184,
+      "sha256": "b4342b6521ac559041ce5ae23178ea3cc9a273a883d22ed6178b6d12da733310",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "custom",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/custom-community120-custom-exact-route-return-native.png",
+      "bytes": 219455,
+      "sha256": "39afb486906ef38e1baf3b98b013c9581193ed36c03886c140afb207202e058e",
+      "dimensions": [
+        1392,
+        1012
+      ]
+    },
+    {
+      "stage": "app",
+      "theme": "custom",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/app/custom-960-1-wait-native.png",
+      "bytes": 390452,
+      "sha256": "0ba4e97314dc88b7bba07617184530751d7e45e8fec5b8e21390892f17202778",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "dmg",
+      "theme": "blue-white",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/dmg/blue-white-community120-960-1-all-native.png",
+      "bytes": 153604,
+      "sha256": "326ceb517e4d8da1f3224a23311ab04f7111e910b7df8612c53fcb4b04b499a9",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "dmg",
+      "theme": "blue-white",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/dmg/blue-white-community120-960-1.25-custom-native.png",
+      "bytes": 139371,
+      "sha256": "315b80e0dd8f3c1a010ff01a04878eddbc5526c6717ee605809b59cb8dea11c1",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "dmg",
+      "theme": "transparent",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/dmg/transparent-community120-960-1-all-native.png",
+      "bytes": 131571,
+      "sha256": "ee0bc99e8f81c9102c504bc764359fff3202ad8ccfd15d2c1d62e0105fa218ba",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "dmg",
+      "theme": "transparent",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/dmg/transparent-community120-960-1.25-custom-native.png",
+      "bytes": 118929,
+      "sha256": "84d7149fa63c75a2f969cee7528c6ec9130c052dc1598a221f260f08613be1c8",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "dmg",
+      "theme": "custom",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/dmg/custom-community120-960-1-all-native.png",
+      "bytes": 154845,
+      "sha256": "ac3ef23498f905cc94c1df3b6416e79eae043f16b80b902e8d3d667346412526",
+      "dimensions": [
+        1072,
+        732
+      ]
+    },
+    {
+      "stage": "dmg",
+      "theme": "custom",
+      "capture": "original native CI desktop",
+      "file": "evidence/mac-arm64/dmg/custom-community120-960-1.25-custom-native.png",
+      "bytes": 141195,
+      "sha256": "9cc41e71fe49bcaa3766ab6d908e4b8d0e40222c252b4fb85d32919405172223",
+      "dimensions": [
+        1072,
+        732
+      ]
+    }
+  ],
+  "qualification": "22 exact original representative native screenshots from the scoped 324-image index. APP four themes, DMG three tested themes only. DMG black modules were not executed and have no borrowed APP pass. No cropping, editing or interpolation; pixels can retain synthetic CI paths. Original failed jobs and full FPS/audio are not relabeled as passed."
+}

@@ -1,0 +1,148 @@
+
+> kamucl@1.1.18 build
+> electron-vite build
+
+vite v5.4.21 building SSR bundle for production...
+transforming...
+✓ 530 modules transformed.
+node_modules/@iarna/toml/lib/toml-parser.js (178:22): Use of eval in "node_modules/@iarna/toml/lib/toml-parser.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+rendering chunks...
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/settings.ts is dynamically imported by E:/KAMUCL/src/main/index.ts but also statically imported by E:/KAMUCL/src/main/core/accounts.ts, E:/KAMUCL/src/main/core/appearanceDraft.ts, E:/KAMUCL/src/main/core/community.ts, E:/KAMUCL/src/main/core/exportLogs.ts, E:/KAMUCL/src/main/core/gameFolders.ts, E:/KAMUCL/src/main/core/instanceCenter.ts, E:/KAMUCL/src/main/core/instanceDiagnostics.ts, E:/KAMUCL/src/main/core/java.ts, E:/KAMUCL/src/main/core/launch.ts, E:/KAMUCL/src/main/core/loaders.ts, E:/KAMUCL/src/main/core/modTransaction.ts, E:/KAMUCL/src/main/core/modUpdates.ts, E:/KAMUCL/src/main/core/modpacks.ts, E:/KAMUCL/src/main/core/paths.ts, E:/KAMUCL/src/main/core/projectionsIpc.ts, E:/KAMUCL/src/main/core/recordingsIpc.ts, E:/KAMUCL/src/main/core/servers.ts, E:/KAMUCL/src/main/core/versionCategories.ts, E:/KAMUCL/src/main/core/versions.ts, E:/KAMUCL/src/main/core/visualTheme.ts, E:/KAMUCL/src/main/core/yggdrasil.ts, E:/KAMUCL/src/main/index.ts, E:/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/instanceMetadata.ts is dynamically imported by E:/KAMUCL/src/main/core/launch.ts, E:/KAMUCL/src/main/core/launch.ts, E:/KAMUCL/src/main/core/launch.ts, E:/KAMUCL/src/main/core/voxlink/modsyncService.ts but also statically imported by E:/KAMUCL/src/main/core/defaultResourcePackApply.ts, E:/KAMUCL/src/main/core/instanceCenter.ts, E:/KAMUCL/src/main/core/instanceVersionEvidence.ts, E:/KAMUCL/src/main/core/java.ts, E:/KAMUCL/src/main/core/javaCompatibility.ts, E:/KAMUCL/src/main/core/modManagement.ts, E:/KAMUCL/src/main/core/modUpdates.ts, E:/KAMUCL/src/main/core/supplementalMods.ts, E:/KAMUCL/src/main/core/versions.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/instanceVersionEvidence.ts is dynamically imported by E:/KAMUCL/src/main/core/launch.ts, E:/KAMUCL/src/main/core/launch.ts but also statically imported by E:/KAMUCL/src/main/core/defaultResourcePackApply.ts, E:/KAMUCL/src/main/core/instanceDiagnostics.ts, E:/KAMUCL/src/main/core/versions.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/systemDownload.ts is dynamically imported by E:/KAMUCL/src/main/core/httpClient.ts but also statically imported by E:/KAMUCL/src/main/core/downloadFetch.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/paths.ts is dynamically imported by E:/KAMUCL/src/main/core/voxlink/modsyncService.ts but also statically imported by E:/KAMUCL/src/main/core/community.ts, E:/KAMUCL/src/main/core/defaultResourcePackApply.ts, E:/KAMUCL/src/main/core/exportLogs.ts, E:/KAMUCL/src/main/core/gamedir.ts, E:/KAMUCL/src/main/core/instanceCenter.ts, E:/KAMUCL/src/main/core/instanceDiagnostics.ts, E:/KAMUCL/src/main/core/instances.ts, E:/KAMUCL/src/main/core/java.ts, E:/KAMUCL/src/main/core/launch.ts, E:/KAMUCL/src/main/core/loaders.ts, E:/KAMUCL/src/main/core/modManagement.ts, E:/KAMUCL/src/main/core/modMigration.ts, E:/KAMUCL/src/main/core/modUpdates.ts, E:/KAMUCL/src/main/core/modinfo.ts, E:/KAMUCL/src/main/core/modpackDownloads.ts, E:/KAMUCL/src/main/core/modpacks.ts, E:/KAMUCL/src/main/core/skins.ts, E:/KAMUCL/src/main/core/supplementalMods.ts, E:/KAMUCL/src/main/core/versions.ts, E:/KAMUCL/src/main/core/worlds.ts, E:/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/versions.ts is dynamically imported by E:/KAMUCL/src/main/core/loaders.ts, E:/KAMUCL/src/main/core/voxlink/modsyncService.ts, E:/KAMUCL/src/main/index.ts but also statically imported by E:/KAMUCL/src/main/core/community.ts, E:/KAMUCL/src/main/core/defaultResourcePackApply.ts, E:/KAMUCL/src/main/core/directConnect.ts, E:/KAMUCL/src/main/core/exportLogs.ts, E:/KAMUCL/src/main/core/gameFolders.ts, E:/KAMUCL/src/main/core/instanceCenter.ts, E:/KAMUCL/src/main/core/instanceDiagnostics.ts, E:/KAMUCL/src/main/core/launch.ts, E:/KAMUCL/src/main/core/loaders.ts, E:/KAMUCL/src/main/core/modBridge.ts, E:/KAMUCL/src/main/core/modManagement.ts, E:/KAMUCL/src/main/core/modMigration.ts, E:/KAMUCL/src/main/core/modUpdates.ts, E:/KAMUCL/src/main/core/modpacks.ts, E:/KAMUCL/src/main/core/projectionsIpc.ts, E:/KAMUCL/src/main/core/recordingsIpc.ts, E:/KAMUCL/src/main/core/servers.ts, E:/KAMUCL/src/main/core/supplementalMods.ts, E:/KAMUCL/src/main/core/versionCategories.ts, E:/KAMUCL/src/main/core/worlds.ts, E:/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/gracefulClose.ts is dynamically imported by E:/KAMUCL/src/main/core/applyUpdate.ts but also statically imported by E:/KAMUCL/src/main/core/launch.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/loaders.ts is dynamically imported by E:/KAMUCL/src/main/core/versions.ts but also statically imported by E:/KAMUCL/src/main/core/launch.ts, E:/KAMUCL/src/main/core/modMigration.ts, E:/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/launch.ts is dynamically imported by E:/KAMUCL/src/main/core/versions.ts but also statically imported by E:/KAMUCL/src/main/core/directConnect.ts, E:/KAMUCL/src/main/core/exportLogs.ts, E:/KAMUCL/src/main/core/instanceCenter.ts, E:/KAMUCL/src/main/core/instanceDiagnostics.ts, E:/KAMUCL/src/main/core/memoryOrganizer.ts, E:/KAMUCL/src/main/core/modManagement.ts, E:/KAMUCL/src/main/index.ts, E:/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/selfUpdate.ts is dynamically imported by E:/KAMUCL/src/main/index.ts but also statically imported by E:/KAMUCL/src/main/core/applyUpdate.ts, E:/KAMUCL/src/main/core/macUpdate.ts, E:/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/main/core/applyUpdate.ts is dynamically imported by E:/KAMUCL/src/main/index.ts but also statically imported by E:/KAMUCL/src/main/index.ts, E:/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+
+out/main/modScanWorker.cjs                     1.58 kB
+out/main/projectionWorker.cjs                  1.65 kB
+out/main/keybindings-Db6logXO.js               1.71 kB
+out/main/recordingMods-CeKPsqBS.js             2.32 kB
+out/main/modTransaction-cKftVVPW.js            3.11 kB
+out/main/memoryOrganizer-Coz7O8jr.js           3.51 kB
+out/main/supplementalMods-BnmzcJBl.js          3.85 kB
+out/main/plugins-DmrA4jIT.js                   4.41 kB
+out/main/keybindings-5462CZ5v.js               5.66 kB
+out/main/index-BnvP7ea9.js                     6.89 kB
+out/main/defaultGameOptions-BCmdVmzm.js        8.49 kB
+out/main/defaultResourcePacks-8LdbWkA8.js      8.95 kB
+out/main/instanceCenter-CCRi6oKb.js           11.02 kB
+out/main/modFavorites-BkLfw7T-.js             30.02 kB
+out/main/community-BUqwSuO4.js                38.37 kB
+out/main/modCompatibility-DY2pNwKM.js         40.13 kB
+out/main/modMetadata-z0WUd18o.js              45.92 kB
+out/main/modpacks-Cq3W5305.js                 60.28 kB
+out/main/ipc-DwEDu7gY.js                     129.85 kB
+out/main/index.js                            943.80 kB
+out/main/projectionConversion-Cr8_EyNz.js  1,903.50 kB
+✓ built in 4.48s
+����: [options] Դֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ŀ��ֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ҫ�����й��ѹ�ʱѡ��ľ���, ��ʹ�� -Xlint:-options��
+3 ������
+Built local skin provider: E:\KAMUCL\offline-skin-agent\dist\kamucl-offline-skin.jar
+vite v5.4.21 building SSR bundle for production...
+transforming...
+✓ 2 modules transformed.
+rendering chunks...
+out/preload/index.js   0.36 kB
+out/preload/splash.js  0.65 kB
+✓ built in 20ms
+vite v5.4.21 building for production...
+transforming...
+✓ 326 modules transformed.
+rendering chunks...
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) E:/KAMUCL/src/renderer/src/api.ts is dynamically imported by E:/KAMUCL/src/renderer/src/App.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ModDropModal.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ModDropModal.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ModDropModal.vue?vue&type=script&setup=true&lang.ts but also statically imported by E:/KAMUCL/src/renderer/src/App.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/catalogCache.ts, E:/KAMUCL/src/renderer/src/components/Avatar.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/CommunityFavorites.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/CommunityModDetails.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/DefaultGameOptions.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/DupCleanModal.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/EditPanel.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/FavoriteModsPicker.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/FileManager.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/HomeLayoutEditor.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/IconPickerModal.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/InstanceCenter.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/MascotStage.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/MemoryOrganizer.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/MinecraftVersionPicker.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ModDropModal.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ModInstallDialog.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ModMigrationModal.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ModVersionModal.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ModpackSupplement.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ProjectionConvert.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/RecordingModPicker.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/SkinEditor.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/SupplementalModsResult.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/ThumbnailPickerModal.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/WorldImportModal.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/connection/FrpPanel.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/connection/TerracottaPanel.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/components/connection/VoxLinkPanel.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/composables/usePlatformUpdate.ts, E:/KAMUCL/src/renderer/src/modFavorites.ts, E:/KAMUCL/src/renderer/src/plugins.ts, E:/KAMUCL/src/renderer/src/settingsUpdates.ts, E:/KAMUCL/src/renderer/src/store.ts, E:/KAMUCL/src/renderer/src/views/AccountsView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/BridgeView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/CommunityView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/GameView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/HomeView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/KeysView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/ProjectionsView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/RecordingsView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/ServersView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/SettingsView.vue?vue&type=script&setup=true&lang.ts, E:/KAMUCL/src/renderer/src/views/SkinsView.vue?vue&type=script&setup=true&lang.ts, dynamic import will not move module into another chunk.
+
+../../out/renderer/index.html                                                                  0.61 kB
+../../out/renderer/splash.html                                                                 0.61 kB
+../../out/renderer/assets/cactus-ZHT28Bbx.webp                                             1,391.55 kB
+../../out/renderer/assets/brewer-_t6hu0qJ.webp                                             1,405.07 kB
+../../out/renderer/assets/piston-CXXgq7BE.webp                                             1,406.15 kB
+../../out/renderer/assets/camp-KA8qI3ns.webp                                               1,413.78 kB
+../../out/renderer/assets/cannon-CrDDsD5Q.webp                                             1,543.37 kB
+../../out/renderer/assets/sunset--N5hnz1m.webp                                             1,582.70 kB
+../../out/renderer/assets/farmer-3krkG6Tm.webp                                             1,588.56 kB
+../../out/renderer/assets/ContentSkeleton-EajBTAHq.css                                         0.59 kB
+../../out/renderer/assets/ThirdPartyNotices-CgBuT8G3.css                                       0.76 kB
+../../out/renderer/assets/splash-BCp9n5TB.css                                                  1.28 kB
+../../out/renderer/assets/MascotStage-BCKXjETR.css                                             2.84 kB
+../../out/renderer/assets/SelectMenu-BVgQ1yqQ.css                                              3.61 kB
+../../out/renderer/assets/RecordingsView-DQWh4n87.css                                          3.78 kB
+../../out/renderer/assets/BridgeView-Dg9xuueV.css                                              4.44 kB
+../../out/renderer/assets/ProjectionsView-D-dz64gr.css                                         4.53 kB
+../../out/renderer/assets/FriendConnectView-Ca3kNSA5.css                                       5.08 kB
+../../out/renderer/assets/InstanceCenter-D0HzF6GJ.css                                          5.64 kB
+../../out/renderer/assets/TerracottaPanel-mv44hqqU.css                                         5.77 kB
+../../out/renderer/assets/VoxLinkPanel-CnYwmKfe.css                                            9.19 kB
+../../out/renderer/assets/AccountsView-DUjNTzpx.css                                           10.22 kB
+../../out/renderer/assets/KeysView-BvT0YZPl.css                                               11.13 kB
+../../out/renderer/assets/FrpPanel-CLTLKN33.css                                               12.12 kB
+../../out/renderer/assets/connection--2GQb3ML.css                                             12.52 kB
+../../out/renderer/assets/ServersView-CMTjlCPz.css                                            13.51 kB
+../../out/renderer/assets/CommunityView-CZ0pljv7.css                                          17.66 kB
+../../out/renderer/assets/FileManager-BW0aEH0D.css                                            22.79 kB
+../../out/renderer/assets/GameView-D8YCrSyA.css                                               33.37 kB
+../../out/renderer/assets/SkinsView-BT2fwwCm.css                                              34.67 kB
+../../out/renderer/assets/SettingsView-BajXVJIL.css                                           36.13 kB
+../../out/renderer/assets/index-BLn_Z33i.css                                                 118.60 kB
+../../out/renderer/assets/uiPresentation-DBTJW4DM.js                                           0.62 kB
+../../out/renderer/assets/settingsUpdates-BkjAaDIq.js                                          0.75 kB
+../../out/renderer/assets/ModsView-CydsKLBE.js                                                 0.91 kB
+../../out/renderer/assets/PacksView-CFzFLl0K.js                                                0.94 kB
+../../out/renderer/assets/ShadersView-B39_FKty.js                                              0.99 kB
+../../out/renderer/assets/plugins-B68FVtZ-.js                                                  1.73 kB
+../../out/renderer/assets/UiGlyph.vue_vue_type_script_setup_true_lang--NdGThsn.js              2.33 kB
+../../out/renderer/assets/ContentSkeleton-DTlN0_TK.js                                          2.56 kB
+../../out/renderer/assets/ConnectionPanel.vue_vue_type_script_setup_true_lang-DXJUzj9E.js      2.74 kB
+../../out/renderer/assets/modFavorites-0aGHmfn6.js                                             2.92 kB
+../../out/renderer/assets/splash-face-D7cFdy8J.js                                              5.17 kB
+../../out/renderer/assets/splash-BhyJi4oD.js                                                   8.44 kB
+../../out/renderer/assets/FriendConnectView-C-xwjyqw.js                                        9.08 kB
+../../out/renderer/assets/SelectMenu-BgOgH8iY.js                                               9.13 kB
+../../out/renderer/assets/BridgeView-BkxL4C1q.js                                              21.65 kB
+../../out/renderer/assets/RecordingsView-Szd0sq_H.js                                          23.37 kB
+../../out/renderer/assets/TerracottaPanel-43yV55qD.js                                         27.33 kB
+../../out/renderer/assets/ProjectionsView-tj-BMGyi.js                                         35.06 kB
+../../out/renderer/assets/FrpPanel-OboozOt1.js                                                37.61 kB
+../../out/renderer/assets/AccountsView-Ce9PQw_R.js                                            43.43 kB
+../../out/renderer/assets/InstanceCenter-CJuPwQSw.js                                          49.03 kB
+../../out/renderer/assets/ServersView-Dlr0OmyZ.js                                             55.45 kB
+../../out/renderer/assets/KeysView-CvsCuHDV.js                                                59.49 kB
+../../out/renderer/assets/ThirdPartyNotices-DJ8vVHHB.js                                       68.94 kB
+../../out/renderer/assets/MascotStage-51QKWVJh.js                                             71.74 kB
+../../out/renderer/assets/VoxLinkPanel-lzqwwXTc.js                                            83.28 kB
+../../out/renderer/assets/CommunityView-CTBKvP71.js                                           91.31 kB
+../../out/renderer/assets/FileManager-Cht-Qse1.js                                            111.97 kB
+../../out/renderer/assets/SkinsView-Cf5mp0x6.js                                              114.65 kB
+../../out/renderer/assets/SettingsView-B1JmayR4.js                                           158.07 kB
+../../out/renderer/assets/GameView-BzQwoPjs.js                                               169.49 kB
+../../out/renderer/assets/index-D4O00FBY.js                                                1,841.63 kB
+✓ built in 5.46s

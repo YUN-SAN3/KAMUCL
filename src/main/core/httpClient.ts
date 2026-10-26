@@ -10,6 +10,7 @@
  * 传更长的 bodyTimeoutMs，其余调用方（frp 等）行为不变。
  */
 import { Agent, fetch as undiciFetch } from 'undici'
+import { waitIfTaskPaused } from './tasks'
 
 /** 共享 Agent 与按 bodyTimeout 派生 Agent 的公共参数；调整时两者保持一致。 */
 const AGENT_BASE_OPTIONS = {
@@ -47,7 +48,13 @@ export function httpFetch(
   if (init.systemProxy && process.versions.electron) {
     const { systemProxy, bodyTimeoutMs, separateConnection, ...request } = init
     if (request.redirect === 'manual') return import('./systemDownload').then(({ systemDownload }) => systemDownload(url, request))
-    return import('electron').then(({ net }) => net.fetch(url, request)) as Promise<Response>
+    return import('electron').then(async ({ net }) => {
+      // A pause/cancel can arrive while the module is loading. Recheck at the
+      // actual transport boundary, not only in the caller before this await.
+      await waitIfTaskPaused(request.signal)
+      request.signal?.throwIfAborted()
+      return net.fetch(url, request)
+    }) as Promise<Response>
   }
   if (init.separateConnection) {
     const { separateConnection, bodyTimeoutMs, ...rest } = init

@@ -1,6 +1,8 @@
 import { app } from 'electron'
 import { GITHUB_REPO } from '../../shared/branding'
 import type { ReleaseInfo } from '../../shared/types'
+import { updateArtifactName, type InstallationKind } from '../../shared/platform'
+import { installationKind } from '../platform'
 
 /** 测试覆盖只能用于开发进程，且必须同时指定独立数据目录和模拟 API。 */
 export function isolatedUpdateTest(): boolean {
@@ -15,6 +17,6 @@ export function trustedUpdateRelease(release: ReleaseInfo | undefined): boolean 
     release.assetUrl === `https://github.com/${GITHUB_REPO}/releases/download/v${release.version}/${name}`
 }
 
-export function updateAssetName(version: string, platform = process.platform, arch = process.arch): string {
-  return platform === 'darwin' ? `KAMUCL-${version}-mac-${arch}.zip` : `KAMUCL-${version}.exe`
+export function updateAssetName(version: string, platform: string = process.platform, arch: string = process.arch, installation: InstallationKind = installationKind()): string {
+  return updateArtifactName(version, platform, arch, installation)
 }

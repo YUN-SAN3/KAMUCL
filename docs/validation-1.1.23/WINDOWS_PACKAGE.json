@@ -1,0 +1,519 @@
+{
+  "version": "1.1.23",
+  "portable": {
+    "pass": true,
+    "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-erLIGs",
+    "results": [
+      {
+        "phase": "cold",
+        "firstPaintMs": 628,
+        "electronEntryMs": 6063,
+        "cache": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-erLIGs\\KAMUCL-runtime\\1.1.23-f8898f79661f0af3\\cache.ready",
+        "cacheMtime": 1791926493102.7915
+      },
+      {
+        "phase": "warm",
+        "firstPaintMs": 372,
+        "electronEntryMs": 250,
+        "cache": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-erLIGs\\KAMUCL-runtime\\1.1.23-f8898f79661f0af3\\cache.ready",
+        "cacheMtime": 1791926493102.7915
+      }
+    ]
+  },
+  "zipped": {
+    "pass": true,
+    "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-cBWkLr",
+    "results": [
+      {
+        "phase": "cold",
+        "firstPaintMs": 577,
+        "electronEntryMs": 5730,
+        "cache": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-cBWkLr\\KAMUCL-runtime\\1.1.23-f8898f79661f0af3\\cache.ready",
+        "cacheMtime": 1791926501905.8032
+      },
+      {
+        "phase": "warm",
+        "firstPaintMs": 355,
+        "electronEntryMs": 243,
+        "cache": "C:\\Users\\ROG\\AppData\\Local\\Temp\\kamucl startup 中文-cBWkLr\\KAMUCL-runtime\\1.1.23-f8898f79661f0af3\\cache.ready",
+        "cacheMtime": 1791926501905.8032
+      }
+    ]
+  },
+  "zipRoot": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL ZIP 中文 WrWU5H",
+  "files": [
+    {
+      "path": "chrome_100_percent.pak",
+      "size": 719654,
+      "sha256": "ab7c4b7b6cb8832a31d44b95ec50ce52294f49422a3bdde4e21968eca2930cbe"
+    },
+    {
+      "path": "chrome_200_percent.pak",
+      "size": 1269017,
+      "sha256": "30fa4a6e27c9ff2fb0f939f01158477e621a67d86e9ecb84cf11b3947db8eb9d"
+    },
+    {
+      "path": "d3dcompiler_47.dll",
+      "size": 4741488,
+      "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb"
+    },
+    {
+      "path": "ffmpeg.dll",
+      "size": 3113472,
+      "sha256": "336587847c4ed3ef1a195d1aaea3d3951c9749a035ffa7951df4c0e02971e4e0"
+    },
+    {
+      "path": "icudtl.dat",
+      "size": 10876560,
+      "sha256": "9f48c7f9c7c94d516a14870707e910ab94d75ae640ff6842c4af53276cd26ebe"
+    },
+    {
+      "path": "KAMUCL.exe",
+      "size": 246070784,
+      "sha256": "2a4588a64015c77bd44e5a41e573f8265d8133077b4021cb97a03d24e6ba2058"
+    },
+    {
+      "path": "LICENSE.electron.txt",
+      "size": 1096,
+      "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+    },
+    {
+      "path": "LICENSES.chromium.html",
+      "size": 20472830,
+      "sha256": "7b328b8c7463ac9bfc7dc648c751533517c8441a0b5b21047d6c0b2620e60d70"
+    },
+    {
+      "path": "locales/en-US.pak",
+      "size": 586582,
+      "sha256": "23b271e8009bfa14783700cd0712b4ecaa5b8f2ea28a4d81ae1d7e05bc0c96b1"
+    },
+    {
+      "path": "locales/zh-CN.pak",
+      "size": 592116,
+      "sha256": "ba8ac4bf82b50728d907215d1993948457835bf2942a4d7266a3f8af5f51de15"
+    },
+    {
+      "path": "resources/app.asar",
+      "size": 21100835,
+      "sha256": "565fce8c243dbb961bbbfb198c397785376e81efedfd5410623ad1d744091be9"
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/@koromix/koffi-win32-x64/index.js",
+      "size": 52,
+      "sha256": "f9991ec70a0f775487ffadc2461d69edd1555e3d9bf80de0bbdd2eec7d245c49"
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/@koromix/koffi-win32-x64/package.json",
+      "size": 644,
+      "sha256": "3c6d427795e7c1e18220dfa56d9dfdf392c62b074e7a061f84a55fe44857670f"
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.lib",
+      "size": 1688,
+      "sha256": "581078774d824496b8250bf436f47ef80e1694700c83955d9e9475fcfaebd980"
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node",
+      "size": 1036800,
+      "sha256": "8623dc57f3093a457f71fcbe31fad77741f5b648d8015f7c1dac959595f0972b"
+    },
+    {
+      "path": "resources/app.asar.unpacked/out/main/GameWindowFocus.exe",
+      "size": 6656,
+      "sha256": "7ce6519074bb072e85ab2da872ce1de4bc1426a4021cedd7fe9e8a4e44cc97f5"
+    },
+    {
+      "path": "resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+      "size": 21890,
+      "sha256": "2cf595874cd41c7453481ef94869e01fb3be7353616ee2aa011688f45767fa57"
+    },
+    {
+      "path": "resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+      "size": 12536,
+      "sha256": "772b60d65736e109734c2b8ceabb1afa265f21bb125f7e8f4e1b95969c25b663"
+    },
+    {
+      "path": "resources/app.asar.unpacked/out/main/WindowMaterial.exe",
+      "size": 5120,
+      "sha256": "2b0060b896d5a7b5d1af1d361849d4840dbd18fcec44a6363625d176ff3661d0"
+    },
+    {
+      "path": "resources/default_app.asar",
+      "size": 111073,
+      "sha256": "06d4a28be095a80eff94dbd18edcfac5b5805e1b5538e0fb7cee7c7ae81db76a"
+    },
+    {
+      "path": "resources/elevate.exe",
+      "size": 107520,
+      "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37"
+    },
+    {
+      "path": "resources.pak",
+      "size": 12435445,
+      "sha256": "3d8c36b2ec7099a27fe00763e5af28319643ba65c1b48b85eb6a7caaae034ba6"
+    },
+    {
+      "path": "snapshot_blob.bin",
+      "size": 368776,
+      "sha256": "1176cfa83f9ef458e7ed5b5b255c9289691dbef3ff1e4a073a5c90f9a16e8458"
+    },
+    {
+      "path": "v8_context_snapshot.bin",
+      "size": 742208,
+      "sha256": "d9d3ec18e937ed2fddd02d92e4f0726919769e16f2ea17f962d23e40d5962b7b"
+    },
+    {
+      "path": "version",
+      "size": 6,
+      "sha256": "a1d640d380c386200a420b590105d25da627723ee42ee1061108f3acde9f25fd"
+    },
+    {
+      "path": "vk_swiftshader.dll",
+      "size": 5520384,
+      "sha256": "cfb8a533c5da1ade3fd4e66ebd0acf7186bd17fb3cc09d48809a7909c4aaf0f8"
+    },
+    {
+      "path": "vk_swiftshader_icd.json",
+      "size": 106,
+      "sha256": "32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9"
+    },
+    {
+      "path": "vulkan-1.dll",
+      "size": 939008,
+      "sha256": "c1b383f18c0949f233e949ae197c2ad4c416abe7790894d7e395d73116403b4f"
+    }
+  ],
+  "asarSHA256": "565fce8c243dbb961bbbfb198c397785376e81efedfd5410623ad1d744091be9",
+  "sizes": {
+    "exe": 99129603,
+    "zip": 100978423,
+    "unpackedZip": 144867348
+  },
+  "moduleEdges": [
+    {
+      "source": "out/main/curseforgeChannel-C9iXbsqg.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/curseforgeChannel-C9iXbsqg.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/defaultGameOptions-BCmdVmzm.js",
+      "target": "out/main/keybindings-5462CZ5v.js"
+    },
+    {
+      "source": "out/main/defaultResourcePacks-MPQE0V6B.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/defaultResourcePacks-MPQE0V6B.js",
+      "target": "out/main/keybindings-5462CZ5v.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/curseforgeChannel-C9iXbsqg.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/recordingMods-UuqKsl_A.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/modFavorites-Re4gFE0b.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/supplementalMods-DPUx4mUM.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/instanceCenter-BvQVO5_8.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/index-BnvP7ea9.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/index-BnvP7ea9.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/defaultGameOptions-BCmdVmzm.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/defaultResourcePacks-MPQE0V6B.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/keybindings-Db6logXO.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/memoryOrganizer-CxJOm-Dn.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/instanceCenter-BvQVO5_8.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/index-BnvP7ea9.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/ipc-CvMTyEF1.js"
+    },
+    {
+      "source": "out/main/index.js",
+      "target": "out/main/plugins-P5XXqstH.js"
+    },
+    {
+      "source": "out/main/instanceCenter-BvQVO5_8.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/instanceCenter-BvQVO5_8.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/instanceCenter-BvQVO5_8.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/modpacks-DRIzwSXz.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/modFavorites-Re4gFE0b.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/supplementalMods-DPUx4mUM.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/memoryOrganizer-CxJOm-Dn.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/projectionConversion-Cr8_EyNz.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/recordingMods-UuqKsl_A.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/modTransaction-DxlN7YZO.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/curseforgeChannel-C9iXbsqg.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/defaultResourcePacks-MPQE0V6B.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/plugins-P5XXqstH.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/keybindings-Db6logXO.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/modMetadata-B6uXh2-U.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/keybindings-5462CZ5v.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/modFavorites-Re4gFE0b.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/defaultGameOptions-BCmdVmzm.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/defaultGameOptions-BCmdVmzm.js"
+    },
+    {
+      "source": "out/main/ipc-CvMTyEF1.js",
+      "target": "out/main/instanceCenter-BvQVO5_8.js"
+    },
+    {
+      "source": "out/main/keybindings-Db6logXO.js",
+      "target": "out/main/keybindings-5462CZ5v.js"
+    },
+    {
+      "source": "out/main/memoryOrganizer-CxJOm-Dn.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/memoryOrganizer-CxJOm-Dn.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/memoryOrganizer-CxJOm-Dn.js",
+      "target": "out/main/index-BnvP7ea9.js"
+    },
+    {
+      "source": "out/main/modFavorites-Re4gFE0b.js",
+      "target": "out/main/modTransaction-DxlN7YZO.js"
+    },
+    {
+      "source": "out/main/modFavorites-Re4gFE0b.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/modFavorites-Re4gFE0b.js",
+      "target": "out/main/curseforgeChannel-C9iXbsqg.js"
+    },
+    {
+      "source": "out/main/modFavorites-Re4gFE0b.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/modFavorites-Re4gFE0b.js",
+      "target": "out/main/modMetadata-B6uXh2-U.js"
+    },
+    {
+      "source": "out/main/modMetadata-B6uXh2-U.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/modScanWorker.cjs",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/modScanWorker.cjs",
+      "target": "out/main/modMetadata-B6uXh2-U.js"
+    },
+    {
+      "source": "out/main/modTransaction-DxlN7YZO.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/modTransaction-DxlN7YZO.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/modTransaction-DxlN7YZO.js",
+      "target": "out/main/curseforgeChannel-C9iXbsqg.js"
+    },
+    {
+      "source": "out/main/modTransaction-DxlN7YZO.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/modTransaction-DxlN7YZO.js",
+      "target": "out/main/modpacks-DRIzwSXz.js"
+    },
+    {
+      "source": "out/main/modpacks-DRIzwSXz.js",
+      "target": "out/main/instanceCenter-BvQVO5_8.js"
+    },
+    {
+      "source": "out/main/modpacks-DRIzwSXz.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/modpacks-DRIzwSXz.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/modpacks-DRIzwSXz.js",
+      "target": "out/main/modTransaction-DxlN7YZO.js"
+    },
+    {
+      "source": "out/main/modpacks-DRIzwSXz.js",
+      "target": "out/main/keybindings-Db6logXO.js"
+    },
+    {
+      "source": "out/main/plugins-P5XXqstH.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/plugins-P5XXqstH.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/projectionWorker.cjs",
+      "target": "out/main/projectionConversion-Cr8_EyNz.js"
+    },
+    {
+      "source": "out/main/recordingMods-UuqKsl_A.js",
+      "target": "out/main/modTransaction-DxlN7YZO.js"
+    },
+    {
+      "source": "out/main/recordingMods-UuqKsl_A.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/recordingMods-UuqKsl_A.js",
+      "target": "out/main/instanceCenter-BvQVO5_8.js"
+    },
+    {
+      "source": "out/main/recordingMods-UuqKsl_A.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/recordingMods-UuqKsl_A.js",
+      "target": "out/main/curseforgeChannel-C9iXbsqg.js"
+    },
+    {
+      "source": "out/main/supplementalMods-DPUx4mUM.js",
+      "target": "out/main/index.js"
+    },
+    {
+      "source": "out/main/supplementalMods-DPUx4mUM.js",
+      "target": "out/main/instanceCenter-BvQVO5_8.js"
+    },
+    {
+      "source": "out/main/supplementalMods-DPUx4mUM.js",
+      "target": "out/main/modFavorites-Re4gFE0b.js"
+    },
+    {
+      "source": "out/main/supplementalMods-DPUx4mUM.js",
+      "target": "out/main/recordingMods-UuqKsl_A.js"
+    },
+    {
+      "source": "out/main/supplementalMods-DPUx4mUM.js",
+      "target": "out/main/modCompatibility-BIvvRZ1G.js"
+    },
+    {
+      "source": "out/main/supplementalMods-DPUx4mUM.js",
+      "target": "out/main/modTransaction-DxlN7YZO.js"
+    },
+    {
+      "source": "out/main/supplementalMods-DPUx4mUM.js",
+      "target": "out/main/curseforgeChannel-C9iXbsqg.js"
+    },
+    {
+      "source": "out/main/supplementalMods-DPUx4mUM.js",
+      "target": "out/main/modMetadata-B6uXh2-U.js"
+    }
+  ],
+  "complete": true
+}

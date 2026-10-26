@@ -1,0 +1,70 @@
+{
+  "version": "1.1.22",
+  "reviewer": "oauth_identity_audit independent cross-review of UI authored by other agents",
+  "scope": "Microsoft account migration/authorization UI and API/IPC correlation, write-only custom CurseForge settings controls, FRP credential controls. Excludes this reviewer's backend implementation and all-platform acceptance.",
+  "classification": "Production renderer screenshots and real Chromium coordinate/key actions in an isolated offscreen Electron profile, synthetic IPC and neutral desktop underlay; code cross-review. No native material or real-service success inferred.",
+  "proof": {
+    "path": "out/auth122-ui-hzgWAP/proof.json",
+    "sha256": "c402e43931c691c3b0019e11c0d4a6ebc3306575d3530b1a11dcf29e4c2da1c9",
+    "complete": true,
+    "imagesVerified": 195,
+    "imageSizeOrHashMismatches": [],
+    "sourceHashMismatches": [],
+    "rendererErrors": [],
+    "accountMatrix": "4 themes x 1366x768/960x620 x 100/125 percent = 16 cases",
+    "frpMatrix": "Same 16 theme/viewport/zoom cases, with configured/replacement failure/locked/clear failure/clear success states",
+    "curseforgeScreenshotScope": "Same 16 theme/viewport/zoom cases; save failure preserving input, write-only success and explicit clear all pass",
+    "matrices": { "accounts": 16, "frp": 16, "curseforge": 16 },
+    "manuallyInspectedImages": [
+      "blue-white-1366x768-100-migration.png",
+      "black-orange-960x620-125-device-code.png",
+      "black-pink-960x620-125-migration.png",
+      "custom-1366x768-100-service-failure.png",
+      "cf-key-blue-white-1366x768-100-save-failure.png",
+      "cf-key-black-orange-960x620-125-write-only.png",
+      "cf-key-black-pink-960x620-125-save-failure.png",
+      "cf-key-custom-1366x768-125-write-only.png",
+      "frp-black-orange-960x620-125-cleared-record-preserved.png",
+      "frp-black-pink-960x620-125-locked.png",
+      "completed-login-list-refresh-failure.png",
+      "same-account-reauthorized.png",
+      "frp-black-orange-960x620-125-clear-failure.png",
+      "matching-completion-before-device-code-response.png"
+    ]
+  },
+  "scores": {
+    "rationality": {
+      "score": 9.1,
+      "reason": "Old accounts keep identity and local context with an explicit reauthorization action; application and account-list failures are distinct; secret inputs use explicit save/clear and explain retained tunnel records. Clear while key storage stays unavailable now has accurate text."
+    },
+    "functionality": {
+      "score": 9.0,
+      "reason": "Current public operation IDs are checked by renderer and carried correctly through API/IPC. Coordinate evidence covers cancelled navigation and old completion rejection, matching completion before begin response, Escape cancellation and opener focus, account-list failure/retry without a second authorization, all-16-matrix write-only key failure/success/clear, and FRP reuse/lock/cancel/failure/success preserving tunnel cards. No critical UI defect remains in this tested scope."
+    },
+    "appearance": {
+      "score": 8.8,
+      "reason": "Original screenshots show readable contrast, existing theme variables and consistent controls. The authorization and destructive confirmation dialogs fit the minimum viewport at 125 percent with visible actions; long pages scroll without horizontal overflow. Individual failure screenshots retain the current error while stale toasts are dismissed through actual controls. Long provider labels and low-priority rows can truncate at 125 percent; native window glass is outside these captures."
+    }
+  },
+  "threshold": 8.5,
+  "passesWithinReviewedScope": true,
+  "criticalDefectsWithinReviewedScope": [],
+  "resolvedFindings": [
+    "Cancellation dismissal marker was missing for Escape; corrected and actual keyboard/focus check passes.",
+    "Old completion events could dismiss a replacement authorization; operationId contract and actual old-event injection now prevent this. Matching completion delivered before begin response is also directly injected and applied without a stuck modal.",
+    "A completed login followed by account-list failure could reject without restoring focus; controlled error, retry and finally-focus restoration now pass.",
+    "FRP clear-success text formerly claimed an old credential was retained; revised status accurately distinguishes removed credentials from unavailable key storage.",
+    "Earlier rapid-action screenshots stacked old notifications; the final harness closes prior toasts via real coordinate clicks and retains the current state failure."
+  ],
+  "noncriticalObservations": [
+    "At minimum size/125 percent, long external-provider labels are clipped and lower account rows require vertical scrolling; main actions remain accessible.",
+    "A transient notification can overlap the top of a page; it has a visible dismissal control and the tested target actions remain reachable."
+  ],
+  "notVerifiedByThisReview": [
+    "Native DWM/vibrancy, physical desktop window rendering, DPAPI or Keychain interaction.",
+    "Real Microsoft/Xbox/Minecraft token chain, ownership, persisted refresh, game launch, actual CurseForge or FRP service operation.",
+    "Motion/FPS/audio or original video acceptance; screenshots do not supply such evidence.",
+    "All-page or Mac/Windows parity acceptance; remaining features are not scored."
+  ],
+  "previousReview": "out/auth122-ui-independent-j9Tovr.json preserves the prior 164-image limited-CurseForge review; it is superseded by this full three-matrix UI review."
+}

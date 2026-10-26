@@ -183,6 +183,9 @@ const STAGE_LABEL: Record<string, string> = {
   modpack: '安装整合包',
   java: '准备 Java',
   download: '下载文件',
+  'mod-prepare': '准备 MOD 与前置',
+  'mod-verify': '校验 MOD',
+  'mod-commit': '写入 MOD',
   launch: '启动',
   done: '完成',
   error: '失败'

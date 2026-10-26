@@ -1,0 +1,22 @@
+{
+  "indexedSourceFiles": 2574,
+  "privacyScan": true,
+  "pelicanExcluded": true,
+  "rawPublicEvidence": 1140,
+  "frozenProductInputs": 502,
+  "exactSourceBytes": 372,
+  "textNewlineEquivalent": 128,
+  "generatedStableFrom115": [
+    {
+      "file": "bridge/dist/kamucl-bridge-1.0.0.jar",
+      "bytes": 21041,
+      "sha256": "280eb076498ca44c902ca039f7183d246a319d04292546f0d3ef27e9c79c7bc5"
+    },
+    {
+      "file": "bridge/dist/kamucl-bridge-1.0.1.jar",
+      "bytes": 21827,
+      "sha256": "20e482f85923483641fa84e7e6c737b57411c9b4979efb8f0033b17ad24fc69d"
+    }
+  ],
+  "qualification": "500 Git source inputs individually match raw bytes or CRLF/LF normalization; two generated bridge JARs are unchanged from the prior frozen product and their builder/source have no staged changes. No EXE/JAR byte-rebuild claim."
+}

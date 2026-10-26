@@ -1,0 +1,209 @@
+name: Linux native packages
+on:
+  workflow_dispatch:
+    inputs:
+      desktop_qa:
+        description: Run real X11/XWayland desktop acceptance on labelled self-hosted machines
+        type: boolean
+        default: false
+  # Automatic releases currently target Windows and Mac ARM64 only.
+  # Preserve the deferred native Linux workflow for an explicit future request.
+permissions:
+  contents: read
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: x64
+          - runner: ubuntu-24.04-arm
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Native compiler and package validation dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ libx11-dev squashfs-tools libfuse2t64 libgtk-3-0t64 libnss3 libxss1 libasound2t64 libgbm1 libxtst6 libnotify4 libsecret-1-0
+      - run: npm ci
+      - run: npm test
+      - run: npx tsc --noEmit
+      - run: npm run license:check
+      - run: node scripts/build-bridge.cjs
+      - run: node scripts/verify-bridge-exit.cjs
+      - name: Build matching architecture AppImage, DEB and portable archive
+        run: node scripts/pack-linux.cjs ${{ matrix.arch }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: linux-packages-${{ matrix.arch }}
+          path: |
+            release/*-linux-*.AppImage
+            release/*-linux-*.deb
+            release/*-linux-*.tar.gz
+            release/SHA256SUMS-linux-*.txt
+            release/linux-proof-*
+          if-no-files-found: error
+  compatibility:
+    needs: package
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: x64
+            os: '24.04'
+          - runner: ubuntu-24.04-arm
+            arch: arm64
+            os: '24.04'
+          - runner: ubuntu-26.04
+            arch: x64
+            os: '26.04'
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: linux-packages-${{ matrix.arch }}
+          path: release
+      - name: X server and fixture window manager for CI smoke
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb openbox mesa-utils x11-utils dbus-x11 ffmpeg libgtk-3-0t64 libnss3 libxss1 libasound2t64 libgbm1
+          # This disposable hosted VM is not a player's desktop. Keep Chromium sandbox enabled.
+          if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
+            sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          fi
+      - name: Exact clean portable package GUI smoke, explicitly not native desktop acceptance
+        run: xvfb-run -a -s '-screen 0 1600x1100x24' dbus-run-session -- sh -c 'openbox >/tmp/kamucl-openbox.log 2>&1 & node scripts/verify-linux-desktop.cjs ${{ matrix.arch }} --fixture-smoke'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: linux-smoke-${{ matrix.os }}-${{ matrix.arch }}
+          path: |
+            release/linux-desktop-*
+          if-no-files-found: error
+  native-integration:
+    # Real native binaries and filesystem/IPC operations. This source harness
+    # and its owned X11 windows are bounded fixtures, not hardware desktop QA.
+    needs: package
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: x64
+            os: '24.04'
+          - runner: ubuntu-24.04-arm
+            arch: arm64
+            os: '24.04'
+          - runner: ubuntu-26.04
+            arch: x64
+            os: '26.04'
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: linux-packages-${{ matrix.arch }}
+          path: release
+      - name: Native source-harness dependencies without GPU or sandbox bypass flags
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ libx11-dev xvfb openbox x11-utils dbus-x11 squashfs-tools libgtk-3-0t64 libnss3 libxss1 libasound2t64 libgbm1 libsecret-1-0
+          # Disposable hosted VMs only. The Electron sandbox remains enabled;
+          # a real desktop still requires its administrator's supported policy.
+          if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
+            sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          fi
+      - name: Actual native Electron custom-main entry and import contract
+        timeout-minutes: 1
+        run: xvfb-run -a dbus-run-session -- node_modules/.bin/electron scripts/verify-electron-qa-entry.cjs ${{ matrix.arch }}
+      - name: Actual Electron physical ASAR and owned execution-context contracts
+        timeout-minutes: 2
+        run: xvfb-run -a dbus-run-session -- node --test tests/linux-asar-filesystem-111.test.cjs tests/linux-update-observer-111.test.cjs
+      - name: Actual official FRP/Terracotta download and private owned service lifecycle
+        timeout-minutes: 14
+        run: xvfb-run -a dbus-run-session -- node_modules/.bin/electron scripts/verify-linux-tools.cjs ${{ matrix.arch }}
+      - name: Native credentials, business filesystem, update payloads and actual X11 backend fixtures
+        if: always()
+        run: xvfb-run -a dbus-run-session -- sh -c 'openbox >/tmp/kamucl-business-openbox.log 2>&1 & node_modules/.bin/electron scripts/verify-linux-business.cjs ${{ matrix.arch }}'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: linux-native-integration-${{ matrix.os }}-${{ matrix.arch }}
+          path: |
+            out/qa-entry-proof-linux-*/*.json
+            out/linux-asar-proof-*/*.json
+            out/linux-asar-proof-*/*.log
+            out/linux-context-proof-*/*.json
+            out/linux-context-proof-*/*.log
+            release/linux-tools-proof-*/*.json
+            release/linux-tools-proof-*/*.log
+            release/linux-business-proof-*/*.json
+            release/linux-business-proof-*/*.log
+          if-no-files-found: error
+  desktop:
+    if: github.event_name == 'workflow_dispatch' && inputs.desktop_qa
+    needs: package
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            label: X64
+            os: '24.04'
+          - arch: arm64
+            label: ARM64
+            os: '24.04'
+          - arch: x64
+            label: X64
+            os: '26.04'
+          - arch: arm64
+            label: ARM64
+            os: '26.04'
+    runs-on: [self-hosted, Linux, '${{ matrix.label }}', kamucl-desktop, 'ubuntu-${{ matrix.os }}']
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: linux-packages-${{ matrix.arch }}
+          path: release
+      - name: Real desktop and hardware renderer gate with original video and frame timings
+        run: node scripts/verify-linux-desktop.cjs ${{ matrix.arch }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: linux-desktop-${{ matrix.os }}-${{ matrix.arch }}
+          path: |
+            release/linux-desktop-*
+          if-no-files-found: error

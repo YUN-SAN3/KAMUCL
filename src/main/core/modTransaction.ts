@@ -1,11 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import crypto from 'node:crypto'
+import { fileHash } from './fileHash'
 import { downloadAll } from './download'
 import { protectModChange } from './changeProtection'
 import { getSettings } from './settings'
 export interface ModReplacement { oldName?:string; oldSha1?:string; name:string; sha1:string; url?:string; size?:number }
-export const modHash=async(file:string)=>crypto.createHash('sha1').update(await fs.promises.readFile(file)).digest('hex')
+export const modHash=(file:string)=>fileHash(file)
 export function safeModName(name:string){if(typeof name!=='string'||path.basename(name)!==name||/[\\/:\0]/.test(name)||!/^.+\.jar(?:\.disabled)?$/i.test(name))throw new Error('无效的模组文件名');return name}
 export async function validateModFile(dir:string,name:string,sha1?:string){safeModName(name);const p=path.join(dir,name),s=await fs.promises.lstat(p);if(!s.isFile()||s.isSymbolicLink())throw new Error('模组不是普通文件');if(sha1&&await modHash(p)!==sha1)throw new Error('模组文件已变化，请重新检查：'+name)}
 /** Caller holds the directory write lock. Downloads never touch the current files. */

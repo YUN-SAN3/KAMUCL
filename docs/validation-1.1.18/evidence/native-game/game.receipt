@@ -1,0 +1,6 @@
+#Actual Minecraft player/GPU texture/options; no fabricated response
+#Wed Oct 07 15:13:51 HKT 2026
+body=minecraft\:skins/e8771c7b0e1d5e0b5723c8fc90d92ab21392dab7
+gpuTexture=true
+model=SLIM
+resourcePacks=[vanilla, file/KAMUCL-default-a0c429c5aa9f8b07340a46d420c7d4b017bf4ec5aebd538701ae67f2571eba89-Native-pack118.zip]

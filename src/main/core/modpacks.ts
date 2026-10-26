@@ -9,7 +9,10 @@ import { backupInstance } from './instanceCenter'
 import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
+import os from 'node:os'
 import AdmZip from 'adm-zip'
+import { StreamPackZip, writePackEntry, type PackZip, type PackEntry } from './streamPackZip'
+import { fileJobKey, withFileJob } from './fileJobs'
 import type {
   LoaderName,
   ModpackInfo,
@@ -29,11 +32,11 @@ import { prepareCurseMavenFile } from './modpackAlternateDownload'
 import { waitForModpackFiles } from './modpackManualFiles'
 import { getSettings } from './settings'
 import { registerVersionFolder, versionDir, versionJsonPath, versionsDir } from './paths'
-import { allFolders, gameDir, withGameFolder } from './paths'
+import { allFolders, defaultFolderPath, gameDir, withDownloadFolder } from './paths'
 import { installVersion, listAllInstalled, readVersionJson, flattenInstance } from './versions'
 import { packRuntimeProfile } from './packRuntime'
 import { throwIfCancelled, waitIfTaskPaused } from './tasks'
-import { listGameFolders, setActiveGameFolder } from './gameFolders'
+import { listGameFolders } from './gameFolders'
 import { canonicalPath, samePath } from './folderPaths'
 import { logScope } from './launcherLog'
 
@@ -118,7 +121,7 @@ function safeJoin(base: string, rel: string): string | null {
   if (
     !parts.length ||
     parts.includes('..') ||
-    parts.some((part) => part === '.' || ILLEGAL_WINDOWS_SEGMENT.test(part) || /[:*?"<>|]/.test(part))
+    parts.some((part) => part === '.' || ILLEGAL_WINDOWS_SEGMENT.test(part) || /[:*?"<>|]/.test(part) || (process.platform === 'win32' && /[. ]$/.test(part)))
   ) return null
   const root = path.resolve(base)
   const target = path.resolve(root, ...parts)
@@ -141,10 +144,12 @@ function uniqueInstanceId(name: string, reserved?: ReadonlySet<string>): string 
   return id
 }
 
-function readEntryJson(zip: AdmZip, name: string): unknown {
+async function readEntryJson(zip: PackZip, name: string): Promise<unknown> {
   const entry = zip.getEntry(name) ?? zip.getEntry('./' + name)
   if (!entry) return null
-  return JSON.parse(entry.getData().toString('utf-8'))
+  // Some Windows exporters/editors write a UTF-8 BOM before otherwise valid
+  // JSON. Ignore only that leading marker; keep every other parse check intact.
+  return JSON.parse((await entry.getData()).toString('utf8').replace(/^\uFEFF/, ''))
 }
 
 // ---------------- 压缩包打开与格式探测（install / probe 共用） ----------------
@@ -155,10 +160,13 @@ const normEntry = (name: string): string => name.replace(/\\/g, '/').replace(/^\
 /** 压缩包文件名（去扩展名），作为实例命名来源之一 */
 const packFileName = (filePath: string): string => path.basename(filePath).replace(/\.[^.]+$/, '')
 
-function openPackZip(filePath: string, nested?: Buffer): AdmZip {
+async function openPackZip(filePath: string, signal?: AbortSignal, nested = false, smallNested?: Buffer): Promise<PackZip & { dispose(): Promise<void> }> {
   if (!filePath || !fs.existsSync(filePath)) throw new Error('整合包文件不存在，请重新选择')
+  let zip: (PackZip & { close?(): void | Promise<void> }) | undefined, temporary = ''
   try {
-    const zip = new AdmZip(nested ?? filePath)
+    // Keep the proven fast small-archive path within a fixed 8 MiB ceiling.
+    // Large archives/nested entries use disk streams, never whole-file buffers.
+    zip = smallNested || fs.statSync(filePath).size <= 8 * 1024 * 1024 ? new AdmZip(smallNested ?? filePath) : await StreamPackZip.open(filePath, PACK_MAX_ENTRIES, signal)
     const entries = zip.getEntries()
     if (entries.length > PACK_MAX_ENTRIES) throw new Error('整合包文件数量超过安全上限')
     let unpacked = 0
@@ -183,16 +191,35 @@ function openPackZip(filePath: string, nested?: Buffer): AdmZip {
     }
     // PCL 分发包在外层放启动器，真正的清单位于独立 mrpack 中；仅读取清单包，不执行/导入外层 EXE。
     const names = new Set(entries.map(entry => normEntry(entry.entryName)))
-    if (!nested && !names.has('modrinth.index.json') && !names.has('manifest.json') && !detectFullpackEntry(zip)) {
+    if (!nested && !names.has('modrinth.index.json') && !names.has('manifest.json') && !await detectFullpackEntry(zip)) {
       const packs = entries.filter(entry => !entry.isDirectory && /\.mrpack$/i.test(entry.entryName))
       if (packs.length > 1) throw new Error('整合包包含多个 mrpack，请解压后选择要导入的那个 mrpack')
       if (packs.length === 1) {
-        if (packs[0].header.size > 512 * 1024 * 1024) throw new Error('整合包内层 mrpack 超过 512 MB，请解压后直接导入')
-        return openPackZip(filePath, packs[0].getData())
+        // The old 512 MiB limit guarded an in-memory nested ZIP copy. Nested
+        // archives now stream to an owned file; the outer/inner 32 GiB, ratio,
+        // path, CRC and entry-size limits still apply independently.
+        if (fs.statSync(filePath).size <= 8 * 1024 * 1024 && packs[0].header.size <= 8 * 1024 * 1024) {
+          const bytes = await packs[0].getData()
+          await zip.close?.()
+          return await openPackZip(filePath, signal, true, bytes)
+        }
+        temporary = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'kamucl-pack-entry-'))
+        const innerFile = path.join(temporary, 'inner.mrpack')
+        await writePackEntry(packs[0], innerFile, signal)
+        await zip.close?.()
+        const inner = await openPackZip(innerFile, signal, true), innerDispose = inner.dispose
+        const ownedTemporary = temporary
+        temporary = ''
+        inner.dispose = async () => { await innerDispose(); await fs.promises.rm(ownedTemporary, { recursive: true, force: true }) }
+        return inner
       }
     }
-    return zip
+    const archive = zip
+    return Object.assign(archive, { dispose: async () => archive.close?.() })
   } catch (error) {
+    await zip?.close?.()
+    if (temporary) await fs.promises.rm(temporary, { recursive: true, force: true })
+    signal?.throwIfAborted()
     if (error instanceof Error && /^整合包(?:文件数量|解压后|条目|整体|包含|内层)/.test(error.message)) {
       throw error
     }
@@ -211,7 +238,7 @@ interface FullpackDetected {
 }
 
 /** 探测 zip 内 versions/<vid>/<vid>.json（任意嵌套前缀）；多版本时选继承链顶端的加载器版本 */
-function detectFullpackEntry(zip: AdmZip): FullpackDetected | null {
+async function detectFullpackEntry(zip: PackZip): Promise<FullpackDetected | null> {
   const all: FullpackDetected[] = []
   for (const e of zip.getEntries()) {
     if (e.isDirectory) continue
@@ -239,7 +266,8 @@ function detectFullpackEntry(zip: AdmZip): FullpackDetected | null {
   const inherited = new Set<string>()
   for (const c of group) {
     try {
-      const j = JSON.parse(zip.getEntry(c.jsonEntry)?.getData().toString('utf-8') ?? '{}') as {
+      const entry = zip.getEntry(c.jsonEntry)
+      const j = JSON.parse(entry ? (await entry.getData()).toString('utf8') : '{}') as {
         inheritsFrom?: unknown
       }
       if (typeof j.inheritsFrom === 'string' && j.inheritsFrom) inherited.add(j.inheritsFrom)
@@ -257,11 +285,11 @@ type Detected =
   | { format: 'fullpack'; full: FullpackDetected }
 
 /** 三格式探测：mrpack → curseforge → fullpack，均不命中抛错 */
-function detectPack(zip: AdmZip): Detected {
+async function detectPack(zip: PackZip): Promise<Detected> {
   const names = new Set(zip.getEntries().map((e) => normEntry(e.entryName)))
   if (names.has('modrinth.index.json')) return { format: 'mrpack' }
   if (names.has('manifest.json')) return { format: 'curseforge' }
-  const full = detectFullpackEntry(zip)
+  const full = await detectFullpackEntry(zip)
   if (full) return { format: 'fullpack', full }
   throw new Error(
     '无法识别的整合包格式（支持 Modrinth .mrpack、CurseForge .zip 与含 versions 目录的完整客户端包）'
@@ -278,10 +306,10 @@ const MR_LOADERS: Array<[string, LoaderName]> = [
   ['forge', 'forge']
 ]
 
-function parseMrpack(zip: AdmZip): Parsed {
+async function parseMrpack(zip: PackZip): Promise<Parsed> {
   let idx: MrpackIndex | null = null
   try {
-    idx = readEntryJson(zip, 'modrinth.index.json') as MrpackIndex | null
+    idx = await readEntryJson(zip, 'modrinth.index.json') as MrpackIndex | null
   } catch {
     throw new Error('modrinth.index.json 已损坏，整合包无法解析')
   }
@@ -312,10 +340,13 @@ function parseMrpack(zip: AdmZip): Parsed {
     // 客户端明确 unsupported 即服务端专用；optional / required 均可装入客户端。
     if (f.env?.client === 'unsupported') continue
     const rel = f.path.replace(/\\/g, '/').replace(/^\.\//, '')
-    if (!safeJoin(path.join(process.cwd(), '.mrpack-path-check'), rel)) {
+    const destination = safeJoin(path.join(process.cwd(), '.mrpack-path-check'), rel)
+    if (!destination) {
       throw new Error(`Modrinth 文件路径不安全：${f.path}`)
     }
-    const identity = process.platform === 'win32' ? rel.toLowerCase() : rel
+    // Deduplicate the same normalized destination used during installation:
+    // repeated/mixed separators must not bypass the Windows case-fold check.
+    const identity = process.platform === 'win32' ? destination.toLowerCase() : destination
     if (seenPaths.has(identity)) throw new Error(`Modrinth 清单包含重复目标路径：${rel}`)
     seenPaths.add(identity)
     const urls = (f.downloads ?? []).filter((value) => {
@@ -360,10 +391,10 @@ function parseMrpack(zip: AdmZip): Parsed {
 
 const CF_LOADER_IDS = new Set(['fabric', 'forge', 'quilt', 'neoforge'])
 
-function parseCurseForge(zip: AdmZip): Parsed {
+async function parseCurseForge(zip: PackZip): Promise<Parsed> {
   let mf: CfManifest | null = null
   try {
-    mf = readEntryJson(zip, 'manifest.json') as CfManifest | null
+    mf = await readEntryJson(zip, 'manifest.json') as CfManifest | null
   } catch {
     throw new Error('manifest.json 已损坏，整合包无法解析')
   }
@@ -420,7 +451,7 @@ const FULL_LOADER_GUESS: Array<[LoaderName, RegExp]> = [
 ]
 
 /** 解析全量包版本 json：mcVersion 取 inheritsFrom（无则 id）；loader 由 _loader 或 id 关键词推断 */
-function parseFullpack(zip: AdmZip, det: FullpackDetected): FullpackMeta {
+async function parseFullpack(zip: PackZip, det: FullpackDetected): Promise<FullpackMeta> {
   let json: {
     id?: unknown
     inheritsFrom?: unknown
@@ -428,7 +459,8 @@ function parseFullpack(zip: AdmZip, det: FullpackDetected): FullpackMeta {
     _loaderVersion?: unknown
   } | null = null
   try {
-    json = JSON.parse(zip.getEntry(det.jsonEntry)?.getData().toString('utf-8') ?? '')
+    const entry = zip.getEntry(det.jsonEntry)
+    json = JSON.parse(entry ? (await entry.getData()).toString('utf8') : '')
   } catch {
     throw new Error('包内版本描述文件已损坏，整合包无法解析')
   }
@@ -532,7 +564,7 @@ function fullpackGameRel(
   return null
 }
 
-type ZipEntry = ReturnType<AdmZip['getEntries']>[number]
+type ZipEntry = PackEntry
 
 interface ExtractOp {
   entry: ZipEntry
@@ -542,7 +574,7 @@ interface ExtractOp {
 }
 
 /** 汇总全量包解压计划：versions/** → 全局 versions 目录；其余游戏文件 → 实例目录（去重） */
-function planFullpackExtract(zip: AdmZip, det: FullpackDetected, instDir: string): ExtractOp[] {
+function planFullpackExtract(zip: PackZip, det: FullpackDetected, instDir: string): ExtractOp[] {
   const ops: ExtractOp[] = []
   const vpre = det.prefix + 'versions/'
 
@@ -579,7 +611,7 @@ function planFullpackExtract(zip: AdmZip, det: FullpackDetected, instDir: string
 
 /** 全量包安装：注册游戏版本 + 游戏文件入实例目录 + 写实例 json */
 async function installFullpack(
-  zip: AdmZip,
+  zip: PackZip,
   det: FullpackDetected,
   fileName: string,
   nameSource: 'file' | 'inner',
@@ -587,7 +619,7 @@ async function installFullpack(
   signal?: AbortSignal
 ): Promise<string> {
   emit({ stage: 'modpack', progress: 0, text: '解析整合包信息…' })
-  const meta = parseFullpack(zip, det)
+  const meta = await parseFullpack(zip, det)
   const name = (nameSource === 'inner' ? meta.vid : fileName) || meta.vid
   const loaderText = meta.loader ? ` + ${meta.loader} ${meta.loaderVersion ?? ''}` : ''
   emit({ stage: 'modpack', progress: 0.02, text: `${name}（MC ${meta.mcVersion}${loaderText}）` })
@@ -609,14 +641,16 @@ async function installFullpack(
   const total = ops.length
   let done = 0
   const createdFiles: string[] = []
-  try {
+  const extract = async (): Promise<string> => {
+   try {
     for (const op of ops) {
       throwIfCancelled(signal)
       done++
       if (!(op.skipIfExists && fs.existsSync(op.dest))) {
         fs.mkdirSync(path.dirname(op.dest), { recursive: true })
-        fs.writeFileSync(op.dest, op.entry.getData())
-        createdFiles.push(op.dest)
+        // Track creation as soon as our exclusive handle opens, so cancelled or
+        // corrupt streams also roll back partial files outside the new instance.
+        await writePackEntry(op.entry, op.dest, signal, { exclusive: true, onCreated: () => createdFiles.push(op.dest) })
       }
       if (done % 8 === 0 || done === total) {
         emit({
@@ -660,6 +694,22 @@ async function installFullpack(
     for (const file of createdFiles.reverse()) fs.rmSync(file, { force: true })
     fs.rmSync(instDir, { recursive: true, force: true })
     throw e
+   }
+  }
+  // Shared shipped versions must remain locked until commit or rollback. This
+  // also coordinates with vanilla installs; a second pack cannot observe a
+  // half-written JSON/JAR or adopt files which the first task later removes.
+  const destinations = [...new Map([...shippedVids].map(vid => {
+    const directory = path.resolve(versionDir(vid))
+    return [fileJobKey(directory), directory] as const
+  })).entries()].sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([, directory]) => directory)
+  const register = (index: number): Promise<string> => index === destinations.length
+    ? extract()
+    : withFileJob(destinations[index], signal, () => register(index + 1))
+  try { return await register(0) } catch (error) {
+    // A cancelled lock waiter has created only its private instance directory.
+    fs.rmSync(instDir, { recursive: true, force: true })
+    throw error
   }
 }
 
@@ -698,7 +748,7 @@ async function mapPool<T, R>(
 
 /** 只解压 overrides 前缀下的普通文件；不安全路径或符号链接直接拒绝。 */
 export async function extractOverrides(
-  zip: AdmZip,
+  zip: PackZip,
   prefix: string | null,
   destDir: string,
   signal?: AbortSignal,
@@ -727,7 +777,9 @@ export async function extractOverrides(
     const batch: typeof files = [], destinations = new Set<string>()
     let bytes = 0
     while (cursor < files.length && batch.length < 4) {
-      const item = files[cursor], key = process.platform === 'win32' ? item.dest.toLowerCase() : item.dest
+      // macOS commonly uses case-insensitive volumes. Serialize aliases on
+      // every host, preserving ZIP order even on case-sensitive filesystems.
+      const item = files[cursor], key = item.dest.normalize('NFC').toUpperCase()
       if (batch.length && (bytes + item.entry.header.size > 16 * 1024 * 1024 || destinations.has(key))) break
       batch.push(item); destinations.add(key); bytes += item.entry.header.size; cursor++
     }
@@ -736,9 +788,13 @@ export async function extractOverrides(
       const dir = path.dirname(item.dest)
       if (!directories.has(dir)) directories.set(dir, fs.promises.mkdir(dir, { recursive: true }))
       await directories.get(dir)
-      const data = item.entry.getData()
-      throwIfCancelled(signal)
-      await fs.promises.writeFile(item.dest, data, { signal })
+      if (item.entry.writeTo) await item.entry.writeTo(item.dest, signal)
+      else {
+        // Small archives retain the original synchronous decode/write path.
+        const data = item.entry.getData() as Buffer
+        throwIfCancelled(signal)
+        await fs.promises.writeFile(item.dest, data, { signal })
+      }
     }), signal)
     extracted.push(...batch.map(item => item.rel))
     if (extracted.length === files.length || performance.now() - lastReported >= 100) {
@@ -846,7 +902,7 @@ export async function restoreModpackUserFiles(
 
 function requestedGameFolder(input?: string): string {
   const state = listGameFolders()
-  if (!input) return state.active
+  if (!input) input = defaultFolderPath()
   const target = canonicalPath(input)
   const registered = state.folders.find((folder) => samePath(folder.path, target))
   if (!registered) throw new Error('目标游戏文件夹未在 KAMUCL 中登记')
@@ -856,23 +912,25 @@ function requestedGameFolder(input?: string): string {
 /** 只解析整合包元信息（不解压不下载），供导入确认弹窗展示 */
 export async function probeModpack(filePath: string): Promise<ModpackInfo> {
   packLog.debug(`解析整合包元信息：${path.basename(filePath)}`)
-  const zip = openPackZip(filePath)
-  return modpackInfo(zip, filePath)
+  const zip = await openPackZip(filePath)
+  try { return await modpackInfo(zip, filePath) } finally { await zip.dispose() }
 }
 
 /** A recognized pack must never fall through to its bundled worlds, even when malformed. */
 export async function probeRecognizedModpack(filePath: string): Promise<ModpackInfo | null> {
-  const zip = openPackZip(filePath)
+  const zip = await openPackZip(filePath)
+  try {
   const names = new Set(zip.getEntries().map(entry => normEntry(entry.entryName)))
-  if (!names.has('modrinth.index.json') && !names.has('manifest.json') && !detectFullpackEntry(zip)) return null
-  return modpackInfo(zip, filePath)
+  if (!names.has('modrinth.index.json') && !names.has('manifest.json') && !await detectFullpackEntry(zip)) return null
+  return await modpackInfo(zip, filePath)
+  } finally { await zip.dispose() }
 }
 
-function modpackInfo(zip: AdmZip, filePath: string): ModpackInfo {
-  const detected = detectPack(zip)
+async function modpackInfo(zip: PackZip, filePath: string): Promise<ModpackInfo> {
+  const detected = await detectPack(zip)
   const fileName = packFileName(filePath)
   if (detected.format === 'fullpack') {
-    const meta = parseFullpack(zip, detected.full)
+    const meta = await parseFullpack(zip, detected.full)
     const entries = zip.getEntries().filter((entry) => !entry.isDirectory)
     return {
       format: 'fullpack',
@@ -889,7 +947,7 @@ function modpackInfo(zip: AdmZip, filePath: string): ModpackInfo {
       existingInstances: []
     }
   }
-  const parsed = detected.format === 'mrpack' ? parseMrpack(zip) : parseCurseForge(zip)
+  const parsed = await (detected.format === 'mrpack' ? parseMrpack(zip) : parseCurseForge(zip))
   const { meta } = parsed
   const files = parsed.files
   return {
@@ -931,7 +989,7 @@ export async function installModpack(
   try {
     const id = await (async () => {
       const folder = requestedGameFolder(opts?.targetFolder)
-      return withGameFolder(folder, () => installModpackInFolder(filePath, emit, { ...opts, targetFolder: folder }))
+      return withDownloadFolder(folder, () => installModpackInFolder(filePath, emit, { ...opts, targetFolder: folder }))
     })()
     packLog.info(`整合包 ${path.basename(filePath)} 安装完成：实例 ${id}（耗时 ${((Date.now() - started) / 1000).toFixed(1)}s）`)
     return id
@@ -950,12 +1008,12 @@ async function installModpackInFolder(filePath: string, emit: ProgressEmit, opts
   const report: ProgressEmit = (event) =>
     emit({ ...event, manualFiles, overall: event.overall ?? event.progress })
   const targetFolder = requestedGameFolder(opts?.targetFolder)
-  setActiveGameFolder(targetFolder)
   // 1) 校验存在性与 zip 可读、探测格式
-  const zip = openPackZip(filePath)
+  const zip = await openPackZip(filePath, opts?.signal)
+  try {
   const nameSource = opts?.nameSource === 'inner' ? 'inner' : 'file'
   const fileName = packFileName(filePath)
-  const detected = detectPack(zip)
+  const detected = await detectPack(zip)
 
   // 全量包：解压即玩，无需下载
   if (detected.format === 'fullpack') {
@@ -964,7 +1022,7 @@ async function installModpackInFolder(filePath: string, emit: ProgressEmit, opts
 
   // 2) 解析清单
   report({ stage: 'modpack', progress: 0, text: '解析整合包信息…' })
-  const parsed = detected.format === 'mrpack' ? parseMrpack(zip) : parseCurseForge(zip)
+  const parsed = await (detected.format === 'mrpack' ? parseMrpack(zip) : parseCurseForge(zip))
   throwIfCancelled(opts?.signal)
   const { meta } = parsed
   const loaderText = meta.loader ? ` + ${meta.loader} ${meta.loaderVersion ?? ''}` : ''
@@ -1210,4 +1268,10 @@ async function installModpackInFolder(filePath: string, emit: ProgressEmit, opts
   } finally {
     await prepared?.dispose()
   }
+  } catch (error) {
+    // Parser errors are made friendly locally; cancellation of a streamed
+    // manifest still reports cancellation, rather than a damaged package.
+    throwIfCancelled(opts?.signal)
+    throw error
+  } finally { await zip.dispose() }
 }

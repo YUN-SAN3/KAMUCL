@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import { communityProject, errText } from '../api'
 import type { CommunityModProject, CommunityProjectReference } from '@shared/types'
 
-const props = defineProps<{ reference: CommunityProjectReference }>()
+const props = withDefaults(defineProps<{ reference: CommunityProjectReference; allowDownload?: boolean }>(), { allowDownload: true })
 const emit = defineEmits<{ (event:'close'):void; (event:'download',project:CommunityProjectReference):void }>()
 const project = ref<CommunityModProject>(), loading = ref(false), error = ref(''), retry = ref(0)
 watch([() => props.reference.source, () => props.reference.projectId, retry], async (_next, _old, cleanup) => {
@@ -19,7 +19,7 @@ function download() { if (project.value) emit('download', project.value) }
 </script>
 
 <template>
-  <Teleport to="body"><div class="modal-mask" @pointerdown.self="emit('close')" @keydown.esc.prevent="emit('close')"><section class="modal community-project-modal" role="dialog" aria-modal="true" aria-labelledby="community-project-title" data-ui="community:project-details" :aria-busy="loading">
+  <Teleport to="body"><div class="modal-mask" style="z-index:10030" @pointerdown.self="emit('close')" @keydown.esc.prevent="emit('close')"><section class="modal community-project-modal" role="dialog" aria-modal="true" aria-labelledby="community-project-title" data-ui="community:project-details" :aria-busy="loading">
     <header class="project-heading"><div><span class="project-platform muted">{{ reference.source === 'modrinth' ? 'Modrinth' : 'CurseForge' }} · MOD 详情</span><h3 id="community-project-title" class="modal-title">{{ project?.title || reference.title }}</h3></div><button class="icon-btn" data-modal-dismiss aria-label="关闭模组详情" @click="emit('close')">×</button></header>
     <div v-if="loading" class="project-loading muted" role="status"><span class="spin" />正在读取来源项目资料…</div>
     <div v-else-if="error" class="project-error" role="alert"><p>{{ error }}</p><button class="btn btn-ghost btn-sm" @click="retry++">重试</button></div>
@@ -28,7 +28,7 @@ function download() { if (project.value) emit('download', project.value) }
       <dl class="project-facts"><div><dt>项目 ID</dt><dd>{{ project.projectId }}</dd></div><div v-if="project.author"><dt>作者</dt><dd>{{ project.author }}</dd></div><div v-if="project.license"><dt>许可证</dt><dd>{{ project.license }}</dd></div><div v-if="project.downloads !== undefined" data-ui="community:project-downloads"><dt>下载量</dt><dd>{{ project.downloads.toLocaleString('zh-CN') }}</dd></div><div v-if="project.followers !== undefined"><dt>关注人数</dt><dd>{{ project.followers.toLocaleString('zh-CN') }}</dd></div><div v-if="project.updatedAt && date(project.updatedAt)"><dt>更新日期</dt><dd>{{ date(project.updatedAt) }}</dd></div></dl>
       <div v-if="project.categories.length" class="project-categories" aria-label="项目类别"><span v-for="category in project.categories" :key="category" class="tag">{{ category }}</span></div>
     </template>
-    <footer class="modal-actions"><button v-if="project?.webpage" class="btn btn-ghost project-source" @click="openSource">打开来源页面 ↗</button><button class="btn btn-ghost" data-modal-dismiss @click="emit('close')">关闭</button><button v-if="project" class="btn btn-gold project-download" @click="download">选择版本并安装</button></footer>
+    <footer class="modal-actions"><button v-if="project?.webpage" class="btn btn-ghost project-source" @click="openSource">打开来源页面 ↗</button><button class="btn btn-ghost" data-modal-dismiss @click="emit('close')">关闭</button><button v-if="project && allowDownload" class="btn btn-gold project-download" @click="download">选择版本并安装</button></footer>
   </section></div></Teleport>
 </template>
 

@@ -1,0 +1,69 @@
+name: macOS batch121 original package fixture QA reuse
+on:
+  workflow_dispatch:
+    inputs:
+      resume_mac_arm64:
+        description: 'Run supplementary native fixture QA with the immutable original 1.1.21 package; not full platform acceptance'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  actions: read
+jobs:
+  batch121-reuse:
+    if: inputs.resume_mac_arm64 == true
+    runs-on: macos-26
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Preserve strict reuse and unchanged native fixture contract output
+        run: |
+          mkdir -p out
+          set -o pipefail
+          node --test scripts/verify-mac-batch121-reuse-tests.cjs scripts/verify-mac-batch121-tests.cjs scripts/qa-fixture-ui121-tests.cjs 2>&1 | tee out/mac-batch121-reuse-contracts.log
+      - name: Record original parent failure and exact successful package provenance
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const fs = require('node:fs')
+            const assert = require('node:assert/strict')
+            const reuse = require('./scripts/verify-mac-batch121-reuse.cjs')
+            assert.equal(context.repo.owner + '/' + context.repo.repo, reuse.REPOSITORY)
+            const base = { owner: context.repo.owner, repo: context.repo.repo, run_id: reuse.RUN }
+            const run = (await github.rest.actions.getWorkflowRun(base)).data
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, { ...base, per_page: 100 })
+            const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, { ...base, per_page: 100 })
+            fs.mkdirSync('release', { recursive: true })
+            const origin = { run, jobs, artifacts }
+            fs.writeFileSync('release/artifact-origin121-reuse.json', JSON.stringify(origin, null, 2))
+            reuse.validateOrigin(origin)
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          artifact-ids: 11568754732
+          run-id: 37820579554
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: release
+      - name: Original ASAR renderer only, strict smoke then complete native 18-row matrix
+        # No build, packaging, game rerun or original all-run acceptance is replaced.
+        run: node scripts/verify-mac-batch121-reuse.cjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: mac-batch121-reuse-fixture-ui-arm64
+          path: |
+            release/artifact-origin121-reuse.json
+            out/mac-batch121-reuse-contracts.log
+            out/mac-batch121-reuse-*/receipt.json
+            out/mac-batch121-reuse-*/*.log
+            out/appearance-121-ui-*/proof.json
+            out/appearance-121-ui-*/*.png
+            out/community-review-ui121-*/proof.json
+            out/community-review-ui121-*/*.png
+          if-no-files-found: error

@@ -15,8 +15,16 @@ import type { VersionJson } from './versions'
 import { waitIfTaskPaused, isCancelError } from './tasks'
 import { logScope } from './launcherLog'
 import { JavaProbeCache } from './javaProbeCache'
-import { mapLaunchFiles, SharedPreparation } from './launchPreparation'
-import { macJavaArchitecture } from './javaArchitecture'
+import { mapLaunchFiles } from './launchPreparation'
+import { JavaPreparation } from './javaPreparation'
+import { buildJavaRequirement, javaMinecraftVersion, releaseJavaMajor, selectJavaByMajor, javaCompatibilityError, prepareCompatibleJava, type JavaRequirement, type JavaConstraint } from './javaCompatibility'
+import { createOfficialJavaReader } from './javaMetadata'
+import { resolveInstanceMetadata } from './instanceMetadata'
+import { scanModDirectory } from './modScan'
+export { selectJavaByMajor, javaCompatibilityError } from './javaCompatibility'
+export type { JavaRequirement } from './javaCompatibility'
+import { gameJavaArchitecture } from './javaArchitecture'
+import { requireDesktopGamePlatform } from '../../shared/platform'
 import { provisionJava, javaPackageSize } from './javaSources'
 import { httpFetch } from './httpClient'
 import { validateJavaRuntime } from './javaRuntimeHealth'
@@ -24,6 +32,7 @@ const probeCache = new JavaProbeCache(() => path.join(app.getPath('userData'), '
 
 const javaLog = logScope('java')
 import {
+  JAVA_PROBE_VM_ARGS,
   parseJavaProbeOutput,
   javaHomeExecutable,
   parseRegistryJavaHomes,
@@ -111,7 +120,7 @@ function probeJava(exe: string): JavaInfo | null {
   const cached = probeCache.get(exe)
   if (cached) return cached
   try {
-    const r = spawnSync(exe, ['-XshowSettings:properties', '-version'], {
+    const r = spawnSync(exe, [...JAVA_PROBE_VM_ARGS, '-XshowSettings:properties', '-version'], {
       encoding: 'utf-8',
       timeout: 10000,
       windowsHide: true,
@@ -163,12 +172,13 @@ function runTextProcess(
 }
 
 export async function probeJavaAsync(exe: string, signal?: AbortSignal): Promise<JavaInfo | null> {
+  signal?.throwIfAborted()
   const cached = probeCache.get(exe)
   if (cached) return cached
   try {
     const output = await runTextProcess(
       exe,
-      ['-XshowSettings:properties', '-version'],
+      [...JAVA_PROBE_VM_ARGS, '-XshowSettings:properties', '-version'],
       signal,
       10000
     )
@@ -181,9 +191,11 @@ export async function probeJavaAsync(exe: string, signal?: AbortSignal): Promise
 }
 
 /** Resolve the JVM behind PATH shims before launching so the tracked PID owns the game. */
-export async function resolveJavaExecutable(exe: string): Promise<string> {
+export async function resolveJavaExecutable(exe: string, signal?: AbortSignal): Promise<string> {
+  signal?.throwIfAborted()
   const probe = /javaw\.exe$/i.test(exe) ? path.join(path.dirname(exe), 'java.exe') : exe
-  const output = await runBufferProcess(probe, ['-XshowSettings:properties', '-version'], 10000)
+  const output = await runBufferProcess(probe, [...JAVA_PROBE_VM_ARGS, '-XshowSettings:properties', '-version'], 10000, signal)
+  signal?.throwIfAborted()
   // Java 17 及以下按平台默认编码输出属性（中文 Windows = GBK），Java 18+ 为 UTF-8；
   // 自动下载的 JRE 落在含中文的游戏目录时，UTF-8 直读会得到乱码路径。
   // 双编码尝试：UTF-8 优先，含替换字符或路径不存在时回退 GBK。
@@ -200,9 +212,10 @@ export async function resolveJavaExecutable(exe: string): Promise<string> {
 }
 
 /** execFile 以 Buffer 收输出（编码由调用方按 JVM 平台编码判定）。 */
-function runBufferProcess(command: string, args: string[], timeout = 15000): Promise<Buffer> {
+function runBufferProcess(command: string, args: string[], timeout = 15000, signal?: AbortSignal): Promise<Buffer> {
   return new Promise((resolve, reject) => {
-    execFile(command, args, { encoding: 'buffer', timeout, windowsHide: true, maxBuffer: 4 * 1024 * 1024 }, (error, stdout, stderr) => {
+    execFile(command, args, { encoding: 'buffer', timeout, windowsHide: true, maxBuffer: 4 * 1024 * 1024, signal }, (error, stdout, stderr) => {
+      if (signal?.aborted) { reject(signal.reason); return }
       const output = Buffer.concat([stderr ?? Buffer.alloc(0), stdout ?? Buffer.alloc(0)])
       if (error && !output.length) reject(error)
       else resolve(output)
@@ -405,15 +418,18 @@ export function scanJava(refresh = false): JavaInfo[] {
 
 /** Same discovery/selection as scanJava, without serial child processes blocking
  * the renderer or the other launch preparation branches. */
-export async function scanJavaForLaunch(): Promise<JavaInfo[]> {
+export async function scanJavaForLaunch(emit?: ProgressEmit, signal?: AbortSignal): Promise<JavaInfo[]> {
+  signal?.throwIfAborted()
+  emit?.({ stage: 'java-scan', progress: 0, indeterminate: true, text: '正在检查本机 Java 与运行环境缓存…' })
   if (scanCache && Date.now() - scanCache.time < SCAN_TTL) return mergeCustom(scanCache.list)
   const persisted = cachedCompleteList(PERSISTENT_SCAN_TTL)
   if (persisted) return mergeCustom(persisted)
   const candidates = quickCandidates(false)
+  emit?.({ stage: 'java-scan', progress: 0, indeterminate: true, text: '正在检查 PATH 中的 Java…' })
   try {
-    const output = await runTextProcess(IS_WIN ? 'where.exe' : 'which', ['java'], undefined, 10000)
+    const output = await runTextProcess(IS_WIN ? 'where.exe' : 'which', ['java'], signal, 10000)
     for (const executable of output.split(/\r?\n/).filter(Boolean)) candidates.push({ executable: executable.trim(), sourceDetail: 'PATH' })
-  } catch { /* PATH discovery may legitimately find no Java. */ }
+  } catch { signal?.throwIfAborted() /* PATH discovery may legitimately find no Java. */ }
   const seen = new Set<string>()
   const unique = candidates.filter(candidate => {
     const real = realExecutable(candidate.executable)
@@ -421,10 +437,13 @@ export async function scanJavaForLaunch(): Promise<JavaInfo[]> {
     seen.add(pathKey(real)); return true
   })
   const found = await mapLaunchFiles(unique, async candidate => {
-    const info = await probeJavaAsync(realExecutable(candidate.executable) ?? candidate.executable)
+    emit?.({ stage: 'java-scan', progress: 0, indeterminate: true, text: `正在验证 Java：${candidate.executable}` })
+    signal?.throwIfAborted()
+    const info = await probeJavaAsync(realExecutable(candidate.executable) ?? candidate.executable, signal)
     return info ? { ...info, path: path.resolve(candidate.executable), source: 'auto' as const, sourceDetail: candidate.sourceDetail } : null
   })
   const list = sortJava(found.filter((info): info is NonNullable<typeof info> => info !== null))
+  signal?.throwIfAborted()
   scanCache = { time: Date.now(), list, complete: false }
   return mergeCustom(list)
 }
@@ -858,88 +877,114 @@ export function hideJava(javaPath: string): void {
   saveSettings({ javaHidden: hidden })
 }
 
-/** 推断运行该版本所需的 Java 主版本号 */
-export function requiredMajor(versionJson: VersionJson): number {
-  const declared = versionJson.javaVersion?.majorVersion
-  if (declared && declared > 0) return declared
-  // 按 MC 版本号推断（id 形如 1.20.5 / 1.18 / 1.8.9；自定义命名的原版取 _mcVersion）
-  const verId = versionJson.inheritsFrom ?? versionJson._mcVersion ?? versionJson.id
-  const m = /^1\.(\d+)(?:\.(\d+))?/.exec(verId)
-  if (!m) {
-    // 非 1.x 命名（如 26.2 新版号、24w14a 快照）：均为现代版本，需 Java 21
-    return 21
-  }
-  const minor = parseInt(m[1], 10)
-  const patch = parseInt(m[2] ?? '0', 10)
-  if (minor > 20 || (minor === 20 && patch >= 5)) return 21
-  if (minor >= 18) return 17
-  if (minor === 17) return 16
-  return 8
+/** Synchronous callers may infer known releases or explicit custom metadata.
+ * Snapshots must use resolveJavaRequirement to verify their official JSON. */
+export function requiredMajor(versionJson: VersionJson, verifiedMcVersion?: string): number {
+  return buildJavaRequirement(versionJson, verifiedMcVersion).recommendedMajor
 }
 
-/** 最低版本 + 向上兼容选择：优先推荐版本（==need），否则取满足条件的最高版本（纯函数，可测试）。 */
-export function selectJavaByMajor<T extends { major: number; is64Bit: boolean; architecture?: string }>(available: T[], need: number, architecture?: string): T | null {
-  const ok = available.filter((j) => j.major >= need && j.is64Bit && (!architecture || j.architecture === architecture))
-  return ok.find((j) => j.major === need) ?? [...ok].sort((a, b) => b.major - a.major)[0] ?? null
+const officialJava = createOfficialJavaReader(() => path.join(app.getPath('userData'), 'java-version-metadata'), async (url, signal) => {
+  const response = await httpFetch(url, { systemProxy: true, signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(12000)]) : AbortSignal.timeout(12000) })
+  if (!response.ok) { await response.body?.cancel(); throw new Error(`官方 Java 元数据 HTTP ${response.status}`) }
+  return response.text()
+})
+const javaMetadataPreparations = new JavaPreparation<VersionJson, ProgressEvent>()
+export interface JavaPreparationOptions { signal?: AbortSignal; requirement?: JavaRequirement; modsDirectory?: string }
+
+export async function resolveJavaRequirement(version: VersionJson, verifiedMcVersion?: string,
+  options: JavaPreparationOptions = {}): Promise<JavaRequirement> {
+  const { signal, modsDirectory } = options
+  signal?.throwIfAborted()
+  const mc = javaMinecraftVersion(version, verifiedMcVersion)
+  let official: VersionJson | undefined
+  if (mc && !releaseJavaMajor(mc)) {
+    official = await javaMetadataPreparations.run(mc, () => {}, (_emit, sharedSignal) => officialJava(mc, sharedSignal), signal)
+  }
+  const constraints: JavaConstraint[] = []
+  const loader = resolveInstanceMetadata(version, () => undefined).loader
+  if (loader && modsDirectory) {
+    const mods = await scanModDirectory(modsDirectory, false, undefined, 'catalog', signal)
+    signal?.throwIfAborted()
+    for (const mod of mods) for (const requirement of mod.javaRequirements ?? []) {
+      if (requirement.loader === loader || loader === 'quilt' && requirement.loader === 'fabric') constraints.push(requirement)
+    }
+  }
+  return buildJavaRequirement(version, verifiedMcVersion, official, constraints)
 }
 
 /**
- * 确保有可用 Java：最低版本 + 向上兼容——游戏要求 Java N 时，所有 ≥N 的已安装
- * Java 均可用；优先推荐版本（==need），否则取满足条件的最高版本（如仅装 Java 21
- * 无 Java 17 时，1.20.1 直接用 Java 21 启动，与 PCL2/HMCL 一致）。
- * 完整扫描本机后仍无满足条件的 Java 时，才从 Adoptium 下载 JRE 到 gameDir/runtimes/jre-<major>/。
+ * Automatic selection requires the game's recommended compatible Java major.
+ * Higher installed JVMs do not prove loader/mod compatibility. Download a verified
+ * matching runtime when the local candidates are absent, unhealthy or unsuitable.
  * Windows 为 zip（adm-zip 解压）；macOS/Linux 为 tar.gz（系统 tar 解压）。
  * 返回 java 可执行文件绝对路径。
  */
-const javaPreparations = new SharedPreparation<string>()
-export function ensureJava(versionJson: VersionJson, emit: ProgressEmit): Promise<string> {
+const javaPreparations = new JavaPreparation<string, ProgressEvent>()
+export function ensureJava(versionJson: VersionJson, emit: ProgressEmit, verifiedMcVersion?: string, options: JavaPreparationOptions = {}): Promise<string> {
+ return (async () => {
+  requireDesktopGamePlatform(process.platform)
+  const requirement = options.requirement ?? await resolveJavaRequirement(versionJson, verifiedMcVersion, options)
   // NeoForge repair and game launch may need the same JRE concurrently. Never
   // let two downloads/extractions replace the same runtime under one another.
-  const key = `${pathKey(path.resolve(runtimesDir()))}:${requiredMajor(versionJson)}:${macJavaArchitecture(versionJson) ?? process.arch}`
-  return javaPreparations.run(key, () => ensureJavaInternal(versionJson, emit))
+  const compatibilityKey = JSON.stringify([requirement.recommendedMajor, requirement.minimumMajor, requirement.maximumMajor, requirement.constraints.map(c => [c.range, c.exclude])])
+  const key = `${pathKey(path.resolve(runtimesDir()))}:${compatibilityKey}:${gameJavaArchitecture(versionJson) ?? process.arch}`
+  return javaPreparations.run(key, emit, (progress, signal) => ensureJavaInternal(versionJson, progress, requirement, signal), options.signal)
+ })()
 }
 
-export async function selectHealthyJava(available: JavaInfo[], need: number, architecture?: string): Promise<JavaInfo | null> {
-  let remaining = [...available]
+export async function selectHealthyJava(available: JavaInfo[], need: number, architecture?: string, signal?: AbortSignal, requirement?: JavaRequirement): Promise<JavaInfo | null> {
+  let remaining = requirement ? available.filter(j => !javaCompatibilityError(j, requirement, architecture, true)) : [...available]
   while (remaining.length) {
     const candidate = selectJavaByMajor(remaining, need, architecture)
     if (!candidate) return null
     remaining = remaining.filter(item => item !== candidate)
     try {
-      const exe = await resolveJavaExecutable(candidate.path)
-      await validateJavaRuntime(exe, candidate.major)
-      return { ...candidate, path: exe }
-    } catch (error) { javaLog.warn('跳过不完整的 Java：' + candidate.path + '；' + String(error)) }
+      const checked = await validateCandidateJava(candidate, signal)
+      if (requirement && javaCompatibilityError(checked, requirement, architecture, true)) continue
+      return checked
+    } catch (error) { signal?.throwIfAborted(); javaLog.warn('跳过不完整的 Java：' + candidate.path + '；' + String(error)) }
   }
   return null
 }
 
-async function ensureJavaInternal(versionJson: VersionJson, emit: ProgressEmit): Promise<string> {
-  const need = requiredMajor(versionJson)
+export async function validateCandidateJava(candidate: JavaInfo, signal?: AbortSignal): Promise<JavaInfo> {
+  const exe = await resolveJavaExecutable(candidate.path, signal)
+  const actual = await probeJavaAsync(exe, signal)
+  if (!actual || actual.major !== candidate.major || !actual.is64Bit || actual.architecture !== candidate.architecture) throw new Error('Java 缓存与当前实际运行时不一致')
+  await validateJavaRuntime(exe, actual.major)
+  signal?.throwIfAborted()
+  return { ...actual, path: exe }
+}
+
+async function ensureJavaInternal(versionJson: VersionJson, emit: ProgressEmit, requirement: JavaRequirement, signal: AbortSignal): Promise<string> {
+  const need = requirement.recommendedMajor
   const started = Date.now()
-  const architecture = macJavaArchitecture(versionJson)
-  const local = await selectHealthyJava(await scanJavaForLaunch(), need, architecture)
-  if (local) {
-    if (local.major === need) javaLog.debug(`本机已有 Java ${need}（64位）：${local.path}`)
-    else javaLog.info(`本机没有 Java ${need}，向上兼容选用 Java ${local.major}（${local.version}，64位）：${local.path}`)
-    return local.path
-  }
-  javaLog.info(`本机没有 Java ${need} 或更高版本（64位），开始从 Adoptium 自动下载`)
+  const architecture = gameJavaArchitecture(versionJson)
   try {
-    const exe = await downloadAndExtractJava(need, emit, architecture)
-    javaLog.info(`Java ${need} 自动下载完成：${exe}（耗时 ${((Date.now() - started) / 1000).toFixed(1)}s）`)
-    return exe
+    const selected = await prepareCompatibleJava(requirement, await scanJavaForLaunch(emit, signal),
+      async candidate => {
+        try { return await validateCandidateJava(candidate, signal) }
+        catch (error) { javaLog.warn('跳过不完整的 Java：' + candidate.path + '；' + String(error)); throw error }
+      }, async major => {
+        javaLog.info(`本机没有适配的 Java ${major}（64位），开始自动下载推荐运行时`)
+        const exe = await downloadAndExtractJava(major, emit, architecture, signal)
+        const info = await probeJavaAsync(exe, signal)
+        if (!info) throw new Error('自动安装的 Java 无法运行')
+        return info
+      }, architecture, signal)
+    javaLog.info(`选用 Java ${selected.major}（${selected.version}，${selected.architecture}）：${selected.path}（耗时 ${((Date.now() - started) / 1000).toFixed(1)}s）`)
+    return selected.path
   } catch (error) {
     if (!isCancelError(error)) javaLog.error(`自动准备 Java ${need} 失败`, error)
     throw error
   }
 }
 
-async function downloadAndExtractJava(need: number, emit: ProgressEmit, architecture?: 'arm64' | 'x64'): Promise<string> {
+async function downloadAndExtractJava(need: number, emit: ProgressEmit, architecture?: 'arm64' | 'x64', signal?: AbortSignal): Promise<string> {
   const arch = (architecture ?? process.arch) === 'arm64' ? 'aarch64' : 'x64'
   const report = (text: string): void => { javaLog.info(text); emit({ stage: 'java', progress: 0, text }) }
   const read = async (url: string): Promise<unknown> => {
-    const response = await httpFetch(url, { systemProxy: true, signal: AbortSignal.timeout(12000) })
+    const response = await httpFetch(url, { systemProxy: true, signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(12000)]) : AbortSignal.timeout(12000) })
     if (!response.ok) { await response.body?.cancel(); throw new Error(`${new URL(url).hostname} HTTP ${response.status}`) }
     return response.json()
   }
@@ -950,8 +995,9 @@ async function downloadAndExtractJava(need: number, emit: ProgressEmit, architec
     const archive = path.join(staging, IS_WIN ? 'runtime.zip' : 'runtime.tar.gz')
     const extracted = path.join(staging, 'unpacked')
     try {
-      const size = await javaPackageSize(pkg, url => httpFetch(url, { method: 'HEAD', systemProxy: true, signal: AbortSignal.timeout(10000) }))
-      await downloadFile(pkg.url, archive, (done, total) => emit({ stage: 'java', progress: total ? done / total * .85 : 0, bytesDone: done, text: `下载 Java ${need} · ${pkg.provider} ${(done / 1048576).toFixed(1)}${total ? '/' + (total / 1048576).toFixed(1) : ''} MB` }), undefined, 'official', undefined, [], { sha256: pkg.sha256, size, systemProxy: true, maxAttempts: 2 })
+      const size = await javaPackageSize(pkg, url => httpFetch(url, { method: 'HEAD', systemProxy: true, signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(10000)]) : AbortSignal.timeout(10000) }))
+      signal?.throwIfAborted()
+      await downloadFile(pkg.url, archive, (done, total) => emit({ stage: 'java', progress: total ? done / total * .85 : 0, bytesDone: done, text: `下载 Java ${need} · ${pkg.provider} ${(done / 1048576).toFixed(1)}${total ? '/' + (total / 1048576).toFixed(1) : ''} MB` }), undefined, 'official', signal, [], { sha256: pkg.sha256, size, systemProxy: true, maxAttempts: 2 })
       emit({ stage: 'java', progress: .9, text: `校验通过，正在解压 Java ${need} · ${pkg.provider}` })
       fs.mkdirSync(extracted)
       if (IS_WIN) new AdmZip(archive).extractAllTo(extracted, true)
@@ -963,9 +1009,10 @@ async function downloadAndExtractJava(need: number, emit: ProgressEmit, architec
       if (!exe || !fs.realpathSync(exe).startsWith(fs.realpathSync(extracted) + path.sep)) throw new Error('Java 解压失败：未找到有效的 bin/java')
       if (!IS_WIN) fs.chmodSync(exe, 0o755)
       emit({ stage: 'java', progress: .95, text: `正在验证 Java ${need} · ${pkg.provider}（${arch}）` })
-      const verified = await probeJavaAsync(exe)
+      const verified = await probeJavaAsync(exe, signal)
       if (!verified || verified.major !== need || verified.architecture !== (arch === 'aarch64' ? 'arm64' : 'x64')) throw new Error(`Java ${need} 无法运行或架构不匹配${IS_MAC && process.arch === 'arm64' && arch === 'x64' ? '；旧版游戏需要 Intel Java，请确认系统已安装 Rosetta' : ''}`)
       await validateJavaRuntime(exe, verified.major)
+      signal?.throwIfAborted()
       // Publish a fresh directory only after verification. Never remove or replace
       // a runtime that an already-running game may still be using.
       const target = path.join(root, `jre-${need}-${arch}-${path.basename(staging).slice(6)}`)
@@ -982,5 +1029,5 @@ async function downloadAndExtractJava(need: number, emit: ProgressEmit, architec
       // staging is a unique mkdtemp child of the managed runtime root.
       await fs.promises.rm(staging, { recursive: true, force: true })
     }
-  }, report)
+  }, report, signal)
 }

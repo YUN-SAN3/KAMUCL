@@ -9,6 +9,8 @@ import ModpackSupplement from './components/ModpackSupplement.vue'
 import { instanceCenter, openInstanceCenter } from './instanceCenter'
 import { loadExitNotices, clearNotices } from './store'
 import { useNavigationBubble } from './composables/useNavigationBubble'
+import { usePlatformUpdate } from './composables/usePlatformUpdate'
+const { updateReadyMessage } = usePlatformUpdate()
 import { computed, defineAsyncComponent, nextTick, onMounted, onUnmounted, provide, reactive, ref, watch } from 'vue'
 import { MASCOT_INTERACTIVE } from './mascotInteraction'
 import type { Component } from 'vue'
@@ -73,13 +75,14 @@ const ProjectionsView = defineAsyncComponent(() => import('./views/ProjectionsVi
 const MascotStage = defineAsyncComponent(() => import('./components/MascotStage.vue'))
 const mascotOpen = ref(false)
 const mascotReady = ref(false)
+const mascotBusy = ref(false)
 const mascotSoftware = ref(false)
 // Give the active logo interaction priority over decorative skin previews.
-provide(MASCOT_INTERACTIVE, computed(() => mascotOpen.value))
+provide(MASCOT_INTERACTIVE, computed(() => mascotOpen.value && (!mascotReady.value || mascotBusy.value)))
 const mascotRef = ref<{flush:()=>Promise<void>}>()
 const mascotKeyboard = ref(false)
 function openMascots(event:MouseEvent){if(mascotOpen.value)return;mascotKeyboard.value=event.detail===0;mascotReady.value=false;mascotSoftware.value=false;mascotOpen.value=true}
-function closeMascots(){mascotOpen.value=false;void nextTick(()=>document.querySelector<HTMLButtonElement>('.brand-avatar')?.focus())}
+function closeMascots(){mascotOpen.value=false;mascotBusy.value=false;void nextTick(()=>document.querySelector<HTMLButtonElement>('.brand-avatar')?.focus())}
 const PacksView = defineAsyncComponent(() => import('./views/PacksView.vue'))
 const ShadersView = defineAsyncComponent(() => import('./views/ShadersView.vue'))
 const KeysView = defineAsyncComponent(() => import('./views/KeysView.vue'))
@@ -309,7 +312,7 @@ async function onUpdateInstallNow() {
   try {
     await applyUpdate(release)
     updateModal.open = false
-    toast('更新已就绪，下次手动启动时应用', 'success')
+    toast(updateReadyMessage(), 'success')
   } catch (e) {
     toast('安装更新失败：' + errText(e), 'error')
     updateModal.open = false
@@ -433,7 +436,11 @@ function onDragLeave(e: DragEvent) {
 
 function onDrop(e: DragEvent) {
   if(store.editMode){e.preventDefault();e.stopImmediatePropagation();endDrag();return}
-  if (resourceDropPage()) {
+  // MRPACK is unambiguously a whole pack, even on a local resource page.
+  // Ordinary ZIP/JAR drops retain that page's existing batch import behavior.
+  const mrpackDrop = dragHasFiles(e) && Array.from(e.dataTransfer?.files ?? []).some(file => /\.mrpack$/i.test(file.name))
+  if (mrpackDrop) e.stopPropagation()
+  if (resourceDropPage() && !mrpackDrop) {
     endDrag(); e.preventDefault(); e.stopPropagation()
     if (dragHasFiles(e)) {
       if (store.resourceDropHandler) store.resourceDropHandler(e)
@@ -475,7 +482,7 @@ function onDrop(e: DragEvent) {
     modDrop.open = true
     return
   }
-  toast('不能混合拖入整合包与其他文件，请分开拖入', 'error')
+  toast('压缩包请一次导入一个文件；混合文件请分开拖入', 'error')
 }
 
 function routeYggdrasilImport(input: YggdrasilProviderInput) {
@@ -516,7 +523,7 @@ async function routeSingleImport(filePath: string, _displayName: string) {
 
 // ---------------- 整合包导入确认弹窗 ----------------
 const FORMAT_LABEL: Record<ModpackInfo['format'], string> = {
-  mrpack: 'Modrinth',
+  mrpack: 'Modrinth (.mrpack)',
   curseforge: 'CurseForge',
   fullpack: '完整客户端包'
 }
@@ -621,7 +628,7 @@ async function openModpackImport(filePath: string, knownInfo?: ModpackInfo) {
     info: null,
     nameSource: 'file' as const,
     customName: '',
-    targetFolder: store.settings?.activeFolder || store.settings?.gameDir || '',
+    targetFolder: store.settings?.folders.find(folder => folder.isDefault)?.path || store.settings?.activeFolder || store.settings?.gameDir || '',
     conflictAction: 'rename' as const,
     existingId: '',
     confirmReplace: false
@@ -967,10 +974,9 @@ function applyCustomVars(custom: CustomTheme, theme: ThemeName) {
   const colors = theme === 'custom' ? readableCustomColors(custom.colors) : custom.colors
   const accent = colors.accent
   const dark = hexLuminance(colors.bg) < 0.46
-  const blackPurple = theme === 'transparent'
   const cardOpacity = dark ? 88 : 94
   const raisedOpacity = dark ? 82 : 91
-  const sideOpacity = blackPurple ? 88 : dark ? 26 : 38
+  const sideOpacity = dark ? 26 : 38
   const accent2 = `color-mix(in srgb, ${accent} ${dark ? 72 : 84}%, ${dark ? 'white' : 'black'})`
   const accentDeep = `color-mix(in srgb, ${accent} 78%, black)`
   st.setProperty('--accent', accent)
@@ -1007,7 +1013,7 @@ function applyCustomVars(custom: CustomTheme, theme: ThemeName) {
   st.setProperty('--shadow-lg', dark ? '0 20px 55px rgba(0, 0, 0, 0.42)' : '0 20px 55px rgba(31, 50, 85, 0.18)')
   st.setProperty(
     '--shell-surface',
-    `color-mix(in srgb, ${colors.bg} ${blackPurple ? 96 : dark ? 30 : 42}%, transparent)`
+    `color-mix(in srgb, ${colors.bg} ${dark ? 30 : 42}%, transparent)`
   )
   st.setProperty('--glass-blur', '28px')
   // 图一布局是全部主题共享的固定骨架；旧 layout 字段只保留兼容，不再改变结构。
@@ -1116,7 +1122,7 @@ onMounted(async () => {
       if (updateModal.open && r.taskId === updateModal.taskId) updateModal.slowHint = true
     }),
     onUpdateReady((r) => {
-      toast(`新版本 v${r.version} 已下载完成，下次启动时应用`, 'success')
+      toast(updateReadyMessage(`新版本 v${r.version} 已下载完成`), 'success')
     }),
     onInstallDone((r) => {
       store.installing.delete(r.versionId)
@@ -1126,7 +1132,8 @@ onMounted(async () => {
       resetProgressMono(r.taskId)
       if (r.ok) {
         store.failedInstalls.delete(r.versionId)
-        toast(`版本 ${r.versionId} 安装完成`, 'success')
+        const favorites = r.favoriteModsResult
+        toast(favorites ? `版本 ${r.versionId} 安装完成；${favorites.baseOnly ? '已按确认不安装收藏模组' : `已安装 ${favorites.installed} 项收藏模组及 ${favorites.dependencies} 项必要前置，跳过 ${favorites.skipped.length} 项`}。模组目录：${favorites.modsDirectory}` : `版本 ${r.versionId} 安装完成`, 'success')
         void refreshInstalled()
       } else if (r.cancelled) {
         // 用户主动取消：不记失败、不弹错误（taskDone 已提示）
@@ -1163,6 +1170,10 @@ onMounted(async () => {
         launchFail.title = '游戏启动失败'
         launchFail.text = s.text
       } else if (s.status === 'exited') {
+        if (s.savedWindowSize?.scope === 'global' && store.settings && JSON.stringify(store.settings.resolution) === JSON.stringify(s.savedWindowSize.previous)) {
+          store.settings.resolution = { ...s.savedWindowSize.resolution }
+        }
+        if (s.savedWindowSize?.scope === 'instance') void refreshInstalled().catch(() => undefined)
         if (shouldReportGameCrash(s)) {
           launchFail.open = true
           launchFail.title = `游戏异常退出（代码 ${signedExitCode(s.code ?? null) ?? '未知'}）`
@@ -1245,7 +1256,7 @@ onUnmounted(() => {
       <div data-ui="App:fc5fc8ba7e96" class="logo-area">
         <div class="brand-slot">
         <button class="brand-avatar" :class="{'avatar-open':mascotOpen&&mascotReady,'avatar-preparing':mascotOpen&&!mascotReady}" :tabindex="mascotOpen?-1:0" aria-label="打开卡慕互动彩蛋" :aria-expanded="mascotOpen" :aria-busy="mascotOpen&&!mascotReady" :title="mascotOpen&&!mascotReady?'正在准备卡慕…':'打开卡慕互动彩蛋'" @click="openMascots"><img data-ui="App:0f39bd9dbfd2" class="brand-head" :src="brandHead" alt="KaMuaMua 的 Minecraft 头像" /></button>
-        <MascotStage v-if="mascotOpen" ref="mascotRef" :focus-on-ready="mascotKeyboard" @ready="mascotReady=true" @render-mode="mascotSoftware=$event" @close="closeMascots"/>
+        <MascotStage v-if="mascotOpen" ref="mascotRef" :focus-on-ready="mascotKeyboard" @ready="mascotReady=true" @activity="mascotBusy=$event" @render-mode="mascotSoftware=$event" @close="closeMascots"/>
         </div>
         <div data-ui="App:7494cda29e47" class="logo-text">
           <span data-ui="App:c396a9ff34cb" class="logo-name">KAMUCL</span>
@@ -1458,7 +1469,7 @@ onUnmounted(() => {
             </div>
             <div data-ui="App:61130e12d278" v-if="!store.tasks.length" class="notice-empty">没有进行中的任务</div>
             <div data-ui="App:9f518a7bbb67" v-else class="notice-list">
-              <div data-ui="App:ac5c4222257f" v-for="t in store.tasks" :key="t.id" class="dl-item" :class="'dl-' + t.status">
+              <div data-ui="App:ac5c4222257f" v-for="t in store.tasks" :key="t.id" :data-task-id="t.id" class="dl-item" :class="'dl-' + t.status">
                 <div data-ui="App:1147e17bfe61" class="dl-item-head">
                   <span data-ui="App:a4f0a4d42456" class="dl-title" :title="t.title">{{ t.title }}</span>
                   <span data-ui="App:7faad0b50853" v-if="t.status === 'running'" class="dl-actions">
@@ -1776,10 +1787,10 @@ onUnmounted(() => {
   flex-direction: column;
   background: color-mix(in srgb, var(--bg-2) 92%, transparent);
   border-right: 1px solid var(--border);
-  /* Keep the translucent navigation in its own composited surface across
-     window resize and submenu layout changes, including software rendering. */
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  /* Let Chromium compose the sidebar normally. Forcing a translated,
+     backface-hidden surface retains stale navigation pixels after scrolling
+     and minimum-window layout changes. The moving highlight keeps its own
+     transform and transition below. */
 }
 
 .logo-area {
@@ -2304,7 +2315,7 @@ onUnmounted(() => {
 .dl-stages { display: grid; gap: 10px; margin-top: 14px; }
 .dl-stage { min-width: 0; padding: 9px 10px; border: 1px solid var(--border); border-radius: 9px; background: var(--card-2); }
 .dl-stage-heading { display: flex; justify-content: space-between; gap: 8px; font-size: var(--text-xs); font-weight: 600; }
-.dl-stage-detail { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--text-xs); margin-top: 3px; }
+.dl-stage-detail { overflow-wrap: anywhere; white-space: normal; line-height: 1.5; font-size: var(--text-xs); margin-top: 3px; }
 .dl-stage .dl-bar { height: 3px; margin-top: 6px; }
 .dl-stage.is-done .dl-stage-heading { color: var(--accent); }
 .dl-bar.is-indeterminate .dl-bar-fill {

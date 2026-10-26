@@ -56,12 +56,12 @@ sealed class StartupFeedback : Form {
         StartPosition=FormStartPosition.Manual;Bounds=Screen.PrimaryScreen.Bounds;
         using(var stream=Assembly.GetExecutingAssembly().GetManifestResourceStream("face.png"))
         using(var source=new Bitmap(stream))face=new Bitmap(source);
-        bool animation=true;SystemParametersInfo(0x1042,0,ref animation,0);reduced=!animation;
+        bool animation=true;bool queried=SystemParametersInfo(0x1042,0,ref animation,0);reduced=queried&&!animation;
     }
     protected override bool ShowWithoutActivation{get{return true;}}
     protected override CreateParams CreateParams{get{var p=base.CreateParams;p.ExStyle|=0x80000|0x08000000|0x20|0x80;return p;}}
     protected override void OnShown(EventArgs e){
-        base.OnShown(e);scale=GetDpiForWindow(Handle)/96f;Geometry();TickScene();
+        base.OnShown(e);Mark(".motion",reduced?"system-reduced":"full");scale=GetDpiForWindow(Handle)/96f;Geometry();TickScene();
         preciseTimer=timeBeginPeriod(1)==0;nextFrame=clock.Elapsed.TotalMilliseconds+FrameMilliseconds;
         frameTimer=new System.Threading.Timer(QueueFrame,null,0,1);
     }

@@ -1,0 +1,46 @@
+{
+  "classification": "Read-only disposable QA child lifecycle; never command lines or external signals",
+  "child": {
+    "label": "refinement-app",
+    "pid": 33124,
+    "startedAt": "2026-10-06T13:35:19.522Z",
+    "events": [
+      {
+        "event": "exit",
+        "at": 248106997.5503,
+        "code": 0,
+        "signal": null
+      },
+      {
+        "event": "close",
+        "at": 248106997.6714,
+        "code": 0,
+        "signal": null
+      }
+    ],
+    "closed": true,
+    "code": 0,
+    "signal": null,
+    "awaitedClose": true,
+    "finishedAt": "2026-10-06T13:35:55.065Z"
+  },
+  "before": {
+    "at": 248071494.2474,
+    "ownedPids": [
+      33124
+    ],
+    "available": false,
+    "reason": "native ps inventory only on Darwin"
+  },
+  "signalObserverRemoved": true,
+  "originalSignalListenersPreserved": true,
+  "after": {
+    "at": 248107036.6028,
+    "ownedPids": [
+      33124
+    ],
+    "available": false,
+    "reason": "native ps inventory only on Darwin"
+  },
+  "complete": true
+}

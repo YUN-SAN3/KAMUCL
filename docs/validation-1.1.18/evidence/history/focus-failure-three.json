@@ -1,0 +1,6388 @@
+{
+  "complete": false,
+  "version": "1.1.18",
+  "theme": "custom",
+  "directory": "E:\\KAMUCL\\out\\qa-offline118-custom-48e308e4-b39d-4858-a2e7-82834e3bd381",
+  "observations": [
+    {
+      "label": "real native focus",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356753883,
+          "value": true
+        }
+      ]
+    },
+    {
+      "label": "coordinate [data-nav=home]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356754212,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 116.80000305175781,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "navigation home",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356754395,
+          "value": "page"
+        }
+      ]
+    },
+    {
+      "label": "coordinate .account-provider",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356754754,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1183.7999725341797,
+            "y": 204.60000610351562,
+            "width": 256.3999938964844,
+            "height": 44,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "account management view",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356754938,
+          "value": "账号"
+        }
+      ]
+    },
+    {
+      "label": "production account row 本地验证甲_a519f3",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356755292,
+          "value": true
+        }
+      ]
+    },
+    {
+      "label": "coordinate account 本地验证甲_a519f3",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356755301,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 780.8000183105469,
+            "y": 565.0000381469727,
+            "width": 678.4000244140625,
+            "height": 68.80000305175781,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "selected 3ae8bd55-51bf-3a63-857c-00447f096cd2",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356755475,
+          "value": {
+            "id": "3ae8bd55-51bf-3a63-857c-00447f096cd2",
+            "type": "offline",
+            "username": "本地验证甲_a519f3",
+            "uuid": "3ae8bd55-51bf-3a63-857c-00447f096cd2"
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate [data-nav=skins]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356755479,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 380.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "navigation skins",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356755665,
+          "value": "page"
+        }
+      ]
+    },
+    {
+      "label": "skin account heading",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356756021,
+          "value": "本地验证甲_a519f3"
+        }
+      ]
+    },
+    {
+      "label": "coordinate 选择皮肤文件…",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356756462,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 767.7000122070312,
+            "y": 305.8000183105469,
+            "width": 129,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "actual File input preview",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356756657,
+          "value": {
+            "name": "offline118-custom.png",
+            "canvas": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate 纤细 Slim",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356756666,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1007.5937881469727,
+            "y": 393.000018119812,
+            "width": 84.11250305175781,
+            "height": 28.399999618530273,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate 应用到离线账号",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356756858,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 910.0000152587891,
+            "y": 507.3999938964844,
+            "width": 131.60000610351562,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "production slim skin committed",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356757046,
+          "value": {
+            "username": "本地验证甲_a519f3",
+            "skins": [
+              {
+                "variant": "slim",
+                "url": "",
+                "state": "ACTIVE",
+                "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAA/ElEQVR4AeyVwQ2DQAwET7SUDpKmkg5SFX8e1AT/e4BWPgFeT6R7oPiEPTtOpuX32SqfqRX/AKC4AA0DMKA4AVaguAD8CLICrEBxAqxAcQHq/Qv0gbMCPZFqzxhQLfF+3uEGfF/vdnT6Bu5+Hg7g7oHU9wNAJeZWjwFuiarzYIBKzK0eA9wSVefBAJVYtvqzfocb8F/ndnTOGrr6++EArh4g+j4ARAlmv48B2ROM9o8BUYLZ72NA9gSj/WNAlGD2+xiQPcFo/xgQJfi0+2o/GKASc6vHALdE1XkwQCXmVo8Bbomq82CASsytHgPcElXnwQCVmFs9BmRPNNr/DgAA///QzT8NAAAABklEQVQDALezuYFeZ/tDAAAAAElFTkSuQmCC"
+              }
+            ],
+            "capes": []
+          }
+        }
+      ]
+    },
+    {
+      "label": "actual apply UI settled",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356757052,
+          "value": {
+            "pending": false,
+            "label": "纤细 Slim"
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate 恢复游戏默认皮肤",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356757490,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1060.5999908447266,
+            "y": 305.8000183105469,
+            "width": 145.60000610351562,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "reset persisted",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356757669,
+          "value": {
+            "username": "本地验证甲_a519f3",
+            "skins": [],
+            "capes": []
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate .history-preview",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356757677,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 330.62500762939453,
+            "y": 635.7999877929688,
+            "width": 138.0500030517578,
+            "height": 168,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "history preview without application",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356757854,
+          "value": "offline118-custom.png · 仅预览，未更换账号皮肤结束预览"
+        }
+      ]
+    },
+    {
+      "label": "coordinate 换回",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356758278,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 294.6125068664551,
+            "y": 742.2000122070312,
+            "width": 66.0250015258789,
+            "height": 28,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "history applied only to A",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356758462,
+          "value": {
+            "username": "本地验证甲_a519f3",
+            "skins": [
+              {
+                "variant": "slim",
+                "url": "",
+                "state": "ACTIVE",
+                "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAA/ElEQVR4AeyVwQ2DQAwET7SUDpKmkg5SFX8e1AT/e4BWPgFeT6R7oPiEPTtOpuX32SqfqRX/AKC4AA0DMKA4AVaguAD8CLICrEBxAqxAcQHq/Qv0gbMCPZFqzxhQLfF+3uEGfF/vdnT6Bu5+Hg7g7oHU9wNAJeZWjwFuiarzYIBKzK0eA9wSVefBAJVYtvqzfocb8F/ndnTOGrr6++EArh4g+j4ARAlmv48B2ROM9o8BUYLZ72NA9gSj/WNAlGD2+xiQPcFo/xgQJfi0+2o/GKASc6vHALdE1XkwQCXmVo8Bbomq82CASsytHgPcElXnwQCVmFs9BmRPNNr/DgAA///QzT8NAAAABklEQVQDALezuYFeZ/tDAAAAAElFTkSuQmCC"
+              }
+            ],
+            "capes": []
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate .skin-editor-entry",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356758991,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1278.000072479248,
+            "y": 119.9000015258789,
+            "width": 85.5999984741211,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "offline editor actionable",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356759213,
+          "value": {
+            "text": "应用到离线账号",
+            "disabled": false
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate 读取当前皮肤",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356759217,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1157.3197555541992,
+            "y": 120.42513084411621,
+            "width": 185.05430603027344,
+            "height": 37.5907096862793,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "current PNG imported",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356759400,
+          "value": "64 × 64 像素 · 有未保存更改"
+        }
+      ]
+    },
+    {
+      "label": "coordinate 新建",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356759404,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 836.9562644958496,
+            "y": 120.20000267028809,
+            "width": 123.38750457763672,
+            "height": 37.60000228881836,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate [aria-label=\"皮肤模型\"]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356759591,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1092.2062377929688,
+            "y": 176,
+            "width": 295.5625,
+            "height": 38,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate .editor-upload",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356760059,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 178.4000015258789,
+            "y": 786.2000122070312,
+            "width": 145.60000610351562,
+            "height": 40,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "local editor confirmation",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356760241,
+          "value": "应用到离线账号将保存到离线账号 本地验证甲_a519f3，使用经典模型。仅在本机游戏显示，下次启动生效。首次启动会从作者官方来源下载并校验 authlib-injector 皮肤加载组件，之后可在断网时使用缓存；其他玩家看到的皮肤由服务器决定。确认应用取消"
+        }
+      ]
+    },
+    {
+      "label": "coordinate 确认应用",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356760694,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 787.5999870300293,
+            "y": 503.20001220703125,
+            "width": 77.5999984741211,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "actual local editor operation completes",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356760870,
+          "value": {
+            "dialog": false,
+            "inert": false
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate .editor-close",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356760878,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1238,
+            "y": 62.10000228881836,
+            "width": 36,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "saved local editor closes",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356761070,
+          "value": false
+        }
+      ]
+    },
+    {
+      "label": "coordinate 选择皮肤文件…",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356762478,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 767.7000122070312,
+            "y": 305.8000183105469,
+            "width": 129,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "actual File input preview",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356762669,
+          "value": {
+            "name": "offline118-custom.png",
+            "canvas": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate 应用到离线账号",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356762679,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 910.0000152587891,
+            "y": 467.3999938964844,
+            "width": 131.60000610351562,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "actual committed A reply held",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356762870,
+          "value": true
+        }
+      ]
+    },
+    {
+      "label": "coordinate [data-nav=home]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356762875,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 116.80000305175781,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "navigation home",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356763089,
+          "value": "page"
+        }
+      ]
+    },
+    {
+      "label": "coordinate .account-provider",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356763445,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1183.7999725341797,
+            "y": 204.60000610351562,
+            "width": 256.3999938964844,
+            "height": 44,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "account management view",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356763644,
+          "value": "账号"
+        }
+      ]
+    },
+    {
+      "label": "production account row 本地验证乙_a519f3",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356764001,
+          "value": true
+        }
+      ]
+    },
+    {
+      "label": "coordinate account 本地验证乙_a519f3",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356764007,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 780.8000183105469,
+            "y": 641.8000259399414,
+            "width": 678.4000244140625,
+            "height": 68.80000305175781,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "selected afc8ef83-6c6a-3188-80af-7d6d589043d5",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356764190,
+          "value": {
+            "id": "afc8ef83-6c6a-3188-80af-7d6d589043d5",
+            "type": "offline",
+            "username": "本地验证乙_a519f3",
+            "uuid": "afc8ef83-6c6a-3188-80af-7d6d589043d5"
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate [data-nav=skins]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356764196,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 380.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "navigation skins",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356764406,
+          "value": "page"
+        }
+      ]
+    },
+    {
+      "label": "skin account heading",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356764761,
+          "value": "本地验证乙_a519f3"
+        }
+      ]
+    },
+    {
+      "label": "deferred A reply completed",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356764768,
+          "value": true
+        }
+      ]
+    },
+    {
+      "label": "coordinate [data-nav=home]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356765216,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 116.80000305175781,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "navigation home",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356765432,
+          "value": "page"
+        }
+      ]
+    },
+    {
+      "label": "coordinate .account-provider",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356765793,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1183.7999725341797,
+            "y": 204.60000610351562,
+            "width": 256.3999938964844,
+            "height": 44,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "account management view",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356765978,
+          "value": "账号"
+        }
+      ]
+    },
+    {
+      "label": "production account row 本地验证甲_a519f3",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356766336,
+          "value": true
+        }
+      ]
+    },
+    {
+      "label": "coordinate account 本地验证甲_a519f3",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356766342,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 780.8000183105469,
+            "y": 565.0000381469727,
+            "width": 678.4000244140625,
+            "height": 68.80000305175781,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "selected 3ae8bd55-51bf-3a63-857c-00447f096cd2",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356766524,
+          "value": {
+            "id": "3ae8bd55-51bf-3a63-857c-00447f096cd2",
+            "type": "offline",
+            "username": "本地验证甲_a519f3",
+            "uuid": "3ae8bd55-51bf-3a63-857c-00447f096cd2"
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate [data-nav=skins]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356766529,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 380.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "navigation skins",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356766727,
+          "value": "page"
+        }
+      ]
+    },
+    {
+      "label": "skin account heading",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356767082,
+          "value": "本地验证甲_a519f3"
+        }
+      ]
+    },
+    {
+      "label": "coordinate [data-nav=skins]",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356767429,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 380.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "navigation skins",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356767611,
+          "value": "page"
+        }
+      ]
+    },
+    {
+      "label": "actual viewport 960x620 zoom 1",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356767998,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 962,
+                "height": 623
+              },
+              "content": [
+                961,
+                622
+              ],
+              "contentBounds": {
+                "x": 855,
+                "y": 409,
+                "width": 961,
+                "height": 622
+              },
+              "minimum": [
+                960,
+                620
+              ],
+              "maximum": [
+                0,
+                0
+              ],
+              "zoom": 1,
+              "maximized": false,
+              "display": {
+                "id": 2422596671,
+                "scaleFactor": 1.25,
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 3072,
+                  "height": 1728
+                },
+                "workArea": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 3072,
+                  "height": 1680
+                }
+              }
+            },
+            "renderer": {
+              "width": 962,
+              "height": 622,
+              "rootClientWidth": 962,
+              "rootClientHeight": 622,
+              "rootRectWidth": 961.6000366210938,
+              "rootRectHeight": 622.4000244140625,
+              "visualViewport": {
+                "width": 961.5999755859375,
+                "height": 622.4000244140625,
+                "scale": 1
+              },
+              "devicePixelRatio": 1.25,
+              "hasFocus": true,
+              "hidden": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "coordinate 选择皮肤文件…",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356768428,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 310.1000061035156,
+            "y": 345.3999938964844,
+            "width": 129,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "actual File input preview",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356768637,
+          "value": {
+            "name": "offline118-custom.png",
+            "canvas": true
+          }
+        }
+      ]
+    },
+    {
+      "label": "fully reachable choose PNG",
+      "complete": true,
+      "samples": [
+        {
+          "at": 1791356768669,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 310.1000061035156,
+            "y": 345.3999938964844,
+            "width": 129,
+            "height": 36,
+            "left": 245.60000610351562,
+            "right": 374.6000061035156,
+            "top": 327.3999938964844,
+            "bottom": 363.3999938964844,
+            "hit": true,
+            "viewport": true,
+            "ancestors": [
+              {
+                "tag": "DIV",
+                "class": "skin-operation-panel",
+                "left": 224.8000030517578,
+                "right": 936.8000030517578,
+                "top": 5,
+                "bottom": 445.8000183105469,
+                "scroll": 0
+              },
+              {
+                "tag": "MAIN",
+                "class": "content",
+                "left": 208.8000030517578,
+                "right": 960.8000030517578,
+                "top": 68.80000305175781,
+                "bottom": 621.5999908447266,
+                "scroll": 660.7999877929688
+              },
+              {
+                "tag": "DIV",
+                "class": "shell",
+                "left": 0,
+                "right": 961.6000366210938,
+                "top": 0,
+                "bottom": 622.4000244140625,
+                "scroll": 0
+              },
+              {
+                "tag": "DIV",
+                "class": "",
+                "left": 0,
+                "right": 961.6000366210938,
+                "top": 0,
+                "bottom": 622.4000244140625,
+                "scroll": 0
+              },
+              {
+                "tag": "BODY",
+                "class": "",
+                "left": 0,
+                "right": 961.6000366210938,
+                "top": 0,
+                "bottom": 622.4000244140625,
+                "scroll": 0
+              },
+              {
+                "tag": "HTML",
+                "class": "",
+                "left": 0,
+                "right": 961.6000366210938,
+                "top": 0,
+                "bottom": 622.4000244140625,
+                "scroll": 0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "default-offline-account.png",
+      "bytes": 139822,
+      "sha256": "d5cc9d3a257bc0622f8e2036528e7b3647faeb3aa76ee9cc38f44b14694feec6",
+      "before": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756390,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756457,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "zoom": 1.25,
+        "mainScroll": 0,
+        "editor": false,
+        "confirmation": false
+      },
+      "coverage": "Entire original viewport with page and editor scrollers restored to their top; no crop or image reconstruction"
+    },
+    {
+      "file": "applied-slim-local-skin.png",
+      "bytes": 143446,
+      "sha256": "161d188e54a6c68cef4b391ab4f562f5c130ea1ce06bbeac8ce8a76621a6e0b2",
+      "before": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356757416,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356757485,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "zoom": 1.25,
+        "mainScroll": 0,
+        "editor": false,
+        "confirmation": false
+      },
+      "coverage": "Entire original viewport with page and editor scrollers restored to their top; no crop or image reconstruction"
+    },
+    {
+      "file": "history-preview-after-reset.png",
+      "bytes": 165233,
+      "sha256": "fb33cd99d3bb71c8e0264aa7726e72a1a06941348a0a6e97efeeea976e6350fb",
+      "before": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758210,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758272,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "zoom": 1.25,
+        "mainScroll": 0,
+        "editor": false,
+        "confirmation": false
+      },
+      "coverage": "Entire original viewport with page and editor scrollers restored to their top; no crop or image reconstruction"
+    },
+    {
+      "file": "restored-local-history.png",
+      "bytes": 164550,
+      "sha256": "e6ddc6bf4a461c01908cdc4e77e19c12eb001a260ac6af0abf712afc9d335932",
+      "before": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758816,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758882,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "zoom": 1.25,
+        "mainScroll": 0,
+        "editor": false,
+        "confirmation": false
+      },
+      "coverage": "Entire original viewport with page and editor scrollers restored to their top; no crop or image reconstruction"
+    },
+    {
+      "file": "editor-local-confirmation.png",
+      "bytes": 222071,
+      "sha256": "63fd8e35399c264529769c262fa87bb9f0052fd47520be59e129271daee1c99d",
+      "before": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760596,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760689,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "zoom": 1.25,
+        "mainScroll": 0,
+        "editorScroll": 0,
+        "modelScroll": 0,
+        "editor": true,
+        "confirmation": true
+      },
+      "coverage": "Entire original viewport with page and editor scrollers restored to their top; no crop or image reconstruction"
+    },
+    {
+      "file": "editor-applied-classic-skin.png",
+      "bytes": 140733,
+      "sha256": "425afb235f5d517d6254527854fdff848c08ba82962c767b6b9235c3844e0de8",
+      "before": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762402,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762471,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "zoom": 1.25,
+        "mainScroll": 0,
+        "editor": false,
+        "confirmation": false
+      },
+      "coverage": "Entire original viewport with page and editor scrollers restored to their top; no crop or image reconstruction"
+    },
+    {
+      "file": "account-B-isolated-after-late-A-reply.png",
+      "bytes": 150648,
+      "sha256": "632de426b6e0f5d359c038ac529d8c0c0430b844143f5100652c1de079ab4572",
+      "before": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356765135,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356765210,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "zoom": 1.25,
+        "mainScroll": 0,
+        "editor": false,
+        "confirmation": false
+      },
+      "coverage": "Entire original viewport with page and editor scrollers restored to their top; no crop or image reconstruction"
+    },
+    {
+      "file": "960x620-zoom-1-skin-overview-top.png",
+      "bytes": 77065,
+      "sha256": "33e888ed2e63741176a5968b2125043d2a8f2d01d1c10e4e2b29ef3d10b059a7",
+      "before": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356768368,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356768421,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "width": 962,
+        "height": 622,
+        "zoom": 1.25,
+        "mainScroll": 0,
+        "editor": false,
+        "confirmation": false
+      },
+      "coverage": "Entire original viewport with page and editor scrollers restored to their top; no crop or image reconstruction"
+    }
+  ],
+  "classification": "Actual owned Windows UI coordinate and keyboard input; genuine production PNG decoding and account-scoped disk storage. Deferred reply is an isolated scheduling fixture. No game launch or game-screen acceptance.",
+  "identity": {
+    "pid": 33904,
+    "ppid": 18252,
+    "windowId": 1,
+    "webContentsId": 1,
+    "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 U3WXW3\\profile"
+  },
+  "initialViewport": {
+    "native": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "content": [
+        1361,
+        862
+      ],
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1361,
+        "height": 862
+      },
+      "minimum": [
+        960,
+        620
+      ],
+      "maximum": [
+        0,
+        0
+      ],
+      "zoom": 1,
+      "maximized": false,
+      "display": {
+        "id": 2422596671,
+        "scaleFactor": 1.25,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 1728
+        },
+        "workArea": {
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 1680
+        }
+      }
+    },
+    "renderer": {
+      "width": 1362,
+      "height": 862,
+      "rootClientWidth": 1362,
+      "rootClientHeight": 862,
+      "rootRectWidth": 1361.5999755859375,
+      "rootRectHeight": 862.4000244140625,
+      "visualViewport": {
+        "width": 1361.5999755859375,
+        "height": 862.4000244140625,
+        "scale": 1
+      },
+      "devicePixelRatio": 1.25,
+      "hasFocus": true,
+      "hidden": false
+    }
+  },
+  "setup": {
+    "complete": true,
+    "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 U3WXW3\\profile"
+  },
+  "previousAccount": null,
+  "accounts": [
+    {
+      "id": "3ae8bd55-51bf-3a63-857c-00447f096cd2",
+      "uuid": "3ae8bd55-51bf-3a63-857c-00447f096cd2",
+      "username": "本地验证甲_a519f3"
+    },
+    {
+      "id": "afc8ef83-6c6a-3188-80af-7d6d589043d5",
+      "uuid": "afc8ef83-6c6a-3188-80af-7d6d589043d5",
+      "username": "本地验证乙_a519f3"
+    }
+  ],
+  "source": {
+    "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 U3WXW3\\offline118-custom.png",
+    "sha256": "f8580d5b181734d194389a95b3e15d9b4f3d44a1c20ed8fb88d878fd9b010303"
+  },
+  "nativeFocusObservations": [
+    {
+      "at": 1791356754215,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356754214,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356754221,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356754220,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356754757,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356754756,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356754771,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356754771,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356755303,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356755302,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356755309,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356755309,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356755480,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356755480,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356755489,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356755489,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356756391,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756390,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356756457,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756457,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356756464,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756464,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356756471,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756471,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356756669,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756668,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356756683,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756683,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356756860,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756860,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356756868,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356756868,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356757416,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356757416,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356757485,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356757485,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356757492,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356757492,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356757501,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356757501,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356757679,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356757679,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356757686,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356757685,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356758211,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758210,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356758273,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758272,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356758279,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758279,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356758289,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758288,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356758817,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758816,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356758882,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758882,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356758993,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356758993,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759049,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759048,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759221,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759220,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759233,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759233,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759407,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759407,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759419,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759418,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759593,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759593,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759615,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759615,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759780,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759780,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759914,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759914,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356759915,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356759915,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356760054,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760053,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356760061,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760061,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356760074,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760074,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356760596,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760596,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356760690,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760689,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356760696,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760696,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356760707,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760707,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356760880,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760880,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356760897,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356760897,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356762403,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762402,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356762472,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762471,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356762482,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762482,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356762488,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762487,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356762682,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762682,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356762696,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762696,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356762879,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762878,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356762919,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356762918,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356763449,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356763448,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356763467,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356763466,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356764010,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356764010,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356764016,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356764016,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356764199,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356764199,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356764226,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356764226,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356765136,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356765135,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356765210,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356765210,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356765219,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356765219,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356765258,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356765258,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356765797,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356765796,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356765809,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356765809,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356766345,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356766345,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356766350,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356766350,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356766532,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356766532,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356766556,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356766556,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356767433,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356767433,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356767446,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356767446,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356768368,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356768368,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356768421,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356768421,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356768433,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356768432,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356768441,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 36702884,
+        "ownerPid": 33904,
+        "foregroundPid": 33904,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356768441,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356768674,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 12193072,
+        "ownerPid": 33904,
+        "foregroundPid": 42200,
+        "visible": true,
+        "minimized": false,
+        "focused": false,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356768673,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "at": 1791356769032,
+      "state": {
+        "hwnd": 36702884,
+        "foreground": 12193072,
+        "ownerPid": 33904,
+        "foregroundPid": 42200,
+        "visible": true,
+        "minimized": false,
+        "focused": false,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791356769032,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    }
+  ],
+  "applied": {
+    "username": "本地验证甲_a519f3",
+    "skins": [
+      {
+        "variant": "slim",
+        "url": "",
+        "state": "ACTIVE",
+        "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAA/ElEQVR4AeyVwQ2DQAwET7SUDpKmkg5SFX8e1AT/e4BWPgFeT6R7oPiEPTtOpuX32SqfqRX/AKC4AA0DMKA4AVaguAD8CLICrEBxAqxAcQHq/Qv0gbMCPZFqzxhQLfF+3uEGfF/vdnT6Bu5+Hg7g7oHU9wNAJeZWjwFuiarzYIBKzK0eA9wSVefBAJVYtvqzfocb8F/ndnTOGrr6++EArh4g+j4ARAlmv48B2ROM9o8BUYLZ72NA9gSj/WNAlGD2+xiQPcFo/xgQJfi0+2o/GKASc6vHALdE1XkwQCXmVo8Bbomq82CASsytHgPcElXnwQCVmFs9BmRPNNr/DgAA///QzT8NAAAABklEQVQDALezuYFeZ/tDAAAAAElFTkSuQmCC"
+      }
+    ],
+    "capes": []
+  },
+  "history": [
+    {
+      "id": "f8580d5b181734d194389a95b3e15d9b4f3d44a1c20ed8fb88d878fd9b010303",
+      "hash": "f8580d5b181734d194389a95b3e15d9b4f3d44a1c20ed8fb88d878fd9b010303",
+      "variant": "slim",
+      "time": 1791356756874,
+      "name": "offline118-custom.png",
+      "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAA/ElEQVR4AeyVwQ2DQAwET7SUDpKmkg5SFX8e1AT/e4BWPgFeT6R7oPiEPTtOpuX32SqfqRX/AKC4AA0DMKA4AVaguAD8CLICrEBxAqxAcQHq/Qv0gbMCPZFqzxhQLfF+3uEGfF/vdnT6Bu5+Hg7g7oHU9wNAJeZWjwFuiarzYIBKzK0eA9wSVefBAJVYtvqzfocb8F/ndnTOGrr6++EArh4g+j4ARAlmv48B2ROM9o8BUYLZ72NA9gSj/WNAlGD2+xiQPcFo/xgQJfi0+2o/GKASc6vHALdE1XkwQCXmVo8Bbomq82CASsytHgPcElXnwQCVmFs9BmRPNNr/DgAA///QzT8NAAAABklEQVQDALezuYFeZ/tDAAAAAElFTkSuQmCC"
+    }
+  ],
+  "editorApplied": {
+    "username": "本地验证甲_a519f3",
+    "skins": [
+      {
+        "variant": "classic",
+        "url": "",
+        "state": "ACTIVE",
+        "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAkUlEQVR4nOzbwQ2AMAzAQIMYpftP1F1gBB4IFWTfCJbySZtjznmy0BhjY6EduQIgVwDkCoBcAZArAHIFQK4AyB0s9vY+4m7f0AggVwDkCoBcAZArAHIFQK4AyOkDLH2b/4JGALkCIFcA5AqAXAGQKwByBUCu/wE89Pd7g0YAuQIgVwDkCoBcAZArAHIFQE4f4AIAAP//CFPHmwAAAAZJREFUAwDcYQyGO5ulQQAAAABJRU5ErkJggg=="
+      }
+    ],
+    "capes": []
+  },
+  "recording": {
+    "version": "1.1.18",
+    "directory": "E:\\KAMUCL\\out\\offline118-editor-f13135ae-1851-43ee-8f50-398cce97bcdf-custom",
+    "capture": {
+      "format": "jpeg",
+      "quality": 70,
+      "maxWidth": 960,
+      "maxHeight": 620,
+      "everyNthFrame": 1
+    },
+    "source": "actual Page.startScreencast full compositor frames scaled to fit 960x620, JPEG quality70, acknowledged before decode and buffered in memory until recording stops; no interpolated frames",
+    "startedAt": "2026-10-07T07:05:58.885Z",
+    "frames": [
+      {
+        "file": "frame-0000.jpg",
+        "receivedAt": 1791356758899,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.895144
+      },
+      {
+        "file": "frame-0001.jpg",
+        "receivedAt": 1791356758906,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.90303
+      },
+      {
+        "file": "frame-0002.jpg",
+        "receivedAt": 1791356758918,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.914867
+      },
+      {
+        "file": "frame-0003.jpg",
+        "receivedAt": 1791356758926,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.923102
+      },
+      {
+        "file": "frame-0004.jpg",
+        "receivedAt": 1791356758939,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.935907
+      },
+      {
+        "file": "frame-0005.jpg",
+        "receivedAt": 1791356758946,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.94379
+      },
+      {
+        "file": "frame-0006.jpg",
+        "receivedAt": 1791356758955,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.952214
+      },
+      {
+        "file": "frame-0007.jpg",
+        "receivedAt": 1791356758968,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.96481
+      },
+      {
+        "file": "frame-0008.jpg",
+        "receivedAt": 1791356758976,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.973107
+      },
+      {
+        "file": "frame-0009.jpg",
+        "receivedAt": 1791356758989,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.985572
+      },
+      {
+        "file": "frame-0010.jpg",
+        "receivedAt": 1791356758997,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356758.99401
+      },
+      {
+        "file": "frame-0011.jpg",
+        "receivedAt": 1791356759005,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.002496
+      },
+      {
+        "file": "frame-0012.jpg",
+        "receivedAt": 1791356759018,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.014752
+      },
+      {
+        "file": "frame-0013.jpg",
+        "receivedAt": 1791356759025,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.021962
+      },
+      {
+        "file": "frame-0014.jpg",
+        "receivedAt": 1791356759038,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.03544
+      },
+      {
+        "file": "frame-0015.jpg",
+        "receivedAt": 1791356759047,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.043896
+      },
+      {
+        "file": "frame-0016.jpg",
+        "receivedAt": 1791356759057,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.05381
+      },
+      {
+        "file": "frame-0017.jpg",
+        "receivedAt": 1791356759065,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.062354
+      },
+      {
+        "file": "frame-0018.jpg",
+        "receivedAt": 1791356759157,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.152898
+      },
+      {
+        "file": "frame-0019.jpg",
+        "receivedAt": 1791356759160,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.155719
+      },
+      {
+        "file": "frame-0020.jpg",
+        "receivedAt": 1791356759166,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.162267
+      },
+      {
+        "file": "frame-0021.jpg",
+        "receivedAt": 1791356759172,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.169358
+      },
+      {
+        "file": "frame-0022.jpg",
+        "receivedAt": 1791356759179,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.17601
+      },
+      {
+        "file": "frame-0023.jpg",
+        "receivedAt": 1791356759191,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.187463
+      },
+      {
+        "file": "frame-0024.jpg",
+        "receivedAt": 1791356759200,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.196372
+      },
+      {
+        "file": "frame-0025.jpg",
+        "receivedAt": 1791356759213,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.208705
+      },
+      {
+        "file": "frame-0026.jpg",
+        "receivedAt": 1791356759220,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.217055
+      },
+      {
+        "file": "frame-0027.jpg",
+        "receivedAt": 1791356759229,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.225686
+      },
+      {
+        "file": "frame-0028.jpg",
+        "receivedAt": 1791356759251,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.247909
+      },
+      {
+        "file": "frame-0029.jpg",
+        "receivedAt": 1791356759265,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.262368
+      },
+      {
+        "file": "frame-0030.jpg",
+        "receivedAt": 1791356759278,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.274144
+      },
+      {
+        "file": "frame-0031.jpg",
+        "receivedAt": 1791356759281,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.277638
+      },
+      {
+        "file": "frame-0032.jpg",
+        "receivedAt": 1791356759287,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.283742
+      },
+      {
+        "file": "frame-0033.jpg",
+        "receivedAt": 1791356759297,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.294176
+      },
+      {
+        "file": "frame-0034.jpg",
+        "receivedAt": 1791356759311,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.306698
+      },
+      {
+        "file": "frame-0035.jpg",
+        "receivedAt": 1791356759318,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.314863
+      },
+      {
+        "file": "frame-0036.jpg",
+        "receivedAt": 1791356759327,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.323362
+      },
+      {
+        "file": "frame-0037.jpg",
+        "receivedAt": 1791356759339,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.335685
+      },
+      {
+        "file": "frame-0038.jpg",
+        "receivedAt": 1791356759347,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.344088
+      },
+      {
+        "file": "frame-0039.jpg",
+        "receivedAt": 1791356759356,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.352351
+      },
+      {
+        "file": "frame-0040.jpg",
+        "receivedAt": 1791356759368,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.364941
+      },
+      {
+        "file": "frame-0041.jpg",
+        "receivedAt": 1791356759376,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.372994
+      },
+      {
+        "file": "frame-0042.jpg",
+        "receivedAt": 1791356759389,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.385613
+      },
+      {
+        "file": "frame-0043.jpg",
+        "receivedAt": 1791356759400,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.39418
+      },
+      {
+        "file": "frame-0044.jpg",
+        "receivedAt": 1791356759410,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.406497
+      },
+      {
+        "file": "frame-0045.jpg",
+        "receivedAt": 1791356759418,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.415004
+      },
+      {
+        "file": "frame-0046.jpg",
+        "receivedAt": 1791356759424,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.421434
+      },
+      {
+        "file": "frame-0047.jpg",
+        "receivedAt": 1791356759438,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.435733
+      },
+      {
+        "file": "frame-0048.jpg",
+        "receivedAt": 1791356759447,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.444021
+      },
+      {
+        "file": "frame-0049.jpg",
+        "receivedAt": 1791356759460,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.45689
+      },
+      {
+        "file": "frame-0050.jpg",
+        "receivedAt": 1791356759468,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.464911
+      },
+      {
+        "file": "frame-0051.jpg",
+        "receivedAt": 1791356759475,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.472003
+      },
+      {
+        "file": "frame-0052.jpg",
+        "receivedAt": 1791356759489,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.485605
+      },
+      {
+        "file": "frame-0053.jpg",
+        "receivedAt": 1791356759498,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.493923
+      },
+      {
+        "file": "frame-0054.jpg",
+        "receivedAt": 1791356759510,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.506551
+      },
+      {
+        "file": "frame-0055.jpg",
+        "receivedAt": 1791356759518,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.514933
+      },
+      {
+        "file": "frame-0056.jpg",
+        "receivedAt": 1791356759526,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.523376
+      },
+      {
+        "file": "frame-0057.jpg",
+        "receivedAt": 1791356759537,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.534302
+      },
+      {
+        "file": "frame-0058.jpg",
+        "receivedAt": 1791356759547,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.544305
+      },
+      {
+        "file": "frame-0059.jpg",
+        "receivedAt": 1791356759560,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.556745
+      },
+      {
+        "file": "frame-0060.jpg",
+        "receivedAt": 1791356759568,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.564961
+      },
+      {
+        "file": "frame-0061.jpg",
+        "receivedAt": 1791356759576,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.573197
+      },
+      {
+        "file": "frame-0062.jpg",
+        "receivedAt": 1791356759589,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.585883
+      },
+      {
+        "file": "frame-0063.jpg",
+        "receivedAt": 1791356759597,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.594217
+      },
+      {
+        "file": "frame-0064.jpg",
+        "receivedAt": 1791356759615,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.603495
+      },
+      {
+        "file": "frame-0065.jpg",
+        "receivedAt": 1791356759618,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.614763
+      },
+      {
+        "file": "frame-0066.jpg",
+        "receivedAt": 1791356759631,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.628402
+      },
+      {
+        "file": "frame-0067.jpg",
+        "receivedAt": 1791356759647,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.64383
+      },
+      {
+        "file": "frame-0068.jpg",
+        "receivedAt": 1791356759655,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.652337
+      },
+      {
+        "file": "frame-0069.jpg",
+        "receivedAt": 1791356759664,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.660445
+      },
+      {
+        "file": "frame-0070.jpg",
+        "receivedAt": 1791356759676,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.673494
+      },
+      {
+        "file": "frame-0071.jpg",
+        "receivedAt": 1791356759685,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.681423
+      },
+      {
+        "file": "frame-0072.jpg",
+        "receivedAt": 1791356759692,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.68898
+      },
+      {
+        "file": "frame-0073.jpg",
+        "receivedAt": 1791356759705,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.702221
+      },
+      {
+        "file": "frame-0074.jpg",
+        "receivedAt": 1791356759714,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.710851
+      },
+      {
+        "file": "frame-0075.jpg",
+        "receivedAt": 1791356759722,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.719388
+      },
+      {
+        "file": "frame-0076.jpg",
+        "receivedAt": 1791356759734,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.731378
+      },
+      {
+        "file": "frame-0077.jpg",
+        "receivedAt": 1791356759743,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.739749
+      },
+      {
+        "file": "frame-0078.jpg",
+        "receivedAt": 1791356759755,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.752133
+      },
+      {
+        "file": "frame-0079.jpg",
+        "receivedAt": 1791356759764,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.760671
+      },
+      {
+        "file": "frame-0080.jpg",
+        "receivedAt": 1791356759772,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.76888
+      },
+      {
+        "file": "frame-0081.jpg",
+        "receivedAt": 1791356759784,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.780947
+      },
+      {
+        "file": "frame-0082.jpg",
+        "receivedAt": 1791356759792,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.788824
+      },
+      {
+        "file": "frame-0083.jpg",
+        "receivedAt": 1791356759806,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.802647
+      },
+      {
+        "file": "frame-0084.jpg",
+        "receivedAt": 1791356759813,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.810689
+      },
+      {
+        "file": "frame-0085.jpg",
+        "receivedAt": 1791356759826,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.82353
+      },
+      {
+        "file": "frame-0086.jpg",
+        "receivedAt": 1791356759834,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.831597
+      },
+      {
+        "file": "frame-0087.jpg",
+        "receivedAt": 1791356759843,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.839781
+      },
+      {
+        "file": "frame-0088.jpg",
+        "receivedAt": 1791356759855,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.852465
+      },
+      {
+        "file": "frame-0089.jpg",
+        "receivedAt": 1791356759864,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.86077
+      },
+      {
+        "file": "frame-0090.jpg",
+        "receivedAt": 1791356759876,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.873157
+      },
+      {
+        "file": "frame-0091.jpg",
+        "receivedAt": 1791356759884,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.881364
+      },
+      {
+        "file": "frame-0092.jpg",
+        "receivedAt": 1791356759893,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.8898
+      },
+      {
+        "file": "frame-0093.jpg",
+        "receivedAt": 1791356759902,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.89955
+      },
+      {
+        "file": "frame-0094.jpg",
+        "receivedAt": 1791356759914,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.910745
+      },
+      {
+        "file": "frame-0095.jpg",
+        "receivedAt": 1791356759923,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.92028
+      },
+      {
+        "file": "frame-0096.jpg",
+        "receivedAt": 1791356759934,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.931549
+      },
+      {
+        "file": "frame-0097.jpg",
+        "receivedAt": 1791356759943,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.93984
+      },
+      {
+        "file": "frame-0098.jpg",
+        "receivedAt": 1791356759956,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.952284
+      },
+      {
+        "file": "frame-0099.jpg",
+        "receivedAt": 1791356759963,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.960511
+      },
+      {
+        "file": "frame-0100.jpg",
+        "receivedAt": 1791356759976,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.973173
+      },
+      {
+        "file": "frame-0101.jpg",
+        "receivedAt": 1791356759985,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.981615
+      },
+      {
+        "file": "frame-0102.jpg",
+        "receivedAt": 1791356759993,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356759.990022
+      },
+      {
+        "file": "frame-0103.jpg",
+        "receivedAt": 1791356760005,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.002258
+      },
+      {
+        "file": "frame-0104.jpg",
+        "receivedAt": 1791356760014,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.010957
+      },
+      {
+        "file": "frame-0105.jpg",
+        "receivedAt": 1791356760027,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.023412
+      },
+      {
+        "file": "frame-0106.jpg",
+        "receivedAt": 1791356760035,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.031727
+      },
+      {
+        "file": "frame-0107.jpg",
+        "receivedAt": 1791356760042,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.039313
+      },
+      {
+        "file": "frame-0108.jpg",
+        "receivedAt": 1791356760056,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.05256
+      },
+      {
+        "file": "frame-0109.jpg",
+        "receivedAt": 1791356760064,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.060647
+      },
+      {
+        "file": "frame-0110.jpg",
+        "receivedAt": 1791356760077,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.074066
+      },
+      {
+        "file": "frame-0111.jpg",
+        "receivedAt": 1791356760087,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.08373
+      },
+      {
+        "file": "frame-0112.jpg",
+        "receivedAt": 1791356760097,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.094139
+      },
+      {
+        "file": "frame-0113.jpg",
+        "receivedAt": 1791356760104,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.100973
+      },
+      {
+        "file": "frame-0114.jpg",
+        "receivedAt": 1791356760118,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.114834
+      },
+      {
+        "file": "frame-0115.jpg",
+        "receivedAt": 1791356760126,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.123332
+      },
+      {
+        "file": "frame-0116.jpg",
+        "receivedAt": 1791356760135,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.131718
+      },
+      {
+        "file": "frame-0117.jpg",
+        "receivedAt": 1791356760143,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.139936
+      },
+      {
+        "file": "frame-0118.jpg",
+        "receivedAt": 1791356760150,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.147135
+      },
+      {
+        "file": "frame-0119.jpg",
+        "receivedAt": 1791356760159,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.156837
+      },
+      {
+        "file": "frame-0120.jpg",
+        "receivedAt": 1791356760167,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.164826
+      },
+      {
+        "file": "frame-0121.jpg",
+        "receivedAt": 1791356760175,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.173196
+      },
+      {
+        "file": "frame-0122.jpg",
+        "receivedAt": 1791356760189,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.186031
+      },
+      {
+        "file": "frame-0123.jpg",
+        "receivedAt": 1791356760197,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.194117
+      },
+      {
+        "file": "frame-0124.jpg",
+        "receivedAt": 1791356760204,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.202264
+      },
+      {
+        "file": "frame-0125.jpg",
+        "receivedAt": 1791356760213,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.210669
+      },
+      {
+        "file": "frame-0126.jpg",
+        "receivedAt": 1791356760221,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.219154
+      },
+      {
+        "file": "frame-0127.jpg",
+        "receivedAt": 1791356760230,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.227559
+      },
+      {
+        "file": "frame-0128.jpg",
+        "receivedAt": 1791356760243,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.24039
+      },
+      {
+        "file": "frame-0129.jpg",
+        "receivedAt": 1791356760250,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.248286
+      },
+      {
+        "file": "frame-0130.jpg",
+        "receivedAt": 1791356760258,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.256352
+      },
+      {
+        "file": "frame-0131.jpg",
+        "receivedAt": 1791356760267,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.264806
+      },
+      {
+        "file": "frame-0132.jpg",
+        "receivedAt": 1791356760275,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.273243
+      },
+      {
+        "file": "frame-0133.jpg",
+        "receivedAt": 1791356760283,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.281538
+      },
+      {
+        "file": "frame-0134.jpg",
+        "receivedAt": 1791356760296,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.294296
+      },
+      {
+        "file": "frame-0135.jpg",
+        "receivedAt": 1791356760303,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.300976
+      },
+      {
+        "file": "frame-0136.jpg",
+        "receivedAt": 1791356760312,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.310415
+      },
+      {
+        "file": "frame-0137.jpg",
+        "receivedAt": 1791356760322,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.319519
+      },
+      {
+        "file": "frame-0138.jpg",
+        "receivedAt": 1791356760329,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.327525
+      },
+      {
+        "file": "frame-0139.jpg",
+        "receivedAt": 1791356760337,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.335759
+      },
+      {
+        "file": "frame-0140.jpg",
+        "receivedAt": 1791356760350,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.347978
+      },
+      {
+        "file": "frame-0141.jpg",
+        "receivedAt": 1791356760358,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.356669
+      },
+      {
+        "file": "frame-0142.jpg",
+        "receivedAt": 1791356760366,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.364843
+      },
+      {
+        "file": "frame-0143.jpg",
+        "receivedAt": 1791356760375,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.373096
+      },
+      {
+        "file": "frame-0144.jpg",
+        "receivedAt": 1791356760383,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.381679
+      },
+      {
+        "file": "frame-0145.jpg",
+        "receivedAt": 1791356760396,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.394092
+      },
+      {
+        "file": "frame-0146.jpg",
+        "receivedAt": 1791356760404,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.402414
+      },
+      {
+        "file": "frame-0147.jpg",
+        "receivedAt": 1791356760412,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.410829
+      },
+      {
+        "file": "frame-0148.jpg",
+        "receivedAt": 1791356760421,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.419362
+      },
+      {
+        "file": "frame-0149.jpg",
+        "receivedAt": 1791356760429,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.427375
+      },
+      {
+        "file": "frame-0150.jpg",
+        "receivedAt": 1791356760442,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.440095
+      },
+      {
+        "file": "frame-0151.jpg",
+        "receivedAt": 1791356760450,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.448298
+      },
+      {
+        "file": "frame-0152.jpg",
+        "receivedAt": 1791356760459,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.457051
+      },
+      {
+        "file": "frame-0153.jpg",
+        "receivedAt": 1791356760467,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.46502
+      },
+      {
+        "file": "frame-0154.jpg",
+        "receivedAt": 1791356760476,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.473922
+      },
+      {
+        "file": "frame-0155.jpg",
+        "receivedAt": 1791356760487,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.48578
+      },
+      {
+        "file": "frame-0156.jpg",
+        "receivedAt": 1791356760496,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.494052
+      },
+      {
+        "file": "frame-0157.jpg",
+        "receivedAt": 1791356760504,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.50248
+      },
+      {
+        "file": "frame-0158.jpg",
+        "receivedAt": 1791356760515,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.510932
+      },
+      {
+        "file": "frame-0159.jpg",
+        "receivedAt": 1791356760523,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.519436
+      },
+      {
+        "file": "frame-0160.jpg",
+        "receivedAt": 1791356760534,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.531611
+      },
+      {
+        "file": "frame-0161.jpg",
+        "receivedAt": 1791356760542,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.539879
+      },
+      {
+        "file": "frame-0162.jpg",
+        "receivedAt": 1791356760551,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.548652
+      },
+      {
+        "file": "frame-0163.jpg",
+        "receivedAt": 1791356760559,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.556729
+      },
+      {
+        "file": "frame-0164.jpg",
+        "receivedAt": 1791356760567,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.565006
+      },
+      {
+        "file": "frame-0165.jpg",
+        "receivedAt": 1791356760579,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.57732
+      },
+      {
+        "file": "frame-0166.jpg",
+        "receivedAt": 1791356760588,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.585826
+      },
+      {
+        "file": "frame-0167.jpg",
+        "receivedAt": 1791356760596,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.593325
+      },
+      {
+        "file": "frame-0168.jpg",
+        "receivedAt": 1791356760604,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.602383
+      },
+      {
+        "file": "frame-0169.jpg",
+        "receivedAt": 1791356760613,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.610716
+      },
+      {
+        "file": "frame-0170.jpg",
+        "receivedAt": 1791356760625,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.623234
+      },
+      {
+        "file": "frame-0171.jpg",
+        "receivedAt": 1791356760689,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.681285
+      },
+      {
+        "file": "frame-0172.jpg",
+        "receivedAt": 1791356760689,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.682595
+      },
+      {
+        "file": "frame-0173.jpg",
+        "receivedAt": 1791356760691,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.681983
+      },
+      {
+        "file": "frame-0174.jpg",
+        "receivedAt": 1791356760696,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.69413
+      },
+      {
+        "file": "frame-0175.jpg",
+        "receivedAt": 1791356760709,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.70655
+      },
+      {
+        "file": "frame-0176.jpg",
+        "receivedAt": 1791356760717,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.714949
+      },
+      {
+        "file": "frame-0177.jpg",
+        "receivedAt": 1791356760725,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.723211
+      },
+      {
+        "file": "frame-0178.jpg",
+        "receivedAt": 1791356760735,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.732996
+      },
+      {
+        "file": "frame-0179.jpg",
+        "receivedAt": 1791356760747,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.743843
+      },
+      {
+        "file": "frame-0180.jpg",
+        "receivedAt": 1791356760754,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.751293
+      },
+      {
+        "file": "frame-0181.jpg",
+        "receivedAt": 1791356760762,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.759503
+      },
+      {
+        "file": "frame-0182.jpg",
+        "receivedAt": 1791356760781,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.777844
+      },
+      {
+        "file": "frame-0183.jpg",
+        "receivedAt": 1791356760793,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.78989
+      },
+      {
+        "file": "frame-0184.jpg",
+        "receivedAt": 1791356760801,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.798295
+      },
+      {
+        "file": "frame-0185.jpg",
+        "receivedAt": 1791356760810,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.806742
+      },
+      {
+        "file": "frame-0186.jpg",
+        "receivedAt": 1791356760818,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.814994
+      },
+      {
+        "file": "frame-0187.jpg",
+        "receivedAt": 1791356760826,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.823551
+      },
+      {
+        "file": "frame-0188.jpg",
+        "receivedAt": 1791356760839,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.83563
+      },
+      {
+        "file": "frame-0189.jpg",
+        "receivedAt": 1791356760847,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.844164
+      },
+      {
+        "file": "frame-0190.jpg",
+        "receivedAt": 1791356760855,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.852283
+      },
+      {
+        "file": "frame-0191.jpg",
+        "receivedAt": 1791356760863,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.86052
+      },
+      {
+        "file": "frame-0192.jpg",
+        "receivedAt": 1791356760876,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.873039
+      },
+      {
+        "file": "frame-0193.jpg",
+        "receivedAt": 1791356760884,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.881386
+      },
+      {
+        "file": "frame-0194.jpg",
+        "receivedAt": 1791356760892,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.889712
+      },
+      {
+        "file": "frame-0195.jpg",
+        "receivedAt": 1791356760902,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356760.898991
+      },
+      {
+        "file": "frame-0196.jpg",
+        "receivedAt": 1791356761160,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.156444
+      },
+      {
+        "file": "frame-0197.jpg",
+        "receivedAt": 1791356761168,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.164614
+      },
+      {
+        "file": "frame-0198.jpg",
+        "receivedAt": 1791356761175,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.173046
+      },
+      {
+        "file": "frame-0199.jpg",
+        "receivedAt": 1791356761188,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.185337
+      },
+      {
+        "file": "frame-0200.jpg",
+        "receivedAt": 1791356761197,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.193847
+      },
+      {
+        "file": "frame-0201.jpg",
+        "receivedAt": 1791356761205,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.202108
+      },
+      {
+        "file": "frame-0202.jpg",
+        "receivedAt": 1791356761217,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.214741
+      },
+      {
+        "file": "frame-0203.jpg",
+        "receivedAt": 1791356761226,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.222871
+      },
+      {
+        "file": "frame-0204.jpg",
+        "receivedAt": 1791356761238,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.235316
+      },
+      {
+        "file": "frame-0205.jpg",
+        "receivedAt": 1791356761246,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.243793
+      },
+      {
+        "file": "frame-0206.jpg",
+        "receivedAt": 1791356761255,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.252064
+      },
+      {
+        "file": "frame-0207.jpg",
+        "receivedAt": 1791356761267,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.264762
+      },
+      {
+        "file": "frame-0208.jpg",
+        "receivedAt": 1791356761276,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.272971
+      },
+      {
+        "file": "frame-0209.jpg",
+        "receivedAt": 1791356761288,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.285398
+      },
+      {
+        "file": "frame-0210.jpg",
+        "receivedAt": 1791356761297,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.293876
+      },
+      {
+        "file": "frame-0211.jpg",
+        "receivedAt": 1791356761305,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.301947
+      },
+      {
+        "file": "frame-0212.jpg",
+        "receivedAt": 1791356761315,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.311702
+      },
+      {
+        "file": "frame-0213.jpg",
+        "receivedAt": 1791356761326,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.323077
+      },
+      {
+        "file": "frame-0214.jpg",
+        "receivedAt": 1791356761338,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.335625
+      },
+      {
+        "file": "frame-0215.jpg",
+        "receivedAt": 1791356761347,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.344062
+      },
+      {
+        "file": "frame-0216.jpg",
+        "receivedAt": 1791356761355,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.352221
+      },
+      {
+        "file": "frame-0217.jpg",
+        "receivedAt": 1791356761367,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.364511
+      },
+      {
+        "file": "frame-0218.jpg",
+        "receivedAt": 1791356761376,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.373046
+      },
+      {
+        "file": "frame-0219.jpg",
+        "receivedAt": 1791356761384,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.38136
+      },
+      {
+        "file": "frame-0220.jpg",
+        "receivedAt": 1791356761397,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.393775
+      },
+      {
+        "file": "frame-0221.jpg",
+        "receivedAt": 1791356761405,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.402261
+      },
+      {
+        "file": "frame-0222.jpg",
+        "receivedAt": 1791356761417,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.414679
+      },
+      {
+        "file": "frame-0223.jpg",
+        "receivedAt": 1791356761426,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.423247
+      },
+      {
+        "file": "frame-0224.jpg",
+        "receivedAt": 1791356761438,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.435579
+      },
+      {
+        "file": "frame-0225.jpg",
+        "receivedAt": 1791356761447,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.443753
+      },
+      {
+        "file": "frame-0226.jpg",
+        "receivedAt": 1791356761454,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.452034
+      },
+      {
+        "file": "frame-0227.jpg",
+        "receivedAt": 1791356761467,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.464813
+      },
+      {
+        "file": "frame-0228.jpg",
+        "receivedAt": 1791356761475,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.472232
+      },
+      {
+        "file": "frame-0229.jpg",
+        "receivedAt": 1791356761488,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.485573
+      },
+      {
+        "file": "frame-0230.jpg",
+        "receivedAt": 1791356761496,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.49395
+      },
+      {
+        "file": "frame-0231.jpg",
+        "receivedAt": 1791356761506,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.502414
+      },
+      {
+        "file": "frame-0232.jpg",
+        "receivedAt": 1791356761517,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.514667
+      },
+      {
+        "file": "frame-0233.jpg",
+        "receivedAt": 1791356761527,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.523206
+      },
+      {
+        "file": "frame-0234.jpg",
+        "receivedAt": 1791356761538,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.535544
+      },
+      {
+        "file": "frame-0235.jpg",
+        "receivedAt": 1791356761546,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.543608
+      },
+      {
+        "file": "frame-0236.jpg",
+        "receivedAt": 1791356761554,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.552054
+      },
+      {
+        "file": "frame-0237.jpg",
+        "receivedAt": 1791356761567,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.564483
+      },
+      {
+        "file": "frame-0238.jpg",
+        "receivedAt": 1791356761575,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.572761
+      },
+      {
+        "file": "frame-0239.jpg",
+        "receivedAt": 1791356761588,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.585262
+      },
+      {
+        "file": "frame-0240.jpg",
+        "receivedAt": 1791356761596,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.593827
+      },
+      {
+        "file": "frame-0241.jpg",
+        "receivedAt": 1791356761605,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.602088
+      },
+      {
+        "file": "frame-0242.jpg",
+        "receivedAt": 1791356761617,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.614739
+      },
+      {
+        "file": "frame-0243.jpg",
+        "receivedAt": 1791356761625,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.622959
+      },
+      {
+        "file": "frame-0244.jpg",
+        "receivedAt": 1791356761638,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.635408
+      },
+      {
+        "file": "frame-0245.jpg",
+        "receivedAt": 1791356761646,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.643727
+      },
+      {
+        "file": "frame-0246.jpg",
+        "receivedAt": 1791356761654,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.65193
+      },
+      {
+        "file": "frame-0247.jpg",
+        "receivedAt": 1791356761667,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.664589
+      },
+      {
+        "file": "frame-0248.jpg",
+        "receivedAt": 1791356761675,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.672755
+      },
+      {
+        "file": "frame-0249.jpg",
+        "receivedAt": 1791356761688,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.685588
+      },
+      {
+        "file": "frame-0250.jpg",
+        "receivedAt": 1791356761696,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.693793
+      },
+      {
+        "file": "frame-0251.jpg",
+        "receivedAt": 1791356761704,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.701893
+      },
+      {
+        "file": "frame-0252.jpg",
+        "receivedAt": 1791356761717,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.714673
+      },
+      {
+        "file": "frame-0253.jpg",
+        "receivedAt": 1791356761725,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.723012
+      },
+      {
+        "file": "frame-0254.jpg",
+        "receivedAt": 1791356761737,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.734912
+      },
+      {
+        "file": "frame-0255.jpg",
+        "receivedAt": 1791356761747,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.743789
+      },
+      {
+        "file": "frame-0256.jpg",
+        "receivedAt": 1791356761753,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.750899
+      },
+      {
+        "file": "frame-0257.jpg",
+        "receivedAt": 1791356761767,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.76457
+      },
+      {
+        "file": "frame-0258.jpg",
+        "receivedAt": 1791356761775,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.772786
+      },
+      {
+        "file": "frame-0259.jpg",
+        "receivedAt": 1791356761788,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.785287
+      },
+      {
+        "file": "frame-0260.jpg",
+        "receivedAt": 1791356761797,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.793651
+      },
+      {
+        "file": "frame-0261.jpg",
+        "receivedAt": 1791356761805,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.801983
+      },
+      {
+        "file": "frame-0262.jpg",
+        "receivedAt": 1791356761817,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.814663
+      },
+      {
+        "file": "frame-0263.jpg",
+        "receivedAt": 1791356761825,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.82298
+      },
+      {
+        "file": "frame-0264.jpg",
+        "receivedAt": 1791356761838,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.835353
+      },
+      {
+        "file": "frame-0265.jpg",
+        "receivedAt": 1791356761846,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.843255
+      },
+      {
+        "file": "frame-0266.jpg",
+        "receivedAt": 1791356761854,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.851924
+      },
+      {
+        "file": "frame-0267.jpg",
+        "receivedAt": 1791356761867,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1361.5999755859375,
+        "deviceHeight": 862.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791356761.864561
+      }
+    ],
+    "elapsed": 2.969417095184326,
+    "fps": 89.9166373201694,
+    "intervals": [
+      0.007885932922363281,
+      0.011837005615234375,
+      0.008234977722167969,
+      0.012804985046386719,
+      0.007883071899414062,
+      0.008424043655395508,
+      0.012595891952514648,
+      0.008297204971313477,
+      0.01246500015258789,
+      0.008437871932983398,
+      0.008486032485961914,
+      0.01225590705871582,
+      0.0072100162506103516,
+      0.01347804069519043,
+      0.008455991744995117,
+      0.009913921356201172,
+      0.008544206619262695,
+      0.09054398536682129,
+      0.0028209686279296875,
+      0.0065479278564453125,
+      0.007091045379638672,
+      0.006651878356933594,
+      0.01145315170288086,
+      0.008908987045288086,
+      0.012332916259765625,
+      0.008350133895874023,
+      0.008630990982055664,
+      0.02222299575805664,
+      0.014458894729614258,
+      0.011775970458984375,
+      0.0034940242767333984,
+      0.006103992462158203,
+      0.010434150695800781,
+      0.012521982192993164,
+      0.00816488265991211,
+      0.0084991455078125,
+      0.01232290267944336,
+      0.00840306282043457,
+      0.008262872695922852,
+      0.01258993148803711,
+      0.008053064346313477,
+      0.0126190185546875,
+      0.008567094802856445,
+      0.01231694221496582,
+      0.008507013320922852,
+      0.006429910659790039,
+      0.014299154281616211,
+      0.008287906646728516,
+      0.012869119644165039,
+      0.008020877838134766,
+      0.007091999053955078,
+      0.013602018356323242,
+      0.008317947387695312,
+      0.01262807846069336,
+      0.008382081985473633,
+      0.008442878723144531,
+      0.010926008224487305,
+      0.010003089904785156,
+      0.012439966201782227,
+      0.008215904235839844,
+      0.008235931396484375,
+      0.012686014175415039,
+      0.008334159851074219,
+      0.009277820587158203,
+      0.011268138885498047,
+      0.013638973236083984,
+      0.01542806625366211,
+      0.008507013320922852,
+      0.008107900619506836,
+      0.013049125671386719,
+      0.007928848266601562,
+      0.0075571537017822266,
+      0.013240814208984375,
+      0.008630037307739258,
+      0.008537054061889648,
+      0.011990070343017578,
+      0.00837087631225586,
+      0.01238393783569336,
+      0.008538007736206055,
+      0.008208990097045898,
+      0.012067079544067383,
+      0.007877111434936523,
+      0.01382303237915039,
+      0.008041858673095703,
+      0.012840986251831055,
+      0.008067131042480469,
+      0.008183956146240234,
+      0.012683868408203125,
+      0.008305072784423828,
+      0.01238703727722168,
+      0.008207082748413086,
+      0.008435964584350586,
+      0.009749889373779297,
+      0.011194944381713867,
+      0.009535074234008789,
+      0.011269092559814453,
+      0.008291006088256836,
+      0.012444019317626953,
+      0.008226871490478516,
+      0.012661933898925781,
+      0.008442163467407227,
+      0.008406877517700195,
+      0.01223611831665039,
+      0.00869894027709961,
+      0.012454986572265625,
+      0.008315086364746094,
+      0.007586002349853516,
+      0.013247013092041016,
+      0.008086919784545898,
+      0.013418912887573242,
+      0.009664058685302734,
+      0.010409116744995117,
+      0.006833791732788086,
+      0.01386117935180664,
+      0.008497953414916992,
+      0.008385896682739258,
+      0.008218050003051758,
+      0.00719904899597168,
+      0.009701967239379883,
+      0.007988929748535156,
+      0.008370161056518555,
+      0.012835025787353516,
+      0.008085966110229492,
+      0.008147001266479492,
+      0.008404970169067383,
+      0.008484840393066406,
+      0.008405208587646484,
+      0.012830972671508789,
+      0.007895946502685547,
+      0.008065938949584961,
+      0.008454084396362305,
+      0.008436918258666992,
+      0.008295059204101562,
+      0.012758016586303711,
+      0.006680011749267578,
+      0.00943899154663086,
+      0.009104013442993164,
+      0.008005857467651367,
+      0.008234024047851562,
+      0.01221919059753418,
+      0.008690834045410156,
+      0.008173942565917969,
+      0.008253097534179688,
+      0.00858306884765625,
+      0.01241302490234375,
+      0.008322000503540039,
+      0.008414983749389648,
+      0.008533000946044922,
+      0.008013010025024414,
+      0.012719869613647461,
+      0.00820302963256836,
+      0.008753061294555664,
+      0.007968902587890625,
+      0.00890207290649414,
+      0.011857986450195312,
+      0.008271932601928711,
+      0.008428096771240234,
+      0.00845193862915039,
+      0.008503913879394531,
+      0.01217508316040039,
+      0.008268117904663086,
+      0.008772850036621094,
+      0.008077144622802734,
+      0.008276939392089844,
+      0.012314081192016602,
+      0.008505821228027344,
+      0.007498979568481445,
+      0.009057998657226562,
+      0.008333206176757812,
+      0.012517929077148438,
+      0.05805087089538574,
+      0.001310110092163086,
+      -0.0006120204925537109,
+      0.012146949768066406,
+      0.012419939041137695,
+      0.008399009704589844,
+      0.008262157440185547,
+      0.009784936904907227,
+      0.010847091674804688,
+      0.0074498653411865234,
+      0.008209943771362305,
+      0.018341064453125,
+      0.012046098709106445,
+      0.008404970169067383,
+      0.008446931838989258,
+      0.008252143859863281,
+      0.008556842803955078,
+      0.012079000473022461,
+      0.008533954620361328,
+      0.00811910629272461,
+      0.008236885070800781,
+      0.012519121170043945,
+      0.008347034454345703,
+      0.008326053619384766,
+      0.009279012680053711,
+      0.25745296478271484,
+      0.008169889450073242,
+      0.008432149887084961,
+      0.01229095458984375,
+      0.00850987434387207,
+      0.008260965347290039,
+      0.012633085250854492,
+      0.008130073547363281,
+      0.01244497299194336,
+      0.008476972579956055,
+      0.008270978927612305,
+      0.012697935104370117,
+      0.008208990097045898,
+      0.012427091598510742,
+      0.008477926254272461,
+      0.008071184158325195,
+      0.00975489616394043,
+      0.011374950408935547,
+      0.012547969818115234,
+      0.008437156677246094,
+      0.00815892219543457,
+      0.012290000915527344,
+      0.008534908294677734,
+      0.008314132690429688,
+      0.012414932250976562,
+      0.008486032485961914,
+      0.012418031692504883,
+      0.008568048477172852,
+      0.012331962585449219,
+      0.008173942565917969,
+      0.00828099250793457,
+      0.012778997421264648,
+      0.007419109344482422,
+      0.013340950012207031,
+      0.008376836776733398,
+      0.00846409797668457,
+      0.012253046035766602,
+      0.008538961410522461,
+      0.012337923049926758,
+      0.008064031600952148,
+      0.008445978164672852,
+      0.012428998947143555,
+      0.008278131484985352,
+      0.012501001358032227,
+      0.008564949035644531,
+      0.008260965347290039,
+      0.01265096664428711,
+      0.00821995735168457,
+      0.012449026107788086,
+      0.00831913948059082,
+      0.00820302963256836,
+      0.012658834457397461,
+      0.008166074752807617,
+      0.012832880020141602,
+      0.008205175399780273,
+      0.008100032806396484,
+      0.012779951095581055,
+      0.00833892822265625,
+      0.011899948120117188,
+      0.008877038955688477,
+      0.007110118865966797,
+      0.013670921325683594,
+      0.008215904235839844,
+      0.012501001358032227,
+      0.008364200592041016,
+      0.008332014083862305,
+      0.012679815292358398,
+      0.008316993713378906,
+      0.012372970581054688,
+      0.007902145385742188,
+      0.008668899536132812,
+      0.012637138366699219
+    ]
+  },
+  "switched": {
+    "username": "本地验证乙_a519f3",
+    "history": 0,
+    "pending": false,
+    "variant": "经典 Classic"
+  },
+  "smallViewports": [
+    {
+      "config": {
+        "width": 960,
+        "height": 620,
+        "zoom": 1
+      },
+      "skinControls": [],
+      "editorControls": [],
+      "complete": false,
+      "beforeGeometry": {
+        "native": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 1362,
+            "height": 863
+          },
+          "content": [
+            1361,
+            862
+          ],
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 1361,
+            "height": 862
+          },
+          "minimum": [
+            960,
+            620
+          ],
+          "maximum": [
+            0,
+            0
+          ],
+          "zoom": 1,
+          "maximized": false,
+          "display": {
+            "id": 2422596671,
+            "scaleFactor": 1.25,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 3072,
+              "height": 1728
+            },
+            "workArea": {
+              "x": 0,
+              "y": 0,
+              "width": 3072,
+              "height": 1680
+            }
+          }
+        },
+        "renderer": {
+          "width": 1362,
+          "height": 862,
+          "rootClientWidth": 1362,
+          "rootClientHeight": 862,
+          "rootRectWidth": 1361.5999755859375,
+          "rootRectHeight": 862.4000244140625,
+          "visualViewport": {
+            "width": 1361.5999755859375,
+            "height": 862.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25,
+          "hasFocus": true,
+          "hidden": false
+        }
+      },
+      "requestedAt": "2026-10-07T07:06:07.985Z",
+      "measurement": {
+        "requestedBoundsDIP": {
+          "width": 960,
+          "height": 620
+        },
+        "nativeBoundsDeltaDIP": {
+          "width": 2,
+          "height": 3
+        },
+        "contentDIP": [
+          961,
+          622
+        ],
+        "fractionalCSSViewport": {
+          "width": 961.5999755859375,
+          "height": 622.4000244140625,
+          "scale": 1
+        },
+        "innerCSSViewport": {
+          "width": 962,
+          "height": 622
+        },
+        "displayScaleFactor": 1.25,
+        "electronZoomFactor": 1,
+        "classification": "Requested native window DIP bounds, subject to the observed application minimum and Windows display-scale rounding. The fractional CSS viewport and rounded inner viewport are recorded separately; this is not a claim of exact 960x620 physical pixels."
+      },
+      "geometry": {
+        "native": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "content": [
+            961,
+            622
+          ],
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "minimum": [
+            960,
+            620
+          ],
+          "maximum": [
+            0,
+            0
+          ],
+          "zoom": 1,
+          "maximized": false,
+          "display": {
+            "id": 2422596671,
+            "scaleFactor": 1.25,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 3072,
+              "height": 1728
+            },
+            "workArea": {
+              "x": 0,
+              "y": 0,
+              "width": 3072,
+              "height": 1680
+            }
+          }
+        },
+        "renderer": {
+          "width": 962,
+          "height": 622,
+          "rootClientWidth": 962,
+          "rootClientHeight": 622,
+          "rootRectWidth": 961.6000366210938,
+          "rootRectHeight": 622.4000244140625,
+          "visualViewport": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25,
+          "hasFocus": true,
+          "hidden": false
+        }
+      }
+    }
+  ],
+  "error": {
+    "name": "AssertionError",
+    "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 12193072\n- 36702884\n",
+    "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 12193072\n- 36702884\n\n    at foreground (E:\\KAMUCL\\scripts\\qa-offline118.cjs:19:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async reachable (E:\\KAMUCL\\scripts\\qa-offline118.cjs:77:5)\n    at async module.exports (E:\\KAMUCL\\scripts\\qa-offline118.cjs:196:397)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:233:9"
+  },
+  "captureError": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 12193072\n- 36702884\n",
+  "restored": {
+    "complete": true
+  },
+  "finishedAt": "2026-10-07T07:06:09.416Z"
+}

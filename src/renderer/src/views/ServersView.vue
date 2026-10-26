@@ -2,7 +2,7 @@
 import { withDeadline } from '@shared/deadline'
 // 服务器页：服务器列表管理 + SLP 实时状态 + 一键进服
 import ContentSkeleton from '../components/ContentSkeleton.vue'
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import {
   addServer,
   favoriteServer,
@@ -21,6 +21,9 @@ import {
 import ConnectionStatus from '../components/connection/ConnectionStatus.vue'
 import ServerListItem from '../components/connection/ServerListItem.vue'
 import ServerDetails from '../components/connection/ServerDetails.vue'
+import ServerAddress from '../components/connection/ServerAddress.vue'
+import { privateServerText, serverAddressRevealed } from '@shared/serverPrivacy'
+import { serverVersionDisplay } from '@shared/serverVersionDisplay'
 import '../components/connection/connection.css'
 import { selectInstance, selectedInstance, refreshInstalled, store, toast } from '../store'
 import type { InstalledVersion, ServerEntry, ServerPingResult } from '@shared/types'
@@ -32,6 +35,17 @@ const pings = reactive<Record<string, ServerPingResult | 'loading'>>({})
 const loading = ref(true)
 const refreshing = ref(false), launchBusy = ref(false), bindingId = ref(''), loadError = ref('')
 const activeId = ref('')
+const revealedAddress = ref<{ id: string; address: string } | null>(null)
+const addressRevealed = (server: ServerEntry) => serverAddressRevealed(server, revealedAddress.value)
+const hideAddresses = () => { revealedAddress.value = null }
+function toggleAddress(server: ServerEntry) {
+  activeId.value = server.id
+  revealedAddress.value = addressRevealed(server) ? null : { id: server.id, address: server.address }
+}
+const publicName = (server?: ServerEntry | null) => server ? privateServerText(server.name, server, addressRevealed(server)) : ''
+// Toasts are snapshots and may outlive the current reveal. Always mask them.
+const publicMessage = (message: string) => servers.value.reduce((text, server) => privateServerText(text, server), message)
+let offWindowVisibility: (() => void) | undefined
 const pingEpoch = new Map<string, number>()
 
 async function load() {
@@ -43,9 +57,9 @@ async function load() {
     servers.value = r.list
     targets.value = r.targets ?? store.installed
     if (r.added > 0) toast(`已从游戏内同步 ${r.added} 个服务器`, 'info')
-    if (r.errors?.length) toast(`有 ${r.errors.length} 个服务器列表未能读取：${r.errors[0]}`, 'error')
+    if (r.errors?.length) toast(`有 ${r.errors.length} 条服务器记录未能读取，请检查游戏服务器列表或手动添加`, 'error')
   } catch (e) {
-    loadError.value = '读取服务器列表失败：' + errText(e)
+    loadError.value = publicMessage('读取服务器列表失败：' + errText(e))
     toast(loadError.value, 'error')
   } finally {
     loading.value = false
@@ -63,9 +77,9 @@ async function syncNow() {
     targets.value = r.targets ?? store.installed
     const detail = r.added || r.updated ? `新增 ${r.added}，更新 ${r.updated ?? 0}` : '没有发现变化'
     toast(`游戏内服务器同步完成：${detail}`, r.errors?.length ? 'error' : 'success')
-    if (r.errors?.length) toast(r.errors[0], 'error')
+    if (r.errors?.length) toast(`有 ${r.errors.length} 条服务器记录未能读取，请检查游戏服务器列表或手动添加`, 'error')
   } catch (e) {
-    loadError.value = '同步失败：' + errText(e)
+    loadError.value = publicMessage('同步失败：' + errText(e))
   } finally {
     loading.value = false
   }
@@ -99,8 +113,17 @@ async function pingOne(s: ServerEntry) {
 }
 
 onMounted(() => {
+  document.addEventListener('visibilitychange', hideAddresses)
+  window.addEventListener('blur', hideAddresses)
+  offWindowVisibility = window.kamucl.on('window:visibility', visible => { if (visible !== true) hideAddresses() })
   void load()
   if (!store.installed.length) void refreshInstalled()
+})
+onBeforeUnmount(() => {
+  hideAddresses()
+  document.removeEventListener('visibilitychange', hideAddresses)
+  window.removeEventListener('blur', hideAddresses)
+  offWindowVisibility?.()
 })
 
 // ---------------- 添加 ----------------
@@ -185,7 +208,7 @@ async function onDelete() {
       toast('已删除服务器', 'success')
     }
   } catch (e) {
-    toast('删除失败：' + errText(e), 'error')
+    toast(publicMessage('删除失败：' + errText(e)), 'error')
   } finally {
     delModal.busy = false
   }
@@ -209,12 +232,14 @@ const parseTargetToken = (value: string): { id: string; folder: string } | null 
     return null
   }
 }
-const targetOf = (server: ServerEntry): InstalledVersion | undefined =>
-  targets.value.find(
+const targetOf = (server: ServerEntry): InstalledVersion | undefined => {
+  const matches = targets.value.filter(
     (target) =>
       target.id === server.versionId &&
       (!server.folder || normalizedPath(target.folder) === normalizedPath(server.folder))
   )
+  return matches.length === 1 ? matches[0] : undefined
+}
 const boundToken = (server: ServerEntry): string => {
   const target = targetOf(server)
   return target ? targetToken(target) : ''
@@ -265,12 +290,12 @@ async function doLaunch(s: ServerEntry, versionId: string) {
     servers.value = await listServers()
     toast(
       prepared.directJoin
-        ? `正在启动并进入 ${s.name}…`
+        ? `正在启动并进入 ${privateServerText(s.name, s)}…`
         : `Minecraft ${prepared.minecraftVersion} 不支持快速进入，已启动正确实例`,
       'info'
     )
   } catch (e) {
-    toast('启动失败：' + errText(e), 'error')
+    toast(publicMessage('启动失败：' + errText(e)), 'error')
   } finally { launchBusy.value = false }
 }
 
@@ -282,9 +307,9 @@ async function onBind(s: ServerEntry, token: string) {
     const target = parseTargetToken(token)
     servers.value = await bindServer(s.id, target?.id ?? '', target?.folder)
     if(target)await selectInstance(target.id,target.folder)
-    toast(target ? `已关联到 ${target.id}` : '已解除实例关联', 'success')
+    toast(publicMessage(target ? `已关联到 ${target.id}` : '已解除实例关联'), 'success')
   } catch (e) {
-    toast('绑定失败：' + errText(e), 'error')
+    toast(publicMessage('绑定失败：' + errText(e)), 'error')
   } finally { bindingId.value = '' }
 }
 
@@ -316,7 +341,7 @@ async function onJoin() {
     const linked = servers.value.find((server) => server.id === s.id) ?? s
     await doLaunch(linked, target.id)
   } catch (e) {
-    toast('启动失败：' + errText(e), 'error')
+    toast(publicMessage('启动失败：' + errText(e)), 'error')
   }
 }
 
@@ -335,21 +360,23 @@ const filteredServers = computed(() =>
           (ping?.motd.toLowerCase().includes(keyword.value) ?? false)
         )
       })
-    : servers.value).slice().sort((a, b) => Number(!!b.favorite) - Number(!!a.favorite))
+    : servers.value).map(s => serverVersionDisplay(s, targetOf(s))).sort((a, b) => Number(!!b.favorite) - Number(!!a.favorite))
 )
 async function toggleFavorite(server: ServerEntry) {
   try { servers.value = await favoriteServer(server.id, !server.favorite) }
-  catch (e) { toast('收藏失败：' + errText(e), 'error') }
+  catch (e) { toast(publicMessage('收藏失败：' + errText(e)), 'error') }
 }
 const activeServer = computed(() => filteredServers.value.find(s => s.id === activeId.value) ?? filteredServers.value[0])
+watch(() => [activeServer.value?.id, activeServer.value?.address] as const, hideAddresses, { flush: 'sync' })
 const onlineCount = computed(() => servers.value.filter(s => pingOf(s)?.online).length)
 watch(servers, list => { selected.value = new Set([...selected.value].filter(id => list.some(s => s.id === id))) })
 function requestDelete(s: ServerEntry) {
   Object.assign(delModal, { open: true, target: s, batch: false })
 }
 async function copyAddress(s: ServerEntry) {
+  if (!addressRevealed(s)) return
   try { toast(await copyText(s.address) ? '服务器地址已复制' : '复制失败', 'info') }
-  catch (e) { toast(errText(e), 'error') }
+  catch (e) { toast(publicMessage(errText(e)), 'error') }
 }
 </script>
 
@@ -373,10 +400,10 @@ async function copyAddress(s: ServerEntry) {
     <div data-ui="ServersView:18026edb487f" v-else-if="!filteredServers.length && !loadError" class="connection-panel connection-empty"><h3>没有找到匹配的服务器</h3><p>试试其他名称、地址或关键词。</p><button data-ui="ServersView:9d3cfed9a775" class="btn btn-ghost" @click="store.searchKeyword = ''">清除搜索</button></div>
     <div data-ui="ServersView:327a59a2e7d9" v-else-if="servers.length" class="server-workspace" :inert="loading || !!loadError">
       <section data-ui="ServersView:9f97ae2c334b" class="server-list" aria-label="服务器列表">
-        <ServerListItem v-for="s in filteredServers" :key="s.id" :server="s" :ping="pingOf(s)" :pending="pings[s.id] === 'loading'" :active="activeServer?.id === s.id" :select-mode="selectMode" :checked="selected.has(s.id)" @favorite="toggleFavorite(s)" @select="activeId = s.id" @toggle="toggleSelect(s.id)" @connect="onCardDblClick(s)" />
+        <ServerListItem v-for="s in filteredServers" :key="s.id" :server="s" :ping="pingOf(s)" :pending="pings[s.id] === 'loading'" :active="activeServer?.id === s.id" :select-mode="selectMode" :checked="selected.has(s.id)" :address-revealed="addressRevealed(s)" @address="toggleAddress(s)" @favorite="toggleFavorite(s)" @select="activeId = s.id" @toggle="toggleSelect(s.id)" @connect="onCardDblClick(s)" />
         <p data-ui="ServersView:14a890c77df9" class="connection-muted server-list-hint">选择查看详情 · 双击快速连接</p>
       </section>
-      <ServerDetails v-if="activeServer" :server="activeServer" :ping="pingOf(activeServer)" :pending="pings[activeServer.id] === 'loading'" :busy="launchBusy || store.launchState?.status === 'running' || store.launchState?.status === 'launching'" :running="store.launchState?.status === 'running'" :binding="!!bindingId" :targets="targets" :bound="boundToken(activeServer)" :missing="versionMissing(activeServer)" :last-used="formatLastUsed(activeServer.lastUsedAt)" :target-token="targetToken" :target-label="targetLabel" @bind="onBind(activeServer, $event)" @connect="onCardDblClick(activeServer)" @refresh="pingOne(activeServer)" @edit="openAdd(activeServer)" @remove="requestDelete(activeServer)" @relink="relinkMissing(activeServer)" @versions="store.currentView = 'game'" @copy="copyAddress(activeServer)" />
+      <ServerDetails v-if="activeServer" :server="activeServer" :ping="pingOf(activeServer)" :pending="pings[activeServer.id] === 'loading'" :busy="launchBusy || store.launchState?.status === 'running' || store.launchState?.status === 'launching'" :running="store.launchState?.status === 'running'" :binding="!!bindingId" :targets="targets" :bound="boundToken(activeServer)" :missing="versionMissing(activeServer)" :last-used="formatLastUsed(activeServer.lastUsedAt)" :target-token="targetToken" :target-label="targetLabel" :address-revealed="addressRevealed(activeServer)" @address="toggleAddress(activeServer)" @bind="onBind(activeServer, $event)" @connect="onCardDblClick(activeServer)" @refresh="pingOne(activeServer)" @edit="openAdd(activeServer)" @remove="requestDelete(activeServer)" @relink="relinkMissing(activeServer)" @versions="store.currentView = 'game'" @copy="copyAddress(activeServer)" />
     </div>
     <!-- 添加模态框 -->
     <Teleport to="body">
@@ -411,7 +438,7 @@ async function copyAddress(s: ServerEntry) {
               确定要从 KAMUCL 删除所选的 {{ selectedCount }} 个服务器吗？这只会删除启动器记录，不会修改 Minecraft 的 servers.dat；下次同步时，游戏内仍存在的条目可能再次出现。
             </template>
             <template v-else>
-              确定要从 KAMUCL 删除「{{ delModal.target?.name }}」吗？这只会删除启动器记录，不会修改 Minecraft 的 servers.dat；下次同步时，游戏内仍存在的条目可能再次出现。
+              确定要从 KAMUCL 删除「{{ publicName(delModal.target) }}」吗？这只会删除启动器记录，不会修改 Minecraft 的 servers.dat；下次同步时，游戏内仍存在的条目可能再次出现。
             </template>
           </p>
           <div class="modal-actions">
@@ -426,8 +453,9 @@ async function copyAddress(s: ServerEntry) {
       <!-- 进入游戏（选版本） -->
       <div data-ui="ServersView:134da6c8d6c9" v-if="joinModal.open" class="modal-mask connection-modal" @pointerdown.self="joinModal.open = false">
         <div class="modal">
-          <h3 class="modal-title">进入 {{ joinModal.target?.name }}</h3>
-          <p data-ui="ServersView:86a7b84a1c0f" class="modal-label">选择游戏实例（将保存关联并启动 {{ joinModal.target?.address }}）</p>
+          <h3 class="modal-title">进入 {{ publicName(joinModal.target) }}</h3>
+          <p data-ui="ServersView:86a7b84a1c0f" class="modal-label">选择游戏实例，确认后保存关联并进入服务器。</p>
+          <ServerAddress v-if="joinModal.target" :address="joinModal.target.address" :revealed="addressRevealed(joinModal.target)" @toggle="toggleAddress(joinModal.target)"/>
           <select data-ui="ServersView:86d2c55efdd8" v-model="joinModal.versionId" class="select" @change="syncJoinSelection">
             <option v-for="v in targets" :key="`${v.folder}\u0000${v.id}`" :value="targetToken(v)">
               {{ targetLabel(v) }}

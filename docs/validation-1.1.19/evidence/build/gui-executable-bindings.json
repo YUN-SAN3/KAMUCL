@@ -1,0 +1,605 @@
+{
+  "complete": true,
+  "version": "1.1.19",
+  "at": "2026-10-07T08:33:28.595Z",
+  "finalEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+  "finalASARSHA256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1",
+  "productionInventory": "out/production-inputs119-final-prebuild.json",
+  "productionInventorySHA256": "92f7dd9ba477830fa8d56f685e0d10f4d4535486cc581444a2d97675f754b43c",
+  "rawProofsUnmodified": true,
+  "cohortCopies": [
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 4IAlvD",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 4IAlvD\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361559873.0264,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 4IAlvD\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 5mmxci",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 5mmxci\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361592096.5483,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 5mmxci\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 7q9gFo",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 7q9gFo\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361013867.8708,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 7q9gFo\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 8plEig",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 8plEig\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361095920.699,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 8plEig\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 GaOMNy",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 GaOMNy\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791360867386.2385,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 GaOMNy\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HySECq",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HySECq\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361115738.2917,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HySECq\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 lsguzI",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 lsguzI\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361445160.3274,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 lsguzI\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Oti3Fa",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Oti3Fa\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791360954445.8743,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Oti3Fa\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 oUuB4N",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 oUuB4N\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361797464.9392,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 oUuB4N\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 pbJHfm",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 pbJHfm\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361225132.8582,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 pbJHfm\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Qvbe5S",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Qvbe5S\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361407754.497,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Qvbe5S\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 RkQcC1",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 RkQcC1\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361065586.959,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 RkQcC1\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 tja77A",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 tja77A\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361146481.4558,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 tja77A\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 uyEiM4",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 uyEiM4\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361204842.2256,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 uyEiM4\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Vvq1m1",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Vvq1m1\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791360992884.3901,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Vvq1m1\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 WZkNbU",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 WZkNbU\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361044619.3408,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 WZkNbU\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 zSnBoE",
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 zSnBoE\\KAMUCL-1.1.19.exe",
+      "bytes": 97323050,
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "birthtimeMs": 1791361167029.5442,
+      "mtimeMs": 1791360758450.3108,
+      "asars": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 zSnBoE\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "proof": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/proof.json",
+      "proofSHA256": "63c8354dcca4befcbdfb6cda647a9049f47287d3b414c577bae4fcfbe804d603",
+      "complete": true,
+      "parentPID": 14460,
+      "electronPID": 5292,
+      "ownedLedger": "out/qa-owned-process-119-334ca841-ba6f-4567-b3b3-312b00fe60dc.json",
+      "ownedLedgerSHA256": "f4312bca9dfb22ab74ee2a760e6d22a394b6abbc2cf5b1f3953483091041ca90",
+      "childStartedAt": "2026-10-07T08:16:33.018Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Vvq1m1\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 133.60986328125,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Vvq1m1\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/proof.json",
+      "proofSHA256": "7bf462b1aff826b1f4a065c9b1ccf4a1129ad6883b5f672d330596d6ed4b25ac",
+      "complete": true,
+      "parentPID": 37316,
+      "electronPID": 19828,
+      "ownedLedger": "out/qa-owned-process-119-8c81f13c-2eb1-4b50-91c9-8bf9d339c362.json",
+      "ownedLedgerSHA256": "06a95441a567a4f8a1bcc9d80d51c612a0d9ded4660966cf26391ba9cb1c8249",
+      "childStartedAt": "2026-10-07T08:20:04.968Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 uyEiM4\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 125.7744140625,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 uyEiM4\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/proof.json",
+      "proofSHA256": "b4aff5f16c0506947385a6380cec602f5b1c1f95bfa8cb649e4ad01e20be770b",
+      "complete": true,
+      "parentPID": 49264,
+      "electronPID": 34064,
+      "ownedLedger": "out/qa-owned-process-119-eaefa91a-4d57-4bdc-968d-48bc40d4196e.json",
+      "ownedLedgerSHA256": "35b027df8d3f8fcbbac6d9d7a9bdb4cd0bc03e74f51dbeb33038cc1b76322f76",
+      "childStartedAt": "2026-10-07T08:17:24.743Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 WZkNbU\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 123.6591796875,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 WZkNbU\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/proof.json",
+      "proofSHA256": "b580a024c708e87916d10b5cb444a4a6d789117838e62cda99d44de98245cfa6",
+      "complete": true,
+      "parentPID": 44072,
+      "electronPID": 22632,
+      "ownedLedger": "out/qa-owned-process-119-9a466a86-b973-4d62-b2fa-79ba706749d0.json",
+      "ownedLedgerSHA256": "94f6b48aba66ba281d4bea807a486079362867cea35dd81e9c943f2940dde3db",
+      "childStartedAt": "2026-10-07T08:19:06.607Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 tja77A\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 125.544189453125,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 tja77A\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/proof.json",
+      "proofSHA256": "9d4c1a0032de2af12cab9cef7559e85014b188447bb4857390dac00591f51287",
+      "complete": true,
+      "parentPID": 38328,
+      "electronPID": 55472,
+      "ownedLedger": "out/qa-owned-process-119-1bfefa96-6f1b-4e6e-83b8-eb7491542650.json",
+      "ownedLedgerSHA256": "3d82259b264f01999b48185b507e0ed88aced2f5ec932c65fb1710858c49afb4",
+      "childStartedAt": "2026-10-07T08:18:16.040Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 8plEig\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 119.301025390625,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 8plEig\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-black-orange-2fbb669b-a540-4bfa-8ad8-58f37cce500a/proof.json",
+      "proofSHA256": "18f91287c68c5d941ec6d264562e6acdc939af367ff8849ecadac54005e346bb",
+      "complete": true,
+      "parentPID": 46652,
+      "electronPID": 21064,
+      "ownedLedger": "out/qa-owned-process-119-d3a095d3-f1fb-4ae7-9a3e-d4d8ed97f186.json",
+      "ownedLedgerSHA256": "b4e05e095bcb7653195cbb72c50e6ff3e896872f6e36478b7082deda469a4fff",
+      "childStartedAt": "2026-10-07T08:15:54.561Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Oti3Fa\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 115.125732421875,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Oti3Fa\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-black-orange-435f49aa-3f98-4e68-949c-16d322229f3e/proof.json",
+      "proofSHA256": "15d06eb3d79b0cf7c8fec1185efd7069d97c206146b035390a6a0a1b091b71b2",
+      "complete": true,
+      "parentPID": 45856,
+      "electronPID": 55576,
+      "ownedLedger": "out/qa-owned-process-119-a6ec0742-95af-4c20-a5d7-e78d106a32f1.json",
+      "ownedLedgerSHA256": "9f7604aef71fa9d46b46ab2c9bfcf1f7fdc0991a6d0a1da02685b15b84d3094d",
+      "childStartedAt": "2026-10-07T08:23:27.882Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Qvbe5S\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 127.5029296875,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Qvbe5S\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-black-orange-9522dffe-03a6-4788-9958-24719797b75f/proof.json",
+      "proofSHA256": "077094a0f23fb319b5f9f4445e66ee7bbf4d7622e54fb2c4174044e3acbeb1dc",
+      "complete": false,
+      "parentPID": 48760,
+      "electronPID": 28636,
+      "ownedLedger": "out/qa-owned-process-119-69bad293-8ce7-48bc-822c-5c3a19eadeb5.json",
+      "ownedLedgerSHA256": "8cb99dca412cd8eb3a7060f845cd62e48e8173fc014f572402e47b6142ea4733",
+      "childStartedAt": "2026-10-07T08:14:27.508Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 GaOMNy\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 121.761474609375,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 GaOMNy\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-black-orange-98375013-8237-4e7a-b98d-cb3528abe6be/proof.json",
+      "proofSHA256": "d8785d651b51d2af499fa7ff27c2e9ccb1ccd2591cb0c39b7c412f2479cabfdc",
+      "complete": true,
+      "parentPID": 56744,
+      "electronPID": 50620,
+      "ownedLedger": "out/qa-owned-process-119-fa243866-a571-48b6-b91a-4be91fa47798.json",
+      "ownedLedgerSHA256": "be137e6eb55489acc46547735b779c840f461e93864884d084a23fb26ce166b6",
+      "childStartedAt": "2026-10-07T08:19:27.139Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 zSnBoE\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 109.455810546875,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 zSnBoE\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-blue-white-3baa69ef-9afc-41f8-8327-fe5a71c7c1d9/proof.json",
+      "proofSHA256": "308dac75397d88ed36512daafad10ad4a1eb75ee1bd8bcb7bdb09261f936743e",
+      "complete": true,
+      "parentPID": 36988,
+      "electronPID": 29680,
+      "ownedLedger": "out/qa-owned-process-119-976268c8-a8c0-4a4e-a59f-f31d6338cad0.json",
+      "ownedLedgerSHA256": "514898dbecd18376bc984637d301f0fc352c6e0caffd913696135011d4ba0aad",
+      "childStartedAt": "2026-10-07T08:25:59.983Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 4IAlvD\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 109.9736328125,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 4IAlvD\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-blue-white-a501241b-6bcb-4971-b751-7685afcc05ca/proof.json",
+      "proofSHA256": "efaa21a0da8d0dd903db726daf53e61da021d67f4525f6bd971b44f9f66dc232",
+      "complete": true,
+      "parentPID": 54232,
+      "electronPID": 5420,
+      "ownedLedger": "out/qa-owned-process-119-5855427d-f968-482b-8991-ec996fae1557.json",
+      "ownedLedgerSHA256": "17a427148745d610ae2187aed63f0fc0335a73060f0128a760bbcad1ecb74dd2",
+      "childStartedAt": "2026-10-07T08:16:53.979Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 7q9gFo\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 111.129150390625,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 7q9gFo\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-blue-white-a7a0b98e-b8e2-4af4-b485-5061c3bbadb9/proof.json",
+      "proofSHA256": "a062f774b4debae80b592d98adf922dc71686c67fd6c466b7f5bf14aeb5c3a40",
+      "complete": false,
+      "parentPID": 55468,
+      "electronPID": 54468,
+      "ownedLedger": "out/qa-owned-process-119-f42eda49-61cb-45ac-847c-150dc647095b.json",
+      "ownedLedgerSHA256": "e6a008c30ec25f2b47ed3d342f5858e2e3ef6d989445bedbc65ae37cff7b551e",
+      "childStartedAt": "2026-10-07T08:24:05.281Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 lsguzI\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 120.672607421875,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 lsguzI\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-custom-556a701a-79c9-4bf8-9464-f7351d3a28aa/proof.json",
+      "proofSHA256": "53c4bda70e72c3265cabb6fd8b0c096b01f089bae523b91d0c75f98d7ba7b938",
+      "complete": true,
+      "parentPID": 50480,
+      "electronPID": 51168,
+      "ownedLedger": "out/qa-owned-process-119-37fdd0a0-71e8-4c3f-a223-7911bb628687.json",
+      "ownedLedgerSHA256": "62e5693c1c75221dea2840a786e02db5414b26fea087441a3ae94bf189a01508",
+      "childStartedAt": "2026-10-07T08:18:35.846Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HySECq\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 107.708251953125,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HySECq\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-transparent-1fcdc17a-bc69-4ca2-bfaf-64c871c8e03d/proof.json",
+      "proofSHA256": "c62b3379c79405eb2b904dae666bd837a871cac9ec18e9596a3acd662dd03019",
+      "complete": false,
+      "parentPID": 54828,
+      "electronPID": 5008,
+      "ownedLedger": "out/qa-owned-process-119-5ad436c8-69de-418f-a833-fa8b1b40ad74.json",
+      "ownedLedgerSHA256": "5a1c6af468c9445b82f2625af8748309a203e20fc0828739fe421485080f4a95",
+      "childStartedAt": "2026-10-07T08:26:32.225Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 5mmxci\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 128.45166015625,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 5mmxci\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-transparent-771ccec6-ba75-4d72-aba7-68e1d5def2ef/proof.json",
+      "proofSHA256": "3232ba267ada231e682deccca3b3698035c35ebb8c660028a9f5f7e87db026e5",
+      "complete": true,
+      "parentPID": 53440,
+      "electronPID": 45816,
+      "ownedLedger": "out/qa-owned-process-119-12056f9d-689e-4c25-bd3b-6a481f659ab8.json",
+      "ownedLedgerSHA256": "76acad66aea9f9487b388cf5f94a9c788c9cd86e0fc86308de43d4692a39e4c5",
+      "childStartedAt": "2026-10-07T08:17:45.702Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 RkQcC1\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 115.041015625,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 RkQcC1\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    },
+    {
+      "proof": "out/qa-skin-layers119-transparent-ce2a3f69-670c-435e-8b0a-a97ee76fb4e0/proof.json",
+      "proofSHA256": "df859764f85963f1d2ba5f2ceeef9d5927ca91894a2f60f35adba5944bf79e6a",
+      "complete": true,
+      "parentPID": 19472,
+      "electronPID": 54300,
+      "ownedLedger": "out/qa-owned-process-119-6735ae6a-98e1-4446-a104-a5f106c86af1.json",
+      "ownedLedgerSHA256": "325b3225a4dcfd494ff2ac14ec6e5677bccf9717537768c8b1dbfff2c9dca380",
+      "childStartedAt": "2026-10-07T08:29:57.577Z",
+      "closed": true,
+      "exitCode": 0,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 oUuB4N\\KAMUCL-1.1.19.exe",
+      "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "exeCreatedBeforeSpawnMs": 112.060791015625,
+      "retainedRuntime": [
+        {
+          "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 oUuB4N\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+          "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+        }
+      ],
+      "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+    }
+  ],
+  "qualification": "Post-run verification of preserved executable/runtime bytes, original file timestamps and owned child ledgers. Original proofs carried PID/version but no embedded executable hash. Final binding is separate and preserves this distinction. All original GUI copies are retained locally; GUI harness copied final release EXE before spawn. No GUI_APP/DEV invocation in batch run commands."
+}

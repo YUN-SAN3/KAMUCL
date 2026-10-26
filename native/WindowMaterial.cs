@@ -1,4 +1,4 @@
-// Complete KAMUCL's native startup fade without changing DWM or window geometry.
+// Complete KAMUCL's native startup fade and invalidate its cached style.
 using System;
 using System.Runtime.InteropServices;
 
@@ -9,6 +9,7 @@ internal static class WindowMaterial {
     [DllImport("user32.dll")] static extern bool GetLayeredWindowAttributes(IntPtr window, out uint color, out byte alpha, out uint flags);
     [DllImport("user32.dll")] static extern int GetWindowLong(IntPtr window, int index);
     [DllImport("user32.dll", SetLastError = true)] static extern int SetWindowLong(IntPtr window, int index, int value);
+    [DllImport("user32.dll", SetLastError = true)] static extern bool SetWindowPos(IntPtr window, IntPtr after, int x, int y, int width, int height, uint flags);
 
     static int Main(string[] args) {
         uint owner;
@@ -26,7 +27,7 @@ internal static class WindowMaterial {
             // Electron keeps WS_EX_LAYERED after setOpacity(1). Only release
             // our completed full-alpha fade; preserve color keys, fractional
             // opacity and click-through windows. Electron now owns all frame,
-            // clipping and Acrylic composition; never rewrite those here.
+            // clipping and Acrylic composition; never assign material or bounds.
             const int index = -20, layered = 0x80000, transparent = 0x20;
             int style = GetWindowLong(window, index);
             uint color, flags; byte alpha;
@@ -34,6 +35,17 @@ internal static class WindowMaterial {
                 GetLayeredWindowAttributes(window, out color, out alpha, out flags) && flags == 2 && alpha == 255) {
                 if (SetWindowLong(window, index, style & ~layered) == 0) {
                     Console.WriteLine("opacity cleanup failed: " + Marshal.GetLastWin32Error());
+                    continue;
+                }
+                // SetWindowLong updates the style, but Windows caches frame data.
+                // Apply that single completed-fade change without moving, sizing,
+                // activating or reordering the window. Do not repeat for normal
+                // windows or fractional opacity, and do not reset Acrylic.
+                const uint noSize = 0x1, noMove = 0x2, noZOrder = 0x4,
+                    noActivate = 0x10, frameChanged = 0x20, noOwnerZOrder = 0x200;
+                if (!SetWindowPos(window, IntPtr.Zero, 0, 0, 0, 0,
+                    noSize | noMove | noZOrder | noActivate | frameChanged | noOwnerZOrder)) {
+                    Console.WriteLine("opacity style refresh failed: " + Marshal.GetLastWin32Error());
                     continue;
                 }
             }

@@ -1,0 +1,171 @@
+{
+  "version": "1.1.20",
+  "reviewer": "Independent offline118",
+  "threshold": 8.5,
+  "averaged": false,
+  "run": 37683666380,
+  "originalRun": 37680785679,
+  "rawIndependentMD_SHA256": "f295e523c107726ecc5aa059bbecb986a91bf8a88595a27ea01183f6a69efedf",
+  "rawIndependentJSON_SHA256": "4ab2554d83f01e0882062ed33fd6ac3e31af045cb35ec947df4231748dfe7c05",
+  "inspected": {
+    "originalPNGsHashedAndDecoded": 324,
+    "featurePNGs": 322,
+    "failureDiagnosticPNGs": 2,
+    "manualNewNativeViews": 50,
+    "trustedMouseEvents": 2114,
+    "trustedChromiumInputEvents": 112,
+    "qualification": "Actual Chromium editing receipts after native coordinate focus, not OS CGEvent Cmd+A/native Cmd-keyUp acceptance."
+  },
+  "rows": [
+    {
+      "stage": "app",
+      "area": "community",
+      "themesQualified": [
+        "black-orange",
+        "blue-white",
+        "transparent",
+        "custom"
+      ],
+      "themesNotQualified": [],
+      "ratings": {
+        "reasonableness": 9.2,
+        "functionality": 9.1,
+        "appearance": 8.8
+      },
+      "artifactSourceCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+      "qaSourceCommit": "ad279ae2f0e556165d557bc7121153bd34a23d60",
+      "macASARSHA256": "75eb10c3394ee2bc1f8578dc2572ffa979c120a8369f92ebc4251b68de652ecf",
+      "executableSHA256": "49e7fa15f08bf25d690b7e1483fc15808c255eea9352a6a041cad6a2797614c6",
+      "originalArtifact": {
+        "id": 11510297951,
+        "apiDigest": "sha256:e8e1d65f6cd3c5aed731b06b2bd6715a7d4b671be53811825b297250396613c3",
+        "archiveSHA256": "e8e1d65f6cd3c5aed731b06b2bd6715a7d4b671be53811825b297250396613c3",
+        "bytes": 50174218
+      },
+      "rawProofSHA256": "4bfd0eeffc7f2ecdb1ee2bbed5eee1127db81f2ba3f33088b0bf1755518488f4",
+      "rawReuseSHA256": "d1ec845819bfd7ca78cebb0cebf8c8058af487f3522a72522eb166bde435b8e4",
+      "originalJobConclusion": "failure",
+      "wholeReuseComplete": false,
+      "criticalProductDefectInQualifiedScope": false,
+      "scope": "Qualified modified-feature interactions only. Synthetic metadata/task receiver does not confirm or install a real file. No whole Mac acceptance."
+    },
+    {
+      "stage": "app",
+      "area": "downloadStatus",
+      "themesQualified": [
+        "black-orange",
+        "blue-white",
+        "transparent",
+        "custom"
+      ],
+      "themesNotQualified": [],
+      "ratings": {
+        "reasonableness": 9.1,
+        "functionality": 9,
+        "appearance": 8.7
+      },
+      "artifactSourceCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+      "qaSourceCommit": "ad279ae2f0e556165d557bc7121153bd34a23d60",
+      "macASARSHA256": "75eb10c3394ee2bc1f8578dc2572ffa979c120a8369f92ebc4251b68de652ecf",
+      "executableSHA256": "49e7fa15f08bf25d690b7e1483fc15808c255eea9352a6a041cad6a2797614c6",
+      "originalArtifact": {
+        "id": 11510297951,
+        "apiDigest": "sha256:e8e1d65f6cd3c5aed731b06b2bd6715a7d4b671be53811825b297250396613c3",
+        "archiveSHA256": "e8e1d65f6cd3c5aed731b06b2bd6715a7d4b671be53811825b297250396613c3",
+        "bytes": 50174218
+      },
+      "rawProofSHA256": "4bfd0eeffc7f2ecdb1ee2bbed5eee1127db81f2ba3f33088b0bf1755518488f4",
+      "rawReuseSHA256": "d1ec845819bfd7ca78cebb0cebf8c8058af487f3522a72522eb166bde435b8e4",
+      "originalJobConclusion": "failure",
+      "wholeReuseComplete": false,
+      "criticalProductDefectInQualifiedScope": false,
+      "scope": "Qualified modified-feature interactions only. Synthetic metadata/task receiver does not confirm or install a real file. No whole Mac acceptance."
+    },
+    {
+      "stage": "dmg",
+      "area": "community",
+      "themesQualified": [
+        "blue-white",
+        "transparent",
+        "custom"
+      ],
+      "themesNotQualified": [
+        "black-orange"
+      ],
+      "ratings": {
+        "reasonableness": 9.2,
+        "functionality": 9.1,
+        "appearance": 8.8
+      },
+      "artifactSourceCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+      "qaSourceCommit": "ad279ae2f0e556165d557bc7121153bd34a23d60",
+      "macASARSHA256": "75eb10c3394ee2bc1f8578dc2572ffa979c120a8369f92ebc4251b68de652ecf",
+      "executableSHA256": "49e7fa15f08bf25d690b7e1483fc15808c255eea9352a6a041cad6a2797614c6",
+      "originalArtifact": {
+        "id": 11509659076,
+        "apiDigest": "sha256:1019102cfa4fe15a55a36537346af689a23ffbc67746b43ac7f7754cee0903bf",
+        "archiveSHA256": "1019102cfa4fe15a55a36537346af689a23ffbc67746b43ac7f7754cee0903bf",
+        "bytes": 38842619
+      },
+      "rawProofSHA256": "f1a1b77c52db47ca26dbb950df4233b727794c86f05369d260145447fd40d8d7",
+      "rawReuseSHA256": "5884ef2fb9238ae2ae4ba9bdeab35d4ee7b6e00bd9c30f3661971b9c3e973c2f",
+      "originalJobConclusion": "failure",
+      "wholeReuseComplete": false,
+      "criticalProductDefectInQualifiedScope": false,
+      "scope": "Qualified modified-feature interactions only. Synthetic metadata/task receiver does not confirm or install a real file. No whole Mac acceptance."
+    },
+    {
+      "stage": "dmg",
+      "area": "downloadStatus",
+      "themesQualified": [
+        "blue-white",
+        "transparent",
+        "custom"
+      ],
+      "themesNotQualified": [
+        "black-orange"
+      ],
+      "ratings": {
+        "reasonableness": 9.1,
+        "functionality": 9,
+        "appearance": 8.7
+      },
+      "artifactSourceCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+      "qaSourceCommit": "ad279ae2f0e556165d557bc7121153bd34a23d60",
+      "macASARSHA256": "75eb10c3394ee2bc1f8578dc2572ffa979c120a8369f92ebc4251b68de652ecf",
+      "executableSHA256": "49e7fa15f08bf25d690b7e1483fc15808c255eea9352a6a041cad6a2797614c6",
+      "originalArtifact": {
+        "id": 11509659076,
+        "apiDigest": "sha256:1019102cfa4fe15a55a36537346af689a23ffbc67746b43ac7f7754cee0903bf",
+        "archiveSHA256": "1019102cfa4fe15a55a36537346af689a23ffbc67746b43ac7f7754cee0903bf",
+        "bytes": 38842619
+      },
+      "rawProofSHA256": "f1a1b77c52db47ca26dbb950df4233b727794c86f05369d260145447fd40d8d7",
+      "rawReuseSHA256": "5884ef2fb9238ae2ae4ba9bdeab35d4ee7b6e00bd9c30f3661971b9c3e973c2f",
+      "originalJobConclusion": "failure",
+      "wholeReuseComplete": false,
+      "criticalProductDefectInQualifiedScope": false,
+      "scope": "Qualified modified-feature interactions only. Synthetic metadata/task receiver does not confirm or install a real file. No whole Mac acceptance."
+    }
+  ],
+  "approval": {
+    "appFourThemeModifiedCommunity": true,
+    "appFourThemeDownloadLayoutReceiver": true,
+    "dmgThreeObservedThemesModifiedCommunity": true,
+    "dmgThreeObservedThemesDownloadLayoutReceiver": true,
+    "dmgFullFourThemes": false,
+    "wholeScopedJobs": false,
+    "wholeMac": false,
+    "wholeBatch": false,
+    "unconditionalMacRelease": false
+  },
+  "limits": [
+    "Controlled metadata and synthetic task replay do not establish real-service installation, source latency, user-network root cause or actual pause/cancel network dispatch in this GUI run.",
+    "Target menu chosen and confirm enabled; confirm/download not executed. Independent compiled IPC-target contract tests are separate evidence, not this native GUI installation.",
+    "Persisted selected ID equality is embedded and checked; activeFolder equality assertion ran but raw before/after folder values are not embedded, so not independently compared.",
+    "Startup10s budget is unchanged. Successful APP black at9371ms does not backfill old all or current DMG black failure.",
+    "Both scoped original jobs have Native normal restoration failed. Cause unproven, failure not averaged away.",
+    "No manual audio, complete animations, FPS/performance, Microsoft/Ygg account authentication, physical Mac, multiplayer or1.20.1world acceptance inferred.",
+    "Mac ad-hoc signature and runtime44.3 verified; no DeveloperID/notarization claim."
+  ]
+}

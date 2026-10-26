@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-06T09:38:24.963Z",
+  "inputs": {
+    "file": "out/production-inputs115-final-prebuild.json",
+    "sha256": "99348bb9f914889166f52afba74e06991d9401b6390da29fd5f8109d4c3a8f12",
+    "count": 497,
+    "allWorkingInputsUnchanged": true
+  },
+  "files": [
+    {
+      "file": "release/KAMUCL-1.1.15.exe",
+      "bytes": 97289152,
+      "sha256": "4822890c6cc94353a16687d812fdfb0be9379dad1c0258ef4b1a35c14d686df9"
+    },
+    {
+      "file": "release/win-unpacked/resources/app.asar",
+      "bytes": 18758505,
+      "sha256": "1079d96b93617453ede70fe11ccbed91db4713c75e1718d2ecd74f0306db09cb"
+    },
+    {
+      "file": "out/main/WindowMaterial.exe",
+      "bytes": 5120,
+      "sha256": "229d7f0029741bc7b5b04949ad23d1029f2592d950c9528d3f5448701eee16a1"
+    },
+    {
+      "file": "release/win-unpacked/resources/app.asar.unpacked/out/main/WindowMaterial.exe",
+      "bytes": 5120,
+      "sha256": "229d7f0029741bc7b5b04949ad23d1029f2592d950c9528d3f5448701eee16a1"
+    }
+  ]
+}

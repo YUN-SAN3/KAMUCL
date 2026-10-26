@@ -1,6 +1,9 @@
 import path from 'node:path'
 import type { JavaInfo } from '../../shared/types'
 
+/** Version/module probes do not run game code or need a machine-sized heap. */
+export const JAVA_PROBE_VM_ARGS = ['-Xms8m', '-Xmx32m'] as const
+
 /** 将注册表中的 %VAR% 展开；未知变量保持原样，避免误改合法路径。 */
 export function expandWindowsEnvironment(
   value: string,

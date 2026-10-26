@@ -1,0 +1,18 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 56953844
+- 24187210
+
+    at focus (E:\KAMUCL\scripts\qa-skin-layers119.cjs:14:256)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async click (E:\KAMUCL\scripts\qa-skin-layers119.cjs:20:5)
+    at async module.exports (E:\KAMUCL\scripts\qa-skin-layers119.cjs:62:5)
+    at async E:\KAMUCL\scripts\verify-ui-refinement.cjs:235:9 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 56953844,
+  expected: 24187210,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

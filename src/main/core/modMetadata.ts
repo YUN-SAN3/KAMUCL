@@ -8,7 +8,7 @@ type RecordValue = Record<string, any>
 
 /** Real TOML parser: comments, single quotes, multiline descriptions and quoted table names
  * must not become part of a Maven version range. Never evaluate metadata expressions. */
-export function parseModArchive(zip: AdmZip, filePath: string, fileName: string, depth = 0): ModInfo {
+export function parseModArchive(zip: AdmZip, filePath: string, fileName: string, depth = 0, includeIcons = true): ModInfo {
   const info: ModInfo = { filePath, fileName, id: '', name: '', version: '', loader: null, mcRange: '', dependencies: [] }
   const read = (name: string) => {
     const entry = zip.getEntry(name)
@@ -19,12 +19,17 @@ export function parseModArchive(zip: AdmZip, filePath: string, fileName: string,
   const records: Array<{ loader: LoaderName; id: string; name: string; version: string; mcRange: string; loaderRange: string; requirements: ModRequirement[]; icon?: string }> = []
   const provides: Array<{ id: string; version: string }> = []
   const nested: string[] = []
+  const javaRequirements: NonNullable<ModInfo['javaRequirements']> = []
   const requirements = (deps: RecordValue, dialect: 'fabric' | 'quilt' = 'fabric'): ModRequirement[] => Object.entries(deps)
     .filter(([id]) => !builtins.has(id)).map(([id, range]) => ({ id, range: dependencyRange(range, dialect) }))
   try {
     const fabric = read('fabric.mod.json')
     if (fabric) {
       const j = JSON.parse(fabric), dep = j.depends ?? {}
+      if (j.environment !== 'server') {
+        if (dep.java !== undefined) javaRequirements.push({ loader: 'fabric', source: `${fileName}: ${j.id}`, range: dependencyRange(dep.java) })
+        if (j.breaks?.java !== undefined) javaRequirements.push({ loader: 'fabric', source: `${fileName}: ${j.id}`, range: dependencyRange(j.breaks.java), exclude: true })
+      }
       records.push({ loader: 'fabric', id: j.id, name: j.name ?? j.id, version: String(j.version ?? ''), mcRange: dependencyRange(dep.minecraft), loaderRange: dependencyRange(dep.fabricloader), requirements: requirements(dep), icon: typeof j.icon === 'string' ? j.icon : Object.values(j.icon ?? {})[0] as string })
       for (const id of j.provides ?? []) if (typeof id === 'string') provides.push({ id, version: String(j.version ?? '') })
       nested.push(...(j.jars ?? []).map((v: { file: string }) => v.file))
@@ -43,6 +48,7 @@ export function parseModArchive(zip: AdmZip, filePath: string, fileName: string,
         }
       }
       records.push({ loader: 'quilt', id: j.id, name: j.metadata?.name ?? j.id, version: String(j.version ?? ''), mcRange: dependencyRange(deps.minecraft, 'quilt'), loaderRange: dependencyRange(deps.quilt_loader, 'quilt'), requirements: requirements(deps, 'quilt'), icon: j.metadata?.icon })
+      if (deps.java !== undefined) javaRequirements.push({ loader: 'quilt', source: `${fileName}: ${j.id}`, range: dependencyRange(deps.java, 'quilt') })
       for (const p of j.provides ?? []) provides.push({ id: (typeof p === 'string' ? p : p.id).split(':').pop(), version: String(p.version ?? j.version ?? '') })
       nested.push(...(j.jars ?? []).map((v: string | { file: string }) => typeof v === 'string' ? v : v.file))
     }
@@ -60,6 +66,9 @@ export function parseModArchive(zip: AdmZip, filePath: string, fileName: string,
         const own = (j.dependencies?.[m.modId] ?? []).filter((d: RecordValue) => required.includes(d)) as RecordValue[]
         const version = String(m.version ?? '').replace(/\$\{file.jarVersion\}/g, jarVersion)
         provides.push({ id: m.modId, version })
+        const javaRange = j.features?.[m.modId]?.java_version
+        if (typeof javaRange === 'string') javaRequirements.push({ loader, source: `${fileName}: ${m.modId}`, range: javaRange })
+        for (const d of own.filter(d => d.modId === 'java')) javaRequirements.push({ loader, source: `${fileName}: ${m.modId}`, range: d.versionRange ?? '*' })
         records.push({ loader, id: m.modId, name: m.displayName ?? m.modId, version,
           mcRange: own.filter(d => d.modId === 'minecraft').map(d => d.versionRange ?? '*').join(' && '),
           loaderRange: own.filter(d => d.modId === loader).map(d => d.versionRange ?? '*').join(' && ') || (loader === 'forge' && /^(javafml|lowcodefml)$/.test(j.modLoader ?? '') ? j.loaderVersion ?? '' : ''),
@@ -91,12 +100,15 @@ export function parseModArchive(zip: AdmZip, filePath: string, fileName: string,
       const e = zip.getEntry(name)
       if (!e || e.header.size > 64 * 1024 * 1024) continue
       try {
-        const child = parseModArchive(new AdmZip(zip.readFile(e)!), filePath, name, depth + 1)
+        // Nested archives only contribute dependency identities, never icons.
+        const child = parseModArchive(new AdmZip(zip.readFile(e)!), filePath, name, depth + 1, false)
         provides.push(...child.provides ?? [])
+        javaRequirements.push(...(child.javaRequirements ?? []).map(r => ({ ...r, source: `${fileName} > ${r.source}` })))
       } catch { /* Invalid optional nested content cannot supply a prerequisite. */ }
     }
     info.provides = [...new Map(provides.filter(p => p.id).map(p => [p.id, p])).values()]
-    if (typeof first.icon === 'string') {
+    if (javaRequirements.length) info.javaRequirements = javaRequirements
+    if (includeIcons && typeof first.icon === 'string') {
       const e = zip.getEntry(first.icon)
       if (e && e.header.size <= 512 * 1024) info.iconDataUrl = `data:image/png;base64,${zip.readFile(e)?.toString('base64')}`
     }

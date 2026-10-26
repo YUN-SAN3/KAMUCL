@@ -7,7 +7,7 @@ export function carouselDuration(value: unknown): number {
 }
 export function carouselTiming(settings: Partial<LaunchThumbnailSettings>) {
   const allowed = new Set(carouselKeys(settings))
-  return { intervalSeconds: carouselDuration(settings.intervalSeconds), durations: Object.fromEntries(Object.entries(settings.durations ?? {}).filter(([image]) => allowed.has(image)).map(([image, value]) => [image, carouselDuration(value)])) }
+  return { randomPlayback: settings.randomPlayback === true, intervalSeconds: carouselDuration(settings.intervalSeconds), durations: Object.fromEntries(Object.entries(settings.durations ?? {}).filter(([image]) => allowed.has(image)).map(([image, value]) => [image, carouselDuration(value)])) }
 }
 /** `images` is authoritative, including []; old single-image settings remain readable. */
 export function carouselImages(thumbnail?: Partial<LaunchThumbnailSettings>): string[] {

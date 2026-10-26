@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-06T09:48:45.524Z",
+  "existingMaster": "1ae7d40ec54fbbb6707aeaf06b00d15302088e63",
+  "qualification": "Post-build verification of unchanged tracked packaging icons, not a claimed pre-build snapshot. Initial 497-file snapshot did not include build/. Windows uses build/icon.png.",
+  "files": [
+    {
+      "file": "build/icon.png",
+      "bytes": 3820,
+      "sha256": "d3ceb71aa5dfcaf1295e4f5eed9bf9d57e4cadad1ac112f33da03fca3534d74f",
+      "sameAsExistingMaster": true,
+      "gitBlob": "b5a2d49097a72e752a5dbf10048a3caafa0a3453"
+    },
+    {
+      "file": "build/icon-512.png",
+      "bytes": 9063,
+      "sha256": "ad446b495232065589b7e83467b80d1d3d35a1df1404b2c362294a23c38a10f9",
+      "sameAsExistingMaster": true,
+      "gitBlob": "eb6e3c548e523c91dbd8e6bec73c006bf438ccc4"
+    }
+  ]
+}

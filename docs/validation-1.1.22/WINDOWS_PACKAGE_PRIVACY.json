@@ -1,0 +1,548 @@
+{
+  "schemaVersion": 1,
+  "version": "1.1.22",
+  "classification": "Static complete final Windows archive/byte security inspection; no application, native component or credential execution",
+  "observedAt": "2026-10-13T17:40:13.569Z",
+  "sourceHeadObserved": "48f2161292850fcf5c6ecdcc41a2517b766796e9",
+  "scannerSHA256": "9f04e5883b622a69390b285049205148aedd6475ae74b404ee261bfe762e73b4",
+  "driverSHA256": "6199c4a73453f923be8250cd10cb997eb7ef582bcf5ca3f336f9fcae85a8c5a3",
+  "originalComplianceReceiptSHA256": "aafab26d213c56742a8485633a91b79ccdddf02cd04bb32ed3737b19cc24c6a7",
+  "complete": true,
+  "artifacts": [
+    {
+      "coverage": {
+        "name": "KAMUCL-1.1.22.exe",
+        "bytes": 99124081,
+        "sha256": "9ae86b2944c3f88ac0e59178398192b161503f9ba7700a34ed9bff0af7687ec7",
+        "scannedRawBytes": 99124081,
+        "staticNSISExtraction": true,
+        "plugins": [
+          {
+            "file": "System.dll",
+            "bytes": 12288,
+            "sha256": "3eb38ae99653a7dbc724132ee240f6e5c4af4bfe7c01d31d23faf373f9f2eaca",
+            "sameAsOriginal121AndPrimary": true
+          },
+          {
+            "file": "StdUtils.dll",
+            "bytes": 102400,
+            "sha256": "b72e9013a6204e9f01076dc38dabbf30870d44dfc66962adbf73619d4331601e",
+            "sameAsOriginal121AndPrimary": true
+          },
+          {
+            "file": "nsis7z.dll",
+            "bytes": 434176,
+            "sha256": "b393f05e8ff919ef071181050e1873c9a776e1a0ae8329aefff7007d0cadf592",
+            "sameAsOriginal121AndPrimary": true
+          }
+        ],
+        "payload": {
+          "bytes": 98760700,
+          "sha256": "5791bbb39d71a3f9884f8fa6941d7a0be929ce185c23bcae33db8482da6f7f8f",
+          "files": [
+            {
+              "path": "chrome_100_percent.pak",
+              "bytes": 719654,
+              "sha256": "ab7c4b7b6cb8832a31d44b95ec50ce52294f49422a3bdde4e21968eca2930cbe"
+            },
+            {
+              "path": "chrome_200_percent.pak",
+              "bytes": 1269017,
+              "sha256": "30fa4a6e27c9ff2fb0f939f01158477e621a67d86e9ecb84cf11b3947db8eb9d"
+            },
+            {
+              "path": "d3dcompiler_47.dll",
+              "bytes": 4741488,
+              "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb"
+            },
+            {
+              "path": "ffmpeg.dll",
+              "bytes": 3113472,
+              "sha256": "336587847c4ed3ef1a195d1aaea3d3951c9749a035ffa7951df4c0e02971e4e0"
+            },
+            {
+              "path": "icudtl.dat",
+              "bytes": 10876560,
+              "sha256": "9f48c7f9c7c94d516a14870707e910ab94d75ae640ff6842c4af53276cd26ebe"
+            },
+            {
+              "path": "KAMUCL.exe",
+              "bytes": 246070784,
+              "sha256": "82ee9efdbc232ce5e7d60dfa0c575b8e0e079a23e4fae585a0566000731dac7c"
+            },
+            {
+              "path": "LICENSE.electron.txt",
+              "bytes": 1096,
+              "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+            },
+            {
+              "path": "LICENSES.chromium.html",
+              "bytes": 20472830,
+              "sha256": "7b328b8c7463ac9bfc7dc648c751533517c8441a0b5b21047d6c0b2620e60d70"
+            },
+            {
+              "path": "locales/en-US.pak",
+              "bytes": 586582,
+              "sha256": "23b271e8009bfa14783700cd0712b4ecaa5b8f2ea28a4d81ae1d7e05bc0c96b1"
+            },
+            {
+              "path": "locales/zh-CN.pak",
+              "bytes": 592116,
+              "sha256": "ba8ac4bf82b50728d907215d1993948457835bf2942a4d7266a3f8af5f51de15"
+            },
+            {
+              "path": "resources.pak",
+              "bytes": 12435445,
+              "sha256": "3d8c36b2ec7099a27fe00763e5af28319643ba65c1b48b85eb6a7caaae034ba6"
+            },
+            {
+              "path": "resources/app.asar",
+              "bytes": 21066295,
+              "sha256": "5da49ae0aa8b28c3a6d3d24ef6f74050d356fe32a0a0460c95286aba4c7a3ea4"
+            },
+            {
+              "path": "resources/app.asar.unpacked/node_modules/@koromix/koffi-win32-x64/index.js",
+              "bytes": 52,
+              "sha256": "f9991ec70a0f775487ffadc2461d69edd1555e3d9bf80de0bbdd2eec7d245c49"
+            },
+            {
+              "path": "resources/app.asar.unpacked/node_modules/@koromix/koffi-win32-x64/package.json",
+              "bytes": 644,
+              "sha256": "3c6d427795e7c1e18220dfa56d9dfdf392c62b074e7a061f84a55fe44857670f"
+            },
+            {
+              "path": "resources/app.asar.unpacked/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.lib",
+              "bytes": 1688,
+              "sha256": "581078774d824496b8250bf436f47ef80e1694700c83955d9e9475fcfaebd980"
+            },
+            {
+              "path": "resources/app.asar.unpacked/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node",
+              "bytes": 1036800,
+              "sha256": "8623dc57f3093a457f71fcbe31fad77741f5b648d8015f7c1dac959595f0972b"
+            },
+            {
+              "path": "resources/app.asar.unpacked/out/main/GameWindowFocus.exe",
+              "bytes": 6656,
+              "sha256": "5bb31dba25dc1d351680d5900fb062b1ba94e0cec999a56313dd304e966ea7fa"
+            },
+            {
+              "path": "resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+              "bytes": 21890,
+              "sha256": "2cf595874cd41c7453481ef94869e01fb3be7353616ee2aa011688f45767fa57"
+            },
+            {
+              "path": "resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+              "bytes": 12536,
+              "sha256": "fe5a5d9ccae394fe9b86903a7e132100aab528b26fdda1b82eb16c3268f15f9d"
+            },
+            {
+              "path": "resources/app.asar.unpacked/out/main/WindowMaterial.exe",
+              "bytes": 5120,
+              "sha256": "07149cffc98932a9fbdf4cd84a39a9e275d4a3492e59ad501331f57c69097957"
+            },
+            {
+              "path": "resources/default_app.asar",
+              "bytes": 111073,
+              "sha256": "06d4a28be095a80eff94dbd18edcfac5b5805e1b5538e0fb7cee7c7ae81db76a"
+            },
+            {
+              "path": "resources/elevate.exe",
+              "bytes": 107520,
+              "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37"
+            },
+            {
+              "path": "snapshot_blob.bin",
+              "bytes": 368776,
+              "sha256": "1176cfa83f9ef458e7ed5b5b255c9289691dbef3ff1e4a073a5c90f9a16e8458"
+            },
+            {
+              "path": "v8_context_snapshot.bin",
+              "bytes": 742208,
+              "sha256": "d9d3ec18e937ed2fddd02d92e4f0726919769e16f2ea17f962d23e40d5962b7b"
+            },
+            {
+              "path": "version",
+              "bytes": 6,
+              "sha256": "a1d640d380c386200a420b590105d25da627723ee42ee1061108f3acde9f25fd"
+            },
+            {
+              "path": "vk_swiftshader_icd.json",
+              "bytes": 106,
+              "sha256": "32d83ff113fef532a9f97e0d2831f8656628ab1c99e9060f0332b1532839afd9"
+            },
+            {
+              "path": "vk_swiftshader.dll",
+              "bytes": 5520384,
+              "sha256": "cfb8a533c5da1ade3fd4e66ebd0acf7186bd17fb3cc09d48809a7909c4aaf0f8"
+            },
+            {
+              "path": "vulkan-1.dll",
+              "bytes": 939008,
+              "sha256": "c1b383f18c0949f233e949ae197c2ad4c416abe7790894d7e395d73116403b4f"
+            }
+          ],
+          "decompressedBytes": 330819806,
+          "sensitiveStateFileNames": []
+        }
+      },
+      "findings": [
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-exe:decoded-payload/KAMUCL.exe",
+          "line": null,
+          "byteOffset": 216369764,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-exe:decoded-payload/KAMUCL.exe",
+          "line": null,
+          "byteOffset": 231889908,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-exe:decoded-payload/resources/app.asar",
+          "line": null,
+          "byteOffset": 5494278,
+          "fingerprint": "cd7a894b7eaaac6b",
+          "valueLength": 51
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-exe:decoded-payload/resources/app.asar",
+          "line": null,
+          "byteOffset": 2607799,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60
+        }
+      ],
+      "decisions": [
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-exe:decoded-payload/KAMUCL.exe",
+          "line": null,
+          "byteOffset": 216369764,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "status": "false-positive-chromium-example",
+          "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account."
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-exe:decoded-payload/KAMUCL.exe",
+          "line": null,
+          "byteOffset": 231889908,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "status": "false-positive-chromium-example",
+          "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account."
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-exe:decoded-payload/resources/app.asar",
+          "line": null,
+          "byteOffset": 5494278,
+          "fingerprint": "cd7a894b7eaaac6b",
+          "valueLength": 51,
+          "status": "false-positive-ui-prose",
+          "reason": "Exact reviewed Chinese password-input UI prose in the verified application ASAR; no actual credential. Both text and raw-container encodings are identified."
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-exe:decoded-payload/resources/app.asar",
+          "line": null,
+          "byteOffset": 2607799,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60,
+          "status": "opaque-application-key-ownership-pending",
+          "reason": "Same built-in application-key value in the verified application ASAR as the reviewed source/baseline bundle. No independent ownership/distribution authorization established; value not disclosed or tested."
+        }
+      ]
+    },
+    {
+      "coverage": {
+        "label": "final-1.1.22-windows-portable",
+        "name": "KAMUCL-1.1.22-windows-x64.zip",
+        "bytes": 100972803,
+        "sha256": "4b7e80621f51490131aacd5b53acf0a6c0f6c6edf55887be3dbe559c7caed8d8",
+        "entries": 38,
+        "files": 38,
+        "decompressedBytes": 101110542,
+        "scannedBytes": 101110542,
+        "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+        "excludedEntries": [],
+        "sensitiveStateFileNames": [],
+        "asar": [],
+        "nestedJars": []
+      },
+      "nativeMembers": [
+        {
+          "path": "KAMUCL-1.1.22.exe",
+          "bytes": 99124081,
+          "sha256": "9ae86b2944c3f88ac0e59178398192b161503f9ba7700a34ed9bff0af7687ec7"
+        }
+      ],
+      "findings": [],
+      "decisions": []
+    },
+    {
+      "coverage": {
+        "label": "final-1.1.22-windows-runtime",
+        "name": "KAMUCL-1.1.22-windows-x64-unpacked.zip",
+        "bytes": 144860079,
+        "sha256": "bfbc9bcb34ab80813d05b8fdea63f6eade0d8f0a2432267119ed59eaf827b0a9",
+        "entries": 37,
+        "files": 28,
+        "decompressedBytes": 330819806,
+        "scannedBytes": 330819806,
+        "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+        "excludedEntries": [],
+        "sensitiveStateFileNames": [],
+        "asar": [
+          {
+            "entry": "resources/app.asar",
+            "bytes": 21066295,
+            "sha256": "5da49ae0aa8b28c3a6d3d24ef6f74050d356fe32a0a0460c95286aba4c7a3ea4",
+            "members": 399,
+            "scannedBytes": 20960175
+          }
+        ],
+        "nestedJars": [
+          {
+            "label": "final-1.1.22-windows-runtime:resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+            "name": "resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+            "bytes": 21890,
+            "sha256": "2cf595874cd41c7453481ef94869e01fb3be7353616ee2aa011688f45767fa57",
+            "entries": 19,
+            "files": 15,
+            "decompressedBytes": 38555,
+            "scannedBytes": 38555,
+            "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+            "excludedEntries": [],
+            "sensitiveStateFileNames": [],
+            "asar": [],
+            "nestedJars": []
+          },
+          {
+            "label": "final-1.1.22-windows-runtime:resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+            "name": "resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+            "bytes": 12536,
+            "sha256": "fe5a5d9ccae394fe9b86903a7e132100aab528b26fdda1b82eb16c3268f15f9d",
+            "entries": 11,
+            "files": 7,
+            "decompressedBytes": 20478,
+            "scannedBytes": 20478,
+            "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+            "excludedEntries": [],
+            "sensitiveStateFileNames": [],
+            "asar": [],
+            "nestedJars": []
+          }
+        ]
+      },
+      "nativeMembers": [
+        {
+          "path": "d3dcompiler_47.dll",
+          "bytes": 4741488,
+          "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb"
+        },
+        {
+          "path": "ffmpeg.dll",
+          "bytes": 3113472,
+          "sha256": "336587847c4ed3ef1a195d1aaea3d3951c9749a035ffa7951df4c0e02971e4e0"
+        },
+        {
+          "path": "KAMUCL.exe",
+          "bytes": 246070784,
+          "sha256": "82ee9efdbc232ce5e7d60dfa0c575b8e0e079a23e4fae585a0566000731dac7c"
+        },
+        {
+          "path": "resources/app.asar.unpacked/node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node",
+          "bytes": 1036800,
+          "sha256": "8623dc57f3093a457f71fcbe31fad77741f5b648d8015f7c1dac959595f0972b"
+        },
+        {
+          "path": "resources/app.asar.unpacked/out/main/GameWindowFocus.exe",
+          "bytes": 6656,
+          "sha256": "5bb31dba25dc1d351680d5900fb062b1ba94e0cec999a56313dd304e966ea7fa"
+        },
+        {
+          "path": "resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+          "bytes": 21890,
+          "sha256": "2cf595874cd41c7453481ef94869e01fb3be7353616ee2aa011688f45767fa57"
+        },
+        {
+          "path": "resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+          "bytes": 12536,
+          "sha256": "fe5a5d9ccae394fe9b86903a7e132100aab528b26fdda1b82eb16c3268f15f9d"
+        },
+        {
+          "path": "resources/app.asar.unpacked/out/main/WindowMaterial.exe",
+          "bytes": 5120,
+          "sha256": "07149cffc98932a9fbdf4cd84a39a9e275d4a3492e59ad501331f57c69097957"
+        },
+        {
+          "path": "resources/elevate.exe",
+          "bytes": 107520,
+          "sha256": "9b1fbf0c11c520ae714af8aa9af12cfd48503eedecd7398d8992ee94d1b4dc37"
+        },
+        {
+          "path": "vk_swiftshader.dll",
+          "bytes": 5520384,
+          "sha256": "cfb8a533c5da1ade3fd4e66ebd0acf7186bd17fb3cc09d48809a7909c4aaf0f8"
+        },
+        {
+          "path": "vulkan-1.dll",
+          "bytes": 939008,
+          "sha256": "c1b383f18c0949f233e949ae197c2ad4c416abe7790894d7e395d73116403b4f"
+        }
+      ],
+      "findings": [
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-windows-runtime:KAMUCL.exe",
+          "line": null,
+          "byteOffset": 216369764,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-windows-runtime:KAMUCL.exe",
+          "line": null,
+          "byteOffset": 231889908,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-windows-runtime:resources/app.asar",
+          "line": null,
+          "byteOffset": 5494278,
+          "fingerprint": "cd7a894b7eaaac6b",
+          "valueLength": 51
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-windows-runtime:resources/app.asar",
+          "line": null,
+          "byteOffset": 2607799,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-windows-runtime:resources/app.asar!out\\main\\index.js",
+          "line": 50,
+          "byteOffset": 460224,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-windows-runtime:resources/app.asar!out\\renderer\\assets\\AccountsView-B3bQ6mcI.js",
+          "line": 280,
+          "byteOffset": 8242,
+          "fingerprint": "35cef3ee281eadc0",
+          "valueLength": 17
+        }
+      ],
+      "decisions": [
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-windows-runtime:KAMUCL.exe",
+          "line": null,
+          "byteOffset": 216369764,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "status": "false-positive-chromium-example",
+          "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account."
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-windows-runtime:KAMUCL.exe",
+          "line": null,
+          "byteOffset": 231889908,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "status": "false-positive-chromium-example",
+          "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account."
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-windows-runtime:resources/app.asar",
+          "line": null,
+          "byteOffset": 5494278,
+          "fingerprint": "cd7a894b7eaaac6b",
+          "valueLength": 51,
+          "status": "false-positive-ui-prose",
+          "reason": "Exact reviewed Chinese password-input UI prose in the verified application ASAR; no actual credential. Both text and raw-container encodings are identified."
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-windows-runtime:resources/app.asar",
+          "line": null,
+          "byteOffset": 2607799,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60,
+          "status": "opaque-application-key-ownership-pending",
+          "reason": "Same built-in application-key value in the verified application ASAR as the reviewed source/baseline bundle. No independent ownership/distribution authorization established; value not disclosed or tested."
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-windows-runtime:resources/app.asar!out\\main\\index.js",
+          "line": 50,
+          "byteOffset": 460224,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60,
+          "status": "opaque-application-key-ownership-pending",
+          "reason": "Same built-in application-key value in the verified application ASAR as the reviewed source/baseline bundle. No independent ownership/distribution authorization established; value not disclosed or tested."
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-windows-runtime:resources/app.asar!out\\renderer\\assets\\AccountsView-B3bQ6mcI.js",
+          "line": 280,
+          "byteOffset": 8242,
+          "fingerprint": "35cef3ee281eadc0",
+          "valueLength": 17,
+          "status": "false-positive-ui-prose",
+          "reason": "Exact reviewed Chinese password-input UI prose in the verified application ASAR; no actual credential. Both text and raw-container encodings are identified."
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Regex/byte scanning cannot prove absence of unknown secrets, encrypted payloads or credentials hidden as image pixels.",
+    "Runtime source archives inside license materials are hashed and byte-scanned, not recursively decoded by this task. Actual ASAR and every packaged JAR are explicitly decoded.",
+    "No real player files or private profiles outside actual release artifacts were accessed.",
+    "No discovered credential was submitted to any service."
+  ],
+  "everyEXEPayloadFileMatchesUnpackedZIP": true,
+  "exeDecodedASARAndJARCoverageBoundToRuntimeZIP": true,
+  "unknownCandidates": 0,
+  "confirmedPrivateCredentialLeakFound": false,
+  "finishedAt": "2026-10-13T17:40:24.568Z"
+}

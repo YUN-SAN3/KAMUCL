@@ -1,4 +1,4 @@
-import { app, BrowserWindow, crashReporter, shell, ipcMain, net, protocol } from 'electron'
+import { app, BrowserWindow, crashReporter, shell, ipcMain, net, protocol, type BrowserWindowConstructorOptions } from 'electron'
 import { dirname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { createStartupSplash } from './startupSplash'
@@ -25,8 +25,11 @@ import { applyUpdateOnStartup, acknowledgeUpdateStartup, blockedUpdateVersion, g
 import { startMemoryTrim } from './core/memTrim'
 import type { MemoryTrimController } from './core/memTrim'
 import { getRunningGamePids } from './core/launch'
+import { cancelMsLogin } from './core/accounts'
 import { exitHistory, rememberExit } from './core/exitHistory'
 import { configureRuntimeGraphics } from './runtimeGraphics'
+import { resynchronizeWindowsRestore } from './windowRestoreVisibility'
+import { adaptiveWindowOptions, attachUiWindowSizing } from './uiWindowSizing'
 
 configureRuntimeGraphics(app.commandLine, process.platform, dirname(process.execPath))
 
@@ -98,11 +101,13 @@ function createWindow(startup?: Awaited<ReturnType<typeof createStartupSplash>>)
   logScope('window').debug('开始创建主窗口')
   applyNativeAppearance(null, getSettings())
   const windowState = loadWindowState()
+  const autoFit = getSettings().uiWindowAutoFit === true
+  let initialWindow: BrowserWindowConstructorOptions = { ...windowAppearance(), ...(windowState
+    ? { width: windowState.width, height: windowState.height, x: windowState.x, y: windowState.y }
+    : {}) }
+  if (autoFit) initialWindow = adaptiveWindowOptions(initialWindow)
   win = new BrowserWindow({
-    ...windowAppearance(),
-    ...(windowState
-      ? { width: windowState.width, height: windowState.height, x: windowState.x, y: windowState.y }
-      : {}),
+    ...initialWindow,
     icon: join(__dirname, '../../build/icon.png'),
     show: false,
     title: 'KAMUCL',
@@ -120,8 +125,11 @@ function createWindow(startup?: Awaited<ReturnType<typeof createStartupSplash>>)
   else   win.on('ready-to-show', () => win?.show())
   win.webContents.once('did-finish-load', () => { void frpManager.restore().catch(error => launcherLogWarn('frp', '恢复隧道失败', error)) })
   applyNativeAppearance(win, getSettings())
-  if (process.platform === 'win32' && windowState) restoreWindowBounds(win, windowState)
+  if (process.platform === 'win32' && windowState) restoreWindowBounds(win, autoFit
+    ? { ...windowState, width: initialWindow.width!, height: initialWindow.height!, x: initialWindow.x, y: initialWindow.y }
+    : windowState)
   if (windowState?.maximized) applyMaximized(win)
+  attachUiWindowSizing(win, autoFit)
   trackWindowState(win)
   win.once('show', () => { void acknowledgeUpdateStartup().catch(error => launcherLogWarn('update', '更新确认失败', error)) })
   const mainWindow = win
@@ -136,7 +144,7 @@ function createWindow(startup?: Awaited<ReturnType<typeof createStartupSplash>>)
     if (skinEditorDirty || skinEditorPrefsPending || skinEditorBusy) { event.preventDefault(); deferredPaletteClose=skinEditorPrefsPending&&!skinEditorDirty&&!skinEditorBusy; mainWindow.webContents.send('window:skinEditorClose'); return }
     if (mascotPending) { event.preventDefault(); mainWindow.webContents.send('window:mascotClose') }
   })
-  mainWindow.once('closed', () => { if (win === mainWindow) win = null })
+  mainWindow.once('closed', () => { cancelMsLogin(); if (win === mainWindow) win = null })
   mainWindow.webContents.on('render-process-gone', () => {
     if(win!==mainWindow)return
     // A crashed renderer cannot acknowledge an editor close request.
@@ -157,6 +165,9 @@ function createWindow(startup?: Awaited<ReturnType<typeof createStartupSplash>>)
   mainWindow.on('minimize', () => reportVisibility(false))
   mainWindow.on('show', () => reportVisibility(mainWindow.isVisible() && !mainWindow.isMinimized()))
   mainWindow.on('restore', () => reportVisibility(mainWindow.isVisible() && !mainWindow.isMinimized()))
+  resynchronizeWindowsRestore(mainWindow, process.platform, (phase, error) => {
+    launcherLogWarn('window', `恢复窗口可见性同步失败：${phase}`, error)
+  })
   if (process.platform === 'win32') {
     // Native draggable regions do not dispatch DOM clicks. Observe, never consume.
     mainWindow.hookWindowMessage(0x00A1, (wParam) => {
@@ -316,6 +327,7 @@ app.on('window-all-closed', () => {
 app.on('before-quit', event => {
   if((skinEditorDirty||skinEditorPrefsPending||skinEditorBusy)&&win&&!win.webContents.isDestroyed()){event.preventDefault();deferredPaletteQuit=skinEditorPrefsPending&&!skinEditorDirty&&!skinEditorBusy;win.webContents.send('window:skinEditorClose',{quit:true});return}
   if(mascotPending&&win&&!win.webContents.isDestroyed()){event.preventDefault();win.webContents.send('window:mascotClose',{quit:true});return}
+  cancelMsLogin()
   // 仅清理联机相关子进程/监听器；不影响 Minecraft 生命周期。
   void stopDirectHost()
   void stopVoxlinkOnQuit()

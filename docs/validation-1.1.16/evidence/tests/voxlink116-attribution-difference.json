@@ -1,0 +1,10 @@
+{
+  "currentSha256": "a2c44fa3be6baf5df31d26c5248329e8e0012d1c29fd6b68c09612c9bd328b00",
+  "historicalReconstructionSha256": "93900758ce88aad953b44746c4fd8c24d490fc1587c0ae2862131de2096d54ab",
+  "difference": "Only two new upstream-attribution comments and normalization of the preceding attribution comment CRLF to LF; no executable code differences.",
+  "historicalReceipts": [
+    "950be738-d0b3-43cd-be93-7cb12b5ff351",
+    "17d0a5ec-6566-48f2-961d-990764ae8da1"
+  ],
+  "currentReceipt1MiB": "c71cdd09-df4f-4887-a7a1-9db16a62641a"
+}

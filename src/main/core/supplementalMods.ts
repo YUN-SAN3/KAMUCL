@@ -7,7 +7,7 @@ import {IPC_EVENT} from '../../shared/types'
 import type {InstanceTarget} from '../../shared/instanceCenter'
 import type {SupplementalFailure} from '../../shared/supplementalMods'
 import {centerTarget,assertInstanceIdle} from './instanceCenter'
-import {prepareInstallMods} from './modFavorites'
+import {prepareInstallMods,favoriteInstallResult} from './modFavorites'
 import {installRecordingMods} from './recordingMods'
 import {registerTask,finishTask} from './tasks'
 import {resolveInstanceMetadata} from './instanceMetadata'
@@ -25,7 +25,7 @@ export function registerSupplementalModsIpc(getWin:()=>BrowserWindow|null){
  publish=list=>getWin()?.webContents.send('mods:supplementalPending',list)
  ipcMain.handle('mods:supplementalList',()=>visible(rows()))
  ipcMain.handle('mods:supplementalKeep',(_e,id:string)=>{if(running.has(id))throw Error('正在重试，请等待任务结束');return save(rows().filter(r=>r.id!==id))})
- ipcMain.handle('mods:supplementalRetry',async(_e,id:string)=>{
+ ipcMain.handle('mods:supplementalRetry',async(_e,id:string,withResult?:boolean)=>{
   const entry=rows().find(r=>r.id===id);if(!entry)throw Error('重试记录已过期')
   if(running.has(id))throw Error('该模组任务正在重试');running.add(id)
   const task=registerTask('重试附加模组 · '+entry.target.id,'download');let ok=false
@@ -34,7 +34,8 @@ export function registerSupplementalModsIpc(getWin:()=>BrowserWindow|null){
    if(metadata.broken||metadata.mcVersion!==entry.versionId||metadata.loader!==entry.options.loader)throw Error('实例版本或加载器已变化，请重新选择兼容模组')
    const files=await prepareInstallMods(entry.versionId,entry.options,task.controller.signal)
    await installRecordingMods(path.join(current.dir,'mods'),files,task.controller.signal,progress=>getWin()?.webContents.send(IPC_EVENT.progress,{taskId:task.id,taskTitle:task.title,stage:'download',progress,text:'下载并校验所选模组与必要前置'}))
-   ok=true;return save(rows().filter(r=>r.id!==id))
+   const result=await favoriteInstallResult(entry.options,files,path.join(current.dir,'mods'),current.folder,current.target.id,task.controller.signal)
+   ok=true;const pending=save(rows().filter(r=>r.id!==id));return withResult===true?{pending,result}:pending
   }catch(e){save(rows().map(r=>r.id===id?{...r,message:e instanceof Error?e.message:String(e)}:r));throw e}
   finally{running.delete(id);getWin()?.webContents.send(IPC_EVENT.taskDone,{taskId:task.id,ok,cancelled:task.controller.signal.aborted});finishTask(task.id)}
  })

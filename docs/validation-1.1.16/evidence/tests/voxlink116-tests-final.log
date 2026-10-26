@@ -1,0 +1,44 @@
+✔ VoxLink ACK 不形成响应热循环，取消后 wait 立即结束且不遗留监听器 (73.1417ms)
+✔ VoxLink STUN 跳过不可达首节点，之后优先已验证节点 (62.6554ms)
+✔ VoxLink 房间更新遵守 429 冷却，其他 API 不受阻塞 (46.3721ms)
+✔ Modified UTF-8 retains NUL, non-BMP characters and unpaired Java surrogates (1.1716ms)
+✔ standard TURN packets have RFC MI/FP lengths; XOR IPv4/IPv6 and ChannelData reject damaged packets (5.2484ms)
+✔ standard TURN performs challenge/auth, permission, channel bind and lifetime-zero teardown over real UDP (48.9116ms)
+✔ RUDP uses 1374-byte TURN chunks, authenticates drift before malformed DATA length, and receives a secondary path without closing its primary (138.566ms)
+✔ tickets keep secrets out of snapshots, stream chosen attachments, encode detail query correctly, mark viewed and remove orphaned secrets (44.5325ms)
+✔ ticket rate limits honor retryAfter; cancellation and changed files do not send attachments (14.5577ms)
+✔ native WebSocket emits control ping, detects half-open connections and cancels socket resources (81.6456ms)
+✔ cancelling an in-flight standard TURN allocation closes UDP without a late session (281.5327ms)
+✔ TURN background advertises live socket mappings, authenticates both peers, promotes only after stable observations and releases resources (1205.2387ms)
+✔ player relay standby uses the socket advertised in its request, handles duplicate notify and transfers a healthy transport on TURN death (96.1366ms)
+✔ ModSync builds both scopes from actual installed hashes, own metadata plus transitive dependencies; failed hash blocks stay unknown (3.565ms)
+✔ ModSync recognizes disabled files and version conflicts without modifying user files; enforces loader, MC, URL, digest and filename (15.0635ms)
+✔ launch verification warm cache still rejects same-size corruption with restored mtime, changed expected hash, and missing file (31.8855ms)
+✔ TURN tolerates lost-bind ROLE_CONFLICT and UDP blackhole switches to framed TCP with fragmented responses (2032.8348ms)
+✔ VoxLink links match contract; upstream regression and confidence range produce valid targets (0.3154ms)
+✔ WS is preferred for sends, reconnect re-polls identity, duplicate push is ignored and stop releases pending work (30.638ms)
+✔ ModSync IPC pins folder+instance, ignores forged downloads, preserves conflicting files and cancels late checks (126.6079ms)
+✔ server favorites persist through editing; launch checks only the explicitly bound folder and version (29.9086ms)
+✔ replacement room engine: create/join, authenticated UDP plus TCP echo, leave cleanup (2402.5242ms)
+✔ replacement room engine: late create completion is released and cannot revive cancelled session (61.477ms)
+✔ VoxLink room names have a shared neutral default and reject invalid input (0.9113ms)
+✔ VoxLink create flow preserves rejected names, focuses the field, and submits only on user retry (145.2833ms)
+✔ VoxLink reserves a bounded UDP burst queue while retaining larger existing receive buffers (54.8696ms)
+✔ VoxLink XOR parity reconstructs a missing variable-size chunk, including parity-before-DATA and authenticated duplicates (36.1492ms)
+✔ VoxLink emits upstream four-chunk XOR framing and TURN parity stays inside the 1400-byte RUDP budget (15.3259ms)
+✔ VoxLink ignores forged future ACKs and FEC reserved ACKs, fast retransmits a real gap and bounds retry backoff (122.4383ms)
+✔ VoxLink transfers 4 MiB bidirectionally through real UDP with 25% first-send loss, latency, reordering, duplicate ACKs and a paused reader (1612.1408ms)
+✔ VoxLink falls back to retransmission when both DATA and parity are lost (127.7526ms)
+✔ VoxLink upstream fixture: every profile field, 55 send fields, 11 symmetric fields and 9 tuner constants agree (5.2233ms)
+✔ NAT matrix and predictor preserve source strategy, fusion and confidence (0.4448ms)
+✔ Tuner adapts failures; persistent rounds exceed old 50/8 limits and only zero-receive evidence terminates (1.9492ms)
+✔ PPS budget, random complete range, STUN jitter and group socket ownership (10.8289ms)
+✔ TURN is manual after 20s; failure never re-punches and stale signals cannot resurrect direct work (344.3745ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3189.2632

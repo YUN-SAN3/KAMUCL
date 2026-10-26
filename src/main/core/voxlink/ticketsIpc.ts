@@ -5,10 +5,11 @@ import { randomUUID } from 'node:crypto'
 import { TicketService, TicketError, type TicketFile } from './tickets'
 import type { TicketResult } from '../../../shared/voxlinkTickets'
 import { TICKET_FILES_MAX,TICKET_BYTES_MAX } from '../../../shared/voxlinkTickets'
+import { protectedCredentialStorage } from '../credentialProtection'
 export function registerTicketIpc(ipc:IpcMain,base:()=>string){
   const service=new TicketService(path.join(app.getPath('userData'),'voxlink_tickets.json'),base,{
-    seal:text=>{if(!safeStorage.isEncryptionAvailable())throw new TicketError('SECRET_UNAVAILABLE','系统凭证保护不可用，请稍后再提交');return 'enc:'+safeStorage.encryptString(text).toString('base64')},
-    open:text=>{if(!text.startsWith('enc:'))return text;if(!safeStorage.isEncryptionAvailable())throw Error('encryption');return safeStorage.decryptString(Buffer.from(text.slice(4),'base64'))}
+    seal:text=>{if(!protectedCredentialStorage(safeStorage))throw new TicketError('SECRET_UNAVAILABLE','系统凭证保护不可用，请启用系统密钥服务后提交；工单归属凭证只返回一次，不能仅保留在会话内');return 'enc:'+safeStorage.encryptString(text).toString('base64')},
+    open:text=>{if(!text.startsWith('enc:'))return text;if(!protectedCredentialStorage(safeStorage))throw Error('encryption');return safeStorage.decryptString(Buffer.from(text.slice(4),'base64'))}
   })
   const grants=new Map<string,{owner:number;file:TicketFile;expires:number}>(),operations=new Map<string,AbortController>()
   const owned=(owner:number,ids:unknown):TicketFile[]=>{if(!Array.isArray(ids)||ids.length>TICKET_FILES_MAX||ids.some(id=>typeof id!=='string'))throw new TicketError('INVALID_ATTACHMENTS','附件选择无效');return [...new Set(ids)].map(id=>{const grant=grants.get(id);if(!grant||grant.owner!==owner||grant.expires<Date.now())throw new TicketError('INVALID_ATTACHMENTS','附件选择已过期，请重新选择');return grant.file})}

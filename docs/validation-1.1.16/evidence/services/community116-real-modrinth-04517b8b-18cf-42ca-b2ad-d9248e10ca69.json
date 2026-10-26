@@ -1,0 +1,458 @@
+{
+  "complete": true,
+  "classification": "Real public Modrinth metadata through current source; Electron profile is private test adapter, no UI, CurseForge or game qualification",
+  "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL real public search116 rObPIM",
+  "queries": [
+    {
+      "query": {
+        "keyword": "玉",
+        "source": "modrinth",
+        "kind": "mod",
+        "mcVersion": "1.20.1",
+        "loader": "fabric",
+        "sort": "relevance",
+        "offset": 0,
+        "limit": 10
+      },
+      "result": {
+        "items": [
+          {
+            "source": "modrinth",
+            "projectId": "nvQzSEkH",
+            "slug": "jade",
+            "title": "Jade 高亮显示 | Jade 🔍",
+            "author": "Snownee",
+            "description": "Shows information about what you are looking at. (Hwyla/Waila fork for Minecraft 1.16+)",
+            "iconUrl": "https://cdn.modrinth.com/data/nvQzSEkH/b04217bc2b7dc524c4d12f81ff42cc1cefb9b0fc_96.webp",
+            "downloads": 69916724,
+            "updatedAt": "2026-10-02T23:51:19.115984+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "library",
+              "neoforge",
+              "quilt",
+              "utility"
+            ],
+            "originalTitle": "Jade 🔍"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "fThnVRli",
+            "slug": "jade-addons-fabric",
+            "title": "Jade Addons (Fabric)",
+            "author": "Snownee",
+            "description": "Jade 🔍's additional mod supports for Fabric",
+            "iconUrl": "https://cdn.modrinth.com/data/fThnVRli/b04217bc2b7dc524c4d12f81ff42cc1cefb9b0fc_96.webp",
+            "downloads": 4421518,
+            "updatedAt": "2026-08-31T13:33:57.227038+00:00",
+            "categories": [
+              "fabric",
+              "quilt",
+              "utility"
+            ],
+            "originalTitle": "Jade Addons (Fabric)"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "v3UlehfS",
+            "slug": "jadens-nether-expansion",
+            "title": "Jaden's Nether Expansion",
+            "author": "ThatJadenXgamer",
+            "description": "Nether Expansion is a Vanilla Friendly Mod that aims to Improve & Add New Content to every aspect of The Nether",
+            "iconUrl": "https://cdn.modrinth.com/data/v3UlehfS/a5dd0154f8b45ae28482042ac95e1881b98031fa.png",
+            "downloads": 4003495,
+            "updatedAt": "2026-08-22T14:04:41.661872+00:00",
+            "categories": [
+              "adventure",
+              "decoration",
+              "equipment",
+              "fabric",
+              "food",
+              "forge",
+              "game-mechanics",
+              "mobs",
+              "neoforge",
+              "utility",
+              "worldgen"
+            ],
+            "originalTitle": "Jaden's Nether Expansion"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "pYHupcoN",
+            "slug": "jadens-nether-expansion-delight",
+            "title": "Jaden's Nether Expansion Delight",
+            "author": "Chaolux",
+            "description": "Adds 30+ foods, linking Jaden's Nether Expansion and Farmer's Delight in a Vanilla style.",
+            "iconUrl": "https://cdn.modrinth.com/data/pYHupcoN/40fc43edfd1d271d90c0b4090c1d1ca40eea135b_96.webp",
+            "downloads": 976146,
+            "updatedAt": "2026-06-11T18:04:37.640071+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "food",
+              "forge",
+              "neoforge"
+            ],
+            "originalTitle": "Jaden's Nether Expansion Delight"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "zNKzjsZM",
+            "slug": "jade-vs",
+            "title": "Jade VS",
+            "author": "zyxkad",
+            "description": "Provides compatibility between Jade and Valkyrien Skies",
+            "iconUrl": "https://cdn.modrinth.com/data/zNKzjsZM/2dd6cc9aad3a4f8770eec5c1cb933e24811fd46c_96.webp",
+            "downloads": 185482,
+            "updatedAt": "2026-04-18T23:47:08.881402+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "Jade VS"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "GAJkSU0A",
+            "slug": "jade-modded-entities",
+            "title": "Jade Modded Entities",
+            "author": "legenden",
+            "description": "An addon mod for Jade that expands to modded entities highlighting relevant information",
+            "iconUrl": "https://cdn.modrinth.com/data/GAJkSU0A/38ee611da99c5df77cc1d17d3f963550ace9b52c_96.webp",
+            "downloads": 72975,
+            "updatedAt": "2026-02-25T02:07:08.137308+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "mobs",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "Jade Modded Entities"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "QkuvZ0z8",
+            "slug": "jade-hiteffects",
+            "title": "Jade's Hit Effects",
+            "author": "catgirljade",
+            "description": "think dark punishment and transcendent combos cosmetic from Monumenta",
+            "iconUrl": "https://cdn.modrinth.com/data/QkuvZ0z8/9742f6c7a36483f1d88b4ecde74f12b1ede437e2_96.webp",
+            "downloads": 4038,
+            "updatedAt": "2024-12-29T07:09:58.666238+00:00",
+            "categories": [
+              "fabric",
+              "utility"
+            ],
+            "originalTitle": "Jade's Hit Effects"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "tEjbd4J4",
+            "slug": "jade-feet",
+            "title": "Jade Feet",
+            "author": "default_snowman",
+            "description": "A mod boost your experience in Jump Boost.",
+            "iconUrl": "https://cdn.modrinth.com/data/tEjbd4J4/da95f30d7b6d579e511b555efe075e61bc8e230c_96.webp",
+            "downloads": 2104,
+            "updatedAt": "2023-07-18T14:53:00.234919+00:00",
+            "categories": [
+              "fabric",
+              "game-mechanics"
+            ],
+            "originalTitle": "Jade Feet"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "hHZ7qdO4",
+            "slug": "jades-plushies",
+            "title": "jade's plushies",
+            "author": "moonstruck.nectar",
+            "description": "plushies of ocs that go squeak squish",
+            "iconUrl": "https://cdn.modrinth.com/data/hHZ7qdO4/da07e374e64632e0b026bbe61697423adc387e6c_96.webp",
+            "downloads": 222,
+            "updatedAt": "2025-08-06T16:31:02.204937+00:00",
+            "categories": [
+              "decoration",
+              "fabric"
+            ],
+            "originalTitle": "jade's plushies"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "kfEow3K7",
+            "slug": "volubind",
+            "title": "VoluBind",
+            "author": "jade",
+            "description": "Toggle your volume with keybindings!",
+            "iconUrl": "https://cdn.modrinth.com/data/kfEow3K7/35020c5c3c412ff26ef07be29cea225a9bd8fe2a_96.webp",
+            "downloads": 4771,
+            "updatedAt": "2024-09-05T01:40:47.520763+00:00",
+            "categories": [
+              "fabric",
+              "quilt",
+              "utility"
+            ],
+            "originalTitle": "VoluBind"
+          }
+        ],
+        "total": 14,
+        "offset": 0,
+        "limit": 10,
+        "warnings": [
+          "中文别名检索：玉 → jade"
+        ]
+      }
+    },
+    {
+      "query": {
+        "keyword": "物品管理器",
+        "source": "modrinth",
+        "kind": "mod",
+        "mcVersion": "1.20.1",
+        "loader": "fabric",
+        "sort": "relevance",
+        "offset": 0,
+        "limit": 10
+      },
+      "result": {
+        "items": [
+          {
+            "source": "modrinth",
+            "projectId": "u6dRKJwZ",
+            "slug": "jei",
+            "title": "JEI物品管理器 | Just Enough Items (JEI)",
+            "author": "mezz",
+            "description": "View Items and Recipes",
+            "iconUrl": "https://cdn.modrinth.com/data/u6dRKJwZ/4a3f18ac0d096c9f8e9176984c44be4e58f94c89_96.webp",
+            "downloads": 80590811,
+            "updatedAt": "2026-10-05T09:39:59.471381+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "library",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "Just Enough Items (JEI)"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "gbJLUhZP",
+            "slug": "distraction-free-recipes",
+            "title": "Distraction Free Recipes (EMI / REI / JEI)",
+            "author": "Txni",
+            "description": "Automatically hides the recipe viewer when not searching.",
+            "iconUrl": "https://cdn.modrinth.com/data/gbJLUhZP/2f17d94bd8f7b58897a2502adee7742c4dc24d50_96.webp",
+            "downloads": 4012239,
+            "updatedAt": "2025-01-21T15:35:57.013465+00:00",
+            "categories": [
+              "decoration",
+              "fabric",
+              "forge",
+              "neoforge",
+              "optimization",
+              "utility"
+            ],
+            "originalTitle": "Distraction Free Recipes (EMI / REI / JEI)"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "EiEOyeoL",
+            "slug": "jeitweaker",
+            "title": "JEITweaker",
+            "author": "jaredlll08",
+            "description": "Adds CraftTweaker support to Just Enough Items",
+            "iconUrl": "https://cdn.modrinth.com/data/EiEOyeoL/811288640d83ece9b8e88bf2f6d715ad685636c9_96.webp",
+            "downloads": 251071,
+            "updatedAt": "2023-10-04T09:40:37.544852+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "utility"
+            ],
+            "originalTitle": "JEITweaker"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "mgJmej0q",
+            "slug": "jei-trim-hider",
+            "title": "JEI Trim Hider",
+            "author": "Saku_rain",
+            "description": "A lightweight JEI addon that intelligently hides decorative Armor Trim recipes to reduce clutter and lag, while keeping functional upgrades visible.",
+            "iconUrl": "https://cdn.modrinth.com/data/mgJmej0q/f464aaa1d3af9d0adae5ac1f3daf211b9eefd53b_96.webp",
+            "downloads": 122722,
+            "updatedAt": "2026-06-17T18:31:34.024018+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "management",
+              "neoforge",
+              "optimization",
+              "utility"
+            ],
+            "originalTitle": "JEI Trim Hider"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "YYrsrQ6q",
+            "slug": "jei-worldgen",
+            "title": "JEI / REI / EMI WorldGen",
+            "author": "LarsenR",
+            "description": "JEI/REI/EMI Addon for World Gen Information with universal compatibility for all mods ores by utilizing biome generation data",
+            "iconUrl": "https://cdn.modrinth.com/data/YYrsrQ6q/d3282c075f06a8fa1965a0d6801563dc295f910a.png",
+            "downloads": 63565,
+            "updatedAt": "2026-09-30T12:55:29.057658+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "JEI / REI / EMI WorldGen"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "c39iXKSf",
+            "slug": "uei",
+            "title": "Universal Enchantment Info (JEI/REI/EMI/RRV)",
+            "author": "Suel_ki",
+            "description": "A JEI/REI/EMI/RRV plugin that displays detailed enchantment information",
+            "iconUrl": "https://cdn.modrinth.com/data/c39iXKSf/d225527219dec8d42d1ae343495a3f6daec1e528_96.webp",
+            "downloads": 26964,
+            "updatedAt": "2026-10-01T08:10:10.178749+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "Universal Enchantment Info (JEI/REI/EMI/RRV)"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "dSSxF1d4",
+            "slug": "jei-hover-search",
+            "title": "JEI Hover Search",
+            "author": "Madgique",
+            "description": "A simple and convenient Minecraft mod that allows you to quickly search for items in JEI by simply hovering over them and pressing a hotkey.",
+            "iconUrl": "https://cdn.modrinth.com/data/dSSxF1d4/506a5a6cbc296694d828893a27abcc19226652a5_96.webp",
+            "downloads": 10465,
+            "updatedAt": "2025-08-14T14:44:19.381235+00:00",
+            "categories": [
+              "fabric",
+              "forge",
+              "utility"
+            ],
+            "originalTitle": "JEI Hover Search"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "8FtYXJhp",
+            "slug": "spectrumjei",
+            "title": "SpectrumJEI",
+            "author": "TheLMiffy1111",
+            "description": "An addon to Spectrum that adds JEI support.",
+            "iconUrl": "https://cdn.modrinth.com/data/8FtYXJhp/d09475f47064598d4eaf04e711cc3068e4f55053_96.webp",
+            "downloads": 25536,
+            "updatedAt": "2026-08-28T07:46:46.013184+00:00",
+            "categories": [
+              "fabric",
+              "neoforge",
+              "utility"
+            ],
+            "originalTitle": "SpectrumJEI"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "FaJv0NSi",
+            "slug": "techrebornjei",
+            "title": "TechRebornJEI",
+            "author": "TheLMiffy1111",
+            "description": "An addon to Tech Reborn that adds JEI support.",
+            "iconUrl": "https://cdn.modrinth.com/data/FaJv0NSi/20183803d00033b93a6eb6a175f6ad6ef29d023f_96.webp",
+            "downloads": 24591,
+            "updatedAt": "2026-03-28T06:59:55.608012+00:00",
+            "categories": [
+              "fabric",
+              "utility"
+            ],
+            "originalTitle": "TechRebornJEI"
+          },
+          {
+            "source": "modrinth",
+            "projectId": "k4jSlOb9",
+            "slug": "alloyforgeryjei",
+            "title": "AlloyForgeryJEI",
+            "author": "TheLMiffy1111",
+            "description": "An addon to Alloy Forgery that adds JEI support.",
+            "iconUrl": "https://cdn.modrinth.com/data/k4jSlOb9/d2529e088891208a06b25670814f614a3a073fe4.png",
+            "downloads": 21774,
+            "updatedAt": "2025-07-27T19:42:56.047698+00:00",
+            "categories": [
+              "fabric",
+              "utility"
+            ],
+            "originalTitle": "AlloyForgeryJEI"
+          }
+        ],
+        "total": 180,
+        "offset": 0,
+        "limit": 10,
+        "warnings": [
+          "中文别名检索：jei、rei、emi"
+        ]
+      }
+    }
+  ],
+  "records": [
+    {
+      "url": "https://api.modrinth.com/v2/search?query=jade&limit=10&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+      "startedAt": 1791292080292,
+      "status": 200,
+      "finishedAt": 1791292080867
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=%E7%89%A9%E5%93%81%E7%AE%A1%E7%90%86%E5%99%A8&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+      "startedAt": 1791292080871,
+      "status": 200,
+      "finishedAt": 1791292081203
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=jei&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+      "startedAt": 1791292080872,
+      "status": 200,
+      "finishedAt": 1791292081432
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=rei&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+      "startedAt": 1791292081204,
+      "status": 200,
+      "finishedAt": 1791292081551
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=emi&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+      "startedAt": 1791292081663,
+      "status": 200,
+      "finishedAt": 1791292082019
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=rei&limit=50&offset=50&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+      "startedAt": 1791292081793,
+      "status": 200,
+      "finishedAt": 1791292082134
+    },
+    {
+      "url": "https://api.modrinth.com/v2/search?query=emi&limit=50&offset=50&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Afabric%22%5D%5D",
+      "startedAt": 1791292082263,
+      "status": 200,
+      "finishedAt": 1791292082598
+    }
+  ],
+  "sourceSha256": "1b14fcb7b26f9329d248b1a316eaecd731f8690e3eccdd6e43f97e14361738e1",
+  "finishedAt": "2026-10-06T13:08:02.646Z"
+}

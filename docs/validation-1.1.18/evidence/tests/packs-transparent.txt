@@ -1,0 +1,1 @@
+{"complete":true,"directory":"E:\\KAMUCL\\out\\qa-packs118-transparent-0bf23209-2e85-45d7-921b-e7700a52bd74","theme":"transparent"}

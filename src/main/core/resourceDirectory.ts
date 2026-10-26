@@ -43,7 +43,9 @@ export async function listResourceEntries(dir: string): Promise<FsEntry[]> {
   await Promise.all(Array.from({ length: Math.min(16, names.length) }, async () => {
     while (index < names.length) {
       const name = names[index++]
-      if (name.isSymbolicLink()) continue
+      // Finder metadata is not a playable resource. Hide it without deleting
+      // the user's file (including when this directory lives on another OS).
+      if (name.isSymbolicLink() || name.name === '.DS_Store') continue
       try {
         const stat = await fs.promises.lstat(path.join(dir, name.name))
         if (stat.isSymbolicLink()) continue

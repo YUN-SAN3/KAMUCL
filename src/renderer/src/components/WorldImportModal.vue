@@ -144,7 +144,7 @@ async function initialize() {
   try {
     const state = await listFolders()
     folders.value = state.folders
-    targetFolder.value = state.active || state.folders[0]?.path || ''
+    targetFolder.value = state.folders.find(folder => folder.isDefault)?.path || state.active || state.folders[0]?.path || ''
     const first = props.info.candidates[0]
     selectedCandidateId.value = first.id
     await loadTargetFolder()

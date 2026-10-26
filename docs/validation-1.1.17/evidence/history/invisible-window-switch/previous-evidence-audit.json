@@ -1,0 +1,30 @@
+{
+  "complete": true,
+  "classification": "Independent read-only whole-byte public evidence origin+copy verification and whole-file privacy scan. Self-implemented community behavior is not independently graded here.",
+  "binding": {
+    "file": "docs/validation-1.1.17/evidence/bindings.json",
+    "bytes": 2108038,
+    "sha256": "094f2ea6f96f93060e54caa4540fa517275f41bf1f67f13f9b941eec50f799d0"
+  },
+  "application": {
+    "file": "E:\\KAMUCL\\release\\KAMUCL-1.1.17.exe",
+    "bytes": 97300300,
+    "sha256": "d182c46df28eabe52eb0c2e97cbc27b90655847744d89496307ed469acdec978",
+    "matchesDeclared": true
+  },
+  "publicRows": 6107,
+  "verifiedPublicBytes": 214897242,
+  "originalDistinctFiles": 6107,
+  "extensions": {
+    ".json": 46,
+    ".png": 163,
+    ".log": 25,
+    ".jpg": 5873
+  },
+  "bindingFailures": [],
+  "unlistedPublicEvidence": [],
+  "sourceFilesScanned": 8682,
+  "sourcePrivacyFailures": [],
+  "qualification": "Secret markers, private source paths, symlinks, exact approved out roots and original-copy bytes checked. Raster contents are generated owned UI views; visual/function grading is a separate reviewer scope. Final source/handoff archive membership remains pending.",
+  "recordedAt": "2026-10-06T17:34:23.308Z"
+}

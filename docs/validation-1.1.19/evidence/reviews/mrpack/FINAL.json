@@ -1,0 +1,794 @@
+{
+  "version": "1.1.19",
+  "reviewer": "java118",
+  "reviewedAt": "2026-10-07T08:36:19.983Z",
+  "reviewedAtLocal": "2026-10-07 16:36 Asia/Hong_Kong",
+  "independentOfProductImplementation": true,
+  "scope": [
+    "MRPACK leading UTF-8 BOM handling",
+    "whole-pack import routing on home/local-resource pages",
+    "bad-pack and mixed-drop refusal",
+    "canonical destination/hash protection"
+  ],
+  "productModifiedByReviewer": false,
+  "productTestsModifiedByReviewer": false,
+  "reviewerBuiltOrLaunchedGUI": false,
+  "artifact": {
+    "file": "release/KAMUCL-1.1.19.exe",
+    "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+    "bytes": 97323050,
+    "asarSHA256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1",
+    "productionInputCount": 516,
+    "productionInputMismatches": 0,
+    "inventoryFile": "out/production-inputs119-final-prebuild.json",
+    "inventorySHA256": "92f7dd9ba477830fa8d56f685e0d10f4d4535486cc581444a2d97675f754b43c",
+    "packageFile": "out/windows-package-1.1.19.json",
+    "executableBindingFile": "out/gui119-executable-bindings.json",
+    "executableBindingMethod": "Post-run verification of preserved executable/runtime bytes, original file timestamps and owned child ledgers. Original proofs carried PID/version but no embedded executable hash. Final binding is separate and preserves this distinction. All original GUI copies are retained locally; GUI harness copied final release EXE before spawn. No GUI_APP/DEV invocation in batch run commands."
+  },
+  "scores": {
+    "reasonableness": 9.1,
+    "functionality": 9,
+    "appearance": 8.8
+  },
+  "gate": {
+    "minimumPerDimension": 8.5,
+    "averagingUsed": false,
+    "qualified": true,
+    "reasonablenessPass": true,
+    "functionalityPass": true,
+    "appearancePass": true,
+    "unresolvedBlockingDefects": [],
+    "aliasDefectPreFixQualified": false
+  },
+  "tests": {
+    "independentlyExecutedCommand": "npx tsx --test tests/mrpack-import-119.test.ts tests/import-probe-119.test.ts tests/mrpack.test.ts",
+    "focusedAfterFix": {
+      "tests": 20,
+      "pass": 20,
+      "fail": 0,
+      "skipped": 0
+    },
+    "independentBoundaryDiagnostics": {
+      "cases": 18,
+      "matched": 18,
+      "inputMutations": 0
+    },
+    "actualAliasBefore": {
+      "file": "out/review119-mrpack-readonly/actual-alias-7f7466da-087a-41a4-ad0f-4e6a17e99bd9/receipt.json",
+      "installationReportedSuccess": true,
+      "firstDeclaredHashNotSatisfied": true
+    },
+    "actualAliasAfter": {
+      "file": "out/review119-mrpack-readonly/actual-alias-11f444bc-5e5f-4abc-affc-8ff785c8e2c9/receipt.json",
+      "rejectedBeforeNetworkAndInstanceWrite": true,
+      "requests": 0,
+      "originalArchiveUnchanged": true
+    },
+    "finalSuiteLog": {
+      "tests": 1356,
+      "pass": 1355,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 1,
+      "reviewerReranEntireSuite": false
+    }
+  },
+  "resolvedFindings": [
+    {
+      "severity": "P2",
+      "title": "Canonical target aliases could overwrite a previously verified declaration",
+      "detectedByReviewer": true,
+      "before": "out/review119-mrpack-readonly/actual-alias-7f7466da-087a-41a4-ad0f-4e6a17e99bd9/receipt.json",
+      "after": "out/review119-mrpack-readonly/actual-alias-11f444bc-5e5f-4abc-affc-8ff785c8e2c9/receipt.json",
+      "outcome": "safeJoin destination identity deduplicates before metadata/download/instance mutation; actual production installation rechecked"
+    },
+    {
+      "severity": "P2",
+      "title": "Resource page intercepted explicit MRPACK before whole-pack classification",
+      "detectedByReviewer": false,
+      "outcome": "explicit .mrpack/.MRPACK goes to unified probe and stops target propagation; four resource pages, malformed pack and mixed batches covered"
+    },
+    {
+      "severity": "compatibility",
+      "title": "Leading UTF-8 BOM made valid manifest fail JSON parsing",
+      "outcome": "only one leading U+FEFF removed; all other parse and validation checks retained"
+    }
+  ],
+  "retainedFailures": [
+    {
+      "file": "out/review119-mrpack-readonly/receipt.json",
+      "outcome": "18 boundary cases, one duplicate-alias mismatch; immutable original input"
+    },
+    {
+      "file": "out/review119-mrpack-readonly/actual-alias-7f7466da-087a-41a4-ad0f-4e6a17e99bd9/receipt.json",
+      "outcome": "invalid duplicate-destination package reported successful installation; final bytes satisfy only second declared hash"
+    }
+  ],
+  "guiEvidence": [
+    {
+      "file": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/proof.json",
+      "sha256": "63c8354dcca4befcbdfb6cda647a9049f47287d3b414c577bae4fcfbe804d603",
+      "complete": true,
+      "theme": "black-orange",
+      "classification": "Actual owned Windows UI, trusted drag/drop and coordinates, synthetic MRPACK through production probe; no install/network/game claim.",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": [
+        "whole MRPACK from home",
+        "whole MRPACK from mods",
+        "whole MRPACK from packs",
+        "whole MRPACK from shaders",
+        "whole MRPACK from keys",
+        "malformed pack rejected without world fallback",
+        "mixed MRPACK/MOD rejected without partial import",
+        "toolbar file picker"
+      ],
+      "trustedDropEvents": 7,
+      "originalArchiveUnchanged": true,
+      "localResourceFilesUnchanged": true,
+      "screenshots": [
+        {
+          "file": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/home-mrpack-dialog.png",
+          "sha256": "68c44e50fd3cf99b9cd007b6113da158e2cd396d6a5f04ef479fd98c961f3a82",
+          "manuallyViewed": true
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/mods-mrpack-dialog.png",
+          "sha256": "b000618ad236aa6c5ccf20c0d052f5a321d7091b76820af1f2335127074edc11",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/packs-mrpack-dialog.png",
+          "sha256": "04eb31d7faf6331953a3508f0cc19bded53f4b0023103a410214dffeb923075d",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/shaders-mrpack-dialog.png",
+          "sha256": "540ee1e0ca231a982876ea8b336690fc4f93161060ff54c16ee756e22c832afc",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/keys-mrpack-dialog.png",
+          "sha256": "8ab62297ba4acab90b78a8b239f0a11c214758465ca2b272a009598efcda8d9d",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/malformed-mrpack.png",
+          "sha256": "6ae0a4d4139e44b6644429839c7918ab278ae75287a697e85e3812592c497163",
+          "manuallyViewed": true
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/mixed-files-rejected.png",
+          "sha256": "9b7aa56e132aa91dcdaaa56c2aa42bac2aa8aaaacb63f45bc4e3682c14078862",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/toolbar-mrpack-dialog.png",
+          "sha256": "8cdb7ea53297e64a62cd5ef6a817ab4dd7df657e0be318393bf1d070a7c5b393",
+          "manuallyViewed": false
+        }
+      ],
+      "executableBinding": {
+        "proof": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/proof.json",
+        "proofSHA256": "63c8354dcca4befcbdfb6cda647a9049f47287d3b414c577bae4fcfbe804d603",
+        "complete": true,
+        "parentPID": 14460,
+        "electronPID": 5292,
+        "ownedLedger": "out/qa-owned-process-119-334ca841-ba6f-4567-b3b3-312b00fe60dc.json",
+        "ownedLedgerSHA256": "f4312bca9dfb22ab74ee2a760e6d22a394b6abbc2cf5b1f3953483091041ca90",
+        "childStartedAt": "2026-10-07T08:16:33.018Z",
+        "closed": true,
+        "exitCode": 0,
+        "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Vvq1m1\\KAMUCL-1.1.19.exe",
+        "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+        "exeCreatedBeforeSpawnMs": 133.60986328125,
+        "retainedRuntime": [
+          {
+            "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Vvq1m1\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+            "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+          }
+        ],
+        "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+      }
+    },
+    {
+      "file": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/proof.json",
+      "sha256": "b4aff5f16c0506947385a6380cec602f5b1c1f95bfa8cb649e4ad01e20be770b",
+      "complete": true,
+      "theme": "blue-white",
+      "classification": "Actual owned Windows UI, trusted drag/drop and coordinates, synthetic MRPACK through production probe; no install/network/game claim.",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": [
+        "whole MRPACK from home",
+        "whole MRPACK from mods",
+        "whole MRPACK from packs",
+        "whole MRPACK from shaders",
+        "whole MRPACK from keys",
+        "malformed pack rejected without world fallback",
+        "mixed MRPACK/MOD rejected without partial import",
+        "toolbar file picker"
+      ],
+      "trustedDropEvents": 7,
+      "originalArchiveUnchanged": true,
+      "localResourceFilesUnchanged": true,
+      "screenshots": [
+        {
+          "file": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/home-mrpack-dialog.png",
+          "sha256": "025e7e117711276c87df6e8981dbca97fc4fe4a8e473272be882c6a5d6de0220",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/mods-mrpack-dialog.png",
+          "sha256": "41ef57a6cd71153c239d87d9f72159f939557b648ff88742da0edd0510ce219e",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/packs-mrpack-dialog.png",
+          "sha256": "c282392793b236ef227de90ade6cfa63daa15f9fa51e7ff767e07c57ab17bdeb",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/shaders-mrpack-dialog.png",
+          "sha256": "3f7a771111ce75541607b86947a68e0a14198da5bdb02e8731f84e0d24b1f86b",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/keys-mrpack-dialog.png",
+          "sha256": "8f1bc70bd8abbb7348b4db724899b5e30a0dcdf0328d23e97b5b107cf335ad2f",
+          "manuallyViewed": true
+        },
+        {
+          "file": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/malformed-mrpack.png",
+          "sha256": "64b77f5966a1eef06f8f4fb6f300c61afb0a7d7ad1c6ba8bb81ebc7026169bc3",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/mixed-files-rejected.png",
+          "sha256": "916da45a0dfd5be84ea9b1a4d7439a8d69519168dd765ac90ee844f1c30c5a1f",
+          "manuallyViewed": true
+        },
+        {
+          "file": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/toolbar-mrpack-dialog.png",
+          "sha256": "19b60be58b06bde65314d0b5f058d54c0b41ca9816a7b718bba0914c04cc7c35",
+          "manuallyViewed": false
+        }
+      ],
+      "executableBinding": {
+        "proof": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/proof.json",
+        "proofSHA256": "b4aff5f16c0506947385a6380cec602f5b1c1f95bfa8cb649e4ad01e20be770b",
+        "complete": true,
+        "parentPID": 49264,
+        "electronPID": 34064,
+        "ownedLedger": "out/qa-owned-process-119-eaefa91a-4d57-4bdc-968d-48bc40d4196e.json",
+        "ownedLedgerSHA256": "35b027df8d3f8fcbbac6d9d7a9bdb4cd0bc03e74f51dbeb33038cc1b76322f76",
+        "childStartedAt": "2026-10-07T08:17:24.743Z",
+        "closed": true,
+        "exitCode": 0,
+        "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 WZkNbU\\KAMUCL-1.1.19.exe",
+        "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+        "exeCreatedBeforeSpawnMs": 123.6591796875,
+        "retainedRuntime": [
+          {
+            "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 WZkNbU\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+            "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+          }
+        ],
+        "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+      }
+    },
+    {
+      "file": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/proof.json",
+      "sha256": "9d4c1a0032de2af12cab9cef7559e85014b188447bb4857390dac00591f51287",
+      "complete": true,
+      "theme": "transparent",
+      "classification": "Actual owned Windows UI, trusted drag/drop and coordinates, synthetic MRPACK through production probe; no install/network/game claim.",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": [
+        "whole MRPACK from home",
+        "whole MRPACK from mods",
+        "whole MRPACK from packs",
+        "whole MRPACK from shaders",
+        "whole MRPACK from keys",
+        "malformed pack rejected without world fallback",
+        "mixed MRPACK/MOD rejected without partial import",
+        "toolbar file picker"
+      ],
+      "trustedDropEvents": 7,
+      "originalArchiveUnchanged": true,
+      "localResourceFilesUnchanged": true,
+      "screenshots": [
+        {
+          "file": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/home-mrpack-dialog.png",
+          "sha256": "0947184961588c1ce0a360f86ab10bca66c574cbf37e841ce9470f8754054581",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/mods-mrpack-dialog.png",
+          "sha256": "24fc4582c78a0987dba5bfee1e83c4cd9355db795ab7efc7a1effab4ef17701e",
+          "manuallyViewed": true
+        },
+        {
+          "file": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/packs-mrpack-dialog.png",
+          "sha256": "04841e5bbe76c5362d979b675d27e365e5e514f3354de1983a88c56ded05c248",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/shaders-mrpack-dialog.png",
+          "sha256": "8833a7f9c2f4b634e048671da3bbc182d19a860c2ff5aaac957abc4d77975aa5",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/keys-mrpack-dialog.png",
+          "sha256": "8615ec14e13bdf37445241ea8580d67bb3d07c8acde53d994907288b9edcb805",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/malformed-mrpack.png",
+          "sha256": "b5f197e98b091f33fad7bb88c42890a4fbc2900c1512c4b31e5ffe614718374e",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/mixed-files-rejected.png",
+          "sha256": "e98f9ad750f803bfdd1d30a1d676c59c99424d8d39b19f3bf1bc15bb2d9cdbc6",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/toolbar-mrpack-dialog.png",
+          "sha256": "b19f89239b521034a578ba700ce6a9fc345f643a7123faad8b688d8511e73138",
+          "manuallyViewed": false
+        }
+      ],
+      "executableBinding": {
+        "proof": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/proof.json",
+        "proofSHA256": "9d4c1a0032de2af12cab9cef7559e85014b188447bb4857390dac00591f51287",
+        "complete": true,
+        "parentPID": 38328,
+        "electronPID": 55472,
+        "ownedLedger": "out/qa-owned-process-119-1bfefa96-6f1b-4e6e-83b8-eb7491542650.json",
+        "ownedLedgerSHA256": "3d82259b264f01999b48185b507e0ed88aced2f5ec932c65fb1710858c49afb4",
+        "childStartedAt": "2026-10-07T08:18:16.040Z",
+        "closed": true,
+        "exitCode": 0,
+        "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 8plEig\\KAMUCL-1.1.19.exe",
+        "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+        "exeCreatedBeforeSpawnMs": 119.301025390625,
+        "retainedRuntime": [
+          {
+            "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 8plEig\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+            "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+          }
+        ],
+        "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+      }
+    },
+    {
+      "file": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/proof.json",
+      "sha256": "b580a024c708e87916d10b5cb444a4a6d789117838e62cda99d44de98245cfa6",
+      "complete": true,
+      "theme": "custom",
+      "classification": "Actual owned Windows UI, trusted drag/drop and coordinates, synthetic MRPACK through production probe; no install/network/game claim.",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": [
+        "whole MRPACK from home",
+        "whole MRPACK from mods",
+        "whole MRPACK from packs",
+        "whole MRPACK from shaders",
+        "whole MRPACK from keys",
+        "malformed pack rejected without world fallback",
+        "mixed MRPACK/MOD rejected without partial import",
+        "toolbar file picker"
+      ],
+      "trustedDropEvents": 7,
+      "originalArchiveUnchanged": true,
+      "localResourceFilesUnchanged": true,
+      "screenshots": [
+        {
+          "file": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/home-mrpack-dialog.png",
+          "sha256": "40975e0bfa0508f1c25895ba7f8817f81698a6aa0181c38192fb0aa2e40202ba",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/mods-mrpack-dialog.png",
+          "sha256": "f2b40a6f4372c03330b4487ab27e66f5ffbbab2a94b847714415cf037488ff15",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/packs-mrpack-dialog.png",
+          "sha256": "4936f161bfb6ec982ac9e178297ab724435858744d29ce8e1ade85144b6e5de3",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/shaders-mrpack-dialog.png",
+          "sha256": "27b4a53ba50d3a49c8efd10fe6d58530aecd0c8a18a6cba0f1ee152930dc0945",
+          "manuallyViewed": true
+        },
+        {
+          "file": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/keys-mrpack-dialog.png",
+          "sha256": "f5d6bde1894ae19a5afa2a5f6fbd558f65b632426616b70465aa308c6241b8d7",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/malformed-mrpack.png",
+          "sha256": "eeaa5546fd5a05bda42330ad5ae1fd9bd4fe8042940ad3e2f23a4dd363d31041",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/mixed-files-rejected.png",
+          "sha256": "48d2c8f1b9ac579ad341c5a958eb060cb418bb143c5430a4be70bb67b0fb0bf5",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/toolbar-mrpack-dialog.png",
+          "sha256": "fe49cf06df072847a8a881a4b2a6ea7866239d44545049d0fe9c57fb69ca2a87",
+          "manuallyViewed": false
+        }
+      ],
+      "executableBinding": {
+        "proof": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/proof.json",
+        "proofSHA256": "b580a024c708e87916d10b5cb444a4a6d789117838e62cda99d44de98245cfa6",
+        "complete": true,
+        "parentPID": 44072,
+        "electronPID": 22632,
+        "ownedLedger": "out/qa-owned-process-119-9a466a86-b973-4d62-b2fa-79ba706749d0.json",
+        "ownedLedgerSHA256": "94f6b48aba66ba281d4bea807a486079362867cea35dd81e9c943f2940dde3db",
+        "childStartedAt": "2026-10-07T08:19:06.607Z",
+        "closed": true,
+        "exitCode": 0,
+        "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 tja77A\\KAMUCL-1.1.19.exe",
+        "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+        "exeCreatedBeforeSpawnMs": 125.544189453125,
+        "retainedRuntime": [
+          {
+            "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 tja77A\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+            "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+          }
+        ],
+        "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+      }
+    },
+    {
+      "file": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/proof.json",
+      "sha256": "7bf462b1aff826b1f4a065c9b1ccf4a1129ad6883b5f672d330596d6ed4b25ac",
+      "complete": true,
+      "theme": "black-orange",
+      "classification": "Actual owned Windows UI, trusted drag/drop and coordinates, synthetic MRPACK through production probe; no install/network/game claim.",
+      "window": {
+        "requested": {
+          "width": 1280,
+          "height": 900,
+          "zoom": 1.25
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 1281,
+            "height": 901
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 1280,
+            "height": 900
+          },
+          "zoom": 1.25,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 1024,
+            "height": 720
+          },
+          "client": {
+            "width": 1024,
+            "height": 720
+          },
+          "visual": {
+            "width": 1024,
+            "height": 720,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.5625
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": [
+        "whole MRPACK from home",
+        "whole MRPACK from mods",
+        "whole MRPACK from packs",
+        "whole MRPACK from shaders",
+        "whole MRPACK from keys",
+        "malformed pack rejected without world fallback",
+        "mixed MRPACK/MOD rejected without partial import",
+        "toolbar file picker"
+      ],
+      "trustedDropEvents": 7,
+      "originalArchiveUnchanged": true,
+      "localResourceFilesUnchanged": true,
+      "screenshots": [
+        {
+          "file": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/home-mrpack-dialog.png",
+          "sha256": "4750b04bc86441622da43b197294b0f3a23163d82ee475f25814f2245f84a6ca",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/mods-mrpack-dialog.png",
+          "sha256": "09d392313850016fab3fcdae462cbaad90259999bd83e2fea0691a096031339e",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/packs-mrpack-dialog.png",
+          "sha256": "132ac8d842e72c33b88b4d1aad0d16474a6467a099535b1ad784a5de7c63691e",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/shaders-mrpack-dialog.png",
+          "sha256": "806e493b5bbd78ef9d69ea839dd208b1c9a1cb5d1ae43b9dc34126039496002a",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/keys-mrpack-dialog.png",
+          "sha256": "4ce047a7289e241fde2896972db22943423f55800a5c56d12928ff1d31cdbbe6",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/malformed-mrpack.png",
+          "sha256": "2784577cc52ff4871f17e6f387ee1a5a015e9ea5bc7e83bb872e656d9faceeec",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/mixed-files-rejected.png",
+          "sha256": "29bfc72cd6ae466927890bd065fbce19bc3b8825aa99ef4c83f99056ea90c10d",
+          "manuallyViewed": false
+        },
+        {
+          "file": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/toolbar-mrpack-dialog.png",
+          "sha256": "05fa903353d7ddd1a3948cbc1f88201a426189ddb5046b9c1909f2a636eb28e8",
+          "manuallyViewed": true
+        }
+      ],
+      "executableBinding": {
+        "proof": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/proof.json",
+        "proofSHA256": "7bf462b1aff826b1f4a065c9b1ccf4a1129ad6883b5f672d330596d6ed4b25ac",
+        "complete": true,
+        "parentPID": 37316,
+        "electronPID": 19828,
+        "ownedLedger": "out/qa-owned-process-119-8c81f13c-2eb1-4b50-91c9-8bf9d339c362.json",
+        "ownedLedgerSHA256": "06a95441a567a4f8a1bcc9d80d51c612a0d9ded4660966cf26391ba9cb1c8249",
+        "childStartedAt": "2026-10-07T08:20:04.968Z",
+        "closed": true,
+        "exitCode": 0,
+        "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 uyEiM4\\KAMUCL-1.1.19.exe",
+        "retainedEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+        "exeCreatedBeforeSpawnMs": 125.7744140625,
+        "retainedRuntime": [
+          {
+            "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 uyEiM4\\KAMUCL-runtime\\1.1.19-3b2241a4e94b87ac\\resources\\app.asar",
+            "sha256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+          }
+        ],
+        "association": "Unique owned-parent PID ledger plus unique retained GUI EXE born within 5 seconds before child start; all GUI cohort copies independently have same final EXE and ASAR hashes. Post-run association, not a retroactively inserted contemporaneous process.execPath observation."
+      }
+    }
+  ],
+  "screenshotCount": 40,
+  "screenshotHashMismatches": 0,
+  "manuallyViewedImages": [
+    "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/home-mrpack-dialog.png",
+    "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/keys-mrpack-dialog.png",
+    "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/mods-mrpack-dialog.png",
+    "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/shaders-mrpack-dialog.png",
+    "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/toolbar-mrpack-dialog.png",
+    "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/malformed-mrpack.png",
+    "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/mixed-files-rejected.png"
+  ],
+  "limitations": [
+    "GUI MRPACK is synthetic with files: []; dialogs and production classification are proved, not GUI download/install/game acceptance.",
+    "Toolbar button uses production import flow but showOpenDialog returns a fixture path; native operating-system file-selector interaction was not tested.",
+    "The GUI malformed archive has no bundled world; malformed archive containing a world is covered by backend/callback regressions, not this GUI fixture.",
+    "Trusted drops are Chromium Input.dispatchDragEvent into the owned foreground Windows application, not an Explorer drag gesture.",
+    "Actual installation orchestration is localhost HTTP and temporary filesystem using synthetic runtime/mod bytes; no live Modrinth CDN or full game launch claim.",
+    "All four themes are measured at requested 960x620 DIP, zoom 1, display scale 1.25; additional 125% Electron zoom is black-orange at 1280x900 DIP. No claim of every theme at minimum size and zoom 1.25.",
+    "No FPS or complete animation-performance measurement. MRPACK changed no animation implementation.",
+    "Resource pages intentionally preserve .zip as local-resource batch import; renamed MRPACK .zip and nested MRPACK use unified classification at general import entry points.",
+    "Update/overwrite conflicts, long filenames, large packs, all loader runtime installations and third-party MOD combinations were not exhaustively repeated in GUI."
+  ],
+  "evidence": [
+    {
+      "file": "out/gui119-executable-bindings.json",
+      "sha256": "7562fabbc2a6ede80ce94f263a78e4f5909ac252e72afa832fd39d8e8a8f30c8"
+    },
+    {
+      "file": "out/production-inputs119-final-prebuild.json",
+      "sha256": "92f7dd9ba477830fa8d56f685e0d10f4d4535486cc581444a2d97675f754b43c"
+    },
+    {
+      "file": "out/windows-package-1.1.19.json",
+      "sha256": "de23adf9d752793e70c0ead64d5b3306ab900984de983ab6ff05ac58453793c7"
+    },
+    {
+      "file": "out/tests119-final.log",
+      "sha256": "97e5744023fc90c59fda7eee0d87afe771e51c2454d26e745867df430d61b060"
+    },
+    {
+      "file": "out/review119-mrpack-readonly/focused-tests.log",
+      "sha256": "be43c80d0a1039011e6fa9dd222686c9dede262233d7532ccebb550415d26fd0"
+    },
+    {
+      "file": "out/review119-mrpack-readonly/focused-tests-after.log",
+      "sha256": "1ef781ab71419ba2a8d95658cde379c83c9f28fda725f62494cb96043a81ef26"
+    },
+    {
+      "file": "out/review119-mrpack-readonly/receipt.json",
+      "sha256": "4b3383f35398b36dd91648a5d5c00c2b9395632311bce30820f92049955137c6"
+    },
+    {
+      "file": "out/review119-mrpack-readonly/receipt-a8d3d4fd-4edd-4f24-bca2-a48016c73be2.json",
+      "sha256": "51d86e32e36d6fb3f8c879f60b9cba3c980db19dd9595e6fa3536314dee4a965"
+    },
+    {
+      "file": "out/review119-mrpack-readonly/actual-alias-7f7466da-087a-41a4-ad0f-4e6a17e99bd9/receipt.json",
+      "sha256": "9561b81d4266a2891e8cc83863b9aea4930f9c315281a98a6cd4ba9ec339c1a2"
+    },
+    {
+      "file": "out/review119-mrpack-readonly/actual-alias-11f444bc-5e5f-4abc-affc-8ff785c8e2c9/receipt.json",
+      "sha256": "290fffbfa07ac8baff15719733b1b6cb87703d3805e14c8a814e9c8dc89fa6f2"
+    }
+  ]
+}

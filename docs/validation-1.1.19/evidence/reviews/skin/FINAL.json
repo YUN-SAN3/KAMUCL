@@ -1,0 +1,1140 @@
+{
+  "version": "1.1.19",
+  "scope": "Skin outer-layer drawing repair only",
+  "reviewerImplementedProductRepair": false,
+  "complete": true,
+  "qualified": true,
+  "averageUsed": false,
+  "scores": {
+    "reasonableness": {
+      "score": 9.3,
+      "threshold": 8.5,
+      "pass": true,
+      "reason": "Focused fix follows true old-EXE alpha-zero sampling root cause, preserves deliberate opacity and avoids unrelated geometry changes."
+    },
+    "functionality": {
+      "score": 9.2,
+      "threshold": 8.5,
+      "pass": true,
+      "reason": "14 directly run tests, 5 final GUI flows, exact browser pixel/undo/erase/fill/base checks, persisted-zero reopen/recovery, and 12 decoded PNGs verified; listed coverage limits remain."
+    },
+    "appearance": {
+      "score": 8.8,
+      "threshold": 8.5,
+      "pass": true,
+      "reason": "Four themes and 125-percent original warning/paint screenshots are legible and accessible. Small-window model and palette require scrolling, so not all controls are simultaneously visible."
+    }
+  },
+  "blockingFindings": [],
+  "changesMadeByReviewer": "Only out/review119-skin report and verification artifacts; no product, QA, version, build, original evidence edits.",
+  "executable": {
+    "file": "E:\\KAMUCL\\release\\KAMUCL-1.1.19.exe",
+    "bytes": 97323050,
+    "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65"
+  },
+  "productionFreeze": {
+    "complete": true,
+    "manifest": "out/production-inputs119-final-prebuild.json",
+    "manifestSHA256": "92f7dd9ba477830fa8d56f685e0d10f4d4535486cc581444a2d97675f754b43c",
+    "count": 516,
+    "differences": []
+  },
+  "executableBinding": {
+    "file": "out/gui119-executable-bindings.json",
+    "sha256": "7562fabbc2a6ede80ce94f263a78e4f5909ac252e72afa832fd39d8e8a8f30c8",
+    "cohortVerified": 17,
+    "rawProofsVerified": 16,
+    "limitation": "Post-run preserved-byte and timestamp/owned-parent association. Original proofs have no contemporaneous process.execPath or executable hash; none added retrospectively."
+  },
+  "verification": {
+    "script": "out/review119-skin/verify-evidence.cjs",
+    "result": "out/review119-skin/evidence-verification.json",
+    "resultSHA256": "b4f79b184cba49efcd72ff3080a634d1c2c5b1832ac45fde53fc7767708d7fdb",
+    "flows": 5,
+    "screenshotsHashAndFocusChecked": 32,
+    "exportsDecodedAndBrowserMatched": 12,
+    "trustedPixelEvents": 47,
+    "originalFramesDecoded": 189,
+    "fpsAcceptanceGate": false,
+    "manuallyViewedOriginalPNGs": 12,
+    "manuallyViewedOriginalJPGs": 3
+  },
+  "independentTests": {
+    "command": "npx tsx --test tests/skin-outer119.test.ts tests/skin-colors-117.test.ts tests/skin-palette-preferences.test.ts tests/skin-editor-118.test.ts",
+    "tests": 14,
+    "pass": 14,
+    "fail": 0,
+    "skip": 0,
+    "execution": "Direct reviewer tool run during preliminary review"
+  },
+  "savedFullSuite": {
+    "file": "out/tests119-final.log",
+    "sha256": "97e5744023fc90c59fda7eee0d87afe771e51c2454d26e745867df430d61b060",
+    "tests": 1356,
+    "pass": 1355,
+    "fail": 0,
+    "skip": 1,
+    "skippedCase": "Linux updater performs real swap, receipt and failure restoration without concurrent launchers",
+    "execution": "Read saved parent test log; not rerun by this reviewer"
+  },
+  "package": {
+    "file": "E:\\KAMUCL\\out\\windows-package-1.1.19.json",
+    "complete": true,
+    "portable": true,
+    "zipped": true,
+    "asarSHA256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1"
+  },
+  "flows": [
+    {
+      "directory": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-435f49aa-3f98-4e68-949c-16d322229f3e",
+      "proofSHA256": "15d06eb3d79b0cf7c8fec1185efd7069d97c206146b035390a6a0a1b091b71b2",
+      "complete": true,
+      "theme": "black-orange",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": {
+        "blankPickPreservesBrush": true,
+        "brushChangedPixels": 1,
+        "undoRedoEraseExact": true,
+        "translucentPickedRgba": [
+          255,
+          88,
+          34,
+          128
+        ],
+        "filledPixels": 64,
+        "baseChangedPixels": 1,
+        "baseAlphaUnchanged": true,
+        "slimChangedPixels": 1
+      },
+      "persistedZeroAlpha": {
+        "diskAlpha": 0,
+        "recoveredAndExported": true
+      },
+      "exports": [
+        {
+          "file": "classic-export.png",
+          "sha256": "a6cc125673d0d986bebcb7a5ec190037cc0fd5ca5285ef877a3ee771d9115026",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "inner after"
+          ]
+        },
+        {
+          "file": "slim-export.png",
+          "sha256": "72812413bba79a315ad104689f7eaf917fc9261e83715e772129c66804194d8b",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "slim empty outer painted",
+            "paint after persisted preference recovery"
+          ]
+        },
+        {
+          "file": "recovered-export.png",
+          "sha256": "72812413bba79a315ad104689f7eaf917fc9261e83715e772129c66804194d8b",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "slim empty outer painted",
+            "paint after persisted preference recovery"
+          ]
+        }
+      ]
+    },
+    {
+      "directory": "E:\\KAMUCL\\out\\qa-skin-layers119-blue-white-3baa69ef-9afc-41f8-8327-fe5a71c7c1d9",
+      "proofSHA256": "308dac75397d88ed36512daafad10ad4a1eb75ee1bd8bcb7bdb09261f936743e",
+      "complete": true,
+      "theme": "blue-white",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": {
+        "blankPickPreservesBrush": true,
+        "brushChangedPixels": 1,
+        "undoRedoEraseExact": true,
+        "translucentPickedRgba": [
+          255,
+          88,
+          34,
+          128
+        ],
+        "filledPixels": 64,
+        "baseChangedPixels": 1,
+        "baseAlphaUnchanged": true,
+        "slimChangedPixels": 1
+      },
+      "exports": [
+        {
+          "file": "classic-export.png",
+          "sha256": "a6cc125673d0d986bebcb7a5ec190037cc0fd5ca5285ef877a3ee771d9115026",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "inner after"
+          ]
+        },
+        {
+          "file": "slim-export.png",
+          "sha256": "72812413bba79a315ad104689f7eaf917fc9261e83715e772129c66804194d8b",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "slim empty outer painted"
+          ]
+        }
+      ]
+    },
+    {
+      "directory": "E:\\KAMUCL\\out\\qa-skin-layers119-transparent-ce2a3f69-670c-435e-8b0a-a97ee76fb4e0",
+      "proofSHA256": "df859764f85963f1d2ba5f2ceeef9d5927ca91894a2f60f35adba5944bf79e6a",
+      "complete": true,
+      "theme": "transparent",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": {
+        "blankPickPreservesBrush": true,
+        "brushChangedPixels": 1,
+        "undoRedoEraseExact": true,
+        "translucentPickedRgba": [
+          255,
+          88,
+          34,
+          128
+        ],
+        "filledPixels": 64,
+        "baseChangedPixels": 1,
+        "baseAlphaUnchanged": true,
+        "slimChangedPixels": 1
+      },
+      "exports": [
+        {
+          "file": "classic-export.png",
+          "sha256": "a6cc125673d0d986bebcb7a5ec190037cc0fd5ca5285ef877a3ee771d9115026",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "inner after"
+          ]
+        },
+        {
+          "file": "slim-export.png",
+          "sha256": "72812413bba79a315ad104689f7eaf917fc9261e83715e772129c66804194d8b",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "slim empty outer painted"
+          ]
+        }
+      ]
+    },
+    {
+      "directory": "E:\\KAMUCL\\out\\qa-skin-layers119-custom-556a701a-79c9-4bf8-9464-f7351d3a28aa",
+      "proofSHA256": "53c4bda70e72c3265cabb6fd8b0c096b01f089bae523b91d0c75f98d7ba7b938",
+      "complete": true,
+      "theme": "custom",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": {
+        "blankPickPreservesBrush": true,
+        "brushChangedPixels": 1,
+        "undoRedoEraseExact": true,
+        "translucentPickedRgba": [
+          255,
+          88,
+          34,
+          128
+        ],
+        "filledPixels": 64,
+        "baseChangedPixels": 1,
+        "baseAlphaUnchanged": true,
+        "slimChangedPixels": 1
+      },
+      "exports": [
+        {
+          "file": "classic-export.png",
+          "sha256": "a6cc125673d0d986bebcb7a5ec190037cc0fd5ca5285ef877a3ee771d9115026",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "inner after"
+          ]
+        },
+        {
+          "file": "slim-export.png",
+          "sha256": "72812413bba79a315ad104689f7eaf917fc9261e83715e772129c66804194d8b",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "slim empty outer painted"
+          ]
+        }
+      ]
+    },
+    {
+      "directory": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-98375013-8237-4e7a-b98d-cb3528abe6be",
+      "proofSHA256": "d8785d651b51d2af499fa7ff27c2e9ccb1ccd2591cb0c39b7c412f2479cabfdc",
+      "complete": true,
+      "theme": "black-orange",
+      "window": {
+        "requested": {
+          "width": 1280,
+          "height": 900,
+          "zoom": 1.25
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 1281,
+            "height": 901
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 1280,
+            "height": 900
+          },
+          "zoom": 1.25,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 1024,
+            "height": 720
+          },
+          "client": {
+            "width": 1024,
+            "height": 720
+          },
+          "visual": {
+            "width": 1024,
+            "height": 720,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.5625
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "checks": {
+        "blankPickPreservesBrush": true,
+        "brushChangedPixels": 1,
+        "undoRedoEraseExact": true,
+        "translucentPickedRgba": [
+          255,
+          88,
+          34,
+          128
+        ],
+        "filledPixels": 64,
+        "baseChangedPixels": 1,
+        "baseAlphaUnchanged": true,
+        "slimChangedPixels": 1
+      },
+      "persistedZeroAlpha": {
+        "diskAlpha": 0,
+        "recoveredAndExported": true
+      },
+      "exports": [
+        {
+          "file": "classic-export.png",
+          "sha256": "a6cc125673d0d986bebcb7a5ec190037cc0fd5ca5285ef877a3ee771d9115026",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "inner after"
+          ]
+        },
+        {
+          "file": "slim-export.png",
+          "sha256": "72812413bba79a315ad104689f7eaf917fc9261e83715e772129c66804194d8b",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "slim empty outer painted",
+            "paint after persisted preference recovery"
+          ]
+        },
+        {
+          "file": "recovered-export.png",
+          "sha256": "72812413bba79a315ad104689f7eaf917fc9261e83715e772129c66804194d8b",
+          "width": 64,
+          "height": 64,
+          "matchedBrowserStates": [
+            "slim empty outer painted",
+            "paint after persisted preference recovery"
+          ]
+        }
+      ]
+    }
+  ],
+  "manuallyInspectedImages": [
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-435f49aa-3f98-4e68-949c-16d322229f3e\\zero-alpha-warning.png",
+      "sha256": "78ab251df1620f84258f1ff955d966aeebe318145d4e92907a7174224eb2bca5",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Warning text and restore button readable; fixed header/footer visible"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-435f49aa-3f98-4e68-949c-16d322229f3e\\blank-outer-painted.png",
+      "sha256": "a974458eb2978349c776d0ba527f66360ea37383b8d151f7b41959ad5017e54e",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Blank outer-shell head has newly painted visible texel; editor state reflects change"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-435f49aa-3f98-4e68-949c-16d322229f3e\\persisted-zero-alpha-warning.png",
+      "sha256": "f33e4803c9533a91ee1f5d41a9b5c34c3b39fa73c67c28c5bc5f6eaf2cbe0e18",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Warning text and restore button readable; fixed header/footer visible"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-blue-white-3baa69ef-9afc-41f8-8327-fe5a71c7c1d9\\zero-alpha-warning.png",
+      "sha256": "0bbc743120a1473d2db860ec33b4b655d17f12f7029eb291b16c2ad558ae097d",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Warning text and restore button readable; fixed header/footer visible"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-blue-white-3baa69ef-9afc-41f8-8327-fe5a71c7c1d9\\blank-outer-painted.png",
+      "sha256": "50dddf879ac2148c651fa0930b6ba71f7770446d720b98f8ccfce552428a20cf",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Blank outer-shell head has newly painted visible texel; editor state reflects change"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-transparent-ce2a3f69-670c-435e-8b0a-a97ee76fb4e0\\zero-alpha-warning.png",
+      "sha256": "efeda670b43b8f8203118477c318c78470cbffe8600950591551eba233050bf5",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Warning text and restore button readable; fixed header/footer visible"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-transparent-ce2a3f69-670c-435e-8b0a-a97ee76fb4e0\\blank-outer-painted.png",
+      "sha256": "fcc80e3d7a11091a42957267e7349cdea5cce2f17f191e8cca1864af90b69d16",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Blank outer-shell head has newly painted visible texel; editor state reflects change"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-custom-556a701a-79c9-4bf8-9464-f7351d3a28aa\\zero-alpha-warning.png",
+      "sha256": "1c6fd1c867ca6479cde996bbf82a761c40ecf5593971924ea962dbf3f7b8bdd0",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Warning text and restore button readable; fixed header/footer visible"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-custom-556a701a-79c9-4bf8-9464-f7351d3a28aa\\blank-outer-painted.png",
+      "sha256": "43363000881e4420d07117b12663ed465c48108933cae9fa26c637c88789641d",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Blank outer-shell head has newly painted visible texel; editor state reflects change"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-98375013-8237-4e7a-b98d-cb3528abe6be\\zero-alpha-warning.png",
+      "sha256": "be05dc06f5fa25f613299360086a0bda230100438c03199bd2e7c0ada0c28477",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Warning text and restore button readable; fixed header/footer visible"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-98375013-8237-4e7a-b98d-cb3528abe6be\\blank-outer-painted.png",
+      "sha256": "4d51a5051a68e74a5054c7d4a1826e8196004b1c421c9dfb90acb20c3c8d34ff",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Blank outer-shell head has newly painted visible texel; editor state reflects change"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-98375013-8237-4e7a-b98d-cb3528abe6be\\persisted-zero-alpha-warning.png",
+      "sha256": "e2cfddd9ef319bc6301e345a7692912f8b566e0aaa7f328336cc6b88969c5565",
+      "kind": "original PNG",
+      "detail": "original",
+      "observation": "Warning text and restore button readable; fixed header/footer visible"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\skinlayers119-original-black-orange\\frame-0000.jpg",
+      "sha256": "eb4cd9a1762a6153fa3f93d865c45457110498e94cc831c641233ae7f7490f2c",
+      "kind": "original screencast JPEG",
+      "detail": "original",
+      "observation": "Blank outer shell before stroke"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\skinlayers119-original-black-orange\\frame-0094.jpg",
+      "sha256": "4b101cffafe5853208fc535a3fb2d6c8acbf73b00421f6f8ca3a15fbd46baed6",
+      "kind": "original screencast JPEG",
+      "detail": "original",
+      "observation": "Visible painted head texel, changed document and undo state"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\skinlayers119-original-black-orange\\frame-0188.jpg",
+      "sha256": "7447c033f935754f3b8cfe16d31e260bbce29e26e392a64a672b67b5e1e897bf",
+      "kind": "original screencast JPEG",
+      "detail": "original",
+      "observation": "Visible painted head texel, changed document and undo state"
+    }
+  ],
+  "auxiliaryRegression": {
+    "file": "E:\\KAMUCL\\out\\skin-editor-ui-black-orange.json",
+    "sha256": "a38502bec876d1461d3241614ca4d35f72268910ebb1b0e0c05394e02d58879b",
+    "complete": true,
+    "version": "1.1.19",
+    "layouts": [
+      {
+        "width": 960,
+        "height": 620,
+        "zoom": 1,
+        "innerWidth": 962,
+        "innerHeight": 622,
+        "confirm": {
+          "left": 251.09231567382812,
+          "top": 232.9630584716797,
+          "right": 710.5077514648438,
+          "bottom": 390.9620056152344
+        },
+        "x": {
+          "top": 36.900001525878906,
+          "right": 924.7999877929688,
+          "bottom": 72.9000015258789
+        },
+        "footer": {
+          "top": 536.7999877929688,
+          "bottom": 605.5999908447266
+        },
+        "focus": "继续绘制",
+        "role": "alertdialog",
+        "middleRotate": true,
+        "altRotate": true,
+        "rgbaPreserved": true,
+        "oneUndoStroke": true,
+        "partControls": [
+          {
+            "name": "头部",
+            "visible": true
+          },
+          {
+            "name": "身体",
+            "visible": true
+          },
+          {
+            "name": "左臂",
+            "visible": true
+          },
+          {
+            "name": "右臂",
+            "visible": true
+          },
+          {
+            "name": "左腿",
+            "visible": true
+          },
+          {
+            "name": "右腿",
+            "visible": true
+          }
+        ],
+        "previewHeight": 210,
+        "zoomButton": true,
+        "lightingButton": true,
+        "expandedPreview": true
+      },
+      {
+        "width": 1280,
+        "height": 900,
+        "zoom": 1.25,
+        "innerWidth": 1024,
+        "innerHeight": 720,
+        "confirm": {
+          "left": 282.2651062011719,
+          "top": 281.4430236816406,
+          "right": 741.7349548339844,
+          "bottom": 439.9401092529297
+        },
+        "x": {
+          "top": 44.18000030517578,
+          "right": 983.3599853515625,
+          "bottom": 80.18000030517578
+        },
+        "footer": {
+          "top": 634.719970703125,
+          "bottom": 703.3599700927734
+        },
+        "focus": "继续绘制",
+        "role": "alertdialog",
+        "middleRotate": true,
+        "altRotate": true,
+        "rgbaPreserved": true,
+        "oneUndoStroke": true,
+        "partControls": [
+          {
+            "name": "头部",
+            "visible": true
+          },
+          {
+            "name": "身体",
+            "visible": true
+          },
+          {
+            "name": "左臂",
+            "visible": true
+          },
+          {
+            "name": "右臂",
+            "visible": true
+          },
+          {
+            "name": "左腿",
+            "visible": true
+          },
+          {
+            "name": "右腿",
+            "visible": true
+          }
+        ],
+        "previewHeight": 297,
+        "zoomButton": true,
+        "lightingButton": true,
+        "expandedPreview": true
+      },
+      {
+        "width": 1440,
+        "height": 960,
+        "zoom": 1.5,
+        "innerWidth": 960,
+        "innerHeight": 640,
+        "confirm": {
+          "left": 250.35617065429688,
+          "top": 241.81846618652344,
+          "right": 709.6439208984375,
+          "bottom": 400.0397644042969
+        },
+        "x": {
+          "top": 36.63333511352539,
+          "right": 923.4667358398438,
+          "bottom": 72.63333511352539
+        },
+        "footer": {
+          "top": 554.933349609375,
+          "bottom": 623.4666900634766
+        },
+        "focus": "继续绘制",
+        "role": "alertdialog",
+        "middleRotate": true,
+        "altRotate": true,
+        "rgbaPreserved": true,
+        "oneUndoStroke": true,
+        "partControls": [
+          {
+            "name": "头部",
+            "visible": true
+          },
+          {
+            "name": "身体",
+            "visible": true
+          },
+          {
+            "name": "左臂",
+            "visible": true
+          },
+          {
+            "name": "右臂",
+            "visible": true
+          },
+          {
+            "name": "左腿",
+            "visible": true
+          },
+          {
+            "name": "右腿",
+            "visible": true
+          }
+        ],
+        "previewHeight": 229.00001525878906,
+        "zoomButton": true,
+        "lightingButton": true,
+        "expandedPreview": true
+      },
+      {
+        "width": 1440,
+        "height": 684,
+        "zoom": 1.5,
+        "innerWidth": 960,
+        "innerHeight": 456,
+        "confirm": {
+          "left": 250.32315063476562,
+          "top": 149.72097778320312,
+          "right": 709.6768493652344,
+          "bottom": 307.9649963378906
+        },
+        "x": {
+          "top": 24.533334732055664,
+          "right": 927.4667358398438,
+          "bottom": 60.533334732055664
+        },
+        "footer": {
+          "top": 387.86669921875,
+          "bottom": 439.46670150756836
+        },
+        "focus": "继续绘制",
+        "role": "alertdialog",
+        "middleRotate": true,
+        "altRotate": true,
+        "rgbaPreserved": true,
+        "oneUndoStroke": true,
+        "partControls": [
+          {
+            "name": "头部",
+            "visible": true
+          },
+          {
+            "name": "身体",
+            "visible": true
+          },
+          {
+            "name": "左臂",
+            "visible": true
+          },
+          {
+            "name": "右臂",
+            "visible": true
+          },
+          {
+            "name": "左腿",
+            "visible": true
+          },
+          {
+            "name": "右腿",
+            "visible": true
+          }
+        ],
+        "previewHeight": 214.00001525878906,
+        "zoomButton": true,
+        "lightingButton": true,
+        "expandedPreview": true
+      },
+      {
+        "width": 960,
+        "height": 620,
+        "zoom": 1.5,
+        "innerWidth": 641,
+        "innerHeight": 415,
+        "confirm": {
+          "left": 90.79814910888672,
+          "top": 129.015380859375,
+          "right": 550.2685165405273,
+          "bottom": 287.29962158203125
+        },
+        "x": {
+          "top": 24.533334732055664,
+          "right": 608.5333862304688,
+          "bottom": 60.533334732055664
+        },
+        "footer": {
+          "top": 346.8000183105469,
+          "bottom": 398.40002059936523
+        },
+        "focus": "继续绘制",
+        "role": "alertdialog",
+        "middleRotate": true,
+        "altRotate": true,
+        "rgbaPreserved": true,
+        "oneUndoStroke": true,
+        "partControls": [
+          {
+            "name": "头部",
+            "visible": true
+          },
+          {
+            "name": "身体",
+            "visible": true
+          },
+          {
+            "name": "左臂",
+            "visible": true
+          },
+          {
+            "name": "右臂",
+            "visible": true
+          },
+          {
+            "name": "左腿",
+            "visible": true
+          },
+          {
+            "name": "右腿",
+            "visible": true
+          }
+        ],
+        "previewHeight": 173.00001525878906,
+        "zoomButton": true,
+        "lightingButton": true,
+        "expandedPreview": true
+      }
+    ],
+    "keys": [
+      "version",
+      "theme",
+      "complete",
+      "layouts",
+      "occlusions",
+      "nativeBusy",
+      "queuedCancellation",
+      "uploadBusy",
+      "canvasCaptures",
+      "gestures",
+      "partVisibilityObservations",
+      "fixtureDiagnostics",
+      "visibleErrors",
+      "colourInputs",
+      "smallTools",
+      "recordedAt"
+    ],
+    "qualification": "Original old full regression record lacks embedded PID identity; treated as auxiliary regression in the independently verified EXE cohort, not same per-run PID binding as new GUI proofs."
+  },
+  "historicalFailures": [
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-black-orange-9522dffe-03a6-4788-9958-24719797b75f\\proof.json",
+      "sha256": "077094a0f23fb319b5f9f4445e66ee7bbf4d7622e54fb2c4174044e3acbeb1dc",
+      "complete": false,
+      "version": "1.1.19",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        }
+      },
+      "error": {
+        "message": "Expected values to be strictly equal:\n\n962 !== 960\n",
+        "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n962 !== 960\n\n    at module.exports (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:45:644)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:235:9"
+      }
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-blue-white-a7a0b98e-b8e2-4af4-b485-5061c3bbadb9\\proof.json",
+      "sha256": "a062f774b4debae80b592d98adf922dc71686c67fd6c466b7f5bf14aeb5c3a40",
+      "complete": false,
+      "version": "1.1.19",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "error": {
+        "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 10030780\n- 39653372\n",
+        "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 10030780\n- 39653372\n\n    at focus (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:14:134)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async click (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:20:264)\n    at async newSkin (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:28:27)\n    at async module.exports (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:48:62)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:235:9"
+      }
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-skin-layers119-transparent-1fcdc17a-bc69-4ca2-bfaf-64c871c8e03d\\proof.json",
+      "sha256": "c62b3379c79405eb2b904dae666bd837a871cac9ec18e9596a3acd662dd03019",
+      "complete": false,
+      "version": "1.1.19",
+      "window": {
+        "requested": {
+          "width": 960,
+          "height": 620,
+          "zoom": 1
+        },
+        "actual": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "contentBounds": {
+            "x": 855,
+            "y": 409,
+            "width": 961,
+            "height": 622
+          },
+          "zoom": 1,
+          "displayScaleFactor": 1.25
+        },
+        "renderer": {
+          "inner": {
+            "width": 962,
+            "height": 622
+          },
+          "client": {
+            "width": 962,
+            "height": 622
+          },
+          "visual": {
+            "width": 961.5999755859375,
+            "height": 622.4000244140625,
+            "scale": 1
+          },
+          "devicePixelRatio": 1.25
+        },
+        "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+      },
+      "error": {
+        "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 56953844\n- 24187210\n",
+        "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 56953844\n- 24187210\n\n    at focus (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:14:256)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async click (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:20:5)\n    at async module.exports (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:62:5)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:235:9"
+      },
+      "focusFailure": {
+        "hwnd": 24187210,
+        "foreground": 56953844,
+        "ownerPid": 5008,
+        "foregroundPid": 44080,
+        "visible": true,
+        "minimized": false,
+        "focused": false,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791361619690,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    }
+  ],
+  "otherHistory": [
+    {
+      "kind": "Old 1.1.18 product defect",
+      "file": "out/qa-skin-layers119-baseline-black-orange-3c317eb9-ef46-4351-9fba-9ab066ba2718/proof.json",
+      "description": "Trusted original EXE transparent sampling changes alpha to zero; color changes and new document remain invisible."
+    },
+    {
+      "kind": "Initial warning screenshot observation insufficient",
+      "description": "Functional run complete but upper-panel screenshot did not show warning. Four themes reran and captured actual warning after scrolling. Original evidence kept."
+    },
+    {
+      "kind": "Independent diagnostic boundary expectation mismatch",
+      "file": "out/diagnose-skin-outer119/failure.txt",
+      "description": "Exact UV y=12 boundary expected y12 but actual floor y11; sample moved within texel, geometry checks passed. Not labeled product failure."
+    }
+  ],
+  "limitations": [
+    "Original proofs contain version/PID but no contemporaneous process.execPath or EXE SHA; separate post-run association is explicit.",
+    "Blue-white foreground failure saved HWND mismatch only; transparent saved owner PID5008/foreground PID44080. No definite process name or attribution.",
+    "Actual Windows125% small native DIP bounds962x623/content961x622 and physical screenshot1202x778; not strictly960x620 physical pixels.",
+    "Small-window palette and model are not all on screen at once; controls and warning are reachable by actual scrolling/clicking.",
+    "Not all body faces/view angles, Slim arm UV, touch/pen, every DPI/monitor or cross-platform tested.",
+    "GUI directly checks0% and50% opacity; tiny-opacity byte quantization covered by helper tests only.",
+    "No real Microsoft upload, server request, actual game rendering of this batch exported skin, all64x32 migrations or physical disk-full/power-loss test.",
+    "Native save destination chooser fixed to isolated directory; production renderer/canvas/IPC/PNG validator/write exercised.",
+    "Raw frame timing is capture evidence, not game or UI FPS performance qualification."
+  ]
+}

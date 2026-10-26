@@ -1,0 +1,1 @@
+{"complete":true,"directory":"E:\\KAMUCL\\out\\qa-packs118-black-orange-9ac25265-039a-4182-8923-1894ca85bf8f","theme":"black-orange"}

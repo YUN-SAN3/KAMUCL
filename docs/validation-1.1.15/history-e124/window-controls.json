@@ -1,0 +1,264 @@
+{
+  "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL window 中文 ZXrtyT",
+  "checks": [
+    {
+      "display": 2422596671,
+      "scale": 1.25,
+      "action": "button",
+      "normal": {
+        "x": 20,
+        "y": 20,
+        "width": 1102,
+        "height": 701
+      },
+      "visible": {
+        "left": 0,
+        "top": 0,
+        "right": 3840,
+        "bottom": 2100
+      }
+    },
+    {
+      "display": 2422596671,
+      "scale": 1.25,
+      "action": "caption double-click",
+      "normal": {
+        "x": 20,
+        "y": 20,
+        "width": 1102,
+        "height": 701
+      },
+      "visible": {
+        "left": 0,
+        "top": 0,
+        "right": 3840,
+        "bottom": 2100
+      }
+    },
+    {
+      "display": 2422596671,
+      "scale": 1.25,
+      "action": "system maximize",
+      "normal": {
+        "x": 20,
+        "y": 20,
+        "width": 1102,
+        "height": 701
+      },
+      "visible": {
+        "left": 0,
+        "top": 0,
+        "right": 3840,
+        "bottom": 2100
+      }
+    },
+    {
+      "display": 2457423944,
+      "scale": 1.25,
+      "action": "button",
+      "normal": {
+        "x": -3052,
+        "y": 26,
+        "width": 1102,
+        "height": 702
+      },
+      "visible": {
+        "left": -3840,
+        "top": 8,
+        "right": 0,
+        "bottom": 2108
+      }
+    },
+    {
+      "display": 2457423944,
+      "scale": 1.25,
+      "action": "caption double-click",
+      "normal": {
+        "x": -3052,
+        "y": 26,
+        "width": 1102,
+        "height": 702
+      },
+      "visible": {
+        "left": -3840,
+        "top": 8,
+        "right": 0,
+        "bottom": 2108
+      }
+    },
+    {
+      "display": 2457423944,
+      "scale": 1.25,
+      "action": "system maximize",
+      "normal": {
+        "x": -3052,
+        "y": 26,
+        "width": 1102,
+        "height": 702
+      },
+      "visible": {
+        "left": -3840,
+        "top": 8,
+        "right": 0,
+        "bottom": 2108
+      }
+    }
+  ],
+  "material": [
+    {
+      "display": 2422596671,
+      "samples": [
+        [
+          201,
+          199,
+          198
+        ],
+        [
+          238,
+          236,
+          236
+        ]
+      ],
+      "difference": 37.333333333333336,
+      "focused": true
+    },
+    {
+      "display": 2457423944,
+      "samples": [
+        [
+          202,
+          199,
+          198
+        ],
+        [
+          239,
+          236,
+          236
+        ]
+      ],
+      "difference": 37.333333333333336,
+      "focused": true
+    }
+  ],
+  "helpers": [
+    {
+      "file": "E:\\KAMUCL\\out\\main\\WindowMaterial.exe",
+      "args": [
+        "42424"
+      ],
+      "pid": 26880,
+      "output": [
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n",
+        "0\r\n"
+      ],
+      "errors": []
+    }
+  ],
+  "startupOpacity": {
+    "at": 1791272332353,
+    "opacity": 1,
+    "visible": true
+  },
+  "initialNative": {
+    "opacity": 1,
+    "hwnd": 10555014,
+    "pid": 42424,
+    "style": 2097408,
+    "startupOpacityComplete": true,
+    "listeners": [
+      {
+        "event": "blur",
+        "count": 1
+      },
+      {
+        "event": "focus",
+        "count": 3
+      },
+      {
+        "event": "close",
+        "count": 3
+      },
+      {
+        "event": "show",
+        "count": 4
+      },
+      {
+        "event": "hide",
+        "count": 4
+      },
+      {
+        "event": "minimize",
+        "count": 5
+      },
+      {
+        "event": "maximize",
+        "count": 4
+      },
+      {
+        "event": "restore",
+        "count": 6
+      },
+      {
+        "event": "closed",
+        "count": 7
+      },
+      {
+        "event": "kamucl:startup-opacity-complete",
+        "count": 2
+      },
+      {
+        "event": "unmaximize",
+        "count": 3
+      },
+      {
+        "event": "leave-full-screen",
+        "count": 1
+      },
+      {
+        "event": "resize",
+        "count": 1
+      },
+      {
+        "event": "move",
+        "count": 1
+      },
+      {
+        "event": "will-move",
+        "count": 1
+      }
+    ]
+  }
+}

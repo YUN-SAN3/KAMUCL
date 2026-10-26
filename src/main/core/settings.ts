@@ -1,11 +1,16 @@
 import { cleanDesign } from '../../shared/visualDesign'
-import { ensureDefaultGameFolder } from './defaultGameFolder'
+import { normalizeVersionCategoryState } from '../../shared/versionCategories'
+import { storedUpdateMirrorUrls, validateUpdateMirrorUrls } from '../../shared/updateMirrors'
+import { defaultGameFolder, ensureDefaultGameFolder } from './defaultGameFolder'
+import { assertMicrosoftIdentityPatch } from './microsoftIdentity'
 /**
  * 设置持久化：userData/settings.json
  */
-import { app } from 'electron'
+import { app, safeStorage } from 'electron'
 import fs from 'node:fs'
 import path from 'node:path'
+import { SettingsCredentials, publicSettingsFields, rejectSettingsCredentialInjection } from './settingsCredentials'
+import type { SettingsCredentialSnapshot } from './settingsCredentials'
 import type { Settings } from '../../shared/types'
 import { carouselImages, carouselSelection, carouselTiming } from '../../shared/appearancePolicy'
 import { normalizeSkinPalettePreferences } from '../../shared/skinPalettePreferences'
@@ -30,13 +35,46 @@ import {
 } from './appearanceAssets'
 
 let cached: Settings | null = null
+let settingsReadFailed = false
+const settingsCredentials = new SettingsCredentials(safeStorage)
 
 function settingsFile(): string {
   return path.join(app.getPath('userData'), 'settings.json')
 }
 
+/** Only this main-process getter exposes a custom service credential. */
+export function getCurseforgeApiKey(): string {
+  getSettings()
+  return settingsCredentials.read()
+}
+
+function storedSettings(settings: Settings, credentials: SettingsCredentialSnapshot): Record<string, unknown> {
+  if (credentials.legacy) throw new Error('自定义密钥尚未安全迁移，原设置文件未改动。')
+  return { ...publicSettingsFields(settings as unknown as Record<string, unknown>),
+    ...(credentials.ciphertext ? { secureCredentials: { curseforgeApiKey: credentials.ciphertext } } : {}) }
+}
+
+/** Exclusive sibling file + flush + replacement; cache/credentials commit only afterwards. */
+function writeSettingsFile(settings: Settings, credentials: SettingsCredentialSnapshot, file = settingsFile()): void {
+  const content = JSON.stringify(storedSettings(settings, credentials), null, 2)
+  const temporary = file + '.tmp'
+  let descriptor: number | undefined, owned = false
+  try {
+    fs.mkdirSync(path.dirname(file), { recursive: true })
+    descriptor = fs.openSync(temporary, 'wx', 0o600); owned = true
+    fs.writeFileSync(descriptor, content, 'utf-8')
+    fs.fsyncSync(descriptor)
+    fs.closeSync(descriptor); descriptor = undefined
+    fs.renameSync(temporary, file)
+  } catch { throw new Error('设置写入失败：无法安全替换文件；原设置已保留。') }
+  finally {
+    if (descriptor !== undefined) { try { fs.closeSync(descriptor) } catch { /* preserve primary failure */ } }
+    if (owned) { try { fs.unlinkSync(temporary) } catch { /* absent after successful replacement */ } }
+  }
+}
+
 function defaults(): Settings {
-  const gameDir = path.join(app.getPath('appData'), '.kamucl')
+  const gameDir = defaultGameFolder(app.getPath('appData'))
   return {
     gameDir,
     folders: [{ path: gameDir, name: '默认文件夹', isDefault: true }],
@@ -49,15 +87,20 @@ function defaults(): Settings {
     memoryAuto: true,
     jvmArgs: '',
     resolution: { width: 854, height: 480, mode: 'windowed', fullscreen: false },
+    rememberGameWindowSize: false,
     mirror: 'bmclapi',
     ...DEFAULT_DOWNLOAD_LIMITS,
     defaultIsolation: true,
     reduceMotion: false,
+    uiWindowAutoFit: false,
+    updateMirrorUrls: [],
     msClientId: DEFAULT_MS_CLIENT_ID,
     theme: 'transparent',
     custom: structuredClone(DEFAULT_CUSTOM_THEME),
     disabledFeatures: [],
     favoriteVersions: [],
+    versionCategories: [],
+    versionCategoryAssignments: {},
     homeLayout: structuredClone(DEFAULT_HOME_LAYOUT),
     background: structuredClone(DEFAULT_BACKGROUND),
     launchThumbnail: structuredClone(DEFAULT_LAUNCH_THUMBNAIL),
@@ -70,16 +113,18 @@ function defaults(): Settings {
 /** 配置不兼容时重置为默认（原文件先备份为 settings.backup-时间戳.json，可人工找回） */
 export function resetSettingsToDefaults(): void {
   const file = settingsFile()
-  try {
-    if (fs.existsSync(file)) {
-      const stamp = new Date().toISOString().replace(/[:.]/g, '-')
-      fs.copyFileSync(file, file.replace(/\.json$/, `.backup-${stamp}.json`))
-    }
-  } catch { /* 备份失败不阻断重置 */ }
+  const current = getSettings()
+  if (settingsReadFailed) throw new Error('原设置文件无法安全读取，重置已中止，请先保留原文件并修复配置。')
+  const credentials = settingsCredentials.prepare({})
+  if (fs.existsSync(file)) {
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-')
+    // Backups must not duplicate a legacy plaintext service credential.
+    writeSettingsFile(current, credentials, file.replace(/\.json$/, `.backup-${stamp}.json`))
+  }
   const def = defaults()
-  fs.mkdirSync(path.dirname(file), { recursive: true })
   ensureDefaultGameFolder(app.getPath('appData'), def.folders)
-  fs.writeFileSync(file, JSON.stringify(def, null, 2), 'utf-8')
+  writeSettingsFile(def, { legacy: false })
+  settingsCredentials.commit({ legacy: false })
   cached = def
 }
 
@@ -88,10 +133,20 @@ export function getSettings(): Settings {
   if (cached) return cached
   const def = defaults()
   try {
-    const raw = JSON.parse(fs.readFileSync(settingsFile(), 'utf-8')) as Partial<Settings>
+    const stored: unknown = JSON.parse(fs.readFileSync(settingsFile(), 'utf-8'))
+    if (!stored || typeof stored !== 'object' || Array.isArray(stored)) throw new Error('Invalid stored settings')
+    settingsCredentials.load(stored as Record<string, unknown>)
+    const raw = publicSettingsFields(stored as Record<string, unknown>) as Partial<Settings>
     cached = {
       ...def,
       ...raw,
+      // Existing files may contain another launcher's identity; it is never authoritative.
+      msClientId: DEFAULT_MS_CLIENT_ID,
+      curseforgeApiKeyConfigured: settingsCredentials.configured(),
+      uiWindowAutoFit: raw.uiWindowAutoFit === true,
+      updateMirrorUrls: storedUpdateMirrorUrls(raw.updateMirrorUrls),
+      rememberGameWindowSize: raw.rememberGameWindowSize === true,
+      ...normalizeVersionCategoryState(raw),
       visualDesign: cleanDesign(raw.visualDesign),
       resolution: { ...def.resolution, ...(raw.resolution ?? {}) },
       custom: {
@@ -109,7 +164,9 @@ export function getSettings(): Settings {
       folders:
         Array.isArray(raw.folders) && raw.folders.length
           ? raw.folders
-          : def.folders,
+          : raw.gameDir
+            ? [{ path: raw.gameDir, name: '默认文件夹', isDefault: true }]
+            : def.folders,
       activeFolder:
         raw.activeFolder ||
         raw.gameDir ||
@@ -136,8 +193,6 @@ export function getSettings(): Settings {
     c.resolution = resolutionValidationError(migratedResolution)
       ? def.resolution
       : migratedResolution
-    // 迁移：旧版默认 client_id（Mojang legacy 应用，不支持 device code）→ 新默认
-    if (c.msClientId === '00000000402b5328') c.msClientId = def.msClientId
     // 保证 activeFolder 指向已登记文件夹；gameDir 与 activeFolder 保持一致语义
     if (!c.folders.some((f) => f.path === c.activeFolder)) {
       c.activeFolder = c.folders.find((f) => f.isDefault)?.path ?? c.folders[0].path
@@ -147,17 +202,21 @@ export function getSettings(): Settings {
     // 将旧主题 key、旧外部背景路径和损坏资源回退一次性落盘，避免每次启动重复迁移。
     if (
       c.theme !== raw.theme ||
+      c.msClientId !== raw.msClientId ||
       c.background.image !== storedBackground ||
       c.launchThumbnail.image !== storedThumbnail
+      || Object.hasOwn(stored, 'curseforgeApiKey')
     ) {
       try {
-        fs.mkdirSync(path.dirname(settingsFile()), { recursive: true })
-        fs.writeFileSync(settingsFile(), JSON.stringify(c, null, 2), 'utf-8')
-      } catch (error) {
-        console.error('[KAMUCL] 旧外观设置迁移写入失败:', error)
+        const credentials = settingsCredentials.prepare({})
+        writeSettingsFile(c, credentials)
+        settingsCredentials.commit(credentials)
+      } catch {
+        console.error('[KAMUCL] 设置安全迁移未完成，原文件与凭据保持不变。')
       }
     }
-  } catch {
+  } catch (error) {
+    settingsReadFailed = (error as NodeJS.ErrnoException).code !== 'ENOENT'
     cached = def
   }
   try { ensureDefaultGameFolder(app.getPath('appData'), cached.folders) }
@@ -167,7 +226,13 @@ export function getSettings(): Settings {
 
 /** 合并 patch 并写盘，返回合并后的完整 Settings */
 export function saveSettings(patch: Partial<Settings>): Settings {
+  assertMicrosoftIdentityPatch(patch)
+  rejectSettingsCredentialInjection(patch as Record<string, unknown>)
+  if (Object.prototype.hasOwnProperty.call(patch, 'updateMirrorUrls')) patch = { ...patch, updateMirrorUrls: validateUpdateMirrorUrls(patch.updateMirrorUrls) }
+  if (Object.prototype.hasOwnProperty.call(patch, 'rememberGameWindowSize') && typeof patch.rememberGameWindowSize !== 'boolean') throw new Error('保存游戏窗口大小必须为开启或关闭')
+  if (Object.prototype.hasOwnProperty.call(patch, 'uiWindowAutoFit') && typeof patch.uiWindowAutoFit !== 'boolean') throw new Error('UI窗口自适应必须为开启或关闭')
   const cur = getSettings()
+  if (settingsReadFailed) throw new Error('设置写入失败：原设置文件无法安全读取，已保留原文件。')
   validateDownloadLimits({ ...cur, ...patch })
   if (
     patch.background?.fit !== undefined &&
@@ -190,9 +255,12 @@ export function saveSettings(patch: Partial<Settings>): Settings {
       cur.resolution
     )
   }
+  const credentials = settingsCredentials.prepare(patch)
   const merged: Settings = {
     ...cur,
-    ...patch,
+    ...publicSettingsFields(patch as unknown as Record<string, unknown>),
+    msClientId: DEFAULT_MS_CLIENT_ID,
+    curseforgeApiKeyConfigured: settingsCredentials.configured(credentials),
     visualDesign: cleanDesign(patch.visualDesign ?? cur.visualDesign),
     resolution: nextResolution,
     custom: {
@@ -229,13 +297,8 @@ export function saveSettings(patch: Partial<Settings>): Settings {
       ]
     }
   }
-  try {
-    fs.mkdirSync(path.dirname(settingsFile()), { recursive: true })
-    fs.writeFileSync(settingsFile()+'.tmp', JSON.stringify(merged, null, 2), 'utf-8')
-    fs.renameSync(settingsFile()+'.tmp', settingsFile())
-  } catch (error) {
-    throw new Error(`设置写入失败：${error instanceof Error ? error.message : String(error)}`)
-  }
+  writeSettingsFile(merged, credentials)
+  settingsCredentials.commit(credentials)
   cached = merged
   if (patch.downloadThreads !== undefined || patch.downloadSpeedKBps !== undefined) downloadLimiter.configure(merged)
   if (patch.launchThumbnail) {

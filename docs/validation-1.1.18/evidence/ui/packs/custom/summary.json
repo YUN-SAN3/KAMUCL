@@ -1,0 +1,1985 @@
+{
+  "complete": true,
+  "version": "1.1.18",
+  "theme": "custom",
+  "directory": "E:\\KAMUCL\\out\\qa-packs118-custom-b46b82e8-597f-487a-8860-fad1a33146ba",
+  "observations": [
+    {
+      "label": "actual focus",
+      "samples": [
+        {
+          "at": 1791357095575,
+          "value": true
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-nav=keys]",
+      "samples": [
+        {
+          "at": 1791357096012,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 328.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation keys",
+      "samples": [
+        {
+          "at": 1791357096213,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:d7d636f03de6\"]",
+      "samples": [
+        {
+          "at": 1791357096571,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 744.8187484741211,
+            "y": 194,
+            "width": 164.0124969482422,
+            "height": 40,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "instance priority text and default rows",
+      "samples": [
+        {
+          "at": 1791357096757,
+          "value": {
+            "hint": "全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。",
+            "rows": 2
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:packs-target\"]",
+      "samples": [
+        {
+          "at": 1791357096760,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 695,
+            "y": 575.5000133514404,
+            "width": 826.7999877929688,
+            "height": 52.60000228881836,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "target popup 材质包验证 § 中文 实例",
+      "samples": [
+        {
+          "at": 1791357096945,
+          "value": true
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate choose instance 材质包验证 § 中文 实例",
+      "samples": [
+        {
+          "at": 1791357096950,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 691,
+            "y": 685.0755004882812,
+            "width": 801.2000122070312,
+            "height": 43,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "selected target 材质包验证 § 中文 实例",
+      "samples": [
+        {
+          "at": 1791357097133,
+          "value": "材质包验证 § 中文 实例"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:packs-reapply\"]",
+      "samples": [
+        {
+          "at": 1791357097137,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1200.2000274658203,
+            "y": 575.5,
+            "width": 159.60000610351562,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "failed manual apply releases retry control",
+      "samples": [
+        {
+          "at": 1791357097382,
+          "value": {
+            "failed": false,
+            "ui": {
+              "disabled": true,
+              "text": "KAMUCL\nv1.1.18\n首页\n游戏版本\n资源管理\n模组\n资源包\n光影包\n录像\n投影\nMOD 面板\n服务器\n联机\n默认配置\n皮肤\n社区资源\n设置\n全部系统运行正常\n尝试打造一个方便UP主高频使用的启动器\n尝\n试\n打\n造\n一\n个\n方\n便\nU\nP\n主\n高\n频\n使\n用\n的\n启\n动\n器\n下载\n导入\n默认配置\n\n让每个世界，都保留你熟悉的操作习惯。\n\n游戏选项\n画面、控制与辅助功能\n按键配置\n0 项自定义绑定\n默认材质包\n2 个材质包\n默认材质包\n\n拖入多个 ZIP 材质包，列表靠后的包优先级更高\n\n添加材质包…\n新实例默认启用\n§6中文 A 默认包.zip\n已启用\n↑\n↓\n移除\nB with spaces.zip\n已启用\n↑\n↓\n移除\n\n全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。\n\n重新应用到实例\n\n按当前默认列表重设此实例的默认材质包选择，保留其他资源包。原文件和已复制文件保留。\n\n材质包验证 § 中文 实例\n26.2 · 独立游戏目录\n正在应用…"
+            },
+            "disk": {
+              "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+              "state": "[\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+              "copied": []
+            }
+          }
+        },
+        {
+          "at": 1791357097475,
+          "value": {
+            "failed": false,
+            "ui": {
+              "disabled": true,
+              "text": "KAMUCL\nv1.1.18\n首页\n游戏版本\n资源管理\n模组\n资源包\n光影包\n录像\n投影\nMOD 面板\n服务器\n联机\n默认配置\n皮肤\n社区资源\n设置\n全部系统运行正常\n尝试打造一个方便UP主高频使用的启动器\n尝\n试\n打\n造\n一\n个\n方\n便\nU\nP\n主\n高\n频\n使\n用\n的\n启\n动\n器\n下载\n导入\n默认配置\n\n让每个世界，都保留你熟悉的操作习惯。\n\n游戏选项\n画面、控制与辅助功能\n按键配置\n0 项自定义绑定\n默认材质包\n2 个材质包\n默认材质包\n\n拖入多个 ZIP 材质包，列表靠后的包优先级更高\n\n添加材质包…\n新实例默认启用\n§6中文 A 默认包.zip\n已启用\n↑\n↓\n移除\nB with spaces.zip\n已启用\n↑\n↓\n移除\n\n全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。\n\n重新应用到实例\n\n按当前默认列表重设此实例的默认材质包选择，保留其他资源包。原文件和已复制文件保留。\n\n材质包验证 § 中文 实例\n26.2 · 独立游戏目录\n正在应用…"
+            },
+            "disk": {
+              "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+              "state": "[\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+              "copied": []
+            }
+          }
+        },
+        {
+          "at": 1791357097571,
+          "value": {
+            "failed": false,
+            "ui": {
+              "disabled": true,
+              "text": "KAMUCL\nv1.1.18\n首页\n游戏版本\n资源管理\n模组\n资源包\n光影包\n录像\n投影\nMOD 面板\n服务器\n联机\n默认配置\n皮肤\n社区资源\n设置\n全部系统运行正常\n尝试打造一个方便UP主高频使用的启动器\n尝\n试\n打\n造\n一\n个\n方\n便\nU\nP\n主\n高\n频\n使\n用\n的\n启\n动\n器\n下载\n导入\n默认配置\n\n让每个世界，都保留你熟悉的操作习惯。\n\n游戏选项\n画面、控制与辅助功能\n按键配置\n0 项自定义绑定\n默认材质包\n2 个材质包\n默认材质包\n\n拖入多个 ZIP 材质包，列表靠后的包优先级更高\n\n添加材质包…\n新实例默认启用\n§6中文 A 默认包.zip\n已启用\n↑\n↓\n移除\nB with spaces.zip\n已启用\n↑\n↓\n移除\n\n全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。\n\n重新应用到实例\n\n按当前默认列表重设此实例的默认材质包选择，保留其他资源包。原文件和已复制文件保留。\n\n材质包验证 § 中文 实例\n26.2 · 独立游戏目录\n正在应用…"
+            },
+            "disk": {
+              "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+              "state": "[\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+              "copied": []
+            }
+          }
+        },
+        {
+          "at": 1791357097663,
+          "value": {
+            "failed": false,
+            "ui": {
+              "disabled": true,
+              "text": "KAMUCL\nv1.1.18\n首页\n游戏版本\n资源管理\n模组\n资源包\n光影包\n录像\n投影\nMOD 面板\n服务器\n联机\n默认配置\n皮肤\n社区资源\n设置\n全部系统运行正常\n尝试打造一个方便UP主高频使用的启动器\n尝\n试\n打\n造\n一\n个\n方\n便\nU\nP\n主\n高\n频\n使\n用\n的\n启\n动\n器\n下载\n导入\n默认配置\n\n让每个世界，都保留你熟悉的操作习惯。\n\n游戏选项\n画面、控制与辅助功能\n按键配置\n0 项自定义绑定\n默认材质包\n2 个材质包\n默认材质包\n\n拖入多个 ZIP 材质包，列表靠后的包优先级更高\n\n添加材质包…\n新实例默认启用\n§6中文 A 默认包.zip\n已启用\n↑\n↓\n移除\nB with spaces.zip\n已启用\n↑\n↓\n移除\n\n全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。\n\n重新应用到实例\n\n按当前默认列表重设此实例的默认材质包选择，保留其他资源包。原文件和已复制文件保留。\n\n材质包验证 § 中文 实例\n26.2 · 独立游戏目录\n正在应用…"
+            },
+            "disk": {
+              "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+              "state": "[\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+              "copied": []
+            }
+          }
+        },
+        {
+          "at": 1791357097756,
+          "value": {
+            "failed": false,
+            "ui": {
+              "disabled": true,
+              "text": "KAMUCL\nv1.1.18\n首页\n游戏版本\n资源管理\n模组\n资源包\n光影包\n录像\n投影\nMOD 面板\n服务器\n联机\n默认配置\n皮肤\n社区资源\n设置\n全部系统运行正常\n尝试打造一个方便UP主高频使用的启动器\n尝\n试\n打\n造\n一\n个\n方\n便\nU\nP\n主\n高\n频\n使\n用\n的\n启\n动\n器\n下载\n导入\n默认配置\n\n让每个世界，都保留你熟悉的操作习惯。\n\n游戏选项\n画面、控制与辅助功能\n按键配置\n0 项自定义绑定\n默认材质包\n2 个材质包\n默认材质包\n\n拖入多个 ZIP 材质包，列表靠后的包优先级更高\n\n添加材质包…\n新实例默认启用\n§6中文 A 默认包.zip\n已启用\n↑\n↓\n移除\nB with spaces.zip\n已启用\n↑\n↓\n移除\n\n全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。\n\n重新应用到实例\n\n按当前默认列表重设此实例的默认材质包选择，保留其他资源包。原文件和已复制文件保留。\n\n材质包验证 § 中文 实例\n26.2 · 独立游戏目录\n正在应用…"
+            },
+            "disk": {
+              "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+              "state": "[\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+              "copied": []
+            }
+          }
+        },
+        {
+          "at": 1791357097875,
+          "value": {
+            "failed": false,
+            "ui": {
+              "disabled": false,
+              "text": "KAMUCL\nv1.1.18\n首页\n游戏版本\n资源管理\n模组\n资源包\n光影包\n录像\n投影\nMOD 面板\n服务器\n联机\n默认配置\n皮肤\n社区资源\n设置\n全部系统运行正常\n尝试打造一个方便UP主高频使用的启动器\n尝\n试\n打\n造\n一\n个\n方\n便\nU\nP\n主\n高\n频\n使\n用\n的\n启\n动\n器\n下载\n导入\n默认配置\n\n让每个世界，都保留你熟悉的操作习惯。\n\n游戏选项\n画面、控制与辅助功能\n按键配置\n0 项自定义绑定\n默认材质包\n2 个材质包\n默认材质包\n\n拖入多个 ZIP 材质包，列表靠后的包优先级更高\n\n添加材质包…\n新实例默认启用\n§6中文 A 默认包.zip\n已启用\n↑\n↓\n移除\nB with spaces.zip\n已启用\n↑\n↓\n移除\n\n全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。\n\n重新应用到实例\n\n按当前默认列表重设此实例的默认材质包选择，保留其他资源包。原文件和已复制文件保留。\n\n材质包验证 § 中文 实例\n26.2 · 独立游戏目录\n重新应用默认材质包\n重新应用失败：合成：默认材质包实例记录写入失败\n×"
+            },
+            "disk": {
+              "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+              "state": "[\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+              "copied": [
+                "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+                "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+              ]
+            }
+          }
+        },
+        {
+          "at": 1791357097962,
+          "value": {
+            "failed": true,
+            "ui": {
+              "disabled": false,
+              "text": "KAMUCL\nv1.1.18\n首页\n游戏版本\n资源管理\n模组\n资源包\n光影包\n录像\n投影\nMOD 面板\n服务器\n联机\n默认配置\n皮肤\n社区资源\n设置\n全部系统运行正常\n尝试打造一个方便UP主高频使用的启动器\n尝\n试\n打\n造\n一\n个\n方\n便\nU\nP\n主\n高\n频\n使\n用\n的\n启\n动\n器\n下载\n导入\n默认配置\n\n让每个世界，都保留你熟悉的操作习惯。\n\n游戏选项\n画面、控制与辅助功能\n按键配置\n0 项自定义绑定\n默认材质包\n2 个材质包\n默认材质包\n\n拖入多个 ZIP 材质包，列表靠后的包优先级更高\n\n添加材质包…\n新实例默认启用\n§6中文 A 默认包.zip\n已启用\n↑\n↓\n移除\nB with spaces.zip\n已启用\n↑\n↓\n移除\n\n全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。\n\n重新应用到实例\n\n按当前默认列表重设此实例的默认材质包选择，保留其他资源包。原文件和已复制文件保留。\n\n材质包验证 § 中文 实例\n26.2 · 独立游戏目录\n重新应用默认材质包\n重新应用失败：合成：默认材质包实例记录写入失败\n×"
+            },
+            "disk": {
+              "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+              "state": "[\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+              "copied": [
+                "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+                "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+              ]
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:packs-reapply\"]",
+      "samples": [
+        {
+          "at": 1791357098322,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1200.2000274658203,
+            "y": 575.5,
+            "width": 159.60000610351562,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "real retry applies current defaults",
+      "samples": [
+        {
+          "at": 1791357098553,
+          "value": {
+            "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\"]\r\ncustom:keep\r\n",
+            "state": "{\n  \"version\": 2,\n  \"managed\": [\n    \"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\",\n    \"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"\n  ]\n}\n",
+            "copied": [
+              "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+              "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+            ]
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual window geometry 1360",
+      "samples": [
+        {
+          "at": 1791357098560,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 1361,
+                "height": 861
+              },
+              "zoom": 1,
+              "maximized": false,
+              "content": [
+                1360,
+                860
+              ]
+            },
+            "renderer": {
+              "width": 1360,
+              "height": 860,
+              "visual": {
+                "width": 1360,
+                "height": 860
+              },
+              "theme": "custom"
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:packs-target\"]",
+      "samples": [
+        {
+          "at": 1791357098563,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 694.2000122070312,
+            "y": 575.5000133514404,
+            "width": 826.7999877929688,
+            "height": 52.60000228881836,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "target popup 1.12.2 材质包备选实例",
+      "samples": [
+        {
+          "at": 1791357098738,
+          "value": true
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate choose instance 1.12.2 材质包备选实例",
+      "samples": [
+        {
+          "at": 1791357098742,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 690.2000122070312,
+            "y": 817.0572872161865,
+            "width": 801.2000122070312,
+            "height": 42.99995040893555,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "selected target 1.12.2 材质包备选实例",
+      "samples": [
+        {
+          "at": 1791357098925,
+          "value": "1.12.2 材质包备选实例"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual window geometry 960",
+      "samples": [
+        {
+          "at": 1791357099295,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 962,
+                "height": 623
+              },
+              "zoom": 1.25,
+              "maximized": false,
+              "content": [
+                961,
+                622
+              ]
+            },
+            "renderer": {
+              "width": 962,
+              "height": 622,
+              "visual": {
+                "width": 961.5999755859375,
+                "height": 622.4000244140625
+              },
+              "theme": "custom"
+            }
+          }
+        },
+        {
+          "at": 1791357099390,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 962,
+                "height": 623
+              },
+              "zoom": 1.25,
+              "maximized": false,
+              "content": [
+                961,
+                622
+              ]
+            },
+            "renderer": {
+              "width": 769,
+              "height": 498,
+              "visual": {
+                "width": 769.280029296875,
+                "height": 497.9200134277344
+              },
+              "theme": "custom"
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:packs-target\"]",
+      "samples": [
+        {
+          "at": 1791357099393,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 399.1699981689453,
+            "y": 390.63999938964844,
+            "width": 275.7799987792969,
+            "height": 52.279998779296875,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "target popup 1.12.2 材质包备选实例",
+      "samples": [
+        {
+          "at": 1791357099577,
+          "value": true
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate choose instance 1.12.2 材质包备选实例",
+      "samples": [
+        {
+          "at": 1791357099581,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 399.16998291015625,
+            "y": 328.24646949768066,
+            "width": 258.5,
+            "height": 43.00001907348633,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "selected target 1.12.2 材质包备选实例",
+      "samples": [
+        {
+          "at": 1791357099751,
+          "value": "1.12.2 材质包备选实例"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:packs-reapply\"]",
+      "samples": [
+        {
+          "at": 1791357100112,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 628.6899948120117,
+            "y": 390.6399841308594,
+            "width": 159.25999450683594,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "selected legacy instance receives old identifier format",
+      "samples": [
+        {
+          "at": 1791357100348,
+          "value": {
+            "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+            "state": "[\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+            "copied": []
+          }
+        },
+        {
+          "at": 1791357100441,
+          "value": {
+            "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+            "state": "[\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+            "copied": []
+          }
+        },
+        {
+          "at": 1791357100535,
+          "value": {
+            "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+            "state": "[\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+            "copied": []
+          }
+        },
+        {
+          "at": 1791357100630,
+          "value": {
+            "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+            "state": "[\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+            "copied": []
+          }
+        },
+        {
+          "at": 1791357100724,
+          "value": {
+            "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+            "state": "[\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+            "copied": []
+          }
+        },
+        {
+          "at": 1791357100820,
+          "value": {
+            "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]\r\nincompatibleResourcePacks:[\"Personal Legacy.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]\r\ncustom:keep\r\n",
+            "state": "{\n  \"version\": 2,\n  \"managed\": [\n    \"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\",\n    \"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"\n  ]\n}\n",
+            "copied": [
+              "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+              "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+            ]
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate disable global default §6中文 A 默认包.zip",
+      "samples": [
+        {
+          "at": 1791357100828,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 496.47998046875,
+            "y": 283.1399841308594,
+            "width": 106,
+            "height": 30,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "global default disabled through real switch",
+      "samples": [
+        {
+          "at": 1791357101025,
+          "value": [
+            {
+              "id": "29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd",
+              "name": "§6中文 A 默认包.zip",
+              "size": 389,
+              "enabled": false
+            },
+            {
+              "id": "d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229",
+              "name": "B with spaces.zip",
+              "size": 370,
+              "enabled": true
+            }
+          ]
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:packs-target\"]",
+      "samples": [
+        {
+          "at": 1791357101029,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 399.1699981689453,
+            "y": 390.63999938964844,
+            "width": 275.7799987792969,
+            "height": 52.279998779296875,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "target popup 材质包验证 § 中文 实例",
+      "samples": [
+        {
+          "at": 1791357101207,
+          "value": true
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate choose instance 材质包验证 § 中文 实例",
+      "samples": [
+        {
+          "at": 1791357101211,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 399.16998291015625,
+            "y": 140.23695373535156,
+            "width": 258.5,
+            "height": 43,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "selected target 材质包验证 § 中文 实例",
+      "samples": [
+        {
+          "at": 1791357101392,
+          "value": "材质包验证 § 中文 实例"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:packs-reapply\"]",
+      "samples": [
+        {
+          "at": 1791357101396,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 628.6899948120117,
+            "y": 390.6399841308594,
+            "width": 159.25999450683594,
+            "height": 36,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "only enabled defaults selected after explicit reapply",
+      "samples": [
+        {
+          "at": 1791357101641,
+          "value": [
+            "vanilla",
+            "file/个人 中文 § 包.zip",
+            "file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+          ]
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-nav=keys]",
+      "samples": [
+        {
+          "at": 1791357101995,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 100.47999572753906,
+            "y": 262.239990234375,
+            "width": 175.67999267578125,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation keys",
+      "samples": [
+        {
+          "at": 1791357102171,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate [data-ui=\"KeysView:d7d636f03de6\"]",
+      "samples": [
+        {
+          "at": 1791357102530,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 322.63999938964844,
+            "y": 250.97999572753906,
+            "width": 164,
+            "height": 40,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "disabled global default persists after real renderer reload",
+      "samples": [
+        {
+          "at": 1791357102714,
+          "value": [
+            {
+              "id": "29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd",
+              "name": "§6中文 A 默认包.zip",
+              "size": 389,
+              "enabled": false
+            },
+            {
+              "id": "d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229",
+              "name": "B with spaces.zip",
+              "size": 370,
+              "enabled": true
+            }
+          ]
+        }
+      ],
+      "complete": true
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "manual-failure-rollback.png",
+      "bytes": 165218,
+      "sha256": "617351603982b117b5fe46a6063251a9048ca946075d2489b0992cfb86f2a7dd",
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357098268,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357098318,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "file": "manual-controls-1360-zoom-1.png",
+      "bytes": 173267,
+      "sha256": "e8dea2a63d59f4f030814862d4e57fe20892ff400f1a6174b30a27cbea5dd36d",
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357099234,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357099285,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "file": "manual-controls-960-zoom-1.25.png",
+      "bytes": 183127,
+      "sha256": "5234d35aac2774e83f5cc44726ccaba24751eaa225a3b3a1fa3018188e4c0151",
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357100064,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357100108,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "file": "persisted-instance-priority.png",
+      "bytes": 130176,
+      "sha256": "ae245f49d85c7d3dbe2fb64ab755b76f5369424d0b878965a4701caf8fbf2c0d",
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357103023,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357103059,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    }
+  ],
+  "clicks": [
+    {
+      "label": "[data-nav=keys]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 104.39999866485596,
+        "y": 328.8000183105469,
+        "width": 183.1999969482422,
+        "height": 48,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357096012,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357096037,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:d7d636f03de6\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 744.8187484741211,
+        "y": 194,
+        "width": 164.0124969482422,
+        "height": 40,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357096572,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357096581,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:packs-target\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 695,
+        "y": 575.5000133514404,
+        "width": 826.7999877929688,
+        "height": 52.60000228881836,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357096761,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357096770,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "choose instance 材质包验证 § 中文 实例",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 691,
+        "y": 685.0755004882812,
+        "width": 801.2000122070312,
+        "height": 43,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357096951,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357096960,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:packs-reapply\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 1200.2000274658203,
+        "y": 575.5,
+        "width": 159.60000610351562,
+        "height": 36,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357097137,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357097202,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:packs-reapply\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 1200.2000274658203,
+        "y": 575.5,
+        "width": 159.60000610351562,
+        "height": 36,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357098323,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357098389,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:packs-target\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 694.2000122070312,
+        "y": 575.5000133514404,
+        "width": 826.7999877929688,
+        "height": 52.60000228881836,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357098564,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357098572,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "choose instance 1.12.2 材质包备选实例",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 690.2000122070312,
+        "y": 817.0572872161865,
+        "width": 801.2000122070312,
+        "height": 42.99995040893555,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357098743,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357098751,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:packs-target\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 399.1699981689453,
+        "y": 390.63999938964844,
+        "width": 275.7799987792969,
+        "height": 52.279998779296875,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357099395,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357099402,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "choose instance 1.12.2 材质包备选实例",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 399.16998291015625,
+        "y": 328.24646949768066,
+        "width": 258.5,
+        "height": 43.00001907348633,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357099581,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357099587,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:packs-reapply\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 628.6899948120117,
+        "y": 390.6399841308594,
+        "width": 159.25999450683594,
+        "height": 36,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357100113,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357100173,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "disable global default §6中文 A 默认包.zip",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 496.47998046875,
+        "y": 283.1399841308594,
+        "width": 106,
+        "height": 30,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357100829,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357100844,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:packs-target\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 399.1699981689453,
+        "y": 390.63999938964844,
+        "width": 275.7799987792969,
+        "height": 52.279998779296875,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357101030,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357101038,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "choose instance 材质包验证 § 中文 实例",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 399.16998291015625,
+        "y": 140.23695373535156,
+        "width": 258.5,
+        "height": 43,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357101212,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357101218,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:packs-reapply\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 628.6899948120117,
+        "y": 390.6399841308594,
+        "width": 159.25999450683594,
+        "height": 36,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357101396,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357101470,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-nav=keys]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 100.47999572753906,
+        "y": 262.239990234375,
+        "width": 175.67999267578125,
+        "height": 48,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357101996,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357102004,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    },
+    {
+      "label": "[data-ui=\"KeysView:d7d636f03de6\"]",
+      "point": {
+        "exists": true,
+        "disabled": false,
+        "inert": false,
+        "x": 322.63999938964844,
+        "y": 250.97999572753906,
+        "width": 164,
+        "height": 40,
+        "hit": true,
+        "viewport": true
+      },
+      "before": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357102531,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 15864384,
+        "foreground": 15864384,
+        "ownerPid": 11184,
+        "foregroundPid": 11184,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791357102535,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      }
+    }
+  ],
+  "classification": "Actual owned Windows portable UI, foreground-checked coordinate input and real production ZIP/configuration writes. Private metadata-only client JAR fixtures are never launched. A single synthetic filesystem failure exercises production rollback and the real retry control; no game-screen acceptance.",
+  "identity": {
+    "pid": 11184,
+    "ppid": 19492,
+    "windowId": 1,
+    "webContentsId": 1,
+    "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HDwSnH\\profile"
+  },
+  "nativeFocus": {
+    "hwnd": 15864384,
+    "pid": 11184,
+    "before": 15864384,
+    "simpleSet": true,
+    "attached": false,
+    "detached": null,
+    "after": 15864384
+  },
+  "initialWindow": {
+    "bounds": {
+      "x": 855,
+      "y": 409,
+      "width": 1362,
+      "height": 863
+    },
+    "zoom": 1,
+    "maximized": false,
+    "content": [
+      1361,
+      862
+    ]
+  },
+  "fixtures": {
+    "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HDwSnH\\packs118-fixtures-fc45a317-cb27-4169-8654-0c320e81c98c",
+    "games": [
+      "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HDwSnH\\games\\versions\\材质包验证 § 中文 实例",
+      "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HDwSnH\\games\\versions\\1.12.2 材质包备选实例"
+    ],
+    "ids": [
+      "材质包验证 § 中文 实例",
+      "1.12.2 材质包备选实例"
+    ],
+    "sources": [
+      {
+        "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HDwSnH\\packs118-fixtures-fc45a317-cb27-4169-8654-0c320e81c98c\\§6中文 A 默认包.zip",
+        "sha256": "29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd"
+      },
+      {
+        "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HDwSnH\\packs118-fixtures-fc45a317-cb27-4169-8654-0c320e81c98c\\B with spaces.zip",
+        "sha256": "d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229"
+      }
+    ],
+    "names": [
+      "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+      "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+    ],
+    "personal": [
+      "file/个人 中文 § 包.zip",
+      "Personal Legacy.zip"
+    ]
+  },
+  "before": [
+    {
+      "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+      "state": "[\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+      "copied": []
+    },
+    {
+      "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+      "state": "[\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+      "copied": []
+    }
+  ],
+  "popup": {
+    "body": true,
+    "top": 63.08589172363281,
+    "bottom": 358.3658905029297,
+    "left": 261.2799987792969,
+    "right": 537.0599975585938,
+    "height": 498,
+    "width": 769
+  },
+  "failureSetup": {
+    "owned": true,
+    "target": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HDwSnH\\games\\versions\\材质包验证 § 中文 实例\\.kamucl-default-resourcepacks.json"
+  },
+  "failureRecovery": {
+    "failed": true,
+    "ui": {
+      "disabled": false,
+      "text": "KAMUCL\nv1.1.18\n首页\n游戏版本\n资源管理\n模组\n资源包\n光影包\n录像\n投影\nMOD 面板\n服务器\n联机\n默认配置\n皮肤\n社区资源\n设置\n全部系统运行正常\n尝试打造一个方便UP主高频使用的启动器\n尝\n试\n打\n造\n一\n个\n方\n便\nU\nP\n主\n高\n频\n使\n用\n的\n启\n动\n器\n下载\n导入\n默认配置\n\n让每个世界，都保留你熟悉的操作习惯。\n\n游戏选项\n画面、控制与辅助功能\n按键配置\n0 项自定义绑定\n默认材质包\n2 个材质包\n默认材质包\n\n拖入多个 ZIP 材质包，列表靠后的包优先级更高\n\n添加材质包…\n新实例默认启用\n§6中文 A 默认包.zip\n已启用\n↑\n↓\n移除\nB with spaces.zip\n已启用\n↑\n↓\n移除\n\n全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。\n\n重新应用到实例\n\n按当前默认列表重设此实例的默认材质包选择，保留其他资源包。原文件和已复制文件保留。\n\n材质包验证 § 中文 实例\n26.2 · 独立游戏目录\n重新应用默认材质包\n重新应用失败：合成：默认材质包实例记录写入失败\n×"
+    },
+    "disk": {
+      "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\"]\r\ncustom:keep\r\n",
+      "state": "[\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]",
+      "copied": [
+        "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+        "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+      ]
+    }
+  },
+  "failureRestored": {
+    "complete": true,
+    "records": [
+      {
+        "source": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HDwSnH\\games\\versions\\材质包验证 § 中文 实例\\.kamucl-default-resourcepacks.json.kamucl-write-b8e704df-c6da-4dc0-a62c-8caea6e0c3fb.tmp",
+        "dest": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HDwSnH\\games\\versions\\材质包验证 § 中文 实例\\.kamucl-default-resourcepacks.json",
+        "synthetic": true
+      }
+    ]
+  },
+  "retry": {
+    "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\"]\r\ncustom:keep\r\n",
+    "state": "{\n  \"version\": 2,\n  \"managed\": [\n    \"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\",\n    \"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"\n  ]\n}\n",
+    "copied": [
+      "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+      "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+    ]
+  },
+  "layouts": [
+    {
+      "config": {
+        "width": 1360,
+        "height": 860,
+        "zoom": 1
+      },
+      "geometry": {
+        "native": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 1361,
+            "height": 861
+          },
+          "zoom": 1,
+          "maximized": false,
+          "content": [
+            1360,
+            860
+          ]
+        },
+        "renderer": {
+          "width": 1360,
+          "height": 860,
+          "visual": {
+            "width": 1360,
+            "height": 860
+          },
+          "theme": "custom"
+        }
+      },
+      "layout": {
+        "viewport": {
+          "width": 1360,
+          "height": 860
+        },
+        "box": {
+          "left": 260,
+          "right": 1300
+        },
+        "elements": [
+          {
+            "id": "KeysView:packs-target",
+            "left": 280.8000183105469,
+            "right": 1107.6000061035156,
+            "width": 826.7999877929688,
+            "height": 52.60000228881836,
+            "visible": true
+          },
+          {
+            "id": "KeysView:packs-reapply",
+            "left": 1119.5999755859375,
+            "right": 1279.1999816894531,
+            "width": 159.60000610351562,
+            "height": 36,
+            "visible": true
+          }
+        ]
+      }
+    },
+    {
+      "config": {
+        "width": 960,
+        "height": 620,
+        "zoom": 1.25
+      },
+      "geometry": {
+        "native": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 962,
+            "height": 623
+          },
+          "zoom": 1.25,
+          "maximized": false,
+          "content": [
+            961,
+            622
+          ]
+        },
+        "renderer": {
+          "width": 769,
+          "height": 498,
+          "visual": {
+            "width": 769.280029296875,
+            "height": 497.9200134277344
+          },
+          "theme": "custom"
+        }
+      },
+      "layout": {
+        "viewport": {
+          "width": 769,
+          "height": 498
+        },
+        "box": {
+          "left": 240.63999938964844,
+          "right": 728.9599761962891
+        },
+        "elements": [
+          {
+            "id": "KeysView:packs-target",
+            "left": 261.2799987792969,
+            "right": 537.0599975585938,
+            "width": 275.7799987792969,
+            "height": 52.279998779296875,
+            "visible": true
+          },
+          {
+            "id": "KeysView:packs-reapply",
+            "left": 549.0599975585938,
+            "right": 708.3199920654297,
+            "width": 159.25999450683594,
+            "height": 36,
+            "visible": true
+          }
+        ]
+      }
+    }
+  ],
+  "legacy": {
+    "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]\r\nincompatibleResourcePacks:[\"Personal Legacy.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]\r\ncustom:keep\r\n",
+    "state": "{\n  \"version\": 2,\n  \"managed\": [\n    \"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\",\n    \"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"\n  ]\n}\n",
+    "copied": [
+      "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+      "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+    ]
+  },
+  "globalControls": [
+    {
+      "ariaLabel": "启用材质包 §6中文 A 默认包.zip",
+      "checked": true,
+      "disabled": false,
+      "labelId": "KeysView:8de22abf738d"
+    },
+    {
+      "ariaLabel": "启用材质包 B with spaces.zip",
+      "checked": true,
+      "disabled": false,
+      "labelId": "KeysView:8de22abf738d"
+    }
+  ],
+  "disabledReapply": [
+    "vanilla",
+    "file/个人 中文 § 包.zip",
+    "file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+  ],
+  "persistedDefaults": [
+    {
+      "id": "29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd",
+      "name": "§6中文 A 默认包.zip",
+      "size": 389,
+      "enabled": false
+    },
+    {
+      "id": "d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229",
+      "name": "B with spaces.zip",
+      "size": 370,
+      "enabled": true
+    }
+  ],
+  "final": [
+    {
+      "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"file/个人 中文 § 包.zip\",\"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]\r\nincompatibleResourcePacks:[\"file/个人 中文 § 包.zip\"]\r\ncustom:keep\r\n",
+      "state": "{\n  \"version\": 2,\n  \"managed\": [\n    \"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\",\n    \"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"\n  ]\n}\n",
+      "copied": [
+        "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+        "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+      ]
+    },
+    {
+      "options": "﻿lang:zh_cn\r\n\r\nresourcePacks:[\"vanilla\",\"Personal Legacy.zip\",\"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]\r\nincompatibleResourcePacks:[\"Personal Legacy.zip\",\"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"]\r\ncustom:keep\r\n",
+      "state": "{\n  \"version\": 2,\n  \"managed\": [\n    \"KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"file/KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip\",\n    \"KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\",\n    \"file/KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip\"\n  ]\n}\n",
+      "copied": [
+        "KAMUCL-default-29c9e89080136bc3cf22616f4c75ed63b823edc7f45b76ee0f7946f191e8f2bd-§6中文 A 默认包.zip",
+        "KAMUCL-default-d9e503b151df8999a3c95d6984759f921c0627ef5d9ba14399d65b44c625c229-B with spaces.zip"
+      ]
+    }
+  ],
+  "ownedAppMetricsBeforeClose": [
+    {
+      "pid": 11184,
+      "type": "Browser"
+    },
+    {
+      "pid": 48876,
+      "type": "GPU"
+    },
+    {
+      "pid": 7664,
+      "type": "Utility"
+    },
+    {
+      "pid": 23176,
+      "type": "Tab"
+    }
+  ]
+}

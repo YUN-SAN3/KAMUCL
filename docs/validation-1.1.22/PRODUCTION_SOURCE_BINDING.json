@@ -1,0 +1,18 @@
+{
+  "version": "1.1.22",
+  "windowsProductSource": "eacc2a4e43b3f32bd5699bd89db58f30384cb77a",
+  "windowsActualBuildCheckout": "56a761b528e6eb1511d7c0980461016ba17a72f7 plus then-uncommitted implementation subsequently committed as eacc2a4e",
+  "windowsBuildClassification": "Build before first implementation commit; source association is a retrospective Git and packaged-byte comparison. No contemporaneous prebuild capture is claimed.",
+  "macBuildSource": "48f2161292850fcf5c6ecdcc41a2517b766796e9",
+  "secondCommitChanges": "Only packaging scripts, QA, workflow preparation and audit document. Runtime src/package/lock/theme/assets unchanged from eacc2a4e.",
+  "windowsRuntime": "44.3.0 original installed distribution, matching actual runtime tests; custom electronDist used after repeated download stalled",
+  "windowsAsarSHA256": "5da49ae0aa8b28c3a6d3d24ef6f74050d356fe32a0a0460c95286aba4c7a3ea4",
+  "fullTests": {
+    "total": 1694,
+    "passed": 1693,
+    "failed": 0,
+    "skipped": 1,
+    "scope": "Final immutable observer and implementation; full r4 exact output retained"
+  },
+  "publicReleaseVerified": false
+}

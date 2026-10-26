@@ -1,0 +1,447 @@
+{
+  "version": "1.1.21",
+  "projection": true,
+  "originalInternalManifestSHA256": "0ec113a2a5351609672c877f8faf86539c168f9d2787746b0f2867370d295ef5",
+  "reviewer": "updater121",
+  "rows": [
+    {
+      "file": "evidence/windows-normal-blue.png",
+      "bytes": 68500,
+      "sha256": "c4f843835856063781a63ea37cd235cd74dc5c60e7253979c3f22e5b0910a2d7",
+      "caption": "UI: small normal settings and personalization entry",
+      "dimensions": [
+        960,
+        620
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "bbf3deea9049bda7487e8a606ca78511d6d0a5ce603b6a87bd975cf8344bd775",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-editor-fit-dark.png",
+      "bytes": 70192,
+      "sha256": "f9a35d5bd10f4d930fb8da2ea757eed15a98d68a598d29eac6d60775514908f0",
+      "caption": "UI: small editor fit, actual navigation/layout",
+      "dimensions": [
+        960,
+        620
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "2ee44b500a526e0b182c1e69d99dbee6ad194e625f92de8a0d58866fff12e658",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-editor-save-failure.png",
+      "bytes": 127857,
+      "sha256": "c9ef6f98fb9fbf9180f28623e8d89a2de65f576324133aae13e6a48950a2db5f",
+      "caption": "UI: injected150ms save failure, draft retained; fixture error text",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "ba546425d2cbda4e3fe6ef4e4de30600e5fc655513872f78c88bb6274bb68bc3",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-alpha-zero.png",
+      "bytes": 78919,
+      "sha256": "348fc899a768293afcc1ca9b487503ccfda6b3a8e60c8e6a4dec08a201759f08",
+      "caption": "UI: controlled selected component background alpha0 endpoint",
+      "dimensions": [
+        960,
+        620
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "138ce2d00b05df47c0a514baff3c12ff26b053e5fc1b35ccdcd1d236e754722e",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-alpha-full.png",
+      "bytes": 77395,
+      "sha256": "f13d728b3cf4283894c21cd9661062d72fb6476cadaf3259ef77aac90b82578e",
+      "caption": "UI: controlled selected component background alpha100 endpoint; synthetic black text/background is a test choice, not default styling",
+      "dimensions": [
+        960,
+        620
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "138ce2d00b05df47c0a514baff3c12ff26b053e5fc1b35ccdcd1d236e754722e",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-normal-purple.png",
+      "bytes": 60103,
+      "sha256": "04088e816c020037f6b9e6b7fa88044bff66656356e5428a9453ac0f788d50a3",
+      "caption": "UI: default black-purple, saved synthetic legacy design and restored navigation",
+      "dimensions": [
+        960,
+        620
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "8fc970fa14636e71eb751a70df93ea0b56a27298300ecf8941a9434ee484de1b",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-normal-custom.png",
+      "bytes": 63954,
+      "sha256": "4bd1d59152f36ae69cd6aa7fa4d037f9eed929c9b131940c5ac19d41a7b26df3",
+      "caption": "UI: valid synthetic green custom palette and saved layout",
+      "dimensions": [
+        960,
+        620
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "035f721fe43e542da9f8c3346acc18bd70b8e652e18653ae627a9b9a018e5e00",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-update-sources.png",
+      "bytes": 81145,
+      "sha256": "e6ff138adc8273eece1f18dd6fb667b6b769c01c12fbed198e1b2b729934c78b",
+      "caption": "UI: preset mirrors and reserved legacy.example.test fixture URL; built-in public app group contact remains visible",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "cf73c9c86edc35f6a2137b29b0e4f95eb2baa9fbf62f2e5c49737f55395bc8cc",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-update-save-failure.png",
+      "bytes": 93634,
+      "sha256": "6c43b353f37b4a1324b2c40f9f28fbecbbf5e07dd225c8a4f39d85ce82a4fdbb",
+      "caption": "UI: injected150ms legacy remove failure retains row/focus; HTTP unsafe.test is prior invalid input, not saved setting",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "cf73c9c86edc35f6a2137b29b0e4f95eb2baa9fbf62f2e5c49737f55395bc8cc",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-server-version-list.png",
+      "bytes": 110432,
+      "sha256": "f6f138d0503acadbd1995ca5d321fd400ec272c35d3ba4dd7ec7255efc53e00d",
+      "caption": "UI: synthetic server records; every address masked; selected metadata version26.1.2/Fabric0.19.3",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "cf73c9c86edc35f6a2137b29b0e4f95eb2baa9fbf62f2e5c49737f55395bc8cc",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-server-version-metadata.png",
+      "bytes": 91959,
+      "sha256": "7b2dfcb752fb181dbe69e7102b97f76cb8c4428c63a035c96cca9e29e37f2c27",
+      "caption": "UI: synthetic server records and target association; all addresses masked",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "3bc4474200bfb193ecc54c597f3650918c2dd782bc32b9d06b30b2f7e984dd55",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-community-queue.png",
+      "bytes": 72417,
+      "sha256": "c13d174f2eaf86aa0cb246dcea01fc50b367ee7e09f09b11dc4a5605e7df3e09",
+      "caption": "UI: controlled community queue, synthetic E:/KAMUCL/out games path and example JAR names; no live service transfer",
+      "dimensions": [
+        960,
+        620
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "43c62c47d41680536032e925be3afcd291f6068f828da7f394f3384ebafb7b5e",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-community121-ui.cjs",
+          "sha256": "cfb410311d40f92d7e5db10a3ce391f2e42b4e7f6bc142405ba3e1a6db450a56"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/windows-community-dependencies.png",
+      "bytes": 61555,
+      "sha256": "42244e15e77df6f8f470862383f2b542d3a60dcaab03684e869e89f4314068c2",
+      "caption": "UI: controlled explicit dependency confirmation with synthetic path; no public installer qualification",
+      "dimensions": [
+        960,
+        620
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "43c62c47d41680536032e925be3afcd291f6068f828da7f394f3384ebafb7b5e",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-community121-ui.cjs",
+          "sha256": "cfb410311d40f92d7e5db10a3ce391f2e42b4e7f6bc142405ba3e1a6db450a56"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/fixture-codec.png",
+      "bytes": 136,
+      "sha256": "d49ebe33e700211875f898a924ae3fecc34d08bc34cc06cf255737072c1145a0",
+      "caption": "Synthetic32x24 native-codec input; not a UI screenshot or user image",
+      "dimensions": [
+        32,
+        24
+      ],
+      "format": "PNG",
+      "originalProofSHA256": "138ce2d00b05df47c0a514baff3c12ff26b053e5fc1b35ccdcd1d236e754722e",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/fixture-codec.jpg",
+      "bytes": 275,
+      "sha256": "f64965e406b16a6252eeee1d99e8fccf81afd990ad733f0ab8397217d0652922",
+      "caption": "Synthetic32x24 native-codec input; not a UI screenshot or user image",
+      "dimensions": [
+        32,
+        24
+      ],
+      "format": "JPEG",
+      "originalProofSHA256": "138ce2d00b05df47c0a514baff3c12ff26b053e5fc1b35ccdcd1d236e754722e",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    },
+    {
+      "file": "evidence/fixture-codec.webp",
+      "bytes": 80,
+      "sha256": "1bfec4f400b27071f4e15c1637ef18c3097a0d1998d46d180d6cf226dbead37d",
+      "caption": "Synthetic32x24 native-codec input; not a UI screenshot or user image",
+      "dimensions": [
+        32,
+        24
+      ],
+      "format": "WEBP",
+      "originalProofSHA256": "138ce2d00b05df47c0a514baff3c12ff26b053e5fc1b35ccdcd1d236e754722e",
+      "manualPrivacyReviewed": true,
+      "pixelBytesUnchanged": true,
+      "qualification": "Manually reviewed original-byte synthetic Windows offscreen fixture representatives. Not raw desktop/nativeDWM or real user/game/server assets.",
+      "executedQACommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "executedSourceFiles": [
+        {
+          "file": "scripts/verify-appearance-121-ui.cjs",
+          "sha256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e"
+        },
+        {
+          "file": "scripts/qa-fixture-ui121.cjs",
+          "sha256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0"
+        }
+      ],
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0"
+    }
+  ],
+  "uiRepresentatives": 13,
+  "syntheticCodecFiles": 3,
+  "allCopiedOriginalBytesMatched": true,
+  "allDecoded": true,
+  "nativeDesktopCopiesPublished": false,
+  "qualification": "Only these16 selected synthetic fixture pixel originals were manually reviewed for privacy. No crop/retouch/resize; no real user/profile paths or private receipts are copied; synthetic disposable test directories may be visible. Other private/native captures retain hashes separately and are not inferred privacy-free. Not an all-frame human/FPS/audio review.",
+  "representativeSourceQualification": "These unchanged representative originals belong to earlier8e QA: appearance driver865a5e/helper22c509 and community drivercfb410/helper22c509. They are not captures from the later a844 driver441977/helper58e9 or Darwin-only7528 follow-up. Each original proof and executed source hash stays separate from the new scores and matrix."
+}

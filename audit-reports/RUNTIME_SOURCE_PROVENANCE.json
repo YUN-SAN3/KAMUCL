@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "archives": [
+    {
+      "file": "chromium-ffmpeg-2b68d2babae73714846961fb0ee47e3b3d2e39a9.tar.gz",
+      "url": "https://chromium.googlesource.com/chromium/third_party/ffmpeg/+archive/2b68d2babae73714846961fb0ee47e3b3d2e39a9.tar.gz",
+      "bytes": 18819576,
+      "sha256": "39cd52054cea63d91fc7d4ed96986f38d687567a41cd13bb528b7f73ebfe2458",
+      "executed": false,
+      "component": "Chromium FFmpeg",
+      "revision": "2b68d2babae73714846961fb0ee47e3b3d2e39a9",
+      "via": "Electron44.3.0 DEPS -> Chromium152.0.7977.78 DEPS ffmpeg_revision"
+    },
+    {
+      "file": "electron-44.3.0-source.tar.gz",
+      "url": "https://codeload.github.com/electron/electron/tar.gz/refs/tags/v44.3.0",
+      "bytes": 19645723,
+      "sha256": "2b35855d20224be5a02f8588c3de74b3e5d06bba49a4bad382c238790c7198d9",
+      "executed": false,
+      "component": "Electron",
+      "version": "44.3.0",
+      "purpose": "Pinned release source including DEPS, runtime build args and patches/ffmpeg; not full Chromium graph",
+      "resolvedCommit": "07e460719c75b2ec5ee4893f7d2192ef31c7b8c2"
+    }
+  ],
+  "extractedStaticMaterial": [
+    {
+      "path": "COPYING.LGPLv2.1",
+      "present": true,
+      "bytes": 26517,
+      "sha256": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30"
+    },
+    {
+      "path": "COPYING.LGPLv3",
+      "present": true,
+      "bytes": 7651,
+      "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+    },
+    {
+      "path": "LICENSE.md",
+      "present": true,
+      "bytes": 4346,
+      "sha256": "2e1d16c72fd74e12063776371da757322f8b77589386532f4fd8634bde7de1af"
+    },
+    {
+      "path": "BUILD.gn",
+      "present": true,
+      "bytes": 15960,
+      "sha256": "30e75bd4fbff5145ccc7b28800566a6ec788300cc579d85282ec4380333cc45f"
+    },
+    {
+      "path": "chromium/scripts/build_ffmpeg.py",
+      "present": false
+    },
+    {
+      "path": "chromium/scripts/generate_gn.py",
+      "present": false
+    },
+    {
+      "path": "chromium/config/Chrome/win/x64/config.h",
+      "present": true,
+      "bytes": 25773,
+      "sha256": "4c935fe035611b9e72376de36a49539cc6a915f4cc22aeefa76c4f972193de60",
+      "gplOptions": [
+        "#define CONFIG_GPL 0",
+        "#define CONFIG_NONFREE 0",
+        "#define CONFIG_VERSION3 0",
+        "#define CONFIG_GPLV3 0"
+      ]
+    },
+    {
+      "path": "chromium/config/Chrome/mac/arm64/config.h",
+      "present": true,
+      "bytes": 26838,
+      "sha256": "b026515f35cf30ef11411ce45d9e9e9a3311cae9e98ede89cae585962e27931d",
+      "gplOptions": [
+        "#define CONFIG_GPL 0",
+        "#define CONFIG_NONFREE 0",
+        "#define CONFIG_VERSION3 0",
+        "#define CONFIG_GPLV3 0"
+      ]
+    },
+    {
+      "path": "chromium/config/Chrome/mac/x64/config.h",
+      "present": true,
+      "bytes": 26736,
+      "sha256": "75300e71e4d25bf04f335cff1577c6e329973c762bd75a93e82962e8022dbbb9",
+      "gplOptions": [
+        "#define CONFIG_GPL 0",
+        "#define CONFIG_NONFREE 0",
+        "#define CONFIG_VERSION3 0",
+        "#define CONFIG_GPLV3 0"
+      ]
+    },
+    {
+      "path": "electron/DEPS",
+      "present": true,
+      "bytes": 8471,
+      "sha256": "4e085aab8814858a185f375dcff128be228e6d0a88e05a15ad79a75942a084d6"
+    },
+    {
+      "path": "electron/build/args/all.gn",
+      "present": true,
+      "bytes": 3900,
+      "sha256": "5ef3dcead9ec7d5a5b556d7db92ab6a40166801913298702250a455fd244388d"
+    },
+    {
+      "path": "electron/build/args/ffmpeg.gn",
+      "present": true,
+      "bytes": 195,
+      "sha256": "17335efaaf176bdbc1e329206ff610591b7fab0082b6ff267d567416d7611327"
+    },
+    {
+      "path": "electron/build/args/release.gn",
+      "present": true,
+      "bytes": 902,
+      "sha256": "b4490cee911e0ed136a6d095c69a7914cb3f4aa2d5517e3f987a2b5f45d3cd56"
+    },
+    {
+      "path": "electron/docs/development/build-instructions-gn.md",
+      "present": true,
+      "bytes": 14271,
+      "sha256": "8f32a0b64d1ccf87b474fd8f9455b853a45278cb7a95c45a768ef153e4ffa97c"
+    },
+    {
+      "path": "electron/patches/config.json",
+      "present": true,
+      "bytes": 1335,
+      "sha256": "08aa50304d789950aea678e6cb334e1864658f2960dbae511eda5f057fc0bd9d"
+    },
+    {
+      "path": "electron/patches/ffmpeg/.patches",
+      "present": true,
+      "bytes": 28,
+      "sha256": "eb2ff86699f3aa0f6ac1b484a8c8a117a3149465273699e136e132024e38e7c6"
+    },
+    {
+      "path": "electron/patches/ffmpeg/link_with_loader_path.patch",
+      "present": true,
+      "bytes": 1219,
+      "sha256": "bc6cdc29ad4ec2641dd59b4c3a25375b9166c35e202e5122cb73190885ec647d"
+    }
+  ],
+  "limitations": [
+    "Full Chromium dependency graph not bundled; Chromium notice list is not a list of all actual shipped components.",
+    "No FFmpeg or Electron source built or executed.",
+    "Archive plus Electron FFmpeg patches/build metadata supports inspection/rebuilding of matched library; no byte-identical compiler reproduction asserted."
+  ],
+  "electronCommit": "07e460719c75b2ec5ee4893f7d2192ef31c7b8c2",
+  "chromiumVersion": "152.0.7977.78",
+  "ffmpegRevision": "2b68d2babae73714846961fb0ee47e3b3d2e39a9",
+  "buildMaterial": [
+    {
+      "path": "media/ffmpeg/scripts/build_ffmpeg.py",
+      "url": "https://chromium.googlesource.com/chromium/src/+/refs/tags/152.0.7977.78/media/ffmpeg/scripts/build_ffmpeg.py?format=TEXT",
+      "bytes": 42542,
+      "sha256": "14fa3b55ececcb4182052bbf0309bff8c66dc03656e49b40938b1033e11fafe1",
+      "present": true
+    },
+    {
+      "path": "media/ffmpeg/scripts/generate_gn.py",
+      "url": "https://chromium.googlesource.com/chromium/src/+/refs/tags/152.0.7977.78/media/ffmpeg/scripts/generate_gn.py?format=TEXT",
+      "bytes": 40547,
+      "sha256": "c6613144fb5138fa583d329e79c43c4044236b08aefba60bd74bbb03a0f8c26f",
+      "present": true
+    },
+    {
+      "path": "media/ffmpeg/scripts/robo_lib/config.py",
+      "url": "https://chromium.googlesource.com/chromium/src/+/refs/tags/152.0.7977.78/media/ffmpeg/scripts/robo_lib/config.py?format=TEXT",
+      "bytes": 13439,
+      "sha256": "610b0900c1c23c5f637a973bde2c292e9043eda763f8bfac12cdddcab181c8e8",
+      "present": true
+    },
+    {
+      "path": "build/config/compiler/BUILD.gn",
+      "url": "https://chromium.googlesource.com/chromium/src/+/refs/tags/152.0.7977.78/build/config/compiler/BUILD.gn?format=TEXT",
+      "bytes": 117301,
+      "sha256": "ff7ee114ac19a30ce52ca6911be24d3a7d9d4820fc55d7b02639c114742d66c9",
+      "present": true
+    },
+    {
+      "url": "https://chromium.googlesource.com/chromium/deps/nasm/+/525a09a813be0f75b646ee93fc2a31c27b87d722/nasm_assemble.gni?format=TEXT",
+      "file": "out/audit122-ffmpeg/runtime-source/chromium-build-material/third_party/nasm/nasm_assemble.gni",
+      "bytes": 6288,
+      "sha256": "f19475e0317263e15b6c028732f2638d1e024046931fdb55434ec73f7e73992d"
+    }
+  ]
+}

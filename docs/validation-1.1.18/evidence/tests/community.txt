@@ -1,0 +1,1 @@
+{"complete":true,"directory":"E:\\KAMUCL\\out\\qa-ux116-black-orange-1e79b999-97a9-4e29-83e7-eb8e845d69a8","theme":"black-orange"}

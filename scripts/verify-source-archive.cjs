@@ -1,5 +1,5 @@
 // Verify the exact shipped source archive, then build from a fresh extraction.
-const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{execFileSync,spawnSync}=require('node:child_process'),Zip=require('adm-zip')
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{spawnSync}=require('node:child_process'),Zip=require('adm-zip')
 const root=path.resolve(__dirname,'..'),version=require('../package.json').version
 const archive=path.resolve(process.argv[2]||path.join(root,`release/KAMUCL-${version}-source.zip`))
 const directory=path.join(root,'out','source-audit-'+version+'-'+crypto.randomUUID())
@@ -34,11 +34,11 @@ try{
   if(!entry||((entry.attr>>>16)&0o170000)===0o120000||!bytes||bytes.length!==item.size||sha(bytes)!==item.sha256)throw Error('Source checksum or member type mismatch: '+item.path)
   if(['','.ts','.js','.cjs','.mjs','.json','.md','.java','.vue','.py','.yml','.yaml','.txt','.sh'].includes(ext)&&bytes.length<2000000&&secrets.some(pattern=>pattern.test(bytes.toString('utf8'))))throw Error('Potential secret: '+item.path)
  }
- const tracked=execFileSync('git',['ls-files','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean)
- if(tracked.length!==listed.size||tracked.some(n=>!listed.has(n)))throw Error('Source archive does not match tracked build inputs')
- if(execFileSync('git',['diff','--name-only','-z','HEAD','--'],{cwd:root,encoding:'utf8'}))throw Error('Commit tracked source before auditing delivery')
- for(const item of manifest.files)if(sha(fs.readFileSync(path.join(root,item.path)))!==item.sha256)throw Error('Archive differs from the committed worktree: '+item.path)
- Object.assign(proof,{archiveSHA256:sha(fs.readFileSync(archive)),commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),files:listed.size,membershipAndHashes:true})
+ const committed=require('./committed-source.cjs').readCommittedSource(root)
+ if(manifest.commit!==committed.commit||manifest.representation!=='raw-git-blobs')throw Error('Source archive must identify exact committed Git blobs')
+ if(committed.files.length!==listed.size||committed.files.some(f=>!listed.has(f.path)))throw Error('Source archive does not match committed build inputs')
+ for(const item of committed.files)if(!zip.readFile(item.path)?.equals(item.bytes))throw Error('Archive differs from the committed Git blob: '+item.path)
+ Object.assign(proof,{archiveSHA256:sha(fs.readFileSync(archive)),commit:committed.commit,files:listed.size,membershipAndHashes:true,rawGitBlobIdentity:true,representation:manifest.representation})
  fs.mkdirSync(directory,{recursive:true});zip.extractAllTo(directory,false);save()
  run('npm',['ci']);run('node',['scripts/build-bridge.cjs']);run('npx',['tsc','--noEmit']);run('npm',['run','build']);run('node',['scripts/check-licenses.cjs'])
  for(const item of manifest.files)if(sha(fs.readFileSync(path.join(directory,item.path)))!==item.sha256)throw Error('Build modified source: '+item.path)

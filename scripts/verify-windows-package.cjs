@@ -69,13 +69,26 @@ for (const name of names.filter(n => /^out\/(main|preload|renderer)\//.test(n)))
 }
 assert(!names.some(n => /^node_modules\/koffi\/(doc|lib|vendor)(\/|$)/.test(n)))
 assert(!names.some(n => /^node_modules\/undici\/docs(\/|$)/.test(n)))
-for (const required of ['out/main/modScanWorker.cjs', 'node_modules/koffi/src/koffi/index.cjs',
+for (const required of ['out/main/modScanWorker.cjs', 'out/main/projectionWorker.cjs', 'node_modules/koffi/src/koffi/index.cjs',
   'node_modules/koffi/src/koffi/src/static.cjs', 'node_modules/undici/index.js',
   'node_modules/@koromix/koffi-win32-x64/win32_x64/koffi.node',
   'LICENSE', 'THIRD_PARTY_NOTICES.md', 'licenses/LGPL-3.0.txt', 'licenses/koffi.txt']) assert(names.includes(required), required)
+// The workers and main process share the final production graph. Check every
+// relative module edge in the ASAR instead of assuming standalone workers.
+const moduleEdges = []
+for (const name of names.filter(n => /^out\/main\/[^/]+\.(js|cjs)$/.test(n))) {
+  const code = asar.extractFile(archive, name.split('/').join(path.sep)).toString()
+  for (const match of code.matchAll(/require\(["'](\.\/[^"']+\.(?:js|cjs))["']\)/g)) {
+    const target = path.posix.normalize(path.posix.join(path.posix.dirname(name), match[1]))
+    assert(names.includes(target), 'Missing production module: ' + name + ' -> ' + target)
+    moduleEdges.push({ source: name, target })
+  }
+}
+assert(moduleEdges.some(edge => edge.source === 'out/main/modScanWorker.cjs'), 'Scan worker must use the verified production graph')
+assert(moduleEdges.some(edge => edge.source === 'out/main/projectionWorker.cjs'), 'Projection worker must use the verified production graph')
 const report = { version, portable, zipped, zipRoot, files, asarSHA256: hash(fs.readFileSync(archive)),
   sizes: { exe: fs.statSync(packageFile).size,
     zip: fs.statSync(zipFile).size,
-    unpackedZip: fs.statSync(unpackedFile).size }, complete: true }
+    unpackedZip: fs.statSync(unpackedFile).size }, moduleEdges, complete: true }
 fs.writeFileSync(`out/windows-package-${version}.json`, JSON.stringify(report, null, 2))
 console.log(JSON.stringify(report, null, 2))

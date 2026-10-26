@@ -15,8 +15,13 @@ import { versionInstallHarness } from './helpers/version-install-harness'
 const sha1 = (data: Buffer) => crypto.createHash('sha1').update(data).digest('hex')
 
 for (const isolated of [true, false]) {
-  test(`Fabric API uses the final ${isolated ? 'isolated' : 'shared'} mods directory before reporting success`, async () => {
-    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'kamucl-fabric-install-'))
+  test(`Fabric API uses the final ${isolated ? 'isolated' : 'shared'} mods directory before reporting success`, async t => {
+    const createdRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'kamucl-fabric-install-'))
+    const root = fs.realpathSync.native(createdRoot)
+    const aliasStat = fs.statSync(createdRoot), canonicalStat = fs.statSync(root)
+    assert.equal(aliasStat.dev, canonicalStat.dev)
+    assert.equal(aliasStat.ino, canonicalStat.ino, 'the temporary alias and canonical root identify the same directory')
+    t.diagnostic(JSON.stringify({ temporaryRoot: createdRoot, canonicalRoot: root, device: canonicalStat.dev, inode: canonicalStat.ino }))
     const game = path.join(root, 'game'), other = path.join(root, 'other')
     const id = '自定义 Fabric 实例'
     const payload = Buffer.from('fabric-api fixture bytes')

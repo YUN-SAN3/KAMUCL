@@ -1,0 +1,955 @@
+{
+  "schemaVersion": 1,
+  "version": "1.1.9",
+  "reviewedAt": "2026-10-03T02:48:24.881Z",
+  "status": "completed-independent-windows-only-delivery-review",
+  "draft": false,
+  "complete": true,
+  "passed": true,
+  "deliveryPlatforms": [
+    "windows"
+  ],
+  "scope": "Current Windows-only delivery independent visual/interaction/motion review. complete and passed apply only to this scope.",
+  "currentDeliveryReviewAccepted": true,
+  "allPlatformsAccepted": false,
+  "overallReleaseAccepted": false,
+  "requiredEach": 9,
+  "inferUncoveredAsPass": false,
+  "scores": {
+    "visual": 9,
+    "interaction": 9.1,
+    "motion": 9
+  },
+  "scoreAggregation": "Each category independently reaches9; no average, CI outcome, native result or unseen scope substitutes for Windows observations.",
+  "criticalDefectsObserved": [],
+  "criticalDefectsScope": "Current reviewed Windows executable and frozen Windows evidence only. Deferred Mac critical findings are explicitly retained below.",
+  "reviewer": {
+    "task": "delivery_coverage",
+    "productUIOrMotionImplemented": false,
+    "priorWork": "ignored validation guards and historical evidence freezing only",
+    "GUIControlled": false,
+    "physicalHardwareListening": false
+  },
+  "userScopeChange": {
+    "statements": [
+      "暂时不输出intel arm64的mac版本",
+      "暂时不做intel arm64的mac版本"
+    ],
+    "macWorkPaused": true,
+    "scope": "Windows-only delivery; no further Mac development/build/validation or installers",
+    "source": "Direct user scope change relayed by root; exact statements retained from current candidate"
+  },
+  "productCommit": "07a1d87c0710ab070b763172d27dcf7cebd6547b",
+  "exeSHA256": "11a8f16142a0f40519adb2203a91ee7bf74b2ab35ef456729e5034a8fc0aafef",
+  "renderer": "index-rFSz7oqx.js",
+  "qaCommit": "07a1d87c0710ab070b763172d27dcf7cebd6547b",
+  "actualWindowsQACommit": "07a1d87c0710ab070b763172d27dcf7cebd6547b",
+  "motionFixCandidate": {
+    "productCommit": "07a1d87c0710ab070b763172d27dcf7cebd6547b",
+    "exeSHA256": "11a8f16142a0f40519adb2203a91ee7bf74b2ab35ef456729e5034a8fc0aafef",
+    "qaCommit": "a8496bf81efc1f815dc89b7a3e078f8b6ed89b74",
+    "qaIdentityMeaning": "Final QA/source provenance bridge only. Windows actual GUI and supplemental source receipts remain07; this does not rebind their source bytes or qualify Mac."
+  },
+  "finalSourceQACommit": "a8496bf81efc1f815dc89b7a3e078f8b6ed89b74",
+  "sourceDifference": "Windows production07a1d87c and its real GUI/PCL/portable validation remain unchanged. Subsequent QA/source a8496bf product inputs are identical. User explicitly deferred both Mac architectures; Windows-only release asset selection and delivery documentation do not change app build inputs. Original Windows GUI QA07 and PCL QA0a exact source receipts remain separately bound to the current07 executable; Mac results are historical and never Windows or global qualification.",
+  "sourceQAReference": {
+    "file": "out/mac-119-stall-attribution-final/a849-original-source/source-ledger-original.json",
+    "bytes": 4188,
+    "sha256": "27cbc11ede4745d59ecdbf5ae0ff8ba902e448a645fd335ad1c471117ec5b699",
+    "productInputEqualityDeclared": true,
+    "snapshots": [
+      {
+        "path": "scripts/mac-logo-capture-119.swift",
+        "bytes": 15263,
+        "sha256": "3b971c660c3e401f786078608748a9885d36c146ca89570b4fbe0ef2e56169c5",
+        "blob": "6f044b18c5a1b5b0ae7f3c4214c719a1d78c0b51",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/mac-logo-capture-119.swift",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/native-compositor-trace-119.cjs",
+        "bytes": 14740,
+        "sha256": "488f2d7b39e736658d3740e3115180656070beb2be48d9decd4406175f20f041",
+        "blob": "59197b6c4b03b5557de9995546b2fdaa59b963ce",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/native-compositor-trace-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/verify-kamu-native-compositor-119.cjs",
+        "bytes": 21523,
+        "sha256": "1fd55ef86804e1d876630c40eaba0aed93883a4eac6c2ec63032f8b88b8e5e54",
+        "blob": "0a645cf537e1edfb754f93c236342e31b61e1bdb",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/verify-kamu-native-compositor-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/verify-kamu-observer-aba-119.cjs",
+        "bytes": 18995,
+        "sha256": "bc6d5a188ce02b46f62e4981c6640d34f7b47d9964d60adecc0689b10441df19",
+        "blob": "d38ae5e3aca0f48d4b030ae060b8260fafda252f",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/verify-kamu-observer-aba-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/verify-mac.cjs",
+        "bytes": 31756,
+        "sha256": "50faa9f15bfc8c181c688484af36d683507bf6b52d8083881292d66d27436dc8",
+        "blob": "83f6e85f8f02809e875321071a64bb4f76f3fac6",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/verify-mac.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/verify-ui-refinement.cjs",
+        "bytes": 43415,
+        "sha256": "f1410984b1f45877f142c3955a78efd5eee3516c0a671e2f49437063fb252e6f",
+        "blob": "cea1773644d87812759f11dc36e22c4adfc7c1bc",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/verify-ui-refinement.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/qa-owned-process-119.cjs",
+        "bytes": 4322,
+        "sha256": "0e0b124d027c40e5ff4b092d024e48da8889b4d85d9737e728011e59a173d5cc",
+        "blob": "ffc2c00c5b6fa33ff062e404ed2adad72e891de6",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/qa-owned-process-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/native-cpu-profile-119.cjs",
+        "bytes": 7737,
+        "sha256": "447951dc62e245e147d8884e661888fd21435d706a7d9ebb6ad4e8a3ce95c10b",
+        "blob": "22ead868faabd6ae4266e550083eec625643441c",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/native-cpu-profile-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/native-trace-control-preflight-119.cjs",
+        "bytes": 4527,
+        "sha256": "2727dc08532fd25ce6658f74d8224695bec2af1453296f6103207e104cf68f12",
+        "blob": "eb9d3a5c8af60ef5b034eb498c53f5cfe36767d8",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/native-trace-control-preflight-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/verify-kamu-native-video-119.cjs",
+        "bytes": 19913,
+        "sha256": "6b7b07abc9a244be55fe861aebb7e0b6c05f76c01803fdeca6c6be2e7326ecb3",
+        "blob": "3f02b5f60418912fbb6905c28543fbb5f4e60d77",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/verify-kamu-native-video-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/native-video-evidence-119.cjs",
+        "bytes": 5736,
+        "sha256": "f1858e4fcb2cf5e9a04c9f7059500ba0c19fa65f45502aa5cd2d76b4725a4f1b",
+        "blob": "7f2ac9d3329392772dd0decc3b07c2ef397b4f75",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/native-video-evidence-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/verify-kamu-native-recorder-119.cjs",
+        "bytes": 14124,
+        "sha256": "a4fd8455ed543e838f78da45f3b79809d4fbb5ece49f4038c77674a946ceb2f3",
+        "blob": "936b822cf2bffc356f3bdfaf68068cb5c352d499",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/verify-kamu-native-recorder-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "scripts/verify-kamu-motion-diagnostic-119.cjs",
+        "bytes": 23166,
+        "sha256": "3b13520996581de081cde9e0bcb950f565d8c4b7281ec694f16efeb5a9bbf962",
+        "blob": "58c2b815a23cdc96bcee96ec26fd4d0de4e8ce2e",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/scripts/verify-kamu-motion-diagnostic-119.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "tests/kamu-observer-aba-119.test.cjs",
+        "bytes": 14609,
+        "sha256": "45a632e9b8b190f3a976c2077ce44511ab95c147d4001e9aaa23bcb0fad983c1",
+        "blob": "1ea436377fec1e889da83865d85c68b8487d4c27",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/tests/kamu-observer-aba-119.test.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "tests/native-compositor-trace.test.cjs",
+        "bytes": 13053,
+        "sha256": "315644e0f1e39ac1e53d6ed765a2b12ba0c8f24ccb801a3e524a895dd28ca708",
+        "blob": "7bb7ce6f58f4816fa7990bc032071c9a54acbcc1",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/tests/native-compositor-trace.test.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      },
+      {
+        "path": "tests/native-video-119.test.cjs",
+        "bytes": 12975,
+        "sha256": "c582bd0effa17193595ea54447037ed79d98843b160c9cb89f8ab2c80cfa5acc",
+        "blob": "8825d7294bf67e878eed38ff66253887340830ad",
+        "file": "out/mac-119-stall-attribution-final/a849-original-source/tests/native-video-119.test.cjs",
+        "exactCommittedBlobAndSnapshotVerified": true
+      }
+    ],
+    "classification": "Exact QA source bytes independently verified. Declared product-input equality is retained separately; it does not establish motion causality."
+  },
+  "originalWindowsReview": {
+    "file": "out/independent-download304-windows-local-review.json",
+    "bytes": 275966,
+    "sha256": "0c1444b90526e0271f7cd8a9818292d594848e1873c172477f582d8412954735"
+  },
+  "individualRatings": {
+    "visual": {
+      "score": 9,
+      "passedLocalThreshold": true,
+      "scope": "Actually viewed Windows UI screenshots in black-orange, blue-white and custom themes; current1.1.9 single-Kamu design",
+      "reason": [
+        "The skin entry is compact and placed with the title/description; the editor has a persistent title/close/footer, consistent view/part buttons and theme controls. The960x620@1.5 original screenshot keeps required actions visible.",
+        "Gallery rows align enable state, thumbnail, source/title, duration and sorting; the imported unchecked row retains independent delete. Light/custom states and focus outlines are legible.",
+        "Community favorites have a distinct management entry and linked/unlinked states; local Mods has no favorite UI. Close/error confirmations are centered and readable without hiding their recovery choices."
+      ],
+      "minorIssues": [
+        "At the smallest zoomed layout the palette/tool rail still needs explicit internal scrolling; controls remain reachable, but it is less glanceable than the wide view.",
+        "The LOGO mascot/palm is intentionally small, so clothing and handprint detail are subtle at normal window scale."
+      ],
+      "criticalIssues": [],
+      "evidence": "17 actual original product UI PNGs plus current owned game PNG used only for provenance; independent original identities/hashes retained."
+    },
+    "interaction": {
+      "score": 9.1,
+      "passedLocalThreshold": true,
+      "scope": "Windows actual coordinate/key event and original local IPC state evidence; controlled online metadata and mocked install plans excluded from real-service claims",
+      "reason": [
+        "Actual middle-button andAlt+left rotation preserveRGBA and undo across five layouts; part visibility and small-tools gestures have single trusted-event ledgers. Fixed close choices remain usable under save cancel, rejection and busy operations.",
+        "The selected palette observation records two real original saveIPC returns and clean/unfrozen renderer state, original64x64PNG bytes, base opaque/outer128alpha, and no-op repeated paint/eyedropper changes.",
+        "Mixed image ordering, disabled-file preservation, zero/single timer stop and theme roundtrip are evidenced. Favorites share card/detail/install state and preserve selections after controlled batch rejection.",
+        "Keyboard activation,Space/Enter,Escape draining, retry idempotency and count reopen are evidenced. Actual production native minimize suspends unchanged count/sources/WAAPI for258.0939ms; restore/close persist six contacts and release two audio/WebGL contexts."
+      ],
+      "minorIssues": [
+        "The compact tool/setting flows require some scroll changes; there is no loss of action access."
+      ],
+      "criticalIssues": [],
+      "limitations": [
+        "Microsoft account upload is not covered.",
+        "Per-project online installs remain metadataFixture/mockedPlanOnly/committed:false.",
+        "Stage close proves resource disposal at observed hooks, not whole-window destruction orGC."
+      ]
+    },
+    "motion": {
+      "score": 9,
+      "passedLocalThreshold": true,
+      "scope": "Windows visible original frame sequences and actual contact/source timing only; no subjective hardware sound or Mac motion certification",
+      "reason": [
+        "All2270 original critical frames were viewed chronologically and independently decoded. The three formal ten-contact sequences show repeated approach/contact/rebound, handprint fade and front return without missing visible contacts in this Windows evidence.",
+        "Original formal min30wholeFPS passes at100.0925/100.0091/100.3397. The renderer cadence remains separately recorded at about240RAFfps; no capture threshold or original false result is rewritten.",
+        "All six125%/150% feedback sequences show the whole model/palm without viewport clipping. Original per-frame gaps and diagnostic backdrop cases remain separate rather than averaged into the formal score.",
+        "Actual production minimize freezes WAAPI/audio time and count, resumes accepted contact timelines, and stage close cancels effects; the observed lifecycle supports coherent interruption behavior."
+      ],
+      "minorIssues": [
+        "Cold model readiness includes a short visible avatar wait before the character appears; original recordings retain it.",
+        "Scale supplement frames include occasional30–38msPTS gaps. They are below critical-stall size here but remain measured, not described as perfect cadence."
+      ],
+      "criticalIssues": [],
+      "limitations": [
+        "Chronological raw frames were reviewed; real-timeWebM playback and physical hardware listening were not performed.",
+        "Peak0.8423379659/sampleRate48000 and source counts cannot prove the subjectivepia sound.",
+        "Windows rawFPS and viewed pixels cannot fix or override historical Intel cadence/ABA failures."
+      ]
+    }
+  },
+  "evidenceSummary": {
+    "coreManifests": 9,
+    "totalOriginalFiles": 6083,
+    "totalOriginalBytes": 276183196,
+    "criticalOriginalFramesActuallyViewed": 2270,
+    "diagnosticOriginalSamplesActuallyViewed": 415,
+    "unchangedRelocatedMetadataFiles": 17,
+    "realTimeVideoPlayback": false,
+    "hardwareListening": false,
+    "noNewGUIExecutionForThisScopeDraft": true
+  },
+  "originalWindowsManifestAudits": [
+    {
+      "mode": "full",
+      "theme": "black-orange",
+      "manifest": "release/validation-1.1.9/Final-Windows-download304-black-orange/evidence.json",
+      "manifestSHA256": "9f67e7c79d06d0d1268a1ac00531605cb21368ebd8e007bc3ee800c202694279",
+      "files": 1569,
+      "bytes": 73182405,
+      "allOriginalMemberHashesVerified": true,
+      "originalRunReceiptVerified": true
+    },
+    {
+      "mode": "full",
+      "theme": "blue-white",
+      "manifest": "release/validation-1.1.9/Final-Windows-download304-blue-white/evidence.json",
+      "manifestSHA256": "79e55022439f83b328c701c6c8d9bc678aec25d9285237a35fd3abe973205324",
+      "files": 1566,
+      "bytes": 72289868,
+      "allOriginalMemberHashesVerified": true,
+      "originalRunReceiptVerified": true
+    },
+    {
+      "mode": "full",
+      "theme": "custom",
+      "manifest": "release/validation-1.1.9/Final-Windows-download304-custom/evidence.json",
+      "manifestSHA256": "33f9931808564b68e90f69b774429d392bb145808a6d093feb1d33abedd0c0d3",
+      "files": 1554,
+      "bytes": 75791014,
+      "allOriginalMemberHashesVerified": true,
+      "originalRunReceiptVerified": true
+    },
+    {
+      "mode": "feedbackScale",
+      "theme": "black-orange",
+      "manifest": "release/validation-1.1.9/Delivery/Feedback-Scale-download304/black-orange/evidence.json",
+      "manifestSHA256": "6a211f1feeff4072d30bdb01b4f84e9a4e16b9d48c10fd1d866874bfd5d6d04e",
+      "files": 443,
+      "bytes": 15653837,
+      "allOriginalMemberHashesVerified": true,
+      "originalRunReceiptVerified": true
+    },
+    {
+      "mode": "feedbackScale",
+      "theme": "blue-white",
+      "manifest": "release/validation-1.1.9/Delivery/Feedback-Scale-download304/blue-white/evidence.json",
+      "manifestSHA256": "2b2f7d1e93b1954f1e33f3b87cdf8a59d9e2924dfdd01afa8fd855bebe50cdc4",
+      "files": 443,
+      "bytes": 13859056,
+      "allOriginalMemberHashesVerified": true,
+      "originalRunReceiptVerified": true
+    },
+    {
+      "mode": "feedbackScale",
+      "theme": "custom",
+      "manifest": "release/validation-1.1.9/Delivery/Feedback-Scale-download304/custom/evidence.json",
+      "manifestSHA256": "64afd46b3d863cd3bf6ef6498d39ae0d254d5179c8ead2af40042d0e284d2863",
+      "files": 445,
+      "bytes": 16301192,
+      "allOriginalMemberHashesVerified": true,
+      "originalRunReceiptVerified": true
+    },
+    {
+      "mode": "skinState",
+      "theme": "black-orange",
+      "manifest": "release/validation-1.1.9/Delivery/Skin-State-Observation-Windows-download304/evidence.json",
+      "manifestSHA256": "1fda8d42be47f0810ae35fa360113241a2d8b84d3f7130d66eb8a4488c33bd3d",
+      "files": 35,
+      "bytes": 3775881,
+      "allOriginalMemberHashesVerified": true,
+      "originalRunReceiptVerified": true
+    },
+    {
+      "mode": "palette",
+      "theme": "black-orange",
+      "manifest": "release/validation-1.1.9/Delivery/Palette-State-Observation-Windows-download304/evidence.json",
+      "manifestSHA256": "b373fedfab401ae2dc5062b50f483e1103ad61b1fdd7d5baa05a57c076ae6050",
+      "files": 16,
+      "bytes": 584625,
+      "allOriginalMemberHashesVerified": true,
+      "originalRunReceiptVerified": true
+    },
+    {
+      "mode": "active",
+      "theme": "black-orange",
+      "manifest": "release/validation-1.1.9/Delivery/Active-Production-Lifecycle-Windows-download304/evidence.json",
+      "manifestSHA256": "8bec1d04da224ff8620aeb2bc96004a47b75579a543fc02dbeae2432aef8a1a9",
+      "files": 12,
+      "bytes": 4745318,
+      "allOriginalMemberHashesVerified": true,
+      "originalRunReceiptVerified": true
+    }
+  ],
+  "frameReview": {
+    "completeWithinWindowsScope": true,
+    "method": "Chronological labeled sheets derived from original JPEG frames; every intro/formal/125%/150% critical frame actually viewed. Spatial crop plus nearest-neighbor enlargement only. Original PTS/JSON/recordings remained unchanged. Diagnostic captures used every8th+last and cold-intro samples, explicitly separate from formal pacing.",
+    "realTimeWebMPlayback": false,
+    "hardwareListening": false,
+    "criticalOriginalFramesActuallyViewed": 2270,
+    "criticalRecordings": [
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-black-orange/mascot-119-logo-intro-black-orange/recording.json",
+        "viewedUniqueOriginalFrames": 96,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-black-orange/mascot-119-logo-screencast-black-orange/recording.json",
+        "viewedUniqueOriginalFrames": 232,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-blue-white/mascot-119-logo-intro-blue-white/recording.json",
+        "viewedUniqueOriginalFrames": 96,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-blue-white/mascot-119-logo-screencast-blue-white/recording.json",
+        "viewedUniqueOriginalFrames": 233,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-custom/mascot-119-logo-intro-custom/recording.json",
+        "viewedUniqueOriginalFrames": 97,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-custom/mascot-119-logo-screencast-custom/recording.json",
+        "viewedUniqueOriginalFrames": 233,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Delivery/Feedback-Scale-download304/black-orange/feedback-scale-119-2026-10-02T23-42-30-978Z-1280-1_25-screencast-black-orange/recording.json",
+        "viewedUniqueOriginalFrames": 213,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Delivery/Feedback-Scale-download304/blue-white/feedback-scale-119-2026-10-02T23-44-57-075Z-1280-1_25-screencast-blue-white/recording.json",
+        "viewedUniqueOriginalFrames": 214,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Delivery/Feedback-Scale-download304/custom/feedback-scale-119-2026-10-02T23-48-19-589Z-1280-1_25-screencast-custom/recording.json",
+        "viewedUniqueOriginalFrames": 214,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Delivery/Feedback-Scale-download304/black-orange/feedback-scale-119-2026-10-02T23-42-30-978Z-960-1_5-screencast-black-orange/recording.json",
+        "viewedUniqueOriginalFrames": 214,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Delivery/Feedback-Scale-download304/blue-white/feedback-scale-119-2026-10-02T23-44-57-075Z-960-1_5-screencast-blue-white/recording.json",
+        "viewedUniqueOriginalFrames": 213,
+        "allFramesViewed": true
+      },
+      {
+        "recording": "release/validation-1.1.9/Delivery/Feedback-Scale-download304/custom/feedback-scale-119-2026-10-02T23-48-19-589Z-960-1_5-screencast-custom/recording.json",
+        "viewedUniqueOriginalFrames": 215,
+        "allFramesViewed": true
+      }
+    ],
+    "diagnosticOriginalFramesActuallyViewed": 415,
+    "diagnosticRecordings": [
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-black-orange/kamu-motion-119-after-header-cold-intro-black-orange/recording.json",
+        "viewedOriginalSamples": 10,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-black-orange/kamu-motion-119-after-header-first-native-black-orange/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-black-orange/kamu-motion-119-after-header-warm-native-black-orange/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-black-orange/kamu-motion-119-after-header-warm-no-backdrop-black-orange/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-black-orange/kamu-motion-119-after-header-warm-restored-backdrop-black-orange/recording.json",
+        "viewedOriginalSamples": 33,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-blue-white/kamu-motion-119-after-header-cold-intro-blue-white/recording.json",
+        "viewedOriginalSamples": 10,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-blue-white/kamu-motion-119-after-header-first-native-blue-white/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-blue-white/kamu-motion-119-after-header-warm-native-blue-white/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-blue-white/kamu-motion-119-after-header-warm-no-backdrop-blue-white/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-blue-white/kamu-motion-119-after-header-warm-restored-backdrop-blue-white/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-custom/kamu-motion-119-after-header-cold-intro-custom/recording.json",
+        "viewedOriginalSamples": 10,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-custom/kamu-motion-119-after-header-first-native-custom/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-custom/kamu-motion-119-after-header-warm-native-custom/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-custom/kamu-motion-119-after-header-warm-no-backdrop-custom/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      },
+      {
+        "recording": "release/validation-1.1.9/Final-Windows-download304-custom/kamu-motion-119-after-header-warm-restored-backdrop-custom/recording.json",
+        "viewedOriginalSamples": 32,
+        "allFramesViewed": false
+      }
+    ],
+    "rawFrameAuditAndPresentationCadenceAreSeparate": true,
+    "observations": [
+      "All three formal sequences show front-to-back turn, repeated hand approach/contact/rebound, local handprint, then front return with drained queue.",
+      "All six125%/150% sequences show the visible palm in the body region without original viewport clipping. The corrected150% crop includes the full model.",
+      "The current1.1.9 single Kamu is identifiable from the front on entry and return; its rear white head is visible during the back-facing contact phase. No claim of continuous front-facing head or seven-person movement is made.",
+      "Cold avatar/model readiness has a visible short wait before appearance. It is retained in original intro recordings and not claimed instantaneous.",
+      "The formal three-theme whole capture rates are100.09251388988322/100.00905743777122/100.33968667053075 with min(30,actualDisplayHz240)=30. Each source count/contact count remains10.",
+      "Individual scale-case PTS intervals up to38.37704658508301ms remain present. Aggregate FPS is not evidence of no duplicate pixels or real display-presentation smoothness."
+    ]
+  },
+  "productionLifecycleAudit": {
+    "complete": true,
+    "productionBackgroundThrottling": true,
+    "actualPausedMs": 258.09389999999985,
+    "trustedHits": 6,
+    "acceptedCountDelta": 6,
+    "actualPalmSources": 6,
+    "sourceIntervalsMs": [
+      153.59999999403954,
+      150,
+      152.90000000596046,
+      150
+    ],
+    "independentContexts": 2,
+    "audioContextsClosed": 2,
+    "webglContextsLost": 2,
+    "cancelledEffects": 18,
+    "rendererHooksRestored": true,
+    "mainHooksRestored": true,
+    "scope": "independent production-window native minimize/restore and mascot-stage close only; no whole-window destruction, GC, baseline FPS, or hardware-listening inference",
+    "root": "E:/KAMUCL/release/validation-1.1.9/Delivery/Active-Production-Lifecycle-Windows-download304",
+    "productCommit": "07a1d87c0710ab070b763172d27dcf7cebd6547b",
+    "qaCommit": "07a1d87c0710ab070b763172d27dcf7cebd6547b",
+    "exeSHA256": "11a8f16142a0f40519adb2203a91ee7bf74b2ab35ef456729e5034a8fc0aafef",
+    "proof": "release/validation-1.1.9/Delivery/Active-Production-Lifecycle-Windows-download304/kamu-active-production-lifecycle-119-black-orange.json",
+    "proofSHA256": "f4e4a41b3b9e0dfc254bd18f898b351090b0234299b1a8bd5211a208e43289b9",
+    "receipt": "release/validation-1.1.9/Delivery/Active-Production-Lifecycle-Windows-download304/kamu-active-production-lifecycle-119-run.json",
+    "receiptSHA256": "5d1985847d76173827ae9d9f3c21f4889004af709a438f26e25879dc325ad28d",
+    "log": "release/validation-1.1.9/Delivery/Active-Production-Lifecycle-Windows-download304/kamu-active-production-lifecycle-119-final.log",
+    "logSHA256": "92ed81beb0c4860e994b6e373dedd993175621a22f4f2ec57f8317cd232e83f2",
+    "evidenceSHA256": "8bec1d04da224ff8620aeb2bc96004a47b75579a543fc02dbeae2432aef8a1a9",
+    "sourceBindings": [
+      {
+        "file": "scripts/verify-ui-refinement.cjs",
+        "originalSHA256": "253bc4fd8640643d8f11cd536459899e5e2457b4c22f4c8a4e1946db9bca561a",
+        "qaCommit": "07a1d87c0710ab070b763172d27dcf7cebd6547b",
+        "committedBlobSHA256": "c459ce2234f689f340a0afd3e05d246e4b3393126f47ebc319202115e85347b2",
+        "lineEndingOnly": true
+      },
+      {
+        "file": "out/run-kamu-active-production-lifecycle-119.cjs",
+        "originalSHA256": "9b8f20fa98134dfec5d8ae75a6d08e7c8a3d2ca6ad8252416c0d10efe1dd29ea",
+        "classification": "exact independent out QA source snapshot; not committed product code"
+      },
+      {
+        "file": "out/verify-kamu-active-production-lifecycle-119.cjs",
+        "originalSHA256": "6014e59221717195b9791563cef2d587cbb4f939bbd2b1292ca6f6e3335c082e",
+        "classification": "exact independent out QA source snapshot; not committed product code"
+      },
+      {
+        "file": "out/run-active-production-lifecycle-download304-119.ps1",
+        "originalSHA256": "bd52d24b7af54ff637cb6bdbc9701a800a0b54f33d2d7b6da2f15e5cda5fdad1",
+        "classification": "exact independent out QA source snapshot; not committed product code"
+      }
+    ],
+    "screenshots": [
+      {
+        "file": "kamu-active-production-lifecycle-119-restored-first-three.png",
+        "bytes": 109764,
+        "sha256": "eb2847e013ed5eefa00078732e1f3cd4bb69e91187bf0d6773308e3c3d52c684",
+        "width": 1702,
+        "height": 1078
+      },
+      {
+        "file": "kamu-active-production-lifecycle-119-closed-six-saved.png",
+        "bytes": 111600,
+        "sha256": "f8bb698cbe6347c918b6a1eb821976c8ee1fab8a87e9c0215fe95aced11b781c",
+        "width": 1702,
+        "height": 1078
+      }
+    ],
+    "files": [
+      {
+        "file": "kamu-active-production-lifecycle-119-black-orange.json",
+        "bytes": 4452585,
+        "sha256": "f4e4a41b3b9e0dfc254bd18f898b351090b0234299b1a8bd5211a208e43289b9"
+      },
+      {
+        "file": "kamu-active-production-lifecycle-119-closed-six-saved.png",
+        "bytes": 111600,
+        "sha256": "f8bb698cbe6347c918b6a1eb821976c8ee1fab8a87e9c0215fe95aced11b781c"
+      },
+      {
+        "file": "kamu-active-production-lifecycle-119-final.log",
+        "bytes": 116,
+        "sha256": "92ed81beb0c4860e994b6e373dedd993175621a22f4f2ec57f8317cd232e83f2"
+      },
+      {
+        "file": "kamu-active-production-lifecycle-119-restored-first-three.png",
+        "bytes": 109764,
+        "sha256": "eb2847e013ed5eefa00078732e1f3cd4bb69e91187bf0d6773308e3c3d52c684"
+      },
+      {
+        "file": "kamu-active-production-lifecycle-119-run.json",
+        "bytes": 1685,
+        "sha256": "5d1985847d76173827ae9d9f3c21f4889004af709a438f26e25879dc325ad28d"
+      },
+      {
+        "file": "kamu-active-production-lifecycle-adapter-119.json",
+        "bytes": 1590,
+        "sha256": "2a14d5549161404c21d6cd76218fa71b1a86c87e6a5ee86f6b5025a6c4f886da"
+      },
+      {
+        "file": "owned-process.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "ui-live.json",
+        "bytes": 180,
+        "sha256": "10d4333d9acb08e08b224ee7a3a2d9de6bd2fbecad9b77e3212190761395c9f8"
+      },
+      {
+        "file": "qa-sources/out/run-active-production-lifecycle-download304-119.ps1",
+        "bytes": 4539,
+        "sha256": "bd52d24b7af54ff637cb6bdbc9701a800a0b54f33d2d7b6da2f15e5cda5fdad1"
+      },
+      {
+        "file": "qa-sources/out/run-kamu-active-production-lifecycle-119.cjs",
+        "bytes": 2978,
+        "sha256": "9b8f20fa98134dfec5d8ae75a6d08e7c8a3d2ca6ad8252416c0d10efe1dd29ea"
+      },
+      {
+        "file": "qa-sources/out/verify-kamu-active-production-lifecycle-119.cjs",
+        "bytes": 19002,
+        "sha256": "6014e59221717195b9791563cef2d587cbb4f939bbd2b1292ca6f6e3335c082e"
+      },
+      {
+        "file": "qa-sources/scripts/verify-ui-refinement.cjs",
+        "bytes": 41279,
+        "sha256": "253bc4fd8640643d8f11cd536459899e5e2457b4c22f4c8a4e1946db9bca561a"
+      },
+      {
+        "file": "evidence.json",
+        "bytes": 3029,
+        "sha256": "8bec1d04da224ff8620aeb2bc96004a47b75579a543fc02dbeae2432aef8a1a9"
+      }
+    ]
+  },
+  "metadataRelocation": {
+    "proof": "out/windows-download304-metadata-relocation-proof.json",
+    "proofSHA256": "0c17b5d37d9cadeafc57dced9879a3f2d23bfb8f4e546227f7ac2a0a9080513d",
+    "unchangedOriginalBytesVerified": 17,
+    "originalFullAndSupplementEvidenceManifestsUnchanged": true,
+    "reason": "Separate post-collection metadata into independently identified roots so original collector closure stays strict; no exit status, original source, raw frame or GUI result rewritten.",
+    "recoveryRoots": [
+      "release/validation-1.1.9/Delivery/Recovery-Windows-download304/full-black-orange",
+      "release/validation-1.1.9/Delivery/Recovery-Windows-download304/feedback-black-orange"
+    ],
+    "paletteSidecarRoots": [
+      "release/validation-1.1.9/Delivery/Full-Palette-State-download304/black-orange",
+      "release/validation-1.1.9/Delivery/Full-Palette-State-download304/blue-white",
+      "release/validation-1.1.9/Delivery/Full-Palette-State-download304/custom"
+    ],
+    "historicalPathsInOriginalRecordsRetained": true
+  },
+  "collectorRecoveries": {
+    "fullBlackOrange": {
+      "preflightExitCode": 0,
+      "collectorExitCode": 0,
+      "recoveryExitCode": 0,
+      "guiExecuted": false,
+      "file": "release/validation-1.1.9/Delivery/Recovery-Windows-download304/full-black-orange/collector-recovery.json",
+      "sha256": "b34ef165d230cd9e14e2704c64b7e6cdf8500aa302c16f7b9d44c3dd915d10da",
+      "originalHistoricalFile": "release/validation-1.1.9/Final-Windows-download304-black-orange/collector-recovery.json"
+    },
+    "classification": "Two original wrapper/collector infrastructure failures remain original1; separately recorded collector-only recovery0 did not rerun the native GUI. No single all-green run is invented."
+  },
+  "boundaries": [
+    "Original Windows native GUI07 and EXE11a8 proof is not rebound to later native QA e81/0a.",
+    "Two original black-orange collector/wrapper1 infrastructure results are preserved; collector-only recovery0 with no GUI rerun is separately verified, not a single all-green run.",
+    "Full palette sidecars and both recovery receipts moved only as original unchanged metadata bytes into independent Delivery roots; original core evidence.json files were not rewritten.",
+    "Project metadataFixture:true and single-install mockedPlanOnly:true/committed:false are not actual online project installations; both platform favorite-state logic is reviewed in that controlled scope.",
+    "Instance-specific thumbnail priority remains source-only audit, not an observed actual runtime case.",
+    "Microsoft authentication/skin upload, real physical sound listening, subjectivepia likeness, private user original files/world play, and Mac three-theme traversal are not covered.",
+    "PCL actual owned main-menu startup uses real-service permitted cache; it does not prove a coldCDN download or imported-world play. Private source payloads were not copied.",
+    "Production native minimize/restore and stage close are actual; whole-window destruction, memoryGC and hardware ears are not inferred.",
+    "All raw false, original PTS, occasional scale gaps, deliberate600msstall fixture, cold avatar wait and unknownCDP dropped-frame count remain original; no FPS/functional-complete conflation.",
+    "Current local product scope is1.1.9 single-Kamu LOGO stage. This report does not claim old seven-person ranking/continuous rear-head gaze was demonstrated."
+  ],
+  "uncovered": [
+    "Physical hardware sound listening and subjective pia likeness, clipping or pops have not been accepted. Numerical peak and source counts are not hearing.",
+    "Real Microsoft authentication/skin upload and actual remote favorite installation are not verified. metadataFixture:true, mockedPlanOnly:true and committed:false remain explicit.",
+    "Instance-specific gallery priority is source-only, not an observed runtime case.",
+    "Current mascot scope is1.1.9 single Kamu. Old seven-person movement or continuous rear-phase front-facing head is not certified.",
+    "Whole-window destruction, memoryGC, imported private-world play and coldCDN downloading are not inferred.",
+    "Intel and Apple Silicon Mac versions, unresolved native motion, full native qualitative review and three-theme traversal are deferred outside this deliverable."
+  ],
+  "deferredMac": {
+    "outsideCurrentDeliverable": true,
+    "reviewComplete": false,
+    "passed": false,
+    "noNewMacBuildOrRelease": true,
+    "artifacts": {
+      "arm64": {
+        "run": 37087543778,
+        "head": "a8496bf81efc1f815dc89b7a3e078f8b6ed89b74",
+        "artifact": 11261476375,
+        "name": "mac-arm64",
+        "arch": "arm64",
+        "bytes": 299978778,
+        "sha256": "36c257df9ba326c244013b35706e7b48fd6655778f08190791ed274a0ea1731c",
+        "officialHashMatched": true,
+        "files": 4890,
+        "extracted": "E:\\KAMUCL\\out\\mac-119-stall-attribution-final\\mac-arm64\\extracted",
+        "closed0": true,
+        "classification": "Original acquired Mac reference only; deferred outside current delivery, no new Mac release or complete qualitative certification",
+        "receipt": {
+          "file": "out/mac-119-stall-attribution-final/mac-arm64/download-receipt.json",
+          "bytes": 544,
+          "sha256": "8f5d42c7462c3ad9abd68c350e8ba3055351c587c0ec3a21850dab74be69e125"
+        },
+        "originalArchiveIndependentRehashPending": true
+      },
+      "x64": {
+        "run": 37087543778,
+        "head": "a8496bf81efc1f815dc89b7a3e078f8b6ed89b74",
+        "artifact": 11261069506,
+        "name": "mac-x64",
+        "arch": "x64",
+        "bytes": 294311494,
+        "sha256": "efd610a0db1e74761770c8cde5470edc17a6ed8267a1ac4e94469e00e770876a",
+        "officialHashMatched": true,
+        "files": 4652,
+        "extracted": "E:\\KAMUCL\\out\\mac-119-stall-attribution-final\\mac-x64\\extracted",
+        "closed0": true,
+        "classification": "Original acquired Mac reference only; deferred outside current delivery, no new Mac release or complete qualitative certification",
+        "receipt": {
+          "file": "out/mac-119-stall-attribution-final/mac-x64/download-receipt.json",
+          "bytes": 538,
+          "sha256": "7e21e02979f690a7568dcb805d6577d1fc16f8b7762c92260d78494f1957bfb3"
+        },
+        "originalArchiveIndependentRehashPending": true
+      }
+    },
+    "partialReport": {
+      "file": "out/independent-a849-native-local-review.json",
+      "bytes": 5400476,
+      "sha256": "ef05c44c9610a1a88db720be641bf4da9f21d383c1b086086de6a34f8c7b6e50"
+    },
+    "partialMarkdown": {
+      "file": "out/independent-a849-native-local-review.md",
+      "bytes": 1138,
+      "sha256": "7f7ba87dc64aa025a35a3919dcdb37a29c881f7a91ebd39852b6e6fed84c91ac"
+    },
+    "criticalObservation": {
+      "classification": "Observed original formal Intel APP visible-motion interruption; unresolved; deferred outside current Windows deliverable",
+      "observation": {
+        "file": "out/a849-formal-app-failure-subset/observation.json",
+        "bytes": 7860,
+        "sha256": "96b26ac8b732b3f77063e50365f4f2a2be7ef8a259ba89b243a000bf4307479a"
+      },
+      "gapMs": 130.62733300000673,
+      "fromIndex": 34,
+      "toIndex": 36,
+      "fromPTS": 732.787105657,
+      "toPTS": 732.91773299,
+      "originalFalseBenchmarksUnchanged": true,
+      "visibleObservation": "Original raised-hand frame34 is followed by a later hand state at36 with an active130.627333ms complete-pixel interval. The original idle35 has no pixel file and is not interpreted as a blank application frame. Irregular formal source spacing328.7/246.6ms supports the observed pacing concern.",
+      "uncertainty": "Nearest browser wall clock, native PTS and source timestamps are separate. WAAPI pending/startTime-null observations do not identify a specific product scheduling, observer, compositor or CI cause. Other smoother A/B/A and control/trace/control captures do not replace this formal failure.",
+      "doesNotProveCodeCause": true
+    },
+    "formalBenchmarks": [
+      {
+        "arch": "arm64",
+        "stage": "app",
+        "originalCDPBenchmark": {
+          "nominalMinimumFps": 30,
+          "minimumFps": 30,
+          "activeDisplay": {
+            "id": 1,
+            "size": {
+              "width": 1024,
+              "height": 768
+            },
+            "scaleFactor": 1,
+            "displayFrequency": 60.000003814697266
+          },
+          "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+          "actualFps": 60.1541989969229,
+          "passed": true,
+          "status": "passed"
+        },
+        "originalSCKBenchmark": {
+          "nominalMinimumFps": 30,
+          "minimumFps": 30,
+          "activeDisplay": {
+            "id": 1,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 768
+            },
+            "scaleFactor": 1,
+            "displayFrequency": 60.000003814697266
+          },
+          "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+          "actualFps": 59.23566878226288,
+          "passed": true
+        },
+        "wholeActiveAndChangedPixelsRemainSeparate": true
+      },
+      {
+        "arch": "arm64",
+        "stage": "dmg",
+        "originalCDPBenchmark": {
+          "nominalMinimumFps": 30,
+          "minimumFps": 30,
+          "activeDisplay": {
+            "id": 1,
+            "size": {
+              "width": 1024,
+              "height": 768
+            },
+            "scaleFactor": 1,
+            "displayFrequency": 60.000003814697266
+          },
+          "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+          "actualFps": 56.51492238757409,
+          "passed": true,
+          "status": "passed"
+        },
+        "originalSCKBenchmark": {
+          "nominalMinimumFps": 30,
+          "minimumFps": 30,
+          "activeDisplay": {
+            "id": 1,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 768
+            },
+            "scaleFactor": 1,
+            "displayFrequency": 60.000003814697266
+          },
+          "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+          "actualFps": 60.00000000000051,
+          "passed": true
+        },
+        "wholeActiveAndChangedPixelsRemainSeparate": true
+      },
+      {
+        "arch": "x64",
+        "stage": "app",
+        "originalCDPBenchmark": {
+          "nominalMinimumFps": 30,
+          "minimumFps": 30,
+          "activeDisplay": {
+            "id": 25165824,
+            "size": {
+              "width": 1920,
+              "height": 1080
+            },
+            "scaleFactor": 1,
+            "displayFrequency": 30.367319107055664
+          },
+          "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+          "actualFps": 29.46467751522728,
+          "passed": false,
+          "status": "below-target"
+        },
+        "originalSCKBenchmark": {
+          "nominalMinimumFps": 30,
+          "minimumFps": 30,
+          "activeDisplay": {
+            "id": 25165824,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 1920,
+              "height": 1080
+            },
+            "scaleFactor": 1,
+            "displayFrequency": 30.367319107055664
+          },
+          "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+          "actualFps": 21.670603414344647,
+          "passed": false
+        },
+        "wholeActiveAndChangedPixelsRemainSeparate": true
+      },
+      {
+        "arch": "x64",
+        "stage": "dmg",
+        "originalCDPBenchmark": {
+          "nominalMinimumFps": 30,
+          "minimumFps": 29.951642990112305,
+          "activeDisplay": {
+            "id": 25165824,
+            "size": {
+              "width": 1920,
+              "height": 1080
+            },
+            "scaleFactor": 1,
+            "displayFrequency": 29.951642990112305
+          },
+          "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+          "actualFps": 28.818010468970673,
+          "passed": false,
+          "status": "below-target"
+        },
+        "originalSCKBenchmark": {
+          "nominalMinimumFps": 30,
+          "minimumFps": 29.951642990112305,
+          "activeDisplay": {
+            "id": 25165824,
+            "bounds": {
+              "x": 0,
+              "y": 0,
+              "width": 1920,
+              "height": 1080
+            },
+            "scaleFactor": 1,
+            "displayFrequency": 29.951642990112305
+          },
+          "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+          "actualFps": 27.694875234285536,
+          "passed": false
+        },
+        "wholeActiveAndChangedPixelsRemainSeparate": true
+      }
+    ],
+    "originalSixABAAndNewThreeARemainDiagnostic": true,
+    "scoreFinalizationDeferred": true,
+    "e81RejectedReport": {
+      "file": "out/independent-e81-native-local-review.json",
+      "bytes": 5062632,
+      "sha256": "4664137e0687b2d01d2dc68711991bf77a2bb2820a4d17f76354c34bfa77ae53"
+    },
+    "doesNotEstablishGlobalAllPlatformsPass": true
+  },
+  "privacy": {
+    "privateUserFilesAccessed": false,
+    "actualAccountsOrProfilesCopied": false,
+    "worldOrPackPayloadCopied": false,
+    "referenceOnlyMacArtifacts": true
+  },
+  "formalPreviousReviewOrHistoryModified": false
+}

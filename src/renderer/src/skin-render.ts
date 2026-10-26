@@ -1,4 +1,4 @@
-import { loadSkinToCanvas } from 'skinview-utils'
+import { loadCapeToCanvas, loadSkinToCanvas } from 'skinview-utils'
 /**
  * 皮肤渲染工具：用 canvas 把 64×64 皮肤 PNG 渲染为 2D 人偶正面图。
  * 含外层 hat/装甲层叠加，最近邻缩放保持像素风；失败返回空字符串由 UI 兜底。
@@ -146,7 +146,7 @@ export async function renderSkinHead(
 
 /**
  * 渲染披风正面外观图，返回 dataURL；失败返回 ''。
- * 标准披风纹理为 64×32，正面区域 (1,1) 10×16；源尺寸比例不同则按 10:16 裁剪中央区域。
+ * 标准化 64×32、22×17、46×22 及其 HD 图集；正面区域按图集倍率裁剪 (1,1) 10×16。
  * 最近邻放大到 w×h，保持像素风。
  */
 export async function renderCape(
@@ -156,37 +156,23 @@ export async function renderCape(
 ): Promise<string> {
   try {
     const img = typeof source === 'string' ? await loadImage(source) : source
-    const iw = img.naturalWidth || img.width
-    const ih = img.naturalHeight || img.height
-    if (!iw || !ih) return ''
-    let sx = 1
-    let sy = 1
-    let sw = 10
-    let sh = 16
-    if (iw !== 64 || ih !== 32) {
-      // 非标准尺寸：按 10:16 比例从中央裁剪
-      const target = 10 / 16
-      if (iw / ih > target) {
-        sh = ih
-        sw = ih * target
-        sx = (iw - sw) / 2
-        sy = 0
-      } else {
-        sw = iw
-        sh = iw / target
-        sx = 0
-        sy = (ih - sh) / 2
-      }
-    }
+    const atlas = normalizeCape(img), scale = atlas.width / 64
     const canvas = document.createElement('canvas')
     canvas.width = w
     canvas.height = h
     const ctx = canvas.getContext('2d')
     if (!ctx) return ''
     ctx.imageSmoothingEnabled = false
-    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h)
+    ctx.drawImage(atlas, scale, scale, 10 * scale, 16 * scale, 0, 0, w, h)
     return canvas.toDataURL('image/png')
   } catch {
     return ''
   }
+}
+
+/** Preserve every original pixel; pad compact atlases to the 3D model's 64:32 UV layout. */
+export function normalizeCape(image: HTMLImageElement): HTMLCanvasElement {
+  const canvas = document.createElement('canvas')
+  loadCapeToCanvas(canvas, image)
+  return canvas
 }

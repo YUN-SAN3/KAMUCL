@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { execFile } from 'node:child_process'
+import { JAVA_PROBE_VM_ARGS } from './javaScanUtils'
 
 // Minecraft, LWJGL and supported loaders need these modules even when -version works.
 export const GAME_JAVA_MODULES = ['java.base', 'java.desktop', 'java.logging', 'java.management', 'java.naming', 'java.instrument', 'java.sql', 'jdk.unsupported', 'jdk.zipfs']
@@ -17,7 +18,7 @@ async function stamp(file: string): Promise<string> {
   return `${file}:${stat.size}:${stat.mtimeMs}:${stat.ctimeMs}`
 }
 function run(exe: string, args: string[]): Promise<string> {
-  return new Promise((resolve, reject) => execFile(exe, args, { windowsHide: true, timeout: 10000, maxBuffer: 2 * 1024 * 1024 }, (error, stdout, stderr) => {
+  return new Promise((resolve, reject) => execFile(exe, [...JAVA_PROBE_VM_ARGS, ...args], { windowsHide: true, timeout: 10000, maxBuffer: 2 * 1024 * 1024 }, (error, stdout, stderr) => {
     if (error) reject(new Error(`Java 运行环境检查失败：${String(stderr || error.message).slice(0, 1000)}`))
     else resolve(stdout)
   }))

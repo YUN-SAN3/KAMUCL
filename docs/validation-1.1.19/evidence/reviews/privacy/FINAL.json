@@ -1,0 +1,267 @@
+{
+  "version": "1.1.19",
+  "reviewer": "packs118",
+  "role": "Independent public-evidence privacy and original-byte audit; no functional scoring of my MRPACK implementation",
+  "complete": true,
+  "pass": true,
+  "at": "2026-10-07T08:44:47.595Z",
+  "scope": {
+    "directory": "docs/validation-1.1.19",
+    "manifest": "docs/validation-1.1.19/EVIDENCE_BINDINGS.json",
+    "manifestSHA256": "0269f1b3a676b88b25820653abc9497de488bd0d169ec97588c6764cbbdcf646",
+    "rows": 377,
+    "totalBytes": 42820091,
+    "newReviewRows": 9,
+    "newReviewBytes": 323393,
+    "readOnlyInputs": true,
+    "GUIRerun": false,
+    "productChanges": false
+  },
+  "byteAudit": {
+    "at": "2026-10-07T08:42:51.234Z",
+    "manifestSHA256": "0269f1b3a676b88b25820653abc9497de488bd0d169ec97588c6764cbbdcf646",
+    "manifestStable": true,
+    "rows": 377,
+    "totalBytes": 42820091,
+    "deltaRows": 9,
+    "deltaBytes": 323393,
+    "extensionCounts": {
+      ".png": 101,
+      ".json": 48,
+      ".jar": 5,
+      ".MRPACK": 5,
+      ".mrpack": 5,
+      ".jpg": 189,
+      ".txt": 20,
+      ".md": 2,
+      ".log": 2
+    },
+    "issues": [],
+    "unlisted": [],
+    "sensitiveFields": [],
+    "secretHits": [],
+    "privatePayloadNames": [],
+    "publicTextFilesScanned": 74,
+    "deltaPublished": [
+      "evidence/reviews/skin/FINAL.md",
+      "evidence/reviews/skin/FINAL.json",
+      "evidence/reviews/skin/evidence-verification.json",
+      "evidence/reviews/skin/binding-verification.json",
+      "evidence/reviews/skin/source-freeze-verification.json",
+      "evidence/reviews/mrpack/FINAL.md",
+      "evidence/reviews/mrpack/FINAL.json",
+      "evidence/reviews/mrpack/focused-tests-after.log",
+      "evidence/reviews/mrpack/focused-tests.log"
+    ]
+  },
+  "mediaAudit": {
+    "at": "2026-10-07T08:43:40.241Z",
+    "PNG": {
+      "count": 101,
+      "referenceProblems": []
+    },
+    "recording": {
+      "source": "E:/KAMUCL/out/skinlayers119-original-black-orange/recording.json",
+      "originalJSONSHA256": "c9e40c80c5d83589d2245c857753dd1b66a1b434a4f718ab8b48df0ea934d80c",
+      "frames": 189,
+      "framesArrayUnchanged": true,
+      "timingAndSourceProblems": []
+    },
+    "binding": {
+      "source": "out/gui119-executable-bindings.json",
+      "sha256": "7562fabbc2a6ede80ce94f263a78e4f5909ac252e72afa832fd39d8e8a8f30c8",
+      "complete": true,
+      "rawProofsUnmodified": true,
+      "retainedEXEs": 17,
+      "retainedASARs": 17,
+      "proofRows": 16,
+      "completeProofs": 13,
+      "incompleteProofs": 3,
+      "finalEXESHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "finalASARSHA256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1",
+      "productionInventorySHA256": "92f7dd9ba477830fa8d56f685e0d10f4d4535486cc581444a2d97675f754b43c",
+      "problems": [],
+      "qualification": "Post-run verification of preserved executable/runtime bytes, original file timestamps and owned child ledgers. Original proofs carried PID/version but no embedded executable hash. Final binding is separate and preserves this distinction. All original GUI copies are retained locally; GUI harness copied final release EXE before spawn. No GUI_APP/DEV invocation in batch run commands."
+    }
+  },
+  "syntheticFixtures": {
+    "at": "2026-10-07T08:43:58.993Z",
+    "archiveCount": 15,
+    "syntheticGoodMrpacks": 5,
+    "syntheticBadMrpacks": 5,
+    "syntheticPlaceholderJars": 5,
+    "issues": [],
+    "sourceChecks": [
+      {
+        "file": "scripts/qa-mrpack119.cjs",
+        "sha256": "985619929a95640d59d8e4fea4a8100f13da28307960dfd4fe4fba7e6607d116"
+      },
+      {
+        "file": "scripts/qa-skin-layers119.cjs",
+        "sha256": "f90dc78438e932d58506531dab61e20e5cbf7ae0e585fd7a802a9b84264866e5"
+      },
+      {
+        "file": "scripts/verify-ui-refinement.cjs",
+        "sha256": "7145f692a4e38272ffdb1ed227396939072242e98c87918beb4b19b1c810d724"
+      }
+    ],
+    "entries": [
+      {
+        "file": "evidence/ui/mrpack/black-orange/synthetic.jar",
+        "kind": "synthetic-placeholder-jar",
+        "bytes": 9
+      },
+      {
+        "file": "evidence/ui/mrpack/black-orange/中文 § BOM 包.MRPACK",
+        "kind": "synthetic-good-mrpack",
+        "bytes": 577,
+        "entryNames": [
+          "client-overrides/config/setting.txt",
+          "modrinth.index.json",
+          "overrides/config/setting.txt"
+        ],
+        "files": 0
+      },
+      {
+        "file": "evidence/ui/mrpack/black-orange/损坏.mrpack",
+        "kind": "synthetic-bad-mrpack",
+        "bytes": 148,
+        "entryNames": [
+          "modrinth.index.json"
+        ]
+      },
+      {
+        "file": "evidence/ui/mrpack/blue-white/synthetic.jar",
+        "kind": "synthetic-placeholder-jar",
+        "bytes": 9
+      },
+      {
+        "file": "evidence/ui/mrpack/blue-white/中文 § BOM 包.MRPACK",
+        "kind": "synthetic-good-mrpack",
+        "bytes": 577,
+        "entryNames": [
+          "client-overrides/config/setting.txt",
+          "modrinth.index.json",
+          "overrides/config/setting.txt"
+        ],
+        "files": 0
+      },
+      {
+        "file": "evidence/ui/mrpack/blue-white/损坏.mrpack",
+        "kind": "synthetic-bad-mrpack",
+        "bytes": 148,
+        "entryNames": [
+          "modrinth.index.json"
+        ]
+      },
+      {
+        "file": "evidence/ui/mrpack/transparent/synthetic.jar",
+        "kind": "synthetic-placeholder-jar",
+        "bytes": 9
+      },
+      {
+        "file": "evidence/ui/mrpack/transparent/中文 § BOM 包.MRPACK",
+        "kind": "synthetic-good-mrpack",
+        "bytes": 577,
+        "entryNames": [
+          "client-overrides/config/setting.txt",
+          "modrinth.index.json",
+          "overrides/config/setting.txt"
+        ],
+        "files": 0
+      },
+      {
+        "file": "evidence/ui/mrpack/transparent/损坏.mrpack",
+        "kind": "synthetic-bad-mrpack",
+        "bytes": 148,
+        "entryNames": [
+          "modrinth.index.json"
+        ]
+      },
+      {
+        "file": "evidence/ui/mrpack/custom/synthetic.jar",
+        "kind": "synthetic-placeholder-jar",
+        "bytes": 9
+      },
+      {
+        "file": "evidence/ui/mrpack/custom/中文 § BOM 包.MRPACK",
+        "kind": "synthetic-good-mrpack",
+        "bytes": 577,
+        "entryNames": [
+          "client-overrides/config/setting.txt",
+          "modrinth.index.json",
+          "overrides/config/setting.txt"
+        ],
+        "files": 0
+      },
+      {
+        "file": "evidence/ui/mrpack/custom/损坏.mrpack",
+        "kind": "synthetic-bad-mrpack",
+        "bytes": 148,
+        "entryNames": [
+          "modrinth.index.json"
+        ]
+      },
+      {
+        "file": "evidence/ui/mrpack/zoom125/synthetic.jar",
+        "kind": "synthetic-placeholder-jar",
+        "bytes": 9
+      },
+      {
+        "file": "evidence/ui/mrpack/zoom125/中文 § BOM 包.MRPACK",
+        "kind": "synthetic-good-mrpack",
+        "bytes": 577,
+        "entryNames": [
+          "client-overrides/config/setting.txt",
+          "modrinth.index.json",
+          "overrides/config/setting.txt"
+        ],
+        "files": 0
+      },
+      {
+        "file": "evidence/ui/mrpack/zoom125/损坏.mrpack",
+        "kind": "synthetic-bad-mrpack",
+        "bytes": 148,
+        "entryNames": [
+          "modrinth.index.json"
+        ]
+      }
+    ]
+  },
+  "privacy": {
+    "nonRedactedCredentialFields": [],
+    "commonSecretPatternHits": [],
+    "privatePayloadFilenameHits": [],
+    "checks": [
+      "Every evidence file is listed, each source is under the owned out directory, and each publication is inside the validation directory.",
+      "All 15 published .MRPACK/.mrpack/.jar fixtures were read without extraction and contain only the expected generated synthetic payloads.",
+      "Generated fixture source and proof classifications distinguish synthetic accounts/profiles, local loopback installation, actual Windows UI, and absence of actual game/server/account requests.",
+      "The 74 public JSON/MD/TXT/LOG inputs include all nine appended reviewer reports, verifications and logs, the public README, and the binding manifest.",
+      "No user pack, world payload, private image source, account credential file, private key, or pelican-bicycle.html was identified in the checked public batch."
+    ],
+    "visualSpotChecks": [
+      "evidence/ui/skin/black-orange/blank-outer-painted.png",
+      "evidence/recordings/skin/frame-0001.jpg"
+    ],
+    "visualObservation": "The samples show the generated editor fixture and synthetic 界面验证账户, without a private photograph or game world.",
+    "environmentLabelsRetained": "Authentic QA Windows paths (including host username ROG), process IDs, local ports and timestamps remain in original records. This audit does not claim complete anonymization."
+  },
+  "provenanceAssessment": {
+    "publicDescriptionsAccurate": true,
+    "type": "Post-run retained executable/runtime bytes plus original file timestamps and unique owned-parent PID/ledger association.",
+    "notContemporaneousExecPathHash": true,
+    "proofsNotRewritten": true,
+    "originalFrameTimesNotRebased": true,
+    "historicalIncompleteProofsPreserved": true,
+    "qualification": "Post-run verification of preserved executable/runtime bytes, original file timestamps and owned child ledgers. Original proofs carried PID/version but no embedded executable hash. Final binding is separate and preserves this distinction. All original GUI copies are retained locally; GUI harness copied final release EXE before spawn. No GUI_APP/DEV invocation in batch run commands."
+  },
+  "limitations": [
+    "This audit covers the 377 bound files and present 1.1.19 README/manifest, not unrelated historical repository files or future delivery additions.",
+    "All public raster byte identities were checked; visual privacy inspection used two samples. No exhaustive visual/OCR inspection or generalized steganographic/obfuscated-secret detection is claimed.",
+    "Common secret patterns and sensitive JSON fields were scanned; this is evidence of no identified credentials within the checked scope, not a proof of all possible secret encodings.",
+    "17 retained EXE/runtime copies match the final bytes and 16 proof/ledger rows match recorded associations; original proofs lack contemporaneous executable hash/execPath observations.",
+    "No new GUI, game, online service, user account or packaging run was performed; no product files or original evidence were changed.",
+    "No MRPACK functionality or appearance score is assigned by its implementer."
+  ],
+  "blockingFindings": []
+}

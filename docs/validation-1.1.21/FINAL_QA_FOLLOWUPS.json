@@ -1,0 +1,171 @@
+{
+  "version": "1.1.21",
+  "sourceSeparation": {
+    "windowsProductInputsCommit": "c6771c4f6a453d6a2b171e372f83b94df224b562",
+    "windowsActualPreBuildCheckoutBase": "b11eab3408757f81a7118f4a0d967e156512a316",
+    "windowsBuildInputQualification": "Actual b11 checkout plus then-uncommitted frozen focus repairs later committed as c677, not a new rebuild at the final tag.",
+    "macOriginalProductCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+    "latestWindowsTestsCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "latestSupplementaryMacQACommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "finalTagBinding": "External DELIVERY explicitly binds the eventual final master commit; no self-referential Git commit is asserted here."
+  },
+  "windowsCompleted16Matrix": {
+    "proof": {
+      "originalReceiptLabel": "matrix-proof.json",
+      "bytes": 281849,
+      "sha256": "51838f6d39919b681294bdf1d0f73846af4fd8b2674ed4ee18d78dcc97702519"
+    },
+    "source": {
+      "expectedHead": "a8440a1bfcc088b243c1c5cb7d2e3a541d91b6ef",
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0",
+      "scriptSHA256": "441977fa002276d337adaa62013eddad5a3ec40952946473633e6669a9e1be80",
+      "helperSHA256": "58e9dd8454979e01acbe0c4325b2db9e3eff48c07ad6fcd374ec9eb8c357944e",
+      "runCount": 16,
+      "screenshotCount": 416.0,
+      "uiScreenshotCount": 400.0,
+      "nativeFixturePngCount": 16.0,
+      "guardCount": 32,
+      "productionFilesComparedPerGuard": 539,
+      "qaFilesComparedPerGuard": 9,
+      "rendererFilesComparedPerGuard": 147,
+      "maxGeometryError": 0.34246826171875,
+      "classification": "Actual frozen production renderer/native codec; sequential offscreen Electron with disposable business fixtures and Windows software GPU. WebGL creation and real Ctrl+A/Backspace full-selection gates passed. No full-app, game/network/profile, desktop DWM or OS physical keyboard claims."
+    },
+    "independentReview": {
+      "originalReceiptLabel": "updater121-a844-windows-independent-review.json",
+      "bytes": 15702,
+      "sha256": "2a1448c7e7c35559dfaf063abb50d41b6aacb18ca7792901a208069b65252dcc"
+    },
+    "ratings": {
+      "reasonableness": 9.2,
+      "functionality": 9.1,
+      "appearance": 8.7
+    },
+    "qualification": "Completed a844 sixteen-row driver441977/helper58e9 remains its actual source, never relabelled as later Mac-only QA."
+  },
+  "windowsLaterQAFollowups": {
+    "qaSourceCommit": "7528a9b47beb728635ff60d37f72a8d202ad6fcc",
+    "originalReviewBinding": {
+      "originalReceiptLabel": "updater121-typeahead-final-independent-review.json",
+      "bytes": 11338,
+      "sha256": "61f38877e708937c22ea1e0ce9f64ee6a179b0a50062a192679b50347153eedd"
+    },
+    "windowsActualSmokeBinding": {
+      "originalReceiptLabel": "proof.json",
+      "bytes": 87168,
+      "sha256": "f6ae86d60f62cef047ada72feedf49a8db055861c78086bfc1f9b2131e3e4d47"
+    },
+    "contracts": 35,
+    "contractsPassed": 35,
+    "nativeMacResult": "Separately bound in MAC_ACCEPTANCE.json; not inferred from this Windows smoke",
+    "qualification": "Later Darwin-only helper and protocol changes do not become the a844 sixteen-row driver. Windows input branch remained unchanged; live minimal125% Windows smoke was independently audited. No product rebuild or whole-platform approval follows."
+  },
+  "latestMinimumFailureIntervalFollowup": {
+    "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "producerChanges": [
+      "scripts/qa-fixture-ui121.cjs",
+      "scripts/qa-fixture-ui121-tests.cjs",
+      "scripts/verify-appearance-121-ui.cjs"
+    ],
+    "originalIndependentReview": {
+      "originalReceiptLabel": "updater121-deadline-final-independent-review.json",
+      "bytes": 15585,
+      "sha256": "2b07418e974652abb66e9bcfc2594380b45d768472cd144bb76b7a5e0b314f18"
+    },
+    "otherIndependentReview": {
+      "originalReceiptLabel": "community121-deadline-independent-review.json",
+      "bytes": 1555,
+      "sha256": "67ff30dfcc959cf92a6996c535700ab701542f57079481959afa16ea1f20c45e"
+    },
+    "actualWindowsSmoke": {
+      "originalReceiptLabel": "proof.json",
+      "bytes": 90076,
+      "sha256": "0466f2a2850ff71f956b343c78aa39ee35a05f21b472a40187853ebe00208a3f"
+    },
+    "focusedContracts": 44,
+    "focusedPassed": 44,
+    "actualFailedSettingsJournalMs": [
+      158,
+      164,
+      166,
+      153,
+      156
+    ],
+    "draftWallMs": 152,
+    "draftMonotonicMs": 151.28880000000026,
+    "actualAdditionalEarlyWakeWaits": [
+      150,
+      1
+    ],
+    "consumer150msThresholdUnchanged": true,
+    "qualification": "QA producer waits for actual wall and monotonic>=150ms, repeats a real wait on early wake and records original timestamps. Frozen product and the completed a844 sixteen-row captures remain unchanged; the latest QA smoke is not another full Windows matrix or native Mac acceptance."
+  },
+  "tests": {
+    "windows": {
+      "tests": 1589,
+      "pass": 1588,
+      "fail": 0,
+      "skipped": 1,
+      "cancelled": 0,
+      "originalLogSHA256": "f462d8eb56304b7c6d564846d6edaba802930b95ab31801f8f84531618d40fd4",
+      "originalLogBytes": 197241,
+      "originalLog": "test121-minimum-delay-committed-final.log"
+    },
+    "macOriginal8e": {
+      "tests": 1561,
+      "pass": 1556,
+      "fail": 0,
+      "skipped": 5,
+      "cancelled": 0,
+      "originalLogSHA256": "0a22ea7bcaca6dac106e342018eea06681d48f20d451b844a51ad42230dc1c39",
+      "originalLogBytes": 185599,
+      "originalLog": "mac120-npm-test.log"
+    }
+  },
+  "macFinalAcceptanceBinding": {
+    "originalReceiptLabel": "MAC_ACCEPTANCE.json",
+    "bytes": 51691,
+    "sha256": "b540a2071fec6e8b80540e2272342f1afeefb92dbbaf0478c69949977a3301ee"
+  },
+  "macIndependentBinding": {
+    "originalReceiptLabel": "INDEPENDENT_MAC.json",
+    "bytes": 22730,
+    "sha256": "6ed17db32863837e380b2cd6bb900a057a5bf771dc12d0b61b781aeb2482d08b"
+  },
+  "macModifiedScopeNativeQualified": true,
+  "macFullPlatformQualified": false,
+  "earlierFailures": [
+    {
+      "qaCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "run": 37820579554,
+      "fixtureQualified": 2,
+      "fixtureTotal": 18,
+      "wholeRunQualified": false,
+      "reason": "Original source-picker observation incomplete; APP/DMG and game failures preserved separately."
+    },
+    {
+      "qaCommit": "a8440a1bfcc088b243c1c5cb7d2e3a541d91b6ef",
+      "run": 37826058947,
+      "smokeQualified": false,
+      "matrixExecuted": false,
+      "wholeRunQualified": false,
+      "reason": "Four dispatch calls completed but no target selection event or settings request occurred."
+    },
+    {
+      "qaCommit": "7528a9b47beb728635ff60d37f72a8d202ad6fcc",
+      "run": 37828551113,
+      "smokeQualified": true,
+      "matrixExecuted": 18,
+      "fixtureQualified": 17,
+      "fixtureTotal": 18,
+      "wholeRunQualified": false,
+      "reason": "One controlled150ms failure actually lasted149ms; unchanged consumer>=150 rejected it. Product selection, rejected save, rollback and focus observed.",
+      "originalReceipt": {
+        "originalReceiptLabel": "receipt.json",
+        "bytes": 230593,
+        "sha256": "0b44d02716faf666454352633505322b98d7626c1e8d6dc613b830afda4d5bc7"
+      }
+    }
+  ],
+  "qualification": "Native ARM64 offscreen fixture execution, controlled save failures and original ASAR byte checks do not establish OS physical keyboard, full desktop, game visual/motion/audio or complete Mac parity. Later QA differences do not change frozen product bytes. Original failed receipts/frames remain immutable. Representative public images keep their earlier source bindings."
+}

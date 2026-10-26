@@ -5,10 +5,12 @@ import crypto from 'node:crypto'
 import AdmZip from 'adm-zip'
 import { parseModArchive } from './modMetadata'
 import { curseFingerprint } from './modIconIdentity'
+import type { ModScanPurpose } from './modScan'
 
 // CPU-heavy ZIP parsing stays off Electron's main thread. Only regular files in this directory.
 async function scan() {
-  const { dir, hash, names } = workerData as { dir: string; hash: boolean; names?: string[] }
+  const { dir, hash, names, purpose } = workerData as { dir: string; hash: boolean; names?: string[]; purpose?: ModScanPurpose }
+  const includeIcons = purpose !== 'catalog'
   const requested = names ? new Set(names) : undefined
   let entries: fs.Dirent[]
   try { entries = await fs.promises.readdir(dir, { withFileTypes: true }) }
@@ -20,8 +22,8 @@ async function scan() {
     try {
       const data = await fs.promises.readFile(file)
       const zip = new AdmZip(data)
-      const info = parseModArchive(zip, file, entry.name)
-      if (!info.iconDataUrl) {
+      const info = parseModArchive(zip, file, entry.name, 0, includeIcons)
+      if (includeIcons && !info.iconDataUrl) {
         const icon = zip.getEntry('pack.png')
         if (icon && icon.header.size <= 512 * 1024) info.iconDataUrl = 'data:image/png;base64,' + zip.readFile(icon)?.toString('base64')
       }

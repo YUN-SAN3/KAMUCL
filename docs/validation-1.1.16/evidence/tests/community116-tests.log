@@ -1,0 +1,29 @@
+✔ community session retains full filters, loaded pages and scroll; snapshots do not retain reactive proxies (1.0588ms)
+✔ Chinese exact names, common aliases and typed suffixes do not choose an unrelated longer name (2.637ms)
+✔ Chinese multiple aliases merge original domestic-name results, keep every filter and paginate a stable deduplicated union (200.2693ms)
+✔ an alias with no results retries the original Chinese name rather than hiding domestic projects (18.262ms)
+✔ broad Chinese alias unions disclose the retrieval cap instead of claiming complete provider totals (11.409ms)
+✔ dependency opt-out is checked by the real transaction; no missing dependency or root is silently installed (65.422ms)
+✔ community numbered pages cover uneven source totals without gaps or duplicates (487.4614ms)
+✔ all resource kinds retain version/source/sort filters; only mods and modpacks send loader (17.1567ms)
+✔ Chinese mod aliases keep Fabric and Minecraft filters instead of injecting unfiltered projects (7.8126ms)
+✔ partial provider outage reports honest totals and an explicit warning (10.1512ms)
+✔ reported ImmortalersDelight: BootstrapLauncher + fmlloader + FML arguments, renamed instance (9.0398ms)
+✔ FML argument-only and library-only profiles cover older NeoForge, modern Forge, Fabric and Quilt (0.3994ms)
+✔ multiloader descriptors, required vs optional/server dependencies, bundled providers (3.3106ms)
+✔ community filters apply to actual MC and normalized Loader, never filenames (0.1939ms)
+✔ dependency graph respects required edges, pinned versions, cycles and incompatible loaders (0.7695ms)
+✔ modified Vue components compile with real scripts and templates (82.2195ms)
+✔ real dependency download waits for consent, verifies JAR and commits into isolated folder without duplicates (89.2697ms)
+✔ multi-mod JAR must satisfy every same-loader descriptor, including a Forge FML-only bound (0.4911ms)
+✔ external runtime reuse follows exact coordinates, preserves existing bytes and does not copy unrelated versions (25.4431ms)
+✔ community component actually renders empty-instance filter fallback (not compile-only) (189.1494ms)
+✔ nested version any/all preserve boolean precedence and Quilt has its own bare-version semantics (0.6171ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1251.2447

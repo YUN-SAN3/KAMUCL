@@ -1,0 +1,7 @@
+# Preserve original acceptance evidence bytes, including CRLF logs and source snapshots.
+docs/validation-1.1.15/evidence/** -text
+docs/validation-1.1.15/history-e124/** -text
+docs/validation-1.1.16/evidence/** -text
+docs/validation-1.1.17/evidence/** -text
+docs/validation-1.1.18/** -text
+docs/validation-1.1.19/** -text

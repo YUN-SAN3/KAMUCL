@@ -12,6 +12,9 @@ import type { FrpNodesResult } from '../../../../main/core/frpNodes'
 const kamucl = window.kamucl
 const tunnels = ref<ManagedTunnel[]>([])
 const form = reactive({ accessKey: '' })
+const configured = ref(false), credentialLocked = ref(false), credentialNotice = ref('')
+const hasKey = computed(() => !!form.accessKey.trim() || (configured.value && !credentialLocked.value))
+const clearOpen = ref(false), clearBusy = ref(false), clearError = ref('')
 const operations = reactive(new Set<string>())
 const stopping = reactive(new Set<string>())
 const errorMsg = ref('')
@@ -44,7 +47,7 @@ const visibleNodes = computed(() => onlyFree.value ? (nodesResult.value?.nodes |
 const creatableNodes = computed(() => visibleNodes.value.filter(n => n.online && n.canCreate))
 const connected = computed(() => tunnels.value.filter(t => t.status === 'running').length)
 const restoring = computed(() => tunnels.value.filter(t => t.desired).length)
-const busy = computed(() => creating.value || nodesLoading.value)
+const busy = computed(() => creating.value || nodesLoading.value || clearBusy.value)
 let disposed = false
 const statusLabel: Record<string, string> = { idle: '未启动', starting: '正在连接', running: '已连接', auth_failed: '认证失败', tunnel_offline: '隧道不可用', error: '连接失败', stopped: '已停止' }
 const active = (t: ManagedTunnel) => t.status === 'running' || t.status === 'starting'
@@ -53,10 +56,11 @@ const errText = (e: unknown) => (e instanceof Error ? e.message : String(e)).rep
 watch(() => form.accessKey, () => { nodesResult.value = null })
 async function refreshStatus() {
   try {
-    const result = await kamucl.invoke('frp:status') as { accessKey: string; tunnels: ManagedTunnel[] }
+    const result = await kamucl.invoke('frp:status') as { configured: boolean; locked: boolean; notice?: string; tunnels: ManagedTunnel[] }
     if (disposed) return
     tunnels.value = result.tunnels || []
-    if (!form.accessKey && result.accessKey) form.accessKey = result.accessKey
+    configured.value = result.configured === true; credentialLocked.value = result.locked === true
+    credentialNotice.value = result.notice || (result.locked ? (result.configured ? '系统安全存储不可用或凭据无法解密；已保存的密钥和隧道记录已保留，请解锁后重试。' : '本机未保存访问密钥；系统安全存储仍不可用，解锁后可保存新密钥；隧道记录已保留。') : '')
   } catch(e) { errorMsg.value = errText(e) }
 }
 async function control(t: ManagedTunnel, stop: boolean) {
@@ -77,7 +81,7 @@ async function loadNodes(refresh = false, notify = true): Promise<boolean> {
     if (!Array.isArray(result?.nodes)) throw new Error('节点列表查询失败，请重试')
     if (!Array.isArray(result.tunnels)) throw new Error('隧道列表查询失败，请检查密钥权限后重试')
     if (disposed) return false
-    nodesResult.value = result; editingAccount.value=false; await refreshStatus()
+    form.accessKey = ''; nodesResult.value = result; editingAccount.value=false; await refreshStatus()
     if (notify) toast(`已读取成功：${result.tunnels.length} 条隧道，${result.nodes.length} 个节点`, 'success')
     return true
   } catch(e) { if (!disposed) { nodesError.value = errText(e); toast(`读取失败：${nodesError.value}`, 'error') }; return false }
@@ -95,7 +99,14 @@ async function createTunnel() {
 }
 async function copyWebsite() { toast(await copyText('https://www.natfrp.com/') ? '已复制樱花穿透网址' : '复制失败', 'info') }
 async function copyRemote(address: string) { toast(await copyText(address) ? '已复制远程地址' : '复制失败', 'info') }
-function onReferenceToggle(event: Event) { if ((event.target as HTMLDetailsElement).open && !nodesResult.value && !nodesLoading.value && form.accessKey.trim()) void loadNodes() }
+function onReferenceToggle(event: Event) { if ((event.target as HTMLDetailsElement).open && !nodesResult.value && !nodesLoading.value && hasKey.value) void loadNodes() }
+async function clearCredentials() {
+  if (clearBusy.value) return
+  clearBusy.value = true; clearError.value = ''
+  try { await kamucl.invoke('frp:clear-credentials', { confirmed: true }); form.accessKey = ''; nodesResult.value = null; clearOpen.value = false; toast('本机访问密钥已清除，隧道记录已保留', 'success') }
+  catch (error) { clearError.value = errText(error) }
+  finally { clearBusy.value = false; await refreshStatus() }
+}
 let unsubscribe: (() => void) | undefined
 onMounted(async () => {
   unsubscribe = kamucl.on('frp:event', (raw: unknown) => {
@@ -112,6 +123,7 @@ onBeforeUnmount(() => { disposed = true; unsubscribe?.() })
 
 <template>
   <div data-ui="FrpPanel:ab59a69f21ab" class="frp-page">
+    <ConfirmModal :open="clearOpen" title="清除本机访问密钥" :message="'这会停止全部本机隧道、取消自动恢复，并清除本机保存的访问密钥。隧道卡片和远端隧道将保留；下次使用需要重新填写密钥。' + (clearError ? '\n' + clearError : '')" confirm-text="清除保存的密钥" :busy="clearBusy" @confirm="clearCredentials" @cancel="clearOpen=false" />
     <ConfirmModal :open="!!deleteTarget" title="删除樱花隧道" :message="deleteTarget ? `确认删除「${deleteTarget.name}」（#${deleteTarget.config?.tunnelId}）？这会从樱花穿透账号中永久删除该隧道，停止本地连接并取消自动恢复，无法撤销。其他隧道不受影响。${deleteError ? '\n' + deleteError : ''}` : ''" confirm-text="从樱花穿透删除" :busy="deleting" @confirm="confirmDelete" @cancel="cancelDelete" />
     <section class="frp-overview" data-ui="frp:overview">
       <div><h2>我的隧道</h2><p>每条隧道独立连接，随时启停。</p></div>
@@ -119,14 +131,16 @@ onBeforeUnmount(() => { disposed = true; unsubscribe?.() })
     </section>
     <details class="frp-restore-note"><summary>自动恢复与连接说明</summary><p>关闭启动器时，会记住未手动停止的隧道，下次打开自动恢复。点击某条隧道的“停止”只影响该隧道。好友可在游戏的“直接连接”中填入远程地址。</p></details>
     <p data-ui="FrpPanel:54b1d9fe0e6e" v-if="errorMsg" class="connection-error" role="alert">{{ errorMsg }}</p>
-    <div v-if="accountReady && !editingAccount" class="frp-account-summary"><span>已读取 {{ tunnels.length }} 条隧道 · 密钥保存在本机</span><button data-ui="FrpPanel:57467d5ded4a" class="btn btn-ghost btn-sm" @click="editingAccount=true">编辑密钥</button><button class="btn btn-ghost btn-sm" :disabled="nodesLoading" @click="loadNodes(true)">重新读取</button></div>
+    <p v-if="credentialNotice" class="connection-error" role="alert">{{ credentialNotice }}</p>
+    <div v-if="configured" class="frp-account-summary"><span>{{ credentialLocked ? '访问密钥已保存，等待解锁' : '访问密钥由系统安全存储加密保存' }}</span><button class="btn btn-ghost btn-sm" :disabled="busy" @click="clearError='';clearOpen=true">清除本机保存的密钥</button></div>
+    <div v-if="accountReady && !editingAccount" class="frp-account-summary"><span>已读取 {{ tunnels.length }} 条隧道</span><button data-ui="FrpPanel:57467d5ded4a" class="btn btn-ghost btn-sm" @click="editingAccount=true">更换密钥</button><button class="btn btn-ghost btn-sm" :disabled="busy || !hasKey" @click="loadNodes(true)">重新读取</button></div>
     <ConnectionPanel v-else title="樱花穿透账号" subtitle="填写访问密钥，读取账号中的隧道与节点。已连接的隧道不会被其他隧道的操作打断。">
-      <div data-ui="FrpPanel:08816fe7bdc1" class="frp-account-row"><label class="connection-field"><span>访问密钥</span><input data-ui="FrpPanel:a4d20e81e801" v-model="form.accessKey" class="input" type="password" autocomplete="off" placeholder="粘贴用户信息页的访问密钥" :disabled="busy" /></label><button data-ui="FrpPanel:595aea894985" class="btn btn-gold" :disabled="busy || !form.accessKey.trim()" @click="loadNodes(true)">{{ nodesLoading ? '正在读取…' : '读取我的隧道与节点' }}</button></div>
+      <div data-ui="FrpPanel:08816fe7bdc1" class="frp-account-row"><label class="connection-field"><span>访问密钥</span><input data-ui="FrpPanel:a4d20e81e801" v-model="form.accessKey" class="input" type="password" autocomplete="off" :placeholder="configured ? '留空使用已保存密钥；输入新密钥可替换' : '粘贴用户信息页的访问密钥'" :disabled="busy" /></label><button data-ui="FrpPanel:595aea894985" class="btn btn-gold" :disabled="busy || !hasKey || credentialLocked" @click="loadNodes(true)">{{ nodesLoading ? '正在读取…' : '读取我的隧道与节点' }}</button></div>
       <div data-ui="FrpPanel:b0c9c097bfa7" class="frp-account-help">
         <ReferenceLinks :links="[{ label: '樱花穿透官网', url: 'https://www.natfrp.com/' }, { label: '使用指南', url: 'https://doc.natfrp.com/' }]">
           <button data-ui="FrpPanel:a705e51a826a" type="button" @click="copyWebsite">复制官网地址</button>
         </ReferenceLinks>
-        <small>访问密钥仅保存在本机</small>
+        <small>访问密钥由系统安全存储加密保存，已保存的密钥不会回填到输入框。</small>
       </div>
       <p v-if="nodesError" class="connection-error" role="alert">{{ nodesError }}</p>
     </ConnectionPanel>
@@ -135,7 +149,7 @@ onBeforeUnmount(() => { disposed = true; unsubscribe?.() })
     <ConnectionPanel title="创建新隧道" subtitle="选择服务节点，再填入游戏局域网端口。创建成功后显示独立卡片，不会自动运行。">
       <div data-ui="FrpPanel:fc691b543124" class="frp-create-grid"><label class="connection-field"><span>隧道名称</span><input data-ui="FrpPanel:b7caefdb0a45" v-model="creation.name" class="input" maxlength="64" placeholder="例如：好友生存世界" /></label><label class="connection-field"><span>服务节点</span><select data-ui="FrpPanel:e06c3d520528" v-model="creation.node" class="input"><option value="">{{ nodesResult ? '选择可用节点' : '请先读取节点' }}</option><option v-for="n in creatableNodes" :key="n.id" :value="String(n.id)">{{ n.name }} · {{ n.free ? '免费' : '专业版' }}{{ n.load !== null ? ' · ' + n.load + '%' : '' }}</option></select></label><label class="connection-field"><span>本地端口</span><input data-ui="FrpPanel:9ca5880a3b61" v-model="creation.localPort" class="input" type="number" min="1" max="65535" placeholder="游戏对局域网开放后显示的端口" /></label><label class="connection-field"><span>远程端口（可选）</span><input data-ui="FrpPanel:0ce18bb53250" v-model="creation.remotePort" class="input" type="number" min="1" max="65535" placeholder="留空由樱花穿透分配" /></label></div>
       <label data-ui="FrpPanel:0ae18a9aca64" class="frp-free"><input v-model="onlyFree" type="checkbox" />仅显示免费节点</label>
-      <button data-ui="FrpPanel:1769901eab4f" class="btn btn-gold" :disabled="creating || !form.accessKey.trim() || !creation.node || !creation.localPort" @click="createTunnel">{{ creating ? '正在创建…' : '创建 TCP 隧道' }}</button>
+      <button data-ui="FrpPanel:1769901eab4f" class="btn btn-gold" :disabled="creating || !hasKey || credentialLocked || !creation.node || !creation.localPort" @click="createTunnel">{{ creating ? '正在创建…' : '创建 TCP 隧道' }}</button>
     </ConnectionPanel>
 
     </details>
@@ -144,7 +158,7 @@ onBeforeUnmount(() => { disposed = true; unsubscribe?.() })
         <header data-ui="FrpPanel:c5911bc51b7c"><div><h3>{{ t.name }}</h3><p>{{ t.nodeName || '节点信息待读取' }} · #{{ t.config?.tunnelId }}</p></div><ConnectionStatus :tone="tone(t)" :label="t.deleting ? '正在删除' : t.busy ? '正在准备' : statusLabel[t.status]" /></header>
         <div data-ui="FrpPanel:e157d6943eab" class="frp-endpoints"><div><span>本地服务</span><strong>{{ t.localIp }}:{{ t.config?.localPort || '未配置' }}</strong></div><div><span>远程地址</span><strong>{{ t.remoteAddress || (t.status === 'running' ? '等待服务返回地址' : '连接后显示') }}</strong><button v-if="t.remoteAddress" class="btn btn-ghost btn-sm" @click="copyRemote(t.remoteAddress)">复制地址</button></div></div>
         <p data-ui="FrpPanel:95340b6c69f4" v-if="t.busy || tone(t) === 'danger'" class="frp-tunnel-message" :class="{ danger: tone(t) === 'danger' }">{{ t.busy ? '正在检查隧道并准备连接…' : t.message }}</p>
-        <footer data-ui="FrpPanel:10ce12df3ad2"><small>{{ t.desired ? '下次打开启动器将自动恢复' : '已停止自动恢复' }}</small><div data-ui="FrpPanel:3acd6476d7b7" class="frp-card-actions"><button data-ui="FrpPanel:d8c4790e0c8e" v-if="!active(t) && !t.busy" class="btn btn-gold" :disabled="t.deleting || operations.has(t.id)" @click="control(t, false)">{{ tone(t) === 'danger' ? '重试连接' : '启动隧道' }}</button><button data-ui="FrpPanel:1cbfb09e7f09" v-if="active(t) || t.desired || t.busy" class="btn btn-ghost" :disabled="t.deleting || stopping.has(t.id)" @click="control(t, true)">{{ t.busy ? '取消启动' : '停止隧道' }}</button><details class="frp-more" @keydown.esc="($event.currentTarget as HTMLDetailsElement).open=false"><summary class="btn btn-ghost btn-sm" :aria-label="'更多操作 '+t.name">⋯</summary><div><button data-ui="FrpPanel:05be50a5135c" class="btn btn-danger btn-sm" :disabled="t.deleting" @click="askDelete(t)">删除隧道</button></div></details></div></footer>
+        <footer data-ui="FrpPanel:10ce12df3ad2"><small>{{ t.desired ? '下次打开启动器将自动恢复' : '已停止自动恢复' }}</small><div data-ui="FrpPanel:3acd6476d7b7" class="frp-card-actions"><button data-ui="FrpPanel:d8c4790e0c8e" v-if="!active(t) && !t.busy" class="btn btn-gold" :disabled="t.deleting || t.credentialLocked || credentialLocked || operations.has(t.id)" @click="control(t, false)">{{ tone(t) === 'danger' ? '重试连接' : '启动隧道' }}</button><button data-ui="FrpPanel:1cbfb09e7f09" v-if="active(t) || t.desired || t.busy" class="btn btn-ghost" :disabled="t.deleting || stopping.has(t.id)" @click="control(t, true)">{{ t.busy ? '取消启动' : '停止隧道' }}</button><details class="frp-more" @keydown.esc="($event.currentTarget as HTMLDetailsElement).open=false"><summary class="btn btn-ghost btn-sm" :aria-label="'更多操作 '+t.name">⋯</summary><div><button data-ui="FrpPanel:05be50a5135c" class="btn btn-danger btn-sm" :disabled="t.deleting" @click="askDelete(t)">删除隧道</button></div></details></div></footer>
         <details data-ui="FrpPanel:817cbf8159bb" class="frp-card-logs"><summary>运行日志 · {{ t.logs.length }} 条</summary><div data-ui="FrpPanel:3156be53d1a0" class="connection-log-viewport"><p data-ui="FrpPanel:6f7846e870fd" v-if="!t.logs.length" class="connection-muted">尚无日志</p><p data-ui="FrpPanel:ff75ffc93400" v-for="(entry, i) in t.logs" :key="i" class="mono connection-log-line">[{{ entry.stream }}] {{ entry.text }}</p></div></details>
       </article>
       <div data-ui="FrpPanel:dd7f31ce9863" v-if="!tunnels.length" class="frp-empty"><h3>还没有读取隧道</h3><p>读取账号后，每条隧道会在这里拥有独立的控制卡片。没有隧道时，可在下方创建。</p></div>
@@ -163,7 +177,7 @@ onBeforeUnmount(() => { disposed = true; unsubscribe?.() })
           <div data-ui="FrpPanel:4f372443ab5b" class="reference-body">
             <div data-ui="FrpPanel:6b412b921017" class="node-toolbar">
               <label data-ui="FrpPanel:c99a7ef6ce06" class="connection-toggle node-toggle"><span>只看免费节点<small>专业版（VIP）节点需要 natfrp 专业版账号</small></span><input v-model="onlyFree" type="checkbox" /><span data-ui="FrpPanel:a8ec6884149b" class="connection-toggle-track" aria-hidden="true"></span></label>
-              <button data-ui="FrpPanel:8d48bc817d33" class="btn btn-ghost" :disabled="nodesLoading || !form.accessKey.trim()" @click="loadNodes(true)">{{ nodesLoading ? '查询中…' : nodesResult ? '刷新节点' : '查询节点' }}</button>
+              <button data-ui="FrpPanel:8d48bc817d33" class="btn btn-ghost" :disabled="nodesLoading || !hasKey || credentialLocked" @click="loadNodes(true)">{{ nodesLoading ? '查询中…' : nodesResult ? '刷新节点' : '查询节点' }}</button>
             </div>
 
             <p v-if="nodesError" class="connection-error" role="alert">{{ nodesError }}</p>

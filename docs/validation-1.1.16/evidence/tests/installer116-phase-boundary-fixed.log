@@ -1,0 +1,23 @@
+✔ Concurrent Java preparations forward current and subsequent progress to both installer callers without duplicate writes (1.2678ms)
+✔ Failed shared preparation does not cache failure and disconnected observers cannot break a live installer (0.4317ms)
+✔ Runtime generation names its waiting prerequisites and becomes running for Java instead of remaining at generic waiting (1.1803ms)
+{"pipelineCapture":"E:\\KAMUCL\\out\\installer-pipeline116-events-1e31eb5d-a256-43b6-9e8b-2b84da7d6dff.json"}
+✔ Actual Forge pack pipeline reports Java readiness, drains the installer and commits overrides before completion (866.8302ms)
+✔ 社区 mrpack 从压缩包下载到模组及覆盖文件落盘，总进度不提前锁在 100% (1114.2897ms)
+✔ 下载中心百分比在任务成功前不四舍五入成 100%，暂停失败同样保留未完成状态 (0.189ms)
+✔ 并行组失败时取消同组任务，并等待迟到的写入结束才交给调用者回滚 (36.6645ms)
+✔ 嵌套并行组继承任务暂停和取消，不在暂停期间启动新的写入 (30.8601ms)
+✔ 并行进度按各阶段权重累积，不因一个阶段完成提前达到 100% 或重复统计速度 (0.4184ms)
+✔ 预取无哈希文件只写独立暂存目录，明确提交后才写实例，清理不碰实例 (88.6573ms)
+✔ 真实四阶段并行整合包：success；成功后提交，失败取消后无迟到写入 (367.9133ms)
+[modpack] 整合包 pack.mrpack 安装失败 << Error: 整合包文件下载失败：下载失败：HTTP 404: https://pack-test.invalid/mod | 文件：030c7ffc1df610bcf047bb98492f17c47d207cb70d4fa93fda401d61be2f9419.jar | 地址：https://pack-test.invalid/mod |     at eval (eval at versionInstallHarness (E:\KAMUCL\tests\helpers\version-install-harness.ts:8:672), <anonymous>:10189:19) |     at async eval (eval at versionInstallHarness (E:\KAMUCL\tests\helpers\version-install-harness.ts:8:672), <anonymous>:3790:16) |     at async Promise.allSettled (index 1) |     at async runParallelTasks (eval at versionInstallHarness (E:\KAMUCL\tests\helpers\version-install-harness.ts:8:672), <anonymous>:3787:21) |     at async installModpackInFolder (eval at versionInstallHarness (E:\KAMUCL\tests\helpers\version-install-harness.ts:8:672), <anonymous>:10063:29) |     at async Object.installModpack (eval at versionInstallHarness (E:\KAMUCL\tests\helpers\version-install-harness.ts:8:672), <anonymous>:9991:16) |     at async waitForActual (node:assert:646:5) |     at async strict.rejects (node:assert:769:25) |     at async TestContext.<anonymous> (E:\KAMUCL\tests\parallel-install-1077.test.ts:117:7) |     at async Test.run (node:internal/test_runner/test:1313:7)
+✔ 真实四阶段并行整合包：failure；成功后提交，失败取消后无迟到写入 (215.996ms)
+✔ 真实四阶段并行整合包：cancel；成功后提交，失败取消后无迟到写入 (188.9489ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1903.7355

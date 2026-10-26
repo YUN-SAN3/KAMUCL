@@ -5,15 +5,18 @@ import { randomUUID } from 'node:crypto'
 import { atomicUpdateJson, buildUpdaterScript, readUpdateTransaction, updateMarker, validateUpdatePayload, type UpdateTransaction, type UpdaterScriptSpec } from './updateTransaction'
 export { buildUpdaterScript } from './updateTransaction'
 import { app } from 'electron'
-import type { LocalUpdateCheck, ProgressEvent, ReleaseInfo, Settings, UpdateStateInfo } from '../../shared/types'
+import type { LocalUpdateCheck, ProgressEvent, ReleaseInfo, UpdateStateInfo } from '../../shared/types'
 import { IPC_EVENT } from '../../shared/types'
 import { compareSemver } from '../../shared/semver'
-import { downloadAll } from './download'
+import { downloadUpdatePayload } from './updateDownload'
+import { updateDownloadCandidates, type UpdateSourceSettings } from './updateSources'
+export { updateDownloadCandidates } from './updateSources'
 import { finishTask, registerTask } from './tasks'
 import { currentVersion, fetchSha256Sums, sha256File } from './selfUpdate'
 import { logScope } from './launcherLog'
 import { isolatedUpdateTest, trustedUpdateRelease, updateAssetName } from './updateTrust'
 import { macAppTarget, macUpdateSupported, macUpdateDir, readMacUpdate, clearMacUpdate, stageMacUpdate, blockedMacVersion, applyMacUpdateOnStartup, acknowledgeMacUpdate, stageMacBackup } from './macUpdate'
+import { linuxAppTarget, linuxUpdateSupported, linuxUpdateDir, readLinuxUpdate, clearLinuxUpdate, stageLinuxUpdate, blockedLinuxVersion, applyLinuxUpdateOnStartup, acknowledgeLinuxUpdate, stageLinuxBackup, validateLinuxPendingUpdate } from './linuxUpdate'
 
 const updateLog = logScope('self-update')
 
@@ -35,17 +38,21 @@ export function setUpdateEmitter(fn: Emitter): void { emit = fn }
  */
 export function currentPortableExe(): string | null {
   if (process.platform === 'darwin') return macAppTarget()
+  if (process.platform === 'linux') return linuxAppTarget()
+  if (process.platform !== 'win32') return null
   return (isolatedUpdateTest() && process.env.KAMUCL_UPDATE_TARGET_EXE) || process.env.PORTABLE_EXECUTABLE_FILE || null
 }
 
 /** 是否支持自更新（仅便携包运行或测试注入目标时） */
 export function updateSupported(): boolean {
   if (process.platform === 'darwin') return macUpdateSupported()
+  if (process.platform === 'linux') return linuxUpdateSupported()
   return !!currentPortableExe()
 }
 
 function updateDirOf(exe: string): string {
   if (process.platform === 'darwin') return macUpdateDir()
+  if (process.platform === 'linux') return linuxUpdateDir()
   return path.join(path.dirname(exe), 'KAMUCL-update')
 }
 function backupDirOf(exe: string): string {
@@ -86,6 +93,7 @@ export interface PendingUpdate { release: ReleaseInfo; file: string }
 function pendingFile(): string { return path.join(userDataDir(), 'pending-update.json') }
 export function getPendingUpdate(): PendingUpdate | null {
   if (process.platform === 'darwin') return readMacUpdate()
+  if (process.platform === 'linux') return readLinuxUpdate()
   const exe = currentPortableExe()
   if (exe) {
     const t = readUpdateTransaction(updateMarker(exe), exe)
@@ -100,12 +108,14 @@ export function getPendingUpdate(): PendingUpdate | null {
 }
 export function clearPendingUpdate(): void {
   if (process.platform === 'darwin') { clearMacUpdate(); return }
+  if (process.platform === 'linux') { clearLinuxUpdate(); return }
   const exe = currentPortableExe()
   if (exe && readUpdateTransaction(updateMarker(exe), exe)) fs.rmSync(updateMarker(exe), { force: true })
   fs.rmSync(pendingFile(), { force: true })
 }
 async function writePendingUpdate(release: ReleaseInfo, file: string, sha256: string, mode: UpdateTransaction['mode']): Promise<void> {
   if (process.platform === 'darwin') return stageMacUpdate(release, file, sha256, mode)
+  if (process.platform === 'linux') return stageLinuxUpdate(release, file, sha256, mode)
   const exe = currentPortableExe()!
   const marker = updateMarker(exe)
   if (fs.existsSync(marker) && !readUpdateTransaction(marker, exe)) throw new Error('此目录有其他启动器的更新记录，请使用独立目录')
@@ -117,6 +127,7 @@ async function writePendingUpdate(release: ReleaseInfo, file: string, sha256: st
 /** Suppress retrying a failed/unfinished transaction until the user explicitly downloads again. */
 export function blockedUpdateVersion(): string | undefined {
   if (process.platform === 'darwin') return blockedMacVersion()
+  if (process.platform === 'linux') return blockedLinuxVersion()
   const exe = currentPortableExe()
   if (!exe) return
   for (const suffix of ['.applying', '.applying.failed']) {
@@ -128,6 +139,7 @@ let verifiedStartupTransaction: UpdateTransaction | undefined
 /** Only called before creating any UI, on a subsequent user startup. */
 export async function applyUpdateOnStartup(): Promise<boolean> {
   if (process.platform === 'darwin') return applyMacUpdateOnStartup()
+  if (process.platform === 'linux') return applyLinuxUpdateOnStartup()
   const exe = currentPortableExe()
   if (!exe) return false
   const marker = updateMarker(exe), claim = marker + '.applying'
@@ -186,6 +198,7 @@ export async function applyUpdateOnStartup(): Promise<boolean> {
 /** Renderer readiness, not portable-wrapper lifetime, acknowledges a successful update. */
 export async function acknowledgeUpdateStartup(): Promise<void> {
   if (process.platform === 'darwin') return acknowledgeMacUpdate()
+  if (process.platform === 'linux') return acknowledgeLinuxUpdate()
   const exe = currentPortableExe()
   if (!exe) return
   const claim = updateMarker(exe) + '.applying'
@@ -206,7 +219,7 @@ export function isUpdateDownloading(): boolean {
  * 自动安装模式入口：静默后台下载；完成后写待安装状态并发 updateReady，
  * 下次用户启动时应用，本次退出不执行替换或重启。
  */
-export function startAutoUpdate(release: ReleaseInfo, settings: Pick<Settings, 'updateSource' | 'updateMirrorUrl'>): void {
+export function startAutoUpdate(release: ReleaseInfo, settings: UpdateSourceSettings): void {
   if (!updateSupported()) return
   if (autoDownloadingVersion) return
   autoDownloadingVersion = release.version
@@ -234,16 +247,6 @@ export async function applyPendingIfAny(): Promise<boolean> {
 
 // ---------------- 下载源 ----------------
 
-/** 按设置构造下载候选 URL 列表（auto=直连优先镜像兜底；direct=仅直连；mirror=仅镜像） */
-export function updateDownloadCandidates(assetUrl: string, settings: Pick<Settings, 'updateSource' | 'updateMirrorUrl'>): string[] {
-  const mirrorPrefix = (settings.updateMirrorUrl || 'https://ghproxy.net/').trim()
-  const mirrored = mirrorPrefix ? mirrorPrefix + assetUrl : ''
-  const source = settings.updateSource ?? 'auto'
-  if (source === 'direct') return [assetUrl]
-  if (source === 'mirror') return mirrored ? [mirrored] : [assetUrl]
-  return mirrored ? [assetUrl, mirrored] : [assetUrl]
-}
-
 // ---------------- 下载（接入下载中心） ----------------
 
 export interface UpdateDownloadHandle {
@@ -257,7 +260,7 @@ let activeDownload: { version: string; handle: UpdateDownloadHandle } | null = n
  * 后台下载更新包：注册下载中心任务（分阶段进度/可取消/断点续传/多源换源），
  * 完成后强制 SHA256 校验。低速 30s 通过 emit 发一次内测群提示。
  */
-export function startUpdateDownload(release: ReleaseInfo, settings: Pick<Settings, 'updateSource' | 'updateMirrorUrl'>, mode: 'upgrade' | 'rollback'): UpdateDownloadHandle {
+export function startUpdateDownload(release: ReleaseInfo, settings: UpdateSourceSettings, mode: 'upgrade' | 'rollback'): UpdateDownloadHandle {
   if (process.platform === 'darwin' && !macUpdateSupported()) throw new Error('请将 KAMUCL.app 拖入可写的应用程序目录后再更新')
   if (!trustedUpdateRelease(release)) throw new Error('更新来源无效，请重新检查官方版本')
   if (activeDownload) {
@@ -273,18 +276,18 @@ export function startUpdateDownload(release: ReleaseInfo, settings: Pick<Setting
   const dest = path.join(updateDir, release.assetName || `KAMUCL-${release.version}.exe`)
 
   const task = registerTask(`${mode === 'rollback' ? '回退' : '下载'}启动器 v${release.version}`, 'download')
-  const [url, ...alternates] = updateDownloadCandidates(release.assetUrl, settings)
+  const urls = updateDownloadCandidates(release.assetUrl, settings)
   let slowSince: number | null = null
   let slowHintSent = false
 
   const done = (async () => {
     try {
       // 先取校验值（安全优先：取不到不开始下载）
-      const sums = await fetchSha256Sums(release.assetUrl)
+      const sums = await fetchSha256Sums(release.assetUrl, undefined, task.controller.signal)
       const expected = sums?.get(release.assetName) ?? sums?.get(path.basename(dest)) ?? null
       if (!expected) throw new Error('无法获取更新包校验值（SHA256SUMS），已中止（安全考虑）')
-      await downloadAll(
-        [{ url, urls: alternates, dest, sha256: expected, size: release.assetSize || undefined }],
+      await downloadUpdatePayload(
+        { urls, dest, sha256: expected, size: release.assetSize || undefined },
         (_done, _total, bps, detail) => {
           const received = detail.bytesDone, total = detail.bytesTotal ?? 0
           const now = Date.now()
@@ -310,15 +313,16 @@ export function startUpdateDownload(release: ReleaseInfo, settings: Pick<Setting
             slowSince = null
           }
         },
-        8, 'official', task.controller.signal
+        task.controller.signal
       )
       // 完整性校验：SHA256 不一致即失败（删除文件防误用）
-      const actual = await sha256File(dest)
+      const actual = await sha256File(dest, task.controller.signal)
       if (actual !== expected) {
         fs.rmSync(dest, { force: true })
         throw new Error(`更新包校验失败（SHA256 不一致），已删除文件。期望 ${expected.slice(0, 12)}… 实际 ${actual.slice(0, 12)}…`)
       }
       updateLog.info(`更新包下载完成并校验通过：${dest}`)
+      task.controller.signal.throwIfAborted()
       await writePendingUpdate(release, dest, expected, mode)
       emit(IPC_EVENT.taskDone, { taskId: task.id, ok: true })
     } catch (e) {
@@ -351,9 +355,10 @@ async function spawnUpdater(spec: UpdaterScriptSpec): Promise<number> {
 
 export async function applyDownloadedUpdate(release: ReleaseInfo): Promise<void> {
   const exe = currentPortableExe()
-  const t = process.platform === 'darwin' ? readMacUpdate() : exe && readUpdateTransaction(updateMarker(exe), exe)
+  const t = process.platform === 'darwin' ? readMacUpdate() : process.platform === 'linux' ? readLinuxUpdate() : exe && readUpdateTransaction(updateMarker(exe), exe)
   if (!t || t.release.version !== release.version) throw new Error('更新尚未准备完成，请先下载')
-  await validateUpdatePayload(t)
+  if (process.platform === 'linux') await validateLinuxPendingUpdate(t)
+  else await validateUpdatePayload(t)
 }
 
 /** Manual rollback is staged for next startup too, and never consumes the only backup. */
@@ -361,6 +366,7 @@ export async function restoreBackupAndRestart(): Promise<void> {
   const state = getUpdateState(), exe = currentPortableExe()
   if (!state || !exe) throw new Error('没有可用的备份')
   if (process.platform === 'darwin') return stageMacBackup(state.backupPath, state.backupVersion)
+  if (process.platform === 'linux') return stageLinuxBackup(state.backupPath, state.backupVersion)
   const dest = path.join(updateDirOf(exe), randomUUID(), `KAMUCL-${state.backupVersion}.exe`)
   fs.mkdirSync(path.dirname(dest), { recursive: true }); fs.copyFileSync(state.backupPath, dest)
   await writePendingUpdate({ version: state.backupVersion, publishedAt: '', body: '', assetUrl: '', assetSize: fs.statSync(dest).size, assetName: path.basename(dest) }, dest, await sha256File(dest), 'rollback')
@@ -374,6 +380,7 @@ export async function checkLocalUpdateFile(filePath: string): Promise<LocalUpdat
   const m = EXE_VERSION_RE.exec(fileName)
   const version = m?.[1] ?? ''
   if (process.platform === 'darwin' && (!version || fileName !== updateAssetName(version))) throw new Error('请选择当前 Mac 架构的 KAMUCL-版本-mac-' + process.arch + '.zip')
+  if (process.platform === 'linux' && (!version || fileName !== updateAssetName(version))) throw new Error('请选择当前 Linux 架构及安装方式的 KAMUCL 更新包')
   const current = currentVersion()
   const versionOk = !!version && compareSemver(version, current) >= 0
   let sha: LocalUpdateCheck['sha256'] = 'unknown'

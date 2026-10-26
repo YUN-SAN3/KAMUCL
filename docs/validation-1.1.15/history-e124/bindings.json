@@ -1,0 +1,209 @@
+{
+  "classification": "Original bytes copied from explicit synthetic/native acceptance allowlist; declarations of old host paths retained, no private profiles or game files",
+  "files": [
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-e1cd74e9-093a-437c-a6c9-4dad8ed21ee5\\summary.json",
+      "bytes": 1664,
+      "sha256": "7b26ba98715ba87704d6cc93e8b78ae7549636e95edfc010fce1961e6eebee5d",
+      "copiedPath": "privacy/00-summary.json"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\summary.json",
+      "bytes": 7470599,
+      "sha256": "0ee80e6b0f9ee33aa9ea3cb8d50b3b5b38a49ff9832e46d52ef155b053dbf127",
+      "copiedPath": "privacy/01-summary.json"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\live.json",
+      "bytes": 7470599,
+      "sha256": "0ee80e6b0f9ee33aa9ea3cb8d50b3b5b38a49ff9832e46d52ef155b053dbf127",
+      "copiedPath": "privacy/02-live.json"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-e1cd74e9-093a-437c-a6c9-4dad8ed21ee5\\first-driver.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "copiedPath": "privacy/03-first-driver.log"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\qa-owned-process-119-f884eb9d-0cf8-4ead-8341-6aedba79b926.json",
+      "bytes": 1007,
+      "sha256": "efeba52524fbe7423a0c8edbc0ad5922dd77a4517ca5fa6b206254e41dc5a1e6",
+      "copiedPath": "privacy/04-qa-owned-process-119-f884eb9d-0cf8-4ead-8341-6aedba79b926.json"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\servers-default-hidden.png",
+      "bytes": 171667,
+      "sha256": "ffba62be9bc20adc483cff31fc915248b3b5d7ece38ce1c14dce262468696be2",
+      "copiedPath": "privacy/05-servers-default-hidden.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\category-assigned-and-filtered.png",
+      "bytes": 130144,
+      "sha256": "25974c5cc70cb4caea9061879f8bd81e2186e114f996d98bdace3e44e54ef998",
+      "copiedPath": "privacy/06-category-assigned-and-filtered.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\transparent-minimum-125-servers.png",
+      "bytes": 102721,
+      "sha256": "2af7d1192637d011f80962534b26541201cb5cea11d008109717ba8d9fb7e6c1",
+      "copiedPath": "privacy/07-transparent-minimum-125-servers.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\transparent-actual-minimum-125-category-manager.png",
+      "bytes": 150000,
+      "sha256": "e8ceabf50bbf70d95fdcac04285193d1e384bffa7c40008b2c0f0d7349d946b5",
+      "copiedPath": "privacy/08-transparent-actual-minimum-125-category-manager.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\transparent-actual-minimum-125-favorites.png",
+      "bytes": 110057,
+      "sha256": "c69104ae6fc7bb2a4afeebfead36d13667e0e6556516410848c5a31e2ff11c17",
+      "copiedPath": "privacy/09-transparent-actual-minimum-125-favorites.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\black-orange-minimum-125-servers.png",
+      "bytes": 114783,
+      "sha256": "e0bf3b74a8bf79a25212f7ba50cdc4844db393146cae38130941b91694553fce",
+      "copiedPath": "privacy/10-black-orange-minimum-125-servers.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\black-orange-actual-minimum-125-category-manager.png",
+      "bytes": 180201,
+      "sha256": "e1057837530b73c3431ea6abab9717dcc7ef32af8766825b9b20b30a58175156",
+      "copiedPath": "privacy/11-black-orange-actual-minimum-125-category-manager.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\black-orange-actual-minimum-125-favorites.png",
+      "bytes": 118265,
+      "sha256": "2cadf3db7b0c97fa334b0c00f798d136fc153b7280e8149bf4f1e7067b0ad5da",
+      "copiedPath": "privacy/12-black-orange-actual-minimum-125-favorites.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\blue-white-minimum-125-servers.png",
+      "bytes": 117737,
+      "sha256": "b86b5ec077d497b27cdf81c5e3ab1fe1eea06e88f89cfd9a178ec2cdd9196d54",
+      "copiedPath": "privacy/13-blue-white-minimum-125-servers.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\blue-white-actual-minimum-125-category-manager.png",
+      "bytes": 245632,
+      "sha256": "6841d560fe4f27ee6cae29609cfd3cf4d82dde4bed003038cc6b85fb95469953",
+      "copiedPath": "privacy/14-blue-white-actual-minimum-125-category-manager.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\blue-white-actual-minimum-125-favorites.png",
+      "bytes": 120123,
+      "sha256": "75453f5ef0638abcd3e64a4e9e57f1d0c63394fdee0f6973b282e96622f1893e",
+      "copiedPath": "privacy/15-blue-white-actual-minimum-125-favorites.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\custom-minimum-125-servers.png",
+      "bytes": 115177,
+      "sha256": "4465b36970f11946153ba3ef8f246cb2b9f23502cba6c8af1951ac7a8f597348",
+      "copiedPath": "privacy/16-custom-minimum-125-servers.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\custom-actual-minimum-125-category-manager.png",
+      "bytes": 193271,
+      "sha256": "ad551d377cfa8e0a8ab90b4aa2812af3fe5fec5c167d70b34d702e657a2ad505",
+      "copiedPath": "privacy/17-custom-actual-minimum-125-category-manager.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\first\\custom-actual-minimum-125-favorites.png",
+      "bytes": 115873,
+      "sha256": "2965506927de15490efabf07643fb700d1d8694c60cef94bba586e242de93e95",
+      "copiedPath": "privacy/18-custom-actual-minimum-125-favorites.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\restart\\summary.json",
+      "bytes": 820382,
+      "sha256": "359ed8ed81af7b4d24a79a6e5160ebf1562e4c0df0d20d1b2e21f991edbb3080",
+      "copiedPath": "privacy/19-summary.json"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\restart\\live.json",
+      "bytes": 820382,
+      "sha256": "359ed8ed81af7b4d24a79a6e5160ebf1562e4c0df0d20d1b2e21f991edbb3080",
+      "copiedPath": "privacy/20-live.json"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-e1cd74e9-093a-437c-a6c9-4dad8ed21ee5\\restart-driver.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "copiedPath": "privacy/21-restart-driver.log"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\qa-owned-process-119-7c7ed1c2-b24e-4540-9961-26d41b147189.json",
+      "bytes": 1005,
+      "sha256": "159e1ccdfae15484aa2d6a8539aaa1063e903d73842d1331d1a693b8e8ec0506",
+      "copiedPath": "privacy/22-qa-owned-process-119-7c7ed1c2-b24e-4540-9961-26d41b147189.json"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\restart\\servers-default-hidden.png",
+      "bytes": 175308,
+      "sha256": "0cf1d8d483f71eb5f029ce4c5eadb564f44ee98a0ea9e4f2bdbaf0975f01674e",
+      "copiedPath": "privacy/23-servers-default-hidden.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\restart\\native-restart-category-persisted.png",
+      "bytes": 166981,
+      "sha256": "f38778a8627993c22ae001c76f66dc91f4d119c9ae9945c7682a484c682af183",
+      "copiedPath": "privacy/24-native-restart-category-persisted.png"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 xmHjdB\\process.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "copiedPath": "privacy/25-process.log"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-qa-qualification-v3.log",
+      "bytes": 2377,
+      "sha256": "26e3f6684f07e5f9256afac19341495e2233d84da3022c8141e4731ad7465d75",
+      "copiedPath": "privacy/26-privacy-categories-qa-qualification-v3.log"
+    },
+    {
+      "path": "out/acceptance-1.1.15/privacy-categories-native-final-20261006T0803Z.json",
+      "copiedPath": "privacy-receipt.json",
+      "bytes": 20729,
+      "sha256": "6b86211c98c29f9772da8126d5d28fd58c8181c95bd3f6fbf30709c0c9f76ce4"
+    },
+    {
+      "path": "out/acceptance-1.1.15/native-opacity-helper-0c9c7c2d-420d-493e-84a5-8577c1800daa.json",
+      "copiedPath": "native-opacity-helper.json",
+      "bytes": 4984,
+      "sha256": "4f41190e8a1bae4309677ac4adc905af3818d203d2e9908fe266c183ed673f26"
+    },
+    {
+      "path": "out/window-controls-proof.json",
+      "copiedPath": "window-controls.json",
+      "bytes": 4563,
+      "sha256": "2cacb7fcd234caf0511eab58a0f35d38c176b602c73be791a0af87b2dcf4254e"
+    },
+    {
+      "path": "out/test-115-delivery.log",
+      "copiedPath": "tests.log",
+      "bytes": 143194,
+      "sha256": "033fedc5d485e05c76766e474bd8a07defb13c2245b624b797e3ac292641a5e6"
+    },
+    {
+      "path": "out/build-115-final.log",
+      "copiedPath": "build.log",
+      "bytes": 20780,
+      "sha256": "97fd3089ed1d73f1460a7ae43b9102baba0ae506f4e3b665f0bb3807044055cf"
+    },
+    {
+      "path": "out/license115-delivery.log",
+      "copiedPath": "license.log",
+      "bytes": 92,
+      "sha256": "d58d7f007f2a3d8277c5562a3319d47f0aff764d7df10e72f429693cba6969cc"
+    },
+    {
+      "path": "out/tsc115-delivery.log",
+      "copiedPath": "type-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

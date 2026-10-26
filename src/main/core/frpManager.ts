@@ -1,37 +1,27 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import { createHash } from 'node:crypto'
 import type { FrpConfig, FrpEvent, FrpState, StartResult } from './frp'
+import { FrpSecureStore, frpCredentialIdentity, validateFrpRegistry } from './frpSecureStore'
+import { redactDiagnosticText } from './diagnostics'
 
 export interface TunnelRecord {
-  id: string; config: FrpConfig; name: string; nodeName: string; localIp: string; desired: boolean
+  id: string; config: FrpConfig; name: string; nodeName: string; localIp: string; desired: boolean; credentialLocked?: boolean; credentialConfigured?: boolean
 }
-export interface ManagedTunnel extends FrpState {
-  id: string; name: string; nodeName: string; localIp: string; desired: boolean; busy: boolean; deleting?: boolean
+export interface ManagedTunnel extends Omit<FrpState, 'config'> {
+  config: Omit<FrpConfig, 'accessKey' | 'secureIdentity' | 'credentialLocked'> | null
+  id: string; name: string; nodeName: string; localIp: string; desired: boolean; busy: boolean; deleting?: boolean; credentialLocked?: boolean
 }
-export interface FrpRegistry { version: 2; accessKey: string; tunnels: TunnelRecord[]; deletedIds?: string[] }
+export interface FrpRegistry { version: 2; accessKey: string; tunnels: TunnelRecord[]; deletedIds?: string[]; accessKeyConfigured?: boolean; credentialLocked?: boolean }
 export interface TunnelWorker {
   start(config: FrpConfig): Promise<StartResult>; stop(): Promise<void>; status(): FrpState
   setSink(sink: (event: FrpEvent) => void): void
 }
 export interface TunnelMetadata { id: number; name: string; nodeName: string | null; localIp: string; localPort: number }
-export const tunnelIdentity = (key: string, id: string) => createHash('sha256').update(key.trim() + '\0' + id).digest('hex')
+export const tunnelIdentity = frpCredentialIdentity
 
-export function readFrpRegistry(file: string, legacy?: FrpConfig | null): FrpRegistry {
-  if (!fs.existsSync(file)) return { version: 2, accessKey: legacy?.accessKey || '', tunnels: legacy ? [{ id: tunnelIdentity(legacy.accessKey, legacy.tunnelId), config: legacy, name: `隧道 ${legacy.tunnelId}`, nodeName: '', localIp: '127.0.0.1', desired: false }] : [] }
-  const raw = JSON.parse(fs.readFileSync(file, 'utf8')) as FrpRegistry
-  if (raw.version !== 2 || !Array.isArray(raw.tunnels) || typeof raw.accessKey !== 'string') throw new Error('隧道配置损坏，已保留原文件')
-  if (raw.deletedIds !== undefined && (!Array.isArray(raw.deletedIds) || raw.deletedIds.some(id => typeof id !== 'string' || !/^[a-f0-9]{64}$/.test(id)))) throw new Error('隧道删除记录损坏，已保留原文件')
-  for (const r of raw.tunnels) {
-    if (!r.config?.accessKey || !/^\d+$/.test(r.config.tunnelId) || r.id !== tunnelIdentity(r.config.accessKey, r.config.tunnelId) || typeof r.desired !== 'boolean') throw new Error('隧道配置无效，已保留原文件')
-  }
-  return raw
+export function readFrpRegistry(file: string, legacy: FrpConfig | null | undefined, store: FrpSecureStore): FrpRegistry {
+  return store.readRegistry(file, legacy)
 }
-export function writeFrpRegistry(file: string, data: FrpRegistry): void {
-  fs.mkdirSync(path.dirname(file), { recursive: true })
-  const temp = file + '.tmp'
-  fs.writeFileSync(temp, JSON.stringify(data, null, 2), { mode: 0o600 })
-  fs.renameSync(temp, file)
+export function writeFrpRegistry(file: string, data: FrpRegistry, store: FrpSecureStore, clear = false): void {
+  store.writeRegistry(file, data, clear)
 }
 
 /** Persist intent independently from process lifetime. Every tunnel owns one worker. */
@@ -46,29 +36,52 @@ export class FrpManager {
   private closing = false
   private shutdownTask: Promise<void> = Promise.resolve()
   private sink: (tunnel: ManagedTunnel) => void = () => {}
-  constructor(private deps: { read(): FrpRegistry; save(data: FrpRegistry): void; worker(): TunnelWorker; validate(key: string, id: string): Promise<TunnelMetadata>; deleteRemote?(key: string, id: string): Promise<{ remoteDisconnectPending: boolean }> }) {}
+  constructor(private deps: { read(): FrpRegistry; save(data: FrpRegistry, clear?: boolean): void; worker(): TunnelWorker; credentialAvailable?(): boolean; notice?(): string; validate(key: string, id: string): Promise<TunnelMetadata>; deleteRemote?(key: string, id: string): Promise<{ remoteDisconnectPending: boolean }> }) {}
   private registry() { return this.data ??= this.deps.read() }
   private commit(next: FrpRegistry) { this.deps.save(next); this.data = next }
   private record(id: string) { const r = this.registry().tunnels.find(r => r.id === id); if (!r) throw new Error('未找到该隧道，请重新读取'); return r }
   private bump(id: string) { const n = (this.generations.get(id) || 0) + 1; this.generations.set(id, n); return n }
   setSink(sink: (tunnel: ManagedTunnel) => void) { this.sink = sink }
+  private safe(value: string) {
+    const secrets = [...new Set([this.registry().accessKey, ...this.registry().tunnels.map(r => r.config.accessKey)].filter(Boolean))]
+    let text = value
+    for (const key of secrets) { text = text.split(key).join('***'); text = text.split(encodeURIComponent(key)).join('***') }
+    return redactDiagnosticText(text)
+  }
   private snapshot(r: TunnelRecord): ManagedTunnel {
     const live = this.workers.get(r.id)?.status()
     const s = live?.config ? live : this.lastStates.get(r.id)
     const error = this.failures.get(r.id)
-    return { status: error ? 'error' : s?.status || 'idle', config: r.config, remoteAddress: s?.remoteAddress || null,
-      pid: s?.pid || null, startedAt: s?.startedAt || null, message: error || s?.message || '尚未启动', logs: s?.logs || [],
-      id: r.id, name: r.name, nodeName: r.nodeName, localIp: r.localIp, desired: r.desired, busy: this.pending.has(r.id), deleting: this.deletions.has(r.id) }
+    return { status: error || r.credentialLocked ? 'error' : s?.status || 'idle', config: { tunnelId: r.config.tunnelId, localPort: r.config.localPort }, remoteAddress: s?.remoteAddress ? this.safe(s.remoteAddress) : null,
+      pid: s?.pid || null, startedAt: s?.startedAt || null, message: this.safe(error || (r.credentialLocked ? '密钥尚未解锁或已清除；请解锁系统安全存储或重新填写密钥。' : s?.message) || '尚未启动'), logs: (s?.logs || []).map(log => ({ ...log, text: this.safe(log.text) })),
+      id: r.id, name: this.safe(r.name), nodeName: this.safe(r.nodeName), localIp: this.safe(r.localIp), desired: r.desired, busy: this.pending.has(r.id), deleting: this.deletions.has(r.id), credentialLocked: r.credentialLocked === true }
   }
   private emit(id: string) { this.sink(this.snapshot(this.record(id))) }
-  list() { return { accessKey: this.registry().accessKey, tunnels: this.registry().tunnels.map(r => this.snapshot(r)) } }
+  list() {
+    const data = this.registry()
+    if (data.credentialLocked || data.tunnels.some(r => r.credentialLocked)) this.data = this.deps.read()
+    const registry = this.registry()
+    const configured = !!registry.accessKey || registry.accessKeyConfigured === true
+    const locked = registry.credentialLocked === true || this.deps.credentialAvailable?.() === false
+    const emptyNotice = registry.tunnels.length ? '本机密钥已清除；系统安全存储仍不可用，解锁后可保存新密钥；隧道记录已保留。' : '本机尚未保存访问密钥；系统安全存储不可用，请解锁后再保存新密钥。'
+    const storageNotice = locked ? (configured ? '系统安全存储不可用或凭据无法解密；已保存的密钥和隧道记录已保留，请解锁后重试。' : emptyNotice) : ''
+    return { configured, locked, notice: [this.deps.notice?.() || '', storageNotice].filter(Boolean).join('\n'), tunnels: registry.tunnels.map(r => this.snapshot(r)) }
+  }
+  accessKey(input?: string): string {
+    this.list()
+    if (this.registry().credentialLocked || this.deps.credentialAvailable?.() === false) throw new Error('系统安全存储已锁定或凭据无法解密；原记录已保留，请解锁后重试。')
+    const key = String(input ?? '').trim() || this.registry().accessKey
+    if (!key) throw new Error('请填写访问密钥')
+    return key
+  }
   register(key: string, tunnels: TunnelMetadata[]) {
-    const next = structuredClone(this.registry()); next.accessKey = key.trim()
+    key = this.accessKey(key)
+    const next = structuredClone(this.registry()); next.accessKey = key.trim(); next.accessKeyConfigured = true; next.credentialLocked = false
     for (const t of tunnels) {
       const id = tunnelIdentity(key, String(t.id)), old = next.tunnels.find(r => r.id === id)
       if (next.deletedIds?.includes(id) || this.deletions.has(id)) continue
       const metadata = { name: t.name || `隧道 ${t.id}`, nodeName: t.nodeName || '', localIp: t.localIp }
-      if (old) Object.assign(old, metadata, { config: { ...old.config, localPort: t.localPort } })
+      if (old) Object.assign(old, metadata, { config: { accessKey: key.trim(), tunnelId: String(t.id), localPort: t.localPort }, credentialLocked: false, credentialConfigured: true })
       else next.tunnels.push({ id, config: { accessKey: key.trim(), tunnelId: String(t.id), localPort: t.localPort }, ...metadata, desired: false })
     }
     this.commit(next); return this.list()
@@ -77,7 +90,9 @@ export class FrpManager {
     if (this.deletions.has(id)) throw new Error('该隧道正在删除，请等待完成')
     if (this.closing) throw new Error('启动器正在关闭，请稍后重试')
     if (this.pending.has(id)) return void await this.pending.get(id)
+    this.list()
     const record = this.record(id), active = this.workers.get(id)?.status().status
+    if (record.credentialLocked || !record.config.accessKey || this.deps.credentialAvailable?.() === false) throw new Error('隧道密钥尚未解锁或已清除，请先解锁或重新填写密钥。')
     if (active === 'running' || active === 'starting') return
     const generation = this.bump(id)
     const next = structuredClone(this.registry()); next.tunnels.find(r => r.id === id)!.desired = true; this.commit(next)
@@ -160,6 +175,15 @@ export class FrpManager {
     await Promise.all(Array.from({ length: Math.min(3, ids.length) }, async () => {
       while (cursor < ids.length && !this.closing) { const id = ids[cursor++]; if (!this.record(id).desired) continue; await this.start(id).catch(() => {}) }
     }))
+  }
+  async clearCredentials(): Promise<void> {
+    for (const record of this.registry().tunnels) { if (this.workers.has(record.id) || this.pending.has(record.id)) await this.stop(record.id); await this.pending.get(record.id)?.catch(() => {}) }
+    if ([...this.workers.values()].some(worker => worker.status().pid)) throw new Error('仍有隧道进程未停止；访问密钥尚未清除，请稍后重试。')
+    const next = structuredClone(this.registry()); next.accessKey = ''; next.accessKeyConfigured = false; next.credentialLocked = false
+    for (const record of next.tunnels) { record.config.accessKey = ''; record.credentialLocked = true; record.credentialConfigured = false; record.desired = false }
+    validateFrpRegistry(next)
+    try { this.deps.save(next, true); this.data = next }
+    catch (error) { this.data = null; throw error }
   }
   async shutdown(): Promise<void> {
     this.closing = true

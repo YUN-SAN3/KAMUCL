@@ -1,0 +1,4408 @@
+{
+  "schema": 1,
+  "version": "1.1.15",
+  "classification": "Historical private disposable-profile CSS experiments, not final product acceptance or performance/audio measurement",
+  "createdAt": "2026-10-06T09:40:04.761Z",
+  "complete": true,
+  "experiments": [
+    {
+      "label": "original-no-injection",
+      "interpretation": "original CSS reproduces duplicated home/game icons and extra recordings text at shaders/projections after original four-theme minimum-layout history",
+      "originalApplication": {
+        "path": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+        "bytes": 97291324,
+        "sha256": "64081699ee0572b26a24753fd5c44ef71d1a11da30b2f6fc748fa1f40c896ac9"
+      },
+      "driver": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\sidebar-noinject-x64-portable-9e766c1b-803b-4933-a0cb-a74f0ac97889\\summary.json",
+        "bytes": 1255,
+        "sha256": "c7da1fee58da20d9fed657ccd8fb41f32cf4e8babee5d1a65137a4cf617f88f1"
+      },
+      "originalModuleSummary": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\summary.json",
+        "bytes": 9709366,
+        "sha256": "7815a69b307c5bc436c1aca02a4d680704190b837e5d0c5ae704e700c9885954"
+      },
+      "afterCleanupLive": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\live.json",
+        "bytes": 9709400,
+        "sha256": "5fa63ced61cad77f984f12bbbdff69986522dfe89828aa6f82025106cdcac686"
+      },
+      "experimentalCss": [],
+      "rawClassificationCorrection": null,
+      "scenes": [
+        {
+          "label": "black-orange-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\black-orange-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19794,
+            "sha256": "ec0120f074cae5dc1c14db24621dfa4f677287eeced28ae513b231f2b770f718"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\black-orange-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 82487,
+              "sha256": "0d3a87573283b9cc1da2a36d4aac417a8a8f71d6aa4c2b9b3576c4bbeb50f0a4"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\black-orange-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19760,
+            "sha256": "a91fa6d4173848ec22638f46b92a1426d7f85a0136b175aad7ac3d59a077246f"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\black-orange-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 74338,
+              "sha256": "61df13e18ebd1c6bc1ecad7e7fcbd5c7f503d32848b01bffd048320837a49027"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\black-orange-minimum-125-servers-native-receipt.json",
+            "bytes": 19800,
+            "sha256": "5e71e3459f0545c499b456eb7ffe0ac85f5420949f19c1b3d7267f25b2080f4f"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\black-orange-minimum-125-servers-native-sidebar.png",
+              "bytes": 70771,
+              "sha256": "9930295aea264ab0f506b33d53b702256f423f500316dfe4c622022e84c2b4ca"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\blue-white-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19788,
+            "sha256": "fdc7ff3b42953fd59ee6eb5d1b24d9168ac1065e04d0db319d29a12c26ae712c"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\blue-white-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 104556,
+              "sha256": "6b80eae86a230c082d1fb65d3b6e0ee57ea626829c67d983b8595f749b388fea"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\blue-white-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19766,
+            "sha256": "f2fe6038383fd633163cc9fed5b10f71e085c453e83d19331b5349d0c83433a6"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\blue-white-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 67990,
+              "sha256": "e1334bb85c0b8ddcb48fe3145629d72c9c41e762413c40f15bcad82faa593c80"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\blue-white-minimum-125-servers-native-receipt.json",
+            "bytes": 19784,
+            "sha256": "45434953b76644b00f3db66ffff65a0de1718c741b765481c40d7ecde86586f2"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\blue-white-minimum-125-servers-native-sidebar.png",
+              "bytes": 65076,
+              "sha256": "129059a8e92839471fa6e16f247a2c9911c36ad41a0137c719523037fa7c5c67"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\custom-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19776,
+            "sha256": "aa5d66f35779d3237221978903c828aee99178c9efa1e59ab555d50633ce6f05"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\custom-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 91092,
+              "sha256": "6106e60b66b4a5e188341665e4e07e36762638b4f744a84543634aabcf55085e"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\custom-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19755,
+            "sha256": "f7fb4fae173b449c80dcd2804ac9e40946aa858f87f5de75a05218636736d87b"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\custom-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 75327,
+              "sha256": "7c23496b851d38454435453db86e42ad149b3f8b27a4ff7618f23bf783be26b5"
+            }
+          ]
+        },
+        {
+          "label": "custom-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\custom-minimum-125-servers-native-receipt.json",
+            "bytes": 19771,
+            "sha256": "e215b344675f3004ae3fa3a298ec72d04bbbd94415b74df77d42da59b8be2e08"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\custom-minimum-125-servers-native-sidebar.png",
+              "bytes": 71281,
+              "sha256": "304eec569e7ca227e775146978085b44fe139d4c23e6a5da653e56288bcdb5de"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\transparent-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19793,
+            "sha256": "cc625ca502ab6771974d54266bb80346e00975ac68c1e212193381ffb2dec49c"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\transparent-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 71892,
+              "sha256": "3eab194ad1c407ad898372b4ad46537be676dae5e63a4bdaaddab5dc158b70f8"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\transparent-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19759,
+            "sha256": "75ae12fb75a92553971a92cb4e90ca27cbaf3425604b50419605284a66541fc5"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\transparent-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 73716,
+              "sha256": "71b1d3abe7b93c67dc722b5ae5aabb1976c9426266889fc4b09bf7140d6d33c5"
+            }
+          ]
+        },
+        {
+          "label": "transparent-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\transparent-minimum-125-servers-native-receipt.json",
+            "bytes": 19786,
+            "sha256": "7ed25d31ba7f151e7313ab4e4a8065a53a2e6aff4eec57ef1927a5b42d112352"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar noinject115 4xSXEq\\first\\transparent-minimum-125-servers-native-sidebar.png",
+              "bytes": 70112,
+              "sha256": "6e3794a112b40ef83f6f3d1fd0b8a906d118260dbafc2191535c2403da45bdc7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "unchanged-color-control",
+      "interpretation": "all computed colors/transforms preserved at insertion; original residual persists",
+      "originalApplication": {
+        "path": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+        "bytes": 97291324,
+        "sha256": "64081699ee0572b26a24753fd5c44ef71d1a11da30b2f6fc748fa1f40c896ac9"
+      },
+      "driver": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\sidebar-prehistory-control-x64-portable-9ca9443b-67b2-4d4b-b817-13e5f1f29cd6\\summary.json",
+        "bytes": 1296,
+        "sha256": "f2c47354d2dfc1ae2a12b3b1a11da98b754988c18460d90b27a586a3ce8e33ac"
+      },
+      "originalModuleSummary": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\summary.json",
+        "bytes": 10047227,
+        "sha256": "c269c0a0c0d570f8da198c2fbc46ad1c967530771466be8038854e38143743f6"
+      },
+      "afterCleanupLive": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\live.json",
+        "bytes": 10047416,
+        "sha256": "8b33d761872c216f6d674fb3593f57eb2cc2d6d2b1f1f1011345a49d338f1a70"
+      },
+      "experimentalCss": [
+        {
+          "label": "initial-before-business",
+          "mode": "control",
+          "css": ".sidebar .nav-item{color:var(--sidebar-text)!important}.sidebar .nav-item:hover{color:var(--text)!important}.sidebar .nav-item.active{color:color-mix(in srgb,var(--text) 84%,var(--accent))!important}.sidebar .nav-parent.group-active{color:var(--text)!important}",
+          "key": "1",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-transparent-before-original-minimum-history",
+          "mode": "control",
+          "css": ".sidebar .nav-item{color:var(--sidebar-text)!important}.sidebar .nav-item:hover{color:var(--text)!important}.sidebar .nav-item.active{color:color-mix(in srgb,var(--text) 84%,var(--accent))!important}.sidebar .nav-parent.group-active{color:var(--text)!important}",
+          "key": "2",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.899922 0.880471 0.955765)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.899922 0.880471 0.955765)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-black-orange-before-original-minimum-history",
+          "mode": "control",
+          "css": ".sidebar .nav-item{color:var(--sidebar-text)!important}.sidebar .nav-item:hover{color:var(--text)!important}.sidebar .nav-item.active{color:color-mix(in srgb,var(--text) 84%,var(--accent))!important}.sidebar .nav-parent.group-active{color:var(--text)!important}",
+          "key": "3",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-blue-white-before-original-minimum-history",
+          "mode": "control",
+          "css": ".sidebar .nav-item{color:var(--sidebar-text)!important}.sidebar .nav-item:hover{color:var(--text)!important}.sidebar .nav-item.active{color:color-mix(in srgb,var(--text) 84%,var(--accent))!important}.sidebar .nav-parent.group-active{color:var(--text)!important}",
+          "key": "4",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.112157 0.180706 0.328627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.112157 0.180706 0.328627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-custom-before-original-minimum-history",
+          "mode": "control",
+          "css": ".sidebar .nav-item{color:var(--sidebar-text)!important}.sidebar .nav-item:hover{color:var(--text)!important}.sidebar .nav-item.active{color:color-mix(in srgb,var(--text) 84%,var(--accent))!important}.sidebar .nav-parent.group-active{color:var(--text)!important}",
+          "key": "5",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.895059 0.85302 0.968627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.895059 0.85302 0.968627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        }
+      ],
+      "rawClassificationCorrection": "Frozen diagnostic inherited unmodified original CSS/no CSS inserted wording from the no-injection observer. That wording is inaccurate for these experimental candidates; prehistoryStyles and source-manifest bind the actual CSS injection before history. Raw originals remain unchanged. None of these candidate scenes is claimed to be a final product without injection.",
+      "scenes": [
+        {
+          "label": "black-orange-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\black-orange-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19776,
+            "sha256": "39892fca123a46906d21133c6f3e8eb2eae43fb8cb53f1831f9f08468d31d6c9"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\black-orange-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 82487,
+              "sha256": "0d3a87573283b9cc1da2a36d4aac417a8a8f71d6aa4c2b9b3576c4bbeb50f0a4"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\black-orange-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19768,
+            "sha256": "e8fd2e8ae4c79062a1960f7f74d69db8c7655ad61c313fd632fac0ffcfa569ff"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\black-orange-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 74338,
+              "sha256": "61df13e18ebd1c6bc1ecad7e7fcbd5c7f503d32848b01bffd048320837a49027"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\black-orange-minimum-125-servers-native-receipt.json",
+            "bytes": 19791,
+            "sha256": "be3464339931c967251866a7180f3dee731ce8fc4346773541be382b003073fd"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\black-orange-minimum-125-servers-native-sidebar.png",
+              "bytes": 70771,
+              "sha256": "9930295aea264ab0f506b33d53b702256f423f500316dfe4c622022e84c2b4ca"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\blue-white-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19782,
+            "sha256": "6d1c49b95cdf594095e5ee482885ec1121b726da5bca2ba8fe1fbd858db3f3f6"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\blue-white-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 104556,
+              "sha256": "6b80eae86a230c082d1fb65d3b6e0ee57ea626829c67d983b8595f749b388fea"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\blue-white-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19760,
+            "sha256": "8ac1b0c6f583d7400aeca3e79642b6364e3bf3d1b0aebf67d5908d0c410065af"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\blue-white-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 67990,
+              "sha256": "e1334bb85c0b8ddcb48fe3145629d72c9c41e762413c40f15bcad82faa593c80"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\blue-white-minimum-125-servers-native-receipt.json",
+            "bytes": 19787,
+            "sha256": "b8d60a42ca13bb97f486d94d3426a7b3343b95841f868686aedfa677923cb0fa"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\blue-white-minimum-125-servers-native-sidebar.png",
+              "bytes": 65076,
+              "sha256": "129059a8e92839471fa6e16f247a2c9911c36ad41a0137c719523037fa7c5c67"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\custom-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19750,
+            "sha256": "43cbbc33a7a0a30aba5d6821214b0f77dd0200652a968eef5d66e2952c8af20f"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\custom-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 86564,
+              "sha256": "e4f00908cc532a417d90098ecda4077c29487876a4c6db88bb1777db068b0c79"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\custom-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19744,
+            "sha256": "56311b50c3a9dfce069584205ff9c88b1f04ec6a7206808e826537c39351534f"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\custom-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 72188,
+              "sha256": "9019c4f10f42d3681e09b27cb4e9a153fea84d6977dbaffad400eb1d726eb141"
+            }
+          ]
+        },
+        {
+          "label": "custom-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\custom-minimum-125-servers-native-receipt.json",
+            "bytes": 19760,
+            "sha256": "fbd3e4c14f7bb0e3e2d43d90392a4bda7290fae782cae0c446bfea36e793edf3"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\custom-minimum-125-servers-native-sidebar.png",
+              "bytes": 71281,
+              "sha256": "304eec569e7ca227e775146978085b44fe139d4c23e6a5da653e56288bcdb5de"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\transparent-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19766,
+            "sha256": "c98922d8608c78814d638cf68fe74194300cd299a570cb89e17f5b81a88aab36"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\transparent-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 71892,
+              "sha256": "3eab194ad1c407ad898372b4ad46537be676dae5e63a4bdaaddab5dc158b70f8"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\transparent-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19762,
+            "sha256": "f61d6a86c04d99c33d9f7be0191990539618c61af5a96699048beac9bf4206dc"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\transparent-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 73716,
+              "sha256": "71b1d3abe7b93c67dc722b5ae5aabb1976c9426266889fc4b09bf7140d6d33c5"
+            }
+          ]
+        },
+        {
+          "label": "transparent-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\transparent-minimum-125-servers-native-receipt.json",
+            "bytes": 19773,
+            "sha256": "5eb4770fa35bed98108d2761e3c01fa8262aab4cfa7faa6363312cfe2a282d4d"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory control115 G7iEZV\\first\\transparent-minimum-125-servers-native-sidebar.png",
+              "bytes": 70112,
+              "sha256": "6e3794a112b40ef83f6f3d1fd0b8a906d118260dbafc2191535c2403da45bdc7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "only-stable-child-transform-none",
+      "interpretation": "ineffective; original residual persists",
+      "originalApplication": {
+        "path": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+        "bytes": 97291324,
+        "sha256": "64081699ee0572b26a24753fd5c44ef71d1a11da30b2f6fc748fa1f40c896ac9"
+      },
+      "driver": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\sidebar-prehistory-child-x64-portable-2bb5983f-e0de-47f2-83ac-eb07c5af1cd4\\summary.json",
+        "bytes": 1287,
+        "sha256": "e2c38776e0d6992915bc5766143fc2f7c9cedf86156540f2e37fe2a186f7877e"
+      },
+      "originalModuleSummary": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\summary.json",
+        "bytes": 9421073,
+        "sha256": "4903f1df5fd30e5ade52672ea3b328a0efd838973442d563d2e78d4655a561ee"
+      },
+      "afterCleanupLive": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\live.json",
+        "bytes": 9421262,
+        "sha256": "4b4130d1240c32484cd1cf1a7b68eea468807fd119fde990521c83556f31767d"
+      },
+      "experimentalCss": [
+        {
+          "label": "initial-before-business",
+          "mode": "child",
+          "css": ".nav-sub.open .nav-sub-item{transform:none!important}",
+          "key": "1",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-transparent-before-original-minimum-history",
+          "mode": "child",
+          "css": ".nav-sub.open .nav-sub-item{transform:none!important}",
+          "key": "2",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.899922 0.880471 0.955765)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.899922 0.880471 0.955765)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-black-orange-before-original-minimum-history",
+          "mode": "child",
+          "css": ".nav-sub.open .nav-sub-item{transform:none!important}",
+          "key": "3",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-blue-white-before-original-minimum-history",
+          "mode": "child",
+          "css": ".nav-sub.open .nav-sub-item{transform:none!important}",
+          "key": "4",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.112157 0.180706 0.328627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.112157 0.180706 0.328627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-custom-before-original-minimum-history",
+          "mode": "child",
+          "css": ".nav-sub.open .nav-sub-item{transform:none!important}",
+          "key": "5",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.895059 0.85302 0.968627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.895059 0.85302 0.968627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        }
+      ],
+      "rawClassificationCorrection": "Frozen diagnostic inherited unmodified original CSS/no CSS inserted wording from the no-injection observer. That wording is inaccurate for these experimental candidates; prehistoryStyles and source-manifest bind the actual CSS injection before history. Raw originals remain unchanged. None of these candidate scenes is claimed to be a final product without injection.",
+      "scenes": [
+        {
+          "label": "black-orange-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\black-orange-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19504,
+            "sha256": "2d0d2d3890ee50e4a12f3d8fa444288ad1e372322b42d57854899686eea44603"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\black-orange-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 81663,
+              "sha256": "bdfa15e779508c1e558a65efad75f9556249bdd7de47d5d361818f0768973053"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\black-orange-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19493,
+            "sha256": "e7f2ce42430cfaa94c333c0bdfd22ff6ad86c20cda0247a177c05e737a9b914b"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\black-orange-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 73435,
+              "sha256": "61b3c48fccb3c2ee1ccd6a6b3b389bea0e8605045abc77b03b29d85dfdc3c87e"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\black-orange-minimum-125-servers-native-receipt.json",
+            "bytes": 19508,
+            "sha256": "fe101c48ff4043d678bf18a887eb8daa0527032e63ff4f6b4c824695b547df09"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\black-orange-minimum-125-servers-native-sidebar.png",
+              "bytes": 70774,
+              "sha256": "b690073834ee3e25742dc1d30ca7f1b116d48a2a8528ea874b94426d5fdbf829"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\blue-white-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19511,
+            "sha256": "98cecaef8d08f7fa8e3e94fab08e283da8e7335b069b8c3c4712eced31b8e2df"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\blue-white-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 103972,
+              "sha256": "218030ca1459656eb282d232795d56f13bc6ffed3644339099533d9360db6b08"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\blue-white-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19489,
+            "sha256": "31a41ccce31794fbe935b6b940c910c889179428e7b3b51a0cc3bbcf658494dd"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\blue-white-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 67043,
+              "sha256": "30f4a46e7b6899697b220bdf39c10d1881b7e2fae4f7e7204c0ef19a8d33e254"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\blue-white-minimum-125-servers-native-receipt.json",
+            "bytes": 19502,
+            "sha256": "0883836580f14faca7d1e860cc352b8e92ac54cff6bd4e37d71fc9a68bed9204"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\blue-white-minimum-125-servers-native-sidebar.png",
+              "bytes": 65071,
+              "sha256": "0bdae96450dad2ea49356db53f8a934d0938effe12197b1f7c2002216c5a3e65"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\custom-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19481,
+            "sha256": "fca08871429dcb29abf22504d92264455ba7f9b1416f311ba49b865f61b27e1e"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\custom-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 86564,
+              "sha256": "e4f00908cc532a417d90098ecda4077c29487876a4c6db88bb1777db068b0c79"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\custom-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19460,
+            "sha256": "23b31aeb1537f641c4092a1d01eb2e07584d4f80a9ed898e97551e6db6cd8994"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\custom-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 72188,
+              "sha256": "9019c4f10f42d3681e09b27cb4e9a153fea84d6977dbaffad400eb1d726eb141"
+            }
+          ]
+        },
+        {
+          "label": "custom-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\custom-minimum-125-servers-native-receipt.json",
+            "bytes": 19499,
+            "sha256": "a6e54790efada4ce81e8d4b96893cf1fccc8fdfe1f8a8b294a43153ad36ce1a3"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\custom-minimum-125-servers-native-sidebar.png",
+              "bytes": 71282,
+              "sha256": "e6628548e541def55293a53aaf42d34e94311575e29eed31e90b948b79921b4d"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\transparent-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19497,
+            "sha256": "177b448bf5ac806ef716975354999eea94282d6f11bf487c51dd6ef1ec0672f6"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\transparent-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 71260,
+              "sha256": "aba13a58fec07c3f1993b610024bc62e475709b732e7ad2b3fd17cee9a404bd4"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\transparent-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19491,
+            "sha256": "deb533cd0746e49bce6808e8f2f486428daaaf009fbd25fda4b93073729b0c63"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\transparent-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 72814,
+              "sha256": "fddb9cc07ed2aa46d3ccbae38bf903a171a1ca3b34a7c8939eff2e224131d9d9"
+            }
+          ]
+        },
+        {
+          "label": "transparent-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\transparent-minimum-125-servers-native-receipt.json",
+            "bytes": 19505,
+            "sha256": "bdc4e852338555b48323081713b303472ce4e80f22e7dc7f4c303b847aa1dfd6"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory child115 YkWv4y\\first\\transparent-minimum-125-servers-native-sidebar.png",
+              "bytes": 70100,
+              "sha256": "c7507e6d1c09e96ee0d391024321d4f0ebe9878e36e033e26917028f15d6fc88"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "only-sidebar-transform-none",
+      "interpretation": "partly clears later blue-white image but first transparent scene still residual; rejected as incomplete",
+      "originalApplication": {
+        "path": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+        "bytes": 97291324,
+        "sha256": "64081699ee0572b26a24753fd5c44ef71d1a11da30b2f6fc748fa1f40c896ac9"
+      },
+      "driver": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\sidebar-prehistory-parent-x64-portable-fa5af153-c8e3-4bdc-a5cc-2a03221f2bfd\\summary.json",
+        "bytes": 1291,
+        "sha256": "4081134c27a56349f82f211e6a26b891e7bb1ad42e45f54069ff69b98da042c8"
+      },
+      "originalModuleSummary": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\summary.json",
+        "bytes": 9734738,
+        "sha256": "cb4e153ae8b6d0d6b6c06a468f96506b8366d99a38d4e4bdf5aea6d3b20a301d"
+      },
+      "afterCleanupLive": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\live.json",
+        "bytes": 9734927,
+        "sha256": "8214a556129443828e68734f1113615e14c3baa46f2158bcc03ad875551c3f3b"
+      },
+      "experimentalCss": [
+        {
+          "label": "initial-before-business",
+          "mode": "parent",
+          "css": ".sidebar{transform:none!important}",
+          "key": "1",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-transparent-before-original-minimum-history",
+          "mode": "parent",
+          "css": ".sidebar{transform:none!important}",
+          "key": "2",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.899922 0.880471 0.955765)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.899922 0.880471 0.955765)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-black-orange-before-original-minimum-history",
+          "mode": "parent",
+          "css": ".sidebar{transform:none!important}",
+          "key": "3",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-blue-white-before-original-minimum-history",
+          "mode": "parent",
+          "css": ".sidebar{transform:none!important}",
+          "key": "4",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.112157 0.180706 0.328627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.112157 0.180706 0.328627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-custom-before-original-minimum-history",
+          "mode": "parent",
+          "css": ".sidebar{transform:none!important}",
+          "key": "5",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.895059 0.85302 0.968627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.895059 0.85302 0.968627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        }
+      ],
+      "rawClassificationCorrection": "Frozen diagnostic inherited unmodified original CSS/no CSS inserted wording from the no-injection observer. That wording is inaccurate for these experimental candidates; prehistoryStyles and source-manifest bind the actual CSS injection before history. Raw originals remain unchanged. None of these candidate scenes is claimed to be a final product without injection.",
+      "scenes": [
+        {
+          "label": "black-orange-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\black-orange-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19800,
+            "sha256": "5c5c9cb635cfc3a65a849d471319494ab30a42c5b548acd1b87962ff50f38b79"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\black-orange-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 82516,
+              "sha256": "d95a5f74c8891a3e36b265a89bdfc295e6241b7623b0ad97b53b320874468bfe"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\black-orange-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19765,
+            "sha256": "a4046f479df8f6272ef4e0e1eb79538bad8c4eeca86db31940771d285e917d16"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\black-orange-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 74338,
+              "sha256": "61df13e18ebd1c6bc1ecad7e7fcbd5c7f503d32848b01bffd048320837a49027"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\black-orange-minimum-125-servers-native-receipt.json",
+            "bytes": 19806,
+            "sha256": "6964a6f3d46573887b7fdcf1f528d0092614177dc9a72f35e474ff34295cb7df"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\black-orange-minimum-125-servers-native-sidebar.png",
+              "bytes": 70771,
+              "sha256": "9930295aea264ab0f506b33d53b702256f423f500316dfe4c622022e84c2b4ca"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\blue-white-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19794,
+            "sha256": "b1b0709fc5fb7a7ffab747435de683748aba74284b28b77f64b1caacf0537a86"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\blue-white-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 100360,
+              "sha256": "2867f3c22cc919df7953c5df562aa353bb799c715cf0a27881eaf9f5bbf0f383"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\blue-white-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19772,
+            "sha256": "e39b7d0e5c579f6c3264a35bcfff74d1fd44344522b48fca1c5ef5f3b0e89220"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\blue-white-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 64819,
+              "sha256": "18cb2279e07209925997c01483e512b7c2ce35ddbd2205788d7e03c9055455cf"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\blue-white-minimum-125-servers-native-receipt.json",
+            "bytes": 19799,
+            "sha256": "325d9364ad5287e348d11ccacf82614bd130f22a868296d097485995432b0a91"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\blue-white-minimum-125-servers-native-sidebar.png",
+              "bytes": 65076,
+              "sha256": "129059a8e92839471fa6e16f247a2c9911c36ad41a0137c719523037fa7c5c67"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\custom-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19768,
+            "sha256": "dae3f8519abe8f61ce7b45a3dc64cd8224362daf051d7b334f89b161d98f5824"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\custom-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 86564,
+              "sha256": "e4f00908cc532a417d90098ecda4077c29487876a4c6db88bb1777db068b0c79"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\custom-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19748,
+            "sha256": "0723247c59c2f8bc52cb44956de160ff21c4683d059375c132d035e915f1dac7"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\custom-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 72228,
+              "sha256": "2f54b2079b809088f84b0f5b9509a1cde25b703899b35e083ac4d51d6fd1f757"
+            }
+          ]
+        },
+        {
+          "label": "custom-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\custom-minimum-125-servers-native-receipt.json",
+            "bytes": 19788,
+            "sha256": "abb46630ecc4e383f22fc6c98c4d8f412ad0882d19d58572acc4aee704a6908f"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\custom-minimum-125-servers-native-sidebar.png",
+              "bytes": 71281,
+              "sha256": "304eec569e7ca227e775146978085b44fe139d4c23e6a5da653e56288bcdb5de"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\transparent-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19791,
+            "sha256": "ae35bc70d3c254a9159f0314a73f68fa870f420d9da8df40b8ec2510ad26f73e"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\transparent-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 71892,
+              "sha256": "3eab194ad1c407ad898372b4ad46537be676dae5e63a4bdaaddab5dc158b70f8"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\transparent-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19758,
+            "sha256": "751be707f2135bd146a6abd89f3b030c66601cc4e08690effd199c2379790bb8"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\transparent-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 73716,
+              "sha256": "71b1d3abe7b93c67dc722b5ae5aabb1976c9426266889fc4b09bf7140d6d33c5"
+            }
+          ]
+        },
+        {
+          "label": "transparent-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\transparent-minimum-125-servers-native-receipt.json",
+            "bytes": 19798,
+            "sha256": "2d3edb02dff447066b04887d3345f5391238ea9f65a4fdbe56a74aa1a7580133"
+          },
+          "targetComputed": null,
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory parent115 ECrwUx\\first\\transparent-minimum-125-servers-native-sidebar.png",
+              "bytes": 70112,
+              "sha256": "6e3794a112b40ef83f6f3d1fd0b8a906d118260dbafc2191535c2403da45bdc7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "remove-paired-forced-sidebar-promotion",
+      "interpretation": "actual sidebar transform none and backface visible observed and asserted in all twelve native scenes; independent review confirmed twelve clear images; candidate only, not final-product acceptance",
+      "originalApplication": {
+        "path": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+        "bytes": 97291324,
+        "sha256": "64081699ee0572b26a24753fd5c44ef71d1a11da30b2f6fc748fa1f40c896ac9"
+      },
+      "driver": {
+        "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\sidebar-prehistory-flatten-x64-portable-1d24edc1-e573-4675-b4e3-cb13a410da96\\summary.json",
+        "bytes": 1295,
+        "sha256": "c15375b8648cd9ea0d4d0f9580dab98ce4d9d04a00895a2b60af1831f2680270"
+      },
+      "originalModuleSummary": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\summary.json",
+        "bytes": 9740570,
+        "sha256": "36e00e7c6042e8f03a2cc001df7a7e2b2c965b3861dbed12cbb8f0ffde7ed033"
+      },
+      "afterCleanupLive": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\live.json",
+        "bytes": 9740759,
+        "sha256": "c9dbc179ab579cc7f3cd0903b7fd0e56541d87f36c419212c5bafb45c608ee8e"
+      },
+      "experimentalCss": [
+        {
+          "label": "initial-before-business",
+          "mode": "flatten",
+          "css": ".sidebar{transform:none!important;backface-visibility:visible!important}",
+          "key": "1",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, -4)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-transparent-before-original-minimum-history",
+          "mode": "flatten",
+          "css": ".sidebar{transform:none!important;backface-visibility:visible!important}",
+          "key": "2",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.899922 0.880471 0.955765)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.899922 0.880471 0.955765)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(199, 199, 199)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(199, 199, 199)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-black-orange-before-original-minimum-history",
+          "mode": "flatten",
+          "css": ".sidebar{transform:none!important;backface-visibility:visible!important}",
+          "key": "3",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.96 0.869333 0.797804)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(170, 166, 159)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(170, 166, 159)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-blue-white-before-original-minimum-history",
+          "mode": "flatten",
+          "css": ".sidebar{transform:none!important;backface-visibility:visible!important}",
+          "key": "4",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.112157 0.180706 0.328627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.112157 0.180706 0.328627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(83, 96, 120)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(83, 96, 120)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        },
+        {
+          "label": "theme-custom-before-original-minimum-history",
+          "mode": "flatten",
+          "css": ".sidebar{transform:none!important;backface-visibility:visible!important}",
+          "key": "5",
+          "before": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.895059 0.85302 0.968627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            }
+          ],
+          "after": [
+            {
+              "nav": "home",
+              "color": "color(srgb 0.895059 0.85302 0.968627)",
+              "transform": "none"
+            },
+            {
+              "nav": "game",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "resources",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "mods",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "packs",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "shaders",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "recordings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "projections",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "bridge",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "servers",
+              "color": "rgb(229, 223, 242)",
+              "transform": "matrix(1, 0, 0, 1, 0, 0)"
+            },
+            {
+              "nav": "friends",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "keys",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "skins",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "community",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            },
+            {
+              "nav": "settings",
+              "color": "rgb(229, 223, 242)",
+              "transform": "none"
+            }
+          ],
+          "classification": "Applied before the original same-history navigation/minimum-size steps in each new document, not used to erase an existing residual"
+        }
+      ],
+      "rawClassificationCorrection": "Frozen diagnostic inherited unmodified original CSS/no CSS inserted wording from the no-injection observer. That wording is inaccurate for these experimental candidates; prehistoryStyles and source-manifest bind the actual CSS injection before history. Raw originals remain unchanged. None of these candidate scenes is claimed to be a final product without injection.",
+      "scenes": [
+        {
+          "label": "black-orange-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\black-orange-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19914,
+            "sha256": "0777eb9d9a615a5a8e1afba9d7daa4058ad8d970be93426583ef97cec713ffdd"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\black-orange-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 78390,
+              "sha256": "e754d8e3ba9f870a710b05b4779288e306e92f7ff0cf431bf6f3916eb283cd59"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\black-orange-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19893,
+            "sha256": "494efe06e430a88ab7b7027756c2a446df3fa42eb3cf72d06ccee8f9d473c9f4"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\black-orange-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 71054,
+              "sha256": "13b032ef8dd21ecfffc1bfe01e7a4a8074c0d45217876bae8599f9643b1a2a2c"
+            }
+          ]
+        },
+        {
+          "label": "black-orange-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\black-orange-minimum-125-servers-native-receipt.json",
+            "bytes": 19904,
+            "sha256": "7ebafc9f3054fa2430458aa772af83c18930b4d113b585b660fa4fc677158109"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\black-orange-minimum-125-servers-native-sidebar.png",
+              "bytes": 70768,
+              "sha256": "782f3aa00dbdb36b17a4ab338ee51fac9a69320d1ab078cba375a6819b1f85e0"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\blue-white-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19907,
+            "sha256": "1c62971e730ecc70e5e7802295ccbd57b1bb1e6719014cd40feda1b5733a9789"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\blue-white-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 100242,
+              "sha256": "fcd1a33d4deb2c5038729437fa17ce4bd6046e9865d1f9e78be69b3389092c45"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\blue-white-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19886,
+            "sha256": "66ae68c5e7146289e60c582ffa36a765e144f9c35a96e2147f41ffb22941e7ee"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\blue-white-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 64332,
+              "sha256": "0e2cf232cba749dd1f282995ea14eecb3fc2d498e9853e755a745c55bfdc83f7"
+            }
+          ]
+        },
+        {
+          "label": "blue-white-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\blue-white-minimum-125-servers-native-receipt.json",
+            "bytes": 19913,
+            "sha256": "3cb8af9e6fa401289c6e8d295c92a8c3666272a3dc6c5ce5a764ff32c9730a13"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\blue-white-minimum-125-servers-native-sidebar.png",
+              "bytes": 64657,
+              "sha256": "f42fb4a133a28b9f5fdabecd7ea69e633ae182f905ea2cebed0f6586764f4a80"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\custom-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19896,
+            "sha256": "07a0209a46adccd20764e62b2fa220af36329efce9a63c2dee099f7cc9bf4719"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\custom-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 86267,
+              "sha256": "32e600a952e8e47f13cdba92a62dc98d23b3adfda98ab60254dcf2a2df51db98"
+            }
+          ]
+        },
+        {
+          "label": "custom-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\custom-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19874,
+            "sha256": "240a03f0abd166fe92be5b59eac8e365d054f33e1b0b6a2b8a56bacbdf47dd65"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\custom-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 71995,
+              "sha256": "e07a6cfbad673cd5391d98e8b0359bc1c86c0339307da7bd88bc5ba02e0d344c"
+            }
+          ]
+        },
+        {
+          "label": "custom-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\custom-minimum-125-servers-native-receipt.json",
+            "bytes": 19878,
+            "sha256": "1b37f6761feba2c7aed447e170ab6a882164ed437eb031764d55f44b0bd38c1e"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\custom-minimum-125-servers-native-sidebar.png",
+              "bytes": 71249,
+              "sha256": "ba119156a6d78485f742f62a5c6ce66f8a9931227053b8e44a6cb3aabf00ab87"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-category-manager",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\transparent-actual-minimum-125-category-manager-native-receipt.json",
+            "bytes": 19907,
+            "sha256": "69419cf615dd1b07d6def492fd790e3e5ff627368240a7f2e93adb7b613ef09d"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\transparent-actual-minimum-125-category-manager-native-sidebar.png",
+              "bytes": 68580,
+              "sha256": "850dd336708736584aba2bc2cb1503c17489e9f3692e4cc8c387854cf222d47d"
+            }
+          ]
+        },
+        {
+          "label": "transparent-actual-minimum-125-favorites",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\transparent-actual-minimum-125-favorites-native-receipt.json",
+            "bytes": 19890,
+            "sha256": "2514eebb8613ec47cc8b2e82caa9c5e5e2615006ceed6c1f55a6a2cf6c8d7c55"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\transparent-actual-minimum-125-favorites-native-sidebar.png",
+              "bytes": 70428,
+              "sha256": "a902b74137fd3f7ea0348cfcdd57b520f7fb746efd03fcdfdc96e2270ac1d6a3"
+            }
+          ]
+        },
+        {
+          "label": "transparent-minimum-125-servers",
+          "receipt": {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\transparent-minimum-125-servers-native-receipt.json",
+            "bytes": 19917,
+            "sha256": "d527cbd8b3f0cf6f9e6191c8d377138f0d192b3fdf682a820c6750cb5f28fda0"
+          },
+          "targetComputed": {
+            "sidebarTransform": "none",
+            "sidebarBackface": "visible",
+            "navContain": "none"
+          },
+          "nativeSidebar": [
+            {
+              "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL sidebar prehistory flatten115 pobkGb\\first\\transparent-minimum-125-servers-native-sidebar.png",
+              "bytes": 69969,
+              "sha256": "87a5c510e32c5b0ee8139330e501a9eb237a0290e29a7a80bdd6df9aeade6f59"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "historicalFailures": [
+    {
+      "experiment": "V6Pahx pre-Win32-guard A/B",
+      "classification": "Invalid original native crops showed other windows despite Electron focused=true; not used as CSS evidence. Original files private and excluded from publication"
+    },
+    {
+      "experiment": "o0fAWV v3 syntax",
+      "classification": "QA-generated main-expression syntax error before native capture; no product result"
+    },
+    {
+      "experiment": "6EFiG8 v3 actual-foreground guard",
+      "classification": "Actual foreground HWND/PID differed from owned window while Electron focused=true; correctly failed before writing any native crop"
+    },
+    {
+      "experiment": "yjsM2S v4 A/B reconstructed resize",
+      "classification": "Eight actual foreground/crop scenes completed, all baseline/control/candidate/restored images were clear after extra resize. Does not prove candidate fixes the original first-history residual"
+    }
+  ],
+  "sourceChange": {
+    "file": "src/renderer/src/App.vue",
+    "scope": "Removed only sidebar translateZ(0) and backface-visibility:hidden from 1.1.8-era forced surface; navigation highlight/selection transforms, durations, GPU and content unchanged"
+  },
+  "uncovered": [
+    "Original user blue-white gray issue cause not directly reproduced",
+    "Different display driver/compositor combinations",
+    "Final rebuilt EXE must be independently revalidated without inserted CSS"
+  ]
+}

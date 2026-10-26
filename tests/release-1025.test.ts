@@ -23,11 +23,22 @@ test('fix-1: update check failure never misreports as latest; failed state has G
   assert.match(sv, /class="upd-latest">已是最新/)
 })
 
-test('fix-2: choosing a missing folder auto-removes its binding instead of error-loop (修复2)', () => {
+test('fix-2: missing download targets preserve defaults and bindings; removal requires an explicit user action (1.1.12)', () => {
   const gv = read('src/renderer/src/views/GameView.vue')
-  assert.match(gv, /errText\(error\)\.includes\('文件夹已不存在'\)/)
-  assert.match(gv, /removeFolder\(selected\)/)
-  assert.match(gv, /已从启动器移除其绑定记录/)
+  const choose = gv.slice(gv.indexOf('async function chooseFolderPath'), gv.indexOf('async function addGameFolder'))
+  assert.match(choose, /folders\.value = await setDefaultFolder\(selected\)/)
+  assert.match(choose, /if \(!committed\) await loadFolderState\(\)/)
+  assert.match(choose, /切换失败：\$\{errText\(error\)\}/)
+  assert.doesNotMatch(choose, /removeFolder\(|removeMissingFolder\(|setActiveFolder\(/)
+  const remove = gv.slice(gv.indexOf('async function removeMissingFolder'), gv.indexOf('async function refreshFolderScan'))
+  assert.match(remove, /await removeFolder\(activeFolder\.value\)/)
+  assert.match(gv, /@click="removeMissingFolder">在启动器内移除该绑定/)
+  assert.match(gv, /@click="folderMissingDismissed = true">稍后处理/)
+  const folders = read('src/main/core/gameFolders.ts')
+  const setDefault = folders.slice(folders.indexOf('export function setDefaultGameFolder'), folders.indexOf('function assertWritableDownloadFolder'))
+  assert.match(setDefault, /assertWritableDownloadFolder\(selected\.path\)/)
+  assert.ok(setDefault.indexOf('assertWritableDownloadFolder(selected.path)') < setDefault.indexOf('return persistFolders('))
+  assert.match(folders, /下载文件夹已不存在，请重新选择/)
 })
 
 test('fix-3: capsule blob follows selection under theme/layout changes via ResizeObserver + theme watch (修复3)', () => {

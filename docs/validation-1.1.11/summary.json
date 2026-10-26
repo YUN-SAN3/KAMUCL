@@ -1,0 +1,1710 @@
+{
+  "version": "1.1.11",
+  "recordedAt": "2026-10-04T01:04:36.420Z",
+  "status": "native-qualification-incomplete; sixth source69 identities verified; seventh local874 suite passed but source and native runs pending; no release",
+  "baseline": {
+    "version": "1.1.10",
+    "master": "85bfe93c016a004b7ddbd397c6b8769bedd25c50",
+    "main": "1f2819a9b3ade9810df48d2c69efabcd1808f264"
+  },
+  "validation": {
+    "publicTests": {
+      "total": 874,
+      "passed": 873,
+      "failed": 0,
+      "skipped": 1,
+      "durationMs": 117970.8989,
+      "skipReason": "Linux native updater shell cannot execute on Windows host",
+      "log": "out/test111-presented-final.log",
+      "sha256": "36f60d6ed3730f1169c85cceb78ec89f4ae5a01447a951d47ea4d713ac03b718",
+      "classification": "Seventh QA contract suite frozen before subsequent Mac native BGRA collector addition; local Windows only, sourceCommit pending; not native GUI/service qualification",
+      "sourceCommit": null
+    },
+    "gateProtocolNegativeTests": {
+      "total": 41,
+      "passed": 41,
+      "classification": "synthetic protocol tests, not product native acceptance"
+    },
+    "galleryHandlerTests": {
+      "total": 12,
+      "passed": 12
+    },
+    "typecheck": true,
+    "productionBuild": true,
+    "licenses": true,
+    "windowsPackageIntegrity": true,
+    "windowsFourThemeGui": "Latest final3 actual local GUI PASS for transparent/orange/blue-white/custom, with service fixtures; not full Windows/native-other-platform qualification",
+    "windowsRequiredModules": [
+      "single-logo",
+      "skin-editor",
+      "palette",
+      "gallery",
+      "gallery118",
+      "import119",
+      "selection119"
+    ],
+    "actualAudioListening": "not-performed",
+    "posixAndUpdateFixtureCorrection": {
+      "productSourceChanged": false,
+      "independentlyReviewed": true,
+      "spawnAssertionsPreserved": [
+        "stdout",
+        "owned child kill/close",
+        "SIGTERM",
+        "killed",
+        "natural exit code7",
+        "memory metrics"
+      ],
+      "updateRoutingConfigurations": [
+        "darwin/arm64",
+        "darwin/x64",
+        "linux/arm64",
+        "linux/x64"
+      ],
+      "targetedUpdaterTests": {
+        "passed": 18,
+        "failed": 0,
+        "classification": "isolated controller/filesystem fixtures, not actual OS upgrade acceptance"
+      },
+      "nativeFullRerunRequired": true
+    },
+    "frpFixtureCorrection": {
+      "productSourceChanged": false,
+      "independentlyReviewed": true,
+      "configurations": [
+        "win32/x64",
+        "darwin/arm64",
+        "darwin/x64",
+        "linux/arm64",
+        "linux/x64"
+      ],
+      "classification": "isolated real-controller tests; not native OS acceptance",
+      "realHostProcessKill": false,
+      "nativeFullRerunRequired": true
+    },
+    "runtimeAndCanonicalFixtureCorrection": {
+      "productSourceChanged": false,
+      "windowsBuildInputsChanged": false,
+      "linuxPackagingVerifierChanged": true,
+      "classification": "canonical temporary directory and architecture-correct synthetic metadata fixtures; strict official Linux packaging inventory",
+      "nativeFullRerunRequired": true,
+      "officialElectronVersion": "44.3.0",
+      "officialArchives": {
+        "x64": "8b49b9efdd73c0f467edc3c1cd5678392c384ccf224f34ff54179f736e2f384b",
+        "arm64": "c11fde221c08e9bffdb3336579f09bd934a009862f509af5033616876741be24"
+      },
+      "builderMapping": "official LICENSE becomes LICENSE.electron.txt; version file removed by electron-builder; packaged inventory uses actual names",
+      "thresholdsRelaxed": false
+    },
+    "nativeJobIsolationCorrection": {
+      "productSourceChanged": false,
+      "windowsBuildInputsChanged": false,
+      "linuxPackagingScriptChanged": true,
+      "thresholdsRelaxed": false,
+      "classification": "Independent Mac QA output directory and signed per-job real window probe; failure-only same-process GPU observations; exact Linux builder-name mapping and exclusive publication; real unfinished HTTP transfer gate for deterministic cancellation",
+      "independentReview": "out/independent-native-round4-1.1.11.json",
+      "reviewSHA256": "59502215ca785a1e93827f02eabf84202589330d8777223792ef52c0e982769d",
+      "independentTests": {
+        "cancelRepeated": [
+          4,
+          4
+        ],
+        "observer": 39,
+        "packageNames": 2
+      },
+      "nativeFullRerunRequired": true
+    },
+    "publicTestHistory": [
+      {
+        "recordedAt": "2026-10-04 07:04 Asia/Hong_Kong",
+        "total": 857,
+        "passed": 856,
+        "failed": 0,
+        "skipped": 1,
+        "durationMs": 114767.6325,
+        "skipReason": "Linux native updater shell cannot execute on the Windows host",
+        "log": "out/test111-native-job-isolation-final.log",
+        "sha256": "bf71100b583bd37931ce4faae54957acad34f5d50280ee1af46231c3f4e1e33f",
+        "ordering": "Final eight QA/test source files frozen before suite start; subsequent pack-linux tar call now uses private stage and exclusive publisher, separately syntax-checked and targeted4/4 after that final call change"
+      },
+      {
+        "total": 864,
+        "passed": 863,
+        "failed": 0,
+        "skipped": 1,
+        "durationMs": 121298.8836,
+        "skipReason": "Linux native updater shell cannot execute on Windows host",
+        "log": "out/test111-native-evidence-final.log",
+        "sha256": "dc1e08686cba904d47207122ba5b1d27b89d97b53842ee2bf5b4a12347b2265b",
+        "classification": "Last verified Windows frozen source69 suite; not proof of newly added seventh QA or native GUI/services",
+        "recordedAt": "2026-10-04 08:02 Asia/Hong_Kong",
+        "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58"
+      }
+    ],
+    "typecheckEvidence": {
+      "log": "out/tsc111-presented-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exitCode": 0
+    },
+    "windowsFourThemeGuiEvidence": {
+      "logs": [
+        "out/qa111-ux-transparent-visible-model-final3.log",
+        "out/qa111-ux-black-orange-visible-model-final3.log",
+        "out/qa111-ux-blue-white-visible-model-final3.log",
+        "out/qa111-ux-custom-visible-model-final3.log"
+      ],
+      "receipts": [
+        "out/appearance-motion-transparent-110.json",
+        "out/appearance-motion-black-orange-110.json",
+        "out/appearance-motion-blue-white-110.json",
+        "out/appearance-motion-custom-110.json"
+      ],
+      "checks": [
+        "actual native focus true",
+        "finite monotonic original frame timestamps and recomputed FPS",
+        "visible canvas and real pixel changes",
+        "managed wallpaper actual decode"
+      ],
+      "currentSourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "classification": "Last verified source69 shared QA on local Windows, final3 four themes; no complete platform qualification"
+    },
+    "postFifthCorrection": {
+      "productSourceChanged": false,
+      "windowsProductionBuildInputsChanged": false,
+      "windowsRepackRequired": false,
+      "macLinuxPackagingChanged": true,
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "status": "Sixth native package identity observations completed; their limited successes and failures are separately retained",
+      "macLinuxNativeRebuildRequired": true,
+      "nativeRebuildPerformed": true,
+      "identity": {
+        "linux": "resources/kamucl-linux.json schemaVersion1/sourceCommit/runtimeVersion from Git HEAD and actual packaged ELF",
+        "mac": "Contents/Resources/kamucl-mac.json schemaVersion1/sourceCommit/runtimeVersion and actual matching Mach-O/framework/minimum/signature observation"
+      },
+      "linuxQa": "x11-utils dependency, self-contained out, preserve primary error and record finalizationError separately",
+      "macQa": "visible skin frames/focus/time/wallpaper observations, real normal-exit world hashes, separate strict Intel GPU diagnostic",
+      "thresholdsRelaxed": false,
+      "independentReview": "frozen changes independently reviewed; native results pending"
+    },
+    "postSixthQaCorrection": {
+      "productSourceChanged": false,
+      "windowsProductionBuildInputsChanged": false,
+      "windowsRepackRequired": false,
+      "sourceCommit": null,
+      "fullLocalSuite": {
+        "total": 874,
+        "passed": 873,
+        "failed": 0,
+        "skipped": 1,
+        "durationMs": 117970.8989,
+        "status": "Passed frozen local Windows suite before subsequent Mac native BGRA collector addition; native execution still pending",
+        "log": "out/test111-presented-final.log",
+        "sha256": "36f60d6ed3730f1169c85cceb78ec89f4ae5a01447a951d47ea4d713ac03b718"
+      },
+      "nativeExecuted": false,
+      "macLinuxNativeRerunRequired": true,
+      "mac": "Purpose-bound mandatory ScreenCaptureKit original BGRA/PTS/status visible capture; old CDP90-frame reversal unchanged",
+      "linux": "After original assertion, inspect the same still-owned PID/ABI/executable through its existing loopback inspector, GPU APIs/SystemInfo/default scratch contexts; bounded diagnostics never mask primary failure",
+      "thresholdsRelaxed": false,
+      "softwareFallbackOrSandboxBypass": false,
+      "afterFullSuiteQa": {
+        "file": "scripts/verify-mac.cjs",
+        "sourceSHA256": "219985af6bcce211308bcc19f84e2d5640580a5e9c076504311002faba939235",
+        "change": "Append purpose-bound original native BGRA capture evidence to collection",
+        "fullSuiteRerunAfterAddition": false,
+        "focusedValidation": {
+          "total": 19,
+          "passed": 19,
+          "failed": 0,
+          "typecheck": true,
+          "syntax": true,
+          "log": "out/mac111/skin-walk-correction/targeted-final-collector-19.log",
+          "sha256": "a9ef25b675ca1aeda7cbf03960b49460ee2bf80b3fa6be5f7e6b17d65918e41f"
+        },
+        "independentCollectorReview": {
+          "report": "out/independent-round7-mac-collector-1.1.11.json",
+          "bytes": 3933,
+          "sha256": "14fd3f6ab9b8c2860c9936b024f24772e64387d290fa05252ee938119d1949c5",
+          "passedCases": 5,
+          "uncovered": "Single-file symlink creation denied with EPERM on the Windows audit host"
+        },
+        "nativeExecuted": false,
+        "productSourceChanged": false
+      }
+    },
+    "seventhWindowsBlackOrangeGui": {
+      "status": "passed general refinement only; current visible walk/appearance observed separately",
+      "complete": true,
+      "classification": "Actual local Windows general refinement UI, finite scope; not a four-theme or current-walk pass",
+      "log": "out/qa111-ux-black-orange-presented-final.log",
+      "sha256": "7d93ec3e64e04c0fcd44f55b60e818c2efd4ccff4cfbeee30bf60cdb65955fbf",
+      "exeSHA256": "dd584c92935c71ebdcd5ca379d0f1f851c9a07b604a9dcdfd6f2a1986e8142c7",
+      "theme": "black-orange",
+      "windows": [
+        [
+          960,
+          620,
+          1
+        ],
+        [
+          1280,
+          900,
+          1.25
+        ],
+        [
+          1440,
+          960,
+          1.5
+        ],
+        [
+          980,
+          720,
+          1.5
+        ],
+        "maximized"
+      ],
+      "issues": [],
+      "fullWindowsQualification": false
+    },
+    "seventhWindowsBlackOrangeWalkAppearance": {
+      "status": "in progress; not predeclared passed",
+      "complete": null,
+      "log": "out/qa111-walk-black-orange-presented-final.log"
+    }
+  },
+  "inventory": {
+    "routes": 15,
+    "ipc": 280,
+    "scenarios": 63
+  },
+  "platforms": [
+    {
+      "id": "windows-x64",
+      "completeQualification": false,
+      "scores": {
+        "visual": null,
+        "interaction": null,
+        "motion": null
+      },
+      "nativeStatus": "Latest local four-theme final3 limited GUI PASS; full63-scenario/services/independent qualification incomplete"
+    },
+    {
+      "id": "mac-arm64",
+      "completeQualification": false,
+      "scores": {
+        "visual": null,
+        "interaction": null,
+        "motion": null
+      },
+      "nativeStatus": "Sixth source69 packaging/Demo/bounded integration PASS; ARM DMG four-theme visible walking/wallpaper PASS; APP90 original CDP timing reversal remains failed; seventh SCK not natively run"
+    },
+    {
+      "id": "mac-x64",
+      "completeQualification": false,
+      "scores": {
+        "visual": null,
+        "interaction": null,
+        "motion": null
+      },
+      "nativeStatus": "Sixth source69 packaging/Demo/bounded integration PASS; APP/DMG actual WebGL failed; separate default/Metal diagnostic collected failure, not product acceptance"
+    },
+    {
+      "id": "linux-x64",
+      "completeQualification": false,
+      "scores": {
+        "visual": null,
+        "interaction": null,
+        "motion": null
+      },
+      "nativeStatus": "Sixth source69 native three-format extraction/ELF/mode/hash/embedded runtime identity PASS; actual Xvfb app WebGL llvmpipe failures; no formal desktop/game; seventh same-process observer pending"
+    },
+    {
+      "id": "linux-arm64",
+      "completeQualification": false,
+      "scores": {
+        "visual": null,
+        "interaction": null,
+        "motion": null
+      },
+      "nativeStatus": "Sixth source69 native three-format extraction/ELF/mode/hash/embedded runtime identity PASS; actual Xvfb app WebGL llvmpipe failures; no formal desktop/game; seventh same-process observer pending"
+    },
+    {
+      "id": "harmonyos-arm64",
+      "completeQualification": false,
+      "scores": {
+        "visual": null,
+        "interaction": null,
+        "motion": null
+      },
+      "nativeStatus": "engineering ready; no SDK/signing/device/game chain"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "KAMUCL-1.1.11.exe",
+      "size": 97290244,
+      "sha256": "dd584c92935c71ebdcd5ca379d0f1f851c9a07b604a9dcdfd6f2a1986e8142c7",
+      "status": "local-windows-candidate; no public release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-windows-x64.zip",
+      "size": 97321815,
+      "sha256": "78d31f0045102c983fa67d586511993312f2901c686b3f75be1d0f95c163bd2f",
+      "status": "local-windows-candidate; no public release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-windows-x64-unpacked.zip",
+      "size": 143058234,
+      "sha256": "676162091dc723ee97ee6309232eca01de24d0fe602ddaa3d2e71d702b2dd881",
+      "status": "local-windows-candidate; no public release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-mac-arm64.zip",
+      "size": 127153609,
+      "sha256": "0983e1daf269726b5d87924f63e74bac3dda2ae5aa00df2aace7bb4be23e5657",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "darwin",
+      "arch": "arm64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "Contents/Resources/kamucl-mac.json",
+      "runtimeVersion": "44.3.0",
+      "minimumSystemVersion": "13.0.0",
+      "originalProof": "mac-ui-arm64-app/mac-job-arm64-app-ui/job.json",
+      "status": "Sixth candidate; limited native results only; no full parity or release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-mac-arm64.dmg",
+      "size": 136968299,
+      "sha256": "78f25026a9cf6a5bdfa8e36ac012efc68024346ec649da011aac5c5b2a1b4a41",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "darwin",
+      "arch": "arm64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "Contents/Resources/kamucl-mac.json",
+      "runtimeVersion": "44.3.0",
+      "minimumSystemVersion": "13.0.0",
+      "originalProof": "mac-ui-arm64-dmg/mac-job-arm64-dmg-ui/job.json",
+      "status": "Sixth candidate; limited native results only; no full parity or release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-mac-x64.zip",
+      "size": 133313941,
+      "sha256": "0ebc9125b8d8e527e2bf8626942885ee3fbd068616c2332db0de50e1ab0c6668",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "darwin",
+      "arch": "x64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "Contents/Resources/kamucl-mac.json",
+      "runtimeVersion": "44.3.0",
+      "minimumSystemVersion": "13.0.0",
+      "originalProof": "mac-ui-x64-app/mac-job-x64-app-ui/job.json",
+      "status": "Sixth candidate; limited native results only; no full parity or release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-mac-x64.dmg",
+      "size": 144339940,
+      "sha256": "c5e7a0e7afd1eb46e17f0ee0f02c310f049d68b29280c30f779d425145c1d984",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "darwin",
+      "arch": "x64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "Contents/Resources/kamucl-mac.json",
+      "runtimeVersion": "44.3.0",
+      "minimumSystemVersion": "13.0.0",
+      "originalProof": "mac-ui-x64-dmg/mac-job-x64-dmg-ui/job.json",
+      "status": "Sixth candidate; limited native results only; no full parity or release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-linux-x64.tar.gz",
+      "size": 133185660,
+      "sha256": "8a7cfa8608ee1679cff91ad344406faf75f9bfcf0c1fd05c187340af54ec6728",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "linux",
+      "arch": "x64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "resources/kamucl-linux.json",
+      "embeddedIdentity": {
+        "schemaVersion": 1,
+        "product": "KAMUCL",
+        "platform": "linux",
+        "arch": "x64",
+        "version": "1.1.11",
+        "installationKind": "portable-directory",
+        "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+        "runtimeVersion": "44.3.0"
+      },
+      "originalProof": "linux-packages-x64/linux-proof-x64-packages/summary.json",
+      "status": "Sixth candidate; native package check PASS; actual Xvfb WebGL failed; no formal desktop or release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-linux-x64.deb",
+      "size": 109170520,
+      "sha256": "c6ccfc3098d726327e657f8aabd369ffdc0923edb9797c926753f0604cc08d08",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "linux",
+      "arch": "x64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "resources/kamucl-linux.json",
+      "embeddedIdentity": {
+        "schemaVersion": 1,
+        "product": "KAMUCL",
+        "platform": "linux",
+        "arch": "x64",
+        "version": "1.1.11",
+        "installationKind": "deb",
+        "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+        "runtimeVersion": "44.3.0"
+      },
+      "originalProof": "linux-packages-x64/linux-proof-x64-packages/summary.json",
+      "status": "Sixth candidate; native package check PASS; actual Xvfb WebGL failed; no formal desktop or release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-linux-x64.AppImage",
+      "size": 109224267,
+      "sha256": "d38a5b5e1fe9182e14f06eaf4798dd29c5698a18369319965e74af746893c5d1",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "linux",
+      "arch": "x64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "resources/kamucl-linux.json",
+      "embeddedIdentity": {
+        "schemaVersion": 1,
+        "product": "KAMUCL",
+        "platform": "linux",
+        "arch": "x64",
+        "version": "1.1.11",
+        "installationKind": "appimage",
+        "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+        "runtimeVersion": "44.3.0"
+      },
+      "originalProof": "linux-packages-x64/linux-proof-x64-packages/summary.json",
+      "status": "Sixth candidate; native package check PASS; actual Xvfb WebGL failed; no formal desktop or release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-linux-arm64.tar.gz",
+      "size": 134350073,
+      "sha256": "a586c21e73b42c16f757c23caea33e654f031aee38a9863a82b77c7fea3b1ffb",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "linux",
+      "arch": "arm64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "resources/kamucl-linux.json",
+      "embeddedIdentity": {
+        "schemaVersion": 1,
+        "product": "KAMUCL",
+        "platform": "linux",
+        "arch": "arm64",
+        "version": "1.1.11",
+        "installationKind": "portable-directory",
+        "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+        "runtimeVersion": "44.3.0"
+      },
+      "originalProof": "linux-packages-arm64/linux-proof-arm64-packages/summary.json",
+      "status": "Sixth candidate; native package check PASS; actual Xvfb WebGL failed; no formal desktop or release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-linux-arm64.deb",
+      "size": 104172912,
+      "sha256": "6017d5964dcc4f42207fd67a3ab5df178457d438281297f3a5c0620c49e29b8c",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "linux",
+      "arch": "arm64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "resources/kamucl-linux.json",
+      "embeddedIdentity": {
+        "schemaVersion": 1,
+        "product": "KAMUCL",
+        "platform": "linux",
+        "arch": "arm64",
+        "version": "1.1.11",
+        "installationKind": "deb",
+        "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+        "runtimeVersion": "44.3.0"
+      },
+      "originalProof": "linux-packages-arm64/linux-proof-arm64-packages/summary.json",
+      "status": "Sixth candidate; native package check PASS; actual Xvfb WebGL failed; no formal desktop or release"
+    },
+    {
+      "name": "KAMUCL-1.1.11-linux-arm64.AppImage",
+      "size": 103865594,
+      "sha256": "a61405b4e0494c54d9b51e0fdf90c98ad4ddb7875029c23ea98e377a2ea69d21",
+      "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "platform": "linux",
+      "arch": "arm64",
+      "nativeBuild": true,
+      "downloadedByteVerification": true,
+      "nativeCleanExtraction": true,
+      "nativeDesktop": false,
+      "embeddedSourceCommitPresent": true,
+      "embeddedRuntimeVersionPresent": true,
+      "metadataFile": "resources/kamucl-linux.json",
+      "embeddedIdentity": {
+        "schemaVersion": 1,
+        "product": "KAMUCL",
+        "platform": "linux",
+        "arch": "arm64",
+        "version": "1.1.11",
+        "installationKind": "appimage",
+        "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+        "runtimeVersion": "44.3.0"
+      },
+      "originalProof": "linux-packages-arm64/linux-proof-arm64-packages/summary.json",
+      "status": "Sixth candidate; native package check PASS; actual Xvfb WebGL failed; no formal desktop or release"
+    }
+  ],
+  "evidenceManifest": "release/validation-1.1.11/Delivery/EVIDENCE-MANIFEST.json",
+  "historicalFailures": [
+    "Intel active interval130.627333ms; original CDP/SCK FPS remain rejected",
+    "Windows initial package check raced unfinished ZIP; original failure retained",
+    "Initial Node update picker test lacked Electron app; fixed",
+    "Initial dry-run incorrectly required formal acceptance; real publication retains its gate",
+    "DEB updated label broke old literal-only test; corrected to check shared real label wiring",
+    "gallery118 old total metadata count included automatic artwork reads; original failure retained and real mutation handler observations passed",
+    "ab54 native Mac run37154520494 and Linux run37154520531 cancelled after FRP fixture initial download awaited a later cancellation-stage release; no native package produced",
+    "0d71da native Mac run37155930792 and Linux run37155930845 each reported a legacy Windows EXE pending fixture failure and then cancelled after awaiting an already emitted POSIX spawn event; no native package produced",
+    "initial Linux observation mistook timestamps on skipped build steps for execution; obsolete record retained and corrected using actual step conclusion; original logs unchanged",
+    "2b1e6f native Mac run37157548139 completed with three /var versus /private/var temporary fixture path failures per architecture; Linux run37157548122 ARM rejected a fake Windows native classifier and x64 packaging rejected obsolete libEGL inventory; all original logs retained, not a deadlock or cancellation",
+    "e0b1210 Mac37158774374 produced both native ZIP/DMG pairs and passed6 bounded integration jobs; ARM UI failed missing independent out directory, both game tasks failed missing cross-job window probe, Intel APP/DMG actually failed EGL/GPU initialization with30 no-canvas samples. Linux37158774429 produced3 x64 packages but canonical filename mapping failed before native package verification; ARM cancellation fixture finished before abort and cleanup produced late ENOENT. Original logs/screens/timelines retained, none reclassified as product acceptance.",
+    "Fifth source5167500 Mac37160588297: four UI failures retained. ARM APP/DMG managed wallpaper presence assertion failed; original skin walking has one invisible frame/fps0 despite LOGO passing its30FPS gate. Intel actual EGL/WebGL disabled/no-canvas remains unresolved. Two Demo games and six bounded integration successes do not cover these failures; original Demo world byte SHA was not captured and cannot be reconstructed from missing old worlds.",
+    "Fifth source5167500 Linux37160588146: both857-test native jobs and six clean-extracted packages passed; all three Xvfb preflight jobs failed spawnSync xdpyinfo ENOENT before launcher startup. Finally scandir out ENOENT masked the first error and prevented final summary. Original logs/summaries retained; no app failure or desktop PASS inferred. Fifth embedded Linux identity lacks sourceCommit/runtimeVersion; post-fifth packaging correction pending new native run."
+  ],
+  "uncovered": [
+    "Mac ARM APP original90-frame CDP reversal remains failed; mandatory purpose-bound SCK seventh native validation pending; Intel APP/DMG actual WebGL failure and historical timing deficits unresolved; supported physical GPU/macOS13 hardware",
+    "Licensed accounts/Keychain restart, full launcher splash, public online upgrade, real external community/players; sixth Demo trial overlay does not prove unrestricted terrain input/all versions/loaders",
+    "Fifth original world byte SHA absent and never backfilled; sixth new Demo normal-exit world hashes retained without world files",
+    "Ubuntu24.04/26.04 x64/ARM64 real GNOME/KDE/XWayland hardware desktop, complete games/services/keyring/GUI installer/updater; Ubuntu26ARM64 hosted fixture absent; seventh same-owned-process GPU diagnostic pending",
+    "Full Windows63-scenario real-service matrix; seventh874 contract suite passed on Windows before Mac collector addition; current black-orange general refinement passed but current walk/appearance pending; previous source69 four-theme GUI preserved",
+    "Physical audio listening and independent visual/interaction/motion scores null for every platform",
+    "Sixth historical source/handoff misses two build icons; new source-prefix closure and clean handoff pending external receipt after commit",
+    "HarmonyOS SDK, legal signing, device and native JVM/JNI/LWJGL/GLFW/audio/game"
+  ],
+  "remote": {
+    "master": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+    "main": "bb41072b907d8ade365e9beadc4a71ee7e69a6ca",
+    "v111Tag": false,
+    "v111Release": false,
+    "push": "successful; main synchronized by cherry-pick with independent history",
+    "authorization": "human completed standard workflow OAuth authorization; previous rejected push, connection timeouts and expired codes retained as history",
+    "observedAt": "2026-10-04 09:02 Asia/Hong_Kong",
+    "secondNativeRuns": {
+      "commit": "0d71da046e2d0e29ca540fe9ac03129f0c795e5a",
+      "mac": "37155930792",
+      "linux": "37155930845",
+      "status": "cancelled after repeated POSIX spawn wait; one Windows legacy updater fixture failure per job retained",
+      "macVisiblePassingTestsPerArch": 319,
+      "linuxVisiblePassingTestsPerArch": 320,
+      "macOriginalLogsSHA256": "b20d3328bf750c08f77a50bcb4f74576a162fc2cf4798ef1bfb2121406704a60",
+      "linuxOriginalLogsSHA256": "d720d786ab6cac2249280fa85f7a4e9dc0c7334a2d3fe0f67c3beac60286db52",
+      "productionBuildStatus": "skipped",
+      "nativeArtifactsProduced": false
+    },
+    "firstNativeRuns": {
+      "commit": "ab54c5f1c00d2f0ef371401102f295604ac7e438",
+      "mac": "37154520494",
+      "linux": "37154520531",
+      "status": "cancelled after isolated FRP test fixture deadlock; full test and build must rerun",
+      "linuxDedicatedTests": {
+        "passed": 8,
+        "classification": "actual native shell and backend tests; not complete desktop/game acceptance"
+      },
+      "nativeArtifactsProduced": false
+    },
+    "thirdNativeRuns": {
+      "commit": "2b1e6f18a2ccc3dcf5230392d58d8ddfba3dec7f",
+      "mac": {
+        "arm64": {
+          "total": 853,
+          "passed": 846,
+          "failed": 3,
+          "skipped": 4,
+          "durationMs": 72107.397125
+        },
+        "x64": {
+          "total": 853,
+          "passed": 846,
+          "failed": 3,
+          "skipped": 4,
+          "durationMs": 105450.568249
+        },
+        "failures": "three fixture expectations used /var aliases while product correctly returned canonical /private/var paths",
+        "originalLogsSHA256": "bc7774b1092a67232965ca7b2ff81d1f20a002492cd25dab93f4b53026ac0323"
+      },
+      "linux": {
+        "x64": {
+          "total": 853,
+          "passed": 850,
+          "failed": 0,
+          "skipped": 3,
+          "build": "packaging failed because the old runtime inventory required libEGL.so, absent in official Electron44.3.0"
+        },
+        "arm64": {
+          "total": 853,
+          "passed": 849,
+          "failed": 1,
+          "skipped": 3,
+          "build": "skipped after a Windows-classifier fixture was correctly rejected by the ARM fail-closed rule"
+        },
+        "originalLogsSHA256": "791b2e902d03d00f1580c3cfa42041913ddef8f3db504408083707f28f2e8b19"
+      },
+      "status": "completed/failure; no cancellations or deadlocks",
+      "nativeArtifactsProduced": false,
+      "desktopAndGameAcceptanceEntered": false
+    },
+    "fourthNativeRuns": {
+      "commit": "e0b1210317b87ab5bb1809d56e40882c1c8762f4",
+      "mac": {
+        "fullTestsPerArch": {
+          "tests": 855,
+          "pass": 851,
+          "fail": 0,
+          "skip": 4
+        },
+        "packageJobsPassed": 2,
+        "integrationJobsPassed": 6,
+        "uiJobsFailed": 4,
+        "gameJobsFailed": 2,
+        "originalLogsSHA256": "73c4e9e4878ca528687a098e1dafe4f2bbd7998470936268f12235c8f2f299df",
+        "failures": [
+          {
+            "scope": "arm64 APP/DMG common-feature GUI",
+            "cause": "Independent job missing out directory; base app/skin/native material succeeded"
+          },
+          {
+            "scope": "arm64/x64 actual game",
+            "cause": "Game job incorrectly depends on prior UI job material-fixture executable; version26.2 installation occurred, world/focus/save not reached"
+          },
+          {
+            "scope": "x64 APP/DMG",
+            "cause": "Actual current runner GPU EGL initialization failed repeatedly; renderer has unsupported-3D fallback and no canvas in30samples",
+            "productVsHostedDriver": "not yet resolved; no threshold or delay workaround"
+          }
+        ],
+        "scope": [
+          {
+            "artifact": "mac-update-x64",
+            "jobHead": "e0b1210317b87ab5bb1809d56e40882c1c8762f4",
+            "jobComplete": true,
+            "scope": "Actual signed package local same-version IPC update/tamper reject/backup/rollback; not public-release online upgrade"
+          },
+          {
+            "artifact": "mac-tools-x64",
+            "jobHead": "e0b1210317b87ab5bb1809d56e40882c1c8762f4",
+            "jobComplete": true,
+            "scope": "Current-source production download/install and actual native FRP/Terracotta daemon IPC"
+          },
+          {
+            "artifact": "mac-startup-arm64",
+            "jobHead": "e0b1210317b87ab5bb1809d56e40882c1c8762f4",
+            "jobComplete": true,
+            "scope": "Current-source startup coordinator on native runtime, normal/reduced motion; not full packaged boot"
+          },
+          {
+            "artifact": "mac-startup-x64",
+            "jobHead": "e0b1210317b87ab5bb1809d56e40882c1c8762f4",
+            "jobComplete": true,
+            "scope": "Current-source startup coordinator on native runtime, normal/reduced motion; not full packaged boot"
+          },
+          {
+            "artifact": "mac-tools-arm64",
+            "jobHead": "e0b1210317b87ab5bb1809d56e40882c1c8762f4",
+            "jobComplete": true,
+            "scope": "Current-source production download/install and actual native FRP/Terracotta daemon IPC"
+          },
+          {
+            "artifact": "mac-update-arm64",
+            "jobHead": "e0b1210317b87ab5bb1809d56e40882c1c8762f4",
+            "jobComplete": true,
+            "scope": "Actual signed package local same-version IPC update/tamper reject/backup/rollback; not public-release online upgrade"
+          }
+        ],
+        "actualHostedOS": "15.7.9",
+        "signing": "ad-hoc, not Developer ID/notarized"
+      },
+      "linux": {
+        "x64": {
+          "tests": 855,
+          "pass": 852,
+          "fail": 0,
+          "skipped": 3,
+          "durationMs": 54287.306546
+        },
+        "arm64": {
+          "tests": 855,
+          "pass": 851,
+          "fail": 1,
+          "skipped": 3,
+          "durationMs": 55209.862119
+        },
+        "x64Packaging": "Three formats generated; exact builder filename mismatch failed before native package verifier",
+        "arm64Packaging": "Skipped after cancellation fixture resolved before abort, followed by fixture cleanup write failure",
+        "windowsArchiveInspection": "Static clean extraction and payload/ELF/manifest inspection only; not Linux native execution",
+        "originalLogsSHA256": "91aa4746e9c56d03e46ce24140bd8fed7fd767db13b28171480d991f4e9c0f17"
+      },
+      "status": "completed/failure; successful package and bounded integration results retained separately",
+      "completeDesktopOrGameAcceptance": false
+    },
+    "source": "Actual current origin/master and origin/main refs observed; main retains independent cherry-pick history; seventh batch has no future commit identity",
+    "fifthNativeRuns": {
+      "commit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+      "mac": {
+        "run": 37160588297,
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37160588297",
+        "nativeTests": {
+          "arm64": {
+            "tests": 857,
+            "pass": 853,
+            "fail": 0,
+            "skip": 4
+          },
+          "x64": {
+            "tests": 857,
+            "pass": 853,
+            "fail": 0,
+            "skip": 4
+          },
+          "classification": "Actual native CI full suite; four existing platform skips preserved"
+        },
+        "packageJobsPassed": 2,
+        "gameJobsPassed": 2,
+        "integrationJobsPassed": 6,
+        "uiJobsFailed": 4,
+        "overallNativeAcceptance": false,
+        "evidenceSummary": "out/mac111/run-37160588297-5167500/acceptance-summary.json",
+        "armUI": {
+          "app": {
+            "functionalComplete": false,
+            "overall": false,
+            "logoOriginalCDP": {
+              "nominalMinimumFps": 30,
+              "minimumFps": 30,
+              "activeDisplay": {
+                "id": 1,
+                "size": {
+                  "width": 1024,
+                  "height": 768
+                },
+                "scaleFactor": 1,
+                "displayFrequency": 60.000003814697266
+              },
+              "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+              "actualFps": 59.97504609149414,
+              "passed": true,
+              "status": "passed"
+            },
+            "logoOriginalNativeDelivery": {
+              "nominalMinimumFps": 30,
+              "minimumFps": 30,
+              "activeDisplay": {
+                "id": 1,
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1024,
+                  "height": 768
+                },
+                "scaleFactor": 1,
+                "displayFrequency": 60.000003814697266
+              },
+              "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+              "actualFps": 59.61290321042308,
+              "passed": true
+            },
+            "rawNativeFrames": 155,
+            "skinWalkRecording": {
+              "frames": 1,
+              "fps": 0,
+              "originalDirectory": "/Users/runner/work/KAMUCL/KAMUCL/out/skin-walk-110-transparent",
+              "skinVisibleInOriginalFrame": false,
+              "status": "unaccepted: original frame does not contain the skin preview; pose-only observations cannot replace visible original skin-motion frames"
+            },
+            "currentFeatureFailure": "AssertionError [ERR_ASSERTION]: validated managed wallpaper is actually present"
+          },
+          "dmg": {
+            "functionalComplete": false,
+            "overall": false,
+            "logoOriginalCDP": {
+              "nominalMinimumFps": 30,
+              "minimumFps": 30,
+              "activeDisplay": {
+                "id": 1,
+                "size": {
+                  "width": 1024,
+                  "height": 768
+                },
+                "scaleFactor": 1,
+                "displayFrequency": 60.000003814697266
+              },
+              "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+              "actualFps": 60.16748867202365,
+              "passed": true,
+              "status": "passed"
+            },
+            "logoOriginalNativeDelivery": {
+              "nominalMinimumFps": 30,
+              "minimumFps": 30,
+              "activeDisplay": {
+                "id": 1,
+                "bounds": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 1024,
+                  "height": 768
+                },
+                "scaleFactor": 1,
+                "displayFrequency": 60.000003814697266
+              },
+              "source": "minimum of nominal30 and real screen.getDisplayMatching(window.getBounds()).displayFrequency",
+              "actualFps": 58.881987584954125,
+              "passed": true
+            },
+            "rawNativeFrames": 159,
+            "skinWalkRecording": {
+              "frames": 1,
+              "fps": 0,
+              "originalDirectory": "/Users/runner/work/KAMUCL/KAMUCL/out/skin-walk-110-transparent",
+              "skinVisibleInOriginalFrame": false,
+              "status": "unaccepted: original frame does not contain the skin preview; pose-only observations cannot replace visible original skin-motion frames"
+            },
+            "currentFeatureFailure": "AssertionError [ERR_ASSERTION]: validated managed wallpaper is actually present"
+          }
+        },
+        "intelUI": {
+          "formal": "APP and DMG failed, no skin canvas across original30 readiness observations",
+          "sameProcessGPU": "gl=disabled,angle=none; WebGL1 and2 failed creation, feature webgl disabled_off",
+          "hardware": "Apple Paravirtualized GPU64MB / Metal2 /30Hz",
+          "rootCause": "Hardware/default runtime initialization failure observed; actual ANGLE Metal device/API/family failure remains unresolved pending isolated diagnostic",
+          "noFallbackOrThresholdChange": true
+        },
+        "actualGames": {
+          "arm64": {
+            "arch": "arm64",
+            "version": "26.2",
+            "nativeWindow": {
+              "reducedTransparency": true,
+              "id": 31,
+              "bounds": {
+                "X": 85,
+                "Height": 508,
+                "Y": 116,
+                "Width": 854
+              },
+              "screenWidth": 1024
+            },
+            "gamePid": 4837,
+            "gameWindow": true,
+            "worldStarted": true,
+            "savedWorld": true,
+            "regionFiles": [
+              "r.-1.-1.mca",
+              "r.-1.0.mca",
+              "r.0.-1.mca",
+              "r.0.0.mca"
+            ],
+            "nativeFocus": true,
+            "gracefulClose": true,
+            "closeAndDockReopen": true,
+            "ciMetalArgumentBuffers": null,
+            "ciMetalHeap": null,
+            "scope": "Actual native current26.2 Fabric official Demo world initialization, existing test-only demo button automation, owned native window/focus and save/normal close/Dock state replay",
+            "notProven": [
+              "licensed account",
+              "unobscured terrain movement/input",
+              "old versions/all loaders",
+              "world byte SHA was not captured in this original fifth run"
+            ]
+          },
+          "x64": {
+            "arch": "x64",
+            "version": "26.2",
+            "nativeWindow": {
+              "screenWidth": 1920,
+              "bounds": {
+                "X": 533,
+                "Height": 508,
+                "Y": 272,
+                "Width": 854
+              },
+              "id": 34,
+              "reducedTransparency": true
+            },
+            "gamePid": 5269,
+            "gameWindow": true,
+            "worldStarted": true,
+            "savedWorld": true,
+            "regionFiles": [
+              "r.-1.-1.mca",
+              "r.-1.0.mca",
+              "r.0.-1.mca",
+              "r.0.0.mca"
+            ],
+            "nativeFocus": true,
+            "gracefulClose": true,
+            "closeAndDockReopen": true,
+            "ciMetalArgumentBuffers": "0",
+            "ciMetalHeap": "0",
+            "scope": "Actual native current26.2 Fabric official Demo world initialization, existing test-only demo button automation, owned native window/focus and save/normal close/Dock state replay",
+            "notProven": [
+              "licensed account",
+              "unobscured terrain movement/input",
+              "old versions/all loaders",
+              "world byte SHA was not captured in this original fifth run"
+            ]
+          }
+        },
+        "integration": {
+          "startup": "Current-source startup coordinator under real44.3 runtime harness, normal/reduced preference; not full signed launcher startup visual acceptance",
+          "tools": "Real platform FRP/Terracotta downloads and private daemon IPC, owned session termination; not player service authorization",
+          "update": "Actual signed current package local same-version transactional tamper/backup/rollback fixture; not public online upgrade"
+        },
+        "signing": "ad-hoc; not Developer ID/notarized",
+        "actualHostedOS": "15.7.9"
+      },
+      "linux": {
+        "run": 37160588146,
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37160588146",
+        "nativeTests": {
+          "arm64": {
+            "tests": 857,
+            "pass": 854,
+            "fail": 0,
+            "skipped": 3,
+            "durationMs": 56667.24327
+          },
+          "x64": {
+            "tests": 857,
+            "pass": 854,
+            "fail": 0,
+            "skipped": 3,
+            "durationMs": 54909.363377
+          }
+        },
+        "packageJobsPassed": 2,
+        "nativePackages": 6,
+        "nativeCleanExtractionGate": true,
+        "cleanExtractedFilesPerArch": {
+          "portable": 26,
+          "deb": 25,
+          "appimage": 25
+        },
+        "compatibilitySmoke": {
+          "passed": false,
+          "hosts": [
+            "Ubuntu24.04 x64",
+            "Ubuntu24.04 ARM64",
+            "Ubuntu26.04 x64"
+          ],
+          "launcherStarted": false,
+          "guiModulesExecuted": 0,
+          "primaryFailure": {
+            "message": "spawnSync xdpyinfo ENOENT",
+            "phase": "preflight display information",
+            "source": "scripts/verify-linux-desktop.cjs:54",
+            "dependency": "x11-utils"
+          },
+          "secondaryFailure": {
+            "message": "scandir out ENOENT",
+            "phase": "finally evidence collection",
+            "source": "scripts/verify-linux-desktop.cjs:84"
+          },
+          "originalSummaryIncompleteDueToFinalizerFailure": true,
+          "originalArtifactsRetained": true
+        },
+        "embeddedIdentity": {
+          "candidateHas": [
+            "product",
+            "platform",
+            "arch",
+            "version",
+            "installationKind"
+          ],
+          "sourceCommit": "external original CI/API binding only; not embedded in fifth metadata",
+          "runtimeVersion": "ELF archive shape and pinned Electron source verified; actual executable version observation not performed by this candidate",
+          "approvedCorrection": "Packaging-only embedded Git source/runtime observation gate pending next native run"
+        },
+        "originalLogsSHA256": "3f194de589806ee74ac9cae34c240c50ff7477783dfa65ccc30881d000b3d45a",
+        "evidenceSummary": "out/linux111/run-37160588146/observation.json",
+        "nativeDesktop": false
+      },
+      "status": "completed/failure; native package and bounded successes retained separately from failed UI/preflight",
+      "completeQualification": false
+    },
+    "currentBatch": {
+      "commit": null,
+      "pushed": false,
+      "nativeRunsStarted": false,
+      "status": "Seventh frozen local874/873/0/1 and tsc passed; subsequent Mac collector targeted19/19 and independent5case proof separate; current black-orange general refinement passed; current walk/appearance pending, then commit/source receipt and new native runs"
+    },
+    "sixthNativeRuns": {
+      "commit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "completeQualification": false,
+      "mac": {
+        "run": 37163779043,
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37163779043",
+        "nativeTests": {
+          "arm64": {
+            "tests": 864,
+            "pass": 860,
+            "fail": 0,
+            "skipped": 4,
+            "durationMs": 52742.95925
+          },
+          "x64": {
+            "tests": 864,
+            "pass": 860,
+            "fail": 0,
+            "skipped": 4,
+            "durationMs": 88528.382934
+          }
+        },
+        "jobs": {
+          "success": 12,
+          "formalUiFailure": 3,
+          "packageSuccess": 2,
+          "demoGameSuccess": 2,
+          "boundedIntegrationSuccess": 6,
+          "armDmgLimitedGuiSuccess": 1,
+          "separateIntelDiagnosticCollected": 1
+        },
+        "overallNativeAcceptance": false,
+        "evidenceSummary": "out/mac111/run-37163779043-69c1e89/acceptance-summary.json",
+        "metadataFile": "Contents/Resources/kamucl-mac.json",
+        "armAPP": {
+          "formalGUIComplete": false,
+          "failure": "original compositor timestamps must be finite and strictly increasing",
+          "originalFrameCount": 90,
+          "rawCalculatedFPS": 60.53927763443197,
+          "formalTimingUsable": false,
+          "reversals": [
+            {
+              "index": 56,
+              "previous": {
+                "file": "frame-0055.jpg",
+                "receivedAt": 1791072915604,
+                "offsetTop": 0,
+                "pageScaleFactor": 1,
+                "deviceWidth": 1024,
+                "deviceHeight": 684,
+                "scrollOffsetX": 0,
+                "scrollOffsetY": 0,
+                "timestamp": 1791072915.597551
+              },
+              "current": {
+                "file": "frame-0056.jpg",
+                "receivedAt": 1791072915604,
+                "offsetTop": 0,
+                "pageScaleFactor": 1,
+                "deviceWidth": 1024,
+                "deviceHeight": 684,
+                "scrollOffsetX": 0,
+                "scrollOffsetY": 0,
+                "timestamp": 1791072915.595933
+              }
+            }
+          ],
+          "originalFailureUnchanged": true,
+          "visibleFocus": {
+            "platform": "darwin",
+            "visible": true,
+            "focused": true,
+            "minimized": false,
+            "appHideCapability": true,
+            "appHidden": false
+          },
+          "uncovered": "Remaining three themes/wallpaper assertion not reached in APP job; DMG is separately observed, never grafted to APP"
+        },
+        "armDMG": {
+          "formalGUIComplete": true,
+          "currentThemes": [
+            {
+              "theme": "transparent",
+              "complete": true,
+              "originalFrames": 89,
+              "originalFPS": 60.39182202628583,
+              "originalTiming": {
+                "elapsed": 1.457150936126709,
+                "fps": 60.39182202628583,
+                "frameCount": 89,
+                "strictlyIncreasing": true
+              },
+              "actualVisibleSkinAndWallpaperObserved": true
+            },
+            {
+              "theme": "black-orange",
+              "complete": true,
+              "originalFrames": 90,
+              "originalFPS": 60.293649263072886,
+              "originalTiming": {
+                "elapsed": 1.4761090278625488,
+                "fps": 60.293649263072886,
+                "frameCount": 90,
+                "strictlyIncreasing": true
+              },
+              "actualVisibleSkinAndWallpaperObserved": true
+            },
+            {
+              "theme": "blue-white",
+              "complete": true,
+              "originalFrames": 90,
+              "originalFPS": 60.18295054459087,
+              "originalTiming": {
+                "elapsed": 1.4788241386413574,
+                "fps": 60.18295054459087,
+                "frameCount": 90,
+                "strictlyIncreasing": true
+              },
+              "actualVisibleSkinAndWallpaperObserved": true
+            },
+            {
+              "theme": "custom",
+              "complete": true,
+              "originalFrames": 89,
+              "originalFPS": 59.671292999326006,
+              "originalTiming": {
+                "elapsed": 1.4747459888458252,
+                "fps": 59.671292999326006,
+                "frameCount": 89,
+                "strictlyIncreasing": true
+              },
+              "actualVisibleSkinAndWallpaperObserved": true
+            }
+          ]
+        },
+        "intelFormal": {
+          "complete": false,
+          "failure": "actual default runtime WebGL initialization failure in both APP and DMG",
+          "initialBackendNotInferredFromFinalDisabled": true
+        },
+        "intelDiagnostic": {
+          "complete": true,
+          "diagnosticOnly": true,
+          "formalResultsUnchanged": true,
+          "variants": [
+            {
+              "name": "default",
+              "complete": true,
+              "canvas": false,
+              "contexts": [
+                {
+                  "kind": "webgl2",
+                  "created": false,
+                  "creationErrors": [
+                    "Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, GL_VENDOR = Disabled, GL_RENDERER = Disabled, Sandboxed = yes, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = BindToCurrentSequence failed: ."
+                  ],
+                  "renderer": null,
+                  "vendor": null,
+                  "version": null
+                },
+                {
+                  "kind": "webgl",
+                  "created": false,
+                  "creationErrors": [
+                    "Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, GL_VENDOR = Disabled, GL_RENDERER = Disabled, Sandboxed = yes, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = BindToCurrentSequence failed: ."
+                  ],
+                  "renderer": null,
+                  "vendor": null,
+                  "version": null
+                }
+              ],
+              "glImplementationParts": "(gl=disabled,angle=none)"
+            },
+            {
+              "name": "explicit-metal",
+              "complete": true,
+              "canvas": false,
+              "contexts": [
+                {
+                  "kind": "webgl2",
+                  "created": false,
+                  "creationErrors": [
+                    "Could not create a WebGL context, VENDOR = 0x106b, DEVICE = 0xeeee, Sandboxed = yes, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = BindToCurrentSequence failed: ."
+                  ],
+                  "renderer": null,
+                  "vendor": null,
+                  "version": null
+                },
+                {
+                  "kind": "webgl",
+                  "created": false,
+                  "creationErrors": [
+                    "Could not create a WebGL context, VENDOR = 0x106b, DEVICE = 0xeeee, Sandboxed = yes, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = BindToCurrentSequence failed: ."
+                  ],
+                  "renderer": null,
+                  "vendor": null,
+                  "version": null
+                }
+              ],
+              "glImplementationParts": "(gl=disabled,angle=none)"
+            }
+          ],
+          "classification": "Successful failure-data collection, not product GPU/GUI acceptance"
+        },
+        "actualGames": [
+          {
+            "arch": "arm64",
+            "version": "26.2",
+            "classification": "Actual native 26.2/Fabric0.19.5 Demo world start/save and window/focus/Dock; trial overlay screenshot, no unrestricted terrain input/licensed account/all loaders claim",
+            "gameWindow": true,
+            "worldStarted": true,
+            "savedWorld": true,
+            "nativeFocus": true,
+            "gracefulClose": true,
+            "closeAndDockReopen": true,
+            "world": {
+              "saved": true,
+              "fileSHA256": "cfc9f0c8aeb9adfec4a020da60b3d2a27f838e892eaaff8c8bca7526e458b003",
+              "files": [
+                {
+                  "path": "level.dat",
+                  "bytes": 374,
+                  "sha256": "cfc9f0c8aeb9adfec4a020da60b3d2a27f838e892eaaff8c8bca7526e458b003"
+                },
+                {
+                  "path": "dimensions/minecraft/overworld/region/r.-1.-1.mca",
+                  "bytes": 1249280,
+                  "sha256": "d9bccfcb6dda2cd33bd8b1be4079e842ef9eb6d388faa9e7d81b3bbbaee85100"
+                },
+                {
+                  "path": "dimensions/minecraft/overworld/region/r.-1.0.mca",
+                  "bytes": 2392064,
+                  "sha256": "c90bb11f29a7b59942b1bd8cde55d98d4a47cfe161428bcfde0135f66681ce8a"
+                },
+                {
+                  "path": "dimensions/minecraft/overworld/region/r.0.-1.mca",
+                  "bytes": 835584,
+                  "sha256": "eafc5641ab19f4192f87c9d8e80fd31677ad8663455fd4d6046f0da397519b01"
+                },
+                {
+                  "path": "dimensions/minecraft/overworld/region/r.0.0.mca",
+                  "bytes": 1671168,
+                  "sha256": "451a88834a036ba7fa3d745655f667445b22af8d1dd4f159050adca26364d7e3"
+                }
+              ],
+              "observation": "Actual level.dat and region bytes read after the owned game has exited normally; hashes only, world files are not included in artifacts"
+            },
+            "normalExitCode": 0,
+            "ciMetalArgumentBuffers": null,
+            "ciMetalHeap": null
+          },
+          {
+            "arch": "x64",
+            "version": "26.2",
+            "classification": "Actual native 26.2/Fabric0.19.5 Demo world start/save and window/focus/Dock; trial overlay screenshot, no unrestricted terrain input/licensed account/all loaders claim",
+            "gameWindow": true,
+            "worldStarted": true,
+            "savedWorld": true,
+            "nativeFocus": true,
+            "gracefulClose": true,
+            "closeAndDockReopen": true,
+            "world": {
+              "saved": true,
+              "fileSHA256": "2f400578e4eba68c34211327264ed74d4cc2d292fa34203f5b8a1974f074a71a",
+              "files": [
+                {
+                  "path": "level.dat",
+                  "bytes": 374,
+                  "sha256": "2f400578e4eba68c34211327264ed74d4cc2d292fa34203f5b8a1974f074a71a"
+                },
+                {
+                  "path": "dimensions/minecraft/overworld/region/r.-1.-1.mca",
+                  "bytes": 1671168,
+                  "sha256": "ffa9fbd1c7a3a835e65ce691603d85a4ffebb4a24b7b519350c654b9f8ac98fd"
+                },
+                {
+                  "path": "dimensions/minecraft/overworld/region/r.-1.0.mca",
+                  "bytes": 2678784,
+                  "sha256": "2af46bb588aef9cbc2d684b53805f834e2eb8ca4fdacc3f3a1e13e427ac03366"
+                },
+                {
+                  "path": "dimensions/minecraft/overworld/region/r.0.-1.mca",
+                  "bytes": 1007616,
+                  "sha256": "b5434dc503848b22b85472cab1e4324e2aa7f4a7b059e33a63a7dd7e6e3a0eb9"
+                },
+                {
+                  "path": "dimensions/minecraft/overworld/region/r.0.0.mca",
+                  "bytes": 1622016,
+                  "sha256": "7b7c747365b00b952f1eba2983a3bc41f3826eb16ae0a750813faa723f7b8e41"
+                }
+              ],
+              "observation": "Actual level.dat and region bytes read after the owned game has exited normally; hashes only, world files are not included in artifacts"
+            },
+            "normalExitCode": 0,
+            "ciMetalArgumentBuffers": "0",
+            "ciMetalHeap": "0"
+          }
+        ],
+        "integration": "Both architectures startup coordinator under bare runtime harness; real own-session FRP/Terracotta downloads; local same-version signed update/tamper/rollback. No full launcher splash/public upgrade/external player service claim.",
+        "signing": "ad-hoc; not Developer ID/notarized",
+        "seventhSCKNativeValidation": false
+      },
+      "linux": {
+        "run": 37163779037,
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37163779037",
+        "nativeTests": {
+          "x64": {
+            "tests": 864,
+            "pass": 861,
+            "fail": 0,
+            "skipped": 3,
+            "duration_ms": 55651.983045
+          },
+          "arm64": {
+            "tests": 864,
+            "pass": 861,
+            "fail": 0,
+            "skipped": 3,
+            "duration_ms": 54782.664122
+          }
+        },
+        "packageJobsPassed": 2,
+        "nativePackages": 6,
+        "nativeCleanExtractionGate": true,
+        "embeddedIdentityVerified": true,
+        "metadataFile": "resources/kamucl-linux.json",
+        "runtimeVersion": "44.3.0",
+        "cleanExtractedFilesPerArch": {
+          "portable": 26,
+          "deb": 25,
+          "appimage": 25
+        },
+        "compatibilitySmoke": [
+          {
+            "artifact": "linux-smoke-24.04-arm64",
+            "fixture": true,
+            "nativeDesktop": false,
+            "complete": false,
+            "launcherStarted": true,
+            "error": {
+              "message": "GUI trace failed: black-orange/ux110; original output is in black-orange-ux110.log\n\n1 !== 0\n",
+              "name": "AssertionError",
+              "code": "ERR_ASSERTION"
+            },
+            "finalizationError": null,
+            "originalProof": "linux-smoke-24.04-arm64/linux-desktop-arm64-fixture-1791072603367/summary.json",
+            "packageIdentity": {
+              "metadata": {
+                "schemaVersion": 1,
+                "product": "KAMUCL",
+                "platform": "linux",
+                "arch": "arm64",
+                "version": "1.1.11",
+                "installationKind": "portable-directory",
+                "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+                "runtimeVersion": "44.3.0"
+              },
+              "observedExecutable": {
+                "platform": "linux",
+                "arch": "arm64",
+                "electron": "44.3.0"
+              }
+            }
+          },
+          {
+            "artifact": "linux-smoke-24.04-x64",
+            "fixture": true,
+            "nativeDesktop": false,
+            "complete": false,
+            "launcherStarted": true,
+            "error": {
+              "message": "GUI trace failed: black-orange/ux110; original output is in black-orange-ux110.log\n\n1 !== 0\n",
+              "name": "AssertionError",
+              "code": "ERR_ASSERTION"
+            },
+            "finalizationError": null,
+            "originalProof": "linux-smoke-24.04-x64/linux-desktop-x64-fixture-1791072640346/summary.json",
+            "packageIdentity": {
+              "metadata": {
+                "schemaVersion": 1,
+                "product": "KAMUCL",
+                "platform": "linux",
+                "arch": "x64",
+                "version": "1.1.11",
+                "installationKind": "portable-directory",
+                "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+                "runtimeVersion": "44.3.0"
+              },
+              "observedExecutable": {
+                "platform": "linux",
+                "arch": "x64",
+                "electron": "44.3.0"
+              }
+            }
+          },
+          {
+            "artifact": "linux-smoke-26.04-x64",
+            "fixture": true,
+            "nativeDesktop": false,
+            "complete": false,
+            "launcherStarted": true,
+            "error": {
+              "message": "GUI trace failed: black-orange/ux110; original output is in black-orange-ux110.log\n\n1 !== 0\n",
+              "name": "AssertionError",
+              "code": "ERR_ASSERTION"
+            },
+            "finalizationError": null,
+            "originalProof": "linux-smoke-26.04-x64/linux-desktop-x64-fixture-1791072606952/summary.json",
+            "packageIdentity": {
+              "metadata": {
+                "schemaVersion": 1,
+                "product": "KAMUCL",
+                "platform": "linux",
+                "arch": "x64",
+                "version": "1.1.11",
+                "installationKind": "portable-directory",
+                "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+                "runtimeVersion": "44.3.0"
+              },
+              "observedExecutable": {
+                "platform": "linux",
+                "arch": "x64",
+                "electron": "44.3.0"
+              }
+            }
+          }
+        ],
+        "gpuCause": "ANGLE/OpenGL/Mesa llvmpipe context creation failed; exact Chromium blocklist is a strong inference, not established same-process root cause; installed Vulkan status unknown",
+        "originalLogsSHA256": "cec42435a93c65da30640a9f942e931853c09ffcc00e86118cc5c917b9c8db27",
+        "evidenceSummary": "out/linux111/run-37163779037/observation.json",
+        "readOnlyDiagnosis": "out/linux111/run-37163779037/graphics-failure-diagnosis.json",
+        "nativeDesktop": false,
+        "seventhObserverNativeValidation": false
+      },
+      "historicalDeliveryGap": {
+        "sourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+        "missingBuildIconFiles": 2,
+        "independentlyRecorded": true,
+        "oldArchiveClosureComplete": false,
+        "nextHandoff": "Rebuild and independently verify root docs and complete source/build-input prefixes; no future closure success inferred",
+        "missingBuildIconPaths": [
+          "build/icon.png",
+          "build/icon-512.png"
+        ],
+        "originalReceipt": "out/handoff111-history-source-closure-defect.json"
+      }
+    }
+  },
+  "privacy": {
+    "privateAccountDataIncluded": false,
+    "privateModpackOrWorldIncluded": false,
+    "pelicanBicycleIncluded": false,
+    "wuhuiTouched": false,
+    "oldPrivateWorldHashesBackfilled": false,
+    "currentEvidenceAllowlist": "Original logs, summaries, receipts and frames only; candidates separate; no private worlds/profiles/settings"
+  },
+  "recordedAtLocal": "2026-10-04 09:02 Asia/Hong_Kong",
+  "evidenceManifestStatus": "Sixth source69 artifacts and original evidence have exact external receipts; seventh batch source/Delivery identity must be written after commit, and historical missing build icons require new complete closure",
+  "historicalSnapshotErrors": [
+    {
+      "snapshotSourceCommit": "69c1e89ba23a007535c77bae65052f19b6d87f58",
+      "originalRecordedAt": "2026-10-04 08:02 Asia/Hong_Kong",
+      "location": "validation.postFifthCorrection.identity.mac",
+      "originalValue": "Contents/Resources/kamucl-build.json sourceCommit/runtimeVersion before signing; actual native observation required",
+      "correction": "Actual packaged file is Contents/Resources/kamucl-mac.json, verified by sixth native APP/DMG identity observations; kamucl-build.json was an incorrect planned documentation name, not an actual native file.",
+      "originalNativePackageBytesChanged": false,
+      "originalHistoricalObservationDeleted": false
+    }
+  ],
+  "historicalCandidateArtifacts": [
+    {
+      "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+      "recordedAt": "2026-10-04 08:02 Asia/Hong_Kong",
+      "artifacts": [
+        {
+          "name": "KAMUCL-1.1.11-mac-arm64.zip",
+          "size": 127153047,
+          "sha256": "20aaa4e8093007c9d52bee82eac0b216b19a93563deb70c7c80d57321eb2e6a4",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "macos",
+          "arch": "arm64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/mac111/run-37160588297-5167500/mac-ui-arm64-app/mac-job-arm64-app-ui/job.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        },
+        {
+          "name": "KAMUCL-1.1.11-mac-arm64.dmg",
+          "size": 136963445,
+          "sha256": "770284b3a62746e836d4a7b6902f21388a2fcacd7543eb55606f09d25b0daafc",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "macos",
+          "arch": "arm64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/mac111/run-37160588297-5167500/mac-ui-arm64-dmg/mac-job-arm64-dmg-ui/job.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        },
+        {
+          "name": "KAMUCL-1.1.11-mac-x64.zip",
+          "size": 133313379,
+          "sha256": "b521695add53b6d77efd9546da2f537efea1e96b9570e785404a294c71867159",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "macos",
+          "arch": "x64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/mac111/run-37160588297-5167500/mac-ui-x64-app/mac-job-x64-app-ui/job.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        },
+        {
+          "name": "KAMUCL-1.1.11-mac-x64.dmg",
+          "size": 144326527,
+          "sha256": "1fc3074fafd638ee835eb4cd5da688e315bf7ff2784128395e613aa5ca35bd5b",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "macos",
+          "arch": "x64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/mac111/run-37160588297-5167500/mac-ui-x64-dmg/mac-job-x64-dmg-ui/job.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        },
+        {
+          "name": "KAMUCL-1.1.11-linux-x64.tar.gz",
+          "size": 133185674,
+          "sha256": "7ccfa407fe3ce820c924f6ab1a2a8c9e8b7ab818b9a21cf4711c1b4350630fbe",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "linux",
+          "arch": "x64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/linux111/run-37160588146/linux-packages-x64/linux-proof-x64-packages/summary.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        },
+        {
+          "name": "KAMUCL-1.1.11-linux-x64.deb",
+          "size": 109170472,
+          "sha256": "eb74700d492b6ce3ba7d00456c96871ffd2f70962ec1dead39f9942ccdd84269",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "linux",
+          "arch": "x64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/linux111/run-37160588146/linux-packages-x64/linux-proof-x64-packages/summary.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        },
+        {
+          "name": "KAMUCL-1.1.11-linux-x64.AppImage",
+          "size": 109224288,
+          "sha256": "cee2d3eb816cc1b2748d68d100b0ec021b11e9993a792f80e3113fbd25c8c6d3",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "linux",
+          "arch": "x64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/linux111/run-37160588146/linux-packages-x64/linux-proof-x64-packages/summary.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        },
+        {
+          "name": "KAMUCL-1.1.11-linux-arm64.tar.gz",
+          "size": 134351796,
+          "sha256": "84293941f08b38866f4f3bf870fe02cf2928fc0c882b3c03ddec06c6da63bcf3",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "linux",
+          "arch": "arm64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/linux111/run-37160588146/linux-packages-arm64/linux-proof-arm64-packages/summary.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        },
+        {
+          "name": "KAMUCL-1.1.11-linux-arm64.deb",
+          "size": 104172876,
+          "sha256": "70cbdb6eb6c22304da13c078e76080d253ea389243e1dbbe5ca548e4d96c750b",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "linux",
+          "arch": "arm64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/linux111/run-37160588146/linux-packages-arm64/linux-proof-arm64-packages/summary.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        },
+        {
+          "name": "KAMUCL-1.1.11-linux-arm64.AppImage",
+          "size": 103865563,
+          "sha256": "ca520282989106046c3dbc7a9f2b6aec4f8bfdaa84e2b9aa2d0e38dd60dcafe9",
+          "sourceCommit": "5167500b6c27b9bbdd1e80f22d91d3f5904007eb",
+          "platform": "linux",
+          "arch": "arm64",
+          "nativeBuild": true,
+          "downloadedByteVerification": true,
+          "nativeCleanExtraction": true,
+          "nativeDesktop": false,
+          "originalProof": "out/linux111/run-37160588146/linux-packages-arm64/linux-proof-arm64-packages/summary.json",
+          "embeddedSourceRuntimeIdentity": false,
+          "status": "fifth native candidate; complete qualification false; new identity revision requires rebuild; no public release"
+        }
+      ],
+      "status": "Original fifth bytes/digests retained separately; never rebound to sixth or seventh source"
+    }
+  ]
+}

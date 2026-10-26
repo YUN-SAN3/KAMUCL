@@ -1,0 +1,2 @@
+{"output":"E:\\KAMUCL\\release\\KAMUCL-1.1.19-windows-x64.zip","bytes":97355049,"portableBytes":97323050,"portableSHA256":"7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65"}
+{"unpacked":"E:\\KAMUCL\\release\\KAMUCL-1.1.19-windows-x64-unpacked.zip","bytes":142990165}

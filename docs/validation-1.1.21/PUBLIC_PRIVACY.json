@@ -1,0 +1,22 @@
+{
+  "complete": true,
+  "bytes": 1058553,
+  "allSHA256Matched": true,
+  "allDecoded": true,
+  "manualReviewer": "updater121",
+  "originalManifestBinding": {
+    "originalReceiptLabel": "updater121-public-image-candidates.json",
+    "bytes": 40210,
+    "sha256": "0ec113a2a5351609672c877f8faf86539c168f9d2787746b0f2867370d295ef5"
+  },
+  "nativeDesktopPrivate": true,
+  "privateDocumentAndArchivesExcluded": true,
+  "untrackedPelicanExcluded": true,
+  "qualification": "This covers selected new public evidence. Exact source Git membership and unmodified handoff secret/path/link guards run separately; no claim that every historical public image was manually reinspected.",
+  "selectedOriginalImages": 16,
+  "formats": {
+    "PNG": 14,
+    "JPEG": 1,
+    "WEBP": 1
+  }
+}

@@ -13,7 +13,9 @@ import { app } from 'electron'
 import { GITHUB_REPO } from '../../shared/branding'
 import { compareSemver, isNewerVersion } from '../../shared/semver'
 import type { ReleaseInfo, UpdateCheckResult } from '../../shared/types'
-import { httpFetch } from './httpClient'
+import { downloadFetch } from './downloadFetch'
+import { validateUpdateDownloadUrl } from './updateSources'
+import { abortableDelay, inheritTaskControl, isTaskPaused, waitIfTaskPaused } from './tasks'
 import { logScope } from './launcherLog'
 import { isolatedUpdateTest, trustedUpdateRelease, updateAssetName } from './updateTrust'
 
@@ -22,6 +24,7 @@ const updateLog = logScope('self-update')
 /** 检查缓存有效期 6 小时 */
 const CACHE_TTL_MS = 6 * 3600_000
 const API_TIMEOUT_MS = 10_000
+export const updateBodyPolicy = { timeoutMs: API_TIMEOUT_MS, maxBytes: 1024 * 1024 }
 
 /** GitHub API 基地址（env 覆盖供 mock 测试：KAMUCL_UPDATE_API_BASE=http://127.0.0.1:8310） */
 function apiBase(): string {
@@ -69,7 +72,7 @@ function writeCache(cache: CheckCache): void {
   }
 }
 
-interface GhAsset { name?: string; browser_download_url?: string; size?: number }
+interface GhAsset { name?: string; browser_download_url?: string; size?: number; digest?: string }
 interface GhRelease {
   tag_name?: string
   name?: string
@@ -101,26 +104,68 @@ function toReleaseInfo(j: GhRelease): ReleaseInfo | null {
   return trustedUpdateRelease(release) ? release : null
 }
 
-async function ghFetch(url: string, etag?: string): Promise<Response> {
+function updateRequestDeadline(parent?: AbortSignal, timeoutMs = API_TIMEOUT_MS): { signal: AbortSignal; finish: () => void } {
+  const controller = new AbortController(), signal = parent ? AbortSignal.any([parent, controller.signal]) : controller.signal
+  inheritTaskControl(parent, signal)
+  let elapsed = 0, last = performance.now()
+  const timer = setInterval(() => {
+    const now = performance.now(), delta = now - last; last = now
+    if (!isTaskPaused(parent)) elapsed += delta
+    if (elapsed >= timeoutMs) controller.abort(new DOMException('更新请求超时', 'TimeoutError'))
+  }, 100)
+  return { signal, finish: () => clearInterval(timer) }
+}
+
+/** Header arrival does not complete an API/checksum request. Own the body
+ * deadline and actively cancel its reader, including bodies from test fetchers.
+ */
+async function readUpdateBody(response: Response, signal?: AbortSignal): Promise<Buffer> {
+  if (!response.body) return Buffer.alloc(0)
+  const deadline = updateRequestDeadline(signal, updateBodyPolicy.timeoutMs), reader = response.body.getReader(), chunks: Uint8Array[] = []
+  const cancel = () => { void reader.cancel(deadline.signal.reason).catch(() => {}) }
+  deadline.signal.addEventListener('abort', cancel, { once: true })
+  let bytes = 0
+  try {
+    if (Number(response.headers.get('content-length')) > updateBodyPolicy.maxBytes) throw new Error('更新响应体超过安全大小上限')
+    while (true) {
+      await waitIfTaskPaused(deadline.signal)
+      deadline.signal.throwIfAborted()
+      const chunk = await reader.read()
+      deadline.signal.throwIfAborted()
+      if (chunk.done) break
+      bytes += chunk.value.length
+      if (bytes > updateBodyPolicy.maxBytes) throw new Error('更新响应体超过安全大小上限')
+      chunks.push(chunk.value)
+    }
+    return Buffer.concat(chunks)
+  } finally {
+    deadline.signal.removeEventListener('abort', cancel)
+    deadline.finish()
+    await reader.cancel().catch(() => {}); reader.releaseLock()
+  }
+}
+
+async function ghFetch(url: string, etag?: string, signal?: AbortSignal): Promise<Response> {
   // 国内网络对 GitHub TLS 偶发重置：失败后 1.5s 重试一次（幂等 GET 安全）
   for (let attempt = 0; attempt < 2; attempt++) {
-    const ctrl = new AbortController()
-    const timer = setTimeout(() => ctrl.abort(), API_TIMEOUT_MS)
+    signal?.throwIfAborted()
+    const deadline = updateRequestDeadline(signal)
     try {
-      return await httpFetch(url, {
-        signal: ctrl.signal,
+      return await downloadFetch(url, {
+        signal: deadline.signal,
         headers: {
           Accept: 'application/vnd.github+json',
           'User-Agent': 'KAMUCL-Launcher',
           ...(etag ? { 'If-None-Match': etag } : {})
         }
-      })
+      }, undefined, undefined, async next => validateUpdateDownloadUrl(next, isolatedUpdateTest()))
     } catch (e) {
+      signal?.throwIfAborted()
       if (attempt === 1) throw e
       updateLog.debug('GitHub 请求失败，1.5s 后重试一次', e)
-      await new Promise((r) => setTimeout(r, 1500))
+      await abortableDelay(1500, signal)
     } finally {
-      clearTimeout(timer)
+      deadline.finish()
     }
   }
   throw new Error('unreachable')
@@ -139,6 +184,7 @@ export async function checkLatest(force = false): Promise<UpdateCheckResult> {
   }
   try {
     const res = await ghFetch(`${apiBase()}/repos/${GITHUB_REPO}/releases/latest`, cache?.etag)
+    if (!res.ok) await res.body?.cancel().catch(() => {})
     if (res.status === 304) {
       // 未变化：刷新缓存时间，沿用上次结果（304 不计限流）
       const latest = cache?.latest ?? null
@@ -161,7 +207,7 @@ export async function checkLatest(force = false): Promise<UpdateCheckResult> {
       return { ok: true, hasUpdate: false }
     }
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const json = (await res.json()) as GhRelease
+    const json = JSON.parse((await readUpdateBody(res)).toString('utf8')) as GhRelease
     const latest = toReleaseInfo(json)
     writeCache({ etag: res.headers.get('etag') ?? cache?.etag, checkedAt: Date.now(), latest })
     const has = !!latest && isNewerVersion(latest.version, current)
@@ -211,8 +257,8 @@ export function decideUpdateAction(opts: {
 export async function listReleases(): Promise<ReleaseInfo[]> {
   try {
     const res = await ghFetch(`${apiBase()}/repos/${GITHUB_REPO}/releases?per_page=20`)
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const list = (await res.json()) as GhRelease[]
+    if (!res.ok) { await res.body?.cancel().catch(() => {}); throw new Error(`HTTP ${res.status}`) }
+    const list = JSON.parse((await readUpdateBody(res)).toString('utf8')) as GhRelease[]
     return list
       .filter((r) => !r.draft && !r.prerelease)
       .map(toReleaseInfo)
@@ -234,32 +280,57 @@ export function parseSha256Sums(text: string): Map<string, string> {
 }
 
 /** Resolve the requested release's checksums, never a different latest version's manifest. */
-export async function fetchSha256Sums(releaseAssetUrlHint?: string, fetcher: typeof ghFetch = ghFetch): Promise<Map<string, string> | null> {
+export async function fetchSha256Sums(releaseAssetUrlHint?: string, fetcher: typeof ghFetch = ghFetch, signal?: AbortSignal): Promise<Map<string, string> | null> {
+  signal?.throwIfAborted()
   const urls: string[] = []
   const expectedName = releaseAssetUrlHint?.split('/').at(-1)
   const read = async (url: string): Promise<Map<string, string> | null> => {
+    const deadline = updateRequestDeadline(signal)
     try {
-      const res = await fetcher(url)
-      if (!res.ok) return null
-      const sums = parseSha256Sums(await res.text())
+      signal?.throwIfAborted()
+      const readSignal = deadline.signal
+      const res = fetcher === ghFetch ? await downloadFetch(url, { signal: readSignal, headers: { 'User-Agent': 'KAMUCL-Launcher', 'accept-encoding': 'identity' } }, undefined, undefined,
+        async next => validateUpdateDownloadUrl(next, isolatedUpdateTest())) : await fetcher(url, undefined, readSignal)
+      if (!res.ok) { await res.body?.cancel().catch(() => {}); return null }
+      const sums = parseSha256Sums((await readUpdateBody(res, signal)).toString('utf8'))
       return sums.size && (!expectedName || sums.has(expectedName)) ? sums : null
-    } catch { return null }
+    } catch { signal?.throwIfAborted(); return null }
+    finally { deadline.finish() }
   }
   if (releaseAssetUrlHint) {
     const exact = await read(releaseAssetUrlHint.replace(/[^/]+$/, 'SHA256SUMS.txt'))
     if (exact) return exact
+    // Release CDN access and API access can fail independently. GitHub publishes
+    // an asset's SHA256 digest in its official release API; it is a trusted
+    // fallback when the canonical checksum file cannot be reached. Never ask a
+    // download mirror for both the executable and its expected checksum.
+    const prefix = `https://github.com/${GITHUB_REPO}/releases/download/`
+    const match = releaseAssetUrlHint.startsWith(prefix) && /^(v\d+\.\d+\.\d+)\/([^/?#]+)$/.exec(releaseAssetUrlHint.slice(prefix.length))
+    if (match) {
+      try {
+        const response = await fetcher(`${apiBase()}/repos/${GITHUB_REPO}/releases/tags/${match[1]}`, undefined, signal)
+        if (response.ok) {
+          const release = JSON.parse((await readUpdateBody(response, signal)).toString('utf8')) as GhRelease
+          if (release.tag_name === match[1] && !release.draft && !release.prerelease && Array.isArray(release.assets)) {
+            const asset = release.assets.find(asset => asset.name === expectedName && asset.browser_download_url === releaseAssetUrlHint && (asset.size ?? 0) > 0)
+            const digest = /^sha256:([a-f\d]{64})$/i.exec(asset?.digest ?? '')
+            if (digest) return new Map([[expectedName!, digest[1].toLowerCase()]])
+          }
+        } else await response.body?.cancel().catch(() => {})
+      } catch { signal?.throwIfAborted() /* Keep legacy manifest fallbacks for older GitHub assets. */ }
+    }
   }
   // mock/测试：下载基地址覆盖时直接从该基地址取
   const dlBase = downloadBaseOverride()
   if (dlBase) urls.push(`${dlBase}/SHA256SUMS.txt`)
   try {
-    const res = await fetcher(`${apiBase()}/repos/${GITHUB_REPO}/releases/latest`)
+    const res = await fetcher(`${apiBase()}/repos/${GITHUB_REPO}/releases/latest`, undefined, signal)
     if (res.ok) {
-      const json = (await res.json()) as GhRelease
+      const json = JSON.parse((await readUpdateBody(res, signal)).toString('utf8')) as GhRelease
       const sums = (json.assets ?? []).find((a) => a.name === 'SHA256SUMS.txt')
       if (sums?.browser_download_url) urls.push(sums.browser_download_url)
-    }
-  } catch { /* 继续用候选 */ }
+    } else await res.body?.cancel().catch(() => {})
+  } catch { signal?.throwIfAborted() /* 继续用候选 */ }
   for (const url of urls) {
     const sums = await read(url)
     if (sums) return sums
@@ -268,11 +339,12 @@ export async function fetchSha256Sums(releaseAssetUrlHint?: string, fetcher: typ
 }
 
 /** 计算文件的 SHA256（hex 小写） */
-export async function sha256File(file: string): Promise<string> {
+export async function sha256File(file: string, signal?: AbortSignal): Promise<string> {
+  signal?.throwIfAborted()
   const crypto = await import('node:crypto')
   const hash = crypto.createHash('sha256')
   await new Promise<void>((resolve, reject) => {
-    const stream = fs.createReadStream(file)
+    const stream = fs.createReadStream(file, { signal })
     stream.on('data', (d) => hash.update(d))
     stream.on('end', () => resolve())
     stream.on('error', reject)

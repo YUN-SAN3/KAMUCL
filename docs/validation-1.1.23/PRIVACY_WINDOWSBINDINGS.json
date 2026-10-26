@@ -1,0 +1,622 @@
+{
+  "version": "1.1.23",
+  "complete": true,
+  "observedAt": "2026-10-13T21:47:29.499Z",
+  "driverSHA256": "511f931b2fea771992b6c477236119d5dd27a31788654d158a866a07c49062ee",
+  "auditReceipt": "out\\security123-windows-artifacts-36e623d0-a5d1-4b65-83ca-c9345250d18a.json",
+  "auditReceiptSHA256": "b191c0d555d1958893e2e8a4f657d17fe46ea892944850e692339c23696319ac",
+  "compressedASARBindings": [
+    {
+      "asar": "resources/app.asar",
+      "member": "licenses/source/7zip-19.00-source.7z",
+      "bytes": 1071569,
+      "sha256": "9ba70a5e8485cf9061b30a2a84fe741de5aeb8dd271aab8889da0e9b3bf1868e",
+      "exactDecodedArtifact": "KAMUCL-1.1.23-windows-x64.zip",
+      "decodedFiles": 1172,
+      "decodedScannedBytes": 7339189,
+      "nestedContainers": [],
+      "qualification": "Exact bytes already freshly decoded and scanned in this same 1.1.23 Windows audit, not a previous raw-container or fixture-path exemption"
+    },
+    {
+      "asar": "resources/app.asar",
+      "member": "licenses/source/Nsis7z_19.00.7z",
+      "bytes": 461078,
+      "sha256": "6f2f3730049926f40442ee0c8b7d3e3dee7ace544d82467ff8059ea3f4201c58",
+      "exactDecodedArtifact": "KAMUCL-1.1.23-windows-x64.zip",
+      "decodedFiles": 30,
+      "decodedScannedBytes": 1560932,
+      "nestedContainers": [
+        {
+          "path": "Examples/nsis7z/Test.7z",
+          "detectedContainer": "7z",
+          "allMembersDecoded": true,
+          "containerType": "7z",
+          "files": 2,
+          "scannedBytes": 10,
+          "fileHashes": [
+            {
+              "path": "AnotherFolder/somefile.txt",
+              "bytes": 5,
+              "sha256": "a14b17ebd4709ae3125b52bcd214375bf41142fd539116fb6e72e98e4ec2c34a"
+            },
+            {
+              "path": "TestFolder/AnotherFolder/somefile.txt",
+              "bytes": 5,
+              "sha256": "a14b17ebd4709ae3125b52bcd214375bf41142fd539116fb6e72e98e4ec2c34a"
+            }
+          ],
+          "nestedContainers": []
+        }
+      ],
+      "qualification": "Exact bytes already freshly decoded and scanned in this same 1.1.23 Windows audit, not a previous raw-container or fixture-path exemption"
+    },
+    {
+      "asar": "resources/app.asar",
+      "member": "licenses/source/stdutils-1.14.tar.gz",
+      "bytes": 222751,
+      "sha256": "3687ab4e09005a8a0b93c1a07a36285d93466070e94b8bf6f12781fb53c419e1",
+      "exactDecodedArtifact": "KAMUCL-1.1.23-windows-x64.zip",
+      "decodedFiles": 1,
+      "decodedScannedBytes": 962560,
+      "nestedContainers": [
+        {
+          "path": "4234fe42-6e82-42bb-9446-26e0a70cd297",
+          "detectedContainer": "tar",
+          "allMembersDecoded": true,
+          "containerType": "tar",
+          "files": 94,
+          "scannedBytes": 874974,
+          "fileHashes": [
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/.gitignore",
+              "bytes": 125,
+              "sha256": "ee7d845faebe921baa9a9e219bda6d73f50b0691b7ae83ae8acd62847ff07e2e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/ansi/nsis/api.h",
+              "bytes": 2760,
+              "sha256": "60d394d869118558efc6d9e1de65f9cdcdeb669c6509a6c8c26a256d34f6d643"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/ansi/nsis/pluginapi.h",
+              "bytes": 2030,
+              "sha256": "c1643cd6b07acce4f02ca35cd379efc7923929a5e3142915ee4a9cf0db25d5d6"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/common/msvc_utils.h",
+              "bytes": 2547,
+              "sha256": "ea539f9f30d2a35685c125dd57821582a069091c1cd47e3369c8c6053854bd38"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/common/nsis_tchar.h",
+              "bytes": 4557,
+              "sha256": "378563248ddd77f4a33691527c43b1e4acb3925e1ddd2394fc6ec96d307a173b"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/unicode/nsis/api.h",
+              "bytes": 2761,
+              "sha256": "da0b2aa6ad8a9c6570ba63605746c3d832c468972a24417d75c322abe788086c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/include/unicode/nsis/pluginapi.h",
+              "bytes": 2920,
+              "sha256": "537c93fb4c08b0ab9ca598300aa517f96edd68b6011aa35faca40ce0a73559f5"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/lib/msvcrt_vc6.lib",
+              "bytes": 235942,
+              "sha256": "3efc3ddf045a459a2b6403f0b821be2cb7c316ffca67dddddb346cea7a9e4f63"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/lib/nsis_pluginapi_ansi.lib",
+              "bytes": 4668,
+              "sha256": "7074436c8deec55a2af7781ccf655747a6bb4c991079bc788e542236c6a87256"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/lib/nsis_pluginapi_unicode.lib",
+              "bytes": 6902,
+              "sha256": "ab451de8bb232bcc035cac13a4506040687f0271a4b13b878439f20cc7830e22"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/Base64.cpp",
+              "bytes": 8365,
+              "sha256": "42c2b04174c66afc1645d83b732cbd222022cdfb667054a2911e0b2340051396"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/Base64.h",
+              "bytes": 4435,
+              "sha256": "71a350cecec8a57e5c829c9a9307941813d1b1c5a3fcc22b653bcb942bfb2299"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/blake2/blake2.cpp",
+              "bytes": 12917,
+              "sha256": "6944df25988c7d215f4e778f5980eee6e641d8d9cc61323f41e1ebfcdd77c5b3"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/blake2/blake2.h",
+              "bytes": 2489,
+              "sha256": "d1e8a0b550c8e59a17006e3d2ee5e7acbf279fa18473e20e66c557883dc3df3e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/blake2/COPYING.txt",
+              "bytes": 7048,
+              "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ByteToHex.cpp",
+              "bytes": 3505,
+              "sha256": "fb32a4190b629d51e00b6aa018db6a08d693cb4e63aafcb7e7f243d247da6794"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/CleanUp.cpp",
+              "bytes": 2234,
+              "sha256": "823f3cd4437b7ca5488f6aaac7eace38c0479a5b602749584b16ecf8927e1d14"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/CleanUp.h",
+              "bytes": 1178,
+              "sha256": "28258bdb1dc623836aebc314f1aa26a46483e17cff73159d77b3cc31c26b256e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ComUtils.cpp",
+              "bytes": 2315,
+              "sha256": "ec925caff3d59da354a3d0d33b1f146eaaef6b5c4cefcfd3806193885db4acb7"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ComUtils.h",
+              "bytes": 3037,
+              "sha256": "ea46d1e7de23c1a28c7c6812ddd6c782acdefdc0a0332a81bfdfc96a9ea36358"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/DetectOsVersion.cpp",
+              "bytes": 16906,
+              "sha256": "7c5cc8d95fd235f97eb9e32fda43983abe89d23cbf3405c67925adc60ffa0adf"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/DetectOsVersion.h",
+              "bytes": 1538,
+              "sha256": "2d610964550c3bad670cefad69bb214b0bfe80af40414aad228dc69f84f3dde5"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/FileUtils.cpp",
+              "bytes": 3876,
+              "sha256": "c5315628e71530cce247f82587704c8acd54cd71dfb8173ad9f960eb8a841f93"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/FileUtils.h",
+              "bytes": 1204,
+              "sha256": "19f4ae3f589107e9011086494ce99755a700885bb643e14efbcf22983a14de3f"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/HashUtils.cpp",
+              "bytes": 10065,
+              "sha256": "a19f93a72f6102bb9db78fe37b933380f313deb04b72db6b66949e758e4c4efe"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/HashUtils.h",
+              "bytes": 1891,
+              "sha256": "226377dec8ba385a9cab97a2ed88c9e6d033fcf20c3320024300d4f93de8a08e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/InvokeShellVerb.cpp",
+              "bytes": 5757,
+              "sha256": "9b640975b1430a5d98ad287b918e008b94272d9be91fa0e52dbf64746281ff7f"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/InvokeShellVerb.h",
+              "bytes": 1531,
+              "sha256": "56cbd6d1d5a1addb88c175b978cb040264195f07d62784dc3178cd135c6f7bc4"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/Mutex.h",
+              "bytes": 1820,
+              "sha256": "37989bddd26a4ff8ae27f37f8b0d8481374a460418d6ad4f2a972d6b737d256b"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ParameterParser.cpp",
+              "bytes": 5929,
+              "sha256": "1d9667e46ddfa18e8ef92198d8b62a50d7019c755f738b62ca91f6d035d01315"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ParameterParser.h",
+              "bytes": 1318,
+              "sha256": "a5b194e224fc9630ed7bff5999ce46c48748b9b43641269b81ad99e82f87b30f"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/PathUtils.cpp",
+              "bytes": 3591,
+              "sha256": "8da8c7df292f3352de3e6f5e1a35a448527ff25c180448c88020e94fbc2ff84c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/PathUtils.h",
+              "bytes": 1531,
+              "sha256": "b01ed8810975c601775eba1426bd5f4b021eefe35c8cca01749ade9a0bd6112e"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ProtectedData.cpp",
+              "bytes": 9357,
+              "sha256": "f99f69f0f2617c10d29a3e5ddf440ff4b3cfc854704b5bec69e9bb3f0b6acbdd"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ProtectedData.h",
+              "bytes": 1892,
+              "sha256": "abd10de42f0c42cb66aec96957d88a7b9c21fe8dafd880271678d200362c77e2"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/RandUtils.cpp",
+              "bytes": 3625,
+              "sha256": "1bcb617f246af0a2c401a6f6b7524ecc016de22c2e834bec402b2f3582e6e876"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/RandUtils.h",
+              "bytes": 1259,
+              "sha256": "b04c4d243192d427305b36770cf6e05479d610ed211b36f4b2f2b802ab5d9018"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/Resource.h",
+              "bytes": 820,
+              "sha256": "f180959a27a8c3fd72413eabbcddd4660da73570333fe0c7d095b48f2d3c79cc"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/byte_order.c",
+              "bytes": 5600,
+              "sha256": "fa8bd02b32e50e7408db0fdc023bbc0fc8c8eafe91e2c42d4e09f854e7d5b05b"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/byte_order.h",
+              "bytes": 6178,
+              "sha256": "9344d065ddf18c4e3afc69e8d9ec74b6cb43d5e5189ae393a7489968cb3b5d84"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/COPYING.txt",
+              "bytes": 751,
+              "sha256": "8cf876d3406a2eed6c17ae804c8958bd78d3a0f63c30d6e2e789ab575e9fde40"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/crc32.c",
+              "bytes": 7872,
+              "sha256": "101f9b08f26f13cfc5f6666b7c67a815b848fb9d7c864dfd66b615d6d5e16ac4"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/crc32.h",
+              "bytes": 690,
+              "sha256": "1a54a70be03944a2bfc237ee16604babf9b1ae115c41163cc0563cedf818ec4d"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/md5.c",
+              "bytes": 7962,
+              "sha256": "4d1eb55e5e7dc46c05f02ef1c11a822a939b8d7cea6d13de865dad4ca350c9ea"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/md5.h",
+              "bytes": 700,
+              "sha256": "ca7af3cb1009353d74f06a3bbf39bb1866895a2599b20be093901e016018e21c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha1.c",
+              "bytes": 5139,
+              "sha256": "229067223cebafe90d44765f6454168fef30e8179c215fc32312961b073d8b67"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha1.h",
+              "bytes": 701,
+              "sha256": "0103266f27f19f2d014d80ec01d3d3ad68f67c11d6d0791e0cd527f2ae2e7667"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha256.c",
+              "bytes": 8628,
+              "sha256": "c64bbbc86b4847b47248b84022da8c9ed636c756efb3f639ba589c1e20e0274c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha256.h",
+              "bytes": 878,
+              "sha256": "9e054eca10e6afad9f57c6830b30a7670e622d9717aae3fcdd117f8abad21d27"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha3.c",
+              "bytes": 10044,
+              "sha256": "4193073e3813bdb228bca5eb507257b7ddc9cc2e8b05f02b85a08d7cee782474"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha3.h",
+              "bytes": 1464,
+              "sha256": "c3a8557d847ff8996bb6bcc357debe4a646d0699a531770e39c90f76198217e6"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha512.c",
+              "bytes": 9960,
+              "sha256": "da21d4b8f7a4a1c910222cf366318288a3adaf6558eb38d4d8d8c115ce59e806"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/sha512.h",
+              "bytes": 877,
+              "sha256": "049fabc3e58fd340436e435e535160be76aeeaf48019af4a95161bfd4d7b74e8"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ShellDispatch.cpp",
+              "bytes": 4573,
+              "sha256": "ff8c6ee6424ca35617492946f05634615a0b7a9239fc7cbabc96743a734e5e53"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ShellDispatch.h",
+              "bytes": 1556,
+              "sha256": "f0765ce3be4051cc74c59abdcf6a3a6d16aacacfb38395de925b44f0ccd9c096"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ShellExecAsUser.cpp",
+              "bytes": 3259,
+              "sha256": "1f90e87ba2b054548bb2ee29d76d6d4519e65117e48254bd1ab0c4c51224e9d0"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/ShellExecAsUser.h",
+              "bytes": 1584,
+              "sha256": "f75c7eed54e47d51f52c2c4b1d4d44935d34edf49da93d630d0bc89f1ea2ba22"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/StdUtils.cpp",
+              "bytes": 35788,
+              "sha256": "2ddb59536f6aaa8123c7f617aadb6e856980bb8a8055b0929f65debbdb984385"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/StdUtils.h",
+              "bytes": 2323,
+              "sha256": "20cf29941e5db3727c02f0c985741745eb8e7062c1d6b62b611b16828b83538a"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/TimerUtils.cpp",
+              "bytes": 5864,
+              "sha256": "b815111db40832d06bd4e50a2966d58cc502d9df48cfe82dbdae14a7acb83176"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/TimerUtils.h",
+              "bytes": 1367,
+              "sha256": "b2f199127f96f3e5067f23bc7871d742f4dc3965391464660710d8c1cfe5c3eb"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/UnicodeSupport.cpp",
+              "bytes": 5811,
+              "sha256": "567e005668cf5e67953da9b0c40f1a97481a4771c48e6538150aaaad1f4270e3"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/UnicodeSupport.h",
+              "bytes": 3017,
+              "sha256": "b201dd047424b7fb8ed12bce8ae71ecbebe1c9f2ec65ff2fe588b1f54cc0c021"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/WinUtils.h",
+              "bytes": 2170,
+              "sha256": "a75d08106ebb69c268d26aebdce150ec8901e84d34764989bb7c218b8df4b169"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.aps",
+              "bytes": 19048,
+              "sha256": "1f8f26ad9bc3d0cf1ff111b0c9afb7f5e4ade94f6a77a9fcda281b8c56fb0952"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.rc",
+              "bytes": 5046,
+              "sha256": "1747cac4906b0443d437f12a182663cbb2567a6f6be685582119d82e04d18969"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.sln",
+              "bytes": 1375,
+              "sha256": "f48ec29239459c9879934b70cd3d7cc8836dcd1c4981b9cc9acc10df4c25840a"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.vcxproj",
+              "bytes": 17766,
+              "sha256": "dbbcdf093a92a2f607c1337eba1eba490fc4c555e1d9106a62fd79779804930c"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.vcxproj.filters",
+              "bytes": 6202,
+              "sha256": "1c94ad5053bc7d13d23e65310442587bf48f74bdea911f34a5d067eb6132c007"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/StdUtils.vcxproj.user",
+              "bytes": 422,
+              "sha256": "a0c614b832b87959c8fff95f370c3c227f9aed1d74b7ecbfffee2cf5261a7b35"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/utils/Date.exe",
+              "bytes": 39424,
+              "sha256": "5b399b89ad901437faf4be061dabc2a3f70c6973316a536d4245604bec394b54"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/utils/Zip.exe",
+              "bytes": 68096,
+              "sha256": "2e28e6e768d5f0c821d45209e702d01be0a9fb632d7fd83620bcb71cc9ae00f9"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Docs/StdUtils/minify.cmd",
+              "bytes": 534,
+              "sha256": "60b227734769b2184dd85d1d8a03e048f1f978af674d741cc85e85c2b9260be8"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Docs/StdUtils/StdUtils.FULL.html",
+              "bytes": 93967,
+              "sha256": "1609adae79b97dd853b4f25c3fe6aeb1211ad4963e939bbcce37fc56ed87b5ac"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/!_Clean.bat",
+              "bytes": 190,
+              "sha256": "aedec595caad14fc41e98656d48cefce1bbeec22019d3db454f927f603b47305"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/!_Make.bat",
+              "bytes": 1410,
+              "sha256": "adc1ae14c8753c7d634d4b44e37fbc86edde85d271ecd48d59037c97a90f38d7"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/AppendToFile.nsi",
+              "bytes": 1594,
+              "sha256": "938f4381588cf4695e34fc8503a5177139ee7761f77dd09ca2b1fa0796b5a325"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/GetParameters.nsi",
+              "bytes": 2681,
+              "sha256": "f07911153cfbdec105d8d6ec8f574b3a77043581e385015fc29d791d872be9be"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/HashFunctions.nsi",
+              "bytes": 3728,
+              "sha256": "1d3471eab4cdbc9de0563adda44c1531419c452d834d76d586310872dd3e4e98"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/InvokeShellVerb.nsi",
+              "bytes": 4006,
+              "sha256": "5fe0590b468b400eb8ff1b299f1d88322ff2adcaddc7787dc79785f6b680bba8"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/OSVersion.nsi",
+              "bytes": 2178,
+              "sha256": "9a61787c630b8864eed054f4d2a0d68b7e8ab4e11f469e83285367b98ec641cb"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/PathUtils.nsi",
+              "bytes": 4858,
+              "sha256": "4ff71a27ed5009651c1d1971e6f6b34ef2bc2b925fff50f1e40337b13d0d288d"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/ProtectStr.nsi",
+              "bytes": 4927,
+              "sha256": "db5d989cb2bd46bf484b3f998eec0e3e4fa07d2787fe0a6b1c166ebe1d5e48ea"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/ShellExecAsUser.nsi",
+              "bytes": 2394,
+              "sha256": "9c42f66671023809241ead7d4fe338c1ed3b770b091413f12b063d5072719a12"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/ShellExecWait.nsi",
+              "bytes": 2253,
+              "sha256": "d18bcc19d2fd23d2d84e4b23a543f0a2fb1fd047ed726d7142b164b795b63c4b"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/SHFileOperation.nsi",
+              "bytes": 2739,
+              "sha256": "db3e14e68456cbd8987fb8c480d8c5f0606ad063fd12329ffa3e2ad99108a3f7"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/StdUtilsTest.nsi",
+              "bytes": 13090,
+              "sha256": "a7671db7893d9b2a802f223be42b7494f4e76d2944e5fd4852a186e11254aa7d"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/StrToUtf8.nsi",
+              "bytes": 3341,
+              "sha256": "8dedfa97add32f3f0fc970a29e8b0cde863f9e6b15b583c06df716723d9c72a8"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Examples/StdUtils/TimerCreate.nsi",
+              "bytes": 1888,
+              "sha256": "0ff4fbbdffcdd6a489eb84d40023b844d78404f4162cfa357b6e8a053d57320a"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Include/StdUtils.nsh",
+              "bytes": 16552,
+              "sha256": "d93d3d6d73cc4587bccecaf35d216f9f7f4a5a836291883791167210c0359217"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/LGPL.txt",
+              "bytes": 26530,
+              "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/LGPL_CLARIFICATION.txt",
+              "bytes": 2703,
+              "sha256": "49287ffa37d51910a8cb595d7ab64ebd2d42525384b16d4322783a0e57a77194"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/make_pack.bat",
+              "bytes": 3281,
+              "sha256": "a72445c68e0f72caf2831c1744b198eb1b1769d333939254c8fa03b870ecbaa4"
+            },
+            {
+              "path": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/ReadMe.txt",
+              "bytes": 1350,
+              "sha256": "7d1b40bfdf3d6ef857b361929f8bfa3de38f53968ab1c084fac50ce0086e23f1"
+            }
+          ],
+          "nestedContainers": []
+        }
+      ],
+      "qualification": "Exact bytes already freshly decoded and scanned in this same 1.1.23 Windows audit, not a previous raw-container or fixture-path exemption"
+    }
+  ],
+  "startupFeedback": {
+    "extracted": {
+      "path": "$PLUGINSDIR/StartupFeedback.exe",
+      "declaredNSISSize": 0,
+      "bytes": 25600,
+      "sha256": "30662901e56bf334ff0f10c5c3c1c5e8b5c6064e8aab79fb5f4726f5900ca449",
+      "scannedRawBytes": 25600
+    },
+    "signal": {
+      "path": "$PLUGINSDIR/startup.done",
+      "declaredNSISSize": 0,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scannedRawBytes": 0
+    },
+    "generatedPath": "out/main/StartupFeedback.exe",
+    "generatedBytes": 25600,
+    "generatedSHA256": "30662901e56bf334ff0f10c5c3c1c5e8b5c6064e8aab79fb5f4726f5900ca449",
+    "exactExtractedGeneratedBytes": true,
+    "buildSourceCommit": "eac26dce109add58103106c73352353b6be7f97a",
+    "sourceAndBuildFiles": [
+      {
+        "file": "native/StartupFeedback.cs",
+        "bytes": 20003,
+        "sha256": "1ac8316715e09d4af7c697085d448cdfc55c49398258ca4531a9bf0330328593",
+        "buildCommitBlobSHA256": "1ac8316715e09d4af7c697085d448cdfc55c49398258ca4531a9bf0330328593",
+        "normalizedSameBuildSource": true
+      },
+      {
+        "file": "scripts/build-native.cjs",
+        "bytes": 1557,
+        "sha256": "87feaf8ae84b00be95b47d80b2da495a6f67daa4f844129892fb2ade3a57325a",
+        "buildCommitBlobSHA256": "87feaf8ae84b00be95b47d80b2da495a6f67daa4f844129892fb2ade3a57325a",
+        "normalizedSameBuildSource": true
+      },
+      {
+        "file": "scripts/portable-build-hook.cjs",
+        "bytes": 6809,
+        "sha256": "ae738e23853e48ffc3fa32432b77790bcc28dceaa2dc93ae5867ae3e8b2b2b12",
+        "buildCommitBlobSHA256": "8f4179957ea259f916d3ea3cdaa06bd29432130535fbddf5dc58e10be1ea0607",
+        "normalizedSameBuildSource": true
+      },
+      {
+        "file": "src/renderer/src/assets/splash-face.png",
+        "bytes": 3820,
+        "sha256": "d3ceb71aa5dfcaf1295e4f5eed9bf9d57e4cadad1ac112f33da03fca3534d74f",
+        "buildCommitBlobSHA256": "d3ceb71aa5dfcaf1295e4f5eed9bf9d57e4cadad1ac112f33da03fca3534d74f",
+        "normalizedSameBuildSource": true
+      },
+      {
+        "file": "electron.vite.config.ts",
+        "bytes": 2999,
+        "sha256": "c7d867feef3235d5e24d5dba878e175d66cf1cd5988545c2e1d6e7cd9c56c672",
+        "buildCommitBlobSHA256": "c7d867feef3235d5e24d5dba878e175d66cf1cd5988545c2e1d6e7cd9c56c672",
+        "normalizedSameBuildSource": true
+      }
+    ],
+    "chain": [
+      "electron.vite.config.ts calls build-native.cjs",
+      "Framework64 csc.exe compiles native/StartupFeedback.cs with splash-face.png face.png resource",
+      "portable-build-hook.cjs embeds exact helper as NSIS member and creates empty startup.done signal"
+    ],
+    "qualification": "Actual new EXE helper bytes were fully scanned; these are post-packaging source and generated-byte bindings, not a fabricated prebuild capture or source rebuild proof"
+  },
+  "applicationKeyOwnership": {
+    "unresolvedUniqueFingerprints": [
+      "f0fe1a77e3852628"
+    ],
+    "qualification": "A known embedded service application key remains ownership/distribution-permission pending; no credential was tried, and privacy pattern review does not certify this authorization"
+  },
+  "limits": [
+    "No real player profile or credential execution/read occurred",
+    "No universal absence of unknown, encrypted or pixel-encoded secrets is proven",
+    "Mac, source and handoff are separate scopes"
+  ]
+}

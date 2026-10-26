@@ -1,0 +1,178 @@
+{
+  "version": "1.1.23",
+  "observedAtHongKong": "2026-10-14 05:53",
+  "completeForSpecifiedPlatformArtifactScope": true,
+  "classification": "Static actual final Windows and Mac distribution privacy-pattern audit, exact bytes bound below; does not independently assert native UI/game acceptance, absence of every possible secret, credential ownership or a new Git-history audit.",
+  "receipts": [
+    {
+      "scope": "windows",
+      "file": "out/security123-windows-artifacts-36e623d0-a5d1-4b65-83ca-c9345250d18a.json",
+      "bytes": 453224,
+      "sha256": "b191c0d555d1958893e2e8a4f657d17fe46ea892944850e692339c23696319ac"
+    },
+    {
+      "scope": "windowsBindings",
+      "file": "out/security123-windows-final-bindings.json",
+      "bytes": 30747,
+      "sha256": "ab7d29d4f897775f4afdbb420db987cf25b8a7154bc5da8fdb3ad3f0779ea16d"
+    },
+    {
+      "scope": "mac",
+      "file": "out/security123-mac-artifacts-602370aa-37af-4ccf-be4e-56ebdedd5040.json",
+      "bytes": 158059,
+      "sha256": "22aae5e676f4d03ffcdb62259a56b9ab4a1cbcdb8faa34201b0e4d70bdf53c92"
+    },
+    {
+      "scope": "macBindings",
+      "file": "out/security123-mac-final-bindings-abf3b1c1-bac6-49fc-a159-55c12bf008bb.json",
+      "bytes": 54664,
+      "sha256": "51f364efe29d87938b55a929ff418b6e05f3a556e76b7dfe4867e1eb2bce42ec"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "KAMUCL-1.1.23.exe",
+      "bytes": 99129603,
+      "sha256": "c086be159b557e9f88d0e9930277d513e67117ea1b1bece5bf82a3fd81c9d21f"
+    },
+    {
+      "name": "KAMUCL-1.1.23-windows-x64.zip",
+      "bytes": 100978423,
+      "sha256": "92f6c9aff2e9d03394925a1074fb23199b1f942b882f62dfbc176742be6bf27e"
+    },
+    {
+      "name": "KAMUCL-1.1.23-windows-x64-unpacked.zip",
+      "bytes": 144867348,
+      "sha256": "c2d068b86aaaaf9aaabc00cc6211390ae4fff7835a1604869528a2f432740555"
+    },
+    {
+      "name": "KAMUCL-1.1.23-mac-arm64.zip",
+      "bytes": 129902007,
+      "sha256": "fdf51a02e61bdcace37f1c891a20d4a1b958b649ec3a0c1286bc73f995339a1e"
+    },
+    {
+      "name": "KAMUCL-1.1.23-mac-arm64.dmg",
+      "bytes": 141317086,
+      "sha256": "f508554a9163e03290ca0d6f8f182d1c02b23858d38eb8392571d986b0db6458"
+    }
+  ],
+  "windows": {
+    "unknownCandidates": 0,
+    "NSISRegularMembers": 6,
+    "runtimeASARMembers": [
+      {
+        "name": "resources/app.asar",
+        "members": 399
+      },
+      {
+        "name": "resources/default_app.asar",
+        "members": 13
+      }
+    ],
+    "jars": 2,
+    "sourceContainers": [
+      {
+        "path": "licenses/source/7zip-19.00-source.7z",
+        "files": 1172,
+        "scannedBytes": 7339189,
+        "nested": []
+      },
+      {
+        "path": "licenses/source/Nsis7z_19.00.7z",
+        "files": 30,
+        "scannedBytes": 1560932,
+        "nested": [
+          {
+            "type": "7z",
+            "files": 2,
+            "scannedBytes": 10
+          }
+        ]
+      },
+      {
+        "path": "licenses/source/stdutils-1.14.tar.gz",
+        "files": 1,
+        "scannedBytes": 962560,
+        "nested": [
+          {
+            "type": "tar",
+            "files": 94,
+            "scannedBytes": 874974
+          }
+        ]
+      }
+    ],
+    "StartupFeedback": {
+      "bytes": 25600,
+      "sha256": "30662901e56bf334ff0f10c5c3c1c5e8b5c6064e8aab79fb5f4726f5900ca449",
+      "actualNSISMatchesGenerated": true,
+      "sourceCommit": "eac26dce109add58103106c73352353b6be7f97a",
+      "sourceComparison": "Post-build public Git/blob correspondence, not fabricated prebuild observation"
+    },
+    "independentReview": {
+      "agent": "/root/oauth_identity_audit/artifact_privacy_context",
+      "scope": "r7 Windows coverage and byte-context decisions",
+      "result": "Passed independent read-only source/receipt/byte hash review; 94 TAR members confirmed"
+    }
+  },
+  "mac": {
+    "unknownCandidates": 0,
+    "ZIPASARMembers": [
+      {
+        "name": "KAMUCL.app/Contents/Resources/app.asar",
+        "members": 461
+      }
+    ],
+    "jars": 2,
+    "DMG": {
+      "regularMembers": 56,
+      "regularScannedBytes": 292468521,
+      "APPMembersBoundToZIP": 55,
+      "outerFiles": [
+        {
+          "path": "安装说明.txt",
+          "bytes": 226,
+          "sha256": "097fbc32db3219d2c080717047d75f42271327703f8798e03f27f44e0272d6f9"
+        }
+      ],
+      "symbolicLinksRawTargetsScanned": 15,
+      "filesystemLinksNeverFollowed": true
+    },
+    "currentSameBytePackedSourceContainersBoundToFreshWindowsRecursiveScan": 3,
+    "independentReview": {
+      "agent": "/root/oauth_identity_audit/artifact_privacy_context",
+      "result": "Passed independent read-only helper, asset and receipt review; complete 55 APP regular and 14 internal links plus outer file/system link sets confirmed"
+    }
+  },
+  "applicationKeyOwnership": {
+    "uniqueUnresolvedFingerprints": [
+      "f0fe1a77e3852628"
+    ],
+    "qualification": "A known embedded service application key remains ownership/distribution-permission pending; no credential was tried, and privacy pattern review does not certify this authorization"
+  },
+  "runtimeCorrespondingSource": {
+    "name": "KAMUCL-1.1.23-runtime-source.zip",
+    "bytes": 38905320,
+    "sha256": "af40243e21439aa77af20319c00fbb8d83f76975e88d6cd2249d15ff73d8ebe3",
+    "exactByteEquality": true,
+    "decodedEvidence": "out/security122-final-KAMUCL-1.1.22-runtime-source.json",
+    "decodedEvidenceSHA256": "d5c5190e20d2fe514e26f3506e973e31343707faec7925f3075e1b79d3ad4adb",
+    "decodedFiles": 14,
+    "decodedScannedBytes": 38903156,
+    "classification": "Exact byte/hash reuse of previously decoded outer same-runtime corresponding-source ZIP; its 14 outer files were byte-scanned, nested source tar/xz/other compressed files were not recursively decoded. No fresh history or universal secret-absence audit."
+  },
+  "historicalAuditToolFailuresPreserved": [
+    "Windows r1: virtual NSIS size mistaken for actual member byte size",
+    "Windows r2: actual additional NSIS helper members lacked decoder coverage",
+    "Windows r3: ASAR API Windows separator mismatch",
+    "Windows r4: prior duplicate-context/member normalization defects",
+    "Windows r5: independent review found inner nameless TAR missed by extension-only recursion; not final complete proof",
+    "Windows r6: TAR directory metadata needed Folder/Mode parsing; r7 fully re-enumerated and passed",
+    "Mac binding r1: 7-Zip console code-page missed Chinese filename; r2 UTF-8 output fixed enumeration",
+    "Mac binding r2: contained symlink-to-symlink needed string-only bounded resolution; r3 exact targets passed"
+  ],
+  "secretsOrPlayerProfilesRead": false,
+  "credentialsOrDistributedApplicationsExecuted": false,
+  "secretAbsenceProven": false,
+  "sourceAndHandoffScope": "Separate root checks; no automatic fixture-path exemption and no new whole-history claim"
+}

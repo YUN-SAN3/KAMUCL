@@ -1,0 +1,1 @@
+{"complete":true,"directory":"E:\\KAMUCL\\out\\qa-packs118-blue-white-b8381c53-d750-4cad-8cd0-967fac6959b4","theme":"blue-white"}

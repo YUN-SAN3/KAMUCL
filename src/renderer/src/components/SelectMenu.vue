@@ -3,7 +3,7 @@
  * 通用自定义下拉：替代原生 <select>（原生展开列表是 Windows 外观，与主题不符）。
  * 浮层 Teleport 到 body 避免卡片 overflow 裁切；点击外部 / Esc 关闭。
  */
-import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, useId, watch } from 'vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -21,6 +21,7 @@ const open = ref(false)
 const menuEl=ref<HTMLElement>(), active=ref(0)
 const buttonEl = ref<HTMLElement | null>(null)
 const menuStyle = ref<Record<string, string>>({})
+const menuId = useId()
 
 const currentOption = computed(() => props.options.find(o => o.value === props.modelValue))
 const currentLabel = computed(() =>
@@ -32,28 +33,36 @@ function toggle() {
   if (open.value) { close(); return }
   const rect = buttonEl.value?.getBoundingClientRect()
   if (rect) {
-    const maxH = Math.min(props.maxHeight ?? 320,innerHeight-24)
-    const below = innerHeight - rect.bottom
-    const up = below < Math.min(maxH, 220) && rect.top > below
+    const below = Math.max(0, innerHeight - rect.bottom - 18), above = Math.max(0, rect.top - 18)
+    const desired = Math.min(props.maxHeight ?? 320, innerHeight - 24)
+    const maxH = Math.min(desired, Math.max(below, above))
+    const up = below < Math.min(desired, 220) && above > below
+    const width = Math.min(rect.width, innerWidth - 24), left = Math.max(12, Math.min(rect.left, innerWidth - width - 12))
     menuStyle.value = up
-      ? { left: rect.left + 'px', bottom: innerHeight - rect.top + 6 + 'px', minWidth: rect.width + 'px', maxHeight: maxH + 'px' }
-      : { left: rect.left + 'px', top: rect.bottom + 6 + 'px', minWidth: rect.width + 'px', maxHeight: maxH + 'px' }
+      ? { left: left + 'px', bottom: innerHeight - rect.top + 6 + 'px', width: width + 'px', maxHeight: maxH + 'px' }
+      : { left: left + 'px', top: rect.bottom + 6 + 'px', width: width + 'px', maxHeight: Math.min(desired, below) + 'px' }
   }
   active.value = Math.max(0, props.options.findIndex(o => o.value === props.modelValue))
   open.value = true
   void nextTick(() => menuEl.value?.querySelector<HTMLElement>('[data-focused=true]')?.scrollIntoView({block:'nearest'}))
   addEventListener('pointerdown', onPointerDown, true)
   addEventListener('keydown', onKeydown, true)
+  addEventListener('resize', close)
+  addEventListener('scroll', onScroll, true)
 }
 function close() {
   open.value = false
   removeEventListener('pointerdown', onPointerDown, true)
   removeEventListener('keydown', onKeydown, true)
+  removeEventListener('resize', close)
+  removeEventListener('scroll', onScroll, true)
 }
+function onScroll(event: Event) { if (!menuEl.value?.contains(event.target as Node)) close() }
 function onPointerDown(e: PointerEvent) {
   if(!menuEl.value?.contains(e.target as Node)&&!buttonEl.value?.contains(e.target as Node))close()
 }
 function onKeydown(e: KeyboardEvent) {
+  if (e.key === 'Tab') { close(); return }
   if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();close();buttonEl.value?.focus()}
   if(['ArrowUp','ArrowDown','Home','End'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();active.value=e.key==='Home'?0:e.key==='End'?props.options.length-1:Math.max(0,Math.min(props.options.length-1,active.value+(e.key==='ArrowDown'?1:-1)));void nextTick(()=>menuEl.value?.querySelector<HTMLElement>('[data-focused=true]')?.scrollIntoView({block:'nearest'}))}
   if(e.key==='Enter'&&props.options[active.value]){e.preventDefault();e.stopImmediatePropagation();choose(props.options[active.value].value)}
@@ -62,7 +71,9 @@ function choose(value: string) {
   emit('update:modelValue', value)
   emit('change', value)
   close()
+  buttonEl.value?.focus({ preventScroll: true })
 }
+watch(() => props.disabled, value => { if (value) close() })
 onBeforeUnmount(close)
 </script>
 
@@ -75,6 +86,8 @@ onBeforeUnmount(close)
     :class="{ open, disabled: props.disabled }"
     :disabled="props.disabled"
     :aria-expanded="open"
+    aria-haspopup="listbox"
+    :aria-controls="open ? menuId : undefined"
     :title="[currentLabel, currentOption?.description].filter(Boolean).join('\n')"
     @click="toggle"
   >
@@ -83,7 +96,7 @@ onBeforeUnmount(close)
   </button>
   <Teleport to="body">
     <Transition name="popover">
-    <div data-ui="SelectMenu:3ebdff14f591" v-if="open" ref="menuEl" class="select-menu-float" @wheel.stop :style="menuStyle" role="listbox">
+    <div data-ui="SelectMenu:3ebdff14f591" v-if="open" :id="menuId" ref="menuEl" class="select-menu-float" @wheel.stop :style="menuStyle" role="listbox">
       <button data-ui="SelectMenu:439e3aacaaa9"
         v-for="(o,i) in props.options"
         :data-focused="active===i"
@@ -129,6 +142,7 @@ onBeforeUnmount(close)
 .select-menu-chevron { width: 14px; height: 14px; flex-shrink: 0; color: var(--text-dim); transition: transform 0.18s ease; }
 .select-menu-btn.open .select-menu-chevron { transform: rotate(180deg); }
 .select-menu-float {
+  -webkit-app-region: no-drag;
   position: fixed;
   z-index: 11000;
   display: flex;

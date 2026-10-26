@@ -1,0 +1,277 @@
+{
+  "complete": true,
+  "bindingFile": "out/gui119-executable-bindings.json",
+  "bindingSHA256": "7562fabbc2a6ede80ce94f263a78e4f5909ac252e72afa832fd39d8e8a8f30c8",
+  "exeSHA256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+  "asarSHA256": "42697b9e8e9e1ef75ae7f9e6fa75eb41658002f235ed9f1bd2ec324c9454e2a1",
+  "cohortVerified": 17,
+  "proofsVerified": 16,
+  "copies": [
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 4IAlvD\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361559873.0264,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 5mmxci\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361592096.5483,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 7q9gFo\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361013867.8708,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 8plEig\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361095920.699,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 GaOMNy\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791360867386.2385,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HySECq\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361115738.2917,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 lsguzI\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361445160.3274,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Oti3Fa\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791360954445.8743,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 oUuB4N\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361797464.9392,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 pbJHfm\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361225132.8582,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Qvbe5S\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361407754.497,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 RkQcC1\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361065586.959,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 tja77A\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361146481.4558,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 uyEiM4\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361204842.2256,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Vvq1m1\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791360992884.3901,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 WZkNbU\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361044619.3408,
+      "mtimeMs": 1791360758450.3108
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 zSnBoE\\KAMUCL-1.1.19.exe",
+      "sha256": "7b11d4979f1d3afc72397b501770130e3c5e23e2e246deaa70a06276f6a61a65",
+      "asarCount": 1,
+      "birthtimeMs": 1791361167029.5442,
+      "mtimeMs": 1791360758450.3108
+    }
+  ],
+  "rows": [
+    {
+      "proof": "out/qa-mrpack119-black-orange-0f7f59be-f4ef-4701-941e-32306c1343b4/proof.json",
+      "complete": true,
+      "electronPID": 5292,
+      "parentPID": 14460,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Vvq1m1\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 133.60986328125,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-mrpack119-black-orange-159325f6-510c-4286-a467-9c2645eaa452/proof.json",
+      "complete": true,
+      "electronPID": 19828,
+      "parentPID": 37316,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 uyEiM4\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 125.7744140625,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-mrpack119-blue-white-43d503c4-815f-4717-860c-53c8df06012e/proof.json",
+      "complete": true,
+      "electronPID": 34064,
+      "parentPID": 49264,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 WZkNbU\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 123.6591796875,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-mrpack119-custom-fd6aa10b-523c-4110-9c8b-658d029a8e3d/proof.json",
+      "complete": true,
+      "electronPID": 22632,
+      "parentPID": 44072,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 tja77A\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 125.544189453125,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-mrpack119-transparent-d142b293-56ec-4e0b-a4dc-58a4fdd425c9/proof.json",
+      "complete": true,
+      "electronPID": 55472,
+      "parentPID": 38328,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 8plEig\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 119.301025390625,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-black-orange-2fbb669b-a540-4bfa-8ad8-58f37cce500a/proof.json",
+      "complete": true,
+      "electronPID": 21064,
+      "parentPID": 46652,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Oti3Fa\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 115.125732421875,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-black-orange-435f49aa-3f98-4e68-949c-16d322229f3e/proof.json",
+      "complete": true,
+      "electronPID": 55576,
+      "parentPID": 45856,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 Qvbe5S\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 127.5029296875,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-black-orange-9522dffe-03a6-4788-9958-24719797b75f/proof.json",
+      "complete": false,
+      "electronPID": 28636,
+      "parentPID": 48760,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 GaOMNy\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 121.761474609375,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-black-orange-98375013-8237-4e7a-b98d-cb3528abe6be/proof.json",
+      "complete": true,
+      "electronPID": 50620,
+      "parentPID": 56744,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 zSnBoE\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 109.455810546875,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-blue-white-3baa69ef-9afc-41f8-8327-fe5a71c7c1d9/proof.json",
+      "complete": true,
+      "electronPID": 29680,
+      "parentPID": 36988,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 4IAlvD\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 109.9736328125,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-blue-white-a501241b-6bcb-4971-b751-7685afcc05ca/proof.json",
+      "complete": true,
+      "electronPID": 5420,
+      "parentPID": 54232,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 7q9gFo\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 111.129150390625,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-blue-white-a7a0b98e-b8e2-4af4-b485-5061c3bbadb9/proof.json",
+      "complete": false,
+      "electronPID": 54468,
+      "parentPID": 55468,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 lsguzI\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 120.672607421875,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-custom-556a701a-79c9-4bf8-9464-f7351d3a28aa/proof.json",
+      "complete": true,
+      "electronPID": 51168,
+      "parentPID": 50480,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 HySECq\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 107.708251953125,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-transparent-1fcdc17a-bc69-4ca2-bfaf-64c871c8e03d/proof.json",
+      "complete": false,
+      "electronPID": 5008,
+      "parentPID": 54828,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 5mmxci\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 128.45166015625,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-transparent-771ccec6-ba75-4d72-aba7-68e1d5def2ef/proof.json",
+      "complete": true,
+      "electronPID": 45816,
+      "parentPID": 53440,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 RkQcC1\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 115.041015625,
+      "awaitedClose": true
+    },
+    {
+      "proof": "out/qa-skin-layers119-transparent-ce2a3f69-670c-435e-8b0a-a97ee76fb4e0/proof.json",
+      "complete": true,
+      "electronPID": 54300,
+      "parentPID": 19472,
+      "retainedEXE": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 oUuB4N\\KAMUCL-1.1.19.exe",
+      "exeCreatedBeforeSpawnMs": 112.060791015625,
+      "awaitedClose": true
+    }
+  ],
+  "limitation": "Post-run preserved-byte and timestamp/owned-parent association. Original proofs have no contemporaneous process.execPath or executable hash; none added retrospectively."
+}

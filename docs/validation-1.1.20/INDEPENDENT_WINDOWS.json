@@ -1,0 +1,41 @@
+{
+  "version": "1.1.20",
+  "reviewer": "independent subagent offline118; no product implementation edits",
+  "threshold": 8.5,
+  "averaged": false,
+  "classification": "Final d2fa screenshots, retained original frames, native focus and actual trusted input were reviewed. Synthetic metadata/status data are separate from original real service and original archive checks. No whole-platform/Mac/world acceptance implied.",
+  "rows": [
+    {
+      "area": "Community browsing and version/target selection",
+      "sourceCommit": "6af4611d819f652b14bd37e6b67b4f32a761fc28",
+      "portableSHA256": "d2fad1f339c109c306d6a0740e1576b9e7cfd4e1090c63cac926758ecfe2648a",
+      "runtimeASARSHA256": "0047c3176467d29c04b1bc36df6f5334ccd090f4906dbc27c5930c15edd3d152",
+      "scope": "Final d2fa Windows community browsing/default-all/manual installed/custom exact-version and loader/session/target chooser production UI; independent compiled handler contracts and cache fault probes. Native chooser does not install a file.",
+      "ratings": {
+        "reasonableness": 9.2,
+        "functionality": 9.1,
+        "appearance": 8.8,
+        "eachThresholdPassed": true,
+        "averaged": false
+      },
+      "rawIndependentReportSHA256": "80b5f78248c79d8aad10f911fed101ca34bdf605a2e3432739f61fdca519a43f",
+      "wholeBatchApproval": false
+    },
+    {
+      "area": "Download status UI",
+      "sourceCommit": "6af4611d819f652b14bd37e6b67b4f32a761fc28",
+      "portableSHA256": "d2fad1f339c109c306d6a0740e1576b9e7cfd4e1090c63cac926758ecfe2648a",
+      "runtimeASARSHA256": "0047c3176467d29c04b1bc36df6f5334ccd090f4906dbc27c5930c15edd3d152",
+      "scope": "Final d2fa Windows production download-status UI, plus separate prior independent source-level wait/pause contract probes/tests; synthetic status replay is not actual network/install.",
+      "ratings": {
+        "reasonableness": 9.1,
+        "functionality": 9,
+        "appearance": 8.7,
+        "eachThresholdPassed": true,
+        "averaged": false
+      },
+      "rawIndependentReportSHA256": "05f08f115122ff00561c1c070dc8616397c066a4ab9fa6c99ff1e285a37e5b20",
+      "wholeBatchApproval": false
+    }
+  ]
+}

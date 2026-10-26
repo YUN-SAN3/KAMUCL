@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path')
 module.exports=async function verifyMascotHeader(h){
- if(/^1\.1\.9$/.test(h.version))return require('./verify-kamu-logo-119-ui.cjs')(h)
+ if(require('./ui-capabilities.cjs').singleLogo)return require('./verify-kamu-logo-119-ui.cjs')(h)
  const {call,evaluate,main,click,nav,screenshot,wait,profile,version,recordScreencast}=h
  const proof={version,checks:[],layouts:[],audio:{},hardwareListening:'not performed'}
  // Hosted macOS runners can enable reduced motion globally. Exercise normal

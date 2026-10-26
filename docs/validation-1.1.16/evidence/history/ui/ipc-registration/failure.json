@@ -1,0 +1,838 @@
+{
+  "complete": false,
+  "version": "1.1.16",
+  "directory": "E:\\KAMUCL\\out\\qa-ux116-black-orange-84926e58-5172-4868-911f-4e97fd71d663",
+  "theme": "black-orange",
+  "observations": [
+    {
+      "label": "actual focus",
+      "samples": [
+        {
+          "at": 1791291648695,
+          "value": true
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=settings]",
+      "samples": [
+        {
+          "at": 1791291648701,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 484.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation settings",
+      "samples": [
+        {
+          "at": 1791291649088,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-section=\"ui-window-fit\"] label.switch",
+      "samples": [
+        {
+          "at": 1791291649448,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1266,
+            "y": 466.1499938964844,
+            "width": 40,
+            "height": 22,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual auto-fit enabled and saved",
+      "samples": [
+        {
+          "at": 1791291649630,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 1362,
+                "height": 863
+              },
+              "content": [
+                1361,
+                862
+              ],
+              "zoom": 1,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 1362,
+              "height": 862,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-section=\"ui-window-fit\"] label.switch",
+      "samples": [
+        {
+          "at": 1791291650091,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1266,
+            "y": 466.1499938964844,
+            "width": 40,
+            "height": 22,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "failed setting rolls back actual switch",
+      "samples": [
+        {
+          "at": 1791291650275,
+          "value": {
+            "state": {
+              "native": {
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 1362,
+                  "height": 863
+                },
+                "content": [
+                  1361,
+                  862
+                ],
+                "zoom": 1,
+                "maximized": false,
+                "workArea": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 3072,
+                  "height": 1680
+                }
+              },
+              "renderer": {
+                "width": 1362,
+                "height": 862,
+                "hasFocus": true,
+                "hidden": false,
+                "theme": "black-orange"
+              },
+              "settings": {
+                "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+                "folders": [
+                  {
+                    "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+                    "name": "独立验证目录",
+                    "isDefault": true
+                  },
+                  {
+                    "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\second-games",
+                    "name": "整合包收藏",
+                    "isDefault": false
+                  }
+                ],
+                "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+                "javaPath": "",
+                "javaAuto": true,
+                "javaCustom": [],
+                "javaHidden": [],
+                "memoryMB": 4096,
+                "memoryAuto": true,
+                "jvmArgs": "",
+                "resolution": {
+                  "width": 854,
+                  "height": 480,
+                  "mode": "windowed",
+                  "fullscreen": false
+                },
+                "mirror": "bmclapi",
+                "downloadThreads": 16,
+                "downloadSpeedKBps": 0,
+                "defaultIsolation": true,
+                "reduceMotion": false,
+                "uiWindowAutoFit": true,
+                "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+                "theme": "black-orange",
+                "custom": {
+                  "colors": {
+                    "accent": "#2563eb",
+                    "bg": "#edf0f7",
+                    "card": "#ffffff",
+                    "text": "#1b2437",
+                    "textDim": "#68718a",
+                    "border": "#e1e6f0",
+                    "sidebarBg": "#f5f7fb",
+                    "sidebarText": "#1b2437",
+                    "bannerText": "#ffffff"
+                  },
+                  "layout": {
+                    "sidebarWidth": 208,
+                    "bannerHeight": 430,
+                    "radius": 14
+                  }
+                },
+                "disabledFeatures": [],
+                "favoriteVersions": [],
+                "versionCategories": [],
+                "versionCategoryAssignments": {},
+                "homeLayout": {
+                  "main": [
+                    {
+                      "key": "banner",
+                      "visible": true
+                    },
+                    {
+                      "key": "logDrawer",
+                      "visible": true
+                    },
+                    {
+                      "key": "recentGames",
+                      "visible": true
+                    }
+                  ],
+                  "side": [
+                    {
+                      "key": "accountCard",
+                      "visible": true
+                    },
+                    {
+                      "key": "sysInfo",
+                      "visible": true
+                    },
+                    {
+                      "key": "quickActions",
+                      "visible": true
+                    },
+                    {
+                      "key": "authorCard",
+                      "visible": true
+                    }
+                  ]
+                },
+                "background": {
+                  "mode": "none",
+                  "color": "#1b2437",
+                  "image": "",
+                  "opacity": 0.5,
+                  "blur": 0,
+                  "fit": "crop"
+                },
+                "launchThumbnail": {
+                  "image": "",
+                  "fit": "crop",
+                  "images": [],
+                  "order": [
+                    "builtin:piston",
+                    "builtin:brewer",
+                    "builtin:cannon",
+                    "builtin:cactus",
+                    "builtin:farmer",
+                    "builtin:camp",
+                    "builtin:sunset"
+                  ],
+                  "disabled": [],
+                  "randomPlayback": false,
+                  "intervalSeconds": 6.5,
+                  "durations": {}
+                },
+                "skinEditorPalette": {
+                  "custom": [],
+                  "recent": [],
+                  "color": "#d88c58",
+                  "alpha": 1
+                },
+                "closeAfterLaunch": false,
+                "configVersion": 1,
+                "autoUpdate": false,
+                "visualDesign": {
+                  "version": 1,
+                  "pages": {}
+                }
+              }
+            },
+            "failed": true,
+            "checked": true
+          }
+        }
+      ],
+      "complete": true
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "adaptive-setting-enabled.png",
+      "bytes": 146472,
+      "sha256": "9efe58500a461ee85523195662809853a3a1595fa2c98429b613e4c8d2e7f723",
+      "before": {
+        "hwnd": 3146438,
+        "foreground": 3146438,
+        "ownerPid": 38096,
+        "foregroundPid": 38096,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291650036,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 3146438,
+        "foreground": 3146438,
+        "ownerPid": 38096,
+        "foregroundPid": 38096,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291650087,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1362,
+        "height": 862
+      }
+    }
+  ],
+  "classification": "Actual Windows portable UI, foreground-checked coordinate/keyboard input. Synthetic provider/installation responses, not live services. Actual host display unchanged; 1366x768/DPI geometry is separately unit-tested.",
+  "identity": {
+    "pid": 38096,
+    "ppid": 17112,
+    "windowId": 1,
+    "webContentsId": 1,
+    "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\profile",
+    "electron": "44.3.0",
+    "arch": "x64"
+  },
+  "nativeFocus": {
+    "hwnd": 3146438,
+    "pid": 38096,
+    "before": 3146438,
+    "simpleSet": true,
+    "attached": false,
+    "detached": null,
+    "after": 3146438
+  },
+  "defaultOff": {
+    "native": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "content": [
+        1361,
+        862
+      ],
+      "zoom": 1,
+      "maximized": false,
+      "workArea": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      }
+    },
+    "renderer": {
+      "width": 1362,
+      "height": 862,
+      "hasFocus": true,
+      "hidden": false,
+      "theme": "black-orange"
+    },
+    "settings": {
+      "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+      "folders": [
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+          "name": "独立验证目录",
+          "isDefault": true
+        },
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\second-games",
+          "name": "整合包收藏",
+          "isDefault": false
+        }
+      ],
+      "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+      "javaPath": "",
+      "javaAuto": true,
+      "javaCustom": [],
+      "javaHidden": [],
+      "memoryMB": 4096,
+      "memoryAuto": true,
+      "jvmArgs": "",
+      "resolution": {
+        "width": 854,
+        "height": 480,
+        "mode": "windowed",
+        "fullscreen": false
+      },
+      "mirror": "bmclapi",
+      "downloadThreads": 16,
+      "downloadSpeedKBps": 0,
+      "defaultIsolation": true,
+      "reduceMotion": false,
+      "uiWindowAutoFit": false,
+      "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+      "theme": "black-orange",
+      "custom": {
+        "colors": {
+          "accent": "#2563eb",
+          "bg": "#edf0f7",
+          "card": "#ffffff",
+          "text": "#1b2437",
+          "textDim": "#68718a",
+          "border": "#e1e6f0",
+          "sidebarBg": "#f5f7fb",
+          "sidebarText": "#1b2437",
+          "bannerText": "#ffffff"
+        },
+        "layout": {
+          "sidebarWidth": 208,
+          "bannerHeight": 430,
+          "radius": 14
+        }
+      },
+      "disabledFeatures": [],
+      "favoriteVersions": [],
+      "versionCategories": [],
+      "versionCategoryAssignments": {},
+      "homeLayout": {
+        "main": [
+          {
+            "key": "banner",
+            "visible": true
+          },
+          {
+            "key": "logDrawer",
+            "visible": true
+          },
+          {
+            "key": "recentGames",
+            "visible": true
+          }
+        ],
+        "side": [
+          {
+            "key": "accountCard",
+            "visible": true
+          },
+          {
+            "key": "sysInfo",
+            "visible": true
+          },
+          {
+            "key": "quickActions",
+            "visible": true
+          },
+          {
+            "key": "authorCard",
+            "visible": true
+          }
+        ]
+      },
+      "background": {
+        "mode": "none",
+        "color": "#1b2437",
+        "image": "",
+        "opacity": 0.5,
+        "blur": 0,
+        "fit": "crop"
+      },
+      "launchThumbnail": {
+        "image": "",
+        "fit": "crop",
+        "images": [],
+        "order": [
+          "builtin:piston",
+          "builtin:brewer",
+          "builtin:cannon",
+          "builtin:cactus",
+          "builtin:farmer",
+          "builtin:camp",
+          "builtin:sunset"
+        ],
+        "disabled": [],
+        "randomPlayback": false,
+        "intervalSeconds": 6.5,
+        "durations": {}
+      },
+      "skinEditorPalette": {
+        "custom": [],
+        "recent": [],
+        "color": "#d88c58",
+        "alpha": 1
+      },
+      "closeAfterLaunch": false,
+      "configVersion": 1,
+      "autoUpdate": false,
+      "visualDesign": {
+        "version": 1,
+        "pages": {}
+      }
+    }
+  },
+  "settingsFailureSetup": {
+    "owned": true
+  },
+  "settingsFailure": {
+    "state": {
+      "native": {
+        "bounds": {
+          "x": 855,
+          "y": 409,
+          "width": 1362,
+          "height": 863
+        },
+        "content": [
+          1361,
+          862
+        ],
+        "zoom": 1,
+        "maximized": false,
+        "workArea": {
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 1680
+        }
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "hasFocus": true,
+        "hidden": false,
+        "theme": "black-orange"
+      },
+      "settings": {
+        "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+        "folders": [
+          {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+            "name": "独立验证目录",
+            "isDefault": true
+          },
+          {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\second-games",
+            "name": "整合包收藏",
+            "isDefault": false
+          }
+        ],
+        "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 ESjCq5\\games",
+        "javaPath": "",
+        "javaAuto": true,
+        "javaCustom": [],
+        "javaHidden": [],
+        "memoryMB": 4096,
+        "memoryAuto": true,
+        "jvmArgs": "",
+        "resolution": {
+          "width": 854,
+          "height": 480,
+          "mode": "windowed",
+          "fullscreen": false
+        },
+        "mirror": "bmclapi",
+        "downloadThreads": 16,
+        "downloadSpeedKBps": 0,
+        "defaultIsolation": true,
+        "reduceMotion": false,
+        "uiWindowAutoFit": true,
+        "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+        "theme": "black-orange",
+        "custom": {
+          "colors": {
+            "accent": "#2563eb",
+            "bg": "#edf0f7",
+            "card": "#ffffff",
+            "text": "#1b2437",
+            "textDim": "#68718a",
+            "border": "#e1e6f0",
+            "sidebarBg": "#f5f7fb",
+            "sidebarText": "#1b2437",
+            "bannerText": "#ffffff"
+          },
+          "layout": {
+            "sidebarWidth": 208,
+            "bannerHeight": 430,
+            "radius": 14
+          }
+        },
+        "disabledFeatures": [],
+        "favoriteVersions": [],
+        "versionCategories": [],
+        "versionCategoryAssignments": {},
+        "homeLayout": {
+          "main": [
+            {
+              "key": "banner",
+              "visible": true
+            },
+            {
+              "key": "logDrawer",
+              "visible": true
+            },
+            {
+              "key": "recentGames",
+              "visible": true
+            }
+          ],
+          "side": [
+            {
+              "key": "accountCard",
+              "visible": true
+            },
+            {
+              "key": "sysInfo",
+              "visible": true
+            },
+            {
+              "key": "quickActions",
+              "visible": true
+            },
+            {
+              "key": "authorCard",
+              "visible": true
+            }
+          ]
+        },
+        "background": {
+          "mode": "none",
+          "color": "#1b2437",
+          "image": "",
+          "opacity": 0.5,
+          "blur": 0,
+          "fit": "crop"
+        },
+        "launchThumbnail": {
+          "image": "",
+          "fit": "crop",
+          "images": [],
+          "order": [
+            "builtin:piston",
+            "builtin:brewer",
+            "builtin:cannon",
+            "builtin:cactus",
+            "builtin:farmer",
+            "builtin:camp",
+            "builtin:sunset"
+          ],
+          "disabled": [],
+          "randomPlayback": false,
+          "intervalSeconds": 6.5,
+          "durations": {}
+        },
+        "skinEditorPalette": {
+          "custom": [],
+          "recent": [],
+          "color": "#d88c58",
+          "alpha": 1
+        },
+        "closeAfterLaunch": false,
+        "configVersion": 1,
+        "autoUpdate": false,
+        "visualDesign": {
+          "version": 1,
+          "pages": {}
+        }
+      }
+    },
+    "failed": true,
+    "checked": true
+  },
+  "settingsFailureRestored": {
+    "complete": false
+  },
+  "error": {
+    "name": "AssertionError",
+    "message": "The expression evaluated to a falsy value:\n\n  assert(proof.settingsFailureRestored.complete)\n",
+    "stack": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(proof.settingsFailureRestored.complete)\n\n    at module.exports (E:\\KAMUCL\\scripts\\qa-ux116.cjs:65:75)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:233:9"
+  },
+  "finalSettingsRestoration": {
+    "complete": true,
+    "absent": true
+  },
+  "finalFixtureRestoration": {
+    "complete": true,
+    "absent": true
+  },
+  "finishedAt": "2026-10-06T13:00:50.337Z"
+}

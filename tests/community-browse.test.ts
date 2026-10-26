@@ -82,10 +82,17 @@ test('all resource kinds retain version/source/sort filters; only mods and modpa
 
 test('Chinese mod aliases keep Fabric and Minecraft filters instead of injecting unfiltered projects', async t => {
   const { runtime, urls } = await fixture(t)
-  await runtime.communitySearchPage({ ...query, keyword: '钠', kind: 'mod', source: 'modrinth' })
-  assert.equal(urls.length, 1)
-  assert.equal(urls[0].searchParams.get('query'), 'sodium')
-  assert(JSON.parse(urls[0].searchParams.get('facets')!).flat().includes('categories:fabric'))
+  const page = await runtime.communitySearchPage({ ...query, keyword: '钠', kind: 'mod', source: 'modrinth' })
+  assert.equal(urls.length, 2)
+  assert.deepEqual(urls.map(url => url.searchParams.get('query')), ['钠', 'sodium'])
+  for (const url of urls) {
+    const facets = JSON.parse(url.searchParams.get('facets')!).flat()
+    assert(facets.includes('categories:fabric')); assert(facets.includes('versions:26.2')); assert(facets.includes('project_type:mod'))
+  }
+  // This fixture supplies no slug identity. Only original Chinese hits may be
+  // retained; generic English query hits cannot be counted as verified sodium.
+  assert.equal(page.total, 45); assert.equal(page.items.length, 20)
+  assert.deepEqual(page.items.map(item => item.projectId), Array.from({ length: 20 }, (_, i) => 'mr-' + i))
 })
 
 test('partial provider outage reports honest totals and an explicit warning', async t => {

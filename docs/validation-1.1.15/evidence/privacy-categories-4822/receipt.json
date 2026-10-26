@@ -1,0 +1,1149 @@
+{
+  "schema": 1,
+  "version": "1.1.15",
+  "complete": true,
+  "application": {
+    "path": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+    "bytes": 97289152,
+    "sha256": "4822890c6cc94353a16687d812fdfb0be9379dad1c0258ef4b1a35c14d686df9"
+  },
+  "classification": "Final rebuilt Windows portable EXE; actual owned main processes, native foreground/HWND guards, original no-injection full four-theme native layout and separate-process persistence. Synthetic instances and closed loopback ping response fixture, not live server/game service acceptance.",
+  "driver": {
+    "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-a5aefb94-6c3a-444f-bf39-ed887dce53e5\\summary.json",
+    "bytes": 1665,
+    "sha256": "040909af91cc7b8c94b84251c7b6f08bf4b6758a5cb430d73ffd0a1c2c294d20"
+  },
+  "phases": [
+    {
+      "phase": "first",
+      "pid": 8604,
+      "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+      "complete": true,
+      "summary": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\summary.json",
+        "bytes": 9163899,
+        "sha256": "31046fe95df44f45f2a5661f1ae978b1a49e080c1d8c4963a3465e29c1fb5081"
+      },
+      "live": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\live.json",
+        "bytes": 9163899,
+        "sha256": "31046fe95df44f45f2a5661f1ae978b1a49e080c1d8c4963a3465e29c1fb5081"
+      },
+      "coordinateOperations": 77,
+      "totalOperations": 159,
+      "nativeScenes": 14,
+      "screenshots": 14,
+      "originalFixtureFiles": 88,
+      "allOriginalFixtureBytesUnchanged": true,
+      "themes": [
+        {
+          "theme": "transparent",
+          "minimum": {
+            "theme": "transparent",
+            "requestedContent": {
+              "width": 2,
+              "height": 2
+            },
+            "repeatRequestedContent": {
+              "width": 1,
+              "height": 1
+            },
+            "zoom": 1.25,
+            "classification": "Two smaller native content requests constrained by the original minimumSize; actual stable outer/content sizes are recorded, no requested-size substitution",
+            "first": {
+              "native": {
+                "pid": 8604,
+                "ppid": 52248,
+                "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+                "windowId": 1,
+                "webContentsId": 1,
+                "handleBytes": "a8075a0000000000",
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 962,
+                  "height": 623
+                },
+                "contentBounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 961,
+                  "height": 622
+                },
+                "minimumSize": [
+                  960,
+                  620
+                ],
+                "zoom": 1.25,
+                "focused": true,
+                "visible": true,
+                "minimized": false,
+                "appHidden": false,
+                "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+                "version": "1.1.15",
+                "platform": "win32",
+                "arch": "x64",
+                "runtime": "44.3.0",
+                "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+                "win32Foreground": {
+                  "hwnd": 5900200,
+                  "foreground": 5900200,
+                  "ownerPid": 8604,
+                  "foregroundPid": 8604,
+                  "visible": true,
+                  "minimized": false,
+                  "focused": true,
+                  "dpi": 120,
+                  "dpiContext": "18",
+                  "dpiAwareness": 2,
+                  "observedAt": 1791279544743,
+                  "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+                }
+              },
+              "renderer": {
+                "width": 769,
+                "height": 498,
+                "hasFocus": true,
+                "hidden": false,
+                "pixelRatio": 1.5625
+              }
+            },
+            "second": {
+              "native": {
+                "pid": 8604,
+                "ppid": 52248,
+                "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+                "windowId": 1,
+                "webContentsId": 1,
+                "handleBytes": "a8075a0000000000",
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 962,
+                  "height": 623
+                },
+                "contentBounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 961,
+                  "height": 622
+                },
+                "minimumSize": [
+                  960,
+                  620
+                ],
+                "zoom": 1.25,
+                "focused": true,
+                "visible": true,
+                "minimized": false,
+                "appHidden": false,
+                "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+                "version": "1.1.15",
+                "platform": "win32",
+                "arch": "x64",
+                "runtime": "44.3.0",
+                "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+                "win32Foreground": {
+                  "hwnd": 5900200,
+                  "foreground": 5900200,
+                  "ownerPid": 8604,
+                  "foregroundPid": 8604,
+                  "visible": true,
+                  "minimized": false,
+                  "focused": true,
+                  "dpi": 120,
+                  "dpiContext": "18",
+                  "dpiAwareness": 2,
+                  "observedAt": 1791279544815,
+                  "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+                }
+              },
+              "renderer": {
+                "width": 769,
+                "height": 498,
+                "hasFocus": true,
+                "hidden": false,
+                "pixelRatio": 1.5625
+              }
+            }
+          },
+          "actual": {
+            "pid": 8604,
+            "ppid": 52248,
+            "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+            "windowId": 1,
+            "webContentsId": 1,
+            "handleBytes": "a8075a0000000000",
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "minimumSize": [
+              960,
+              620
+            ],
+            "zoom": 1.25,
+            "focused": true,
+            "visible": true,
+            "minimized": false,
+            "appHidden": false,
+            "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+            "version": "1.1.15",
+            "platform": "win32",
+            "arch": "x64",
+            "runtime": "44.3.0",
+            "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+            "win32Foreground": {
+              "hwnd": 5900200,
+              "foreground": 5900200,
+              "ownerPid": 8604,
+              "foregroundPid": 8604,
+              "visible": true,
+              "minimized": false,
+              "focused": true,
+              "dpi": 120,
+              "dpiContext": "18",
+              "dpiAwareness": 2,
+              "observedAt": 1791279548280,
+              "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+            }
+          },
+          "renderer": {
+            "width": 769,
+            "height": 498,
+            "pixelRatio": 1.5625,
+            "theme": "transparent"
+          }
+        },
+        {
+          "theme": "black-orange",
+          "minimum": {
+            "theme": "black-orange",
+            "requestedContent": {
+              "width": 2,
+              "height": 2
+            },
+            "repeatRequestedContent": {
+              "width": 1,
+              "height": 1
+            },
+            "zoom": 1.25,
+            "classification": "Two smaller native content requests constrained by the original minimumSize; actual stable outer/content sizes are recorded, no requested-size substitution",
+            "first": {
+              "native": {
+                "pid": 8604,
+                "ppid": 52248,
+                "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+                "windowId": 1,
+                "webContentsId": 1,
+                "handleBytes": "a8075a0000000000",
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 962,
+                  "height": 623
+                },
+                "contentBounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 961,
+                  "height": 622
+                },
+                "minimumSize": [
+                  960,
+                  620
+                ],
+                "zoom": 1.25,
+                "focused": true,
+                "visible": true,
+                "minimized": false,
+                "appHidden": false,
+                "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+                "version": "1.1.15",
+                "platform": "win32",
+                "arch": "x64",
+                "runtime": "44.3.0",
+                "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+                "win32Foreground": {
+                  "hwnd": 5900200,
+                  "foreground": 5900200,
+                  "ownerPid": 8604,
+                  "foregroundPid": 8604,
+                  "visible": true,
+                  "minimized": false,
+                  "focused": true,
+                  "dpi": 120,
+                  "dpiContext": "18",
+                  "dpiAwareness": 2,
+                  "observedAt": 1791279551049,
+                  "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+                }
+              },
+              "renderer": {
+                "width": 769,
+                "height": 498,
+                "hasFocus": true,
+                "hidden": false,
+                "pixelRatio": 1.5625
+              }
+            },
+            "second": {
+              "native": {
+                "pid": 8604,
+                "ppid": 52248,
+                "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+                "windowId": 1,
+                "webContentsId": 1,
+                "handleBytes": "a8075a0000000000",
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 962,
+                  "height": 623
+                },
+                "contentBounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 961,
+                  "height": 622
+                },
+                "minimumSize": [
+                  960,
+                  620
+                ],
+                "zoom": 1.25,
+                "focused": true,
+                "visible": true,
+                "minimized": false,
+                "appHidden": false,
+                "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+                "version": "1.1.15",
+                "platform": "win32",
+                "arch": "x64",
+                "runtime": "44.3.0",
+                "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+                "win32Foreground": {
+                  "hwnd": 5900200,
+                  "foreground": 5900200,
+                  "ownerPid": 8604,
+                  "foregroundPid": 8604,
+                  "visible": true,
+                  "minimized": false,
+                  "focused": true,
+                  "dpi": 120,
+                  "dpiContext": "18",
+                  "dpiAwareness": 2,
+                  "observedAt": 1791279551077,
+                  "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+                }
+              },
+              "renderer": {
+                "width": 769,
+                "height": 498,
+                "hasFocus": true,
+                "hidden": false,
+                "pixelRatio": 1.5625
+              }
+            }
+          },
+          "actual": {
+            "pid": 8604,
+            "ppid": 52248,
+            "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+            "windowId": 1,
+            "webContentsId": 1,
+            "handleBytes": "a8075a0000000000",
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "minimumSize": [
+              960,
+              620
+            ],
+            "zoom": 1.25,
+            "focused": true,
+            "visible": true,
+            "minimized": false,
+            "appHidden": false,
+            "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+            "version": "1.1.15",
+            "platform": "win32",
+            "arch": "x64",
+            "runtime": "44.3.0",
+            "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+            "win32Foreground": {
+              "hwnd": 5900200,
+              "foreground": 5900200,
+              "ownerPid": 8604,
+              "foregroundPid": 8604,
+              "visible": true,
+              "minimized": false,
+              "focused": true,
+              "dpi": 120,
+              "dpiContext": "18",
+              "dpiAwareness": 2,
+              "observedAt": 1791279554516,
+              "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+            }
+          },
+          "renderer": {
+            "width": 769,
+            "height": 498,
+            "pixelRatio": 1.5625,
+            "theme": "black-orange"
+          }
+        },
+        {
+          "theme": "blue-white",
+          "minimum": {
+            "theme": "blue-white",
+            "requestedContent": {
+              "width": 2,
+              "height": 2
+            },
+            "repeatRequestedContent": {
+              "width": 1,
+              "height": 1
+            },
+            "zoom": 1.25,
+            "classification": "Two smaller native content requests constrained by the original minimumSize; actual stable outer/content sizes are recorded, no requested-size substitution",
+            "first": {
+              "native": {
+                "pid": 8604,
+                "ppid": 52248,
+                "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+                "windowId": 1,
+                "webContentsId": 1,
+                "handleBytes": "a8075a0000000000",
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 962,
+                  "height": 623
+                },
+                "contentBounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 961,
+                  "height": 622
+                },
+                "minimumSize": [
+                  960,
+                  620
+                ],
+                "zoom": 1.25,
+                "focused": true,
+                "visible": true,
+                "minimized": false,
+                "appHidden": false,
+                "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+                "version": "1.1.15",
+                "platform": "win32",
+                "arch": "x64",
+                "runtime": "44.3.0",
+                "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+                "win32Foreground": {
+                  "hwnd": 5900200,
+                  "foreground": 5900200,
+                  "ownerPid": 8604,
+                  "foregroundPid": 8604,
+                  "visible": true,
+                  "minimized": false,
+                  "focused": true,
+                  "dpi": 120,
+                  "dpiContext": "18",
+                  "dpiAwareness": 2,
+                  "observedAt": 1791279557307,
+                  "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+                }
+              },
+              "renderer": {
+                "width": 769,
+                "height": 498,
+                "hasFocus": true,
+                "hidden": false,
+                "pixelRatio": 1.5625
+              }
+            },
+            "second": {
+              "native": {
+                "pid": 8604,
+                "ppid": 52248,
+                "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+                "windowId": 1,
+                "webContentsId": 1,
+                "handleBytes": "a8075a0000000000",
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 962,
+                  "height": 623
+                },
+                "contentBounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 961,
+                  "height": 622
+                },
+                "minimumSize": [
+                  960,
+                  620
+                ],
+                "zoom": 1.25,
+                "focused": true,
+                "visible": true,
+                "minimized": false,
+                "appHidden": false,
+                "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+                "version": "1.1.15",
+                "platform": "win32",
+                "arch": "x64",
+                "runtime": "44.3.0",
+                "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+                "win32Foreground": {
+                  "hwnd": 5900200,
+                  "foreground": 5900200,
+                  "ownerPid": 8604,
+                  "foregroundPid": 8604,
+                  "visible": true,
+                  "minimized": false,
+                  "focused": true,
+                  "dpi": 120,
+                  "dpiContext": "18",
+                  "dpiAwareness": 2,
+                  "observedAt": 1791279557339,
+                  "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+                }
+              },
+              "renderer": {
+                "width": 769,
+                "height": 498,
+                "hasFocus": true,
+                "hidden": false,
+                "pixelRatio": 1.5625
+              }
+            }
+          },
+          "actual": {
+            "pid": 8604,
+            "ppid": 52248,
+            "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+            "windowId": 1,
+            "webContentsId": 1,
+            "handleBytes": "a8075a0000000000",
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "minimumSize": [
+              960,
+              620
+            ],
+            "zoom": 1.25,
+            "focused": true,
+            "visible": true,
+            "minimized": false,
+            "appHidden": false,
+            "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+            "version": "1.1.15",
+            "platform": "win32",
+            "arch": "x64",
+            "runtime": "44.3.0",
+            "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+            "win32Foreground": {
+              "hwnd": 5900200,
+              "foreground": 5900200,
+              "ownerPid": 8604,
+              "foregroundPid": 8604,
+              "visible": true,
+              "minimized": false,
+              "focused": true,
+              "dpi": 120,
+              "dpiContext": "18",
+              "dpiAwareness": 2,
+              "observedAt": 1791279560928,
+              "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+            }
+          },
+          "renderer": {
+            "width": 769,
+            "height": 498,
+            "pixelRatio": 1.5625,
+            "theme": "blue-white"
+          }
+        },
+        {
+          "theme": "custom",
+          "minimum": {
+            "theme": "custom",
+            "requestedContent": {
+              "width": 2,
+              "height": 2
+            },
+            "repeatRequestedContent": {
+              "width": 1,
+              "height": 1
+            },
+            "zoom": 1.25,
+            "classification": "Two smaller native content requests constrained by the original minimumSize; actual stable outer/content sizes are recorded, no requested-size substitution",
+            "first": {
+              "native": {
+                "pid": 8604,
+                "ppid": 52248,
+                "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+                "windowId": 1,
+                "webContentsId": 1,
+                "handleBytes": "a8075a0000000000",
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 962,
+                  "height": 623
+                },
+                "contentBounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 961,
+                  "height": 622
+                },
+                "minimumSize": [
+                  960,
+                  620
+                ],
+                "zoom": 1.25,
+                "focused": true,
+                "visible": true,
+                "minimized": false,
+                "appHidden": false,
+                "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+                "version": "1.1.15",
+                "platform": "win32",
+                "arch": "x64",
+                "runtime": "44.3.0",
+                "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+                "win32Foreground": {
+                  "hwnd": 5900200,
+                  "foreground": 5900200,
+                  "ownerPid": 8604,
+                  "foregroundPid": 8604,
+                  "visible": true,
+                  "minimized": false,
+                  "focused": true,
+                  "dpi": 120,
+                  "dpiContext": "18",
+                  "dpiAwareness": 2,
+                  "observedAt": 1791279563764,
+                  "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+                }
+              },
+              "renderer": {
+                "width": 769,
+                "height": 498,
+                "hasFocus": true,
+                "hidden": false,
+                "pixelRatio": 1.5625
+              }
+            },
+            "second": {
+              "native": {
+                "pid": 8604,
+                "ppid": 52248,
+                "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+                "windowId": 1,
+                "webContentsId": 1,
+                "handleBytes": "a8075a0000000000",
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 962,
+                  "height": 623
+                },
+                "contentBounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 961,
+                  "height": 622
+                },
+                "minimumSize": [
+                  960,
+                  620
+                ],
+                "zoom": 1.25,
+                "focused": true,
+                "visible": true,
+                "minimized": false,
+                "appHidden": false,
+                "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+                "version": "1.1.15",
+                "platform": "win32",
+                "arch": "x64",
+                "runtime": "44.3.0",
+                "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+                "win32Foreground": {
+                  "hwnd": 5900200,
+                  "foreground": 5900200,
+                  "ownerPid": 8604,
+                  "foregroundPid": 8604,
+                  "visible": true,
+                  "minimized": false,
+                  "focused": true,
+                  "dpi": 120,
+                  "dpiContext": "18",
+                  "dpiAwareness": 2,
+                  "observedAt": 1791279563800,
+                  "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+                }
+              },
+              "renderer": {
+                "width": 769,
+                "height": 498,
+                "hasFocus": true,
+                "hidden": false,
+                "pixelRatio": 1.5625
+              }
+            }
+          },
+          "actual": {
+            "pid": 8604,
+            "ppid": 52248,
+            "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+            "windowId": 1,
+            "webContentsId": 1,
+            "handleBytes": "a8075a0000000000",
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "minimumSize": [
+              960,
+              620
+            ],
+            "zoom": 1.25,
+            "focused": true,
+            "visible": true,
+            "minimized": false,
+            "appHidden": false,
+            "appHiddenAPI": "not a Windows app API; native window visible/minimized/focused remain independently required",
+            "version": "1.1.15",
+            "platform": "win32",
+            "arch": "x64",
+            "runtime": "44.3.0",
+            "executable": "E:\\KAMUCL\\release\\KAMUCL-runtime\\1.1.15-d1225a7c725537ce\\KAMUCL.exe",
+            "win32Foreground": {
+              "hwnd": 5900200,
+              "foreground": 5900200,
+              "ownerPid": 8604,
+              "foregroundPid": 8604,
+              "visible": true,
+              "minimized": false,
+              "focused": true,
+              "dpi": 120,
+              "dpiContext": "18",
+              "dpiAwareness": 2,
+              "observedAt": 1791279567401,
+              "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+            }
+          },
+          "renderer": {
+            "width": 769,
+            "height": 498,
+            "pixelRatio": 1.5625,
+            "theme": "custom"
+          }
+        }
+      ],
+      "originalFocusEmulationDisabled": true,
+      "originalHarnessFocusEmulationRestored": true,
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "phase": "restart",
+      "pid": 48588,
+      "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+      "complete": true,
+      "summary": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\summary.json",
+        "bytes": 1642791,
+        "sha256": "4c4786c34a95304c55491a185f7eb13d4fc5b18657f6dfcd516d43767cf3eb43"
+      },
+      "live": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\live.json",
+        "bytes": 1642791,
+        "sha256": "4c4786c34a95304c55491a185f7eb13d4fc5b18657f6dfcd516d43767cf3eb43"
+      },
+      "coordinateOperations": 7,
+      "totalOperations": 16,
+      "nativeScenes": 2,
+      "screenshots": 2,
+      "originalFixtureFiles": 88,
+      "allOriginalFixtureBytesUnchanged": true,
+      "themes": [],
+      "originalFocusEmulationDisabled": true,
+      "originalHarnessFocusEmulationRestored": true,
+      "exitCode": 0,
+      "signal": null
+    }
+  ],
+  "visualAssessmentPending": true,
+  "sourceInputs": [
+    {
+      "path": "E:\\KAMUCL\\scripts\\qa-privacy-categories115.cjs",
+      "bytes": 46418,
+      "sha256": "008b64ef7283109365c4eb150504a9fee616aee80fe0b58981ab27b23318e075"
+    },
+    {
+      "path": "E:\\KAMUCL\\scripts\\qa-coordinate-geometry114.cjs",
+      "bytes": 8161,
+      "sha256": "f5256990685a9cbb03ba7b713bd287fd5dc8f24ca121db0b4c1bb9860f55afce"
+    },
+    {
+      "path": "E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs",
+      "bytes": 59884,
+      "sha256": "5a1602e0480f468ebe0449ee23c45aecdeeba850e11f917b53ac0efb1bea7698"
+    },
+    {
+      "path": "E:\\KAMUCL\\scripts\\verify-favorites-113.cjs",
+      "bytes": 47353,
+      "sha256": "299fef1f0320c40e72ffbe8c3965ec477d542bc4567eb7779e6a4f1608a5bd38"
+    },
+    {
+      "path": "E:\\KAMUCL\\scripts\\qa-native-window115.cjs",
+      "bytes": 7855,
+      "sha256": "71a872a4e82a7e9a48545f2718b03413ce548baed8161fd0f401372e6031c56e"
+    },
+    {
+      "path": "E:\\KAMUCL\\scripts\\qa-sidebar115.cjs",
+      "bytes": 3398,
+      "sha256": "5099b56b3ad725d2464785e67aef35ec0aa93d0d65e6ac12f32ea4908406070d"
+    }
+  ],
+  "publicAllowlist": [
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-a5aefb94-6c3a-444f-bf39-ed887dce53e5\\summary.json",
+      "bytes": 1665,
+      "sha256": "040909af91cc7b8c94b84251c7b6f08bf4b6758a5cb430d73ffd0a1c2c294d20"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-a5aefb94-6c3a-444f-bf39-ed887dce53e5\\live.json",
+      "bytes": 1665,
+      "sha256": "040909af91cc7b8c94b84251c7b6f08bf4b6758a5cb430d73ffd0a1c2c294d20"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\servers-default-hidden-native-receipt.json",
+      "bytes": 19690,
+      "sha256": "4966a30ffbdc156c083a9aeb97553666273dac892b4682113d5c43046344f97c"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\servers-default-hidden-native-sidebar.png",
+      "bytes": 79873,
+      "sha256": "1e5b6ec8e38d7f9f7dd9e72a384b953e32177e60704d3a1e4ae32223881e4fdc"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\category-assigned-and-filtered-native-receipt.json",
+      "bytes": 19713,
+      "sha256": "f3976e308cc9e5dbf4aa7aad753c99e1dabea3213338211b23f2fe1cf7565f28"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\category-assigned-and-filtered-native-sidebar.png",
+      "bytes": 81395,
+      "sha256": "2a563c856dea7a559384eab8ba59a466a6f4d993cbc20edda02a4e139644a470"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\transparent-minimum-125-servers-native-receipt.json",
+      "bytes": 19792,
+      "sha256": "b447828bb2a967c49cc72dc12a94048c57f444bc256956ffd3b4cded9abb6fd1"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\transparent-minimum-125-servers-native-sidebar.png",
+      "bytes": 69969,
+      "sha256": "87a5c510e32c5b0ee8139330e501a9eb237a0290e29a7a80bdd6df9aeade6f59"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\transparent-actual-minimum-125-category-manager-native-receipt.json",
+      "bytes": 19787,
+      "sha256": "72e52c65b98084b10923efa1585c9522af473c35fa3f00f4b7f60fd409103832"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\transparent-actual-minimum-125-category-manager-native-sidebar.png",
+      "bytes": 68601,
+      "sha256": "7b5e9a9ffef400544443d44ba7697e58492e31f2d729ce7434a50dd88a21f627"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\transparent-actual-minimum-125-favorites-native-receipt.json",
+      "bytes": 19766,
+      "sha256": "3581fef5e7f3946980e1aa044700cbffcd04ef4eff51aa6ad9603252b005bd1a"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\transparent-actual-minimum-125-favorites-native-sidebar.png",
+      "bytes": 70428,
+      "sha256": "a902b74137fd3f7ea0348cfcdd57b520f7fb746efd03fcdfdc96e2270ac1d6a3"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\black-orange-minimum-125-servers-native-receipt.json",
+      "bytes": 19796,
+      "sha256": "5afd9fe44653818e6f7b15eede3ce9a19a597d732c24118f84328139227474ef"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\black-orange-minimum-125-servers-native-sidebar.png",
+      "bytes": 70768,
+      "sha256": "782f3aa00dbdb36b17a4ab338ee51fac9a69320d1ab078cba375a6819b1f85e0"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\black-orange-actual-minimum-125-category-manager-native-receipt.json",
+      "bytes": 19792,
+      "sha256": "ffa7f8c1aaa333df653a606eb7582dd990971db3218e90796f66d7d3f029738c"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\black-orange-actual-minimum-125-category-manager-native-sidebar.png",
+      "bytes": 78390,
+      "sha256": "e754d8e3ba9f870a710b05b4779288e306e92f7ff0cf431bf6f3916eb283cd59"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\black-orange-actual-minimum-125-favorites-native-receipt.json",
+      "bytes": 19767,
+      "sha256": "83a5261ead3688f28cce2171626037eabe4ab60ced41dc248abbf96b10a35ab4"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\black-orange-actual-minimum-125-favorites-native-sidebar.png",
+      "bytes": 71054,
+      "sha256": "13b032ef8dd21ecfffc1bfe01e7a4a8074c0d45217876bae8599f9643b1a2a2c"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\blue-white-minimum-125-servers-native-receipt.json",
+      "bytes": 19790,
+      "sha256": "bbf79eb0f18d85048ec7c93240074349c2d0537f2521a3fc378c8329ae124590"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\blue-white-minimum-125-servers-native-sidebar.png",
+      "bytes": 64657,
+      "sha256": "f42fb4a133a28b9f5fdabecd7ea69e633ae182f905ea2cebed0f6586764f4a80"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\blue-white-actual-minimum-125-category-manager-native-receipt.json",
+      "bytes": 19785,
+      "sha256": "e43ab9299118e085b7741e2b382926732de93a98cb4d9916cb2eeb68b8ebbb08"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\blue-white-actual-minimum-125-category-manager-native-sidebar.png",
+      "bytes": 100258,
+      "sha256": "80bd2990b977d153ab344ffff16d631d307cb290f3dd83b184faace618c75fb8"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\blue-white-actual-minimum-125-favorites-native-receipt.json",
+      "bytes": 19762,
+      "sha256": "22ac5ef34e1c50721210196d626c423ef9476b2ec20680bb3cf6f9261f60135b"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\blue-white-actual-minimum-125-favorites-native-sidebar.png",
+      "bytes": 64332,
+      "sha256": "0e2cf232cba749dd1f282995ea14eecb3fc2d498e9853e755a745c55bfdc83f7"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\custom-minimum-125-servers-native-receipt.json",
+      "bytes": 19777,
+      "sha256": "191db9a2b2c054088669426896cd6c983ddc347f074b449340e2c71525eabad7"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\custom-minimum-125-servers-native-sidebar.png",
+      "bytes": 71249,
+      "sha256": "ba119156a6d78485f742f62a5c6ce66f8a9931227053b8e44a6cb3aabf00ab87"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\custom-actual-minimum-125-category-manager-native-receipt.json",
+      "bytes": 19772,
+      "sha256": "fb5d65bf5b4c6313e8fbe8d2ef7857e478090ea3b4463c83386fce8b3e17f207"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\custom-actual-minimum-125-category-manager-native-sidebar.png",
+      "bytes": 86267,
+      "sha256": "32e600a952e8e47f13cdba92a62dc98d23b3adfda98ab60254dcf2a2df51db98"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\custom-actual-minimum-125-favorites-native-receipt.json",
+      "bytes": 19737,
+      "sha256": "3b68c26747e0bc3ee9f7bb124cf7a3356169169c83c55cd64c860288f9854355"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\custom-actual-minimum-125-favorites-native-sidebar.png",
+      "bytes": 71995,
+      "sha256": "e07a6cfbad673cd5391d98e8b0359bc1c86c0339307da7bd88bc5ba02e0d344c"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\servers-default-hidden.png",
+      "bytes": 185229,
+      "sha256": "734904507628342320472e5a65b0b82e5c000eea6edff89a3045bdf613ff32ec"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\category-assigned-and-filtered.png",
+      "bytes": 130346,
+      "sha256": "8d86eb9f735826334359a09956bb780696d3506ccf898d6958c939768459bc0f"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\transparent-minimum-125-servers.png",
+      "bytes": 104930,
+      "sha256": "7ce31c0ed84fb5a4c2db95eef249e4ee11eb4e91f36514682431fe117ee9bf9e"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\transparent-actual-minimum-125-category-manager.png",
+      "bytes": 145694,
+      "sha256": "629443ff371d6714f5e8c8fbfef85c9ec843578c437f7f6db5d31802eb0d0a09"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\transparent-actual-minimum-125-favorites.png",
+      "bytes": 106131,
+      "sha256": "45230dac9902100d262503ba492e14ba869adf03b20d0a67a24a68be045700df"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\black-orange-minimum-125-servers.png",
+      "bytes": 116941,
+      "sha256": "8d5bac2054be60420bcdea4bd03f441dd3265550ec8a12d55ad536b2f970ed9f"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\black-orange-actual-minimum-125-category-manager.png",
+      "bytes": 173815,
+      "sha256": "3f41ad4aaeeedd7e0ec327572f9e05b15d0107877f91b91e18f8466c477b62af"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\black-orange-actual-minimum-125-favorites.png",
+      "bytes": 114305,
+      "sha256": "3c79fbd52db98c709fb3af6da5e77ef965ad686a87d341ded4b8825b09f708be"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\blue-white-minimum-125-servers.png",
+      "bytes": 120170,
+      "sha256": "fdf3c13aae40eb01d049167f3df30ec5846cd12fbc223d1f8143aae46c34f904"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\blue-white-actual-minimum-125-category-manager.png",
+      "bytes": 239583,
+      "sha256": "85fc2178017dc77f6a1bc337127c1657fed1cd9eea4b757e25d4b427e79be9f9"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\blue-white-actual-minimum-125-favorites.png",
+      "bytes": 115981,
+      "sha256": "a750b036b4629450842e4ec5afc3af10266932fd564a5094f67a1e6a89dc78e6"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\custom-minimum-125-servers.png",
+      "bytes": 116775,
+      "sha256": "cbc815e58ca4bdfe73bc22bff574628f75ad04b76fc6e9504a5e747d38b745e8"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\custom-actual-minimum-125-category-manager.png",
+      "bytes": 192620,
+      "sha256": "68ee79960c3f2e6d8279a120e63a0b4b5414e57ea50f2293d09f6c398fd47a75"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\custom-actual-minimum-125-favorites.png",
+      "bytes": 115672,
+      "sha256": "0bc73d27a00d2d876196a38a1092490c7dc997f0b23a28b249e5bd075f590821"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\summary.json",
+      "bytes": 9163899,
+      "sha256": "31046fe95df44f45f2a5661f1ae978b1a49e080c1d8c4963a3465e29c1fb5081"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\live.json",
+      "bytes": 9163899,
+      "sha256": "31046fe95df44f45f2a5661f1ae978b1a49e080c1d8c4963a3465e29c1fb5081"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-a5aefb94-6c3a-444f-bf39-ed887dce53e5\\first-driver.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\servers-default-hidden-native-receipt.json",
+      "bytes": 19727,
+      "sha256": "a7147e9ba58edb4b0e5f5d5d5ec48c76320f5f3ac9ae6897b951e43702f856f6"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\servers-default-hidden-native-sidebar.png",
+      "bytes": 97125,
+      "sha256": "a037197d577efc84aa61b2d2f4c63aaf3627f9215fdd8c3e93f6eeca213ce94f"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\native-restart-category-persisted-native-receipt.json",
+      "bytes": 19758,
+      "sha256": "ea2e9dcae8c470a80ee4e76c3c43a0dd77a0e97a5676c64edbfda1009f8ad2b4"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\native-restart-category-persisted-native-sidebar.png",
+      "bytes": 93233,
+      "sha256": "d3bfa83a015307139d625192eb0d78270c3adf1e9be08a7c9e04a36f0b26ac86"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\servers-default-hidden.png",
+      "bytes": 179839,
+      "sha256": "e3ed2d3801ce0cedb895ede5179ec8fc75d94235de83af696eb69c06d8b28e11"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\native-restart-category-persisted.png",
+      "bytes": 167017,
+      "sha256": "7a61d574f352cb53c2d568fb84d9ef6804ac6c589721b2419aaf1d17079681b1"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\summary.json",
+      "bytes": 1642791,
+      "sha256": "4c4786c34a95304c55491a185f7eb13d4fc5b18657f6dfcd516d43767cf3eb43"
+    },
+    {
+      "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\live.json",
+      "bytes": 1642791,
+      "sha256": "4c4786c34a95304c55491a185f7eb13d4fc5b18657f6dfcd516d43767cf3eb43"
+    },
+    {
+      "path": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-a5aefb94-6c3a-444f-bf39-ed887dce53e5\\restart-driver.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "privateExcluded": [
+    "Disposable profiles, accounts/settings contents and synthetic game folders",
+    "Whole process logs",
+    "Whole native application/desktop crops (sidebar crops only whitelisted after visual review)",
+    "Invalid early native crops of other applications"
+  ],
+  "uncovered": [
+    "Original user-specific blue-white gray/compositor failure was not directly reproduced",
+    "Public game/server connectivity; synthetic instance jars never launched",
+    "OS clipboard mutation/readback; exact browser boundary was observed and restored without overwriting user clipboard",
+    "Different GPU/compositor combinations",
+    "Animation/audio recording and human listening are not assessed by this static feature QA"
+  ]
+}

@@ -8,6 +8,11 @@ interface GraphicsCommandLine {
 
 /** Compact Windows builds omit the optional Dawn/D3D12 compiler, not ANGLE/WebGL. */
 export function configureRuntimeGraphics(commandLine: GraphicsCommandLine, platform: NodeJS.Platform, runtimeDir: string): boolean {
+  if (platform === 'linux' && !commandLine.getSwitchValue('ozone-platform')) {
+    // External game-window control uses verified X11 ownership. Wayland sessions
+    // can use their XWayland service without silently losing close/focus support.
+    commandLine.appendSwitch('ozone-platform', 'x11')
+  }
   if (platform !== 'win32' || fs.existsSync(path.join(runtimeDir, 'dxcompiler.dll'))) return false
   const disabled = new Set(commandLine.getSwitchValue('disable-features').split(',').filter(Boolean))
   disabled.add('WebGPUService')

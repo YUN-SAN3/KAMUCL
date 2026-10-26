@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "sourceHead": "50cbba8f29439f3d661a3297f5eb387df42ecdb1",
+  "headUnchanged": true,
+  "gitBlobs": 2576,
+  "gitBlobBytes": 199704301,
+  "gitBatchBytes": 199839885,
+  "gitPrivacyFailures": [],
+  "prospectiveSourceFiles": 2596,
+  "prospectiveSourceBytes": 199932607,
+  "prospectivePrivacyFailures": [],
+  "classification": "Read-only whole-file privacyScan and ordinary-member checks for current committed blobs and prospective tracked/nonignored source except explicitly unrelated pelican-bicycle.html. Not final archive or public evidence validation.",
+  "recordedAt": "2026-10-06T17:16:03.110Z"
+}

@@ -1,0 +1,168 @@
+{
+  "kind": "independent-peer-ui-remediation-review",
+  "version": "1.1.23",
+  "sourceCommit": "eac26dce109add58103106c73352353b6be7f97a",
+  "observedHead": "eac26dce109add58103106c73352353b6be7f97a",
+  "at": "2026-10-13T21:13:19.740Z",
+  "complete": true,
+  "scope": "Readonly peer review of renderer controller, compiled Vue interaction, route history, API and IPC owner binding and native proof gate. Reviewer authored the backend and explicitly does not grade that backend.",
+  "reviewer": "/root/partial_search_review",
+  "scores": {
+    "reasonableness": 9.2,
+    "functionality": 9,
+    "appearance": null
+  },
+  "appearanceStatus": "not graded: final native screenshots and runtime evidence belong to independent QA",
+  "openFindings": [],
+  "criticalProductDefectsFound": 0,
+  "remediations": [
+    {
+      "id": "UI-CACHED-RESUME",
+      "severity": "P2",
+      "status": "resolved-code-and-protocol",
+      "evidence": "CommunityView continueDiscovery inspects the raw Start response and current request/phase; one cached ready resume triggers exactly one discover. Fresh initial/enriching starts do not trigger a second batch.",
+      "test": "actual compiled Chinese resume advances one cached discovery batch and clears a failed continuation on a repeated-revision response"
+    },
+    {
+      "id": "UI-START-FAILURE",
+      "severity": "P2",
+      "status": "resolved-code-and-protocol",
+      "evidence": "progressiveFailed stops progressiveEnriching, emits failed status and retry copy, and loadError synchronizes before duplicate-revision early return. Helper refuses retained cursor with mismatched current request ID.",
+      "tests": [
+        "actual compiled Chinese Start rejection stops enrichment, preserves a visible retry path and recovers with a fresh request",
+        "123 a failed new Start cannot submit a retained old cursor, and exposes failure without an active pending state"
+      ]
+    },
+    {
+      "id": "QA-REBIRTH-IDENTITY",
+      "severity": "acceptance-gate",
+      "status": "resolved-code-and-negative-protocol",
+      "evidence": "Target checks require exact source+projectId+slug for MR QeB3NRC5 or CF 623969; wrong ID, source, or slug with a similar title cannot pass."
+    }
+  ],
+  "checks": [
+    {
+      "command": "npx tsx --test tests/community-progressive-renderer123.test.ts tests/community-search-ipc123.test.ts tests/community-120.test.ts",
+      "exitCode": 0,
+      "total": 36,
+      "pass": 36,
+      "fail": 0,
+      "naturalExit": true,
+      "scopeNote": "Contains 12 new frontend/IPC and 24 compatibility tests; backend compatibility results are not counted in peer frontend scores."
+    },
+    {
+      "command": "node --test scripts/qa-community123-tests.cjs",
+      "exitCode": 0,
+      "total": 9,
+      "pass": 9,
+      "fail": 0,
+      "naturalExit": true
+    }
+  ],
+  "files": [
+    {
+      "file": "src/renderer/src/communityProgressiveSearch.ts",
+      "bytes": 4815,
+      "sha256": "d4883ff724b8e413307ed355449d5a63885da70d762a591fdec47906b3c43595",
+      "commitObject": "f37d3d81ee97332fdf3953b99d7ade224121210a",
+      "currentFilteredObject": "f37d3d81ee97332fdf3953b99d7ade224121210a",
+      "matchesCommit": true
+    },
+    {
+      "file": "src/renderer/src/views/CommunityView.vue",
+      "bytes": 67237,
+      "sha256": "48bccbff2331980921aab1cb20df5335308f1277c0dcdc3d6df7f5cf216ea8eb",
+      "commitObject": "14711d05e6d634e8161048e306fdecf3ac8f590f",
+      "currentFilteredObject": "14711d05e6d634e8161048e306fdecf3ac8f590f",
+      "matchesCommit": true
+    },
+    {
+      "file": "src/renderer/src/communitySession.ts",
+      "bytes": 1313,
+      "sha256": "092abdd47c910d6356ad82cf1842dc058daffc185264e29bb0fe83a1fb75f3d2",
+      "commitObject": "20c5a488ab0b4263540da53c3c80dc7d85305e83",
+      "currentFilteredObject": "20c5a488ab0b4263540da53c3c80dc7d85305e83",
+      "matchesCommit": true
+    },
+    {
+      "file": "src/renderer/src/api.ts",
+      "bytes": 29849,
+      "sha256": "7e0bf442b137ffd7facb077cbdcd8bbc84a6913d13d508b56b4a30c3fa020a5b",
+      "commitObject": "eeebc2d19908a47886d40bf64933515d4e24893e",
+      "currentFilteredObject": "eeebc2d19908a47886d40bf64933515d4e24893e",
+      "matchesCommit": true
+    },
+    {
+      "file": "src/main/core/communitySearchIpc.ts",
+      "bytes": 1921,
+      "sha256": "9ed6b253dada2a76b3b9136711ca86830be68f2fb12601c0dfe24ca17fc9c524",
+      "commitObject": "0371d23112ff8cd27906669c878b232a28d5509d",
+      "currentFilteredObject": "0371d23112ff8cd27906669c878b232a28d5509d",
+      "matchesCommit": true
+    },
+    {
+      "file": "src/main/ipc.ts",
+      "bytes": 60647,
+      "sha256": "bf837f4fd693f33a5b5a02424192a9ccf2a5a704ca22ef636078f0034bd0c361",
+      "commitObject": "81cd4c9b388e21a4d5fdefd0cbfc14d84e4b6ee9",
+      "currentFilteredObject": "81cd4c9b388e21a4d5fdefd0cbfc14d84e4b6ee9",
+      "matchesCommit": true
+    },
+    {
+      "file": "scripts/community123-native-smoke.cjs",
+      "bytes": 8650,
+      "sha256": "61a72e332495446ed2b9ef492d373aad53e9e0a5635f41af944ac45ea8177968",
+      "commitObject": "998841c815092f1aba24d636fcc7091f848e82ff",
+      "currentFilteredObject": "998841c815092f1aba24d636fcc7091f848e82ff",
+      "matchesCommit": true
+    },
+    {
+      "file": "scripts/community123-live-probe.cjs",
+      "bytes": 9682,
+      "sha256": "8959ffe4536d1d31c3b6a3f17e82f90ba059209789c43bd957454b59b94989d9",
+      "commitObject": "3a21bb1b3d24c1b78f874566438e6d67738aa102",
+      "currentFilteredObject": "3a21bb1b3d24c1b78f874566438e6d67738aa102",
+      "matchesCommit": true
+    },
+    {
+      "file": "tests/community-progressive-renderer123.test.ts",
+      "bytes": 12629,
+      "sha256": "6b4df619af4713f6c0a64d87a8d7f472133309607bd5f3a55440d272cf06b105",
+      "commitObject": "5c457cfb070da8263d431faab1a78b05f3c95fca",
+      "currentFilteredObject": "5c457cfb070da8263d431faab1a78b05f3c95fca",
+      "matchesCommit": true
+    },
+    {
+      "file": "tests/community-search-ipc123.test.ts",
+      "bytes": 3655,
+      "sha256": "1cb7b3a8444226e4feaab11fe90731d763b047d173929b15425c01364ffb43a1",
+      "commitObject": "61fb332e00612b20a6c0f5732874d4f8a21706bf",
+      "currentFilteredObject": "61fb332e00612b20a6c0f5732874d4f8a21706bf",
+      "matchesCommit": true
+    },
+    {
+      "file": "tests/community-120.test.ts",
+      "bytes": 39409,
+      "sha256": "22865b93d9c05350c02b139f303ed129c3427bad7afec472fd523019021ad542",
+      "commitObject": "df1d4391446ed41b1b1e97c395ef786fbfd4b0d0",
+      "currentFilteredObject": "df1d4391446ed41b1b1e97c395ef786fbfd4b0d0",
+      "matchesCommit": true
+    },
+    {
+      "file": "scripts/qa-community123-tests.cjs",
+      "bytes": 6715,
+      "sha256": "e4c0cfa71ed7221d40bb8f9eea1fbf1bf8a6ab284fa4b73d35fe8eb5b9bf23e4",
+      "commitObject": "a961d5ed91889abc6a2ee2283c8f04729ba4876f",
+      "currentFilteredObject": "a961d5ed91889abc6a2ee2283c8f04729ba4876f",
+      "matchesCommit": true
+    }
+  ],
+  "limitations": [
+    "No appearance score without final screenshot inspection.",
+    "No claim of final native Windows/Mac APP/DMG/EXE execution from these tests.",
+    "No claim of MOD installation, Minecraft game launch, full Microsoft login, motion or human audio acceptance.",
+    "Fixtures exercise actual compiled renderer/controller and IPC registration but replace transport/service data; real metadata observations are separately documented.",
+    "Historical obsolete-expectation, missing-fixture-export, and owned-test hang records are retained; earlier logs are not overwritten."
+  ],
+  "finalNativeQa": "pending final evidence fields from root/independent QA"
+}

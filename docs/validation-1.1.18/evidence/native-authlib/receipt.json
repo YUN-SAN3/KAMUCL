@@ -1,0 +1,251 @@
+{
+  "complete": true,
+  "classification": "Real official manifests, checksum-verified client authlib and injector; native JVM secure texture decoding. This is not a Minecraft world/rendering claim.",
+  "cases": [
+    {
+      "id": "1.12.2",
+      "java": "E:\\KAMUCL\\out\\java118-runtime\\unpacked\\zulu8.96.0.205-ca-jre8.0.504-win_x64",
+      "complete": true,
+      "manifest": {
+        "url": "https://piston-meta.mojang.com/v1/packages/832d95b9f40699d4961394dcf6cf549e65f15dc5/1.12.2.json",
+        "sha1": "832d95b9f40699d4961394dcf6cf549e65f15dc5",
+        "java": {
+          "component": "jre-legacy",
+          "majorVersion": 8
+        }
+      },
+      "libraries": [
+        {
+          "path": "com/google/guava/guava/21.0/guava-21.0.jar",
+          "sha1": "3a3d111be1be1b745edfa7d91678a12d7ed38709"
+        },
+        {
+          "path": "org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar",
+          "sha1": "6c6c702c89bfff3cd9e80b04d668c5e190d588c6"
+        },
+        {
+          "path": "commons-io/commons-io/2.5/commons-io-2.5.jar",
+          "sha1": "2852e6e05fbb95076fc091f6d1780f1f8fe35e0f"
+        },
+        {
+          "path": "commons-codec/commons-codec/1.10/commons-codec-1.10.jar",
+          "sha1": "4b95f4897fa13f2cd904aee711aeafc0c5295cd8"
+        },
+        {
+          "path": "com/google/code/gson/gson/2.8.0/gson-2.8.0.jar",
+          "sha1": "c4ba5371a29ac9b2ad6129b1d39ea38750043eff"
+        },
+        {
+          "path": "com/mojang/authlib/1.5.25/authlib-1.5.25.jar",
+          "sha1": "9834cdf236c22e84b946bba989e2f94ef5897c3c"
+        },
+        {
+          "path": "commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar",
+          "sha1": "f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-api/2.8.1/log4j-api-2.8.1.jar",
+          "sha1": "e801d13612e22cad62a3f4f3fe7fdbe6334a8e72"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-core/2.8.1/log4j-core-2.8.1.jar",
+          "sha1": "4ac28ff2f1ddf05dae3043a190451e8c46b73c31"
+        }
+      ],
+      "output": "[KAMUCL] Offline skin provider ready (local game only)\r\nOFFICIAL_AUTHLIB_SKIN_OK 266\r\n"
+    },
+    {
+      "id": "1.20.1",
+      "java": "C:/Program Files/Java/jdk-17",
+      "complete": true,
+      "manifest": {
+        "url": "https://piston-meta.mojang.com/v1/packages/760a390e336b2b6202ec5906757cee3a929a7c85/1.20.1.json",
+        "sha1": "760a390e336b2b6202ec5906757cee3a929a7c85",
+        "java": {
+          "component": "java-runtime-gamma",
+          "majorVersion": 17
+        }
+      },
+      "libraries": [
+        {
+          "path": "com/google/code/gson/gson/2.10/gson-2.10.jar",
+          "sha1": "dd9b193aef96e973d5a11ab13cd17430c2e4306b"
+        },
+        {
+          "path": "com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
+          "sha1": "1dcf1de382a0bf95a3d8b0849546c88bac1292c9"
+        },
+        {
+          "path": "com/google/guava/guava/31.1-jre/guava-31.1-jre.jar",
+          "sha1": "60458f877d055d0c9114d9e1a2efb737b4bc282c"
+        },
+        {
+          "path": "com/mojang/authlib/4.0.43/authlib-4.0.43.jar",
+          "sha1": "2ff9d747a77570a07a60d32ac77eb6162ad2a2d9"
+        },
+        {
+          "path": "commons-codec/commons-codec/1.15/commons-codec-1.15.jar",
+          "sha1": "49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d"
+        },
+        {
+          "path": "commons-io/commons-io/2.11.0/commons-io-2.11.0.jar",
+          "sha1": "a2503f302b11ebde7ebc3df41daebe0e4eea3689"
+        },
+        {
+          "path": "commons-logging/commons-logging/1.2/commons-logging-1.2.jar",
+          "sha1": "4bfc12adfe4842bf07b657f0369c4cb522955686"
+        },
+        {
+          "path": "org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar",
+          "sha1": "c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-api/2.19.0/log4j-api-2.19.0.jar",
+          "sha1": "ea1b37f38c327596b216542bc636cfdc0b8036fa"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-core/2.19.0/log4j-core-2.19.0.jar",
+          "sha1": "3b6eeb4de4c49c0fe38a4ee27188ff5fee44d0bb"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-slf4j2-impl/2.19.0/log4j-slf4j2-impl-2.19.0.jar",
+          "sha1": "5c04bfdd63ce9dceb2e284b81e96b6a70010ee10"
+        },
+        {
+          "path": "org/slf4j/slf4j-api/2.0.1/slf4j-api-2.0.1.jar",
+          "sha1": "f48d81adce2abf5ad3cfe463df517952749e03bc"
+        }
+      ],
+      "output": "[KAMUCL] Offline skin provider ready (local game only)\r\nOFFICIAL_AUTHLIB_SKIN_OK 266\r\n"
+    },
+    {
+      "id": "1.21.11",
+      "java": "C:/Program Files/Java/jdk-21.0.12",
+      "complete": true,
+      "manifest": {
+        "url": "https://piston-meta.mojang.com/v1/packages/6827f8e998ee6add1b3acff9286b6c95ebeebdc1/1.21.11.json",
+        "sha1": "6827f8e998ee6add1b3acff9286b6c95ebeebdc1",
+        "java": {
+          "component": "java-runtime-delta",
+          "majorVersion": 21
+        }
+      },
+      "libraries": [
+        {
+          "path": "com/google/code/gson/gson/2.13.2/gson-2.13.2.jar",
+          "sha1": "48b8230771e573b54ce6e867a9001e75977fe78e"
+        },
+        {
+          "path": "com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar",
+          "sha1": "aeaffd00d57023a2c947393ed251f0354f0985fc"
+        },
+        {
+          "path": "com/google/guava/guava/33.5.0-jre/guava-33.5.0-jre.jar",
+          "sha1": "8699de25f2f979108d6c1b804a7ba38cda1116bc"
+        },
+        {
+          "path": "com/mojang/authlib/7.0.61/authlib-7.0.61.jar",
+          "sha1": "efee1e6b54e863108576eb3b3ae71144626aaefc"
+        },
+        {
+          "path": "commons-codec/commons-codec/1.19.0/commons-codec-1.19.0.jar",
+          "sha1": "8c0dbe3ae883fceda9b50a6c76e745e548073388"
+        },
+        {
+          "path": "commons-io/commons-io/2.20.0/commons-io-2.20.0.jar",
+          "sha1": "36f3474daec2849c149e877614e7f979b2082cd2"
+        },
+        {
+          "path": "org/apache/commons/commons-lang3/3.19.0/commons-lang3-3.19.0.jar",
+          "sha1": "d6524b169a6574cd253760c472d419b47bfd37e6"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-api/2.25.2/log4j-api-2.25.2.jar",
+          "sha1": "292c1a2b1702f1e1e3adb13e1c57e5bff60335ff"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-core/2.25.2/log4j-core-2.25.2.jar",
+          "sha1": "d4d0ad2e51e03e531f784891fbfff1bae1e13a12"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-slf4j2-impl/2.25.2/log4j-slf4j2-impl-2.25.2.jar",
+          "sha1": "5eec0c392661dee8a366baec17e8896900dd978f"
+        },
+        {
+          "path": "org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar",
+          "sha1": "d9e58ac9c7779ba3bf8142aff6c830617a7fe60f"
+        }
+      ],
+      "output": "[KAMUCL] Offline skin provider ready (local game only)\r\nOFFICIAL_AUTHLIB_SKIN_OK 266\r\n"
+    },
+    {
+      "id": "26.3",
+      "java": "C:/Program Files/Java/jdk-25.0.2",
+      "complete": true,
+      "manifest": {
+        "url": "https://piston-meta.mojang.com/v1/packages/702fe59163c6ee6578607daa85811d9bc9c7cc40/26.3.json",
+        "sha1": "702fe59163c6ee6578607daa85811d9bc9c7cc40",
+        "java": {
+          "component": "java-runtime-epsilon",
+          "majorVersion": 25
+        }
+      },
+      "libraries": [
+        {
+          "path": "com/google/code/gson/gson/2.14.0/gson-2.14.0.jar",
+          "sha1": "efc0e34ede4e3204eaefb84a00e55e8c86634382"
+        },
+        {
+          "path": "com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar",
+          "sha1": "aeaffd00d57023a2c947393ed251f0354f0985fc"
+        },
+        {
+          "path": "com/google/guava/guava/33.6.0-jre/guava-33.6.0-jre.jar",
+          "sha1": "c376b13067cc99a5774403530953f7b05a91e218"
+        },
+        {
+          "path": "com/mojang/authlib/10.0.77/authlib-10.0.77.jar",
+          "sha1": "add8754cda96cf0cd840441632875648836f8a71"
+        },
+        {
+          "path": "commons-codec/commons-codec/1.22.0/commons-codec-1.22.0.jar",
+          "sha1": "6b3eb4beb7058c2a638f5f17bcb388649fd339dd"
+        },
+        {
+          "path": "commons-io/commons-io/2.20.0/commons-io-2.20.0.jar",
+          "sha1": "36f3474daec2849c149e877614e7f979b2082cd2"
+        },
+        {
+          "path": "org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar",
+          "sha1": "65897b3e5731220962e659e001904af3c3cbeba9"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-api/2.26.0/log4j-api-2.26.0.jar",
+          "sha1": "ad52af0ecf054a7e3f275a2e180ee06d9c490951"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-core/2.26.0/log4j-core-2.26.0.jar",
+          "sha1": "d267ca60b27ddb075e0b4e75e7875859717bf85f"
+        },
+        {
+          "path": "org/apache/logging/log4j/log4j-slf4j2-impl/2.26.0/log4j-slf4j2-impl-2.26.0.jar",
+          "sha1": "668c0f0e813d83f00a7182533aa658ec7e7a0a0d"
+        },
+        {
+          "path": "org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar",
+          "sha1": "d9e58ac9c7779ba3bf8142aff6c830617a7fe60f"
+        }
+      ],
+      "output": "[KAMUCL] Offline skin provider ready (local game only)\r\nOFFICIAL_AUTHLIB_SKIN_OK 266\r\n"
+    }
+  ],
+  "injector": {
+    "build_number": 56,
+    "version": "1.2.8",
+    "release_time": "2026-07-11T17:14:13Z",
+    "download_url": "https://authlib-injector.yushi.moe/artifact/56/authlib-injector-1.2.8.jar",
+    "checksums": {
+      "sha256": "9c7f4343e6c82034958ffb48c14a2cb0c85928be7283103ce17da00c6d5a7b10"
+    }
+  }
+}

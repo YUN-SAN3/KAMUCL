@@ -19,5 +19,5 @@ export function useMotion() {
   })
   onUnmounted(() => { alive = false; unsubscribe?.(); query.removeEventListener('change', update); document.removeEventListener('visibilitychange', update) })
   const reduced = computed(() => motionReduced(store.settings?.reduceMotion, system.value))
-  return { reduced, hidden, decorativeActive: computed(() => !hidden.value && !reduced.value) }
+  return { systemReduced: system, reduced, hidden, decorativeActive: computed(() => !hidden.value && !reduced.value) }
 }

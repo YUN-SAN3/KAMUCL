@@ -1,0 +1,2769 @@
+{
+  "complete": false,
+  "directory": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c",
+  "classification": "Actual foreground-checked Windows portable GUI, original production modsPrepare/Commit, streamed files, hash, cancellation and disk transaction. Repository metadata and loopback files are synthetic. No live provider or game launch claim.",
+  "cases": [
+    {
+      "name": "known",
+      "rootId": "community_progress_root_known",
+      "depId": "community_progress_library_known",
+      "folder": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §",
+      "instance": "社区 MOD 进度 known",
+      "versionDir": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §\\versions\\社区 MOD 进度 known",
+      "mode": {
+        "unknown": false,
+        "failHash": false,
+        "delayMs": 50
+      },
+      "eventStart": 0,
+      "requestStart": 0,
+      "expected": [
+        {
+          "id": "community_progress_root_known",
+          "name": "社区模组 § known.jar",
+          "size": 3147039,
+          "sha1": "5db9b4fcd79ad1c2f4936076c9654dfa24126319",
+          "sha256": "62294e4a6765156234866b65f32a497e7cc23a9c4e7f80c2f6a175e76141b2e5"
+        },
+        {
+          "id": "community_progress_library_known",
+          "name": "必要前置 § known.jar",
+          "size": 1049232,
+          "sha1": "d9eb1e78879b108f2fb64dd263fad6c3d5b74152",
+          "sha256": "b4a01ae6fca696d14977874e5d07ccc979560722ce343559ad9a5ee5413313e9"
+        }
+      ],
+      "registration": {
+        "folders": [
+          {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games",
+            "name": "独立验证目录",
+            "isDefault": true
+          },
+          {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\second-games",
+            "name": "整合包收藏",
+            "isDefault": false
+          },
+          {
+            "path": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §",
+            "name": "游戏 §",
+            "isDefault": false
+          }
+        ],
+        "folder": {
+          "path": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §",
+          "name": "游戏 §",
+          "isDefault": false
+        },
+        "structure": "minecraft"
+      },
+      "targets": {
+        "versions": [
+          {
+            "id": "26.3 Fabric 生存世界",
+            "mcVersion": "26.3",
+            "loader": "fabric",
+            "loaderVersion": "0.19.5",
+            "folder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games",
+            "isolated": true,
+            "gameDirectory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games\\versions\\26.3 Fabric 生存世界",
+            "isolationReason": "detected-content"
+          },
+          {
+            "id": "1.21.11 Forge",
+            "mcVersion": "1.21.11",
+            "loader": "forge",
+            "loaderVersion": "0.19.5",
+            "folder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games",
+            "isolated": true,
+            "gameDirectory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games\\versions\\1.21.11 Forge",
+            "isolationReason": "detected-content"
+          },
+          {
+            "id": "Mecha Craftaleon 客户端 v10 — 超长名称完整显示测试与更多文字",
+            "mcVersion": "1.21.11",
+            "loader": "fabric",
+            "loaderVersion": "0.19.5",
+            "folder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games",
+            "isolated": true,
+            "gameDirectory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games\\versions\\Mecha Craftaleon 客户端 v10 — 超长名称完整显示测试与更多文字",
+            "isolationReason": "detected-content"
+          },
+          {
+            "id": "1.21.5-Fabric 版本识别验证",
+            "mcVersion": "1.21.5",
+            "loader": "fabric",
+            "loaderVersion": "0.16.12",
+            "folder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games",
+            "isolated": false,
+            "gameDirectory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games",
+            "isolationReason": "shared"
+          },
+          {
+            "id": "联机验证实例",
+            "mcVersion": "1.20.1",
+            "loader": "fabric",
+            "folder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games",
+            "isolated": true,
+            "gameDirectory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\games\\versions\\联机验证实例",
+            "isolationReason": "explicit"
+          },
+          {
+            "id": "旧版测试实例",
+            "mcVersion": "1.21.11",
+            "loaderVersion": "0.19.5",
+            "folder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\second-games",
+            "isolated": true,
+            "gameDirectory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\second-games\\versions\\旧版测试实例",
+            "isolationReason": "detected-content"
+          },
+          {
+            "id": "原版建筑存档",
+            "mcVersion": "1.21.11",
+            "loaderVersion": "0.19.5",
+            "folder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\second-games",
+            "isolated": true,
+            "gameDirectory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\second-games\\versions\\原版建筑存档",
+            "isolationReason": "detected-content"
+          },
+          {
+            "id": "26.2 NeoForge",
+            "mcVersion": "1.21.11",
+            "loader": "neoforge",
+            "loaderVersion": "26.2.1",
+            "folder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\second-games",
+            "isolated": true,
+            "gameDirectory": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 qeC0vV\\second-games\\versions\\26.2 NeoForge",
+            "isolationReason": "detected-content"
+          },
+          {
+            "id": "社区 MOD 进度 known",
+            "mcVersion": "1.20.1",
+            "loader": "fabric",
+            "loaderVersion": "0.16.0",
+            "folder": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §",
+            "isolated": true,
+            "gameDirectory": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §\\versions\\社区 MOD 进度 known",
+            "isolationReason": "explicit"
+          }
+        ],
+        "errors": []
+      },
+      "selectedTarget": "社区 MOD 进度 known · 1.20.1 / fabric · E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §",
+      "partial": {
+        "backend": {
+          "current": {
+            "name": "known",
+            "rootId": "community_progress_root_known",
+            "depId": "community_progress_library_known",
+            "folder": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §",
+            "instance": "社区 MOD 进度 known",
+            "versionDir": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §\\versions\\社区 MOD 进度 known",
+            "mode": {
+              "unknown": false,
+              "failHash": false,
+              "delayMs": 50
+            },
+            "eventStart": 0,
+            "requestStart": 0
+          },
+          "events": [
+            {
+              "at": 1791306657936,
+              "channel": "event:progress",
+              "payload": {
+                "stage": "mod-prepare",
+                "progress": 0,
+                "indeterminate": true,
+                "text": "读取 MOD 来源及兼容性，准备下载（尚未安装）…",
+                "overall": 0,
+                "taskId": "download-1791306657936-3",
+                "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+                "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+              }
+            },
+            {
+              "at": 1791306657938,
+              "channel": "event:progress",
+              "payload": {
+                "stage": "download",
+                "progress": 0,
+                "overall": 0,
+                "indeterminate": true,
+                "text": "读取所选 MOD，解析内置前置要求…",
+                "taskId": "download-1791306657936-3",
+                "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+                "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+              }
+            },
+            {
+              "at": 1791306657938,
+              "channel": "event:progress",
+              "payload": {
+                "stage": "download",
+                "progress": 0,
+                "overall": 0,
+                "indeterminate": false,
+                "text": "下载所选 MOD：社区模组 § known.jar",
+                "speed": 0,
+                "bytesDone": 0,
+                "bytesTotal": 3147039,
+                "taskId": "download-1791306657936-3",
+                "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+                "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+              }
+            },
+            {
+              "at": 1791306658196,
+              "channel": "event:progress",
+              "payload": {
+                "stage": "download",
+                "progress": 0.020824654540347293,
+                "overall": 0.017700956359295198,
+                "indeterminate": false,
+                "text": "下载所选 MOD：社区模组 § known.jar",
+                "speed": 0,
+                "bytesDone": 65536,
+                "bytesTotal": 3147039,
+                "taskId": "download-1791306657936-3",
+                "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+                "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+              }
+            }
+          ],
+          "requests": [
+            {
+              "at": 1791306657951,
+              "id": "community_progress_root_known",
+              "unknown": false,
+              "hashFailure": false,
+              "sent": 32768,
+              "completed": false,
+              "closedAt": 1791306658016
+            },
+            {
+              "at": 1791306657953,
+              "id": "community_progress_root_known",
+              "unknown": false,
+              "hashFailure": false,
+              "sent": 32768,
+              "completed": false,
+              "closedAt": 1791306658016
+            },
+            {
+              "at": 1791306657953,
+              "id": "community_progress_root_known",
+              "unknown": false,
+              "hashFailure": false,
+              "sent": 32768,
+              "completed": false,
+              "closedAt": 1791306658016
+            },
+            {
+              "at": 1791306657953,
+              "id": "community_progress_root_known",
+              "unknown": false,
+              "hashFailure": false,
+              "sent": 32768,
+              "completed": false,
+              "closedAt": 1791306658016
+            },
+            {
+              "at": 1791306658018,
+              "id": "community_progress_root_known",
+              "unknown": false,
+              "hashFailure": false,
+              "sent": 131072,
+              "completed": false
+            }
+          ],
+          "files": [],
+          "productionHandlersUnchanged": true
+        },
+        "ui": {
+          "exists": true,
+          "text": "下载所选 MOD：社区模组 § known.jar1%64.0 KB / 3.0 MB预下载与检测，尚未安装顶部“下载”同步记录本次任务",
+          "now": "1",
+          "indeterminate": false
+        }
+      },
+      "partialScreenshot": {
+        "file": "mod-progress117-known-partial.png",
+        "bytes": 124394,
+        "sha256": "f6a01d9b4248ca4314860ca9a9e8192ceee4d48048af24b5d82eda997220e129",
+        "before": {
+          "hwnd": 16322242,
+          "foreground": 16322242,
+          "ownerPid": 38828,
+          "foregroundPid": 38828,
+          "visible": true,
+          "minimized": false,
+          "focused": true,
+          "dpi": 120,
+          "dpiContext": "18",
+          "dpiAwareness": 2,
+          "observedAt": 1791306658691,
+          "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+        },
+        "after": {
+          "hwnd": 16322242,
+          "foreground": 16322242,
+          "ownerPid": 38828,
+          "foregroundPid": 38828,
+          "visible": true,
+          "minimized": false,
+          "focused": true,
+          "dpi": 120,
+          "dpiContext": "18",
+          "dpiAwareness": 2,
+          "observedAt": 1791306658746,
+          "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+        },
+        "renderer": {
+          "hasFocus": true,
+          "hidden": false,
+          "width": 1360,
+          "height": 860
+        }
+      },
+      "optOut": {
+        "disabled": true,
+        "text": "安装 MOD 与前置社区 MOD 进度 known · MC 1.20.1 · fabric 0.16.0E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §所选 MOD社区模组 § known.jar1.0.0待安装前置必要前置 § known.jar1.0.0查看项目元数据要求：community_progress_library_known *同时下载 1 个必要前置与 MC 1.20.1 / fabric 匹配，递归检测并校验后一起安装。已取消自动下载。必要前置仍未准备好，暂不写入所选 MOD。请先自行安装前置，再点击重新检测；也可勾选后一起下载。已有兼容前置将复用；无法查询、没有兼容版本或出现冲突时会停止，不会当作“无需前置”继续安装。取消重新检测下载前置并安装"
+      },
+      "plan": {
+        "exists": true,
+        "busy": false,
+        "rows": 2,
+        "checked": true,
+        "text": "安装 MOD 与前置社区 MOD 进度 known · MC 1.20.1 · fabric 0.16.0E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §所选 MOD社区模组 § known.jar1.0.0待安装前置必要前置 § known.jar1.0.0查看项目元数据要求：community_progress_library_known *同时下载 1 个必要前置与 MC 1.20.1 / fabric 匹配，递归检测并校验后一起安装。已有兼容前置将复用；无法查询、没有兼容版本或出现冲突时会停止，不会当作“无需前置”继续安装。取消下载前置并安装"
+      },
+      "beforeConsent": {
+        "current": {
+          "name": "known",
+          "rootId": "community_progress_root_known",
+          "depId": "community_progress_library_known",
+          "folder": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §",
+          "instance": "社区 MOD 进度 known",
+          "versionDir": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §\\versions\\社区 MOD 进度 known",
+          "mode": {
+            "unknown": false,
+            "failHash": false,
+            "delayMs": 50
+          },
+          "eventStart": 0,
+          "requestStart": 0
+        },
+        "events": [
+          {
+            "at": 1791306657936,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "mod-prepare",
+              "progress": 0,
+              "indeterminate": true,
+              "text": "读取 MOD 来源及兼容性，准备下载（尚未安装）…",
+              "overall": 0,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306657938,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0,
+              "overall": 0,
+              "indeterminate": true,
+              "text": "读取所选 MOD，解析内置前置要求…",
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306657938,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0,
+              "overall": 0,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 0,
+              "bytesDone": 0,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306658196,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.020824654540347293,
+              "overall": 0.017700956359295198,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 0,
+              "bytesDone": 65536,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306658456,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.07288629089121552,
+              "overall": 0.061953347257533195,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 0,
+              "bytesDone": 229376,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306658706,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.11453559997191011,
+              "overall": 0.09735525997612358,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 0,
+              "bytesDone": 360448,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306658959,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.15618490905260468,
+              "overall": 0.132757172694714,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 481426,
+              "bytesDone": 491520,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306659209,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.19783421813329927,
+              "overall": 0.16815908541330438,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 481426,
+              "bytesDone": 622592,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306659474,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.23948352721399385,
+              "overall": 0.20356099813189477,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 490641,
+              "bytesDone": 753664,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306659739,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.28113283629468844,
+              "overall": 0.23896291085048516,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 491346,
+              "bytesDone": 884736,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306660000,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.3331944726455567,
+              "overall": 0.28321530174872317,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 508549,
+              "bytesDone": 1048576,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306660261,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.37484378172625127,
+              "overall": 0.31861721446731356,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 507874,
+              "bytesDone": 1179648,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306660523,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.41649309080694585,
+              "overall": 0.35401912718590395,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 507048,
+              "bytesDone": 1310720,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306660784,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.45814239988764044,
+              "overall": 0.38942103990449434,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 506585,
+              "bytesDone": 1441792,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306661046,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.5102040362385086,
+              "overall": 0.4336734308027323,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 516677,
+              "bytesDone": 1605632,
+              "bytesTotal": 3147039,
+              "etaSeconds": 3,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306661307,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.5518533453192033,
+              "overall": 0.46907534352132274,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 515505,
+              "bytesDone": 1736704,
+              "bytesTotal": 3147039,
+              "etaSeconds": 3,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306661570,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.5935026543998978,
+              "overall": 0.5044772562399131,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 514263,
+              "bytesDone": 1867776,
+              "bytesTotal": 3147039,
+              "etaSeconds": 3,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306661833,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.6351519634805924,
+              "overall": 0.5398791689585035,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 513181,
+              "bytesDone": 1998848,
+              "bytesTotal": 3147039,
+              "etaSeconds": 3,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306662096,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.6872135998314606,
+              "overall": 0.5841315598567415,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 520217,
+              "bytesDone": 2162688,
+              "bytesTotal": 3147039,
+              "etaSeconds": 2,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306662345,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.7288629089121552,
+              "overall": 0.6195334725753319,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 520217,
+              "bytesDone": 2293760,
+              "bytesTotal": 3147039,
+              "etaSeconds": 2,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306662608,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.7705122179928497,
+              "overall": 0.6549353852939223,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 519244,
+              "bytesDone": 2424832,
+              "bytesTotal": 3147039,
+              "etaSeconds": 2,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306662871,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.8121615270735444,
+              "overall": 0.6903372980125128,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 518127,
+              "bytesDone": 2555904,
+              "bytesTotal": 3147039,
+              "etaSeconds": 2,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306663124,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.8538108361542389,
+              "overall": 0.725739210731103,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 518205,
+              "bytesDone": 2686976,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306663388,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.8954601452349336,
+              "overall": 0.7611411234496935,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 517146,
+              "bytesDone": 2818048,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306663650,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.9475217815858018,
+              "overall": 0.8053935143479315,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 522071,
+              "bytesDone": 2981888,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306663914,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.9891710906664963,
+              "overall": 0.8407954270665219,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 520953,
+              "bytesDone": 3112960,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306664057,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 1,
+              "overall": 0.85,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 520953,
+              "bytesDone": 3147039,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306664057,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "mod-prepare",
+              "progress": 0,
+              "overall": 0.85,
+              "indeterminate": true,
+              "text": "MOD 已准备，正在检测兼容性和必要前置（尚未安装）…",
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306664063,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "done",
+              "progress": 1,
+              "overall": 1,
+              "indeterminate": false,
+              "text": "预下载及检测完成，等待确认安装（尚未写入实例）",
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306664063,
+            "channel": "event:taskDone",
+            "payload": {
+              "taskId": "download-1791306657936-3",
+              "ok": true
+            }
+          }
+        ],
+        "requests": [
+          {
+            "at": 1791306657951,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306658016
+          },
+          {
+            "at": 1791306657953,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306658016
+          },
+          {
+            "at": 1791306657953,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306658016
+          },
+          {
+            "at": 1791306657953,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306658016
+          },
+          {
+            "at": 1791306658018,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 3147039,
+            "completed": true,
+            "closedAt": 1791306664009
+          }
+        ],
+        "files": [],
+        "productionHandlersUnchanged": true
+      },
+      "afterCommit": {
+        "current": {
+          "name": "known",
+          "rootId": "community_progress_root_known",
+          "depId": "community_progress_library_known",
+          "folder": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §",
+          "instance": "社区 MOD 进度 known",
+          "versionDir": "E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §\\versions\\社区 MOD 进度 known",
+          "mode": {
+            "unknown": false,
+            "failHash": false,
+            "delayMs": 50
+          },
+          "eventStart": 0,
+          "requestStart": 0
+        },
+        "events": [
+          {
+            "at": 1791306657936,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "mod-prepare",
+              "progress": 0,
+              "indeterminate": true,
+              "text": "读取 MOD 来源及兼容性，准备下载（尚未安装）…",
+              "overall": 0,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306657938,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0,
+              "overall": 0,
+              "indeterminate": true,
+              "text": "读取所选 MOD，解析内置前置要求…",
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306657938,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0,
+              "overall": 0,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 0,
+              "bytesDone": 0,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306658196,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.020824654540347293,
+              "overall": 0.017700956359295198,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 0,
+              "bytesDone": 65536,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306658456,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.07288629089121552,
+              "overall": 0.061953347257533195,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 0,
+              "bytesDone": 229376,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306658706,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.11453559997191011,
+              "overall": 0.09735525997612358,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 0,
+              "bytesDone": 360448,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306658959,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.15618490905260468,
+              "overall": 0.132757172694714,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 481426,
+              "bytesDone": 491520,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306659209,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.19783421813329927,
+              "overall": 0.16815908541330438,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 481426,
+              "bytesDone": 622592,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306659474,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.23948352721399385,
+              "overall": 0.20356099813189477,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 490641,
+              "bytesDone": 753664,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306659739,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.28113283629468844,
+              "overall": 0.23896291085048516,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 491346,
+              "bytesDone": 884736,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306660000,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.3331944726455567,
+              "overall": 0.28321530174872317,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 508549,
+              "bytesDone": 1048576,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306660261,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.37484378172625127,
+              "overall": 0.31861721446731356,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 507874,
+              "bytesDone": 1179648,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306660523,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.41649309080694585,
+              "overall": 0.35401912718590395,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 507048,
+              "bytesDone": 1310720,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306660784,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.45814239988764044,
+              "overall": 0.38942103990449434,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 506585,
+              "bytesDone": 1441792,
+              "bytesTotal": 3147039,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306661046,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.5102040362385086,
+              "overall": 0.4336734308027323,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 516677,
+              "bytesDone": 1605632,
+              "bytesTotal": 3147039,
+              "etaSeconds": 3,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306661307,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.5518533453192033,
+              "overall": 0.46907534352132274,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 515505,
+              "bytesDone": 1736704,
+              "bytesTotal": 3147039,
+              "etaSeconds": 3,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306661570,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.5935026543998978,
+              "overall": 0.5044772562399131,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 514263,
+              "bytesDone": 1867776,
+              "bytesTotal": 3147039,
+              "etaSeconds": 3,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306661833,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.6351519634805924,
+              "overall": 0.5398791689585035,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 513181,
+              "bytesDone": 1998848,
+              "bytesTotal": 3147039,
+              "etaSeconds": 3,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306662096,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.6872135998314606,
+              "overall": 0.5841315598567415,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 520217,
+              "bytesDone": 2162688,
+              "bytesTotal": 3147039,
+              "etaSeconds": 2,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306662345,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.7288629089121552,
+              "overall": 0.6195334725753319,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 520217,
+              "bytesDone": 2293760,
+              "bytesTotal": 3147039,
+              "etaSeconds": 2,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306662608,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.7705122179928497,
+              "overall": 0.6549353852939223,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 519244,
+              "bytesDone": 2424832,
+              "bytesTotal": 3147039,
+              "etaSeconds": 2,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306662871,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.8121615270735444,
+              "overall": 0.6903372980125128,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 518127,
+              "bytesDone": 2555904,
+              "bytesTotal": 3147039,
+              "etaSeconds": 2,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306663124,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.8538108361542389,
+              "overall": 0.725739210731103,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 518205,
+              "bytesDone": 2686976,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306663388,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.8954601452349336,
+              "overall": 0.7611411234496935,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 517146,
+              "bytesDone": 2818048,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306663650,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.9475217815858018,
+              "overall": 0.8053935143479315,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 522071,
+              "bytesDone": 2981888,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306663914,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.9891710906664963,
+              "overall": 0.8407954270665219,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 520953,
+              "bytesDone": 3112960,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306664057,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 1,
+              "overall": 0.85,
+              "indeterminate": false,
+              "text": "下载所选 MOD：社区模组 § known.jar",
+              "speed": 520953,
+              "bytesDone": 3147039,
+              "bytesTotal": 3147039,
+              "etaSeconds": 1,
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306664057,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "mod-prepare",
+              "progress": 0,
+              "overall": 0.85,
+              "indeterminate": true,
+              "text": "MOD 已准备，正在检测兼容性和必要前置（尚未安装）…",
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306664063,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "done",
+              "progress": 1,
+              "overall": 1,
+              "indeterminate": false,
+              "text": "预下载及检测完成，等待确认安装（尚未写入实例）",
+              "taskId": "download-1791306657936-3",
+              "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+              "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+            }
+          },
+          {
+            "at": 1791306664063,
+            "channel": "event:taskDone",
+            "payload": {
+              "taskId": "download-1791306657936-3",
+              "ok": true
+            }
+          },
+          {
+            "at": 1791306664962,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "mod-verify",
+              "progress": 0,
+              "indeterminate": true,
+              "text": "准备下载前置及校验 MOD…",
+              "overall": 0,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306665014,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0,
+              "overall": 0,
+              "indeterminate": true,
+              "text": "准备下载 1 个必要前置…",
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306665014,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0,
+              "overall": 0,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 0,
+              "bytesDone": 0,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306665270,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.062460923799502875,
+              "overall": 0.05309178522957744,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 0,
+              "bytesDone": 65536,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306665521,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.18738277139850862,
+              "overall": 0.15927535568873233,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 0,
+              "bytesDone": 196608,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306665784,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.3435350808972658,
+              "overall": 0.2920048187626759,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 0,
+              "bytesDone": 360448,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306666046,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.4684569284962716,
+              "overall": 0.3981883892218308,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 476617,
+              "bytesDone": 491520,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306666296,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.5933787760952773,
+              "overall": 0.5043719596809857,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 485775,
+              "bytesDone": 622592,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306666560,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.718300623694283,
+              "overall": 0.6105555301401405,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 487698,
+              "bytesDone": 753664,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306666810,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.8432224712932888,
+              "overall": 0.7167391005992955,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 492631,
+              "bytesDone": 884736,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306667061,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 0.9681443188922946,
+              "overall": 0.8229226710584504,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 496356,
+              "bytesDone": 1015808,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306667168,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "download",
+              "progress": 1,
+              "overall": 0.85,
+              "indeterminate": false,
+              "text": "下载 1 个必要前置",
+              "speed": 496356,
+              "bytesDone": 1049232,
+              "bytesTotal": 1049232,
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306667168,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "mod-verify",
+              "progress": 0,
+              "overall": 0.85,
+              "indeterminate": true,
+              "text": "下载已完成，正在校验兼容性、哈希与前置…",
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306667213,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "mod-commit",
+              "progress": 0,
+              "overall": 0.95,
+              "indeterminate": true,
+              "text": "正在写入 2 个 MOD…",
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306667222,
+            "channel": "event:progress",
+            "payload": {
+              "stage": "done",
+              "progress": 1,
+              "overall": 1,
+              "indeterminate": false,
+              "text": "已安装 2 个 MOD 到 E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §\\versions\\社区 MOD 进度 known\\mods",
+              "taskId": "download-1791306664962-4",
+              "taskTitle": "安装 MOD 与前置依赖",
+              "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+            }
+          },
+          {
+            "at": 1791306667234,
+            "channel": "event:taskDone",
+            "payload": {
+              "taskId": "download-1791306664962-4",
+              "ok": true
+            }
+          }
+        ],
+        "requests": [
+          {
+            "at": 1791306657951,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306658016
+          },
+          {
+            "at": 1791306657953,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306658016
+          },
+          {
+            "at": 1791306657953,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306658016
+          },
+          {
+            "at": 1791306657953,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306658016
+          },
+          {
+            "at": 1791306658018,
+            "id": "community_progress_root_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 3147039,
+            "completed": true,
+            "closedAt": 1791306664009
+          },
+          {
+            "at": 1791306665029,
+            "id": "community_progress_library_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306665085
+          },
+          {
+            "at": 1791306665029,
+            "id": "community_progress_library_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 32768,
+            "completed": false,
+            "closedAt": 1791306665085
+          },
+          {
+            "at": 1791306665088,
+            "id": "community_progress_library_known",
+            "unknown": false,
+            "hashFailure": false,
+            "sent": 1049232,
+            "completed": true,
+            "closedAt": 1791306667138
+          }
+        ],
+        "files": [
+          {
+            "name": "必要前置 § known.jar",
+            "size": 1049232,
+            "sha1": "d9eb1e78879b108f2fb64dd263fad6c3d5b74152",
+            "sha256": "b4a01ae6fca696d14977874e5d07ccc979560722ce343559ad9a5ee5413313e9"
+          },
+          {
+            "name": "社区模组 § known.jar",
+            "size": 3147039,
+            "sha1": "5db9b4fcd79ad1c2f4936076c9654dfa24126319",
+            "sha256": "62294e4a6765156234866b65f32a497e7cc23a9c4e7f80c2f6a175e76141b2e5"
+          }
+        ],
+        "productionHandlersUnchanged": true
+      },
+      "downloadRecords": []
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "known-partial",
+      "receipt": {
+        "file": "mod-progress117-known-partial.png",
+        "bytes": 124394,
+        "sha256": "f6a01d9b4248ca4314860ca9a9e8192ceee4d48048af24b5d82eda997220e129",
+        "before": {
+          "hwnd": 16322242,
+          "foreground": 16322242,
+          "ownerPid": 38828,
+          "foregroundPid": 38828,
+          "visible": true,
+          "minimized": false,
+          "focused": true,
+          "dpi": 120,
+          "dpiContext": "18",
+          "dpiAwareness": 2,
+          "observedAt": 1791306658691,
+          "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+        },
+        "after": {
+          "hwnd": 16322242,
+          "foreground": 16322242,
+          "ownerPid": 38828,
+          "foregroundPid": 38828,
+          "visible": true,
+          "minimized": false,
+          "focused": true,
+          "dpi": 120,
+          "dpiContext": "18",
+          "dpiAwareness": 2,
+          "observedAt": 1791306658746,
+          "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+        },
+        "renderer": {
+          "hasFocus": true,
+          "hidden": false,
+          "width": 1360,
+          "height": 860
+        }
+      }
+    },
+    {
+      "name": "known-explicit-opt-out",
+      "receipt": {
+        "file": "mod-progress117-known-explicit-opt-out.png",
+        "bytes": 143209,
+        "sha256": "89d7b6f04310bf076b64e760e0a9576d540313fe6ea24513ba4a3910c35d8290",
+        "before": {
+          "hwnd": 16322242,
+          "foreground": 16322242,
+          "ownerPid": 38828,
+          "foregroundPid": 38828,
+          "visible": true,
+          "minimized": false,
+          "focused": true,
+          "dpi": 120,
+          "dpiContext": "18",
+          "dpiAwareness": 2,
+          "observedAt": 1791306664677,
+          "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+        },
+        "after": {
+          "hwnd": 16322242,
+          "foreground": 16322242,
+          "ownerPid": 38828,
+          "foregroundPid": 38828,
+          "visible": true,
+          "minimized": false,
+          "focused": true,
+          "dpi": 120,
+          "dpiContext": "18",
+          "dpiAwareness": 2,
+          "observedAt": 1791306664738,
+          "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+        },
+        "renderer": {
+          "hasFocus": true,
+          "hidden": false,
+          "width": 1360,
+          "height": 860
+        }
+      }
+    },
+    {
+      "name": "known-task-0",
+      "receipt": {
+        "file": "mod-progress117-known-task-0.png",
+        "bytes": 167803,
+        "sha256": "a53819a031a72106d5d18fb7b5ad931632bdd043e45ca92e554104f370649b1c",
+        "before": {
+          "hwnd": 16322242,
+          "foreground": 16322242,
+          "ownerPid": 38828,
+          "foregroundPid": 38828,
+          "visible": true,
+          "minimized": false,
+          "focused": true,
+          "dpi": 120,
+          "dpiContext": "18",
+          "dpiAwareness": 2,
+          "observedAt": 1791306667898,
+          "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+        },
+        "after": {
+          "hwnd": 16322242,
+          "foreground": 16322242,
+          "ownerPid": 38828,
+          "foregroundPid": 38828,
+          "visible": true,
+          "minimized": false,
+          "focused": true,
+          "dpi": 120,
+          "dpiContext": "18",
+          "dpiAwareness": 2,
+          "observedAt": 1791306667950,
+          "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+        },
+        "renderer": {
+          "hasFocus": true,
+          "hidden": false,
+          "width": 1360,
+          "height": 860
+        }
+      }
+    }
+  ],
+  "setup": {
+    "classification": "Synthetic repository metadata and chunked loopback transport; original production IPC, bytes, checksum, cancellation and transaction. No live services or game launch."
+  },
+  "viewports": [
+    {
+      "requested": {
+        "width": 1360,
+        "height": 860,
+        "zoom": 1
+      },
+      "observation": {
+        "native": {
+          "bounds": {
+            "x": 855,
+            "y": 409,
+            "width": 1361,
+            "height": 861
+          },
+          "content": [
+            1360,
+            860
+          ],
+          "zoom": 1
+        },
+        "renderer": {
+          "width": 1360,
+          "height": 860,
+          "focus": true,
+          "hidden": false
+        }
+      }
+    }
+  ],
+  "error": {
+    "name": "Error",
+    "message": "Actual state did not become ready: coordinate target .dl-toggle",
+    "stack": "Error: Actual state did not become ready: coordinate target .dl-toggle\n    at until (E:\\KAMUCL\\scripts\\qa-ux117.cjs:26:11)\n    at async Object.click (E:\\KAMUCL\\scripts\\qa-ux117.cjs:30:20)\n    at async showTask (E:\\KAMUCL\\scripts\\qa-mod-progress117.cjs:37:5)\n    at async finishInstall (E:\\KAMUCL\\scripts\\qa-mod-progress117.cjs:83:170)\n    at async E:\\KAMUCL\\scripts\\qa-mod-progress117.cjs:102:88\n    at async Object.recordScreencast (E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:209:70)\n    at async module.exports (E:\\KAMUCL\\scripts\\qa-mod-progress117.cjs:97:31)\n    at async module.exports (E:\\KAMUCL\\scripts\\qa-ux117.cjs:147:61)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:233:9"
+  },
+  "restored": {
+    "complete": true,
+    "productionHandlersUnchanged": true,
+    "requests": [
+      {
+        "at": 1791306657951,
+        "id": "community_progress_root_known",
+        "unknown": false,
+        "hashFailure": false,
+        "sent": 32768,
+        "completed": false,
+        "closedAt": 1791306658016
+      },
+      {
+        "at": 1791306657953,
+        "id": "community_progress_root_known",
+        "unknown": false,
+        "hashFailure": false,
+        "sent": 32768,
+        "completed": false,
+        "closedAt": 1791306658016
+      },
+      {
+        "at": 1791306657953,
+        "id": "community_progress_root_known",
+        "unknown": false,
+        "hashFailure": false,
+        "sent": 32768,
+        "completed": false,
+        "closedAt": 1791306658016
+      },
+      {
+        "at": 1791306657953,
+        "id": "community_progress_root_known",
+        "unknown": false,
+        "hashFailure": false,
+        "sent": 32768,
+        "completed": false,
+        "closedAt": 1791306658016
+      },
+      {
+        "at": 1791306658018,
+        "id": "community_progress_root_known",
+        "unknown": false,
+        "hashFailure": false,
+        "sent": 3147039,
+        "completed": true,
+        "closedAt": 1791306664009
+      },
+      {
+        "at": 1791306665029,
+        "id": "community_progress_library_known",
+        "unknown": false,
+        "hashFailure": false,
+        "sent": 32768,
+        "completed": false,
+        "closedAt": 1791306665085
+      },
+      {
+        "at": 1791306665029,
+        "id": "community_progress_library_known",
+        "unknown": false,
+        "hashFailure": false,
+        "sent": 32768,
+        "completed": false,
+        "closedAt": 1791306665085
+      },
+      {
+        "at": 1791306665088,
+        "id": "community_progress_library_known",
+        "unknown": false,
+        "hashFailure": false,
+        "sent": 1049232,
+        "completed": true,
+        "closedAt": 1791306667138
+      }
+    ],
+    "events": [
+      {
+        "at": 1791306657936,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "mod-prepare",
+          "progress": 0,
+          "indeterminate": true,
+          "text": "读取 MOD 来源及兼容性，准备下载（尚未安装）…",
+          "overall": 0,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306657938,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0,
+          "overall": 0,
+          "indeterminate": true,
+          "text": "读取所选 MOD，解析内置前置要求…",
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306657938,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0,
+          "overall": 0,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 0,
+          "bytesDone": 0,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306658196,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.020824654540347293,
+          "overall": 0.017700956359295198,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 0,
+          "bytesDone": 65536,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306658456,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.07288629089121552,
+          "overall": 0.061953347257533195,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 0,
+          "bytesDone": 229376,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306658706,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.11453559997191011,
+          "overall": 0.09735525997612358,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 0,
+          "bytesDone": 360448,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306658959,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.15618490905260468,
+          "overall": 0.132757172694714,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 481426,
+          "bytesDone": 491520,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306659209,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.19783421813329927,
+          "overall": 0.16815908541330438,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 481426,
+          "bytesDone": 622592,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306659474,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.23948352721399385,
+          "overall": 0.20356099813189477,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 490641,
+          "bytesDone": 753664,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306659739,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.28113283629468844,
+          "overall": 0.23896291085048516,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 491346,
+          "bytesDone": 884736,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306660000,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.3331944726455567,
+          "overall": 0.28321530174872317,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 508549,
+          "bytesDone": 1048576,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306660261,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.37484378172625127,
+          "overall": 0.31861721446731356,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 507874,
+          "bytesDone": 1179648,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306660523,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.41649309080694585,
+          "overall": 0.35401912718590395,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 507048,
+          "bytesDone": 1310720,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306660784,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.45814239988764044,
+          "overall": 0.38942103990449434,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 506585,
+          "bytesDone": 1441792,
+          "bytesTotal": 3147039,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306661046,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.5102040362385086,
+          "overall": 0.4336734308027323,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 516677,
+          "bytesDone": 1605632,
+          "bytesTotal": 3147039,
+          "etaSeconds": 3,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306661307,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.5518533453192033,
+          "overall": 0.46907534352132274,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 515505,
+          "bytesDone": 1736704,
+          "bytesTotal": 3147039,
+          "etaSeconds": 3,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306661570,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.5935026543998978,
+          "overall": 0.5044772562399131,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 514263,
+          "bytesDone": 1867776,
+          "bytesTotal": 3147039,
+          "etaSeconds": 3,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306661833,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.6351519634805924,
+          "overall": 0.5398791689585035,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 513181,
+          "bytesDone": 1998848,
+          "bytesTotal": 3147039,
+          "etaSeconds": 3,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306662096,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.6872135998314606,
+          "overall": 0.5841315598567415,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 520217,
+          "bytesDone": 2162688,
+          "bytesTotal": 3147039,
+          "etaSeconds": 2,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306662345,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.7288629089121552,
+          "overall": 0.6195334725753319,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 520217,
+          "bytesDone": 2293760,
+          "bytesTotal": 3147039,
+          "etaSeconds": 2,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306662608,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.7705122179928497,
+          "overall": 0.6549353852939223,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 519244,
+          "bytesDone": 2424832,
+          "bytesTotal": 3147039,
+          "etaSeconds": 2,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306662871,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.8121615270735444,
+          "overall": 0.6903372980125128,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 518127,
+          "bytesDone": 2555904,
+          "bytesTotal": 3147039,
+          "etaSeconds": 2,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306663124,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.8538108361542389,
+          "overall": 0.725739210731103,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 518205,
+          "bytesDone": 2686976,
+          "bytesTotal": 3147039,
+          "etaSeconds": 1,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306663388,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.8954601452349336,
+          "overall": 0.7611411234496935,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 517146,
+          "bytesDone": 2818048,
+          "bytesTotal": 3147039,
+          "etaSeconds": 1,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306663650,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.9475217815858018,
+          "overall": 0.8053935143479315,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 522071,
+          "bytesDone": 2981888,
+          "bytesTotal": 3147039,
+          "etaSeconds": 1,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306663914,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.9891710906664963,
+          "overall": 0.8407954270665219,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 520953,
+          "bytesDone": 3112960,
+          "bytesTotal": 3147039,
+          "etaSeconds": 1,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306664057,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 1,
+          "overall": 0.85,
+          "indeterminate": false,
+          "text": "下载所选 MOD：社区模组 § known.jar",
+          "speed": 520953,
+          "bytesDone": 3147039,
+          "bytesTotal": 3147039,
+          "etaSeconds": 1,
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306664057,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "mod-prepare",
+          "progress": 0,
+          "overall": 0.85,
+          "indeterminate": true,
+          "text": "MOD 已准备，正在检测兼容性和必要前置（尚未安装）…",
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306664063,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "done",
+          "progress": 1,
+          "overall": 1,
+          "indeterminate": false,
+          "text": "预下载及检测完成，等待确认安装（尚未写入实例）",
+          "taskId": "download-1791306657936-3",
+          "taskTitle": "准备 MOD 社区模组 § known.jar（尚未安装）",
+          "operationId": "d83dc58f-81cd-4239-8260-629a2ed3b1e3"
+        }
+      },
+      {
+        "at": 1791306664063,
+        "channel": "event:taskDone",
+        "payload": {
+          "taskId": "download-1791306657936-3",
+          "ok": true
+        }
+      },
+      {
+        "at": 1791306664962,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "mod-verify",
+          "progress": 0,
+          "indeterminate": true,
+          "text": "准备下载前置及校验 MOD…",
+          "overall": 0,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306665014,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0,
+          "overall": 0,
+          "indeterminate": true,
+          "text": "准备下载 1 个必要前置…",
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306665014,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0,
+          "overall": 0,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 0,
+          "bytesDone": 0,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306665270,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.062460923799502875,
+          "overall": 0.05309178522957744,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 0,
+          "bytesDone": 65536,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306665521,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.18738277139850862,
+          "overall": 0.15927535568873233,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 0,
+          "bytesDone": 196608,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306665784,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.3435350808972658,
+          "overall": 0.2920048187626759,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 0,
+          "bytesDone": 360448,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306666046,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.4684569284962716,
+          "overall": 0.3981883892218308,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 476617,
+          "bytesDone": 491520,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306666296,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.5933787760952773,
+          "overall": 0.5043719596809857,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 485775,
+          "bytesDone": 622592,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306666560,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.718300623694283,
+          "overall": 0.6105555301401405,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 487698,
+          "bytesDone": 753664,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306666810,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.8432224712932888,
+          "overall": 0.7167391005992955,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 492631,
+          "bytesDone": 884736,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306667061,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 0.9681443188922946,
+          "overall": 0.8229226710584504,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 496356,
+          "bytesDone": 1015808,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306667168,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "download",
+          "progress": 1,
+          "overall": 0.85,
+          "indeterminate": false,
+          "text": "下载 1 个必要前置",
+          "speed": 496356,
+          "bytesDone": 1049232,
+          "bytesTotal": 1049232,
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306667168,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "mod-verify",
+          "progress": 0,
+          "overall": 0.85,
+          "indeterminate": true,
+          "text": "下载已完成，正在校验兼容性、哈希与前置…",
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306667213,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "mod-commit",
+          "progress": 0,
+          "overall": 0.95,
+          "indeterminate": true,
+          "text": "正在写入 2 个 MOD…",
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306667222,
+        "channel": "event:progress",
+        "payload": {
+          "stage": "done",
+          "progress": 1,
+          "overall": 1,
+          "indeterminate": false,
+          "text": "已安装 2 个 MOD 到 E:\\KAMUCL\\out\\qa-mod-progress117-152f50aa-15c0-4981-8c8d-bb3a53e00c8c\\fixture\\known\\游戏 §\\versions\\社区 MOD 进度 known\\mods",
+          "taskId": "download-1791306664962-4",
+          "taskTitle": "安装 MOD 与前置依赖",
+          "operationId": "423f5d7d-9490-42ad-a3dc-6ef3dd0c97cc"
+        }
+      },
+      {
+        "at": 1791306667234,
+        "channel": "event:taskDone",
+        "payload": {
+          "taskId": "download-1791306664962-4",
+          "ok": true
+        }
+      }
+    ]
+  },
+  "finishedAt": "2026-10-06T17:11:19.768Z"
+}

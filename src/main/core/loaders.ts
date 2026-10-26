@@ -12,10 +12,11 @@ import { ParallelProgress } from './parallelProgress'
 import { copyRuntimeProfile } from './packRuntime'
 import { fmlArgument, missingNeoRuntime, reuseExternalRuntimeLibraries } from './externalRuntime'
 import type { FabricApiVersion, LoaderName, ProgressEvent } from '../../shared/types'
-import { BMCL_MAVEN_ROOT, downloadAll, downloadFile, fetchSignal } from './download'
-import { isCancelError } from './tasks'
+import { BMCL_MAVEN_ROOT, downloadAll, downloadCandidates, downloadFile, fetchSignal } from './download'
+import { isCancelError, waitIfTaskPaused } from './tasks'
 import { downloadLoaderInstaller } from './installerDownload'
 import { prepareInstallerDependencies } from './installerDependencies'
+import { readLegacyForgeInstaller, prepareLegacyForgeInstaller, type PreparedLegacyForgeInstaller } from './legacyForgeInstaller'
 import { SmoothedSpeedEstimator } from './downloadProgress'
 import { logScope } from './launcherLog'
 
@@ -141,17 +142,74 @@ export async function listLoaderVersions(
 
 // ---------------- 安装 ----------------
 
+/** Legacy Forge builds can publish a branch suffix absent from the pack's
+ * loader version. Resolve the exact Maven coordinate rather than append the
+ * Minecraft version to every old build (many also have an unsuffixed release). */
+export async function resolveForgeInstallerUrl(
+  mcVersion: string,
+  loaderVersion: string,
+  mirror: 'official' | 'bmclapi',
+  signal?: AbortSignal
+): Promise<string> {
+  signal?.throwIfAborted()
+  const base = `${mcVersion}-${loaderVersion}`
+  const installerUrl = (coordinate: string) =>
+    `https://maven.minecraftforge.net/net/minecraftforge/forge/${coordinate}/forge-${coordinate}-installer.jar`
+  // Modern Forge and explicitly supplied branch coordinates keep their URL
+  // and perform no extra metadata request.
+  if (!/^1\.(?:[1-9]|1[0-2])(?:\.\d+)?$/.test(mcVersion) || loaderVersion.includes('-')) {
+    return installerUrl(base)
+  }
+  const metadata = 'https://maven.minecraftforge.net/net/minecraftforge/forge/maven-metadata.xml'
+  for (const source of downloadCandidates([metadata], mirror)) {
+    await waitIfTaskPaused(signal)
+    signal?.throwIfAborted()
+    const timeout = AbortSignal.timeout(4000)
+    const requestSignal = signal ? AbortSignal.any([signal, timeout]) : timeout
+    try {
+      // Use Chromium's OS/PAC route on the desktop just like the version
+      // catalog. Node fetch alone can miss the player's configured proxy.
+      const fetcher = process.versions.electron ? (await import('electron')).net.fetch : fetch
+      await waitIfTaskPaused(signal)
+      requestSignal.throwIfAborted()
+      const response = await fetcher(source, { signal: requestSignal })
+      if (!response.ok) { await response.body?.cancel(); continue }
+      const xml = await response.text()
+      requestSignal.throwIfAborted()
+      const versions = [...xml.matchAll(/<version>([^<]+)<\/version>/g)].map(match => match[1].trim())
+      if (versions.includes(base)) return installerUrl(base)
+      const branches = [...new Set(versions.filter(version =>
+        version.startsWith(`${base}-`) && /^[A-Za-z0-9._-]+$/.test(version)))]
+      const coordinate = branches.find(version => version === `${base}-${mcVersion}`) ??
+        (branches.length === 1 ? branches[0] : undefined)
+      if (coordinate) return installerUrl(coordinate)
+    } catch (error) {
+      signal?.throwIfAborted()
+      loaderLog.warn(`旧版 Forge Maven 元数据不可用：${source}（${error instanceof Error ? error.message : String(error)}）`)
+    }
+  }
+  // A missing/unavailable index must not break legacy builds which already
+  // use the ordinary coordinate. Installer download retains its own fallback,
+  // sidecar checksum and install_profile processing.
+  signal?.throwIfAborted()
+  return installerUrl(base)
+}
+
 /** 选一个可用 java 运行安装器：优先本机扫描，实在不行用 ensureJava 下载 */
-async function pickJavaForInstaller(mcVersion: string, emit: ProgressEmit): Promise<string> {
+async function pickJavaForInstaller(mcVersion: string, emit: ProgressEmit, signal?: AbortSignal): Promise<string> {
   const vj = readVersionJson(mcVersion)
-  return await ensureJava(vj, emit)
+  return await ensureJava(vj, emit, mcVersion, { signal })
 }
 
 /** 运行 forge/neoforge 安装器：全量输出落盘 installer.log；失败带最后 30 行；--mirror= 等号形式，失败降级去 mirror 重试；signal 取消时杀掉安装器进程 */
 function runInstaller(javaPath: string, jar: string, emit: ProgressEmit, signal?: AbortSignal, target = gameDir()): Promise<void> {
   // External Java installers rewrite launcher_profiles.json in their target folder.
   // Only this final installer phase is serialized; version/file downloads remain concurrent.
-  return withFileJob(path.join(target, '.kamucl-installer'), signal, () => runInstallerUnlocked(javaPath, jar, emit, signal, target))
+  emit({ stage: 'loader-process', progress: 0, indeterminate: true, text: '等待同一游戏目录的安装器任务完成…' })
+  return withFileJob(path.join(target, '.kamucl-installer'), signal, () => {
+    emit({ stage: 'loader-process', progress: 0, indeterminate: true, text: '正在启动加载器安装器…' })
+    return runInstallerUnlocked(javaPath, jar, emit, signal, target)
+  })
 }
 
 function runInstallerUnlocked(javaPath: string, jar: string, emit: ProgressEmit, signal: AbortSignal | undefined, target: string): Promise<void> {
@@ -261,7 +319,7 @@ export async function repairNeoRuntime(json: VersionJson, clientJar: string, bas
     const repairEmit:ProgressEmit=event=>emit({...event,stage:'repair',text:`修复 NeoForge：${event.text}`})
     await downloadLoaderInstaller(`https://maven.neoforged.net/releases/net/neoforged/neoforge/${neo}/neoforge-${neo}-installer.jar`, jar, mirror,
       (done,total)=>repairEmit({stage:'repair',progress:total?done/total:0,text:'下载安装器 '+(done/1024/1024).toFixed(1)+'MB',bytesDone:done,bytesTotal:total||undefined}))
-    const java = await ensureJava(baseJson, emit)
+    const java = await ensureJava(baseJson, emit, mc)
     await prepareInstallerDependencies(jar, staging, mirror, repairEmit)
     await runInstaller(java, jar, repairEmit, undefined, staging)
     reuseExternalRuntimeLibraries(json, [staging], librariesDir(), tasks.map(t => t.dest))
@@ -394,16 +452,9 @@ async function installLoaderInternal(
   }
 
   // ---- forge / neoforge：下载 installer 并运行 ----
-  const fileBase =
-    loader === 'forge'
-      ? `forge-${mcVersion}-${loaderVersion}-installer.jar`
-      : `neoforge-${loaderVersion}-installer.jar`
-  const officialUrl =
-    loader === 'forge'
-      ? `https://maven.minecraftforge.net/net/minecraftforge/forge/${mcVersion}-${loaderVersion}/${fileBase}`
-      : `https://maven.neoforged.net/releases/net/neoforged/neoforge/${loaderVersion}/${fileBase}`
-
   const jarPath = path.join(os.tmpdir(), `kamucl-${loader}-installer-${Date.now()}.jar`)
+  let legacyInstaller: PreparedLegacyForgeInstaller | undefined
+  let legacyInstalledId: string | undefined
   try {
     // A user-owned matching loader instance must not be renamed into a new pack.
     const reusable = instanceName?.trim() ? findInstalledDir(loader, mcVersion, loaderVersion) : null
@@ -422,6 +473,7 @@ async function installLoaderInternal(
         { id: 'installer', label: '加载器下载', weight: 0.2 },
         { id: 'processor', label: '生成运行文件', weight: 0.2 }
       ], emit, '同步准备原版环境与加载器', [0, 0.9])
+      parallel.waiting('processor', '等待游戏本体、依赖库和加载器准备完成…')
       let resolvePrepared!: () => void, rejectPrepared!: (error: unknown) => void
       const prepared = { promise: new Promise<void>((resolve, reject) => { resolvePrepared = resolve; rejectPrepared = reject }),
         resolve: () => resolvePrepared(), reject: (error: unknown) => rejectPrepared(error) }
@@ -429,18 +481,27 @@ async function installLoaderInternal(
       await runParallelTasks([
         async signal => {
           await prepareVanilla(e => parallel.update('vanilla', e), signal, async signal => {
+            parallel.waiting('processor', '等待加载器依赖下载与校验完成…')
             await prepared.promise
             signal.throwIfAborted()
             const processorEmit: ProgressEmit = e => parallel.update('processor', e)
-            const javaPath = await pickJavaForInstaller(mcVersion, processorEmit)
-            // Forge/NeoForge 安装器要求目标目录存在 launcher_profiles.json，否则报错退出
-            const lp = path.join(gameDir(), 'launcher_profiles.json')
-            if (!fs.existsSync(lp)) {
-              fs.writeFileSync(lp, JSON.stringify({ profiles: {}, settings: {}, version: 3 }, null, 2), 'utf-8')
+            if (legacyInstaller) {
+              // Pre-CLI Forge cannot accept --installClient. Its official
+              // install/versionInfo profile is declarative and embeds its JAR.
+              processorEmit({ stage: 'loader-process', progress: 0, indeterminate: true, text: '校验并生成旧版 Forge 运行配置…' })
+              legacyInstalledId = await legacyInstaller.install(gameDir(), instanceName, processorEmit, signal)
+            } else {
+              processorEmit({ stage: 'java', progress: 0, indeterminate: true, text: '正在检查加载器所需的 Java 环境…' })
+              const javaPath = await pickJavaForInstaller(mcVersion, e => processorEmit({ ...e, progress: 0, overall: undefined, indeterminate: true }), signal)
+              // Forge/NeoForge 安装器要求目标目录存在 launcher_profiles.json，否则报错退出
+              const lp = path.join(gameDir(), 'launcher_profiles.json')
+              if (!fs.existsSync(lp)) {
+                fs.writeFileSync(lp, JSON.stringify({ profiles: {}, settings: {}, version: 3 }, null, 2), 'utf-8')
+              }
+              signal?.throwIfAborted()
+              processorEmit({ stage: 'loader-process', progress: 0, indeterminate: true, text: '生成加载器运行文件…' })
+              await runInstaller(javaPath, jarPath, processorEmit, signal)
             }
-            signal?.throwIfAborted()
-            processorEmit({ stage: 'loader-process', progress: 0, indeterminate: true, text: '生成加载器运行文件…' })
-            await runInstaller(javaPath, jarPath, processorEmit, signal)
             processorEmit({ stage: 'loader-process', progress: 1, text: '加载器运行文件已生成' })
 
             parallel.done('processor')
@@ -453,6 +514,9 @@ async function installLoaderInternal(
             loaderEmit({ stage: 'loader', progress: 0.2, text: `下载 ${loader} 安装器` })
             const estimator = new SmoothedSpeedEstimator()
             let networkBytes = 0
+            const officialUrl = loader === 'forge'
+              ? await resolveForgeInstallerUrl(mcVersion, loaderVersion, getSettings().mirror, signal)
+              : `https://maven.neoforged.net/releases/net/neoforged/neoforge/${loaderVersion}/neoforge-${loaderVersion}-installer.jar`
             await downloadLoaderInstaller(officialUrl, jarPath, getSettings().mirror, (d, t, wire = 0) => {
               networkBytes += wire
               const rate = estimator.sample(networkBytes, t ? Math.max(0, t - d) : null, performance.now())
@@ -461,8 +525,9 @@ async function installLoaderInternal(
                 speed: rate.speedBps, etaSeconds: rate.etaSeconds ?? undefined, bytesDone: d, bytesTotal: t || undefined })
             }, signal)
 
-
-            await prepareInstallerDependencies(jarPath, gameDir(), getSettings().mirror, loaderEmit, signal)
+            const legacy = loader === 'forge' ? readLegacyForgeInstaller(jarPath, mcVersion, loaderVersion, officialUrl) : null
+            if (legacy) legacyInstaller = await prepareLegacyForgeInstaller(legacy, librariesDir(), getSettings().mirror, loaderEmit, signal)
+            else await prepareInstallerDependencies(jarPath, gameDir(), getSettings().mirror, loaderEmit, signal)
             parallel.done('installer')
             prepared.resolve()
           } catch (error) { prepared.reject(error); throw error }
@@ -470,7 +535,7 @@ async function installLoaderInternal(
       ], signal)
 
 
-      const id0 = findInstalledDir(loader, mcVersion, loaderVersion)
+      const id0 = legacyInstalledId ?? findInstalledDir(loader, mcVersion, loaderVersion)
       if (!id0) throw new Error('安装器运行结束，但未找到生成的版本目录')
       // 自定义实例名：重命名安装器生成的目录与 json id
       id = id0
@@ -509,6 +574,8 @@ async function installLoaderInternal(
         signal
       )
     }
+    signal?.throwIfAborted()
+    legacyInstaller?.complete()
     emit({ stage: 'done', progress: 1, text: `${id} 安装完成` })
     registerVersionFolder(id, gameDir()) // forge/neoforge 实例注册到当前活动文件夹
     // 落地即拍平为自包含实例（此时原版 json/jar 仍在 versions/ 可直接合并复制；finally 再迁移进依赖缓存区）
@@ -519,6 +586,7 @@ async function installLoaderInternal(
     }
     return id
   } finally {
+    legacyInstaller?.dispose()
     fs.rmSync(jarPath, { force: true })
     // 本次安装临时落地的原版条目迁移进依赖区（无论成败），版本列表只保留加载器实例
     if (!vanillaPreExisted) {

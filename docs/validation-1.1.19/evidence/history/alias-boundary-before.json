@@ -1,0 +1,193 @@
+{
+  "classification": "Read-only production archive probe using synthetic manifests. No network, installation, game launch or native GUI acceptance.",
+  "platform": "win32",
+  "at": "2026-10-07T08:04:05.175Z",
+  "sources": {
+    "src/main/core/modpacks.ts": "7e6a1ba3f2d48d7c0168b9bf89c198ae2b9f271971ef90ee241bbeec5adfe138",
+    "src/main/core/importProbe.ts": "f9b221da2145c25bba337ad1a6e60853d565738ac26e119545f1f3ff6cbd7ce1",
+    "src/renderer/src/App.vue": "a4e86f750b5fb3529262b6ca839a672121bbd02694b62cc49dba3adbc6293aa4",
+    "tests/mrpack-import-119.test.ts": "4d4dacac086408f053ac5d659194b28425d466240b22cb9f633daea7861048c8"
+  },
+  "results": [
+    {
+      "name": "plain-json",
+      "expected": "modpack",
+      "actual": "modpack",
+      "matched": true,
+      "innerName": "synthetic boundary",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\plain-json.mrpack",
+      "sha256": "13e799fdc7c26e675786643bec88b3195ec82ef6bd77f0f349215138954404df",
+      "originalUnchanged": true
+    },
+    {
+      "name": "leading-single-utf8-bom",
+      "expected": "modpack",
+      "actual": "modpack",
+      "matched": true,
+      "innerName": "synthetic boundary",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\leading-single-utf8-bom.mrpack",
+      "sha256": "b429cf4e28695de9c10232293ecf5026565c277166b3891f93c93d31353eda4e",
+      "originalUnchanged": true
+    },
+    {
+      "name": "leading-double-bom",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "modrinth.index.json 已损坏，整合包无法解析",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\leading-double-bom.mrpack",
+      "sha256": "c39c46f5e5670372ebc39853edeebde7a63c00b7dfb9e2de08305f4104a2d70e",
+      "originalUnchanged": true
+    },
+    {
+      "name": "whitespace-before-bom",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "modrinth.index.json 已损坏，整合包无法解析",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\whitespace-before-bom.mrpack",
+      "sha256": "02d974572abb9f99c7ca9e603dec7403978b586a9748febe8ba88c27ff1c73eb",
+      "originalUnchanged": true
+    },
+    {
+      "name": "quoted-interior-bom-preserved",
+      "expected": "modpack",
+      "actual": "modpack",
+      "matched": true,
+      "innerName": "synthetic﻿name",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\quoted-interior-bom-preserved.mrpack",
+      "sha256": "d1d75a1e0e5430f4c99ab2fc9ca35ac145dce3b49e509e15716db8dc3c769a1a",
+      "originalUnchanged": true
+    },
+    {
+      "name": "bom-malformed-json",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "modrinth.index.json 已损坏，整合包无法解析",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\bom-malformed-json.mrpack",
+      "sha256": "ee2f24a02528abc3b1ff5986f05fe73aecd93e6fd18b93126ff6160d00c1d484",
+      "originalUnchanged": true
+    },
+    {
+      "name": "unsafe-path-6",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 文件路径不安全：../escape.jar",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\unsafe-path-6.mrpack",
+      "sha256": "afb341f9e49dbdb267eb6adf2106c6b3b1f7e920a453c50d08a2363014ac6196",
+      "originalUnchanged": true
+    },
+    {
+      "name": "unsafe-path-7",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 文件路径不安全：C:/escape.jar",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\unsafe-path-7.mrpack",
+      "sha256": "58ed13a31ff231bee65654ecef75055377796664967fcbc0da1c385da9c663d3",
+      "originalUnchanged": true
+    },
+    {
+      "name": "unsafe-path-8",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 文件路径不安全：mods/a.jar:stream",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\unsafe-path-8.mrpack",
+      "sha256": "e01bad34e460512c30cd152ac971384bf051a67b0ccc90f6b6ffa41f6a471c97",
+      "originalUnchanged": true
+    },
+    {
+      "name": "unsafe-path-9",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 文件路径不安全：mods/CON.jar",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\unsafe-path-9.mrpack",
+      "sha256": "3df0d1ab5502e670e207fa9ed57df157fced41aacd134e5e1c0ae9007075bd4c",
+      "originalUnchanged": true
+    },
+    {
+      "name": "unsafe-path-10",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 文件路径不安全：mods/a.jar.",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\unsafe-path-10.mrpack",
+      "sha256": "be07447dbca5b65218f73cc3c9b268bfcdd51005b9a30503e5b8f35efd26025e",
+      "originalUnchanged": true
+    },
+    {
+      "name": "invalid-integrity-11",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 文件缺少 SHA1/SHA512：mods/a.jar",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\invalid-integrity-11.mrpack",
+      "sha256": "576d90d4d313f6c3fd60a3e0b6f0d9f5770190d2dc98c9f6c2426ca4ffd94d66",
+      "originalUnchanged": true
+    },
+    {
+      "name": "invalid-integrity-12",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 文件 SHA1 无效：mods/a.jar",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\invalid-integrity-12.mrpack",
+      "sha256": "2787bc723251f871a7aba036483f007406400bd1bcbb72052845dfb7faef6bce",
+      "originalUnchanged": true
+    },
+    {
+      "name": "invalid-integrity-13",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 文件 SHA512 无效：mods/a.jar",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\invalid-integrity-13.mrpack",
+      "sha256": "9b35ef74386ed53fc146660eb5881686994d3588992f0f3f6789da2617f4827b",
+      "originalUnchanged": true
+    },
+    {
+      "name": "duplicate-target-14",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 清单包含重复目标路径：mods/a.jar",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\duplicate-target-14.mrpack",
+      "sha256": "9eb8884543976d1fd7d374cff31b48ce2531fa24758af0ee67087c49a3a588b0",
+      "originalUnchanged": true
+    },
+    {
+      "name": "duplicate-target-15",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 清单包含重复目标路径：mods/a.jar",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\duplicate-target-15.mrpack",
+      "sha256": "5d35be9b1c38d97705577bea4e185c1cfb5cad5148bd27afda846f74bfafe03e",
+      "originalUnchanged": true
+    },
+    {
+      "name": "duplicate-target-16",
+      "expected": "rejected",
+      "actual": "rejected",
+      "matched": true,
+      "error": "Modrinth 清单包含重复目标路径：mods/a.jar",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\duplicate-target-16.mrpack",
+      "sha256": "452a99e2fbfed049eabb4e80df2d7fc875985476ec69b6167c83016083440418",
+      "originalUnchanged": true
+    },
+    {
+      "name": "duplicate-target-17",
+      "expected": "rejected",
+      "actual": "modpack",
+      "matched": false,
+      "innerName": "synthetic boundary",
+      "file": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\duplicate-target-17.mrpack",
+      "sha256": "df80ee497bf0c036cc1dbe8a7d8400e39ec6b6e4dafb94ba786283ddf2198782",
+      "originalUnchanged": true
+    }
+  ]
+}

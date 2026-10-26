@@ -1,0 +1,97 @@
+{
+  "version": "1.1.19",
+  "theme": "blue-white",
+  "legacy": false,
+  "complete": false,
+  "directory": "E:\\KAMUCL\\out\\qa-skin-layers119-blue-white-a7a0b98e-b8e2-4af4-b485-5061c3bbadb9",
+  "steps": [],
+  "screenshots": [],
+  "classification": "Owned actual Electron window, trusted coordinates and keyboard; read-only mounted Vue/canvas observation. Synthetic account/profile only; no game or server request.",
+  "identity": {
+    "pid": 54468,
+    "ppid": 55468,
+    "windowId": 1,
+    "webContentsId": 1
+  },
+  "window": {
+    "requested": {
+      "width": 960,
+      "height": 620,
+      "zoom": 1
+    },
+    "actual": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 962,
+        "height": 623
+      },
+      "contentBounds": {
+        "x": 855,
+        "y": 409,
+        "width": 961,
+        "height": 622
+      },
+      "zoom": 1,
+      "displayScaleFactor": 1.25
+    },
+    "renderer": {
+      "inner": {
+        "width": 962,
+        "height": 622
+      },
+      "client": {
+        "width": 962,
+        "height": 622
+      },
+      "visual": {
+        "width": 961.5999755859375,
+        "height": 622.4000244140625,
+        "scale": 1
+      },
+      "devicePixelRatio": 1.25
+    },
+    "qualification": "Native DIP request, observed minimum and Windows 125% rounding; same pre-existing 118 bounds tolerance <=3 DIP and original <1 CSS pixel viewport comparison, not exact physical pixel claim"
+  },
+  "fixedControls": [
+    {
+      "selector": ".editor-header",
+      "visible": true,
+      "rect": {
+        "x": 16.838703155517578,
+        "y": 16.874616622924805,
+        "width": 927.9225463867188,
+        "height": 76.19364166259766
+      }
+    },
+    {
+      "selector": ".editor-close",
+      "visible": true,
+      "rect": {
+        "x": 888.7659301757812,
+        "y": 36.972938537597656,
+        "width": 35.99697494506836,
+        "height": 35.99699783325195
+      }
+    },
+    {
+      "selector": ".editor-footer",
+      "visible": true,
+      "rect": {
+        "x": 16.838703155517578,
+        "y": 536.8312377929688,
+        "width": 927.9225463867188,
+        "height": 68.79424285888672
+      }
+    }
+  ],
+  "error": {
+    "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 10030780\n- 39653372\n",
+    "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 10030780\n- 39653372\n\n    at focus (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:14:134)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async click (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:20:264)\n    at async newSkin (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:28:27)\n    at async module.exports (E:\\KAMUCL\\scripts\\qa-skin-layers119.cjs:48:62)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:235:9"
+  },
+  "diagnostic": {
+    "events": [],
+    "restoredListeners": 0
+  },
+  "closeError": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 10030780\n- 39653372\n"
+}

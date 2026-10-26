@@ -1,0 +1,1053 @@
+{
+  "classification": "Original current production Forge pack orchestration events; only Java readiness and installer child are synthetic, no real JVM or game launch",
+  "events": [
+    {
+      "stage": "modpack",
+      "progress": 0,
+      "text": "解析整合包信息…",
+      "manualFiles": null,
+      "overall": 0
+    },
+    {
+      "stage": "modpack",
+      "progress": 0.02,
+      "text": "Forge fixture116（MC 1.20.1 + forge 47.4.23）",
+      "manualFiles": null,
+      "overall": 0.02
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.04,
+      "overall": 0.04,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "label": "游戏环境与加载器",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.04,
+      "overall": 0.04,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "stage": "version-json",
+          "label": "游戏环境与加载器",
+          "text": "检查原版 1.20.1",
+          "progress": 0,
+          "state": "running"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.04,
+      "overall": 0.04,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla",
+          "label": "原版环境",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "runtime/installer",
+          "label": "加载器下载",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待游戏本体、依赖库和加载器准备完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.05584,
+      "overall": 0.05584,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla",
+          "label": "原版环境",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载 forge 安装器",
+          "progress": 0.2,
+          "state": "running"
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待游戏本体、依赖库和加载器准备完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.05584,
+      "overall": 0.05584,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla",
+          "stage": "version-json",
+          "label": "原版环境",
+          "text": "获取版本信息 1.20.1",
+          "progress": 0,
+          "state": "running"
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载 forge 安装器",
+          "progress": 0.2,
+          "state": "running"
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待游戏本体、依赖库和加载器准备完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.065344,
+      "overall": 0.065344,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 0,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "label": "资源文件",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载 forge 安装器",
+          "progress": 0.2,
+          "state": "running"
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待游戏本体、依赖库和加载器准备完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.18643921599999996,
+      "overall": 0.18643921599999996,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 0.999,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "label": "资源文件",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载 forge 安装器",
+          "progress": 0.2,
+          "state": "running"
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待游戏本体、依赖库和加载器准备完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.18643921599999996,
+      "overall": 0.18643921599999996,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 0.999,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 0,
+          "state": "running"
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载 forge 安装器",
+          "progress": 0.2,
+          "state": "running"
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待游戏本体、依赖库和加载器准备完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.25059121599999995,
+      "overall": 0.25059121599999995,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 0.999,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载 forge 安装器",
+          "progress": 0.2,
+          "state": "running"
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待游戏本体、依赖库和加载器准备完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.25067199999999995,
+      "overall": 0.25067199999999995,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载 forge 安装器",
+          "progress": 0.2,
+          "state": "running"
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待游戏本体、依赖库和加载器准备完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.720672,
+      "overall": 0.720672,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载 forge 安装器",
+          "progress": 0.2,
+          "state": "running"
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待加载器依赖下载与校验完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.7840320000000001,
+      "overall": 0.7840320000000001,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载安装器 0.0MB",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/processor",
+          "label": "生成运行文件",
+          "text": "等待加载器依赖下载与校验完成…",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.7840320000000001,
+      "overall": 0.7840320000000001,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载安装器 0.0MB",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/processor",
+          "stage": "java",
+          "label": "生成运行文件",
+          "text": "正在检查加载器所需的 Java 环境…",
+          "progress": 0,
+          "state": "running",
+          "indeterminate": true
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.7840320000000001,
+      "overall": 0.7840320000000001,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载安装器 0.0MB",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/processor",
+          "stage": "java-scan",
+          "label": "生成运行文件",
+          "text": "Fixture Java inspection active",
+          "progress": 0,
+          "state": "running",
+          "indeterminate": true
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.7840320000000001,
+      "overall": 0.7840320000000001,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载安装器 0.0MB",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/processor",
+          "stage": "loader-process",
+          "label": "生成运行文件",
+          "text": "生成加载器运行文件…",
+          "progress": 0,
+          "state": "running",
+          "indeterminate": true
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.863232,
+      "overall": 0.863232,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/client",
+          "label": "游戏本体",
+          "text": "已就绪",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/vanilla/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载安装器 0.0MB",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/processor",
+          "stage": "loader-process",
+          "label": "生成运行文件",
+          "text": "加载器运行文件已生成",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.9057624,
+      "overall": 0.9057624,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla",
+          "stage": "assets",
+          "label": "原版环境",
+          "text": "原版 1.20.1 依赖准备完成",
+          "progress": 0.999,
+          "state": "running"
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载安装器 0.0MB",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/processor",
+          "stage": "loader-process",
+          "label": "生成运行文件",
+          "text": "加载器运行文件已生成",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.9059999999999999,
+      "overall": 0.9059999999999999,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/vanilla",
+          "stage": "assets",
+          "label": "原版环境",
+          "text": "原版 1.20.1 依赖准备完成",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/installer",
+          "stage": "loader",
+          "label": "加载器下载",
+          "text": "下载安装器 0.0MB",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/processor",
+          "stage": "loader-process",
+          "label": "生成运行文件",
+          "text": "加载器运行文件已生成",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.9274720000000002,
+      "overall": 0.9274720000000002,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "stage": "loader",
+          "label": "游戏环境与加载器",
+          "text": "校验依赖库完整性…",
+          "progress": 0.9488,
+          "state": "running"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.94956,
+      "overall": 0.94956,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "stage": "done",
+          "label": "游戏环境与加载器",
+          "text": "Forge fixture116 安装完成",
+          "progress": 0.999,
+          "state": "running"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.95,
+      "overall": 0.95,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "stage": "done",
+          "label": "游戏环境与加载器",
+          "text": "Forge fixture116 安装完成",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 0/0（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "modpack",
+      "progress": 0.95,
+      "text": "写入已校验的整合包文件…",
+      "manualFiles": null,
+      "overall": 0.95
+    },
+    {
+      "stage": "modpack",
+      "progress": 0.96,
+      "text": "解压覆盖文件…",
+      "manualFiles": null,
+      "overall": 0.96
+    },
+    {
+      "stage": "modpack",
+      "progress": 0.98,
+      "text": "正在写入整合包配置 1/1 · config/fixture.txt",
+      "manualFiles": null,
+      "overall": 0.98
+    },
+    {
+      "stage": "done",
+      "progress": 1,
+      "text": "Forge fixture116 安装完成",
+      "manualFiles": null,
+      "overall": 1
+    }
+  ],
+  "spawned": 1,
+  "closed": 1,
+  "committedConfig": true,
+  "sourceHashes": [
+    {
+      "file": "src/main/core/modpacks.ts",
+      "sha256": "f714f61367ea4b4eb6509ea171721e8b909d36e36900b93fd3cf5128ce5bc3f9"
+    },
+    {
+      "file": "src/main/core/loaders.ts",
+      "sha256": "12a8d1a2258d3789ddaf70a80a3202ba580bafaa2f24f8975d991ec43675278d"
+    },
+    {
+      "file": "src/main/core/parallelProgress.ts",
+      "sha256": "455ea8090a5913d9b26f447affb43fa78edb09bcbdadd024547ab52db1a452cc"
+    }
+  ]
+}

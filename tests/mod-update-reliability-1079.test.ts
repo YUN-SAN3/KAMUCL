@@ -9,7 +9,7 @@ import { build } from 'esbuild'
 import { createRequire } from 'node:module'
 
 const hash=(bytes:Buffer|string)=>crypto.createHash('sha1').update(bytes).digest('hex')
-async function harness(){
+async function harness(context: import('node:test').TestContext, setupFault?: (root:string,server:http.Server)=>void){
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'KAMUCL 模组更新 1079 ')),dir=path.join(root,'games','mods')
  fs.mkdirSync(dir,{recursive:true})
  const h:any={root,dir,requests:[] as string[],errors:[] as string[],settings:{mirror:'bmclapi',downloadThreads:4},broken:false,running:false}
@@ -20,11 +20,24 @@ async function harness(){
   if(req.url?.startsWith('/official')||h.broken){res.writeHead(503);res.end('unavailable');return}
   res.writeHead(200,{'Content-Length':3});res.end('new')
  })
- await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));const endpoint=`http://127.0.0.1:${(server.address() as any).port}`
+ let closed=false
+ const close=async()=>{
+  if(closed)return
+  closed=true
+  if((globalThis as any).__mod1079===h)delete(globalThis as any).__mod1079
+  server.closeAllConnections()
+  if(server.listening)await new Promise<void>(r=>server.close(()=>r()))
+  assert(path.dirname(root)===os.tmpdir())
+  fs.rmSync(root,{recursive:true,force:true})
+ }
+ // Register ownership before asynchronous fixture setup can fail.
+ context.after(close)
+ await new Promise<void>((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',()=>{server.removeListener('error',reject);resolve()})});const endpoint=`http://127.0.0.1:${(server.address() as any).port}`
+ setupFault?.(root,server)
  h.fetch=(url:string,init:any)=>fetch(endpoint+(url.includes('mcimirror.top')?'/mirror':'/official')+new URL(url).pathname,init)
  const mocks:Record<string,string>={
   electron:`export const app={getPath:()=>h.root,getVersion:()=> 'test'}`,
-  settings:'export const getSettings=()=>h.settings',
+  settings:"export const getSettings=()=>h.settings;export const getCurseforgeApiKey=()=>''",
   community:"export const cfChannel=()=>({key:''})",
   httpClient:'export const httpFetch=(...args)=>h.fetch(...args)',
   modScan:`export const scanManagedModDirectory=async()=>fs.readdirSync(h.dir).filter(n=>/\.jar(?:\.disabled)?$/.test(n)).map(n=>({fileName:n,name:'Fabric API',version:'1',id:'fabric-api',sha1:crypto.createHash('sha1').update(fs.readFileSync(path.join(h.dir,n))).digest('hex')}))`,
@@ -41,10 +54,10 @@ async function harness(){
  }}]})
  ;(globalThis as any).__mod1079=h;const m={exports:{} as any};new Function('require','module','exports',result.outputFiles[0].text)(createRequire(import.meta.url),m,m.exports)
  const write=(name:string,body='old')=>fs.writeFileSync(path.join(dir,name),body)
- return{h,root,dir,api:m.exports,write,latest,close:async()=>{delete(globalThis as any).__mod1079;server.closeAllConnections();await new Promise<void>(r=>server.close(()=>r()));assert(path.dirname(root)===os.tmpdir());fs.rmSync(root,{recursive:true,force:true})}}
+ return{h,root,dir,api:m.exports,write,latest,close}
 }
-test('mod updater uses selected mirror when official CDN fails; verifies backup and preserves disabled state',async()=>{
- const t=await harness();try{
+test('mod updater uses selected mirror when official CDN fails; verifies backup and preserves disabled state',async context=>{
+ const t=await harness(context);try{
   t.write('原名.jar.disabled');const report=await t.api.checkModUpdates('fabric')
   assert.equal(report.entries[0].update.versionId,'new-version');assert(t.h.requests[0].startsWith('/mirror/'))
   const update=report.entries[0].update
@@ -55,8 +68,18 @@ test('mod updater uses selected mirror when official CDN fails; verifies backup 
   assert.equal(fs.readFileSync(path.join(backups,key,record,'files/mods/原名.jar.disabled'),'utf8'),'old')
  }finally{await t.close()}
 })
-test('failed mod download is logged with its phase, preserves original and can be retried; locked mods stay untouched',async()=>{
- const t=await harness();try{
+
+test('a fixture setup failure still closes its owned listener and removes its temporary directory',async context=>{
+ let ownedRoot='',ownedServer: http.Server | undefined
+ await context.test('the setup failure is caught without bypassing its registered cleanup',async child=>{
+  await assert.rejects(harness(child,(root,server)=>{ownedRoot=root;ownedServer=server;assert(server.listening);throw Error('Synthetic fixture setup failure')}),/Synthetic fixture setup failure/)
+ })
+ assert(ownedServer)
+ assert.equal(ownedServer.listening,false)
+ assert.equal(fs.existsSync(ownedRoot),false)
+})
+test('failed mod download is logged with its phase, preserves original and can be retried; locked mods stay untouched',async context=>{
+ const t=await harness(context);try{
   t.write('old.jar');const item={fileName:'old.jar',oldSha1:hash('old'),targetName:'new.jar',url:t.latest.files[0].url,sha1:hash('new'),size:3}
   t.h.broken=true;let r=await t.api.applyModUpdates('fabric',[item]);assert.equal(r[0].ok,false);assert.match(r[0].error,/下载新模组失败/);assert.match(r[0].error,/new.jar/);assert(t.h.errors.some((e:string)=>e.includes('old.jar')&&e.includes('下载新模组失败')));assert.equal(fs.readFileSync(path.join(t.dir,'old.jar'),'utf8'),'old')
   t.h.broken=false;r=await t.api.applyModUpdates('fabric',[item]);assert(r[0].ok,JSON.stringify(r))

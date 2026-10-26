@@ -8,7 +8,9 @@ import { centerTarget, assertInstanceIdle } from './instanceCenter'
 import { withGameFolder, assetsDir, defaultFolderPath } from './paths'
 import { resolveVersionChain, launchLibraryFiles, clientJarPath } from './versions'
 import { invalidLaunchArtifact, ensureLaunchArtifact, type LaunchArtifact } from './launchIntegrity'
-import { listJavaSummary, requiredMajor } from './java'
+import { listJavaSummary, resolveJavaRequirement, javaCompatibilityError, probeJavaAsync, resolveJavaExecutable, validateCandidateJava, type JavaRequirement } from './java'
+import { gameJavaArchitecture } from './javaArchitecture'
+import { readClientVersionEvidence } from './instanceVersionEvidence'
 import { getSettings } from './settings'
 import { exitHistory } from './exitHistory'
 import { getLastLaunch } from './launch'
@@ -20,16 +22,29 @@ import { redactDiagnosticText } from './diagnostics'
 import { selectDiagnosticSession } from './diagnosticSession'
 const plans=new Map<string,{target:InstanceTarget;files:LaunchArtifact[];metadata:string;time:number}>()
 async function tail(file:string){const stat=await fs.promises.stat(file);const size=Math.min(stat.size,2*1024*1024),handle=await fs.promises.open(file,'r');try{const data=Buffer.alloc(size);await handle.read(data,0,size,stat.size-size);return data.toString('utf8')}finally{await handle.close()}}
-export async function diagnoseInstance(target:InstanceTarget,signal?:AbortSignal,progress?:BackupProgress):Promise<{id:string;findings:DiagnosticFinding[];java:JavaInfo[];session?:string;requiredJava:number}>{
+export async function diagnoseInstance(target:InstanceTarget,signal?:AbortSignal,progress?:BackupProgress):Promise<{id:string;findings:DiagnosticFinding[];java:JavaInfo[];session?:string;requiredJava:number|null}>{
  const c=centerTarget(target)
  return withGameFolder(c.folder,async()=>{
-  const findings:DiagnosticFinding[]=[],{merged,baseId}=resolveVersionChain(target.id),need=requiredMajor(merged)
-  const java=(await listJavaSummary()).filter(j=>j.major===need&&j.is64Bit&&(!j.architecture||j.architecture===process.arch||(process.arch==='x64'&&j.architecture==='amd64')))
+  const findings:DiagnosticFinding[]=[],{merged,baseId}=resolveVersionChain(target.id)
+  const client={...merged.downloads?.client,dest:clientJarPath(baseId)}
+  const verifiedMcVersion=await invalidLaunchArtifact(client)?undefined:readClientVersionEvidence(client.dest)
+  let requirement:JavaRequirement|undefined
+  try{requirement=await resolveJavaRequirement(merged,verifiedMcVersion,{signal,modsDirectory:path.join(c.dir,'mods')})}
+  catch(error){signal?.throwIfAborted();findings.push({rule:'java-requirement',title:'无法确认 Java 需求',confidence:'unknown',evidence:redactDiagnosticText(String(error)),advice:'补全官方游戏版本元数据，或检查模组声明的 Java 需求。',action:'java'})}
+  const need=requirement?.recommendedMajor??null,arch=gameJavaArchitecture(merged),java:JavaInfo[]=[]
+  if(requirement)for(const candidate of await listJavaSummary()){
+   signal?.throwIfAborted()
+   if(javaCompatibilityError(candidate,requirement,arch,true))continue
+   try{const actual=await validateCandidateJava(candidate,signal);if(!javaCompatibilityError(actual,requirement,arch,true))java.push(actual)}catch{signal?.throwIfAborted()}
+  }
   const configured=c.json._javaAuto?undefined:c.json._javaPath||(!getSettings().javaAuto?getSettings().javaPath:undefined)
-  if(configured&&!fs.existsSync(configured))findings.push({rule:'java-missing',title:'指定的 Java 已不存在',confidence:'certain',evidence:redactDiagnosticText(configured),advice:`为本实例选择 Java ${need}。`,action:'java'})
-  else if(configured){const selected=(await listJavaSummary()).find(j=>samePath(j.path,configured));if(selected&&(selected.major!==need||!selected.is64Bit))findings.push({rule:'java-selection',title:'指定 Java 与实例需求不一致',confidence:'certain',evidence:`需要 Java ${need}（64 位），当前为 Java ${selected.major}`,advice:'从兼容列表中重新选择。',action:'java'})}
-  else if(!java.length)findings.push({rule:'java-unavailable',title:'未发现已登记的兼容 Java',confidence:'possible',evidence:`实例需求：Java ${need}（64 位）`,advice:'在 Java 管理中扫描或安装适配运行时。',action:'java'})
-  const files:LaunchArtifact[]=[{...merged.downloads?.client,dest:clientJarPath(baseId)},...launchLibraryFiles(merged)]
+  if(configured&&!fs.existsSync(configured))findings.push({rule:'java-missing',title:'指定的 Java 已不存在',confidence:'certain',evidence:redactDiagnosticText(configured),advice:need?`为本实例选择 Java ${need}。`:'重新选择有效的 Java 路径。',action:'java'})
+  else if(configured&&requirement){
+   try{const exe=await resolveJavaExecutable(configured,signal),selected=await probeJavaAsync(exe,signal);if(!selected)throw new Error('Java 无法正常运行');const error=javaCompatibilityError(selected,requirement,arch);if(error)throw new Error(error);await validateCandidateJava(selected,signal)}
+   catch(error){signal?.throwIfAborted();findings.push({rule:'java-selection',title:'指定 Java 与实例需求不一致',confidence:'certain',evidence:redactDiagnosticText(String(error)),advice:'选择满足游戏、加载器与模组要求的完整 Java，或开启自动管理。',action:'java'})}
+  }
+  else if(requirement&&!java.length)findings.push({rule:'java-unavailable',title:'未发现已登记的兼容 Java',confidence:'possible',evidence:`实例推荐：Java ${need}（64 位${arch?'，'+arch:''}）`,advice:'在 Java 管理中扫描或安装适配运行时；自动管理将准备推荐版本。',action:'java'})
+  const files:LaunchArtifact[]=[client,...launchLibraryFiles(merged)]
   const asset=merged.assetIndex
   if(asset&&/^[\w.-]+$/.test(asset.id)&&asset.id!=='.'&&asset.id!=='..')files.push({...asset,dest:path.join(assetsDir(),'indexes',asset.id+'.json')})
   const bad:LaunchArtifact[]=[]

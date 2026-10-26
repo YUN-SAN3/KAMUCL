@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "route": "native-electron-openharmony-hap",
+  "electronVersion": "37.2.0",
+  "platform": "openharmony",
+  "architecture": "arm64",
+  "release": {
+    "repository": "https://gitcode.com/CPF-Electron/Electron",
+    "tag": "v37.2.0",
+    "targetCommit": "cc29ebbebf505ea8e68290e998212eec6b4b4e3b",
+    "assetId": 64049,
+    "url": "https://gitcode.com/CPF-Electron/Electron/releases/download/v37.2.0/v37.2.0-openharmony-arm64.zip",
+    "bytes": 364103698,
+    "sha256": "57bf0314ce3f5be80fc7a7ebc4f47a2fe82a5e4afcf5fe856ad9cfc342618946",
+    "digestSource": "locally computed from the complete maintainer download; not a maintainer signature"
+  },
+  "archive": {
+    "member": "libelectron_138.tar.gz",
+    "bytes": 367047622,
+    "sha256": "532cc5922754a591eabd2d3bc9ba65aafa969590d2b6c18229f7651c2a7832d1",
+    "templateRoot": "libelectron/ohos_hap"
+  },
+  "source": {
+    "repository": "https://gitcode.com/zhangqingnan_codeing/Electron_CPF",
+    "branch": "v37.2.0-openharmony",
+    "observedCommit": "1c0e05bc9a28791c74e846ce4f11bc16cd191001",
+    "warning": "Source branch observation is not proof that this commit built the release binary."
+  },
+  "documentation": {
+    "repository": "https://gitcode.com/CPF-Electron/Electron",
+    "observedCommit": "af515cbf8594f5feb6626f150f8e36fd8bf8f1ec"
+  },
+  "template": {
+    "compatibleSdkVersion": "5.0.5(17)",
+    "modelVersion": "5.0.0",
+    "runtimeOS": "HarmonyOS",
+    "deviceTypes": ["2in1"],
+    "compileSdkValidated": false
+  },
+  "libraries": [
+    { "name": "libadapter.so", "bytes": 1566256, "sha256": "e2fec2e82fd9e3ca2a65e862a037329684ffbcb8bb3d489b309b8ee373f2dd9a" },
+    { "name": "libc++_shared.so", "bytes": 7519624, "sha256": "7074f319674b724f761dea6816412101fedc00ea15ea7fc028999e7826e54939" },
+    { "name": "libelectron.so", "bytes": 177420024, "sha256": "8f865ffdd4eacea87da938f1676ffbb653fc1746120bbb43e06bb46b40576541" },
+    { "name": "libffmpeg.so", "bytes": 2198160, "sha256": "8002a0c8721a4a2cedda97971528294c1333c6e27fe648d1444258a56714fb3a" }
+  ],
+  "releaseGates": {
+    "sdkCompilation": "not-verified",
+    "signingAndJitPermission": "not-verified",
+    "nativeDeviceUiAndAnimation": "not-verified",
+    "nativeMinecraftJvmAndLibraries": "not-verified",
+    "nativeFrp": "not-verified",
+    "runtimeThirdPartyNotices": "incomplete"
+  }
+}

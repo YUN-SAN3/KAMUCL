@@ -107,12 +107,21 @@ function loadKernel32Trim(): Promise<Kernel32TrimApi | null> {
 }
 
 /** PowerShell 兜底：单次 P/Invoke EmptyWorkingSet 整理自身（约几百 ms，只在 koffi 缺失时触发） */
+export function trimSelfPowerShellScript(selfPid: number): string {
+  if (!Number.isSafeInteger(selfPid) || selfPid <= 0) throw new Error('无效的启动器进程')
+  // GetCurrentProcess inside PowerShell targets PowerShell itself. Open only the
+  // supplied launcher PID and always close the handle, even on native failure.
+  return "$s='[DllImport(\"psapi.dll\")] public static extern bool EmptyWorkingSet(IntPtr h);" +
+    '[DllImport("kernel32.dll")] public static extern IntPtr OpenProcess(uint access, bool inherit, uint pid);' +
+    '[DllImport("kernel32.dll")] public static extern bool CloseHandle(IntPtr h);\';' +
+    "Add-Type -MemberDefinition $s -Name KamuclTrim -Namespace Win32 | Out-Null;" +
+    `$h=[Win32.KamuclTrim]::OpenProcess(1280,$false,${selfPid});` +
+    'if($h -eq [IntPtr]::Zero){exit 1};try{if(-not [Win32.KamuclTrim]::EmptyWorkingSet($h)){exit 1}}finally{[Win32.KamuclTrim]::CloseHandle($h)|Out-Null}'
+}
+
 async function trimSelfViaPowerShell(selfPid: number): Promise<boolean> {
   const { execFile } = await import('node:child_process')
-  const script =
-    "$s='[DllImport(\"psapi.dll\")] public static extern bool EmptyWorkingSet(IntPtr h);[DllImport(\"kernel32.dll\")] public static extern IntPtr GetCurrentProcess();';" +
-    "Add-Type -MemberDefinition $s -Name KamuclTrim -Namespace Win32 | Out-Null;" +
-    '[Win32.KamuclTrim]::EmptyWorkingSet([Win32.KamuclTrim]::GetCurrentProcess()) | Out-Null'
+  const script = trimSelfPowerShellScript(selfPid)
   return new Promise((resolve) => {
     execFile('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', script], { windowsHide: true, timeout: 10_000 }, (error) => resolve(!error))
   })
@@ -145,6 +154,10 @@ export async function startMemoryTrim(
   metricsTimer.unref?.()
 
   async function trimOnce(reason: string): Promise<void> {
+    if (process.platform !== 'win32') {
+      log(`工作集整理(${reason})：此平台不适用；渲染层空闲回收单独记录，不计作真实内存优化收益`)
+      return
+    }
     const metrics = app.getAppMetrics() as unknown as MemoryMetricsLike[]
     const before = sumWorkingSetByType(metrics)
     const selfPid = process.pid
@@ -166,7 +179,7 @@ export async function startMemoryTrim(
     const after = sumWorkingSetByType(app.getAppMetrics() as unknown as MemoryMetricsLike[])
     const delta = before.total - after.total
     log(
-      `工作集整理(${reason})：${mb(before.total)} → ${mb(after.total)}（释放约 ${mb(Math.max(0, delta))}，` +
+      `工作集整理(${reason})：${mb(before.total)} → ${mb(after.total)}（驻留页减少约 ${mb(Math.max(0, delta))}，不代表私有提交内存释放，` +
         `整理进程 ${handled} 个${kernel32 ? '' : '，PowerShell 兜底'}）`
     )
   }

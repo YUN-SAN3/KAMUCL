@@ -1,0 +1,178 @@
+{
+  "version": "1.1.22",
+  "complete": true,
+  "classification": "Actual Windows DPAPI plus product SettingsCredentials helper in two processes of the original unpacked Electron runtime. This is not a packaged-launcher DPAPI validation.",
+  "actualPackagedLauncherTested": false,
+  "freshPrivateProfile": true,
+  "noPreexistingPlayerData": true,
+  "expectedRuntime": "44.3.0",
+  "startedAt": "2026-10-13T17:25:45.234Z",
+  "phases": [
+    {
+      "phase": "write",
+      "naturalExit": true,
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "ownedLifecycle": {
+        "label": "windows122-native-storage-write",
+        "pid": 37844,
+        "startedAt": "2026-10-13T17:25:45.460Z",
+        "events": [
+          {
+            "event": "exit",
+            "at": 866714223.4169,
+            "code": 0,
+            "signal": null
+          },
+          {
+            "event": "close",
+            "at": 866714223.4973,
+            "code": 0,
+            "signal": null
+          }
+        ],
+        "closed": true,
+        "code": 0,
+        "signal": null,
+        "awaitedClose": true,
+        "finishedAt": "2026-10-13T17:25:45.855Z"
+      },
+      "stdoutSHA256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observation": {
+        "phase": "write",
+        "pid": 37844,
+        "complete": true,
+        "observedAt": "2026-10-13T17:25:45.552Z",
+        "platform": "win32",
+        "arch": "x64",
+        "electron": "44.3.0",
+        "provider": "Actual Windows DPAPI through Electron safeStorage",
+        "fixtureOnly": true,
+        "actualNativeStorageAvailable": true,
+        "freshAppDataAndExplicitUserData": true,
+        "immediateNativeRoundtrip": true,
+        "productVaultNativeRoundtrip": true,
+        "publicFieldsOmitSecret": true,
+        "ciphertextContainsNoPlainFixture": true,
+        "ciphertextBytes": 135,
+        "ciphertextSHA256": "0685db0147993f44c6f9bd6ce970741acbea2194825e9ad1f2c9ab148314772a"
+      },
+      "receiptSHA256": "97221265066f18a1570f3e86a12aba9d496b89855fdfaf394a4a22b8973b37f1"
+    },
+    {
+      "phase": "read",
+      "naturalExit": true,
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "ownedLifecycle": {
+        "label": "windows122-native-storage-read",
+        "pid": 58800,
+        "startedAt": "2026-10-13T17:25:45.891Z",
+        "events": [
+          {
+            "event": "exit",
+            "at": 866714657.4476,
+            "code": 0,
+            "signal": null
+          },
+          {
+            "event": "close",
+            "at": 866714657.4931,
+            "code": 0,
+            "signal": null
+          }
+        ],
+        "closed": true,
+        "code": 0,
+        "signal": null,
+        "awaitedClose": true,
+        "finishedAt": "2026-10-13T17:25:46.289Z"
+      },
+      "stdoutSHA256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observation": {
+        "phase": "read",
+        "pid": 58800,
+        "complete": true,
+        "observedAt": "2026-10-13T17:25:45.991Z",
+        "platform": "win32",
+        "arch": "x64",
+        "electron": "44.3.0",
+        "provider": "Actual Windows DPAPI through Electron safeStorage",
+        "fixtureOnly": true,
+        "actualNativeStorageAvailable": true,
+        "freshAppDataAndExplicitUserData": true,
+        "restartNativeRoundtrip": true,
+        "productVaultNativeRoundtrip": true,
+        "originalEncryptedSnapshotUnchanged": true,
+        "ciphertextBytes": 135,
+        "ciphertextSHA256": "0685db0147993f44c6f9bd6ce970741acbea2194825e9ad1f2c9ab148314772a"
+      },
+      "receiptSHA256": "dd464b4507b77d76e016166f60101da571fa9d7071475d47111ccc02e3faed53"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "file": "scripts/windows-native-storage122.cjs",
+      "sha256": "c0e59f4ea0dfa2666d03988c7d621a0543bfed6460a9709d1a9f9036fb8e3632"
+    },
+    {
+      "file": "src/main/core/settingsCredentials.ts",
+      "sha256": "a3532eddc86385d951088c989461548b39cbc8f32b34326ba1af13d0d938c531"
+    },
+    {
+      "file": "src/main/core/credentialProtection.ts",
+      "sha256": "8a19ac043f0ea6738aa42aea9ca83558f5a5205752fc99bd24f9b33366a7ebe7"
+    }
+  ],
+  "runtimeFiles": [
+    {
+      "file": "d3dcompiler_47.dll",
+      "bytes": 4741488,
+      "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb"
+    },
+    {
+      "file": "dxcompiler.dll",
+      "bytes": 25744896,
+      "sha256": "b2b5c67bc4a9c92a0ea87000415e7970488d1ca25767518d4cc27b88f18fb6ac"
+    },
+    {
+      "file": "dxil.dll",
+      "bytes": 1509760,
+      "sha256": "77e039c905030a641e53658a008b74e90635a5ea9b6b79eabd0f2003bdfca59a"
+    },
+    {
+      "file": "electron.exe",
+      "bytes": 246070272,
+      "sha256": "e048632e03fabc96de5e10afbebc0aa31f4e1674155ea3d270597fe7523f9d80"
+    },
+    {
+      "file": "ffmpeg.dll",
+      "bytes": 3113472,
+      "sha256": "336587847c4ed3ef1a195d1aaea3d3951c9749a035ffa7951df4c0e02971e4e0"
+    },
+    {
+      "file": "vk_swiftshader.dll",
+      "bytes": 5520384,
+      "sha256": "cfb8a533c5da1ade3fd4e66ebd0acf7186bd17fb3cc09d48809a7909c4aaf0f8"
+    },
+    {
+      "file": "vulkan-1.dll",
+      "bytes": 939008,
+      "sha256": "c1b383f18c0949f233e949ae197c2ad4c416abe7790894d7e395d73116403b4f"
+    }
+  ],
+  "productHelperBundleSHA256": "90ddef196b4605c8c38aad55af6d97f659cc7fdebc14ea6eb40a84a3b2bcd58e",
+  "twoDifferentProcesses": true,
+  "ciphertextSHA256": "0685db0147993f44c6f9bd6ce970741acbea2194825e9ad1f2c9ab148314772a",
+  "nativeDPAPIImmediateAndRestartRoundtrip": true,
+  "productVaultAcrossRestart": true,
+  "noPlaintextOrCiphertextInPublicReceipt": true,
+  "privateSyntheticProfileRemoved": true,
+  "finishedAt": "2026-10-13T17:25:46.334Z"
+}

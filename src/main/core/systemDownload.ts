@@ -1,4 +1,5 @@
 import { Readable } from 'node:stream'
+import { isTaskPaused, waitIfTaskPaused } from './tasks'
 
 type RequestOptions = { signal?: AbortSignal; headers?: Record<string, string>; method?: string; body?: string }
 
@@ -9,6 +10,7 @@ type RequestOptions = { signal?: AbortSignal; headers?: Record<string, string>; 
  */
 export async function systemDownload(url: string, init: RequestOptions): Promise<Response> {
   const { net } = await import('electron')
+  await waitIfTaskPaused(init.signal)
   init.signal?.throwIfAborted()
   return new Promise((resolve, reject) => {
     const request = net.request({ url, method: init.method ?? 'GET', redirect: 'manual',
@@ -61,11 +63,39 @@ export async function systemDownload(url: string, init: RequestOptions): Promise
 
 /** Honor the current OS/PAC route instead of waiting for a direct connection to
  * fail on every file. resolveProxy is cached by Chromium and rechecks PAC paths. */
-export async function usesSystemProxy(url: string): Promise<boolean> {
+export const proxyResolutionTimeouts = { maxWaitMs: 15_000 }
+export async function usesSystemProxy(url: string, signal?: AbortSignal): Promise<boolean> {
+  signal?.throwIfAborted()
   if (!process.versions.electron) return false
+  let timer: ReturnType<typeof setInterval> | undefined
+  let onAbort = () => {}
+  const timeoutError = new DOMException('系统代理解析超时，请检查代理设置后重试', 'TimeoutError')
   try {
-    const { session } = await import('electron')
-    const route = await session.defaultSession.resolveProxy(url)
+    // Chromium cannot cancel a PAC lookup. Cancel this subscriber instead, and
+    // observe the eventual result without allowing it to start a late request.
+    const route = await new Promise<string>((resolve, reject) => {
+      let activeMs = 0, sampledAt = performance.now()
+      onAbort = () => reject(signal?.reason ?? new DOMException('Aborted', 'AbortError'))
+      signal?.addEventListener('abort', onAbort, { once: true })
+      if (signal?.aborted) { onAbort(); return }
+      timer = setInterval(() => {
+        const now = performance.now(), elapsed = now - sampledAt; sampledAt = now
+        if (!isTaskPaused(signal)) activeMs += elapsed
+        if (activeMs >= proxyResolutionTimeouts.maxWaitMs) reject(timeoutError)
+      }, Math.max(10, Math.min(100, proxyResolutionTimeouts.maxWaitMs / 4)))
+      void import('electron').then(({ session }) => {
+        signal?.throwIfAborted()
+        return session.defaultSession.resolveProxy(url)
+      }).then(resolve, reject)
+    })
+    signal?.throwIfAborted()
     return route.split(';').some(part => part.trim() && part.trim() !== 'DIRECT')
-  } catch { return false }
+  } catch (error) {
+    signal?.throwIfAborted()
+    if (error === timeoutError) throw error
+    return false
+  } finally {
+    clearInterval(timer)
+    signal?.removeEventListener('abort', onAbort)
+  }
 }

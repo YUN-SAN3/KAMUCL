@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import ContentSkeleton from '../components/ContentSkeleton.vue'
-import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
-import { communityDownload, communityFiles, communitySearch, errText, getManifest, getModTargets } from '../api'
-import { store, toast, selectedInstance, selectInstance, displayVersionName as versionLabel } from '../store'
+import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { communityFiles, communitySearch, communitySearchStart, communitySearchContinue, communitySearchCancel, onCommunitySearchUpdate, errText, getManifest, getModTargets } from '../api'
+import { store, toast, selectedInstance, displayVersionName as versionLabel } from '../store'
 import { instanceKey } from '@shared/modCompatibility'
 import { communityFileMatchesInstance, usesCommunityLoader } from '@shared/communityPolicy'
 import { mcmodSearchUrl } from '@shared/communityLinks'
 import SelectMenu from '../components/SelectMenu.vue'
+import CommunityVersionFilter from '../components/CommunityVersionFilter.vue'
+import { readCommunitySession, saveCommunitySession } from '../communitySession'
+import { createProgressiveCommunitySearch, usesProgressiveCommunitySearch, communityQueryKey } from '../communityProgressiveSearch'
+import { initialCommunityQuery, initialCommunityVersionSelection, chooseCommunityInstance, usableCommunityInstance, type CommunityVersionSource } from '../communityVersionSelection'
+const previousSession = readCommunitySession()
 import MarqueeText from '../components/MarqueeText.vue'
-import ModInstallDialog from '../components/ModInstallDialog.vue'
+import CommunityDownloadQueue from '../components/CommunityDownloadQueue.vue'
+import { useCommunityDownloadQueue } from '../useCommunityDownloadQueue'
 import CommunityFavorites from '../components/CommunityFavorites.vue'
 import CommunityModDetails from '../components/CommunityModDetails.vue'
 import { favorites, favoriteBusy, loadFavorites, toggleProject } from '../modFavorites'
@@ -18,6 +24,8 @@ import type {
   CommunityKind,
   CommunityProjectReference,
   CommunityResult,
+  CommunityQuery,
+  CommunitySearchSnapshot,
   CommunitySource,
   LoaderName
 } from '@shared/types'
@@ -50,10 +58,10 @@ function openExternal(url: string) {
 }
 const currentInstance = selectedInstance
 const allTargets = ref<InstalledVersion[]>([])
-const modRequest = ref<{ target: InstalledVersion; input: { file: CommunityFile } } | null>(null)
+const downloadQueue = useCommunityDownloadQueue()
 const detailProject = ref<CommunityProjectReference | null>(null)
-const communityTab = ref<'browse' | 'favorites'>('browse')
-const favoriteSearch = ref('')
+const communityTab = ref<'browse' | 'favorites'>(previousSession?.tab ?? 'browse')
+const favoriteSearch = ref(previousSession?.favoriteSearch ?? '')
 watch(communityTab, tab => { if (tab === 'browse') void nextTick(updateKindBlob) })
 function sectionKeyboard(event: KeyboardEvent) {
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
@@ -143,38 +151,19 @@ async function loadManifest() {
   }
 }
 
-/** 版本筛选下拉（支持输入搜索定位） */
-const versionInput = ref('')
-const versionDropdownOpen = ref(false)
-const filteredVersionOptions = computed(() => {
-  const kw = versionInput.value.trim().toLowerCase()
-  if (!kw) return manifestVersions.value.slice(0, 60)
-  return manifestVersions.value.filter((v) => v.toLowerCase().includes(kw)).slice(0, 60)
-})
-
-function pickVersion(v: string) {
-  query.mcVersion = v
-  versionInput.value = query.mcVersion
-  versionDropdownOpen.value = false
-  onFilterChange()
-}
-
-function applyVersionInput() {
-  query.mcVersion = versionInput.value.trim()
-  versionDropdownOpen.value = false
-  onFilterChange()
-}
+const versionInput = ref(previousSession?.versionInput ?? '')
 
 onMounted(() => void loadManifest())
 
-const query = reactive({
-  keyword: '',
-  kind: 'mod' as CommunityKind,
-  source: 'all' as 'all' | CommunitySource,
-  mcVersion: currentInstance.value?.mcVersion === '未知' ? '' : currentInstance.value?.mcVersion ?? '',
-  loader: currentInstance.value?.loader ?? '' as '' | LoaderName,
-  sort: 'relevance' as 'relevance' | 'downloads' | 'newest'
-})
+const query = reactive(initialCommunityQuery(previousSession))
+const versionSelection = reactive(initialCommunityVersionSelection(previousSession))
+const installedVersionOptions = computed(() => store.installed.filter(usableCommunityInstance).map(v => ({
+  value: instanceKey(v), label: versionLabel(v), description: `Minecraft ${v.mcVersion} · ${v.loader || '原版'} · ${v.folder}`
+})))
+const filterInstance = computed(() => store.installed.find(v => instanceKey(v) === versionSelection.instance))
+const versionSummary = computed(() => query.mcVersion ? `Minecraft ${query.mcVersion}` : '全部 Minecraft 版本')
+const loaderSummary = computed(() => query.loader ? loaderOptions.find(v => v.value === query.loader)?.label ?? query.loader : '全部加载器')
+const manualLoaderMismatch = computed(() => versionSelection.source === 'installed' && versionSelection.loaderSource === 'manual' && filterInstance.value && (filterInstance.value.loader ?? '') !== query.loader)
 // query 必须先初始化。过早运行 getter 会抛错，导致监听未订阅分类变化。
 watch(() => query.kind, () => nextTick(updateKindBlob), { flush: 'post' })
 const supportsLoader = computed(() => usesCommunityLoader(query.kind))
@@ -188,27 +177,122 @@ const sortOptions = [
 ]
 
 // ---------------- 搜索与列表 ----------------
-const results = ref<CommunityResult[]>([])
+const results = ref<CommunityResult[]>(previousSession?.results ?? [])
 const loading = ref(false)
 const loadingMore = ref(false)
-const searched = ref(false) // 是否已发起过搜索（区分初始空态）
-const loadError = ref('')
-const offset = ref(0)
-const hasMore = ref(false)
-const currentPage = ref(1)
-const totalResults = ref(0)
-const searchWarnings = ref<string[]>([])
+const searched = ref(previousSession?.searched ?? false) // 是否已发起过搜索（区分初始空态）
+const loadError = ref(previousSession?.error ?? '')
+const offset = ref(previousSession?.offset ?? 0)
+const hasMore = ref(previousSession?.hasMore ?? false)
+const currentPage = ref(previousSession?.page ?? 1)
+const totalResults = ref(previousSession?.total ?? 0)
+const searchWarnings = ref<string[]>(previousSession?.warnings ?? [])
 const totalPages = computed(() => Math.max(1, Math.ceil(totalResults.value / PAGE_SIZE)))
 const visiblePages = computed(() => {
   const start = Math.max(1, Math.min(currentPage.value - 2, totalPages.value - 4))
   return Array.from({ length: Math.min(5, totalPages.value) }, (_, i) => start + i)
 })
 const listCard = ref<HTMLElement | null>(null)
+const progressiveSnapshot = ref<CommunitySearchSnapshot | undefined>(previousSession?.progressive?.snapshot)
+const progressiveMode = ref(!!previousSession?.progressive)
+const progressivePaused = ref(!!previousSession?.progressive)
+const progressivePending = ref(false)
+const progressiveRequestId = ref<string | null>(null)
+const progressiveFailed = ref(previousSession?.progressive?.snapshot.phase === 'failed')
+const staleResults = ref(false)
+const progressiveEnriching = computed(() => progressiveMode.value && !progressivePaused.value && !progressiveFailed.value && (progressiveSnapshot.value?.requestId !== progressiveRequestId.value || ['initial', 'enriching'].includes(progressiveSnapshot.value?.phase ?? 'initial')))
+const progressiveCanPage = computed(() => progressiveMode.value && !progressivePaused.value && !progressiveEnriching.value && progressiveSnapshot.value?.phase === 'ready' && results.value.length < totalResults.value)
+const progressiveCanDiscover = computed(() => progressiveMode.value && progressiveSnapshot.value?.discoveryHasMore === true)
+const filterQueryKey = (value: CommunityQuery) => communityQueryKey({ ...value, limit: PAGE_SIZE })
+let lastConfirmedQuery = previousSession ? filterQueryKey({ ...previousSession.query, offset: 0, limit: PAGE_SIZE }) : ''
+let appliedProgressRevision = ''
+let retainedProgressCount = 0
+
+function requestedQuery(): CommunityQuery {
+  return { keyword: query.keyword.trim(), kind: query.kind, source: query.source,
+    mcVersion: query.mcVersion || undefined, loader: supportsLoader.value ? query.loader || undefined : undefined,
+    sort: query.sort, offset: 0, limit: PAGE_SIZE }
+}
+/** Keep the same visible card and action in place when the completed discovery
+ * set changes order. Vue keys preserve identity; this also handles scroll/focus. */
+function resultPosition() {
+  const content = document.querySelector<HTMLElement>('.content')
+  const top = content?.getBoundingClientRect().top ?? 0
+  const cards = Array.from(listCard.value?.querySelectorAll<HTMLElement>('[data-project-key]') ?? [])
+  const anchor = cards.find(card => card.getBoundingClientRect().bottom > top)
+  const active = document.activeElement as HTMLElement | null
+  const focused = active?.closest<HTMLElement>('[data-project-key]')
+  return { content, anchorKey: anchor?.dataset.projectKey, anchorTop: anchor ? anchor.getBoundingClientRect().top - top : 0,
+    focusKey: focused?.dataset.projectKey, action: active?.dataset.search123Action, active }
+}
+function restoreResultPosition(position: ReturnType<typeof resultPosition>, marker: string) {
+  void nextTick(() => {
+    if (disposed || appliedProgressRevision !== marker) return
+    const cards = Array.from(listCard.value?.querySelectorAll<HTMLElement>('[data-project-key]') ?? [])
+    const anchor = cards.find(card => card.dataset.projectKey === position.anchorKey)
+    if (position.content && anchor) position.content.scrollTop += anchor.getBoundingClientRect().top - position.content.getBoundingClientRect().top - position.anchorTop
+    if (position.focusKey && position.action && (document.activeElement === position.active || document.activeElement === document.body)) {
+      cards.find(card => card.dataset.projectKey === position.focusKey)?.querySelector<HTMLElement>(`[data-search123-action="${position.action}"]`)?.focus({ preventScroll: true })
+    }
+  })
+}
+const progressiveSearch = createProgressiveCommunitySearch({
+  uuid: () => crypto.randomUUID(), start: communitySearchStart, continue: communitySearchContinue,
+  cancel: communitySearchCancel, subscribe: onCommunitySearchUpdate, errorText: errText,
+  changed(state) {
+    if (disposed || !progressiveMode.value) return
+    progressivePending.value = state.pending
+    progressivePaused.value = state.paused
+    progressiveRequestId.value = state.requestId
+    progressiveFailed.value = !!state.error || state.snapshot?.requestId === state.requestId && state.snapshot?.phase === 'failed'
+    loadError.value = state.error || (state.snapshot?.requestId === state.requestId ? state.snapshot?.error ?? '' : '')
+    if (state.error) { loadError.value = state.error; loading.value = false; loadingMore.value = false }
+    const snapshot = state.snapshot
+    if (!snapshot || snapshot.requestId !== state.requestId) return
+    const marker = `${snapshot.requestId}:${snapshot.revision}`
+    if (marker === appliedProgressRevision) return
+    const position = results.value.length && filterQueryKey(snapshot.query) === lastConfirmedQuery ? resultPosition() : undefined
+    appliedProgressRevision = marker
+    progressiveSnapshot.value = snapshot
+    const keepRetained = retainedProgressCount > snapshot.items.length && snapshot.phase !== 'ready'
+    if (!keepRetained) { results.value = snapshot.items; retainedProgressCount = 0 }
+    totalResults.value = keepRetained ? Math.max(snapshot.total, results.value.length) : snapshot.total
+    searchWarnings.value = snapshot.warnings ?? []
+    hasMore.value = snapshot.items.length < snapshot.total
+    offset.value = results.value.length
+    loadError.value = snapshot.error ?? ''
+    lastConfirmedQuery = filterQueryKey(snapshot.query)
+    staleResults.value = false
+    loading.value = false
+    loadingMore.value = false
+    if (position) restoreResultPosition(position, marker)
+  }
+})
 
 let searchGeneration = 0
+let disposed = false
+onBeforeUnmount(() => {
+  saveCommunitySession({ query: { ...query }, tab: communityTab.value, favoriteSearch: favoriteSearch.value, versionInput: versionInput.value, versionSelection: { ...versionSelection }, results: results.value, searched: searched.value, error: loadError.value, offset: offset.value, hasMore: hasMore.value, page: currentPage.value, total: totalResults.value, warnings: searchWarnings.value, scrollTop: document.querySelector<HTMLElement>('.content')?.scrollTop ?? 0, topKeyword: store.searchKeyword, interrupted: loading.value || loadingMore.value || progressiveEnriching.value,
+    progressive: progressiveMode.value && progressiveSnapshot.value ? { snapshot: { ...progressiveSnapshot.value, items: results.value, total: totalResults.value }, paused: true } : undefined })
+  disposed = true; searchGeneration++; fileGeneration++; openGeneration++
+  progressiveSearch.dispose()
+})
 async function doSearch(reset: boolean, page = currentPage.value) {
+  if (disposed) return
   if (!reset && (loading.value || loadingMore.value)) return
   const generation = ++searchGeneration
+  const request = requestedQuery()
+  const progressive = usesProgressiveCommunitySearch(request)
+  if (!reset && progressive) { await progressiveSearch.more('page'); return }
+  progressiveMode.value = progressive
+  void progressiveSearch.pause()
+  progressiveSnapshot.value = undefined
+  progressivePaused.value = false
+  progressivePending.value = false
+  progressiveFailed.value = false
+  appliedProgressRevision = ''
+  retainedProgressCount = 0
+  staleResults.value = !!results.value.length && lastConfirmedQuery !== filterQueryKey(request)
   if (reset) {
     offset.value = 0
     currentPage.value = 1
@@ -223,6 +307,11 @@ async function doSearch(reset: boolean, page = currentPage.value) {
   else loadingMore.value = true
   loadError.value = ''
   searched.value = true
+  if (progressive) {
+    await progressiveSearch.start(request)
+    if (generation === searchGeneration) { loading.value = false; loadingMore.value = false }
+    return
+  }
   try {
     const response = await communitySearch({
       keyword: query.keyword.trim(),
@@ -242,6 +331,8 @@ async function doSearch(reset: boolean, page = currentPage.value) {
     searchWarnings.value = response.warnings ?? []
     hasMore.value = requestedOffset + PAGE_SIZE < response.total
     offset.value = requestedOffset + PAGE_SIZE
+    lastConfirmedQuery = filterQueryKey(request)
+    staleResults.value = false
   } catch (e) {
     if (generation !== searchGeneration) return
     loadError.value = errText(e)
@@ -255,7 +346,27 @@ async function doSearch(reset: boolean, page = currentPage.value) {
 }
 
 const onSearch = () => void doSearch(true)
-const onLoadMore = () => void doSearch(false)
+const onLoadMore = () => progressiveMode.value ? void progressiveSearch.more('page') : void doSearch(false)
+async function continueDiscovery() {
+  if (disposed || progressivePending.value) return
+  if (!usesProgressiveCommunitySearch(requestedQuery()) || (progressiveSnapshot.value && filterQueryKey(requestedQuery()) !== filterQueryKey(progressiveSnapshot.value.query))) { await doSearch(true); return }
+  if (progressivePaused.value || progressiveFailed.value || progressiveSnapshot.value?.phase === 'failed') {
+    const retained = progressiveSnapshot.value
+    loadError.value = ''; searched.value = true
+    retainedProgressCount = lastConfirmedQuery === filterQueryKey(requestedQuery()) ? results.value.length : 0
+    const initial = await progressiveSearch.start({ ...requestedQuery(), limit: Math.min(1000, Math.max(PAGE_SIZE, retainedProgressCount)) }, retained)
+    // One explicit resume also advances one discovery batch when Start only
+    // reattached a ready cached set. An initial/enriching Start already runs its
+    // batch and must not silently schedule another one.
+    if (initial?.phase === 'ready' && initial.requestId === progressiveSearch.current().requestId && !progressiveSearch.current().error && progressiveSearch.current().snapshot?.phase === 'ready' && progressiveSearch.current().snapshot?.discoveryHasMore) await progressiveSearch.more('discover')
+  } else await progressiveSearch.more('discover')
+}
+function pauseDiscovery() { void progressiveSearch.pause() }
+function viewAllVersions() {
+  query.mcVersion = ''; query.loader = ''; versionInput.value = ''
+  Object.assign(versionSelection, { source: 'all', instance: '', loaderSource: 'all' })
+  void doSearch(true)
+}
 async function goToPage(page: number) {
   if (loading.value || page < 1 || page > totalPages.value || page === currentPage.value) return
   await doSearch(false, page)
@@ -268,7 +379,7 @@ let moreObserver: IntersectionObserver | null = null
 onMounted(() => {
   moreObserver = new IntersectionObserver(
     (entries) => {
-      if (communityTab.value === 'browse' && !usesPagination.value && entries.some((e) => e.isIntersecting) && hasMore.value && !loading.value && !loadingMore.value) {
+      if (communityTab.value === 'browse' && !usesPagination.value && entries.some((e) => e.isIntersecting) && hasMore.value && !loading.value && !loadingMore.value && !progressiveEnriching.value && !progressivePaused.value && !progressivePending.value) {
         onLoadMore()
       }
     },
@@ -281,10 +392,7 @@ onMounted(() => {
 })
 onUnmounted(() => { moreObserver?.disconnect(); searchGeneration++; fileGeneration++; if (topSearchTimer) clearTimeout(topSearchTimer) })
 function useCurrentInstance() {
-  query.mcVersion = currentInstance.value?.mcVersion === '未知' ? '' : currentInstance.value?.mcVersion ?? ''
-  query.loader = currentInstance.value?.loader ?? ''
-  versionInput.value = query.mcVersion
-  onFilterChange()
+  if (currentInstance.value) useInstance(instanceKey(currentInstance.value))
 }
 versionInput.value = query.mcVersion
 
@@ -292,10 +400,43 @@ versionInput.value = query.mcVersion
 function useInstance(id: string) {
   const v = store.installed.find((x) => instanceKey(x) === id)
   if (!v) return
-  void selectInstance(v.id, v.folder)
-  query.mcVersion = v.mcVersion === '未知' ? '' : v.mcVersion
-  query.loader = v.loader ?? ''
+  const choice = chooseCommunityInstance(v, versionSelection, query.loader ?? '')
+  if (!choice) return
+  Object.assign(versionSelection, choice.selection)
+  query.mcVersion = choice.mcVersion
+  query.loader = choice.loader
   versionInput.value = query.mcVersion
+  onFilterChange()
+}
+function chooseVersionSource(source: CommunityVersionSource) {
+  const previousSource = versionSelection.source
+  versionSelection.source = source
+  if (source === 'all') {
+    versionSelection.instance = ''
+    query.mcVersion = ''; versionInput.value = ''
+    if (versionSelection.loaderSource === 'instance') { query.loader = ''; versionSelection.loaderSource = 'all' }
+    onFilterChange()
+  } else if (source === 'installed' && previousSource !== 'installed') {
+    versionSelection.instance = ''
+    query.mcVersion = ''; versionInput.value = ''
+    if (versionSelection.loaderSource === 'instance') { query.loader = ''; versionSelection.loaderSource = 'all' }
+    onFilterChange()
+  } else if (source === 'custom') {
+    versionSelection.instance = ''
+    if (versionSelection.loaderSource === 'instance') versionSelection.loaderSource = query.loader ? 'manual' : 'all'
+    void nextTick(() => document.querySelector<HTMLInputElement>('[data-ui="community:custom-version"] input')?.focus())
+  }
+}
+function customVersionChanged() {
+  versionSelection.source = query.mcVersion ? 'custom' : 'all'
+  versionSelection.instance = ''
+  versionInput.value = query.mcVersion ?? ''
+  onFilterChange()
+}
+function loaderChanged() { versionSelection.loaderSource = query.loader ? 'manual' : 'all'; onFilterChange() }
+function useInstanceLoader() {
+  query.loader = filterInstance.value?.loader ?? ''
+  versionSelection.loaderSource = 'instance'
   onFilterChange()
 }
 
@@ -312,10 +453,22 @@ function onReset() {
   query.loader = ''
   query.sort = 'relevance'
   versionInput.value = ''
+  Object.assign(versionSelection, { source: 'all', instance: '', loaderSource: 'all' })
   void doSearch(true)
 }
 
-onMounted(() => { query.keyword = store.searchKeyword.trim(); void doSearch(true) })
+onMounted(async () => {
+  // A route-local snapshot keeps the query, loaded pages and scroll without retaining DOM.
+  const newKeyword = store.searchKeyword.trim()
+  if (!previousSession || (newKeyword && newKeyword !== previousSession.topKeyword.trim())) { query.keyword = newKeyword; void doSearch(true) }
+  else {
+    await nextTick()
+    const content = document.querySelector<HTMLElement>('.content')
+    if (content) content.scrollTop = previousSession.scrollTop
+    if (previousSession.progressive) progressiveSearch.restore(previousSession.progressive.snapshot)
+    else if (previousSession.interrupted) loadError.value = '上次查询在离开页面时中断，已保留原结果；请重试。'
+  }
+})
 
 // ---------------- 顶栏搜索联动：顶栏输入防抖驱动社区搜索 ----------------
 let topSearchTimer: ReturnType<typeof setTimeout> | null = null
@@ -377,15 +530,14 @@ const modal = reactive({
   fileId: '',
   versionId: '',
   mcVersion: '',
-  loader: '' as LoaderName | '',
-  downloading: false
+  loader: '' as LoaderName | ''
 })
 
 const isModpack = computed(() => modal.kind === 'modpack')
 const selectedFile = computed(
   () => modal.files.find((f) => f.fileId === modal.fileId) ?? null
 )
-const targetOptions = computed(() => modal.kind === 'mod' ? allTargets.value.filter(v => selectedFile.value && communityFileMatchesInstance(selectedFile.value, v)) : store.installed)
+const targetOptions = computed(() => allTargets.value.filter(v => !v.failed && !v.incomplete && (modal.kind !== 'mod' || selectedFile.value && communityFileMatchesInstance(selectedFile.value, v))))
 watch(targetOptions, options => {
   if (!options.some(v => instanceKey(v) === modal.versionId)) {
     const selected = options.find(v => v.id === currentInstance.value?.id && v.folder === currentInstance.value?.folder) ?? options[0]
@@ -420,15 +572,14 @@ async function openDownload(item: CommunityProjectReference, kind: CommunityKind
   modal.versionId = currentInstance.value ? instanceKey(currentInstance.value) : ''
   modal.mcVersion = query.mcVersion
   modal.loader = usesCommunityLoader(kind) ? query.loader : ''
-  modal.downloading = false
   try {
     const scanned = await getModTargets()
-    if (generation !== openGeneration || !modal.open) return
+    if (disposed || generation !== openGeneration || !modal.open) return
     allTargets.value = scanned.versions
     if (scanned.errors.length) toast('部分目录扫描失败：' + scanned.errors.join('；'), 'error')
     await loadFiles()
   } catch (e) {
-    if (generation === openGeneration) modal.filesError = '获取文件列表失败：' + errText(e)
+    if (!disposed && generation === openGeneration) modal.filesError = '获取文件列表失败：' + errText(e)
   } finally {
     if (generation === openGeneration) modal.loadingFiles = false
   }
@@ -438,38 +589,23 @@ const canConfirm = computed(
   () =>
     !!selectedFile.value &&
     !modal.loadingFiles &&
-    !modal.downloading &&
-    (isModpack.value || !!modal.versionId)
+    (isModpack.value || targetOptions.value.some(v => instanceKey(v) === modal.versionId))
 )
 
-async function confirmDownload() {
+function confirmDownload() {
   const file = selectedFile.value
   if (!file || !canConfirm.value) return
-  const target = targetOptions.value.find(v => instanceKey(v) === modal.versionId)
-  if (modal.kind === 'mod') {
-    if (!target) return
-    modRequest.value = { target, input: { file } }
-    return
-  }
-  modal.downloading = true
+  const target = isModpack.value ? undefined : targetOptions.value.find(v => instanceKey(v) === modal.versionId)
   try {
-    const res = await communityDownload(file, {
-      versionId: target?.id ?? '',
-      kind: modal.kind
-    })
+    const folder = target?.folder || store.settings?.folders.find(folder => folder.isDefault)?.path || store.settings?.gameDir || ''
+    const { added } = downloadQueue.enqueue({ file, kind: modal.kind, target, folder })
     modal.open = false
-    if (modal.kind === 'modpack') {
-      toast(res || '已开始安装整合包', 'success')
-    } else {
-      toast(`下载完成，已保存到：${res}`, 'success')
-    }
+    fileGeneration++; openGeneration++
+    toast(added ? modal.kind === 'mod' ? '已加入社区队列，检测完成后请在队列确认前置与安装' : '已加入社区下载队列，可继续浏览资源' : '该文件已在目标实例的社区队列中', 'info')
   } catch (e) {
-    toast('下载失败：' + errText(e), 'error')
-  } finally {
-    modal.downloading = false
+    toast('加入队列失败：' + errText(e), 'error')
   }
 }
-function selectDownloadInstance() { const target = targetOptions.value.find(v => instanceKey(v) === modal.versionId); if (target) void selectInstance(target.id, target.folder) }
 
 </script>
 
@@ -480,14 +616,10 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
       <h1 data-ui="CommunityView:5476a5545de6" class="page-title">社区资源</h1>
       <p data-ui="CommunityView:8ea54e89551b" class="page-sub">搜索并下载 Modrinth / CurseForge 上的 Mod、整合包、资源包、光影与数据包</p>
     </div>
+    <CommunityDownloadQueue />
 
     <div class="community-sections" role="tablist" aria-label="社区资源分区" @keydown="sectionKeyboard"><button class="community-section" role="tab" data-ui="community:browse" :tabindex="communityTab === 'browse' ? 0 : -1" :aria-selected="communityTab === 'browse'" :class="{ active: communityTab === 'browse' }" @click="communityTab = 'browse'">找资源</button><button class="community-section" role="tab" data-ui="community:favorites" :tabindex="communityTab === 'favorites' ? 0 : -1" :aria-selected="communityTab === 'favorites'" :class="{ active: communityTab === 'favorites' }" @click="communityTab = 'favorites'">已收藏 MOD <span>{{ favorites.length }}</span></button></div>
 
-      <div data-ui="CommunityView:f7acd66aeb10" class="filter-row instance-row">
-        <label data-ui="CommunityView:34312978e030" class="instance-label">选择版本</label>
-        <SelectMenu v-if="store.installed.length" class="filter-select instance-filter" aria-label="选择版本" :model-value="currentInstance ? instanceKey(currentInstance) : ''" placeholder="选择实例…" :options="store.installed.filter(x => !x.failed && !x.incomplete).map(v => ({value:instanceKey(v),label:versionLabel(v),description:[v.mcVersion,v.loader,v.folder].filter(Boolean).join(' · ')}))" @change="useInstance" />
-        <button data-ui="CommunityView:49df26abb0c5" class="btn btn-ghost btn-sm" @click="useCurrentInstance">使用当前实例</button>
-      </div>
     <CommunityFavorites v-if="communityTab === 'favorites'" :keyword="favoriteSearch" @download="openDownload($event, 'mod')" @details="detailProject = $event" @browse="communityTab = 'browse'; query.kind = 'mod'; onFilterChange()" />
     <template v-else>
     <!-- 搜索卡片 -->
@@ -506,14 +638,34 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
         </button>
       </div>
 
+      <section class="version-filter-panel" aria-label="Minecraft 版本筛选">
+        <div class="version-filter-heading"><strong>适用游戏版本</strong><span class="muted">{{ versionSummary }}<template v-if="supportsLoader"> · {{ loaderSummary }}</template></span></div>
+        <div class="version-source-options" role="group" aria-label="版本选择来源">
+          <button type="button" class="version-source-option" data-ui="community:versions-all" :class="{ active: versionSelection.source === 'all' }" :aria-pressed="versionSelection.source === 'all'" @click="chooseVersionSource('all')">全部版本</button>
+          <button type="button" class="version-source-option" data-ui="community:versions-installed" :class="{ active: versionSelection.source === 'installed' }" :aria-pressed="versionSelection.source === 'installed'" @click="chooseVersionSource('installed')">已安装版本<span>{{ installedVersionOptions.length }}</span></button>
+          <button type="button" class="version-source-option" data-ui="community:versions-custom" :class="{ active: versionSelection.source === 'custom' }" :aria-pressed="versionSelection.source === 'custom'" @click="chooseVersionSource('custom')">自定义版本</button>
+        </div>
+        <div v-if="versionSelection.source === 'installed'" class="version-filter-detail" data-ui="CommunityView:f7acd66aeb10">
+          <SelectMenu v-if="installedVersionOptions.length" class="instance-filter" aria-label="选择已安装版本" :model-value="versionSelection.instance" placeholder="选择已安装实例以筛选…" :options="installedVersionOptions" @change="useInstance" />
+          <p v-else class="muted">暂无可识别的已安装版本；可使用自定义版本。</p>
+          <button data-ui="CommunityView:49df26abb0c5" class="btn btn-ghost btn-sm" :disabled="!currentInstance || !usableCommunityInstance(currentInstance)" @click="useCurrentInstance">使用当前实例</button>
+        </div>
+        <div v-if="versionSelection.source === 'custom'" class="version-filter-detail custom-version-detail" data-ui="community:custom-version">
+          <CommunityVersionFilter v-model="query.mcVersion" :versions="manifestVersions" :loading="manifestLoading" @change="customVersionChanged" />
+          <p class="muted">从列表选择，或输入完整版本后按 Enter；快照和自定义版本按原值查询。</p>
+        </div>
+        <div v-if="manualLoaderMismatch && supportsLoader" class="version-loader-note" role="status">已保留手选的 {{ loaderSummary }}；该实例使用 {{ filterInstance?.loader || '原版' }}。<button type="button" class="btn btn-ghost btn-sm" @click="useInstanceLoader">使用实例加载器</button></div>
+      </section>
+
       <div data-ui="CommunityView:d516b82f0eb8" class="search-row">
         <input data-ui="CommunityView:bc0450fd9c8f"
+          data-search123="keyword"
           v-model="query.keyword"
           class="input"
-          placeholder="输入资源名称，回车搜索…"
+          :placeholder="query.kind === 'mod' ? '输入 MOD 中文名、常用别名或英文名，回车搜索…' : '输入资源名称，回车搜索…'"
           @keyup.enter="onSearch"
         />
-        <button data-ui="CommunityView:ce39174e4563" class="btn btn-gold search-btn" :disabled="loading" @click="onSearch">
+        <button data-ui="CommunityView:ce39174e4563" data-search123="submit" class="btn btn-gold search-btn" :disabled="loading" @click="onSearch">
           <span data-ui="CommunityView:bb1887897e8c" v-if="loading" class="spin"></span>
           <svg v-else viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="7" />
@@ -526,42 +678,19 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
 
       <div class="filter-row">
         <SelectMenu aria-label="资源来源" v-model="query.source" class="filter-select" :options="sourceOptions" @change="onFilterChange" />
-        <!-- 可搜索版本下拉：完整 MC 版本列表（远程清单数据源） -->
-        <div data-ui="CommunityView:a7e5c548e576" class="ver-filter">
-          <input data-ui="CommunityView:df846b92dee0"
-            v-model="versionInput"
-            class="input ver-filter-input"
-            :placeholder="manifestLoading ? '加载版本列表…' : (query.mcVersion || '全部版本')"
-            @focus="versionDropdownOpen = true"
-            @input="versionDropdownOpen = true"
-            @change="applyVersionInput"
-            @keydown.enter.prevent="applyVersionInput"
-          />
-          <div data-ui="CommunityView:c262110ba1ea" v-if="versionDropdownOpen" class="menu-overlay" @click="versionDropdownOpen = false"></div>
-          <div data-ui="CommunityView:8e1248a50470" v-if="versionDropdownOpen" class="float-menu ver-filter-menu">
-            <button data-ui="CommunityView:45317b5bff2e" class="menu-item" :class="{ active: !query.mcVersion }" @mousedown.prevent @click="pickVersion('')">
-              全部版本
-            </button>
-            <button data-ui="CommunityView:7bf879d180c7"
-              v-for="v in filteredVersionOptions"
-              :key="v"
-              class="menu-item"
-              :class="{ active: query.mcVersion === v }"
-              @mousedown.prevent
-              @click="pickVersion(v)"
-            >
-              {{ v }}
-            </button>
-            <div data-ui="CommunityView:6570e9d15e20" v-if="!filteredVersionOptions.length" class="ver-menu-empty">无匹配版本</div>
-          </div>
-        </div>
-        <SelectMenu aria-label="加载器" v-if="supportsLoader" v-model="query.loader" class="filter-select" :options="loaderOptions" @change="onFilterChange" />
+        <SelectMenu aria-label="加载器" v-if="supportsLoader" v-model="query.loader" class="filter-select" :options="loaderOptions" @change="loaderChanged" />
         <SelectMenu aria-label="排序" v-model="query.sort" class="filter-select" :options="sortOptions" @change="onFilterChange" />
       </div>
     </div>
 
     <!-- 结果列表 -->
     <div data-ui="CommunityView:5e55abba5e8a" ref="listCard" class="card list-card">
+      <div v-if="progressiveMode && searched" class="progressive-search-status" data-search123="status" :data-phase="progressivePaused ? 'paused' : progressiveFailed ? 'failed' : progressiveSnapshot?.requestId !== progressiveRequestId ? 'initial' : progressiveSnapshot?.phase ?? 'initial'" :data-request-id="progressiveRequestId ?? ''" :data-revision="progressiveSnapshot?.revision ?? -1" role="status" aria-live="polite">
+        <div class="progressive-search-copy"><strong>{{ progressivePaused ? `已保留 ${results.length} 项结果` : progressiveFailed ? '中文匹配补充未完成' : progressiveEnriching ? `找到 ${totalResults} 项，正在补全中文匹配…` : `已确认 ${totalResults} 项结果` }}</strong><span class="muted">{{ progressivePaused ? '已暂停后台补充；返回后可继续此查询。' : progressiveFailed ? '已停止补充；可以重试，已确认结果继续保留。' : progressiveEnriching ? '已显示的结果可查看、收藏和下载；补充完成后统一排序。' : '数量为当前已核验结果；可继续补充候选，不会自动改变版本筛选。' }}</span></div>
+        <button v-if="progressivePaused || progressiveFailed || progressiveSnapshot?.phase === 'failed'" class="btn btn-ghost btn-sm" data-search123="resume" :disabled="progressivePending" @click="continueDiscovery">{{ progressivePending ? '恢复中…' : progressiveFailed ? '重试补充' : '继续补充' }}</button>
+        <button v-else-if="progressiveEnriching" class="btn btn-ghost btn-sm" data-search123="cancel" @click="pauseDiscovery">暂停补充</button>
+        <button v-else-if="progressiveCanDiscover" class="btn btn-ghost btn-sm" data-search123="discover-more" :disabled="progressivePending" @click="continueDiscovery">{{ progressivePending ? '补充中…' : '继续补充中文匹配' }}</button>
+      </div>
       <div data-ui="CommunityView:72423555b623" v-if="results.length && (loading || loadError)" class="status-strip" role="status">{{ loading ? '正在更新条件，暂时显示上次结果…' : '更新失败，以下为上次结果：' + loadError }}<button data-ui="CommunityView:4ab4e45e43a0" v-if="loadError" class="btn btn-ghost btn-sm" @click="doSearch(true)">重试</button></div>
       <p data-ui="CommunityView:fa2eef57b2fc" v-for="warning in searchWarnings" :key="warning" class="search-warning">{{ warning }}</p>
       <!-- 加载中 -->
@@ -579,12 +708,13 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
           <path d="M12 3a13.5 13.5 0 0 1 0 18" />
           <path d="M12 3a13.5 13.5 0 0 0 0 18" />
         </svg>
-        <span>{{ searched ? '没有找到匹配的资源，换个关键词或条件试试' : '输入关键词或选择条件开始搜索' }}</span>
+        <span>{{ progressiveEnriching ? '正在补充中文名称匹配，尚未找到已核验结果…' : searched ? '没有找到匹配的资源，换个关键词或条件试试' : '输入关键词或选择条件开始搜索' }}</span>
+        <button v-if="searched && !progressiveEnriching && (query.mcVersion || query.loader)" class="btn btn-ghost btn-sm" data-search123="all-versions" @click="viewAllVersions">查看全部版本</button>
       </div>
       <!-- 列表 -->
       <template v-else>
-        <div data-ui="CommunityView:ea58bb908a86" class="result-list" :inert="loading || !!loadError" :aria-busy="loading">
-          <div data-ui="CommunityView:0d40e298da83" v-for="r in results" :key="itemKey(r)" class="result-card">
+        <div data-ui="CommunityView:ea58bb908a86" data-search123="results" class="result-list" :inert="staleResults || (!progressiveMode && (loading || !!loadError))" :aria-busy="loading || progressiveEnriching">
+          <div data-ui="CommunityView:0d40e298da83" v-for="r in results" :key="itemKey(r)" :data-project-key="itemKey(r)" class="result-card">
             <div data-ui="CommunityView:491b5f81c088" class="result-top">
               <div data-ui="CommunityView:00f58a1819fa" class="result-icon">
                 <img data-ui="CommunityView:830997d3ecb7"
@@ -597,7 +727,7 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
                 <span data-ui="CommunityView:a6c25e1efd38" v-else class="icon-placeholder">{{ (r.title || '?').charAt(0).toUpperCase() }}</span>
               </div>
               <div data-ui="CommunityView:d33af84ab969" class="result-head">
-                <strong class="result-title" tabindex="0" :title="r.title">{{ r.title }}</strong>
+                <strong class="result-title" :title="r.title"><button v-if="query.kind === 'mod'" type="button" class="result-title-button" data-search123-action="details" :aria-label="`查看 ${r.title} 详情`" @click="detailProject = r">{{ r.title }}</button><template v-else>{{ r.title }}</template></strong>
                 <span data-ui="CommunityView:6f93851d6071" class="tag" :class="r.source === 'modrinth' ? 'tag-success' : 'tag-cf'">
                   来源：{{ r.source === 'modrinth' ? 'Modrinth' : 'CurseForge' }}
                 </span>
@@ -613,6 +743,7 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
             <div data-ui="CommunityView:9195d6b103b6" class="result-foot">
               <div data-ui="CommunityView:22746f0aa9cd" class="result-links">
                 <button data-ui="CommunityView:7c3533e67ba3"
+                  data-search123-action="source"
                   class="icon-btn"
                   :title="`打开 ${r.source === 'modrinth' ? 'Modrinth' : 'CurseForge'} 源页面（查看完整介绍）`"
                   @click="openExternal(sourceUrl(r))"
@@ -620,17 +751,18 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
                 </button>
                 <button data-ui="CommunityView:0c667bb024b0"
+                  data-search123-action="mcmod"
                   class="icon-btn"
                   title="在 MC 百科查看介绍与教程"
                   @click="openMcmod(r)"
                 >
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
                 </button>
-                <button v-if="query.kind === 'mod'" class="icon-btn result-favorite" :class="{ active: favorites.some(f => f.key === itemKey(r)) }" :aria-label="`${favorites.some(f => f.key === itemKey(r)) ? '取消收藏' : '收藏'} ${r.title}`" :aria-pressed="favorites.some(f => f.key === itemKey(r))" :title="favorites.some(f => f.key === itemKey(r)) ? '取消收藏模组' : '收藏模组'" :disabled="favoriteBusy.has(itemKey(r))" @click.stop="toggleProject(r.source, r.projectId, r.title)">
+                <button v-if="query.kind === 'mod'" data-search123-action="favorite" class="icon-btn result-favorite" :class="{ active: favorites.some(f => f.key === itemKey(r)) }" :aria-label="`${favorites.some(f => f.key === itemKey(r)) ? '取消收藏' : '收藏'} ${r.title}`" :aria-pressed="favorites.some(f => f.key === itemKey(r))" :title="favorites.some(f => f.key === itemKey(r)) ? '取消收藏模组' : '收藏模组'" :disabled="favoriteBusy.has(itemKey(r))" @click.stop="toggleProject(r.source, r.projectId, r.title, r.iconUrl)">
                   <svg viewBox="0 0 24 24" width="16" height="16" :fill="favorites.some(f => f.key === itemKey(r)) ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3L3 9.6l6.2-.9Z" /></svg>
                 </button>
               </div>
-              <button data-ui="CommunityView:6d17d47c8729" class="btn btn-gold btn-sm result-dl" @click="openDownload(r)">
+              <button data-ui="CommunityView:6d17d47c8729" data-search123-action="download" class="btn btn-gold btn-sm result-dl" @click="openDownload(r)">
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 3v11" />
                   <path d="m7 10 5 5 5-5" />
@@ -642,10 +774,10 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
           </div>
         </div>
         <!-- 无限滚动哨兵：进入视口自动加载更多（按钮保留作兜底） -->
-        <div data-ui="CommunityView:1833f0867a9c" v-if="!usesPagination && hasMore && !loading && !loadError" ref="moreSentinel" class="more-sentinel"></div>
+        <div data-ui="CommunityView:1833f0867a9c" v-if="!usesPagination && hasMore && !loading && !loadError && !progressiveEnriching && !progressivePaused" ref="moreSentinel" class="more-sentinel"></div>
         <!-- 加载更多 -->
-        <div data-ui="CommunityView:c18472307641" v-if="!usesPagination && hasMore" class="more-row">
-          <button data-ui="CommunityView:165371e35396" class="btn btn-ghost" :disabled="loadingMore" @click="onLoadMore">
+        <div data-ui="CommunityView:c18472307641" v-if="!usesPagination && (progressiveMode ? progressiveCanPage : hasMore)" class="more-row">
+          <button data-ui="CommunityView:165371e35396" data-search123="page-more" class="btn btn-ghost" :disabled="loadingMore || progressivePending || progressiveEnriching" @click="onLoadMore">
             <span data-ui="CommunityView:6fa61ac3821a" v-if="loadingMore" class="spin"></span>
             {{ loadingMore ? '加载中…' : '加载更多' }}
           </button>
@@ -662,11 +794,11 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
     </template>
     <!-- 下载模态框 -->
     <Teleport to="body">
-      <div data-ui="CommunityView:ef88acc39749" v-if="modal.open" class="modal-mask" @pointerdown.self="!modal.downloading && (modal.open = false)">
+      <div data-ui="CommunityView:ef88acc39749" v-if="modal.open" class="modal-mask" @pointerdown.self="modal.open = false">
         <div data-ui="CommunityView:6904c547ed30" class="modal download-modal">
           <h3 data-ui="CommunityView:7b81ed690844" class="modal-title"><MarqueeText :text="'下载 ' + modal.item?.title"/></h3>
           <div data-ui="CommunityView:a84b1e456827" v-if="modal.item" class="modal-links">
-            <button v-if="modal.kind==='mod'" class="btn btn-ghost btn-sm" :disabled="favoriteBusy.has(itemKey(modal.item))" :aria-pressed="favorites.some(f=>f.key===itemKey(modal.item!))" @click="toggleProject(modal.item.source,modal.item.projectId,modal.item.title)">{{favorites.some(f=>f.key===modal.item!.source+':'+modal.item!.projectId)?'★ 已收藏':'☆ 收藏模组'}}</button>
+            <button v-if="modal.kind==='mod'" class="btn btn-ghost btn-sm" :disabled="favoriteBusy.has(itemKey(modal.item))" :aria-pressed="favorites.some(f=>f.key===itemKey(modal.item!))" @click="toggleProject(modal.item.source,modal.item.projectId,modal.item.title,modal.item.iconUrl)">{{favorites.some(f=>f.key===modal.item!.source+':'+modal.item!.projectId)?'★ 已收藏':'☆ 收藏模组'}}</button>
             <button data-ui="CommunityView:6fabba70cd3a" class="btn btn-ghost btn-sm" @click="openExternal(sourceUrl(modal.item, modal.kind))">
               {{ modal.item.source === 'modrinth' ? 'Modrinth 源页面' : 'CurseForge 源页面' }}
             </button>
@@ -710,34 +842,51 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
           <!-- 目标版本（整合包安装即新实例，无需选择） -->
           <template v-if="!isModpack">
             <p class="modal-label">下载到版本</p>
-            <SelectMenu v-if="targetOptions.length" v-model="modal.versionId" :options="targetOptions.map(v => ({value:instanceKey(v),label:v.id+' · '+v.mcVersion+' / '+(v.loader || '纯净版')+' · '+v.folder}))" @change="selectDownloadInstance" />
+            <SelectMenu aria-label="下载目标实例" v-if="targetOptions.length" v-model="modal.versionId" :options="targetOptions.map(v => ({value:instanceKey(v),label:v.id+' · '+v.mcVersion+' / '+(v.loader || '纯净版')+' · '+v.folder}))" />
             <p data-ui="CommunityView:ab12acbb18fe" v-else class="files-error">没有与所选文件兼容的已安装实例；可调整文件筛选，或在游戏版本页安装。</p>
           </template>
           <p data-ui="CommunityView:a8e08b82f315" v-else class="muted pack-tip">整合包将下载后自动创建独立实例并安装</p>
 
           <div data-ui="CommunityView:2356b94bbc0d" class="modal-actions">
-            <button data-ui="CommunityView:989d28842ec5" class="btn btn-ghost" :disabled="modal.downloading" @click="modal.open = false">取消</button>
+            <button data-ui="CommunityView:989d28842ec5" class="btn btn-ghost" @click="modal.open = false">取消</button>
             <button data-ui="CommunityView:cade5c4fc83a" class="btn btn-gold" :disabled="!canConfirm" @click="confirmDownload">
-              <span data-ui="CommunityView:d3c64175bb8e" v-if="modal.downloading" class="spin"></span>
-              {{ modal.downloading ? '下载中…' : '确认下载' }}
+              {{ modal.kind === 'mod' ? '加入队列并检测' : '确认下载' }}
             </button>
           </div>
         </div>
       </div>
     </Teleport>
-    <ModInstallDialog v-if="modRequest" :target="modRequest.target" :input="modRequest.input" @close="modRequest = null" @installed="modRequest = null; modal.open = false"/>
     <CommunityModDetails v-if="detailProject" :reference="detailProject" @close="detailProject = null" @download="detailProject = null; openDownload($event, 'mod')" />
   </div>
 </template>
 
 <style scoped>
+.progressive-search-status { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card-2); }
+.progressive-search-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1 1 260px; }
+.progressive-search-copy strong { font-size: var(--text-sm); overflow-wrap: anywhere; }
+.progressive-search-copy .muted { font-size: var(--text-xs); line-height: 1.6; }
+.progressive-search-status .btn { flex: 0 0 auto; max-width: 100%; white-space: normal; }
+.result-title-button { appearance: none; padding: 0; margin: 0; border: 0; background: transparent; color: inherit; font: inherit; line-height: inherit; text-align: left; cursor: pointer; overflow-wrap: inherit; }
+.result-title-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
 .community-sections { display:flex;align-items:center;gap:6px;padding:4px;background:var(--card-2);border:1px solid var(--border);border-radius:var(--radius-md);align-self:flex-start; }
 .community-section { display:flex;align-items:center;justify-content:center;gap:8px;min-height:36px;border:0;border-radius:var(--radius-sm);padding:0 16px;background:transparent;color:var(--text-dim);font:inherit;font-size:13px;cursor:pointer;transition:background 160ms,color 160ms; }
 .community-section.active { background:var(--accent-soft);color:var(--accent-2);font-weight:600; }
 .community-section span { display:grid;place-items:center;min-width:20px;height:20px;padding:0 5px;background:var(--card);border-radius:6px;font-size:11px;font-variant-numeric:tabular-nums; }
 .community-section:focus-visible { outline:2px solid var(--accent);outline-offset:2px; }
-.instance-row { align-items: baseline; }
-.instance-label { align-self: baseline; line-height: 1.4; white-space: nowrap; }
+.version-filter-panel { display:grid; gap:var(--space-3); padding:var(--space-3); border:1px solid var(--border); border-radius:var(--radius-md); background:var(--card-2); }
+.version-filter-heading { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:var(--space-2); font-size:var(--text-sm); }
+.version-filter-heading .muted { font-size:var(--text-xs); overflow-wrap:anywhere; }
+.version-source-options { display:flex; flex-wrap:wrap; gap:var(--space-2); }
+.version-source-option { display:inline-flex; align-items:center; justify-content:center; gap:var(--space-2); min-height:var(--ctl-h); padding:var(--space-2) var(--space-4); border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--card); color:var(--text-dim); font:inherit; font-size:var(--text-sm); cursor:pointer; }
+.version-source-option:hover { background:var(--hover); color:var(--text); }
+.version-source-option.active { border-color:var(--accent); background:var(--accent-soft); color:var(--text); font-weight:600; }
+.version-source-option:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.version-source-option span { min-width:1.4em; padding:1px 5px; border-radius:var(--radius-sm); background:var(--hover); font-size:var(--text-xs); }
+.version-filter-detail { display:flex; align-items:center; flex-wrap:wrap; gap:var(--space-2); min-width:0; }
+.version-filter-detail :deep(.instance-filter) { flex:1; min-width:min(230px,100%); max-width:100%; }
+.version-filter-detail .muted { flex:1; margin:0; font-size:var(--text-xs); line-height:1.5; }
+.custom-version-detail :deep(.community-version-filter) { flex:1; min-width:min(170px,100%); }
+.version-loader-note { display:flex; align-items:center; flex-wrap:wrap; gap:var(--space-2); color:var(--text-dim); font-size:var(--text-xs); }
 .page {
   display: flex;
   flex-direction: column;
@@ -820,31 +969,6 @@ function selectDownloadInstance() { const target = targetOptions.value.find(v =>
   width: auto;
   flex: 1;
   min-width: 140px;
-}
-
-/* 可搜索版本下拉 */
-.ver-filter {
-  position: relative;
-  flex: 1.4;
-  min-width: 170px;
-}
-.ver-filter-input {
-  width: 100%;
-}
-.ver-filter-menu {
-  position: absolute;
-  top: calc(100% + var(--space-1));
-  left: 0;
-  right: 0;
-  max-height: 260px;
-  overflow-y: auto;
-  z-index: 9001;
-}
-.ver-menu-empty {
-  padding: var(--space-3);
-  text-align: center;
-  color: var(--text-dim);
-  font-size: var(--text-xs);
 }
 
 /* ---------------- 结果列表（卡片横向网格，窄窗口自动换行） ---------------- */

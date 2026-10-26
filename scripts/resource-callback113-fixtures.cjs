@@ -1,0 +1,8 @@
+// Synthetic analysis-test fields only. Never called by native collectors.
+function attachCallbackFixture(operation,token='synthetic-callback-ownership-fixture'){
+ const {frames,rendererWindow:w}=operation,url='file:///owned/index.html',uniqueId='synthetic-real-context-description',context={contextId:7,uniqueContextId:uniqueId,frameId:'synthetic-main-frame',frameURL:url,generation:1,createdEvent:{method:'Runtime.executionContextCreated',params:{context:{id:7,uniqueId,auxData:{isDefault:true,frameId:'synthetic-main-frame'}}},sequence:0,receivedAtUnixMs:1}},requests=Array.from({length:frames.length+1},(_,ordinal)=>({ordinal,handle:501+ordinal*17}))
+ frames.forEach((f,ordinal)=>Object.assign(f,{ordinal,holdToken:token,contextUniqueId:uniqueId,requestHandle:requests[ordinal].handle,nextHandle:requests[ordinal+1].handle,timeOrigin:w.timeOrigin,documentURL:url}))
+ operation.callbackEvidence={schema:1,holdToken:token,contextStart:structuredClone(context),contextEnd:structuredClone(context),lifecycleEvents:[],start:{begin:w.start,timeOrigin:w.timeOrigin,documentURL:url,holdToken:token,contextUniqueId:uniqueId,initialRequestHandle:requests[0].handle},end:{end:w.end,timeOrigin:w.endTimeOrigin,documentURL:url,holdToken:token,contextUniqueId:uniqueId,callbackCount:frames.length,initialRequestHandle:requests[0].handle,pendingRequestHandle:requests.at(-1).handle,cancelledRequestHandle:requests.at(-1).handle,requests,consumptions:frames.map(f=>({ordinal:f.ordinal,requestHandle:f.requestHandle,now:f.now,deliveredAt:f.deliveredAt}))}}
+ return operation
+}
+module.exports={attachCallbackFixture}

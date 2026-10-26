@@ -22,20 +22,31 @@ const getRect=user.func('GetWindowRect','bool',['uintptr',koffi.out(koffi.pointe
 const message = (hwnd, id, wp) => new Promise((resolve,reject)=>send.async(hwnd,id,wp,0,(err,v)=>err?reject(err):resolve(v)))
 const position=user.func('bool __stdcall SetWindowPos(uintptr_t,uintptr_t,int,int,int,int,uint32_t)')
 const report = {profile:root,checks:[],material:[]}, events=[]
+const processes=require('node:child_process'),originalSpawn=processes.spawn
+report.helpers=[]
+processes.spawn=function(file,args,options){const child=originalSpawn.call(this,file,args,options);if(path.basename(String(file))==='WindowMaterial.exe'){const entry={file,args,pid:child.pid,output:[],errors:[]};report.helpers.push(entry);child.stdout?.on('data',data=>entry.output.push(String(data)));child.stderr?.on('data',data=>entry.errors.push(String(data)));child.on('error',error=>entry.errors.push(error.message));child.on('exit',(code,signal)=>{entry.exit={code,signal}})}return child}
 let started=false
 app.on('browser-window-created', (_event, win) => {
   if (win.getTitle() !== 'KAMUCL') return
   // setIgnoreMouseEvents(true) itself adds WS_EX_LAYERED and would mask the
   // very startup-opacity regression this production test must detect.
+  let startupOpacityComplete=false
+  win.on('kamucl:startup-opacity-complete',()=>{startupOpacityComplete=true;report.startupOpacity={at:Date.now(),opacity:win.getOpacity(),visible:win.isVisible()}})
   for(const name of ['maximize','unmaximize','minimize','restore'])win.on(name,()=>events.push(name))
   win.webContents.on('did-finish-load',async()=>{
     if(started)return;started=true
     try {
-      for(let i=0;i<100&&!win.isVisible();i++)await wait(100)
+      // isVisible can precede startup's compositor gate and the fade itself.
+      // Observe the product's actual fade completion before checking cleanup.
+      for(let i=0;i<120&&!startupOpacityComplete;i++)await wait(100)
+      assert(startupOpacityComplete,'actual startup fade did not complete')
+      assert.equal(win.getOpacity(),1,'startup completion emitted before full opacity')
       await wait(1000)
       if(process.env.KAMUCL_WINDOW_REOPEN){assert(win.isMaximized(),'reopen lost maximization');assert.deepEqual(win.getNormalBounds(),reopenBounds);win.unmaximize();await wait(300);assert.deepEqual(win.getBounds(),reopenBounds);report.reopen=true}
-      win.setAlwaysOnTop(true)
+      // Observe the original product style, without a QA topmost mutation.
       const raw=win.getNativeWindowHandle(),hwnd=Number(raw.length===8?raw.readBigUInt64LE():raw.readUInt32LE())
+      report.initialNative={opacity:win.getOpacity(),hwnd,pid:process.pid,style:getStyle(hwnd,-20),startupOpacityComplete,listeners:win.eventNames().map(event=>({event:String(event),count:win.listenerCount(event)}))}
+      fs.writeFileSync(path.join(root,'initial-native.json'),JSON.stringify(report,null,2));console.log('INITIAL NATIVE',root,JSON.stringify(report.initialNative),JSON.stringify(report.helpers))
       assert.equal(getStyle(hwnd,-20)&0x80000,0,'startup fade left the DWM window layered')
       const button=()=>win.webContents.executeJavaScript(`document.querySelector('[data-ui="App:bd7bf1eb0182"]').click()`)
       for(const display of screen.getAllDisplays()) {
@@ -66,7 +77,7 @@ app.on('browser-window-created', (_event, win) => {
           report.checks.push({display:display.id,scale:display.scaleFactor,action:name,normal,visible})
         }
         await button();await wait(1000);assert(win.isMaximized())
-        const backdrop=new BrowserWindow({...area,title:"Backdrop fixture",alwaysOnTop:true,webPreferences:{backgroundThrottling:false},frame:false,focusable:false,skipTaskbar:true,show:false,backgroundColor:'#000000'})
+        const backdrop=new BrowserWindow({...area,title:"Backdrop fixture",webPreferences:{backgroundThrottling:false},frame:false,focusable:false,skipTaskbar:true,show:false,backgroundColor:'#000000'})
         await backdrop.loadURL('data:text/html,<html><body style=\"margin:0;background:black\"></body></html>');backdrop.setIgnoreMouseEvents(true);backdrop.showInactive();const backRaw=backdrop.getNativeWindowHandle(),backHwnd=Number(backRaw.length===8?backRaw.readBigUInt64LE():backRaw.readUInt32LE());position(backHwnd,hwnd,0,0,0,0,0x413)
         const samples=[]
         for(const color of ['#000000','#ffffff']){

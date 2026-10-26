@@ -5,7 +5,7 @@ import { resolveInstanceMetadata } from '../src/main/core/instanceMetadata'
 import { parseModArchive } from '../src/main/core/modMetadata'
 import { dependencyRange, matchesVersionRange, modMatchesInstance } from '../src/shared/modCompatibility'
 import { matchesCommunityFilter } from '../src/shared/communityPolicy'
-import { dependencyGraph, missingRequirements } from '../src/main/core/modInstallPlan'
+import { dependencyGraph, missingRequirements, type DependencyRepository } from '../src/main/core/modInstallPlan'
 import type { CommunityFile, InstalledVersion } from '../src/shared/types'
 import { parse, compileScript, compileTemplate } from '@vue/compiler-sfc'
 import fs from 'node:fs'
@@ -202,8 +202,13 @@ test('external runtime reuse follows exact coordinates, preserves existing bytes
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 })
 
-test('community component actually renders empty-instance filter fallback (not compile-only)', async () => {
+test('community component actually renders all-version defaults and explicit selection modes with no instance (not compile-only)', async () => {
   const bundle = await build({ entryPoints: ['src/renderer/src/views/CommunityView.vue'], bundle: true, write: false, format: 'cjs', platform: 'node', packages: 'external', alias: { '@shared': path.resolve('src/shared') }, plugins: [{ name: 'vue-unit', setup(b) {
+    // Both view-relative and root-relative API imports use this host fixture.
+    // Keep the real API exports; only Electron event subscriptions need a browser
+    // host, which this actual SSR-render test deliberately does not provide.
+    b.onResolve({ filter: /^\.\.?\/api$/ }, () => ({ path: 'renderer-api', namespace: 'ssr-host-fixture' }))
+    b.onLoad({ filter: /^renderer-api$/, namespace: 'ssr-host-fixture' }, () => ({ contents: 'export * from "./api.ts"; export const onProgress=()=>()=>{}; export const onTaskDone=()=>()=>{};', loader: 'ts', resolveDir: path.resolve('src/renderer/src') }))
     b.onLoad({ filter: /\.vue$/ }, args => {
       const { descriptor } = parse(fs.readFileSync(args.path, 'utf8'))
       return { contents: compileScript(descriptor, { id: args.path, inlineTemplate: true }).content, loader: 'ts', resolveDir: path.dirname(args.path) }
@@ -215,7 +220,15 @@ test('community component actually renders empty-instance filter fallback (not c
   try {
     new Function('require', 'module', 'exports', bundle.outputFiles[0].text)(createRequire(path.resolve('package.json')), exported, exported.exports)
     const html = await renderToString(createSSRApp(exported.exports.default))
-    assert(html.includes('选择版本') && html.includes('使用当前实例'))
+    // The former always-visible "选择版本/使用当前实例" row implicitly
+    // suggested the launcher selection constrained browsing. The requested
+    // first-entry default now renders all filters with explicit mode controls.
+    assert.match(html, /data-ui="community:versions-all"[^>]*aria-pressed="true"/)
+    assert.match(html, /data-ui="community:versions-installed"[^>]*aria-pressed="false"/)
+    assert.match(html, /data-ui="community:versions-custom"[^>]*aria-pressed="false"/)
+    assert(html.includes('全部 Minecraft 版本') && html.includes('全部加载器'))
+    assert(!html.includes('aria-label="选择已安装版本"'), 'An instance selection control appears only after the explicit installed mode')
+    assert(!html.includes('data-ui="community:custom-version"'), 'Exact custom-version input appears only after the explicit custom mode')
     // Every route transition has a DOM wrapper even when a view also owns Teleports.
     assert.match(fs.readFileSync('src/renderer/src/App.vue', 'utf8'), /<Transition name="fade" :duration="routeDuration">\s*<div[^>]*class="route-view"/)
   } finally { Object.defineProperty(globalThis, 'localStorage', { value: previousStorage, configurable: true }) }
@@ -237,3 +250,82 @@ test('nested version any/all preserve boolean precedence and Quilt has its own b
   assert(modMatchesInstance(mod, { id: 'renamed', mcVersion: '1.20.4', loader: 'quilt', loaderVersion: '0.28.0' }))
   assert.deepEqual(mod.requirements, [{ id: 'qsl', range: '*' }])
 })
+
+async function pinnedTransactionFixture(options: { transitive?: boolean; pinned?: boolean; existingVersion?: 1 | 2; hashes?: boolean; cycle?: boolean; wrongExact?: boolean }, work: (fixture: {
+  target: InstalledVersion; rootFile: CommunityFile; repo: DependencyRepository; existing: string; one: Buffer; two: Buffer; requests: string[]
+}) => Promise<void>) {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'kamucl-pinned118-')), game = path.join(root, 'isolated'), directory = path.join(game, 'mods')
+  fs.mkdirSync(directory, { recursive: true })
+  const jar = (id: string, version: string, depends: Record<string, string> = {}) => {
+    const zip = new AdmZip(); zip.addFile('fabric.mod.json', Buffer.from(JSON.stringify({ id, version, depends: { minecraft: '1.20.1', fabricloader: '>=0.15', ...depends } }))); return zip.toBuffer()
+  }
+  // The JAR's broad range deliberately permits v1. The repository's pinned v2
+  // must independently remain binding throughout the real install transaction.
+  const one = jar('front', '1.0.0'), two = jar('front', '2.0.0'), rootBytes = jar('root', '1.0.0', options.transitive ? { middle: '>=1' } : { front: '>=1' }), middleBytes = jar('middle', '1.0.0', { front: '>=1' })
+  const existing = path.join(directory, 'front-existing.jar'); fs.writeFileSync(existing, options.existingVersion === 2 ? two : one)
+  const requests: string[] = [], content = new Map([['/root.jar', rootBytes], ['/middle.jar', middleBytes], ['/front-v2.jar', two]])
+  const server = http.createServer((request, response) => {
+    requests.push(request.url!); const bytes = content.get(request.url!); if (!bytes) { response.writeHead(404); response.end(); return }
+    response.writeHead(200, { 'content-length': bytes.length }); response.end(bytes)
+  })
+  await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve))
+  const address = `http://127.0.0.1:${(server.address() as any).port}`
+  const file = (projectId: string, fileId: string, fileName: string, bytes: Buffer, version = '1.0.0'): CommunityFile => ({ source: 'modrinth', projectId, fileId, fileName, version, url: address + '/' + fileName,
+    ...(options.hashes === false ? {} : { sha1: crypto.createHash('sha1').update(bytes).digest('hex') }), size: bytes.length, gameVersions: ['1.20.1'], loaders: ['fabric'], date: '', releaseType: 'release' })
+  const rootFile = file('root', 'root-v1', 'root.jar', rootBytes), middleFile = file('middle', 'middle-v1', 'middle.jar', middleBytes), frontFile = file('front', 'front-v2', 'front-v2.jar', two, '2.0.0')
+  const frontEdge = { projectId: 'front', ...(options.pinned === false ? {} : { fileId: 'front-v2' }), required: true }
+  rootFile.dependencies = options.transitive ? [{ projectId: 'middle', required: true }] : [frontEdge]
+  middleFile.dependencies = [frontEdge]
+  if (options.cycle) frontFile.dependencies = [{ projectId: 'root', fileId: 'root-v1', required: true }]
+  const files = new Map([['root-v1', rootFile], ['middle-v1', middleFile], ['front-v2', frontFile]])
+  const repo = { exact: async (_source: unknown, _project: unknown, id: string) => options.wrongExact && id === 'front-v2' ? { ...frontFile, fileId: 'front-v1' } : files.get(id)!,
+    files: async (_source: unknown, project: string) => [project === 'middle' ? middleFile : frontFile], find: async (id: string) => id === 'middle' ? middleFile : frontFile }
+  const target: InstalledVersion = { id: 'pinned fixture', folder: root, gameDirectory: game, isolated: true, mcVersion: '1.20.1', loader: 'fabric', loaderVersion: '0.16.0' }
+  try { await work({ target, rootFile, repo, existing, one, two, requests }) }
+  finally { server.closeAllConnections(); await new Promise<void>(resolve => server.close(() => resolve())); fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+test('118 direct and transitive repository pins reject a different installed provider before writing any MOD', async () => {
+  for (const transitive of [false, true]) await pinnedTransactionFixture({ transitive }, async f => {
+    const plan = await prepareModInstall(f.target, { file: f.rootFile }, () => {}, undefined, f.repo)
+    assert(plan.files.some(file => file.dependency && file.fileName === 'front-v2.jar'))
+    await assert.rejects(executeModPlan(plan.id, true, () => f.target, () => {}), /前置版本冲突.*front.*front-v2.*未写入任何 MOD/)
+    assert(f.requests.includes('/front-v2.jar'), 'the actual pinned JAR was downloaded and verified')
+    assert.deepEqual(fs.readdirSync(path.dirname(f.existing)), ['front-existing.jar'])
+    assert.deepEqual(fs.readFileSync(f.existing), f.one)
+  })
+})
+
+test('118 pinned reuse requires exact bytes, supports different filenames and missing repository hashes, and tolerates a pinned root cycle', async () => {
+  for (const hashes of [true, false]) await pinnedTransactionFixture({ hashes, existingVersion: 2, cycle: true }, async f => {
+    const plan = await prepareModInstall(f.target, { file: f.rootFile }, () => {}, undefined, f.repo)
+    assert.equal(plan.files.filter(file => file.dependency).length, hashes ? 0 : 1)
+    await executeModPlan(plan.id, true, () => f.target, () => {})
+    assert.deepEqual(fs.readdirSync(path.dirname(f.existing)).sort(), ['front-existing.jar', 'root.jar'])
+    assert.deepEqual(fs.readFileSync(f.existing), f.two)
+    assert.equal(f.requests.filter(url => url === '/front-v2.jar').length, hashes ? 0 : 1)
+  })
+})
+
+test('118 a pinned provider changed during confirmation is rechecked even when preparation skipped its download', async () => pinnedTransactionFixture({ existingVersion: 2 }, async f => {
+  const plan = await prepareModInstall(f.target, { file: f.rootFile }, () => {}, undefined, f.repo)
+  assert.equal(plan.files.filter(file => file.dependency).length, 0)
+  fs.writeFileSync(f.existing, f.one)
+  await assert.rejects(executeModPlan(plan.id, true, () => f.target, () => {}), /未写入任何 MOD.*精确版本 front-v2.*已变化/)
+  assert.deepEqual(fs.readdirSync(path.dirname(f.existing)), ['front-existing.jar'])
+  assert.deepEqual(fs.readFileSync(f.existing), f.one)
+  assert.equal(f.requests.filter(url => url === '/front-v2.jar').length, 0)
+}))
+
+test('118 an unpinned compatible installed dependency still survives without a duplicate or forced upgrade', async () => pinnedTransactionFixture({ pinned: false }, async f => {
+  const plan = await prepareModInstall(f.target, { file: f.rootFile }, () => {}, undefined, f.repo)
+  await executeModPlan(plan.id, true, () => f.target, () => {})
+  assert.deepEqual(fs.readdirSync(path.dirname(f.existing)).sort(), ['front-existing.jar', 'root.jar'])
+  assert.deepEqual(fs.readFileSync(f.existing), f.one)
+}))
+
+test('118 an exact repository lookup returning another file ID is rejected while the instance remains unchanged', async () => pinnedTransactionFixture({ wrongExact: true }, async f => {
+  await assert.rejects(prepareModInstall(f.target, { file: f.rootFile }, () => {}, undefined, f.repo), /前置版本冲突/)
+  assert.deepEqual(fs.readdirSync(path.dirname(f.existing)), ['front-existing.jar'])
+  assert.deepEqual(fs.readFileSync(f.existing), f.one)
+}))

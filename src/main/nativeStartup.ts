@@ -22,6 +22,7 @@ export function showStartupWindow(window: BrowserWindow, animated = true) {
 /** Keep the original native scene alive through readiness, assembly and reveal. No renderer swap. */
 export function createNativeStartup(signal: string, pid: number) {
   const gate = new StartupGate()
+  try { launcherLog('Startup animation mode: ' + readFileSync(signal + '.motion', 'utf8')) } catch {}
   let main: BrowserWindow | null = null, disposed = false, revealed = false, readySent = false, last = ''
   const send = (text: string) => { if (text === last) return; try { writeFileSync(signal, text); last = text } catch {} }
   const labels = ['读取配置…', '加载账户…', '扫描游戏实例…', '准备主界面…', '准备首帧…']

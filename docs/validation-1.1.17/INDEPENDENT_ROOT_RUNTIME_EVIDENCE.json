@@ -1,0 +1,218 @@
+{
+  "complete": true,
+  "application": {
+    "file": "E:\\KAMUCL\\release\\KAMUCL-1.1.17.exe",
+    "sha256": "4517bdbb98b180c797f4e800a0d5c6d24b055db125876a3d27bf1b175332de2e"
+  },
+  "bindingsSha256": "45215b9184d6575eb0f3106af0a78d812bb0cd63202f5f6e9f6204177cfccb07",
+  "publicFilesVerified": 6145,
+  "totalBytes": 221965551,
+  "actualReviewedImages": [
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/black-orange/window-size-setting.png",
+      "bytes": 105568,
+      "sha256": "366bd65da74d4b2b8bdcb975cac48db748569f98d4d2fb60e3a81248220ca78e"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/black-orange/recovered-version-metadata.png",
+      "bytes": 176685,
+      "sha256": "a79be63a77139670b981054418380a4172203f435e89d73affcd9c064c460d56"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/black-orange/third-party-rendered.png",
+      "bytes": 247927,
+      "sha256": "dab159b80561f348f1bcd5c92de462b6e8baabad65a60f9f333b5074a9f16f10"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/black-orange/native-path-mods.png",
+      "bytes": 127704,
+      "sha256": "2514d8e33ab8fdc76767b91c4a04aab76a520f49ac895021e8f385239c588e90"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/black-orange/generic-select-popup.png",
+      "bytes": 141707,
+      "sha256": "008925b75b158ee8084c807bd4ddbe4e02df6318e8f3fa0cb833267e9d21a757"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/black-orange/community-popup-960-zoom-1.25.png",
+      "bytes": 119220,
+      "sha256": "516403c9b7f8db97adfb2d466af3add5f90ffbc9dc446714f70db2d95a0b85eb"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/mod-progress/black-orange/recording/frame-0512.jpg",
+      "bytes": 16324,
+      "sha256": "06dad27b869c29949309874ce7322cc9bd71a78e9a386e89c6de0bf4d5c605e4"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/mod-progress/black-orange/recording/frame-1024.jpg",
+      "bytes": 39596,
+      "sha256": "d3502dceaae3c4605fad02c035e95028f9c1aefe4e658d4cdf4833aea1cca82c"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/blue-white/window-size-setting.png",
+      "bytes": 109053,
+      "sha256": "a60f67839c900c0d2dd78ffa5ba4eb6cf9d2c558c664feab863cd4ba2d98d1ad"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/blue-white/default-download-location.png",
+      "bytes": 163917,
+      "sha256": "57ef78ab82287f2ecbc0f01356508c6a55c362f23b88a24771b36ec354865729"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/blue-white/recovered-version-metadata.png",
+      "bytes": 180579,
+      "sha256": "affb7f929245d9c9ee9b455bef76ecbf1b3e50d860d3d8eee331955d1a90d293"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/blue-white/third-party-rendered.png",
+      "bytes": 332272,
+      "sha256": "f524be417eee355b7c229adc0200dc6af33820559e010dda49092eab634b6d56"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/blue-white/native-path-mods.png",
+      "bytes": 130359,
+      "sha256": "211eec40ba2b4ea98935602077aa489bb70a86d8d0140b78ef87140d6b86b2fd"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/blue-white/generic-select-popup.png",
+      "bytes": 145351,
+      "sha256": "d47273d1edb1279285791aed2964408e3787c8da02858eaded0dcefdba1b814d"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/blue-white/community-popup-960-zoom-1.25.png",
+      "bytes": 120065,
+      "sha256": "5c35ea559254e9d7fab49a76f5597c12194a474c2a64e2a67d408900096791a5"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/mod-progress/blue-white/recording/frame-0516.jpg",
+      "bytes": 20368,
+      "sha256": "fc05a3c715a13fd5c9f80590baea516e3a31c18afc441df835d683bd0632b6ea"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/mod-progress/blue-white/recording/frame-1031.jpg",
+      "bytes": 36464,
+      "sha256": "4d917f240213a88b740f6580835fc0f2f22d61e474831c573b6eca80b0069f85"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/transparent/window-size-setting.png",
+      "bytes": 101166,
+      "sha256": "7fbe5ab7e191f755b46eff0bdb2aa7f42a1f92bcc2e5dbcc3b1daa3c2506da70"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/transparent/default-download-location.png",
+      "bytes": 152900,
+      "sha256": "5ddbdd39bef961dbd054d327f840380681bdf28656f28603bb3470b300a238c1"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/transparent/recovered-version-metadata.png",
+      "bytes": 164502,
+      "sha256": "1ce4cf8eeb74442957ef20ccd48f94d80620002f17169169c1092e333d05e509"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/transparent/third-party-rendered.png",
+      "bytes": 213983,
+      "sha256": "0d0eb70e1ef6d5dac1e5904c0e8bb625d551763415cf6ee4f59dfdc27fac7de2"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/transparent/native-path-mods.png",
+      "bytes": 119360,
+      "sha256": "b2d4ad96814c6d5c96f8db7807a05f25ea82dbe12392ffe4ac3fbf3435de0507"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/transparent/generic-select-popup.png",
+      "bytes": 131204,
+      "sha256": "9dddbfa02fe1ffaa3c397711cdaa2a1d4b6f3c780f09ae89033c5d6d37541dfd"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/transparent/community-popup-960-zoom-1.25.png",
+      "bytes": 106131,
+      "sha256": "f0423d400ae9547b9ade5a631f5911aa027821202a03cbf6ca472490f6f3cce1"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/mod-progress/transparent/recording/frame-0516.jpg",
+      "bytes": 15866,
+      "sha256": "7e3d5c35604956c222fc79aab92247db70b5774229b8221bc61c21c02bd8bc26"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/mod-progress/transparent/recording/frame-1031.jpg",
+      "bytes": 39800,
+      "sha256": "037bd92b0044d32dd17f40656e2c9164cea674d9c207c4fab258b2de271a7d87"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/custom/window-size-setting.png",
+      "bytes": 106715,
+      "sha256": "eedcb2dcca96fffc6b922386e993d15f17c028c71a54158baa62dca75841f8bf"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/custom/default-download-location.png",
+      "bytes": 162164,
+      "sha256": "809bf5b1b4469a3b4fe65751d523a06ae3f269c51b45f2377a25632115802763"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/custom/recovered-version-metadata.png",
+      "bytes": 178540,
+      "sha256": "212efc217db2472ed3806e7f6fcb0a82ef44eb216126899b521d1bb64366e4f6"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/custom/third-party-rendered.png",
+      "bytes": 267040,
+      "sha256": "ecae2844224c93d40c9e1d0b1df4576f6be6a9db43dd50c202f7d54a8afcc919"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/custom/native-path-mods.png",
+      "bytes": 128025,
+      "sha256": "6d4dbacc4adf06643c179a8af40adf10d0c3b246aa2e491888b06621e1dd5a45"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/custom/generic-select-popup.png",
+      "bytes": 144127,
+      "sha256": "3395c0fcec9ce1b1599630eb0e8c7e82507cb847e8b90b9343e1bb1f56eb4ad4"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/ui/custom/community-popup-960-zoom-1.25.png",
+      "bytes": 119867,
+      "sha256": "52694491029bed782eb649b6fbfe263dbf5abd0ffaabeb3eeb5c138741430dcf"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/mod-progress/custom/recording/frame-0516.jpg",
+      "bytes": 16642,
+      "sha256": "a0dd621567fa9a30af032e6d72d37f1e618b480129e05dd548e918c3ee4a6cae"
+    },
+    {
+      "file": "docs/validation-1.1.17/evidence/mod-progress/custom/recording/frame-1031.jpg",
+      "bytes": 41613,
+      "sha256": "c119e1b4b4cc368b07822b4505c755af00552981f4aed5ccb149dbe8379b3031"
+    }
+  ],
+  "themes": [
+    {
+      "theme": "black-orange",
+      "identityCount": 21,
+      "remaining": 0,
+      "code": 0
+    },
+    {
+      "theme": "blue-white",
+      "identityCount": 14,
+      "remaining": 0,
+      "code": 0
+    },
+    {
+      "theme": "transparent",
+      "identityCount": 11,
+      "remaining": 0,
+      "code": 0
+    },
+    {
+      "theme": "custom",
+      "identityCount": 14,
+      "remaining": 0,
+      "code": 0
+    }
+  ],
+  "historicalCandidate": {
+    "file": "E:\\KAMUCL\\release\\KAMUCL-1.1.17.exe",
+    "sha256": "d182c46df28eabe52eb0c2e97cbc27b90655847744d89496307ed469acdec978"
+  },
+  "qualification": "Independent byte-for-byte source/public SHA256 verification for all manifest copies. Visual review is limited to the 27 listed non-self implementation PNG and eight original MOD recording JPEG samples; not a full-frame animation/FPS/audio or actual Minecraft pass."
+}

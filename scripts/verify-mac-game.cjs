@@ -7,6 +7,27 @@ const app = path.resolve(process.argv[2]), arch = process.argv[3]
 assert.equal(process.arch, arch)
 const proof = path.resolve(`release/mac-game-proof-${arch}`)
 fs.mkdirSync(proof, { recursive: true })
+const { readMacPackageIdentity, collectMacWorldHashes, findMacGameExit, assertMacNormalGameExit } = require('./mac-package-identity.cjs')
+const packageIdentity = readMacPackageIdentity(app, {version:require('../package.json').version,arch,sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),runtimeVersion:require('../package.json').devDependencies.electron,minimumSystemVersion:'13.0.0'})
+fs.writeFileSync(path.join(proof,'package-identity.json'),JSON.stringify(packageIdentity,null,2))
+// This job owns its native observation tool; it does not consume another job's
+// temporary material fixture. Keep compilation and signature checks before any
+// launcher or game process starts so a setup failure cannot strand either one.
+const probeSource = path.resolve('scripts/mac-material-fixture.swift')
+const fixture = path.join(proof, 'native-window-probe')
+const probeTarget = `${arch === 'x64' ? 'x86_64' : 'arm64'}-apple-macos13.0`
+execFileSync('swiftc', [probeSource, '-target', probeTarget, '-o', fixture], { timeout: 60000 })
+execFileSync('lipo', [fixture, '-verify_arch', arch === 'x64' ? 'x86_64' : 'arm64'])
+execFileSync('codesign', ['--force', '--sign', '-', fixture])
+execFileSync('codesign', ['--verify', '--strict', fixture])
+const probeHash = file => require('node:crypto').createHash('sha256').update(fs.readFileSync(file)).digest('hex')
+fs.writeFileSync(path.join(proof, 'native-window-probe.json'), JSON.stringify({
+  source: path.relative(process.cwd(), probeSource), sourceSHA256: probeHash(probeSource),
+  executable: fixture, sha256: probeHash(fixture), arch, target: probeTarget,
+  binary: execFileSync('file', [fixture], { encoding: 'utf8' }).trim(),
+  signing: 'local ad-hoc; strict signature verified',
+  observation: 'CGWindowListCopyWindowInfo and frontmostApplication query the actual owned process window and focus'
+}, null, 2))
 const log = fs.openSync(path.join(proof, 'launcher.log'), 'w'), env = { ...process.env }
 delete env.ELECTRON_RUN_AS_NODE
 // Hosted Intel Macs expose a paravirtual GPU whose Metal argument encoder
@@ -18,6 +39,9 @@ if (arch === 'x64') {
 const child = spawn(path.join(app, 'Contents/MacOS/KAMUCL'), ['--remote-debugging-port=9230', '--inspect=9231'], { env, stdio: ['ignore', log, log] })
 const wait = ms => new Promise(r => setTimeout(r, ms))
 let ws, mainWs, evaluate, gamePid, gameFolder, debuggerProcess, events = []
+const captureObserver = require('./mac-game-capture-observer.cjs').createGameCaptureObserver({
+  proof, getGamePID: () => gamePid, launcherPID: child.pid
+})
 async function connectRenderer() {
   let page
   for (let i = 0; i < 60; i++) {
@@ -47,6 +71,7 @@ async function evaluateMain(expression){
   })
 }
 async function main() {
+  await captureObserver.start()
   await connectRenderer()
   const folder = await evaluate(`(async()=>{
     window.__gameTestEvents=[];
@@ -93,8 +118,6 @@ async function main() {
   metadata.arguments.game.push('--demo'); fs.writeFileSync(idPath, JSON.stringify(metadata))
   await evaluate(`window.kamucl.invoke('game:launch',${JSON.stringify(installed.installedId)},null,${JSON.stringify(folder)})`)
   let nativeWindow, lastState
-  const fixture = path.resolve(`release/mac-proof-${arch}-app/material-fixture`)
-  assert(fs.existsSync(fixture), 'native window probe is missing: '+fixture)
   for (let i = 0; i < 240; i++) {
     const batch = await evaluate('window.__gameTestEvents.splice(0)'); events.push(...batch)
     for (const e of batch) {
@@ -133,7 +156,7 @@ async function main() {
   await wait(10000)
   events.push(...await evaluate('window.__gameTestEvents.splice(0)'))
   assert(!events.some(e => e.name === 'launchState' && ['error', 'exited'].includes(e.value.status)), 'game exited during initialization')
-  execFileSync('/usr/sbin/screencapture', ['-x', '-D', '1', path.join(proof, 'minecraft.png')])
+  await captureObserver.capture('minecraft.png', gamePid)
   // Observe the real new-window handshake and the main process's own state replay.
   // Connecting CDP (and its fixed initial settle delay) does not imply that async
   // account/instance/assets boot tasks have emitted boot:renderer-ready yet.
@@ -166,7 +189,7 @@ async function main() {
       return { gameAlive, main, renderer }
     }
   })
-  execFileSync('/usr/sbin/screencapture', ['-x', '-D', '1', path.join(proof, 'dock-reopen.png')])
+  await captureObserver.capture('dock-reopen.png', child.pid)
   assert(dockReopen.ready, 'Dock reopen forgot the live game: within 10 seconds require real current-window boot/state replay, live owned PID and visible 游戏运行中; original observations saved')
   await evaluate(`window.__gameTestEvents=[];for(const name of ['launchLog','launchState'])window.kamucl.on('event:'+name,value=>window.__gameTestEvents.push({name,value}));`)
   const helper=path.join(app,'Contents/Resources/app.asar.unpacked/out/main/MacGameWindow')
@@ -185,27 +208,34 @@ async function main() {
   }
   assert(worldStarted,'demo world did not start')
   await wait(10000) // Let the client finish its terrain transition before capturing it.
-  execFileSync('/usr/sbin/screencapture',['-x','-D','1',path.join(proof,'minecraft-world.png')])
+  await captureObserver.capture('minecraft-world.png', gamePid)
   execFileSync(helper,['close',String(gamePid),'6000'],{timeout:8000})
+  const expectedExit={versionId:installed.installedId,folder,launchId:lastState?.launchId}
   let exited=false
   for(let i=0;i<90;i++){
     events.push(...await evaluate('window.__gameTestEvents.splice(0)'))
-    try{process.kill(gamePid,0)}catch{exited=true;break}
+    try{process.kill(gamePid,0)}catch{exited=true}
+    if(exited&&findMacGameExit(events,expectedExit))break
     await wait(1000)
   }
   assert(exited,'normal Cocoa close did not exit Minecraft')
+  const normalExit=assertMacNormalGameExit(events,expectedExit)
   assert(events.some(e=>e.name==='launchLog'&&/Stopping!|Stopping the|Saving|正常退出|退出.*0/.test(e.value)),'game did not report a normal shutdown')
   const saveDir=path.join(path.dirname(idPath),'saves','Demo_World')
   assert(fs.statSync(path.join(saveDir,'level.dat')).size>0,'demo world metadata was not saved')
   const regionDir=path.join(saveDir,'dimensions','minecraft','overworld','region')
   const regionFiles=fs.readdirSync(regionDir).filter(f=>f.endsWith('.mca')&&fs.statSync(path.join(regionDir,f)).size>0)
   assert(regionFiles.length>0,'demo world chunks were not saved')
+  // Observe final save bytes only after this owned game has exited; never publish the world.
+  const world=collectMacWorldHashes(saveDir)
+  fs.writeFileSync(path.join(proof,'saved-world-hashes.json'),JSON.stringify(world,null,2))
   assert(!fs.readFileSync(path.join(proof,'launcher.log'),'utf8').includes('Object has been destroyed'),'closed window broke background callbacks')
-  fs.writeFileSync(path.join(proof, 'verification.json'), JSON.stringify({ arch, version, nativeWindow, gamePid, gameWindow: true, worldStarted,savedWorld:true,regionFiles,nativeFocus:true, gracefulClose:true,closeAndDockReopen:true,ciMetalArgumentBuffers:env.MVK_CONFIG_USE_METAL_ARGUMENT_BUFFERS??null,ciMetalHeap:env.MVK_CONFIG_USE_MTLHEAP??null }, null, 2))
+  fs.writeFileSync(path.join(proof, 'verification.json'), JSON.stringify({ arch, version, packageIdentity, nativeWindow, gamePid, gameWindow: true, worldStarted,savedWorld:true,world,normalExit:{...normalExit,saved:true},regionFiles,nativeFocus:true, gracefulClose:true,closeAndDockReopen:true,ciMetalArgumentBuffers:env.MVK_CONFIG_USE_METAL_ARGUMENT_BUFFERS??null,ciMetalHeap:env.MVK_CONFIG_USE_MTLHEAP??null }, null, 2))
   gamePid=null
   console.log('PASS actual Minecraft window', arch, version)
 }
 main().catch(e => { console.error(e); process.exitCode = 1 }).finally(async () => {
+  try {
   try { if (evaluate) events.push(...await evaluate('window.__gameTestEvents.splice(0)')) } catch {}
   fs.writeFileSync(path.join(proof, 'events.json'), JSON.stringify(events, null, 2))
   if (process.exitCode) {
@@ -235,7 +265,9 @@ main().catch(e => { console.error(e); process.exitCode = 1 }).finally(async () =
   mainWs?.close(); ws?.close()
   const ended=new Promise(resolve=>{if(child.exitCode!==null)resolve();else child.once('exit',resolve)})
   child.kill('SIGTERM');await ended;fs.closeSync(log)
-  // Collect independent animation/tools/update evidence even if gameplay failed;
-  // any failure still fails this required workflow step.
-  try{await require('./verify-mac-extra.cjs')(app,arch)}catch(e){console.error(e);process.exitCode=1}
+  // Startup/tools/update run in independent required jobs against this exact bundle.
+  // A failed or slow game run must not consume their native validation budget.
+  } finally {
+    try { await captureObserver.stop() } catch (e) { console.error(e); process.exitCode = 1 }
+  }
 })

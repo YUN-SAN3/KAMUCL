@@ -1,0 +1,2109 @@
+{
+  "complete": true,
+  "originalProofSHA256": "0bccb52fa5b41048cc29080e9429dcdcc105426d0b9bc301c398d025eb9fcad1",
+  "rendererMatchedFinalASAR": true,
+  "rendererFiles": [
+    {
+      "path": "assets/AccountsView-B3bQ6mcI.js",
+      "bytes": 50750,
+      "sha256": "c81c329a973919e6ba17ffc167f37ca50367bd3f7f1df9348c27735795d1b870"
+    },
+    {
+      "path": "assets/AccountsView-DvQbZNgP.css",
+      "bytes": 10789,
+      "sha256": "8e8a8420b923234a5d2e0c4329b342e9f7484322a6ea704ec470b9707db0b598"
+    },
+    {
+      "path": "assets/brewer-_t6hu0qJ.webp",
+      "bytes": 1405068,
+      "sha256": "38f39f80451353784a5217c781d35f131961074eb3f0a2bdc59bc37a84e77a16"
+    },
+    {
+      "path": "assets/BridgeView-B6C1Vzii.js",
+      "bytes": 22448,
+      "sha256": "4d4d7ce943be04de3dbf2b02378576a22178db502fd7a31abe40430f37cb5d28"
+    },
+    {
+      "path": "assets/BridgeView-Dg9xuueV.css",
+      "bytes": 4520,
+      "sha256": "fc2fa7edd58214619a09d7e8604d5d692aa0476d9a2e169a68ea25942671f13a"
+    },
+    {
+      "path": "assets/cactus-ZHT28Bbx.webp",
+      "bytes": 1391550,
+      "sha256": "0530b9aeec17c0f538b25e7c4ebfc4c9064f166964fea333e8994a7ad9caadfb"
+    },
+    {
+      "path": "assets/camp-KA8qI3ns.webp",
+      "bytes": 1413784,
+      "sha256": "66783d4aa2371fdb8e95df9fe17103345f6fad27ab35640ae1ebec2e59981ebe"
+    },
+    {
+      "path": "assets/cannon-CrDDsD5Q.webp",
+      "bytes": 1543372,
+      "sha256": "4b0a8804c5ac58292c28056783b6a19ae39c417d39898e9f2000aed751326a64"
+    },
+    {
+      "path": "assets/CommunityView-DrrS5G5H.js",
+      "bytes": 124554,
+      "sha256": "c5de8b56528408302e5fc30d003813085896323c248a8db45fe780a02b1a4ec4"
+    },
+    {
+      "path": "assets/CommunityView-JCdkQNAM.css",
+      "bytes": 22429,
+      "sha256": "0c4b8a9fe325ff3f737058754a1bab916a02cfc4eb074af83a9141af25a620fc"
+    },
+    {
+      "path": "assets/connection--2GQb3ML.css",
+      "bytes": 12683,
+      "sha256": "8bda22c42969726c708be99ee0dc02565ca53b4606ec3bbcbbf26188c68028b0"
+    },
+    {
+      "path": "assets/ConnectionPanel.vue_vue_type_script_setup_true_lang-C94a8jzV.js",
+      "bytes": 2736,
+      "sha256": "7f286fa8ac3bc28ce58a7184248cd63e9d7b01faedbadfdec5ac83ccca57d8af"
+    },
+    {
+      "path": "assets/ContentSkeleton-BBjI24ME.js",
+      "bytes": 2619,
+      "sha256": "e1d1d3a0e8d2254786c75371183120f6ba779054ee60ae71d4830aa244955365"
+    },
+    {
+      "path": "assets/ContentSkeleton-EajBTAHq.css",
+      "bytes": 586,
+      "sha256": "1cafa67154caf8d3ab0955e77160d969c7f2cf2c944279bab42ac4c66497158c"
+    },
+    {
+      "path": "assets/farmer-3krkG6Tm.webp",
+      "bytes": 1588558,
+      "sha256": "c186d9793565bbc22aafa68de3df9cf6e02c73d252aab596771941cf7957e252"
+    },
+    {
+      "path": "assets/FileManager-BW0aEH0D.css",
+      "bytes": 22802,
+      "sha256": "a9709a659d73f5dde3326f6e0d46f2ce4b2ff02b011db84d91e1daf8eb91b95c"
+    },
+    {
+      "path": "assets/FileManager-Dn_hQHeH.js",
+      "bytes": 114808,
+      "sha256": "dd306842ea9a47cb236d96f7d7eead201d07267a3e06416885b8e6a269b7dccd"
+    },
+    {
+      "path": "assets/FriendConnectView-b3ljbgGI.js",
+      "bytes": 9638,
+      "sha256": "3a8696eee0c04d0b1abdfae7191fe4636d3aa7ff1b09f5eb2bed55a83ca1e2a8"
+    },
+    {
+      "path": "assets/FriendConnectView-Ca3kNSA5.css",
+      "bytes": 5151,
+      "sha256": "6f81cc9b96bec7f10c8d6afbc346c0d4c98813585ba4764a07e54b12d85e1ab5"
+    },
+    {
+      "path": "assets/FrpPanel-3KAV-AbJ.css",
+      "bytes": 12221,
+      "sha256": "1a50f0c87cf038c204f84080008aa7f88e34ba743ba4f02dd2a950c9e83ee24a"
+    },
+    {
+      "path": "assets/FrpPanel-DAS5zim-.js",
+      "bytes": 42764,
+      "sha256": "bc7532705b93efd6452da4f4058dadd528b87134d1bd9226866b215c510f1379"
+    },
+    {
+      "path": "assets/GameView-C7S8FyQ6.js",
+      "bytes": 175296,
+      "sha256": "aa982f781cae8a2d9008852802ac0e297fd600e24932a8775c00c4bc1fee765c"
+    },
+    {
+      "path": "assets/GameView-D8YCrSyA.css",
+      "bytes": 33855,
+      "sha256": "8f91d0dbb2b471314b14800378e158684b1fff492dfb74d71b3dea1d30f9c2dc"
+    },
+    {
+      "path": "assets/index-BXnVAW48.css",
+      "bytes": 121780,
+      "sha256": "6af9509cac2c3c08065476324201ca8df26eb660297ce2247bc2919c61109715"
+    },
+    {
+      "path": "assets/index-CfcI51_M.js",
+      "bytes": 1919928,
+      "sha256": "f6c2f23ee2ddf9eaf6580ca886b14de8401489aec5ad3b1bd58e873007201899"
+    },
+    {
+      "path": "assets/InstanceCenter-C2Ex49y4.js",
+      "bytes": 50568,
+      "sha256": "ccdb8e76c91c30776bb6fd422f9000c95613ca256d2137cf6b118a6dd3c5f9d3"
+    },
+    {
+      "path": "assets/InstanceCenter-D0HzF6GJ.css",
+      "bytes": 5636,
+      "sha256": "607420639dda2439db4e6bd6ee2ab38585491c470ef70463f88936dd3c868a3b"
+    },
+    {
+      "path": "assets/KeysView-BvT0YZPl.css",
+      "bytes": 11226,
+      "sha256": "4de44526b236cb2597bcb8ece1117bc529c2ad8e0854431f2554eef58c8d269c"
+    },
+    {
+      "path": "assets/KeysView-IS2QTWTv.js",
+      "bytes": 62957,
+      "sha256": "c4c06e84519860ae19456787fbfe2f3fdda4a47afe44580acb3351f55fe0101d"
+    },
+    {
+      "path": "assets/MascotStage-BCKXjETR.css",
+      "bytes": 2840,
+      "sha256": "eba2b4f57ff09dd87b5f6bb537616adeb0ad7462cd6749e045af3750b191bfdf"
+    },
+    {
+      "path": "assets/MascotStage-ClAUQ8bH.js",
+      "bytes": 72316,
+      "sha256": "8cdad926e3c7091192bd81a9a99ec0acb3ee41250b4e24092629897f8d59a2b5"
+    },
+    {
+      "path": "assets/modFavorites-DJxh-KcT.js",
+      "bytes": 2920,
+      "sha256": "6580f92e9acc3c1ab9bb3f295e04d44410eb018e4b85b010fc25f89d2a396312"
+    },
+    {
+      "path": "assets/ModsView-CK16KZeU.js",
+      "bytes": 955,
+      "sha256": "e4e5731ad652fb01040c4dae97784a6639cc94a8caf65be7f562e501f4168185"
+    },
+    {
+      "path": "assets/PacksView-gKFL32mf.js",
+      "bytes": 987,
+      "sha256": "597370bf4efd383030ebe9e05221e5025526894a38c44e0c354012fd929d3c80"
+    },
+    {
+      "path": "assets/piston-CXXgq7BE.webp",
+      "bytes": 1406146,
+      "sha256": "bdfbc3e3b189a0e6e012a7fd381cd5a829c7b5143ba869d51ee35c072cf3197d"
+    },
+    {
+      "path": "assets/plugins-B5IU_Ubz.js",
+      "bytes": 1751,
+      "sha256": "19e410f28c04158d2777a26d6e4e503725a00960e1b48db3862969770560ca01"
+    },
+    {
+      "path": "assets/ProjectionsView-D-dz64gr.css",
+      "bytes": 4532,
+      "sha256": "0ea872bbc67d248e09df13979275148b30bb5a8c54d6679cb4af25960df3999b"
+    },
+    {
+      "path": "assets/ProjectionsView-DKx-keDg.js",
+      "bytes": 36350,
+      "sha256": "b0f82841083455b2696936469f096f594ec3024ec891a1f48463c0957cf02f9f"
+    },
+    {
+      "path": "assets/RecordingsView-CFcRlcYP.js",
+      "bytes": 24314,
+      "sha256": "d41222a527fcad57ed29c9e96af328d2c9905c122f3a92a24b10861ad8c4e8d7"
+    },
+    {
+      "path": "assets/RecordingsView-DQWh4n87.css",
+      "bytes": 3782,
+      "sha256": "54ee3ce08bfacc0ea55d3569e2f579f30ba0a03c8937f62516b5b2382f49c43f"
+    },
+    {
+      "path": "assets/SelectMenu-BVgQ1yqQ.css",
+      "bytes": 3605,
+      "sha256": "bd38db12c3f5f8d117bfe4a972a17f53573b906b9af02778647a83b0f3cd5df6"
+    },
+    {
+      "path": "assets/SelectMenu-DKzO3Rkh.js",
+      "bytes": 9140,
+      "sha256": "c6948ac5a0432df61c78cdd27cf2192fb67c04f274d1787a5c29c7b479b4925c"
+    },
+    {
+      "path": "assets/ServersView-Bho2AQTl.js",
+      "bytes": 57989,
+      "sha256": "831164dcb5bb16e6e8a715ea0330e03762eb3a44ecf2cd531baf14869cc05259"
+    },
+    {
+      "path": "assets/ServersView-CMTjlCPz.css",
+      "bytes": 13558,
+      "sha256": "956d8d7b942d93f2797aebdff089dcddc2d470bc664334a5520c6e09be751efa"
+    },
+    {
+      "path": "assets/settingsUpdates-DhCbDP27.js",
+      "bytes": 834,
+      "sha256": "97a00bcdba4c8a653b16d8ee6632f8fb2f44f9f02185dd564ddf57afc85cf484"
+    },
+    {
+      "path": "assets/SettingsView-2uvbHDVz.js",
+      "bytes": 174652,
+      "sha256": "3b258f87a7b31bdc6ceaac0e9ff6fe54be6b47cadc92b16433b6bbb98c3997ab"
+    },
+    {
+      "path": "assets/SettingsView-DQ6csXGV.css",
+      "bytes": 39905,
+      "sha256": "d00f9759d57b47aadda12dc2967da2a547386321fb04cd88369adec61605b388"
+    },
+    {
+      "path": "assets/ShadersView-B_knCXYl.js",
+      "bytes": 1041,
+      "sha256": "81652e60c91346c69e310cbb60aebe817a7b53284a807f85cb91714eed782524"
+    },
+    {
+      "path": "assets/SkinsView-BDE2nHJ4.css",
+      "bytes": 35409,
+      "sha256": "65e6d60b11184215551688bebdf354f359ac55df0d248bb6da5b149f63dbe958"
+    },
+    {
+      "path": "assets/SkinsView-D9QCsCsd.js",
+      "bytes": 120088,
+      "sha256": "4356a56e5ee86c62cd585a7dcc93761991fb5b4e2787544247047cd74f2b5313"
+    },
+    {
+      "path": "assets/splash-BCp9n5TB.css",
+      "bytes": 1341,
+      "sha256": "349e6ca1b30527c27a35ad109eac8e44b3fbee1bffd111fa5799ce48fc61de01"
+    },
+    {
+      "path": "assets/splash-BhyJi4oD.js",
+      "bytes": 8537,
+      "sha256": "49f2660058a35fa7a7f8cad881b103e39a139bfbbaadf2a303edd04067b73cfe"
+    },
+    {
+      "path": "assets/splash-face-D7cFdy8J.js",
+      "bytes": 5165,
+      "sha256": "0a7f3d8cce8e90694708445599c8aa35f651146cb25f417de026da9af376ee4b"
+    },
+    {
+      "path": "assets/sunset--N5hnz1m.webp",
+      "bytes": 1582702,
+      "sha256": "0c4586a2ff009492b82f543fe64fea4a6210d952d7c382a270e889e508e38766"
+    },
+    {
+      "path": "assets/TerracottaPanel-Cz_gEgNY.js",
+      "bytes": 28732,
+      "sha256": "ba08d5caee7dfbbb92e85d1358716818cb65fb5804e0213caac6d1e7ef86be2d"
+    },
+    {
+      "path": "assets/TerracottaPanel-mv44hqqU.css",
+      "bytes": 5766,
+      "sha256": "0181a6e3ca109269e9d927af20954ec3b8da5f2a9a01b1b3c02191572b171540"
+    },
+    {
+      "path": "assets/ThirdPartyNotices-CgBuT8G3.css",
+      "bytes": 756,
+      "sha256": "d408974ca79da356a6f340ff236abd0cd5d435647c0d34adb4ffb9d402a017b6"
+    },
+    {
+      "path": "assets/ThirdPartyNotices-DtNfpjtF.js",
+      "bytes": 196084,
+      "sha256": "5fbc353f0b582e5c89050dd987c6f288aa731d0c744a391085f49ddcc60cdba5"
+    },
+    {
+      "path": "assets/UiGlyph.vue_vue_type_script_setup_true_lang-Cc6dqkJw.js",
+      "bytes": 2333,
+      "sha256": "4868a6c4aeb9817c7679398422c74d5695eff437dd74db1e8d3f5525c2f20129"
+    },
+    {
+      "path": "assets/uiPresentation-DBTJW4DM.js",
+      "bytes": 615,
+      "sha256": "ad10ad0c3f6abaa3f5e4ec06a40c66c2bfd35f563db54a4db186c43fbe811a0f"
+    },
+    {
+      "path": "assets/VoxLinkPanel-BnMnR24l.js",
+      "bytes": 86614,
+      "sha256": "b27764f8b1ce7e49f10ca084d9f8d467a10ed11bf376109a17ccf786c799b4b6"
+    },
+    {
+      "path": "assets/VoxLinkPanel-CnYwmKfe.css",
+      "bytes": 9186,
+      "sha256": "078546e38918bfc4282eb10d7ff806651e8e2e177c81af09f766c42e21c8f6d9"
+    },
+    {
+      "path": "index.html",
+      "bytes": 607,
+      "sha256": "7421fd5b5bc559a84ad6ce706d2790ee06abe54104875f6d589362cae282a0d6"
+    },
+    {
+      "path": "mobs/allay.png",
+      "bytes": 176,
+      "sha256": "58e583cf63056a135b65f2bb73c544f1a47baa928af358f5b02fd7bc803b8234"
+    },
+    {
+      "path": "mobs/armadillo.png",
+      "bytes": 251,
+      "sha256": "254962e3c73b16565de26ec27ae31c6b88f246e5abf3b1d2bfd3e010c30df786"
+    },
+    {
+      "path": "mobs/axolotl.png",
+      "bytes": 171,
+      "sha256": "00e71ca81cecfbdd3184e62dfbaebe7c43f5e35b372c237f1dc874b52652a4f5"
+    },
+    {
+      "path": "mobs/bat.png",
+      "bytes": 396,
+      "sha256": "73046e9a33db7621294f1e02a8cacf1f8ba9459bbf0cf815589b55051432bd4d"
+    },
+    {
+      "path": "mobs/bee.png",
+      "bytes": 228,
+      "sha256": "9f3f84e5778570de143732a4dbb198c2bb4b763cfe1bf18ef5fb6d890d77d325"
+    },
+    {
+      "path": "mobs/blaze.png",
+      "bytes": 218,
+      "sha256": "765744fc9e40af244d416349b1c8cd35cabd7fecc16e3ccc70153c7f95e23192"
+    },
+    {
+      "path": "mobs/bogged.png",
+      "bytes": 236,
+      "sha256": "e3ad7651831754bb9ba878536df772b20f7c261b6101ca570e895c37e8183e9d"
+    },
+    {
+      "path": "mobs/breeze.png",
+      "bytes": 204,
+      "sha256": "6e7b19c20630640196eb50667df4cb0ccab7dc381789f12f76cfeb099521cdac"
+    },
+    {
+      "path": "mobs/camel.png",
+      "bytes": 239,
+      "sha256": "46e5aee66f437b81550e0d7e71a7cd2ae0272ec686b983bc20e31699c78228c3"
+    },
+    {
+      "path": "mobs/cat.png",
+      "bytes": 175,
+      "sha256": "b30e0ac590bfbfdc7a3499cc21a2c5a0ac81375361a145a24d6110b7445e2734"
+    },
+    {
+      "path": "mobs/cave_spider.png",
+      "bytes": 172,
+      "sha256": "4fb2536ee802cbaad248f175b641dd1e67977196256872c5b33b5aa251b53d65"
+    },
+    {
+      "path": "mobs/chicken.png",
+      "bytes": 287,
+      "sha256": "5c570fe435fca55fb61d1bc00f6eabc9c9aeba2b5c31832682247517c0eabdd5"
+    },
+    {
+      "path": "mobs/cod.png",
+      "bytes": 194,
+      "sha256": "593563c140ff5115f720b3901a25daafee67bb77cebce751cffaabef269322b3"
+    },
+    {
+      "path": "mobs/copper_golem.png",
+      "bytes": 208,
+      "sha256": "e947fae000286506c265b2d5c20b73915d97c1797e8817563cfed7a3baafcc63"
+    },
+    {
+      "path": "mobs/cow.png",
+      "bytes": 194,
+      "sha256": "0ac9d05e7a1714c736a95a0ca8a85900b8c331c0e2da6cc744df086e59f00a4f"
+    },
+    {
+      "path": "mobs/creaking.png",
+      "bytes": 214,
+      "sha256": "9136949fec26016c8a9d82e8f4022fc2ceecc448085fd3465577c8e2d07454de"
+    },
+    {
+      "path": "mobs/creeper.png",
+      "bytes": 577,
+      "sha256": "88336194570c75abfe3dc4f6c04040510cb41f3f3837f9c27af4063595992067"
+    },
+    {
+      "path": "mobs/dolphin.png",
+      "bytes": 191,
+      "sha256": "46e2de785604fef3e330fe96023ed69040e617c5e525252ca1ca0a46c98bd0ec"
+    },
+    {
+      "path": "mobs/donkey.png",
+      "bytes": 249,
+      "sha256": "66c5ca40de2505bd593ecddc6f7891cae77e02d1936bfa00886a3df2e4ad6f50"
+    },
+    {
+      "path": "mobs/drowned.png",
+      "bytes": 221,
+      "sha256": "4e104987fc3e65425269607848c7a1581f94ea8eab3c4d5d2fed27c1f73b5c54"
+    },
+    {
+      "path": "mobs/elder_guardian.png",
+      "bytes": 327,
+      "sha256": "ee9708a53e4853b53440bf2f1bb9477f972f76c57f13e6b0a307f48c265d1fa3"
+    },
+    {
+      "path": "mobs/ender_dragon.png",
+      "bytes": 317,
+      "sha256": "3b048df95b600d2ecbb34bdb63db8f92db9b1e9ced369090b08d2022a0207c2d"
+    },
+    {
+      "path": "mobs/enderman.png",
+      "bytes": 155,
+      "sha256": "91db168527a87cd644e737b245686cd737042ec6131e5c90a884a3aa7cad5aa2"
+    },
+    {
+      "path": "mobs/endermite.png",
+      "bytes": 174,
+      "sha256": "f0a3ad90b4515a2bf0c52502e9a03a115fb44e93fa9ada86dec87b9ef2a9a6df"
+    },
+    {
+      "path": "mobs/evoker.png",
+      "bytes": 223,
+      "sha256": "ead5f8fe2f511ae043509000bfbd8329734e6da1dd30a9c5687d26b15ab8a80e"
+    },
+    {
+      "path": "mobs/fox.png",
+      "bytes": 217,
+      "sha256": "3a8e5727c3196f710142d0f0ad87c51e554edb6823512e85fb285c70ef79c7bb"
+    },
+    {
+      "path": "mobs/frog.png",
+      "bytes": 235,
+      "sha256": "6dfde650f9c7404e21e712061a936fc952b7b1a34df3ee8a50d67832c2004bd9"
+    },
+    {
+      "path": "mobs/ghast.png",
+      "bytes": 221,
+      "sha256": "c49903350a4870be02e5bf844efc5159a060e73fe89ed127033aa31cd2282087"
+    },
+    {
+      "path": "mobs/glow_squid.png",
+      "bytes": 258,
+      "sha256": "5fde659253861c77541c2882e8058a315f2218c331641a0c9772cc2d20de2c63"
+    },
+    {
+      "path": "mobs/goat.png",
+      "bytes": 341,
+      "sha256": "7b031398f28a097a9a1cbf9019ba8d926e1d380f63256ad6d2057d5fdd20a11f"
+    },
+    {
+      "path": "mobs/guardian.png",
+      "bytes": 362,
+      "sha256": "e88eddd5aac824cd6aa20be73fababad3c675e554c8ea9d1b51483b3e5aa1c6c"
+    },
+    {
+      "path": "mobs/happy_ghast.png",
+      "bytes": 207,
+      "sha256": "b01f128f47a9d463f9df1aa606a30a8f1433abb45b52ef76db5ceed7668bbc4e"
+    },
+    {
+      "path": "mobs/hoglin.png",
+      "bytes": 262,
+      "sha256": "06a4779a748c21e40dfa17386fb25122e0a3ae2f956931224eee061e1945b1ac"
+    },
+    {
+      "path": "mobs/horse.png",
+      "bytes": 257,
+      "sha256": "5f97bd63e9a7451e26f4ed943f2deb03efcb83bd160fb881e9a06fddecc5768e"
+    },
+    {
+      "path": "mobs/husk.png",
+      "bytes": 231,
+      "sha256": "4c6518ff70f536847f8d527d5a506022eb4826d3cdcf049f9b1ad58c3674f400"
+    },
+    {
+      "path": "mobs/iron_golem.png",
+      "bytes": 224,
+      "sha256": "b7287aa95dbf41d92e9d3a505f0af8eb56dc66619716fa7aae8a2b3c509496fc"
+    },
+    {
+      "path": "mobs/llama.png",
+      "bytes": 219,
+      "sha256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac"
+    },
+    {
+      "path": "mobs/magma_cube.png",
+      "bytes": 199,
+      "sha256": "5f8bfe6318056dc02c862f5f0ba1d26a4d9b1bb2800c8b0d5f0ef3ec7dab2b79"
+    },
+    {
+      "path": "mobs/mooshroom.png",
+      "bytes": 204,
+      "sha256": "c2f72592936cd02e814e02b76adc221d7a44109cf6d5ca462dd022f288eb6501"
+    },
+    {
+      "path": "mobs/mule.png",
+      "bytes": 249,
+      "sha256": "a28d39062e8f8652ce9fb16615db5172498aebe1443751b68fac9c760d2011f3"
+    },
+    {
+      "path": "mobs/ocelot.png",
+      "bytes": 195,
+      "sha256": "e20b2834216256b3e2c9491e3f1ab3937f7781f8e2f14fd3861102a8f2335ba7"
+    },
+    {
+      "path": "mobs/panda.png",
+      "bytes": 258,
+      "sha256": "9148f7a3deeb96f76439958967e0dec6860f7f612cf985be10816a3f2d74dc71"
+    },
+    {
+      "path": "mobs/parrot.png",
+      "bytes": 222,
+      "sha256": "e57ca6fe46a34c13d4179e5c11825944a462411db2a5eaca23537ce1e39ba477"
+    },
+    {
+      "path": "mobs/phantom.png",
+      "bytes": 161,
+      "sha256": "2e3e55ad61bade42ef4c8809979023cc6502ca0b1092eb794e0d6eef91168dde"
+    },
+    {
+      "path": "mobs/pig.png",
+      "bytes": 199,
+      "sha256": "acae9bb4417f19faeae6334dd4487d25264c00c0690105377350386d97915323"
+    },
+    {
+      "path": "mobs/piglin_brute.png",
+      "bytes": 226,
+      "sha256": "5efa04c61f4f49140156b8c182f9a603316475ea7f72f10abf1ba6899a365053"
+    },
+    {
+      "path": "mobs/piglin.png",
+      "bytes": 216,
+      "sha256": "e29051c1c14b4530b5312264a351e49a1b80b9cec18a84104fad3a90d59ad279"
+    },
+    {
+      "path": "mobs/pillager.png",
+      "bytes": 385,
+      "sha256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65"
+    },
+    {
+      "path": "mobs/polar_bear.png",
+      "bytes": 259,
+      "sha256": "2985c0a5732c79fde76e1688a45bba7e75f90c22362027c4db5dcd53c54828d6"
+    },
+    {
+      "path": "mobs/pufferfish.png",
+      "bytes": 205,
+      "sha256": "a4f8d7c49221f0133f2f1d579a2519b6486c3b69cfbeae1284b6fbb91571d6e1"
+    },
+    {
+      "path": "mobs/rabbit.png",
+      "bytes": 167,
+      "sha256": "ea5f25b9fa91dcd32b1f128d79031fc5f78a6c76397e3bedb2189bff8e29a687"
+    },
+    {
+      "path": "mobs/ravager.png",
+      "bytes": 248,
+      "sha256": "8ce477c9cbd18934dc1310f633d45ea6ee97731e4c83c4662a7c8728160a9e11"
+    },
+    {
+      "path": "mobs/salmon.png",
+      "bytes": 270,
+      "sha256": "87a8226c542d22803ab127307c9914e62a6558d1250540d3fd778c40975edfb5"
+    },
+    {
+      "path": "mobs/sheep.png",
+      "bytes": 232,
+      "sha256": "ddecce3420e872f5aa4344e40acc23006afc8cd821e9a5d270d925399b0e74a6"
+    },
+    {
+      "path": "mobs/shulker.png",
+      "bytes": 420,
+      "sha256": "0bbd1548da251bae55f892986dcdec1bf2fe77d04117ad7689d7ec5a39757076"
+    },
+    {
+      "path": "mobs/silverfish.png",
+      "bytes": 216,
+      "sha256": "b81b245b1a220c43e201d07bab9f3ba817ea2a38f2267f1d4ffb79356ce249e0"
+    },
+    {
+      "path": "mobs/skeleton_horse.png",
+      "bytes": 216,
+      "sha256": "40aa58c2fafc14146fa8b913ad1d1c77b1977589a7f0861884d2ce061ebd501c"
+    },
+    {
+      "path": "mobs/skeleton.png",
+      "bytes": 200,
+      "sha256": "80c62d8175b9c7b538590d3876ee3dd02d04b3c09f33f546d6cf5fc1a29a90dc"
+    },
+    {
+      "path": "mobs/slime.png",
+      "bytes": 300,
+      "sha256": "3228e4d2c7eed3cb59e078576b7390950253adb3b8e50ea40d92638acebd49e7"
+    },
+    {
+      "path": "mobs/sniffer.png",
+      "bytes": 368,
+      "sha256": "1af8113771ed63740dde074573437d5d396e778d5c5128768d25ef6628b8ce44"
+    },
+    {
+      "path": "mobs/snow_golem.png",
+      "bytes": 4035,
+      "sha256": "8c94528abb4943fd10f3653986c6ac2bf028ace88d3b3199eb8611bad96725f0"
+    },
+    {
+      "path": "mobs/spider.png",
+      "bytes": 176,
+      "sha256": "bb17e3051dfc22a62f3acbec1a196fff3f0940b691ed60c7e3207fc7fc175253"
+    },
+    {
+      "path": "mobs/squid.png",
+      "bytes": 224,
+      "sha256": "c1f68053c3e3b8682243a3f02c76db9aa681a586f8447812bfbe392ec80c1fac"
+    },
+    {
+      "path": "mobs/stray.png",
+      "bytes": 211,
+      "sha256": "c3cd8e0344a75e719874b2c41e57360d602e04003a8349604c7bf812456bf211"
+    },
+    {
+      "path": "mobs/strider.png",
+      "bytes": 274,
+      "sha256": "9c8551ace5994ec831e03fe3cdeff7fad09d7bff6570adef529f5d9fb8057347"
+    },
+    {
+      "path": "mobs/tadpole.png",
+      "bytes": 149,
+      "sha256": "00cc02afd6a5bb8460bae2061b146193325426f442c4a100e56d7413dafddddf"
+    },
+    {
+      "path": "mobs/trader_llama.png",
+      "bytes": 219,
+      "sha256": "6a79c99e14636b907279e33fbf545b5e04199a6428c36f9565ce6abbb539c7ac"
+    },
+    {
+      "path": "mobs/tropical_fish.png",
+      "bytes": 224,
+      "sha256": "de00e0f56c81e267959b37090f213d2684a38d637bac9939fc621e9f0b12c9e6"
+    },
+    {
+      "path": "mobs/turtle.png",
+      "bytes": 224,
+      "sha256": "c126bd723b9cfdd1728d899cbe3d6ff295fe2be42b0bfcfce8c65439239ab72b"
+    },
+    {
+      "path": "mobs/vex.png",
+      "bytes": 179,
+      "sha256": "2dd126529eac9cc675b7885132bbc18af8976ab305473ad838b807719918f290"
+    },
+    {
+      "path": "mobs/villager.png",
+      "bytes": 196,
+      "sha256": "cfeebe39ee8df5a0d770ea2b9ba9605d0f506e5c2e12c56e8481f912eb9a938a"
+    },
+    {
+      "path": "mobs/vindicator.png",
+      "bytes": 385,
+      "sha256": "19156a4159f0d80973920899f70ff509d930c913571da919f86d43d5ad90dd65"
+    },
+    {
+      "path": "mobs/wandering_trader.png",
+      "bytes": 297,
+      "sha256": "677fa59716bc1bfc775621760dfc63add31232638d7652e51fc6a8dc6503f96b"
+    },
+    {
+      "path": "mobs/warden.png",
+      "bytes": 285,
+      "sha256": "44701545b94a58f02cc0a54da306ddfa301f5f2a065052026bcf8d006ba1f5b0"
+    },
+    {
+      "path": "mobs/witch.png",
+      "bytes": 208,
+      "sha256": "c81f9d177a43b7988829679be0d5dd11bee57177dfe1dc649f60361bc223562d"
+    },
+    {
+      "path": "mobs/wither_skeleton.png",
+      "bytes": 195,
+      "sha256": "9c134d7ac4b1e4582887696643e31e63550cf9781ab67c4fc1fc28d37e9ee9d5"
+    },
+    {
+      "path": "mobs/wither.png",
+      "bytes": 201,
+      "sha256": "c929375c68de20b543a11dda5ccd3a4730114d42026976e8a2c478a75f7adc9a"
+    },
+    {
+      "path": "mobs/wolf.png",
+      "bytes": 230,
+      "sha256": "b8e97df6f3df58fd679e6735dff05acd082d46cafa930e1843e54ebd9fe2e79d"
+    },
+    {
+      "path": "mobs/zoglin.png",
+      "bytes": 704,
+      "sha256": "b33814d008bfeb876a880749a49dcaf47c6ef6023f95a800f2ed4bb98c99fa33"
+    },
+    {
+      "path": "mobs/zombie_horse.png",
+      "bytes": 202,
+      "sha256": "d9b4a220bb0ae757ffba03f13fc0ac037a1038f3b75f61a6872d10e930fb0248"
+    },
+    {
+      "path": "mobs/zombie_villager.png",
+      "bytes": 261,
+      "sha256": "f25f235b8a4c3674d0a4b41ab6fdc877ed5ba14ace9f14694fe21b556118027d"
+    },
+    {
+      "path": "mobs/zombie.png",
+      "bytes": 236,
+      "sha256": "648784a72340af43e5e8cda6a21d2f8f1e807f9cb5054fe6e32951d756fcf876"
+    },
+    {
+      "path": "mobs/zombified_piglin.png",
+      "bytes": 263,
+      "sha256": "c5d5f0264b6ac24b8edb27a27228d16b09ca14e78f693e11005adaa3e38ce019"
+    },
+    {
+      "path": "splash.html",
+      "bytes": 632,
+      "sha256": "aedb1c65a739769e6d8b5168bb52de7cf4d0bb0367a5ae3a5a45215dc89ecdb9"
+    }
+  ],
+  "matrix": [
+    {
+      "theme": "blue-white",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "underlay": "#f3f5f7",
+      "observation": {
+        "theme": "blue-white",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 141,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "blue-white",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "underlay": "#f3f5f7",
+      "observation": {
+        "theme": "blue-white",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 140.60000610351562,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "blue-white",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "underlay": "#f3f5f7",
+      "observation": {
+        "theme": "blue-white",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 141,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "blue-white",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "underlay": "#f3f5f7",
+      "observation": {
+        "theme": "blue-white",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 140.60000610351562,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "black-orange",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "underlay": "#18181b",
+      "observation": {
+        "theme": "black-orange",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 141,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "black-orange",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "underlay": "#18181b",
+      "observation": {
+        "theme": "black-orange",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 140.60000610351562,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "black-orange",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "underlay": "#18181b",
+      "observation": {
+        "theme": "black-orange",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 141,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "black-orange",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "underlay": "#18181b",
+      "observation": {
+        "theme": "black-orange",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 140.60000610351562,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "black-pink",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "underlay": "#18181b",
+      "observation": {
+        "theme": "black-pink",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 141,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "black-pink",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "underlay": "#18181b",
+      "observation": {
+        "theme": "black-pink",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 140.60000610351562,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "black-pink",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "underlay": "#18181b",
+      "observation": {
+        "theme": "black-pink",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 141,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "black-pink",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "underlay": "#18181b",
+      "observation": {
+        "theme": "black-pink",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 140.60000610351562,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "custom",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "underlay": "#f3f5f7",
+      "observation": {
+        "theme": "custom",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 141,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "custom",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "underlay": "#f3f5f7",
+      "observation": {
+        "theme": "custom",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 140.60000610351562,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "custom",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "underlay": "#f3f5f7",
+      "observation": {
+        "theme": "custom",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 141,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 78,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 52,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    },
+    {
+      "theme": "custom",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "underlay": "#f3f5f7",
+      "observation": {
+        "theme": "custom",
+        "overflow": false,
+        "reauth": 1,
+        "buttons": [
+          {
+            "text": "开始微软登录",
+            "width": 140.60000610351562,
+            "height": 36,
+            "disabled": false
+          },
+          {
+            "text": "重新登录",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "验证会话",
+            "width": 77.5999984741211,
+            "height": 32,
+            "disabled": false
+          },
+          {
+            "text": "删除",
+            "width": 51.60000228881836,
+            "height": 32,
+            "disabled": false
+          }
+        ],
+        "identity": "KAMUCL 自有应用授权请确认微软授权页面显示 KAMUCL。旧微软账号需要重新登录，原账号资料与本地数据保留。"
+      },
+      "coordinateActions": true
+    }
+  ],
+  "cfMatrix": [
+    {
+      "theme": "blue-white",
+      "size": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "blue-white",
+      "size": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "blue-white",
+      "size": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "blue-white",
+      "size": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "black-orange",
+      "size": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "black-orange",
+      "size": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "black-orange",
+      "size": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "black-orange",
+      "size": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "black-pink",
+      "size": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "black-pink",
+      "size": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "black-pink",
+      "size": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "black-pink",
+      "size": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "custom",
+      "size": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "custom",
+      "size": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "custom",
+      "size": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    },
+    {
+      "theme": "custom",
+      "size": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "saveFailurePreserved": true,
+      "explicitClear": true
+    }
+  ],
+  "frpMatrix": [
+    {
+      "theme": "blue-white",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "blue-white",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "blue-white",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "blue-white",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "black-orange",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "black-orange",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "black-orange",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "black-orange",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "black-pink",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "black-pink",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "black-pink",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "black-pink",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "custom",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "custom",
+      "contentSize": [
+        1366,
+        768
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "custom",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    },
+    {
+      "theme": "custom",
+      "contentSize": [
+        960,
+        620
+      ],
+      "zoom": 1.25,
+      "writeOnly": true,
+      "replacementFailurePreserved": true,
+      "clearFailurePreserved": true,
+      "lockedReadDisabled": true,
+      "confirmedClearPreservesRecords": true
+    }
+  ],
+  "checks": [
+    "Cancelled component navigation rejects late device-code responses; no modal reopens",
+    "A cancelled operation completion cannot dismiss the replacement authorization",
+    "Escape cancels authorization and restores keyboard focus to its launcher",
+    "A completion followed by account-list IPC failure closes the dialog, preserves prior rows, reports the controlled error and retries refresh without reauthorization",
+    "Synthetic success refreshes the original account row and clears its reauthorization badge",
+    "Matching completion delivered before the device-code IPC response is buffered and applied only to that operation, with no stuck authorization dialog",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "Custom key entered through Chromium input is cleared after saving; IPC returns configured status only; explicit clear removes it",
+    "FRP uses configured status without autofilling keys; replacement and clear failures preserve input/state; locked reads are disabled; confirmed clear retains tunnel cards across all 16 theme/viewport/zoom cases"
+  ],
+  "errors": [],
+  "images": [
+    {
+      "name": "blue-white-1366x768-100-migration.png",
+      "bytes": 84143,
+      "sha256": "f1e594823736b0324b566b6536159baf9b6793058c149393495c4165f37aa7a7",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "black-orange-960x620-125-device-code.png",
+      "bytes": 102829,
+      "sha256": "f464c683927ecda55c099606f4ab75ba7e2efe5fade4c882b17e8a081b91e1d3",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "black-pink-960x620-125-migration.png",
+      "bytes": 58795,
+      "sha256": "f6b89ee4f548e0533d9a628d1c065a03cd8c655afbf20397535ea1f15aed11ca",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "custom-1366x768-100-service-failure.png",
+      "bytes": 111266,
+      "sha256": "dd7fd5a2e64ef7ab74c1c5e94bc4b7a914006e1e13a43508145936580621cf3d",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "cf-key-blue-white-1366x768-100-save-failure.png",
+      "bytes": 91959,
+      "sha256": "65e8e918c0987f48353ab44053327f8fc4b669dabdf4522302c5ca7a9040ad6a",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "cf-key-black-orange-960x620-125-write-only.png",
+      "bytes": 77492,
+      "sha256": "2df43ed6e08d7c6e269549afa6b0ba353aed7c91d3ce579a97ff0fffb84e9cf0",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "cf-key-black-pink-960x620-125-save-failure.png",
+      "bytes": 82068,
+      "sha256": "4cdd3b9553256c97ba4efc7f8955567a65bf5743bb944bd2f9cdaa0432bc4cde",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "cf-key-custom-1366x768-125-write-only.png",
+      "bytes": 107705,
+      "sha256": "49e22c0a6ddd2f8d383b9645aff021a0f128d647c2aa3e87cb505b2cba392f5d",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "frp-blue-white-1366x768-100-configured.png",
+      "bytes": 101039,
+      "sha256": "27fde68a80047d03da2c6b3897a182f83aab66136a911112b1c59bc7889e6713",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "frp-black-orange-960x620-125-locked.png",
+      "bytes": 91962,
+      "sha256": "0ccc708749aa91e8ac82c6c6975dec424759f9bcf96579aa164faada2b46fbf3",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "frp-black-pink-960x620-125-clear-failure.png",
+      "bytes": 99092,
+      "sha256": "c73f30b6c16b9c8e04a318d3a394e9b713909d9dd46361fdee6cc13059d7ad40",
+      "original": true,
+      "syntheticIPC": true
+    },
+    {
+      "name": "frp-custom-1366x768-125-cleared-record-preserved.png",
+      "bytes": 125681,
+      "sha256": "700c483c28ed74e0222e03e2d31b48b9d6b44ae1a05b3da6489741aed6309665",
+      "original": true,
+      "syntheticIPC": true
+    }
+  ],
+  "qualification": "Selected untouched original synthetic-state screenshots; native DWM/real Microsoft/FPS/audio are not inferred."
+}

@@ -1,0 +1,68 @@
+{
+  "scope": "Windows 1.1.16 VoxLink transport",
+  "changed": [
+    "src/main/core/voxlink/rudp.ts",
+    "tests/voxlink-transport116.test.ts"
+  ],
+  "sourceSha256": "a2c44fa3be6baf5df31d26c5248329e8e0012d1c29fd6b68c09612c9bd328b00",
+  "testSha256": "d18fc962b61ea61fddddaff094a3ed3f93953b96eb478d9d08a2c82d272791cf",
+  "tests": {
+    "command": "npx tsx --test tests/voxlink-transport116.test.ts tests/voxlink-room.test.ts tests/voxlink-replacement.test.ts tests/voxlink-integration-1091.test.ts tests/voxlink-upstream-1094.test.ts tests/voxlink-114.test.ts tests/voxlink-116.test.ts",
+    "passed": 36,
+    "failed": 0,
+    "log": "out/voxlink116-tests-final.log",
+    "logSha256": "910162845dc6089034dabb7651a0918f1d2ce798fed60e12a536ff69f475746f"
+  },
+  "types": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "javaReceipts": [
+    {
+      "path": "out/voxlink-java116-17d0a5ec-6566-48f2-961d-990764ae8da1/receipt.json",
+      "sha256": "7bcc70e58a8c83bca70fe6e97700533a9233ff85dbf2fa3f2a5d57876bcc6fb7"
+    },
+    {
+      "path": "out/voxlink-java116-f780dd32-6e47-44df-9e0d-e67b1429dd40/receipt.json",
+      "sha256": "64fe16d8ad01edac6d64d70d287faa5d8ea6bde8c0d92d3d54255cc258fa34aa"
+    },
+    {
+      "path": "out/voxlink-java116-950be738-d0b3-43cd-be93-7cb12b5ff351/receipt.json",
+      "sha256": "9e3337a5c477f73878bf5b21b320b465d0aaad8f0ad167ba32632e15cbe153c3"
+    },
+    {
+      "path": "out/voxlink-java116-c71cdd09-df4f-4887-a7a1-9db16a62641a/receipt.json",
+      "sha256": "c654198cdfa768165724b096ec044cdf1195d33880c51b35f1a53cd1de7bfd27"
+    }
+  ],
+  "history": [
+    {
+      "stage": "First new UDP stress test",
+      "passedPayloadAndHash": true,
+      "failedAssertion": "FEC datagrams counted at test proxy >300",
+      "actual": [
+        296,
+        294
+      ],
+      "cause": "Test proxy default Windows 64 KiB receive queue dropped additional datagrams before the controlled loss injector; upgraded only fixture queues to 4 MiB to isolate scripted impairment, retained threshold; product now reserves 256 KiB bounded receive queue",
+      "retested": true
+    },
+    {
+      "stage": "Type tool discovery",
+      "failures": [
+        "nonexistent tsconfig.node.json",
+        "vue-tsc external tool resolution error"
+      ],
+      "correctCommand": "npx tsc --noEmit",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "No two-computer Internet/NAT gameplay verification",
+    "No supplied video exact-cause assertion",
+    "No actual VoxLink service/live Minecraft/voice test",
+    "Java test uses unmodified transport classes and logging-only peripheral stubs",
+    "Timing comparison is one paired deterministic impairment fixture, not a general bandwidth guarantee"
+  ],
+  "videoPublic": false
+}

@@ -7,6 +7,7 @@ const fraction = (n: number): number => Number.isFinite(n) ? Math.max(0, Math.mi
 export class ParallelProgress {
   private events = new Map<string, ProgressEvent>()
   private completed = new Set<string>()
+  private waitingText = new Map<string, string>()
   private publishedAt = 0
   constructor(
     private lanes: readonly Lane[], private emit: (event: ProgressEvent) => void,
@@ -14,14 +15,19 @@ export class ParallelProgress {
   ) {}
 
   update(id: string, event: ProgressEvent): void {
+    this.waitingText.delete(id)
     const previous = this.events.get(id)
     this.events.set(id, event)
     // Installer stdout can produce thousands of lines per second; retain the latest lane
     // state without flooding IPC, the renderer and the on-disk task log for every line.
-    if (!previous || previous.stage !== event.stage || performance.now() - this.publishedAt >= 100) this.publish()
+    const childrenChanged = (previous?.parallelStages?.length ?? 0) !== (event.parallelStages?.length ?? 0) ||
+      event.parallelStages?.some((child, index) => { const before = previous?.parallelStages?.[index]; return before?.id !== child.id || before?.stage !== child.stage || before?.state !== child.state || before?.indeterminate !== child.indeterminate })
+    if (!previous || previous.stage !== event.stage || childrenChanged || performance.now() - this.publishedAt >= 100) this.publish()
   }
 
-  done(id: string): void { this.completed.add(id); this.publish() }
+  done(id: string): void { this.waitingText.delete(id); this.completed.add(id); this.publish() }
+
+  waiting(id: string, text: string): void { this.waitingText.set(id, text); this.publish() }
 
   private publish(): void {
     this.publishedAt = performance.now()
@@ -37,7 +43,7 @@ export class ParallelProgress {
       if (!done && event?.parallelStages?.length) {
         stages.push(...event.parallelStages.map(child => ({ ...child, id: `${lane.id}/${child.id}` })))
       } else {
-        stages.push({ id: lane.id, label: lane.label, text: event?.text ?? '等待准备', progress,
+        stages.push({ id: lane.id, stage: event?.stage, label: lane.label, text: done ? event?.text ?? '已就绪' : this.waitingText.get(lane.id) ?? event?.text ?? '等待准备', progress,
           state: done ? 'done' : event ? 'running' : 'waiting', speed: done ? undefined : event?.speed,
           indeterminate: !done && event?.indeterminate })
       }

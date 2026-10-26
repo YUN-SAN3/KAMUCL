@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/bs-community/skinview3d/v3.4.2/src/model.ts",
+    "file": "src/renderer/src/vendor/skinview3d/model.ts",
+    "sourceBytes": 15192,
+    "upstreamSHA256": "a9d2bd9f117f5686990791a200474ad3c135ed406e25558b1a40220abce95881",
+    "sameNormalizedExceptAttributionHeader": true,
+    "comparison": "model"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/bs-community/skinview3d/v3.4.2/LICENSE",
+    "file": "licenses/skinview3d.txt",
+    "sourceBytes": 1140,
+    "upstreamSHA256": "7eb7128de2e4de70932ce370c2c602136b4d7648fce9fc4a50c93fc59be94d94",
+    "sameNormalizedExceptAttributionHeader": true,
+    "comparison": "license"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/AUGUHDAR/VoxLink/c475faa98cca16d4a2eeef4422c862c36091e1fc/LICENSE",
+    "file": "licenses/LGPL-3.0.txt",
+    "sourceBytes": 7633,
+    "upstreamSHA256": "6557adc4bc1d59232e27567a185dd70cf2ecca3154018b0be61ea29cf9e814e2",
+    "sameNormalizedExceptAttributionHeader": true,
+    "comparison": "license"
+  }
+]

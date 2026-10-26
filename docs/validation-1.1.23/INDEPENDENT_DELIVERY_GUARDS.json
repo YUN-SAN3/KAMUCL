@@ -1,0 +1,122 @@
+{
+  "reviewer": "compliance_scope_audit",
+  "at": "2026-10-14T02:40:35.494245+00:00",
+  "complete": true,
+  "scope": "Read-only strengthened wrapper and current exact Git input check; final documentation commit/source/handoff remain separate pending checks.",
+  "currentHEAD": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+  "binding": {
+    "method": "prebuild-committed-source-with-final-Git-comparison",
+    "capturedBeforeBuild": true,
+    "windowsBuildSource": "eac26dce109add58103106c73352353b6be7f97a",
+    "macARM64BuildSource": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+    "finalSource": "72237f0b9cdf5910276a0fa1cbb91fc9b1a1e990",
+    "protectedScopes": [
+      "src/",
+      "package.json",
+      "package-lock.json",
+      "electron.vite.config.ts",
+      "resources/",
+      "build/",
+      "bridge/",
+      "offline-skin-agent/",
+      "scripts/build-*",
+      "scripts/pack-*",
+      "scripts/portable-build-hook.cjs",
+      "scripts/verify-windows-runtime.cjs",
+      "scripts/prune-windows-runtime.cjs",
+      "scripts/mac-package-identity.cjs",
+      "scripts/mac-runtime-notices.cjs",
+      "LICENSE",
+      "licenses/",
+      "THIRD_PARTY_NOTICES.md",
+      "docs/CORRESPONDING_SOURCE.md"
+    ],
+    "protectedInputsIdentical": true,
+    "protectedInputFiles": 571,
+    "otherExactGitDifferences": {
+      "windows": [
+        {
+          "path": "docs/COMMUNITY_SEARCH_1.1.23.md",
+          "build": {
+            "mode": "100644",
+            "gitBlob": "0aeb8a3ec2bcfda9c98f2e0160f08b546ea880e7"
+          },
+          "final": {
+            "mode": "100644",
+            "gitBlob": "67be056e7259372afcffbf3f6d7d1341f9894a36"
+          }
+        },
+        {
+          "path": "scripts/community123-native-smoke.cjs",
+          "build": {
+            "mode": "100644",
+            "gitBlob": "998841c815092f1aba24d636fcc7091f848e82ff"
+          },
+          "final": {
+            "mode": "100644",
+            "gitBlob": "430d66144d1836bfcb85dbf4d63b91683b96b41c"
+          }
+        },
+        {
+          "path": "scripts/qa-community123-tests.cjs",
+          "build": {
+            "mode": "100644",
+            "gitBlob": "a961d5ed91889abc6a2ee2283c8f04729ba4876f"
+          },
+          "final": {
+            "mode": "100644",
+            "gitBlob": "5034f9c735b0141b8b048c9b578a64d832165112"
+          }
+        },
+        {
+          "path": "scripts/qa-community123.cjs",
+          "build": {
+            "mode": "100644",
+            "gitBlob": "9e85fabd4ed1b71cfc031c0a7b5c2db126c5d51a"
+          },
+          "final": {
+            "mode": "100644",
+            "gitBlob": "3dd8a2acdb7b876590b14ff05204ed36d629fbcc"
+          }
+        },
+        {
+          "path": "scripts/verify-community123-ui.cjs",
+          "build": {
+            "mode": "100644",
+            "gitBlob": "eb0fbbed9d650a1982fbbea54f36d93b582ca454"
+          },
+          "final": {
+            "mode": "100644",
+            "gitBlob": "5fcff37061b72e62473b7cc9fcfd018e4f7c8aaf"
+          }
+        }
+      ],
+      "macARM64": []
+    },
+    "qualification": "Both platforms record the immutable build commit before production builds; protected Git inputs match the final source. Later documentation or QA differences are explicit. This is not byte-reproducible runtime evidence or a claim that packages were rebuilt at the final documentation commit."
+  },
+  "resolvedFinding": "P3 protected-input guard now covers resources/build/bridge/offline agent and wildcard build/pack scripts; exact raw Git matches are checked without normalization.",
+  "sourceHelperSHA256": "c81d0815021d4efc4f708916c343238e3f1941cf8f2838eeaf1e03a8f31f7a62",
+  "handoffHelperSHA256": "3a4a56ea22349a52e330717e5c542ee05b5bfda76636fa11e4991bd99cd2ae49",
+  "originalSkillSHA256": "05c25e44e55eaa88e8e1479dbff48f8771cbfe45eaafdd32f41d1cb6eef44518",
+  "unchangedOriginalGuards": true,
+  "sourceAndHandoffPythonSyntaxValid": true,
+  "targetTests": {
+    "command": [
+      "node",
+      "--import",
+      "tsx",
+      "--test",
+      "tests/community-search123.test.ts",
+      "tests/community-search-ipc123.test.ts",
+      "tests/community-progressive-renderer123.test.ts"
+    ],
+    "tests": 29,
+    "pass": 29,
+    "fail": 0,
+    "skipped": 0,
+    "log": "out/compliance123-final-target-tests.log",
+    "logSHA256": "8280c5d69c52f57915ca5e990857095a88f64fd8dd7467948156619bc033b563"
+  },
+  "toolingFailureRetained": "python PATH points to Windows Store shim; original command did not run. This independent review used explicit official bundled Python and changed no guards."
+}

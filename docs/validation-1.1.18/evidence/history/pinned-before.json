@@ -1,0 +1,31 @@
+{
+  "root": "E:\\KAMUCL\\out\\review118-pinned-dapcWW",
+  "pinnedFile": "front-v2",
+  "requestedPlan": [
+    {
+      "name": "root",
+      "version": "1.0.0",
+      "dependency": false,
+      "fileName": "root.jar"
+    },
+    {
+      "name": "front-project",
+      "version": "2.0.0",
+      "dependency": true,
+      "fileName": "front-v2.jar",
+      "source": "modrinth",
+      "projectId": "front-project"
+    }
+  ],
+  "requests": [
+    "/root.jar",
+    "/front-v2.jar"
+  ],
+  "message": "已安装 1 个 MOD 到 E:\\KAMUCL\\out\\review118-pinned-dapcWW\\game\\mods",
+  "files": [
+    "front-v1.jar",
+    "root.jar"
+  ],
+  "v1Unchanged": true,
+  "v2Present": false
+}

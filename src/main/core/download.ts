@@ -12,12 +12,14 @@ import { downloadFetch } from './downloadFetch'
 import { abortableDelay, inheritTaskControl, isTaskPaused, waitIfTaskPaused } from './tasks'
 import { DownloadProgressTracker, SmoothedSpeedEstimator, type DownloadProgressSnapshot } from './downloadProgress'
 import { DownloadSourcePool } from './downloadSources'
+import { resolveNativeIntegrity } from './platformNatives'
 
 export type MirrorPref = 'official' | 'bmclapi'
 export type ProgressFn = (done: number, total: number, networkBytes?: number) => void
-export interface DownloadBatchProgress extends DownloadProgressSnapshot { activeFiles?: string[]; speedBps: number; etaSeconds: number | null; paused: boolean }
+export interface DownloadWaitState { reason: 'rate-limit'; source: string; retryAt: number; action: 'waiting' | 'switching'; file?: string }
+export interface DownloadBatchProgress extends DownloadProgressSnapshot { activeFiles?: string[]; waits?: DownloadWaitState[]; speedBps: number; etaSeconds: number | null; paused: boolean }
 export type AllProgressFn = (done: number, total: number, speedBps: number, detail: DownloadBatchProgress) => void
-export interface DownloadTask { label?: string; url: string; urls?: string[]; dest: string; sha1?: string; sha512?: string; sha256?: string; size?: number; reuseDirs?: string[]; reuseFiles?: string[] }
+export interface DownloadTask { label?: string; url: string; urls?: string[]; dest: string; sha1?: string; sha512?: string; sha256?: string; size?: number; reuseDirs?: string[]; reuseFiles?: string[]; nativeChecksumUrl?: string }
 interface Integrity { sha1?: string; sha512?: string; sha256?: string; size?: number; systemProxy?: boolean }
 export const BMCL_MAVEN_ROOT = 'https://bmclapi2.bangbang93.com/maven/'
 export function mirrorUrl(input: string, mirror: MirrorPref): string {
@@ -52,14 +54,24 @@ export function downloadCandidates(urls: string[], mirror: MirrorPref): string[]
 export type HttpFailureKind = 'unavailable' | 'transient' | 'fatal'
 export function classifyHttpStatus(status: number): HttpFailureKind {
   if ([404,410].includes(status)) return 'unavailable'
-  return [408,425,429].includes(status) || (status >= 500 && status < 600 && ![501,505].includes(status)) ? 'transient' : 'fatal'
+  // Downloads never send conditional validators. A bodyless 304 cannot satisfy
+  // the file contract; retry it within the existing budget, then fail normally.
+  return [304,408,425,429].includes(status) || (status >= 500 && status < 600 && ![501,505].includes(status)) ? 'transient' : 'fatal'
 }
 export class DownloadHttpError extends Error {
   constructor(readonly status: number, readonly url: string) { super(`HTTP ${status}: ${url}`); this.name = 'DownloadHttpError' }
 }
 class InvalidContent extends Error {}
 class NetworkIdle extends Error {}
+export class DownloadRateLimitError extends Error {
+  readonly retryable = true
+  constructor(readonly url: string, readonly retryAt: number) {
+    super(`下载源限流，可稍后重试（最早 ${new Date(retryAt).toLocaleString()}）：${origin(url)}`)
+    this.name = 'DownloadRateLimitError'
+  }
+}
 export const transferTimeouts = { inactivityMs: 15_000, alternativeHeadersMs: 2500 }
+export const rateLimitTimeouts = { maxWaitMs: 30_000 }
 export const slowSpeedThresholds = { largeFileBytes: 1024*1024, largeWindowMs: 8000, largeMinBps: 256*1024, smallWindowMs: 4000, smallMinBps: 32*1024, windowMs: 15000, minWindowBytes: 16*1024, warmupBytes: 1024*1024, warmupMs: 15000 }
 const failures = new Map<string, { count: number; until: number }>()
 const origin = (url: string) => { try { return new URL(url).origin } catch { return url } }
@@ -76,7 +88,61 @@ export function noteHostFailure(url: string): void {
 }
 export function noteHostSuccess(url: string): void { failures.delete(origin(url)) }
 export function noteHostsRecovered(): void { failures.clear() }
-export function resetHostHealthForTest(): void { failures.clear() }
+export function resetHostHealthForTest(): void { failures.clear(); serverCooldowns.clear() }
+/** All shards/retries of one file share an active waiting budget. Concurrent
+ * shards count wall time once, and a paused task consumes no waiting budget. */
+class CooldownBudget {
+  private users = 0
+  private waitedMs = 0
+  private sampledAt = performance.now()
+  private sampler: ReturnType<typeof setInterval> | undefined
+  private readonly limit = rateLimitTimeouts.maxWaitMs
+  constructor(private signal?: AbortSignal) {}
+  private sample(): void {
+    const now = performance.now()
+    if (this.users && !isTaskPaused(this.signal)) this.waitedMs += now - this.sampledAt
+    this.sampledAt = now
+  }
+  remaining(): number { this.sample(); return Math.max(0, this.limit - this.waitedMs) }
+  enter(): void {
+    this.sample()
+    if (!this.users++) this.sampler = setInterval(() => this.sample(), 50)
+  }
+  leave(): void {
+    this.sample()
+    if (!--this.users) { clearInterval(this.sampler); this.sampler = undefined }
+  }
+}
+interface TransferWaitControl {
+  budget: CooldownBudget
+  alternatives: string[]
+  onWait?: (state: DownloadWaitState, active: boolean) => void
+}
+const canAvoidCooldown = (url: string, control?: TransferWaitControl) => control?.alternatives.some(other =>
+  origin(other) !== origin(url) && (serverCooldowns.get(origin(other)) ?? 0) <= Date.now()) ?? false
+async function waitForServerCooldown(url: string, signal?: AbortSignal, control?: TransferWaitControl): Promise<void> {
+  await waitIfTaskPaused(signal)
+  let until = serverCooldowns.get(origin(url)) ?? 0
+  if (until <= Date.now()) return
+  const budget = control?.budget ?? new CooldownBudget(signal)
+  const switching = canAvoidCooldown(url, control)
+  const state: DownloadWaitState = { reason: 'rate-limit', source: origin(url), retryAt: until, action: switching ? 'switching' : 'waiting' }
+  control?.onWait?.(state, true)
+  budget.enter()
+  try {
+    while (true) {
+      await waitIfTaskPaused(signal)
+      signal?.throwIfAborted()
+      until = serverCooldowns.get(origin(url)) ?? 0; state.retryAt = until
+      const remaining = until - Date.now()
+      if (remaining <= 0) return
+      // Preserve the server deadline. Exhausting the interaction budget means
+      // failure, never permission to issue an early request to the same origin.
+      if (switching || remaining > budget.remaining()) throw new DownloadRateLimitError(url, until)
+      await abortableDelay(Math.min(100, remaining, budget.remaining()), signal)
+    }
+  } finally { budget.leave(); control?.onWait?.(state, false) }
+}
 let diskProbe: ((dir: string) => { bavail: number; bsize: number }) | null = null
 export function setStatfsProbeForTest(probe: typeof diskProbe): void { diskProbe = probe }
 export function fetchSignal(signal?: AbortSignal): AbortSignal {
@@ -139,14 +205,13 @@ async function reuse(dest: string, expected: Integrity, roots: string[], signal?
   return false
 }
 /** One request owns one limiter slot, private file handle and cancellation controller. */
-async function receive(url: string, temporary: string, expected: Integrity, signal: AbortSignal | undefined, progress: ProgressFn | undefined, hasAlternative: boolean, range?: { start: number; end: number }, connected?: (url: string) => void, sources?: DownloadSourcePool, observationUrl = url): Promise<number> {
+async function receive(url: string, temporary: string, expected: Integrity, signal: AbortSignal | undefined, progress: ProgressFn | undefined, hasAlternative: boolean, range?: { start: number; end: number }, connected?: (url: string) => void, sources?: DownloadSourcePool, observationUrl = url, waitControl?: TransferWaitControl): Promise<number> {
   await waitIfTaskPaused(signal)
   // Respect source rate limits across all files, including parallel range workers.
-  while ((serverCooldowns.get(origin(url)) ?? 0) > Date.now()) {
-    await abortableDelay(Math.min(1000, serverCooldowns.get(origin(url))! - Date.now()), signal)
-  }
+  await waitForServerCooldown(url, signal, waitControl)
   const release = await downloadLimiter.acquire(signal)
   const controller = new AbortController()
+  inheritTaskControl(signal, controller.signal)
   const abort = () => controller.abort(signal?.reason)
   signal?.addEventListener('abort', abort, { once: true })
   let response: Response | undefined, reader: ReadableStreamDefaultReader<Uint8Array> | undefined, file: fs.promises.FileHandle | undefined
@@ -173,7 +238,7 @@ async function receive(url: string, temporary: string, expected: Integrity, sign
     else if (offset) headers.Range = `bytes=${offset}-`
     timer = setInterval(() => {
       const now = performance.now(), dt = now - last; last = now
-      if (!waiting || isTaskPaused(signal) || downloadLimiter.isThrottling) return
+      if (!waiting || isTaskPaused(signal) || (response && downloadLimiter.isThrottling)) return
       sinceData += dt; elapsed += dt; windowTime += dt
       if (sinceData >= transferTimeouts.inactivityMs) controller.abort(new NetworkIdle('下载网络停滞'))
       // A queue/paused task consumes no timeout. Only abandon an unresponsive
@@ -195,13 +260,22 @@ async function receive(url: string, temporary: string, expected: Integrity, sign
     }, Math.max(10, Math.min(100, transferTimeouts.inactivityMs / 4)))
     waiting = true
     const headerStart = performance.now()
-    response = await downloadFetch(url, { signal: controller.signal, headers, bodyTimeoutMs: 120_000, separateConnection: !!range, systemProxy: expected.systemProxy })
+    response = await downloadFetch(url, { signal: controller.signal, headers, bodyTimeoutMs: 120_000, separateConnection: !!range, systemProxy: expected.systemProxy }, undefined, undefined, async nextUrl => {
+      // Redirects can converge on a throttled CDN. Check each actual origin,
+      // without charging an intentional Retry-After wait to the network idle.
+      waiting = false
+      try { await waitForServerCooldown(nextUrl, controller.signal, waitControl) }
+      finally { sinceData = 0; last = performance.now(); waiting = true }
+    })
     headersMs = performance.now() - headerStart
     waiting = false; sinceData = 0
     if (!response.ok) {
       if (response.status === 429 || (response.status === 503 && response.headers.has('retry-after'))) {
         if (serverCooldowns.size > 128) for (const [host, until] of serverCooldowns) if (until <= Date.now()) serverCooldowns.delete(host)
-        serverCooldowns.set(origin(url), Math.max(serverCooldowns.get(origin(url)) ?? 0, retryAfterTime(response.headers.get('retry-after'))))
+        const until = retryAfterTime(response.headers.get('retry-after'))
+        for (const host of new Set([origin(url), origin(response.url || url)])) serverCooldowns.set(host, Math.max(serverCooldowns.get(host) ?? 0, until))
+        const state: DownloadWaitState = { reason: 'rate-limit', source: origin(response.url || url), retryAt: until, action: canAvoidCooldown(url, waitControl) ? 'switching' : 'waiting' }
+        try { waitControl?.onWait?.(state, true) } finally { waitControl?.onWait?.(state, false) }
       }
       throw new DownloadHttpError(response.status, url)
     }
@@ -270,7 +344,7 @@ async function receive(url: string, temporary: string, expected: Integrity, sign
 }
 
 /** Small resumable ranges share a live connection budget and retry independently. */
-async function segmented(url: string, dest: string, expected: Integrity, signal: AbortSignal | undefined, progress: ProgressFn | undefined, fallback: boolean, maxSegments: number | (() => number) = 8, alternatives: string[] = [], sourcePool?: DownloadSourcePool): Promise<number> {
+async function segmented(url: string, dest: string, expected: Integrity, signal: AbortSignal | undefined, progress: ProgressFn | undefined, fallback: boolean, maxSegments: number | (() => number) = 8, alternatives: string[] = [], sourcePool?: DownloadSourcePool, waitControl?: TransferWaitControl): Promise<number> {
   const cache = path.resolve(dest + '.segments-cache'), size = expected.size!
   const clear = async () => { if (path.dirname(cache) !== path.dirname(path.resolve(dest))) throw new Error('缓存路径越界'); await fs.promises.rm(cache, { recursive: true, force: true }) }
   try { const stat = await fs.promises.lstat(cache); if (stat.isSymbolicLink() || !stat.isDirectory()) throw new Error('下载缓存不是普通目录') } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error }
@@ -324,13 +398,13 @@ async function segmented(url: string, dest: string, expected: Integrity, signal:
           // Always resolve the original address on the next range/retry. Pinning
           // a mirror's redirect traps all later ranges on one slow/expired node.
           connectedAt = performance.now()
-        }, sourcePool, source.identity)
+        }, sourcePool, source.identity, waitControl ? { ...waitControl, alternatives: available.filter(other => other !== source).map(other => other.url) } : undefined)
         source.rate = (received[index] - before) * 1000 / Math.max(1, performance.now() - connectedAt)
         source.failures = 0
         return
       } catch (error) {
         controller.signal.throwIfAborted(); lastError = error
-        if (error instanceof InvalidContent || (error instanceof DownloadHttpError && classifyHttpStatus(error.status) !== 'transient')) source.disabled = true
+        if (error instanceof DownloadRateLimitError || error instanceof InvalidContent || (error instanceof DownloadHttpError && classifyHttpStatus(error.status) !== 'transient')) source.disabled = true
         else if (error instanceof NetworkIdle || error instanceof TypeError || (error instanceof DownloadHttpError && classifyHttpStatus(error.status) === 'transient')) source.failures++
         else throw error // Disk/permission failures are not network retries.
       } finally { source.active-- }
@@ -386,7 +460,7 @@ async function segmented(url: string, dest: string, expected: Integrity, signal:
       // Never throw away good fragments just because one CDN rejects Range. A plain
       // response is a final compatibility path, and is still verified before commit.
       await fs.promises.rm(dest + '.part', { force: true })
-      const bytes = await receive(url, dest + '.part', expected, signal, progress, fallback, undefined, undefined, sourcePool)
+      const bytes = await receive(url, dest + '.part', expected, signal, progress, fallback, undefined, undefined, sourcePool, url, waitControl)
       const invalid = await verifyFile(dest + '.part', expected, signal)
       if (invalid) throw new InvalidContent(invalid)
       await clear()
@@ -396,10 +470,11 @@ async function segmented(url: string, dest: string, expected: Integrity, signal:
   } finally { clearInterval(poll); signal?.removeEventListener('abort', cancel); controller.abort() }
 }
 
-export async function downloadFile(url: string, dest: string, progress?: ProgressFn, sha1?: string, mirror: MirrorPref = 'official', signal?: AbortSignal, alternatives: string[] = [], integrity: { sha512?: string; sha256?: string; size?: number; reuseDirs?: string[]; reuseFiles?: string[]; systemProxy?: boolean; maxAttempts?: number; maxSegments?: number | (() => number); sourcePool?: DownloadSourcePool } = {}): Promise<void> {
+export async function downloadFile(url: string, dest: string, progress?: ProgressFn, sha1?: string, mirror: MirrorPref = 'official', signal?: AbortSignal, alternatives: string[] = [], integrity: { sha512?: string; sha256?: string; size?: number; reuseDirs?: string[]; reuseFiles?: string[]; systemProxy?: boolean; maxAttempts?: number; maxSegments?: number | (() => number); sourcePool?: DownloadSourcePool; onWait?: (state: DownloadWaitState, active: boolean) => void } = {}): Promise<void> {
   return withFileJob(dest, signal, async () => {
     const expected = { sha1, sha512: integrity.sha512, sha256: integrity.sha256, size: integrity.size, systemProxy: integrity.systemProxy }, temporary = dest + '.part'
     const attempts = Math.max(1, Math.min(4, integrity.maxAttempts ?? 4))
+    const budget = new CooldownBudget(signal)
     await fs.promises.mkdir(path.dirname(dest), { recursive: true })
     try {
       if (!await verifyFile(dest, expected, signal)) { const size = (await fs.promises.stat(dest)).size; progress?.(size, size); return }
@@ -414,11 +489,12 @@ export async function downloadFile(url: string, dest: string, progress?: Progres
       let lastError: unknown = new Error('没有下载地址')
       for (let index = 0; index < candidates.length; index++) {
         const source = candidates[index], fallback = index + 1 < candidates.length
+        const waitControl: TransferWaitControl = { budget, alternatives: candidates.slice(index + 1), onWait: integrity.onWait }
         for (let attempt = 0; attempt < attempts; attempt++) {
           try {
             const bytes = (expected.size ?? 0) >= 1024 * 1024 && downloadLimiter.maxConcurrent >= 2 && (sha1 || integrity.sha512 || integrity.sha256)
-              ? await segmented(source, dest, expected, signal, progress, fallback, integrity.maxSegments, candidates.slice(index + 1), integrity.sourcePool)
-              : await receive(source, temporary, expected, signal, progress, fallback, undefined, undefined, integrity.sourcePool)
+              ? await segmented(source, dest, expected, signal, progress, fallback, integrity.maxSegments, candidates.slice(index + 1), integrity.sourcePool, waitControl)
+              : await receive(source, temporary, expected, signal, progress, fallback, undefined, undefined, integrity.sourcePool, source, waitControl)
             const invalid = await verifyFile(temporary, expected, signal)
             if (invalid) { integrity.sourcePool?.fail(source); throw new InvalidContent(invalid) }
             signal?.throwIfAborted()
@@ -427,6 +503,7 @@ export async function downloadFile(url: string, dest: string, progress?: Progres
             return
           } catch (error) {
             signal?.throwIfAborted(); lastError = error
+            if (error instanceof DownloadRateLimitError) break
             if (error instanceof InvalidContent) { await fs.promises.rm(temporary, { force: true }); break }
             if (error instanceof DownloadHttpError && classifyHttpStatus(error.status) !== 'transient') break
             noteHostFailure(source)
@@ -448,6 +525,7 @@ export async function downloadFile(url: string, dest: string, progress?: Progres
 }
 export async function downloadAll(tasks: DownloadTask[], progress?: AllProgressFn, concurrency = downloadLimiter.maxConcurrent, mirror: MirrorPref = 'official', signal?: AbortSignal): Promise<void> {
   const tracker = new DownloadProgressTracker(), speed = new SmoothedSpeedEstimator(), active = new Map<number,string>()
+  const waits = new Map<DownloadWaitState, number>()
   const sourcePool = new DownloadSourcePool()
   // Most workers start large files early; reserve one in four for small files.
   // Overlap per-file latency with bulk transfer instead of deferring thousands
@@ -469,7 +547,7 @@ export async function downloadAll(tasks: DownloadTask[], progress?: AllProgressF
   const report = () => {
     const snapshot = tracker.snapshot(), paused = isTaskPaused(signal)
     const sampled = speed.sample(networkBytes, snapshot.bytesTotal == null ? null : Math.max(0, snapshot.bytesTotal - snapshot.bytesDone), performance.now(), paused)
-    progress?.(snapshot.completedFiles, tasks.length, sampled.speedBps, { ...snapshot, ...sampled, paused, activeFiles: [...active.values()] })
+    progress?.(snapshot.completedFiles, tasks.length, sampled.speedBps, { ...snapshot, ...sampled, paused, activeFiles: [...active.values()], ...(waits.size ? { waits: [...waits].map(([state, index]) => ({ ...state, file: tasks[index].label ?? path.basename(tasks[index].dest) })) } : {}) })
   }
   report()
   const timer = setInterval(report, 250)
@@ -482,9 +560,14 @@ export async function downloadAll(tasks: DownloadTask[], progress?: AllProgressF
         if (!next) return
         const index = next.index, task = tasks[index]; active.set(index, task.label ?? path.basename(task.dest))
         try {
-          await downloadFile(task.url, task.dest, (done,total,wire = 0) => { networkBytes += wire; tracker.record(index,done,total) }, task.sha1, mirror, controller.signal, task.urls, { sha512: task.sha512, sha256: task.sha256, size: task.size, reuseDirs: task.reuseDirs, reuseFiles: task.reuseFiles, sourcePool, maxSegments: () => Math.max(1, Math.floor(downloadLimiter.maxConcurrent / Math.max(1, active.size))) })
+          await resolveNativeIntegrity(task, controller.signal)
+          await downloadFile(task.url, task.dest, (done,total,wire = 0) => { networkBytes += wire; tracker.record(index,done,total) }, task.sha1, mirror, controller.signal, task.urls, { sha512: task.sha512, sha256: task.sha256, size: task.size, reuseDirs: task.reuseDirs, reuseFiles: task.reuseFiles, sourcePool, maxSegments: () => Math.max(1, Math.floor(downloadLimiter.maxConcurrent / Math.max(1, active.size))), onWait: (state, waiting) => { if (waiting) waits.set(state,index); else waits.delete(state); report() } })
           tracker.recordComplete(index, (await fs.promises.stat(task.dest)).size); active.delete(index)
-        } catch (error) { firstError ??= error; controller.abort(error); return }
+        } catch (error) {
+          const failure = task.label && !controller.signal.aborted && !signal?.aborted
+            ? new Error(`资源文件 ${task.label}：${error instanceof Error ? error.message : String(error)}`, { cause: error }) : error
+          firstError ??= failure; controller.abort(failure); return
+        }
       }
     }))
     signal?.throwIfAborted()

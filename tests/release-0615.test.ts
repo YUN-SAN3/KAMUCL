@@ -20,8 +20,13 @@ test('默认黑紫主题与设置预览共用紫色，其他主题不变', () =>
   assert.equal(THEME_PRESETS.transparent.colors.accent, '#9475ed')
   assert.equal(THEME_PRESETS['black-orange'].colors.accent, '#f97316')
   const settings = fs.readFileSync('src/renderer/src/views/SettingsView.vue', 'utf8')
-  assert.match(settings, /named\('transparent'\)/)
-  assert.match(settings, /theme\.colors\.accent/)
+  const themeCard = fs.readFileSync('src/renderer/src/components/AppearanceThemeCard.vue', 'utf8')
+  // The extracted preview must still be imported and rendered in the actual appearance page.
+  assert.match(settings, /import AppearanceThemeCard from '\.\.\/components\/AppearanceThemeCard\.vue'/)
+  assert.match(settings, /<AppearanceThemeCard v-show="category === 'appearance'"\s*\/>/)
+  assert.match(themeCard, /named\('transparent'\)/)
+  assert.match(themeCard, /theme\.colors\.accent/)
+  assert.match(themeCard, /data-section="theme"/)
 })
 
 test('窗口状态切换只修复原生边框，不反复安装毛玻璃；关闭取消刷新', async () => {

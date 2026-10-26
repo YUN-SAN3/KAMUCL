@@ -1,0 +1,90 @@
+{
+  "candidateSource": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+  "runId": 37680785679,
+  "productionSource": "6af4611d819f652b14bd37e6b67b4f32a761fc28",
+  "package": {
+    "artifactId": 11509975002,
+    "apiDigest": "sha256:c9edd19db7211b0f5358828195417fffb3f18f537e4c85497b270e6bd51b9e0b",
+    "outerArchiveSHA256": "c9edd19db7211b0f5358828195417fffb3f18f537e4c85497b270e6bd51b9e0b",
+    "innerZipSHA256": "0b06dd56486a6b0dbe76313a1e2124a4848efa919352f7efd7e3e69805ff4ebe",
+    "macAsarSHA256": "75eb10c3394ee2bc1f8578dc2572ffa979c120a8369f92ebc4251b68de652ecf",
+    "windowsAsarSHA256": "0047c3176467d29c04b1bc36df6f5334ccd090f4906dbc27c5930c15edd3d152"
+  },
+  "renderer": {
+    "logicalMembers": 147,
+    "rawIdentical": 96,
+    "rawDifferent": 51,
+    "missing": [],
+    "provenGeneratedScopeMappingPairs": 62,
+    "changedScopeMappingPairs": 40,
+    "classifiedLogicalComparisonEqual": true,
+    "images": {
+      "png": 83,
+      "webp": 7,
+      "all90ActualByteSHAEqual": true
+    },
+    "standaloneAudioFontShaderFiles": {
+      "windows": 0,
+      "mac": 0,
+      "note": "No separate audio/font/shader files were present; embedded code/data is covered by fullrenderer JS/CSS/HTML comparison, not an audio execution claim."
+    }
+  },
+  "mainPreload": {
+    "threePayloadsRawByteIdentical": true
+  },
+  "jars": [
+    {
+      "name": "kamucl-bridge.jar",
+      "windowsSHA256": "2cf595874cd41c7453481ef94869e01fb3be7353616ee2aa011688f45767fa57",
+      "macSHA256": "54e6a895b7ec9fbd5673e083a27f3b6b9599d31e36bacaafd72f9542c82f0421",
+      "classCount": 13,
+      "publicAPICanonicalTextIdentical": true,
+      "allDisplayedMethodBodiesClassified": true,
+      "major": [
+        61
+      ],
+      "compilerMetadata": {
+        "windows": "Manifest-Version: 1.0\r\nCreated-By: 25.0.2 (Oracle Corporation)\r\n\r\n",
+        "mac": "Manifest-Version: 1.0\r\nCreated-By: 17.0.20.1 (Eclipse Adoptium)\r\n\r\n"
+      },
+      "unproven": [
+        "Full classattributes and invokedynamic bootstrap recipes not completely compared by javap -c/-p/-s",
+        "No actual JVM/native/game functional inference"
+      ]
+    },
+    {
+      "name": "kamucl-offline-skin.jar",
+      "windowsSHA256": "2f605b65b7a490dadf84840a178b74f154d2738fecd5dad935d6fb8b6b606358",
+      "macSHA256": "919e0eef7c1e73d2fbebf83b6be95f177dc1bda72a55fdfe532b1d4efcecbe7f",
+      "classCount": 6,
+      "publicAPICanonicalTextIdentical": true,
+      "allDisplayedMethodBodiesClassified": true,
+      "major": [
+        52
+      ],
+      "compilerMetadata": {
+        "windows": "Manifest-Version: 1.0\r\nPremain-Class: cn.kamucl.skin.OfflineSkinAgent\r\nCan-Redefine-Classes: false\r\nCan-Retransform-Classes: false\r\nCreated-By: 25.0.2 (Oracle Corporation)\r\n\r\n",
+        "mac": "Manifest-Version: 1.0\r\nPremain-Class: cn.kamucl.skin.OfflineSkinAgent\r\nCan-Redefine-Classes: false\r\nCan-Retransform-Classes: false\r\nCreated-By: 17.0.20.1 (Eclipse Adoptium)\r\n\r\n"
+      },
+      "unproven": [
+        "Full classattributes and invokedynamic bootstrap recipes not completely compared by javap -c/-p/-s",
+        "No actual JVM/native/game functional inference"
+      ]
+    }
+  ],
+  "differences": {
+    "rawMemberComparisonRetained": true,
+    "metadataLFCanonicalEqual": [
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md",
+      "docs/CORRESPONDING_SOURCE.md"
+    ],
+    "nativeAndHelperBranches": "Mac Koffi darwin_arm64/MacGameWindow versusWindows Koffi win32_x64/GameWindowFocus/StartupFeedback/WindowMaterial explicitly enumerated; runtime code branch acceptance separate",
+    "additionalMacDocsHeadersBuildSupport": "Extra Koffi/undici docs and Koffi build/vendor headers explicitly retained in rawmemberlist; no renderer media omission"
+  },
+  "version": "1.1.20",
+  "staticInspectionOnly": true,
+  "wholePlatformApproval": false,
+  "independentOriginalReportSHA256": "5ca9cc2c093e709c1b35467deb3322e61433dfc4a8dcf72138f768740c682c01",
+  "qualification": "Actual original bytes independently audited. Different renderer chunk/scoped IDs/notice newline and different JAR classes were retained and classified; no byte-identical claim for these differences. Static comparison does not establish actual JVM/native/animation/audio acceptance."
+}

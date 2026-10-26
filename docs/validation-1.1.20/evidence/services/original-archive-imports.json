@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "version": "1.1.20",
+  "complete": true,
+  "supersedesPublicProjectionSHA256": "26883959ce1666f0ab2cc875c82933ab798473106ae9c7763fe0e592ad57b789",
+  "classification": "Actual unchanged original user ZIPs imported through the original production IPC in a real Windows x64 portable launcher. Independently repeated streaming file hashes/CRCs; this is not trusted-coordinate GUI or game-start acceptance.",
+  "packs": [
+    {
+      "pack": "pack-a",
+      "format": "modrinth",
+      "originalZIP": {
+        "sha256": "53a8dda94443f58c571708fcf113470c39a906dec89c514a136cb5dd3c8fc216",
+        "bytes": 814370090,
+        "unchangedAfterImportAndAudit": true
+      },
+      "launcher": {
+        "version": "1.1.20",
+        "platform": "windows",
+        "arch": "x64",
+        "productionSourceCommit": "6af4611d819f652b14bd37e6b67b4f32a761fc28",
+        "portableEXESHA256": "d2fad1f339c109c306d6a0740e1576b9e7cfd4e1090c63cac926758ecfe2648a",
+        "actualMainExecutableSHA256": "ddddd55084d7e29dc5f475d83d58fea361b13802dd77d16b3855fbbe731090f3",
+        "actualRuntimeASARSHA256": "0047c3176467d29c04b1bc36df6f5334ccd090f4906dbc27c5930c15edd3d152"
+      },
+      "runtime": {
+        "minecraft": "1.20.1",
+        "loader": "forge",
+        "forge": "47.4.20",
+        "java": {
+          "gameMetadataRequiredMajor": 17,
+          "gameJVMLaunchedByImportRunnerOrThisAudit": false,
+          "qualification": "required major from the actual generated game profile only; subsequent smoke attempts are separate evidence and no Java runtime execution/version or game acceptance is inferred"
+        }
+      },
+      "completion": {
+        "productionIPCSuccess": true,
+        "discoverableCompleteInstance": true,
+        "installingMarkerAbsent": true,
+        "acceptedOwnedProcessClosedNormally": true,
+        "startedAt": "2026-10-07T19:21:57.321Z",
+        "finishedAt": "2026-10-07T19:22:55.310Z",
+        "receiptDurationMs": 57989,
+        "durationQualification": "full receipt including startup, ZIP hashing, IPC installation, terminal observation and cleanup; not isolated installer latency",
+        "observedProgressSpanMs": 43977
+      },
+      "verification": {
+        "indexedAssetSHA1AndSize": 3575,
+        "modrinthClientFileManifestSHA1SHA512AndSize": 313,
+        "applicableOverrideCRCAndSize": 5477,
+        "excludedMutableOverrides": {
+          "runtime_options": 1,
+          "launcher_metadata": 3
+        },
+        "regularFileCountsInDirectories": {
+          "mods": 331,
+          "resourcepacks": 2560,
+          "shaderpacks": 6,
+          "config": 2097,
+          "saves": 0
+        },
+        "allAboveByteChecksIndependentlyRepeated": true
+      },
+      "filenameEncoding": {
+        "unflaggedNonASCIIEntries": 0,
+        "decoder": "ZIP standard CP437 fallback for unflagged names",
+        "guessedGBKReplacementPerformed": false,
+        "intendedChineseNamesVerified": null
+      },
+      "importReceiptSHA256": "b7050d321fa1ca738fc1265220a2cdb06d2d71c45cf31d8c0cc55df71461e899",
+      "interfaceQualification": "programmatic invocation of original production IPC in the actual portable launcher; download-panel click was programmatic, not trusted physical-coordinate GUI acceptance",
+      "gameLaunchVerified": false,
+      "archiveBundledProgramsExecuted": false
+    },
+    {
+      "pack": "pack-b",
+      "format": "curseforge",
+      "originalZIP": {
+        "sha256": "a4663d732f94df289504f4a73abaf836f26b5aee078fb8875c3eb8dc28717f2e",
+        "bytes": 164400838,
+        "unchangedAfterImportAndAudit": true
+      },
+      "launcher": {
+        "version": "1.1.20",
+        "platform": "windows",
+        "arch": "x64",
+        "productionSourceCommit": "6af4611d819f652b14bd37e6b67b4f32a761fc28",
+        "portableEXESHA256": "d2fad1f339c109c306d6a0740e1576b9e7cfd4e1090c63cac926758ecfe2648a",
+        "actualMainExecutableSHA256": "ddddd55084d7e29dc5f475d83d58fea361b13802dd77d16b3855fbbe731090f3",
+        "actualRuntimeASARSHA256": "0047c3176467d29c04b1bc36df6f5334ccd090f4906dbc27c5930c15edd3d152"
+      },
+      "runtime": {
+        "minecraft": "1.7.10",
+        "loader": "forge",
+        "forge": "10.13.4.1614-1.7.10",
+        "java": {
+          "gameMetadataRequiredMajor": 8,
+          "gameJVMLaunchedByImportRunnerOrThisAudit": false,
+          "qualification": "required major from the actual generated game profile only; subsequent smoke attempts are separate evidence and no Java runtime execution/version or game acceptance is inferred"
+        }
+      },
+      "completion": {
+        "productionIPCSuccess": true,
+        "discoverableCompleteInstance": true,
+        "installingMarkerAbsent": true,
+        "acceptedOwnedProcessClosedNormally": true,
+        "startedAt": "2026-10-07T19:32:16.021Z",
+        "finishedAt": "2026-10-07T19:32:51.888Z",
+        "receiptDurationMs": 35867,
+        "durationQualification": "full receipt including startup, ZIP hashing, IPC installation, terminal observation and cleanup; not isolated installer latency",
+        "observedProgressSpanMs": 27251
+      },
+      "verification": {
+        "indexedAssetSHA1AndSize": 674,
+        "modrinthClientFileManifestSHA1SHA512AndSize": 0,
+        "applicableOverrideCRCAndSize": 4022,
+        "excludedMutableOverrides": {
+          "runtime_options": 1,
+          "launcher_metadata": 0
+        },
+        "regularFileCountsInDirectories": {
+          "mods": 116,
+          "resourcepacks": 8,
+          "shaderpacks": 421,
+          "config": 3315,
+          "saves": 0
+        },
+        "allAboveByteChecksIndependentlyRepeated": true,
+        "curseForgeExactProjectAndFileIDResources": {
+          "total": 68,
+          "modJARs": 67,
+          "resourceZIPs": 1,
+          "everySHA1SizeAndActualSHA256IndependentlyRepeated": true,
+          "resourceDirectoryBasedOnRealProjectClass": 12,
+          "metadataReceiptSHA256": "57dfb6e68e1e16b5778f44733187b764ce9e31a1c81b87e315c0bbed2f10e85c",
+          "fileVerificationReceiptSHA256": "cc71c4276c95ab5f6955ad6ae5db6f782b570e0929252eacd97f691448c4a758"
+        }
+      },
+      "filenameEncoding": {
+        "unflaggedNonASCIIEntries": 33,
+        "decoder": "ZIP standard CP437 fallback for unflagged names",
+        "guessedGBKReplacementPerformed": false,
+        "intendedChineseNamesVerified": false
+      },
+      "importReceiptSHA256": "83c3bbff814effc628ac5c1018f0a7f0e800a596041650f134443bdf0eb4df9c",
+      "interfaceQualification": "programmatic invocation of original production IPC in the actual portable launcher; download-panel click was programmatic, not trusted physical-coordinate GUI acceptance",
+      "gameLaunchVerified": false,
+      "archiveBundledProgramsExecuted": false,
+      "controlledDownloadThreads": 4
+    }
+  ],
+  "limitations": [
+    "These anonymous originals were not uploaded or copied into public source. Account state, usernames, local paths, archive contents, raw installer/proxy/process logs and full receipts are excluded.",
+    "Pack-b has 33 unflagged non-ASCII entry names decoded with CP437. Content/CRC checks match those decoded paths; intended Chinese names were not repaired or verified and no ambiguous GBK guess replaced the source archive.",
+    "Mutable options.txt/optionsof.txt and launcher metadata overrides are excluded from byte-equality counts and are reported separately.",
+    "Both import completions and recorded runtime metadata are verified. The import runner and this audit do not start either game. Later private smoke attempts are separate evidence; no title or world acceptance, or independent Java runtime version, is inferred here.",
+    "Receipt duration includes setup, hashing and cleanup; the first-to-last progress observation span is separately labelled. This is not a same-machine performance benchmark.",
+    "Original failed candidates and real network/installer failures remain historical records; these successes do not retroactively relabel them as passing."
+  ],
+  "curation": "Explicit bounded whitelist only: anonymous labels, immutable input/product hashes and sizes, runtime metadata, times, aggregate independently rechecked file results and stated limitations."
+}

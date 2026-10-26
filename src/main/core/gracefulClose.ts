@@ -27,6 +27,7 @@ export function requestGameWindowClose(child: GameProcessHandle): Promise<void> 
   const pid = child.pid
   if (!Number.isSafeInteger(pid) || !pid || child.exitCode !== null || child.signalCode !== null) return Promise.resolve()
   if (process.platform === 'darwin') return macGameWindow(child, 'close', 6000)
+  if (process.platform === 'linux') return linuxGameWindow(child, 'close', 6000)
   if (process.platform !== 'win32') return Promise.reject(new Error('请先在 Minecraft 内保存并退出，然后重试；当前平台不支持自动正常关窗'))
   closeLog.info(`向游戏进程 pid=${pid} 发送正常关闭消息（WM_CLOSE）`)
   const script = `$ErrorActionPreference='Stop'; $gameProcess=[System.Diagnostics.Process]::GetProcessById(${pid}); if (-not $gameProcess.CloseMainWindow()) { throw 'Minecraft has no responsive main window; exit from inside the game.' }`
@@ -48,6 +49,7 @@ export function focusGameWindow(child: GameProcessHandle, timeoutMs = 30000): Pr
   const pid = child.pid
   if (!Number.isSafeInteger(pid) || !pid || child.exitCode !== null || child.signalCode !== null) return Promise.resolve()
   if (process.platform === 'darwin') return macGameWindow(child, 'focus', timeoutMs)
+  if (process.platform === 'linux') return linuxGameWindow(child, 'focus', timeoutMs)
   if (process.platform !== 'win32') return Promise.resolve()
   closeLog.debug(`拉起游戏窗口聚焦助手：pid=${pid}，超时 ${timeoutMs}ms`)
   const helper = join(__dirname, 'GameWindowFocus.exe').replace('app.asar', 'app.asar.unpacked')
@@ -72,6 +74,20 @@ function macGameWindow(child: GameProcessHandle, action: 'focus' | 'close', time
       child.off('exit', cancel)
       if (child.exitCode !== null || child.signalCode !== null) return resolve()
       if (error) reject(new Error(stderr.trim() || '游戏窗口操作未完成，请在游戏内保存并退出'))
+      else resolve()
+    })
+    const cancel = () => worker.kill()
+    child.once('exit', cancel)
+  })
+}
+
+function linuxGameWindow(child: GameProcessHandle, action: 'focus' | 'close', timeoutMs: number): Promise<void> {
+  const helper = join(__dirname, 'LinuxGameWindow').replace('app.asar', 'app.asar.unpacked')
+  return new Promise((resolve, reject) => {
+    const worker = execFile(helper, [action, String(child.pid), String(timeoutMs)], { timeout: timeoutMs + 2000 }, (error, _stdout, stderr) => {
+      child.off('exit', cancel)
+      if (child.exitCode !== null || child.signalCode !== null) return resolve()
+      if (error) reject(new Error(stderr.trim() || 'Linux 游戏窗口操作失败，请确认 X11/XWayland 可用；正常关窗不会强杀游戏'))
       else resolve()
     })
     const cancel = () => worker.kill()

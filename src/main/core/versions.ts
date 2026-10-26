@@ -2,7 +2,10 @@
  * 版本管理：版本清单缓存、rules 评估、原版安装、已装列表、删除
  */
 import { fetchVersionCatalog } from './versionCatalog'
+import { minecraftRuleOs } from '../../shared/platform'
+import { nativeLibraryForHost } from './platformNatives'
 import { resolveInstanceMetadata } from './instanceMetadata'
+import { cachedClientVersionEvidence, readClientVersionEvidence } from './instanceVersionEvidence'
 import { mavenIdentity } from './mavenIdentity'
 import { withFileJob } from './fileJobs'
 import { downloadLimiter } from './downloadLimits'
@@ -10,6 +13,7 @@ import { app, shell } from 'electron'
 import { recycleVersion } from './versionRemoval'
 import { samePath } from './folderPaths'
 import fs from 'node:fs'
+import { randomUUID } from 'node:crypto'
 import path from 'node:path'
 import type {
   GameResolution,
@@ -55,6 +59,7 @@ import {
   withGameFolder
 } from './paths'
 import { ensureInstanceThumbnail, removeInstanceThumbnail } from './appearanceAssets'
+import { assetDownloadStatus } from '../../shared/assetDownloadStatus'
 
 export type ProgressEmit = (e: ProgressEvent) => void
 
@@ -62,7 +67,7 @@ export type ProgressEmit = (e: ProgressEvent) => void
 
 export interface VersionRule {
   action: 'allow' | 'disallow'
-  os?: { name?: 'windows' | 'linux' | 'osx'; arch?: 'x86' }
+  os?: { name?: 'windows' | 'linux' | 'osx'; arch?: string }
   features?: Record<string, boolean>
 }
 
@@ -141,8 +146,7 @@ export interface VersionJson {
 // ---------------- rules 评估 ----------------
 
 /** 当前平台对应的 MC rules os 名（win32→windows / darwin→osx / linux→linux） */
-export const OS_NAME: 'windows' | 'osx' | 'linux' =
-  process.platform === 'win32' ? 'windows' : process.platform === 'darwin' ? 'osx' : 'linux'
+export const OS_NAME = minecraftRuleOs(process.platform)
 
 /**
  * 评估 rules（Mojang 官方语义）：
@@ -157,11 +161,16 @@ export function rulesAllow(rules?: VersionRule[]): boolean {
     if (rule.features) continue
     if (rule.os) {
       if (rule.os.name && rule.os.name !== OS_NAME) continue
-      if (rule.os.arch && !(rule.os.arch === 'x86' && process.arch === 'ia32')) continue
+      if (rule.os.arch && !ruleArchitectureMatches(rule.os.arch, process.arch)) continue
     }
     allowed = rule.action === 'allow'
   }
   return allowed
+}
+
+export function ruleArchitectureMatches(rule: string, arch: string): boolean {
+  const aliases: Record<string, string[]> = { ia32: ['x86', 'ia32', 'i386'], x64: ['x86_64', 'amd64', 'x64'], arm64: ['aarch64', 'arm64'] }
+  try { const matcher = new RegExp(`^(?:${rule})$`); return (aliases[arch] ?? [arch]).some(value => matcher.test(value)) } catch { return false }
 }
 
 // ---------------- 版本清单 ----------------
@@ -218,6 +227,7 @@ interface LibEntry {
   sha1?: string
   size?: number
   isNative: boolean
+  nativeChecksumUrl?: string
 }
 
 /** 遍历通过 rules 的 libraries，收集 artifact 与 natives classifiers（去重） */
@@ -225,7 +235,7 @@ function collectLibraries(vj: VersionJson): LibEntry[] {
   const out: LibEntry[] = []
   const seen = new Set<string>()
   const coordinates = new Set<string>()
-  const push = (art: (Pick<LibraryArtifact, 'path'> & Partial<LibraryArtifact>) | undefined, isNative: boolean, coordinate?: string): void => {
+  const push = (art: (Pick<LibraryArtifact, 'path'> & Partial<LibraryArtifact>) | undefined, isNative: boolean, coordinate?: string, nativeChecksumUrl?: string): void => {
     if (!art?.path) return
     const dest = libraryPath(art.path)
     // Retain installer-generated entries even when missing, so launch validation
@@ -234,7 +244,7 @@ function collectLibraries(vj: VersionJson): LibEntry[] {
     if (coordinate) coordinates.add(coordinate)
     if (seen.has(dest)) return
     seen.add(dest)
-    out.push({ path: dest, url: art.url, sha1: art.sha1, size: art.size, isNative })
+    out.push({ path: dest, url: art.url, sha1: art.sha1, size: art.size, isNative, nativeChecksumUrl })
   }
   /** maven 坐标（group:artifact:version[:classifier]）→ 仓库相对路径 */
   const mavenPath = (name: string): string | null => {
@@ -251,18 +261,21 @@ function collectLibraries(vj: VersionJson): LibEntry[] {
     if (name.startsWith('net.neoforged:')) return 'https://maven.neoforged.net/releases/'
     return null
   }
-  for (const lib of vj.libraries ?? []) {
-    if (!rulesAllow(lib.rules)) continue
+  for (const source of vj.libraries ?? []) {
+    if (!rulesAllow(source.rules)) continue
+    const lib = nativeLibraryForHost(source)
     if (lib.downloads?.artifact) {
-      push(lib.downloads.artifact, false, mavenIdentity(lib.name))
-    } else if (lib.name && lib.url) {
+      push(lib.downloads.artifact, false, mavenIdentity(lib.name), lib.nativeChecksumUrl)
+    } else if (!lib.downloads?.classifiers && lib.name && lib.url) {
       // Fabric/Quilt 等 profile 的 maven 坐标形式：无内联 downloads，需按仓库基址拼接
       const rel = mavenPath(lib.name)
       if (rel) {
         const base = lib.url.endsWith('/') ? lib.url : lib.url + '/'
         push({ path: rel, url: base + rel }, false, mavenIdentity(lib.name))
       }
-    } else if (lib.name) {
+    } else if (!lib.downloads?.classifiers && lib.name) {
+      // Mojang 的 classifiers-only 库明确没有普通 artifact；不能推断一个
+      // 不存在的 base JAR，否则安装成功后仍会在启动校验时缺少下载地址。
       // forge 安装器注入库（fmlcore/javafmllanguage/mclanguage/lowcodelanguage 等）：
       // json 仅给 maven 坐标，本地有则直接收编，缺失按组织推断 maven 源下载
       const rel = mavenPath(lib.name)
@@ -275,7 +288,7 @@ function collectLibraries(vj: VersionJson): LibEntry[] {
       '${arch}',
       process.arch === 'ia32' ? '32' : '64'
     )
-    if (nativesKey) push(lib.downloads?.classifiers?.[nativesKey], true, mavenIdentity(lib.name, nativesKey))
+    if (nativesKey) push(lib.downloads?.classifiers?.[nativesKey], true, mavenIdentity(lib.name, nativesKey), lib.nativeChecksumUrl)
   }
   return out
 }
@@ -287,7 +300,7 @@ export function libraryTasks(vj: VersionJson): DownloadTask[] {
     .filter((e) => e.url)
     .map((e) => {
       const relative = path.relative(librariesDir(), e.path)
-      return { url: e.url as string, dest: e.path, sha1: e.sha1, size: e.size,
+      return { url: e.url as string, dest: e.path, sha1: e.sha1, size: e.size, nativeChecksumUrl: e.nativeChecksumUrl,
         reuseFiles: !relative.startsWith('..') && !path.isAbsolute(relative)
           ? folders.map(folder => path.join(folder, 'libraries', relative)) : [] }
     })
@@ -440,10 +453,11 @@ async function installVanillaUnlocked(
           const seen = new Set<string>()
           const tasks: DownloadTask[] = []
           const resourceFolders = allFolders()
-          for (const o of Object.values(objects)) {
+          for (const [name, o] of Object.entries(objects)) {
             if (!o?.hash || seen.has(o.hash)) continue
             seen.add(o.hash)
             tasks.push({
+              label: name,
               url: `https://resources.download.minecraft.net/${o.hash.slice(0, 2)}/${o.hash}`,
               dest: assetObjectPath(o.hash),
               sha1: o.hash,
@@ -457,7 +471,7 @@ async function installVanillaUnlocked(
               emit({
                 stage: 'assets',
                 progress: detail.fraction ?? 0,
-                text: `下载资源文件 ${d}/${t}`,
+                text: assetDownloadStatus(d, t, detail),
                 speed,
                 etaSeconds: detail.etaSeconds ?? undefined,
                 bytesDone: detail.bytesDone,
@@ -514,15 +528,16 @@ export async function installVersion(
   versionId: string,
   opts: InstallOptions = {},
   emit: ProgressEmit,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  onFavoriteResult?: (result: import('../../shared/modFavorites').FavoriteInstallResult) => void
 ): Promise<string> {
   // 安装期间切换活动文件夹或默认隔离设置，不能改变本次任务的落盘目标。
   const isolated = !!opts.recordingMod || !!opts.favoriteMods?.length || getSettings().defaultIsolation
-  return withGameFolder(gameDir(), () => installVersionInFolder(versionId, opts, emit, signal, isolated))
+  return withGameFolder(gameDir(), () => installVersionInFolder(versionId, opts, emit, signal, isolated, onFavoriteResult))
 }
 
 export function launchLibraryFiles(vj: VersionJson) {
-  return collectLibraries(vj).map(e => ({ dest: e.path, url: e.url, sha1: e.sha1, size: e.size }))
+  return collectLibraries(vj).map(e => ({ dest: e.path, url: e.url, sha1: e.sha1, size: e.size, nativeChecksumUrl: e.nativeChecksumUrl }))
 }
 
 async function installVersionInFolder(
@@ -530,11 +545,18 @@ async function installVersionInFolder(
   opts: InstallOptions,
   emit: ProgressEmit,
   signal: AbortSignal | undefined,
-  isolated: boolean
+  isolated: boolean,
+  onFavoriteResult?: (result: import('../../shared/modFavorites').FavoriteInstallResult) => void
 ): Promise<string> {
   const { installRecordingMods } = await import("./recordingMods")
-  const { prepareInstallMods } = await import('./modFavorites')
+  const { prepareInstallMods, favoriteInstallResult } = await import('./modFavorites')
   const recordingFiles = await prepareInstallMods(versionId, opts,signal)
+  const finishFavorites = async (installedId: string) => {
+    if (!opts.favoriteInstallIntent && !opts.favoriteMods?.length) return
+    const modsDirectory = path.join(instanceDirectoryState(installedId, readVersionJson(installedId)).path, 'mods')
+    const result = await favoriteInstallResult(opts, recordingFiles, modsDirectory, gameDir(), installedId, signal)
+    if (result) onFavoriteResult?.(result)
+  }
   signal?.throwIfAborted()
   const report = createWeightedProgressEmit(emit, VERSION_INSTALL_STAGE_RANGES)
   // 子安装器完成并不代表整个任务完成，Fabric API 仍可能在下载。
@@ -569,14 +591,16 @@ async function installVersionInFolder(
     }
     if (recordingFiles.length) {
       const mods = path.join(instanceDirectoryState(installedId, readVersionJson(installedId)).path, 'mods')
-      try { await installRecordingMods(mods, recordingFiles, signal, fraction => report({ stage: 'download', progress: fraction, text: '下载并校验所选模组与必要前置' })) }
+      try { await installRecordingMods(mods, recordingFiles, signal, fraction => report({ stage: 'download', progress: fraction, text: '下载并校验所选模组与必要前置' })); await finishFavorites(installedId) }
       catch(e) { if(signal?.aborted)throw e;const {recordSupplementalFailure}=await import('./supplementalMods');recordSupplementalFailure({folder:gameDir(),id:installedId},versionId,opts,e);throw new Error(`${installedId} 基础实例已保留；附加模组安装失败，请选择重试或保留基础实例：${e instanceof Error ? e.message : e}`) }
     }
+    else await finishFavorites(installedId)
     report({ stage: 'done', progress: 1, text: `${installedId} 安装完成` })
     return installedId
   }
   const installedId = await installVanilla(versionId, prepareReport, 'versions', opts.instanceName, signal)
   if (isolated) setNewInstanceIsolation(installedId, true)
+  await finishFavorites(installedId)
   report({ stage: 'done', progress: 1, text: `${installedId} 安装完成` })
   return installedId
 }
@@ -783,11 +807,21 @@ export function scanInstalledFolder(folder: string, onlyId?: string): {
     }
     try {
       const j = parseVersionFile(jp)
-      const resolved = resolveInstanceMetadata(j, id => {
+      const localParent = (id: string): VersionJson | undefined => {
         try {
           const local = versionJsonInFolder(root, id)
-          return parseVersionFile(fs.existsSync(local) ? local : baseVersionJsonPath(id))
+          const localBase = path.join(root, '.kamucl', 'base', id, `${id}.json`)
+          return parseVersionFile(fs.existsSync(local) ? local : fs.existsSync(localBase) ? localBase : baseVersionJsonPath(id))
         } catch { return undefined }
+      }
+      const resolved = resolveInstanceMetadata(j, localParent, chain => {
+        // Only unresolved metadata reads the client manifest/cache; listing never contacts a service.
+        const id = chain.length === 1 ? name : chain.at(-2)!.inheritsFrom!
+        const jar = chain.length === 1 ? path.join(dir, name, `${name}.jar`)
+          : fs.existsSync(versionJsonInFolder(root, id)) ? path.join(dir, id, `${id}.jar`)
+          : fs.existsSync(path.join(root, '.kamucl', 'base', id, `${id}.json`)) ? path.join(root, '.kamucl', 'base', id, `${id}.jar`)
+          : baseVersionJarPath(id)
+        return readClientVersionEvidence(jar) ?? cachedClientVersionEvidence(chain, [dir, path.join(root, '.kamucl', 'base'), path.dirname(baseVersionDir('_'))])
       })
       const item: InstalledVersion = { id: name, mcVersion: resolved.mcVersion, loader: resolved.loader, loaderVersion: resolved.loaderVersion, folder: root }
       if (j._modpackName) item.modpackName = j._modpackName
@@ -1020,7 +1054,13 @@ export function setVersionResolution(id: string, resolution: GameResolution | nu
   } else {
     delete version._resolution
   }
-  fs.writeFileSync(jp, JSON.stringify(version, null, 2), 'utf-8')
+  const temporary = `${jp}.window-size-${randomUUID()}.tmp`
+  try {
+    fs.writeFileSync(temporary, JSON.stringify(version, null, 2), { encoding: 'utf-8', flag: 'wx' })
+    fs.renameSync(temporary, jp)
+  } finally {
+    try { fs.unlinkSync(temporary) } catch { /* Missing temporary file or failed cleanup never replaces the original. */ }
+  }
 }
 
 // ---------------- 版本隔离 ----------------

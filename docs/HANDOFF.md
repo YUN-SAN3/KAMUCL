@@ -1,3 +1,9 @@
+# 当前交接入口 — KAMUCL 1.1.21
+
+更新时间：2026-10-09 03:47（香港本地分钟）。请先读 [START_HERE](../START_HERE.md)、[CURRENT_STATUS](../CURRENT_STATUS.md) 和 [本批验收](validation-1.1.21/README.md)。本批Windows x64与Mac ARM64，Mac完整平台验收仍未放行；Electron44.3.0。下面是保留的历史交接资料，其历史版本与完成说明不能代替本批证据。
+
+---
+
 # KAMUCL 项目交接文档（给 Codex）
 
 > 更新时间：2026-09-12 ｜ 文档状态：历史交接快照

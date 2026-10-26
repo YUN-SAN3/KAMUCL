@@ -1,0 +1,119 @@
+{
+  "version": "1.1.21",
+  "windows": {
+    "sourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "tests": {
+      "tests": 1589,
+      "pass": 1588,
+      "fail": 0,
+      "skipped": 1,
+      "cancelled": 0,
+      "originalLogSHA256": "f462d8eb56304b7c6d564846d6edaba802930b95ab31801f8f84531618d40fd4",
+      "originalLogBytes": 197241,
+      "originalLog": "test121-minimum-delay-committed-final.log"
+    },
+    "typeCheck": true,
+    "licenseCheck": true,
+    "productionBuild": true,
+    "productSourceCommit": "c6771c4f6a453d6a2b171e372f83b94df224b562",
+    "frozenProductionInputs": 539,
+    "preBuildReadAt": "2026-10-08T17:04:01.519Z",
+    "runtime": "Electron44.3.0,Node24.20.0",
+    "packaging": "portable EXE + compact ZIP + unpacked ZIP; original full member/byte equality and four isolated cold/warm startup runs",
+    "runtimeASARSHA256": "1b6b85d83af00734fa51ebfad335db179680b04b779b290f3fe8efa2a8ce786b",
+    "rendererIndexSHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0",
+    "signature": "NotSigned",
+    "gpuSmoke": "Actual pruned shipped runtime: RTX5080 ANGLE D3D11 and separate SwiftShaderVulkan both WebGL and UI/native Koffi/mod scan worker passed; baseline pruning unchanged, no optimization claim",
+    "preBuildCheckoutBaseCommit": "b11eab3408757f81a7118f4a0d967e156512a316",
+    "buildInputProvenance": "Final build started from the b11 checkout plus then-uncommitted focus repairs, after completely reading all539 production inputs. The repairs were subsequently committed asc677. Current frozen inputs and compiled payload match that content-equivalent product source; c677 is not claimed to have been the checked-out HEAD at build start.",
+    "historical8eSourceTests": {
+      "sourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "tests": {
+        "tests": 1561,
+        "pass": 1560,
+        "fail": 0,
+        "skipped": 1,
+        "cancelled": 0,
+        "originalLogSHA256": "0f7dcaf77d658a7d412f1863204ad31de7cb6a4db3fdf140799d6f576473b851",
+        "originalLogBytes": 194241,
+        "originalLog": "test121-qa-committed-final.log"
+      }
+    },
+    "latestQALogBindings": [
+      {
+        "receipt": "tsc121-minimum-delay-committed-final.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "receipt": "licenses121-minimum-delay-committed-final.log",
+        "sha256": "037321b9a3a39605d47451de084894589c40d8252efbf1ff981ad355a745e8ff",
+        "bytes": 92
+      }
+    ]
+  },
+  "macArm64": {
+    "sourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+    "run": 37820579554,
+    "runURL": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554",
+    "nativeBuild": true,
+    "nativeOS": "macOS26 ARM64 cloud desktop; minimummacOS13 not independently tested",
+    "tests": {
+      "tests": 1561,
+      "pass": 1556,
+      "fail": 0,
+      "skipped": 5,
+      "cancelled": 0,
+      "originalLogSHA256": "0a22ea7bcaca6dac106e342018eea06681d48f20d451b844a51ad42230dc1c39",
+      "originalLogBytes": 185599,
+      "originalLog": "mac120-npm-test.log"
+    },
+    "typeCheck": true,
+    "licenseCheck": true,
+    "productionBuild": true,
+    "packageIntegrity": true,
+    "runtime": "44.3.0",
+    "appAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+    "buildIdentitySHA256": "63b0b6b8cce46ef7f5d6b170927e113fdf3a5ac5d7648dcd2b304eed8cfd7f86",
+    "signing": "ad-hoc; not Developer ID or notarized",
+    "qualification": "Native source tests/package success does not qualify UI, games or full parity. Separate final native job results and original failures are in MAC_ACCEPTANCE.json."
+  },
+  "windowsOriginalLogBindings": [
+    {
+      "receipt": "tsc121-qa-committed-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "receipt": "licenses121-qa-committed-final.log",
+      "sha256": "d2fc75c204b8379dc900667285519f9edf35d111740b03a309f6c42645ebd43e",
+      "bytes": 22
+    },
+    {
+      "receipt": "build121-accepted-candidate.log",
+      "sha256": "20904b6eb761571b07e56036a1939ea72f3d2bd505c26c6a75f5f6ba5a0ca63b",
+      "bytes": 20424
+    },
+    {
+      "receipt": "package121-accepted-windows.log",
+      "sha256": "710ee794a5357fe14aa61bb227923865ef76e603fd132538262fe8070d12e118",
+      "bytes": 1585
+    },
+    {
+      "receipt": "package121-accepted-windows-zip.log",
+      "sha256": "188b7e6fb264de5028628ec3b74218d615543207a85fa609ed0bd87489130259",
+      "bytes": 285
+    },
+    {
+      "receipt": "windows121-package-verified.log",
+      "sha256": "cc3cfdb5dfcfa3ca426dfb3f55491851f2b111a76123573a415b565be5eeb81e",
+      "bytes": 16075
+    },
+    {
+      "receipt": "windows121-compact-ui.log",
+      "sha256": "7e650c968fb2d1c8e529c30c1bbc29b137722e651001b5f2902f587a02c7b27d",
+      "bytes": 1731
+    }
+  ],
+  "qualification": "Windows final source tests and native Mac8e source tests are recorded at their actual distinct QA commits; counts are not combined or equated. Later QA and documentation changes are explicitly listed in DELIVERY. Frozen production inputs and exact Mac8e original artifacts were not rebuilt or represented as built from the final tag; supplementary native fixture reuse is separately bound."
+}

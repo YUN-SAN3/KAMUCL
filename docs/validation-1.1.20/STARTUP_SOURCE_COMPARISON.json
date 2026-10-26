@@ -1,0 +1,105 @@
+{
+  "baselineTag": "v1.1.19",
+  "baselineCommit": "9b232fda1344636dd8a91aaa8c3b551d8b3dddd3",
+  "productionCommit": "6af4611d819f652b14bd37e6b67b4f32a761fc28",
+  "comparisonPaths": [
+    "src/main/index.ts",
+    "src/main/startupSplash.ts",
+    "src/preload/splash.ts",
+    "src/renderer/src/splash.ts",
+    "src/renderer/src/splash.css",
+    "src/renderer/src/bootTasks.ts",
+    "src/renderer/src/views/HomeView.vue",
+    "src/renderer/src/App.vue"
+  ],
+  "changedPaths": [
+    "src/renderer/src/App.vue"
+  ],
+  "files": [
+    {
+      "file": "src/main/index.ts",
+      "beforeSHA256": "3e26951ada813d3c42000cb5a621a8f6bebfabe70c1f1cbdc1c2fb7d8c2fbb10",
+      "productionSHA256": "3e26951ada813d3c42000cb5a621a8f6bebfabe70c1f1cbdc1c2fb7d8c2fbb10",
+      "identical": true
+    },
+    {
+      "file": "src/main/startupSplash.ts",
+      "beforeSHA256": "2f3cbcde70a183a4409cb71bb1adcf6c55ae5cf9a1c2d336305c08168a0da28d",
+      "productionSHA256": "2f3cbcde70a183a4409cb71bb1adcf6c55ae5cf9a1c2d336305c08168a0da28d",
+      "identical": true
+    },
+    {
+      "file": "src/preload/splash.ts",
+      "beforeSHA256": "d58f9146ae425803cb36b1aff485cd9b652d0d1284d7ea9579a17a2f7a425a8f",
+      "productionSHA256": "d58f9146ae425803cb36b1aff485cd9b652d0d1284d7ea9579a17a2f7a425a8f",
+      "identical": true
+    },
+    {
+      "file": "src/renderer/src/splash.ts",
+      "beforeSHA256": "20e0d5f244ec82d53c8f0b2c9448b3db6c35162ceca0264bba5e942e5ae47818",
+      "productionSHA256": "20e0d5f244ec82d53c8f0b2c9448b3db6c35162ceca0264bba5e942e5ae47818",
+      "identical": true
+    },
+    {
+      "file": "src/renderer/src/splash.css",
+      "beforeSHA256": "de9819187b78f5dea1f09812ab1d6cda9d1177ef077df4d9f7b1d54bd031154c",
+      "productionSHA256": "de9819187b78f5dea1f09812ab1d6cda9d1177ef077df4d9f7b1d54bd031154c",
+      "identical": true
+    },
+    {
+      "file": "src/renderer/src/bootTasks.ts",
+      "beforeSHA256": "9c56f3c26e95d1809db6fe0d8a81b3afee46d7fb673e7514e560dcca7e8ee829",
+      "productionSHA256": "9c56f3c26e95d1809db6fe0d8a81b3afee46d7fb673e7514e560dcca7e8ee829",
+      "identical": true
+    },
+    {
+      "file": "src/renderer/src/views/HomeView.vue",
+      "beforeSHA256": "ab0ec2b475bbf9f9f3197c908b01b97d84f61676520cd8eea26b565a9cd3c301",
+      "productionSHA256": "ab0ec2b475bbf9f9f3197c908b01b97d84f61676520cd8eea26b565a9cd3c301",
+      "identical": true
+    },
+    {
+      "file": "src/renderer/src/App.vue",
+      "beforeSHA256": "a4e86f750b5fb3529262b6ca839a672121bbd02694b62cc49dba3adbc6293aa4",
+      "productionSHA256": "6c417ae55edaecc9eafbc0f931c781b034d67737efbe8a84ecbdcf4484da47a4",
+      "identical": false
+    }
+  ],
+  "rawDiffSHA256": "8b1ad7eae4aa02e211ca507da2631f35403095c6df1d37cd8a006901838a5aea",
+  "rawDiffBytes": 931,
+  "classification": "Full diff over explicitly named startup implementation/entry/boot-task/HomeView/App paths. App.vue sole change in this range is download-detail wrapping CSS; startup implementation and boot readiness behavior are unchanged. This source result does not explain every runtime scheduling difference.",
+  "artifactCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+  "productionToArtifactQaOnlyPaths": [
+    ".github/workflows/mac-build.yml",
+    "scripts/mac-boot-failure120-tests.cjs",
+    "scripts/mac-boot-failure120.cjs",
+    "scripts/mac-boot-observer120-tests.cjs",
+    "scripts/mac-boot-observer120.cjs",
+    "scripts/mac-current-evidence120-tests.cjs",
+    "scripts/mac-current-evidence120.cjs",
+    "scripts/mac-opengl-capability120-tests.cjs",
+    "scripts/mac-opengl-capability120.swift",
+    "scripts/mac-parity-coordinate114-tests.cjs",
+    "scripts/qa-native-mac120-tests.cjs",
+    "scripts/qa-native-mac120.cjs",
+    "scripts/qa-native-mac120.swift",
+    "scripts/qa-ux116.cjs",
+    "scripts/verify-mac-batch120-reuse-tests.cjs",
+    "scripts/verify-mac-batch120.cjs",
+    "scripts/verify-mac-extra.cjs",
+    "scripts/verify-mac-opengl120.cjs",
+    "scripts/verify-mac-parity-ui.cjs",
+    "scripts/verify-mac.cjs",
+    "scripts/verify-ui-refinement.cjs",
+    "tests/all.test.ts"
+  ],
+  "qaCommit": "ad279ae2f0e556165d557bc7121153bd34a23d60",
+  "artifactToScopedQaOnlyPaths": [
+    ".github/workflows/mac-batch120-reuse.yml",
+    "scripts/qa-community-input120-tests.cjs",
+    "scripts/qa-community120.cjs",
+    "scripts/verify-mac-batch120-reuse-tests.cjs",
+    "scripts/verify-mac-batch120-reuse.cjs",
+    "tests/all.test.ts"
+  ]
+}

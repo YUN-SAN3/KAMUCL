@@ -1,0 +1,134 @@
+{
+  "complete": true,
+  "sources": [
+    {
+      "file": "src/renderer/src/components/SkinEditor.vue",
+      "sha256": "9b7347e935e7eaf84b0bb0156539c16eaf301a8c2a09637e88c5ec6457b15589"
+    },
+    {
+      "file": "src/renderer/src/components/SkinViewer3D.vue",
+      "sha256": "ba8db0383992f70ba50af62ea6f967e45fa42c796c61f8ed19608c621ca06bde"
+    },
+    {
+      "file": "src/renderer/src/components/SkinColorPalette.vue",
+      "sha256": "020d3d6d1d3041e7893805dc6b1f5e8b772fe77bc858ee2a43bc1932b4d8c7bc"
+    },
+    {
+      "file": "src/shared/skinPixels.ts",
+      "sha256": "d47fda11f76cef742e34bc34fec0c65ddcbe060707db287b7177537214077090"
+    },
+    {
+      "file": "src/shared/skinColors.ts",
+      "sha256": "aaf42e6e19eef48417bcbc4f6f1934b9ff98f307dbc764c2616e3068b7b0d430"
+    },
+    {
+      "file": "src/shared/skinPalettePreferences.ts",
+      "sha256": "45290ac69505939bc3e6a5b41728387f4f9d164ed50732c5b7098abccc355343"
+    },
+    {
+      "file": "src/renderer/src/skinModel.ts",
+      "sha256": "844e296c7f6c1952b80c0228e3e3c51c1c4c357a7678ad3029859af8b59d399c"
+    },
+    {
+      "file": "src/renderer/src/vendor/skinview3d/model.ts",
+      "sha256": "57592697929fad5dad47a2ab1a1bb7e220cabec342e51fe218f72bb1c45c84fc"
+    }
+  ],
+  "fixtureLimit": "Canvas is a raw ImageData fixture; no browser alpha-premultiplication, GPU rendering, native input, or PNG encoder was exercised.",
+  "scenarios": [],
+  "raycasts": [
+    {
+      "name": "blank alpha-zero outer shell is hittable",
+      "textureAlpha": 0,
+      "hidden": [],
+      "emitted": [
+        [
+          "pixel",
+          44,
+          12,
+          {
+            "x": 40,
+            "y": 8,
+            "width": 8,
+            "height": 8
+          }
+        ]
+      ]
+    },
+    {
+      "name": "opaque outer shell has identical hit and UV",
+      "textureAlpha": 255,
+      "hidden": [],
+      "emitted": [
+        [
+          "pixel",
+          44,
+          12,
+          {
+            "x": 40,
+            "y": 8,
+            "width": 8,
+            "height": 8
+          }
+        ]
+      ]
+    },
+    {
+      "name": "all hidden body parts produce gap",
+      "textureAlpha": 0,
+      "hidden": [
+        "head",
+        "body",
+        "leftArm",
+        "rightArm",
+        "leftLeg",
+        "rightLeg"
+      ],
+      "emitted": [
+        [
+          "gap"
+        ]
+      ]
+    },
+    {
+      "name": "hidden head does not hit its invisible shell or the shell behind it",
+      "textureAlpha": 0,
+      "hidden": [
+        "head"
+      ],
+      "emitted": [
+        [
+          "gap"
+        ]
+      ]
+    },
+    {
+      "name": "front shell chosen before back shell",
+      "intersections": [
+        {
+          "part": "head",
+          "mesh": "outer",
+          "distance": 45.32055172514253,
+          "z": 4.5,
+          "faceIndex": 9,
+          "uv": [
+            0.6875,
+            0.8083333333333336
+          ]
+        },
+        {
+          "part": "head",
+          "mesh": "outer",
+          "distance": 54.63633919642372,
+          "z": -4.5,
+          "faceIndex": 10,
+          "uv": [
+            0.9375,
+            0.841735739227774
+          ]
+        }
+      ]
+    }
+  ],
+  "sourceUnchangedDuringRun": true
+}

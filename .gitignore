@@ -15,3 +15,6 @@ bridge/dist/
 scripts/*.log
 
 bridge/.cache/
+offline-skin-agent/build/
+offline-skin-agent/dist/
+offline-skins/

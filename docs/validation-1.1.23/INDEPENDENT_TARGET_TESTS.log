@@ -1,0 +1,37 @@
+✔ 123 progressive dispatch is limited to Chinese MOD names; matching freezes filters and visible limit (1.061ms)
+✔ 123 current ID exists before synchronous subscription progress; late Start cannot overwrite its newer full prefix (0.6546ms)
+✔ 123 mismatched filters, foreign IDs, duplicate revisions and older events cannot replace current results (0.1903ms)
+✔ 123 replacing a query unsubscribes and cancels its old ID before late success or failure can reach the new results (0.1338ms)
+✔ 123 enrichment blocks paging; ready paging freezes one cursor and discovery accepts newer event ahead of its invoke return (0.2302ms)
+✔ 123 pause before first result and route disposal suppress late replies and remove every subscription (0.1099ms)
+✔ 123 return restores known prefix without an implicit request; resuming uses a new ID, never the old cursor (0.1454ms)
+✔ 123 failed continuation retains known results and can retry with its current ID; request errors are not empty success (0.1467ms)
+✔ 123 a failed new Start cannot submit a retained old cursor, and exposes failure without an active pending state (0.1201ms)
+✔ 123 session history independently clones query, visible prefix, phase, cursor and remaining discovery (4.409ms)
+✔ progress IPC emits only to its original renderer and captures an owner before destruction (0.9786ms)
+✔ a renderer receives one lifecycle hook across searches and continues/cancels with its own sender ID (0.4257ms)
+✔ 123 partial and exact Chinese discovery retains the verified related editions, with source-specific identities (9.6247ms)
+✔ 123 a slow encyclopedia cannot block original/local/English quick results, and identities and every filter stay exact (320.981ms)
+✔ 123 generic English aliases expose genuine related projects without borrowing the base Chinese label (10.0841ms)
+✔ 123 complete visible prefix paging and progressive batches do not replay cursors or claim undiscovered totals (9.4111ms)
+✔ 123 equal owner-independent searches share work; cancellation releases only the last subscription (4.0725ms)
+✔ 123 source restriction, failed query retry, and downloads/newest order apply to the whole confirmed union (8.7141ms)
+✔ 123 the shared transport budget covers providers and encyclopedia with fair queued cancellation (0.9934ms)
+✔ 123 failed encyclopedia entries remain retryable, titles/off-site/body cannot invent a provider identity (1.2675ms)
+✔ 123 replacing the sole owner aborts old network reads and never emits the old ready state (3.9117ms)
+✔ 123 relevance ties use downloads then title and real identity; source-specific names never leak to an unverified source (3.6648ms)
+✔ 123 an explicit new start retries a failed shared search without cancelling the other owner or dropping confirmed results (3.4542ms)
+✔ 123 explicit encyclopedia slash aliases rank before prefixes while preserving each real project (4.1746ms)
+✔ 123 identical transport reads across distinct searches share one body and cancel by subscription (1.0881ms)
+✔ 123 all-source sorting and totals use the confirmed union and retain equal numeric IDs from different providers (5.1628ms)
+✔ 123 the real ten-second batch deadline preserves fast results and leaves slow discovery retryable (10005.9598ms)
+✔ 123 enrichment preserves the readable prefix and commits whole-set order only when the batch is ready (6.2874ms)
+✔ 123 supplementary Han characters are accepted by backend discovery and are not mistaken for an English subtitle (3.5424ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10656.4027

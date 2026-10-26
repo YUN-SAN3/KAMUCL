@@ -56,9 +56,9 @@ async function mutateFavorite(key: string | string[], request: () => Promise<Mod
   finally { const next = new Set(favoriteBusy.value); for (const value of keys) next.delete(value); favoriteBusy.value = next }
 }
 
-export function toggleProject(source: string, projectId: string, name: string): Promise<boolean> {
+export function toggleProject(source: string, projectId: string, name: string, iconUrl?: string): Promise<boolean> {
   const key = source + ':' + projectId
-  return mutateFavorite(key, () => window.kamucl.invoke('mods:favorite', { source, projectId, name }, !favorites.value.some(f => f.key === key)) as Promise<ModFavorite[]>)
+  return mutateFavorite(key, () => window.kamucl.invoke('mods:favorite', { source, projectId, name, iconUrl }, !favorites.value.some(f => f.key === key)) as Promise<ModFavorite[]>)
 }
 
 export function setLocalFavorite(key: string, version: string, folder: string, name: string, enabled: boolean, link?: {source: string; projectId: string}): Promise<boolean> {

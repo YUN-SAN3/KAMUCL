@@ -63,7 +63,7 @@ function frame(now: number) {
     raf = requestAnimationFrame(() => bridge.assembled())
   } else if (!assembled) raf = requestAnimationFrame(frame)
 }
-face.onload = () => { resize(); raf = requestAnimationFrame(frame); bridge.ready() }
+face.onload = () => { document.body.dataset.motion = reduced ? 'system-reduced' : 'full'; resize(); raf = requestAnimationFrame(frame); bridge.ready() }
 face.onerror = () => bridge.failed('启动头像资源无法加载')
 face.src = faceUrl
 window.addEventListener('resize', resize)

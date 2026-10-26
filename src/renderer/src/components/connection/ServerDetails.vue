@@ -2,20 +2,23 @@
 import type { ServerEntry, ServerPingResult, InstalledVersion } from '@shared/types'
 import ConnectionPanel from './ConnectionPanel.vue'
 import ConnectionStatus from './ConnectionStatus.vue'
+import ServerAddress from './ServerAddress.vue'
+import { privateServerText } from '@shared/serverPrivacy'
 defineProps<{
   server: ServerEntry; ping: ServerPingResult | null; pending: boolean; busy: boolean; running?: boolean; binding: boolean;
   targets: InstalledVersion[]; bound: string; missing: boolean; lastUsed: string;
   targetToken: (target: InstalledVersion) => string; targetLabel: (target: InstalledVersion) => string
+  addressRevealed: boolean
 }>()
-defineEmits<{ bind: [value: string]; connect: []; refresh: []; edit: []; remove: []; relink: []; versions: []; copy: [] }>()
+defineEmits<{ bind: [value: string]; connect: []; refresh: []; edit: []; remove: []; relink: []; versions: []; copy: []; address: [] }>()
 </script>
 <template>
   <ConnectionPanel title="连接服务器" class="server-detail">
     <template #action><button class="btn btn-ghost btn-sm" :disabled="pending" @click="$emit('refresh')">{{ pending ? '检测中…' : '刷新' }}</button><ConnectionStatus :tone="pending ? 'pending' : ping?.online ? 'success' : 'neutral'" :label="pending ? '检测中' : ping?.online ? '在线' : ping ? '未连通' : '未检测'" /></template>
-    <div data-ui="ServerDetails:bcfe4bdd0062" class="server-detail-title"><span data-ui="ServerDetails:d5eb9cf8090b" class="server-monogram large" aria-hidden="true">{{ server.name.slice(0,1).toUpperCase() }}</span><div><h3 data-ui="ServerDetails:30996065a917">{{ server.name }}</h3><button class="server-address mono" :title="server.address + '（点击复制）'" @click="$emit('copy')">{{ server.address }} ⧉</button></div></div>
-    <div data-ui="ServerDetails:8c10b252815e" v-if="ping?.motd && !pending" class="server-description" aria-live="polite">{{ ping.motd }}</div>
-    <div data-ui="ServerDetails:9358a88a51a0" class="server-facts"><div><span>在线玩家</span><strong>{{ ping?.online && !pending ? ping.players : '—' }}</strong></div><div><span>网络延迟</span><strong>{{ ping?.online && !pending ? ping.latencyMs + ' ms' : '—' }}</strong></div></div>
-    <p data-ui="ServerDetails:8faafdb2bb97" v-if="ping?.online && !pending" class="connection-muted">服务器版本：{{ ping.version }}</p>
+    <div data-ui="ServerDetails:bcfe4bdd0062" class="server-detail-title"><span data-ui="ServerDetails:d5eb9cf8090b" class="server-monogram large" aria-hidden="true">{{ privateServerText(server.name, server, addressRevealed).slice(0,1).toUpperCase() }}</span><div><h3 data-ui="ServerDetails:30996065a917">{{ privateServerText(server.name, server, addressRevealed) }}</h3><ServerAddress :address="server.address" :revealed="addressRevealed" copyable @toggle="$emit('address')" @copy="$emit('copy')"/></div></div>
+    <div data-ui="ServerDetails:8c10b252815e" v-if="ping?.motd && !pending" class="server-description" aria-live="polite">{{ privateServerText(ping.motd, server, addressRevealed) }}</div>
+    <div data-ui="ServerDetails:9358a88a51a0" class="server-facts"><div><span>在线玩家</span><strong>{{ ping?.online && !pending ? privateServerText(ping.players, server, addressRevealed) : '—' }}</strong></div><div><span>网络延迟</span><strong>{{ ping?.online && !pending ? ping.latencyMs + ' ms' : '—' }}</strong></div></div>
+    <p data-ui="ServerDetails:8faafdb2bb97" v-if="ping?.online && !pending" class="connection-muted">服务器版本：{{ privateServerText(ping.version, server, addressRevealed) }}</p>
     <label data-ui="ServerDetails:59f1e2f8c71a" class="connection-field">使用此实例连接<select data-ui="ServerDetails:0a9558147a76" class="select" :value="bound" :disabled="busy || binding" @change="$emit('bind', ($event.target as HTMLSelectElement).value)"><option value="">未关联实例 · 连接时选择</option><option v-for="v in targets" :key="targetToken(v)" :value="targetToken(v)">{{ targetLabel(v) }}{{ v.isolated ? '（隔离）' : '' }}</option></select></label>
     <div data-ui="ServerDetails:49a9cb995a70" v-if="missing" class="connection-result"><ConnectionStatus tone="danger" label="关联实例缺失" /><p>原实例可能已移动或所在磁盘不可用。</p><div data-ui="ServerDetails:5a115acf33b4" class="connection-actions"><button data-ui="ServerDetails:cc40b80410ef" class="btn btn-ghost" @click="$emit('relink')">重新关联</button><button data-ui="ServerDetails:172ad57da113" class="btn btn-ghost" @click="$emit('versions')">前往版本页</button></div></div>
     <p data-ui="ServerDetails:d3a016071ead" v-else-if="server.candidateVersionIds?.length" class="connection-muted">共享目录记录，请选择并确认具体实例。</p>

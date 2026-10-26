@@ -1,0 +1,88 @@
+{
+  "schema": "windows115-owned-native-final",
+  "application": {
+    "file": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+    "sha256": "4822890c6cc94353a16687d812fdfb0be9379dad1c0258ef4b1a35c14d686df9"
+  },
+  "startedAt": "2026-10-06T10:12:26.120Z",
+  "runs": [
+    {
+      "name": "blue-white",
+      "logFile": "E:\\KAMUCL\\out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\blue-white.log",
+      "startedAt": "2026-10-06T10:12:26.184Z",
+      "pid": 31080,
+      "close": {
+        "code": 0,
+        "signal": null,
+        "at": "2026-10-06T10:12:59.611Z"
+      },
+      "log": {
+        "bytes": 90,
+        "sha256": "cfb4bac24f81e0e800af3cdb12003b0b9a5eb9ae8893d7097573f43235ac3a74"
+      }
+    },
+    {
+      "name": "transparent",
+      "logFile": "E:\\KAMUCL\\out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\transparent.log",
+      "startedAt": "2026-10-06T10:12:59.674Z",
+      "pid": 48720,
+      "close": {
+        "code": 0,
+        "signal": null,
+        "at": "2026-10-06T10:13:32.985Z"
+      },
+      "log": {
+        "bytes": 90,
+        "sha256": "509a5ef350d1231141c34c42c644db11e69efef1a3972f876a65a3f6e9dcbdee"
+      }
+    },
+    {
+      "name": "black-orange",
+      "logFile": "E:\\KAMUCL\\out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\black-orange.log",
+      "startedAt": "2026-10-06T10:13:33.049Z",
+      "pid": 4168,
+      "close": {
+        "code": 0,
+        "signal": null,
+        "at": "2026-10-06T10:14:06.671Z"
+      },
+      "log": {
+        "bytes": 90,
+        "sha256": "c39adc06ff53151643ec58294f83aaf4979570fd5cfe8f6f34ea0a2049da0e10"
+      }
+    },
+    {
+      "name": "opacity",
+      "logFile": "E:\\KAMUCL\\out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\opacity.log",
+      "startedAt": "2026-10-06T10:14:06.733Z",
+      "pid": 54816,
+      "close": {
+        "code": 0,
+        "signal": null,
+        "at": "2026-10-06T10:14:09.113Z"
+      },
+      "log": {
+        "bytes": 2933,
+        "sha256": "b710a14d38001abc510363202471b476f79c7acc54e912314cdac7385908aa42"
+      }
+    },
+    {
+      "name": "package",
+      "logFile": "E:\\KAMUCL\\out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\package.log",
+      "startedAt": "2026-10-06T10:14:09.181Z",
+      "pid": 37456,
+      "close": {
+        "code": 0,
+        "signal": null,
+        "at": "2026-10-06T10:14:29.058Z"
+      },
+      "log": {
+        "bytes": 14732,
+        "sha256": "c9522fb3cd62d71da0a30f27a0b5176f50fe7b28c5c06c69b81e008161c8d9e6"
+      }
+    }
+  ],
+  "complete": true,
+  "classification": "Native initial backdrop, compiled helper and clean package proof are separate. No user-window automation.",
+  "finishedAt": "2026-10-06T10:14:29.060Z"
+}

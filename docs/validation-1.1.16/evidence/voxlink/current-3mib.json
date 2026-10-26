@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "baseline": false,
+  "upstreamRevision": "c475faa98cca16d4a2eeef4422c862c36091e1fc",
+  "java": "javac 25.0.2",
+  "officialSources": [
+    {
+      "name": "ReliableUdpTransport.java",
+      "sha256": "05a7e131e91c1b69b6fbee78e54b0471170e316fd5c51ac3bca7f3e64687a58d",
+      "bytes": 54492
+    },
+    {
+      "name": "PunchAuth.java",
+      "sha256": "5e5cbf7fbf115d48b86978037184af6eb1c2667c0c844787b42727fcbc25955e",
+      "bytes": 5017
+    },
+    {
+      "name": "UdpPath.java",
+      "sha256": "04f4aec7d53e4933870feebb49d8c17997bf18fcd87c4c1dfd79a84523f13bc2",
+      "bytes": 2033
+    }
+  ],
+  "loggingOnlyStubs": [
+    "Logger",
+    "LoggerFactory",
+    "LogUploadManager"
+  ],
+  "transportSourceSha256": "a2c44fa3be6baf5df31d26c5248329e8e0012d1c29fd6b68c09612c9bd328b00",
+  "fixture": "real local Java peer, authenticated real UDP; 25% first-send DATA loss each direction, 15/22/29 ms one-way delay and reordering, Java reader paused 350 ms",
+  "result": {
+    "bytes": 3145728,
+    "sha256": "66d9c4643fae10d99c44fa2e99e9b7ab5dd7dfdc5dd487e34d4a2525fab808a9",
+    "elapsedMs": 12341
+  },
+  "dropped": [
+    562,
+    562
+  ],
+  "parity": [
+    561,
+    561
+  ],
+  "retrans": [
+    1816,
+    3047
+  ],
+  "javaExit": {
+    "code": 0,
+    "signal": null
+  },
+  "javaStdout": "PORT 64246\r\nBYTES 3145728\r\n",
+  "javaStderr": "",
+  "limitations": [
+    "Not Internet/NAT/service/game/voice verification",
+    "No claim of the supplied video exact root cause"
+  ],
+  "complete": true
+}

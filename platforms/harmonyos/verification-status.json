@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "observedOn": "2026-10-04",
+  "scope": "Native HarmonyOS PC engineering prerequisite checks on a Windows build host",
+  "releaseAssetDownloadedAndHashed": true,
+  "realMaintainerArktsTemplatePrepared": true,
+  "fourArm64ElfLibrariesVerified": true,
+  "productionByteParityInspected": true,
+  "upstreamSigningConfigurationRemoved": true,
+  "userDataNotIncludedInProject": true,
+  "negativeChecks": {
+    "productionFileTamperRejected": true,
+    "unexpectedUserSettingsRejected": true,
+    "foreignPlatformEntryRejected": true
+  },
+  "historicalFailures": [
+    "Initial staged engineering files were rejected after a concurrent shared production rebuild changed out/main/index.js. Reprepared and reverified; initial raw observation retained and excluded from intentional negative-control pass results."
+  ],
+  "sdkCompilationPassed": false,
+  "sdkSetupFailure": {
+    "endpoint": "https://svc-drcn.developer.huawei.com/PartnerCommunityService/v1/developer/downloadCenter/getLatestToolVersion",
+    "method": "POST",
+    "observedHttpStatus": 401,
+    "localToolInstallDetected": false,
+    "credentialsExtracted": false,
+    "sdkSubstituteUsed": false
+  },
+  "nativeDeviceAvailable": false,
+  "signedHapProduced": false,
+  "nativeGamePassed": false,
+  "fullFeatureAndAnimationParityPassed": false,
+  "runtimeThirdPartyNoticesComplete": false,
+  "publishable": false,
+  "logsGeneratedBy": [
+    "scripts/prepare-harmonyos.cjs",
+    "scripts/verify-harmonyos.cjs",
+    "scripts/build-harmonyos.cjs"
+  ],
+  "warning": "This dated source record is a historical observation. Re-run preparation, inspection and official SDK build for each changed production build."
+}

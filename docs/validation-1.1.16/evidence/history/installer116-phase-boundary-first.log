@@ -1,0 +1,31 @@
+✔ Concurrent Java preparations forward current and subsequent progress to both installer callers without duplicate writes (0.8955ms)
+✔ Failed shared preparation does not cache failure and disconnected observers cannot break a live installer (0.3408ms)
+✖ Runtime generation names its waiting prerequisites and becomes running for Java instead of remaining at generic waiting (1.1716ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 286.0139
+
+✖ failing tests:
+
+test at tests\installer-observability116.test.ts:27:1
+✖ Runtime generation names its waiting prerequisites and becomes running for Java instead of remaining at generic waiting (1.1716ms)
+  AssertionError [ERR_ASSERTION]: Nested Java-to-installer phase changes must reach the actual outer pack event immediately
+      at TestContext.<anonymous> (E:\KAMUCL\tests\installer-observability116.test.ts:39:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '正在检查加载器所需的 Java 环境…',
+    expected: /正在生成运行文件/,
+    operator: 'match',
+    diff: 'simple'
+  }

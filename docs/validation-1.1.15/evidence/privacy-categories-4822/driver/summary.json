@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "module": "privacy-categories115",
+  "version": "1.1.15",
+  "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB",
+  "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\profile",
+  "application": {
+    "path": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+    "bytes": 97289152,
+    "sha256": "4822890c6cc94353a16687d812fdfb0be9379dad1c0258ef4b1a35c14d686df9"
+  },
+  "arch": "x64",
+  "stage": "portable",
+  "complete": true,
+  "phases": [
+    {
+      "phase": "first",
+      "pid": 53744,
+      "theme": "black-orange",
+      "startedAt": 1791279513482,
+      "code": 0,
+      "signal": null,
+      "finishedAt": 1791279571200,
+      "summary": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\first\\summary.json",
+        "bytes": 9163899,
+        "sha256": "31046fe95df44f45f2a5661f1ae978b1a49e080c1d8c4963a3465e29c1fb5081"
+      }
+    },
+    {
+      "phase": "restart",
+      "pid": 55460,
+      "theme": "custom",
+      "startedAt": 1791279571270,
+      "code": 0,
+      "signal": null,
+      "finishedAt": 1791279584690,
+      "summary": {
+        "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL privacy115 8FV2vB\\restart\\summary.json",
+        "bytes": 1642791,
+        "sha256": "4c4786c34a95304c55491a185f7eb13d4fc5b18657f6dfcd516d43767cf3eb43"
+      }
+    }
+  ],
+  "classification": "Disposable native UI fixture acceptance and actual separate-process persistence. No resource comparison.",
+  "output": "E:\\KAMUCL\\out\\acceptance-1.1.15\\privacy-categories-x64-portable-a5aefb94-6c3a-444f-bf39-ed887dce53e5",
+  "finishedAt": "2026-10-06T09:39:44.698Z"
+}

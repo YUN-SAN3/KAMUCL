@@ -1,0 +1,346 @@
+{
+  "complete": true,
+  "startedAt": "2026-10-07T17:04:15.818Z",
+  "finishedAt": "2026-10-07T17:04:26.096Z",
+  "classification": "Actual public official MC百科 HTML headings/explicit repository links and actual production community orchestration with real HTTP metadata through a Node transport. No GUI, game, MOD install, Electron credential/proxy or service availability guarantee.",
+  "rawReceiptSHA256": "04300d4f0c94419255a37487199d6565ca57b0e29b9d9ae18ff762f42dfa1515",
+  "source": [
+    {
+      "file": "src/main/core/community.ts",
+      "sha256": "80cf44037d59bea99a3cec94b39c3faad8ed1d4ed710354dedcecfb97324b92d"
+    },
+    {
+      "file": "src/main/core/community-zh.ts",
+      "sha256": "e708fdad6a43bd851a67b7749540b27f01306700211da0f6d9dd131809499f19"
+    },
+    {
+      "file": "src/main/core/mcmodSearch.ts",
+      "sha256": "ba78d1ddae1e41759a86b518c398ff6a29e0e2ee4e1d479a226b914c84a19a7f"
+    }
+  ],
+  "official": [
+    {
+      "classId": "3208",
+      "keyword": "悠然一派",
+      "expectedSlug": "atmospheric",
+      "url": "https://www.mcmod.cn/class/3208.html",
+      "at": "2026-10-07T17:04:16.243Z",
+      "status": 200,
+      "bytes": 61348,
+      "sha256": "7c0d25a4836f5b21803b4c809ce9fe52130cdd778e1f4baa0f690800568283fd",
+      "title": "悠然一派",
+      "projects": [
+        {
+          "source": "curseforge",
+          "slug": "atmospheric"
+        },
+        {
+          "source": "modrinth",
+          "slug": "atmospheric"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "classId": "2412",
+      "keyword": "秋原",
+      "expectedSlug": "autumnity",
+      "url": "https://www.mcmod.cn/class/2412.html",
+      "at": "2026-10-07T17:04:18.878Z",
+      "status": 200,
+      "bytes": 60194,
+      "sha256": "9ee2723b2503ddfa0958ab4aa0481d9bc97fb96cc1400270e4c0933badd45a79",
+      "title": "秋原",
+      "projects": [
+        {
+          "source": "curseforge",
+          "slug": "autumnity"
+        },
+        {
+          "source": "modrinth",
+          "slug": "autumnity"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "classId": "2916",
+      "keyword": "碧海新生",
+      "expectedSlug": "upgrade-aquatic",
+      "url": "https://www.mcmod.cn/class/2916.html",
+      "at": "2026-10-07T17:04:20.958Z",
+      "status": 200,
+      "bytes": 71871,
+      "sha256": "f4f0a9eadb3d87ef8c035fa8140aad56ddc68b8fe47e9c8e600b2543ddd5d339",
+      "title": "碧海新生",
+      "projects": [
+        {
+          "source": "curseforge",
+          "slug": "upgrade-aquatic"
+        },
+        {
+          "source": "modrinth",
+          "slug": "upgrade-aquatic"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "classId": "2470",
+      "keyword": "末地拓展",
+      "expectedSlug": "endergetic",
+      "url": "https://www.mcmod.cn/class/2470.html",
+      "at": "2026-10-07T17:04:23.153Z",
+      "status": 200,
+      "bytes": 65136,
+      "sha256": "95593b78eb29a591f59c999bc670885e8c1ee32a1bb082cd80799ceb13a771b8",
+      "title": "末地拓展",
+      "projects": [
+        {
+          "source": "curseforge",
+          "slug": "endergetic"
+        },
+        {
+          "source": "modrinth",
+          "slug": "endergetic"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "classId": "1132",
+      "keyword": "静谧四季/季节",
+      "expectedSlug": "serene-seasons",
+      "url": "https://www.mcmod.cn/class/1132.html",
+      "at": "2026-10-07T17:04:25.300Z",
+      "status": 200,
+      "bytes": 76307,
+      "sha256": "e7dcdcd737cff296cec1c88095f012f53f93cdd870a668105e88c4c27bc5121a",
+      "title": "静谧四季/季节",
+      "projects": [
+        {
+          "source": "curseforge",
+          "slug": "serene-seasons"
+        },
+        {
+          "source": "modrinth",
+          "slug": "serene-seasons"
+        }
+      ],
+      "complete": true
+    }
+  ],
+  "searches": [
+    {
+      "query": {
+        "keyword": "悠然一派",
+        "source": "modrinth",
+        "kind": "mod",
+        "mcVersion": "1.20.1",
+        "loader": "forge",
+        "offset": 0,
+        "limit": 20
+      },
+      "at": "2026-10-07T17:04:16.626Z",
+      "expectedSlug": "atmospheric",
+      "complete": true,
+      "exactIdentityPresent": true,
+      "elapsedMs": 742.3199,
+      "total": 1,
+      "warnings": [
+        "中文别名检索：悠然一派 → atmospheric；保留原中文结果，仅补充来源标识完全匹配的项目。"
+      ],
+      "projects": [
+        {
+          "source": "modrinth",
+          "projectId": "U9sJOFmJ",
+          "slug": "atmospheric",
+          "title": "悠然一派 | Atmospheric"
+        }
+      ],
+      "requests": [
+        {
+          "at": "2026-10-07T17:04:16.628Z",
+          "url": "https://api.modrinth.com/v2/search?query=%E6%82%A0%E7%84%B6%E4%B8%80%E6%B4%BE&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "at": "2026-10-07T17:04:16.629Z",
+          "url": "https://api.modrinth.com/v2/search?query=atmospheric&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        }
+      ]
+    },
+    {
+      "query": {
+        "keyword": "秋原",
+        "source": "modrinth",
+        "kind": "mod",
+        "mcVersion": "1.20.1",
+        "loader": "forge",
+        "offset": 0,
+        "limit": 20
+      },
+      "at": "2026-10-07T17:04:19.195Z",
+      "expectedSlug": "autumnity",
+      "complete": true,
+      "exactIdentityPresent": true,
+      "elapsedMs": 256.1414,
+      "total": 1,
+      "warnings": [
+        "中文别名检索：秋原 → autumnity；保留原中文结果，仅补充来源标识完全匹配的项目。"
+      ],
+      "projects": [
+        {
+          "source": "modrinth",
+          "projectId": "cRh6MJ6n",
+          "slug": "autumnity",
+          "title": "秋原 | Autumnity"
+        }
+      ],
+      "requests": [
+        {
+          "at": "2026-10-07T17:04:19.196Z",
+          "url": "https://api.modrinth.com/v2/search?query=%E7%A7%8B%E5%8E%9F&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "at": "2026-10-07T17:04:19.196Z",
+          "url": "https://api.modrinth.com/v2/search?query=autumnity&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        }
+      ]
+    },
+    {
+      "query": {
+        "keyword": "碧海新生",
+        "source": "modrinth",
+        "kind": "mod",
+        "mcVersion": "1.20.1",
+        "loader": "forge",
+        "offset": 0,
+        "limit": 20
+      },
+      "at": "2026-10-07T17:04:21.341Z",
+      "expectedSlug": "upgrade-aquatic",
+      "complete": true,
+      "exactIdentityPresent": true,
+      "elapsedMs": 305.2604000000001,
+      "total": 1,
+      "warnings": [
+        "中文别名检索：碧海新生 → upgrade-aquatic；保留原中文结果，仅补充来源标识完全匹配的项目。"
+      ],
+      "projects": [
+        {
+          "source": "modrinth",
+          "projectId": "gTuTFFyz",
+          "slug": "upgrade-aquatic",
+          "title": "碧海新生 | Upgrade Aquatic"
+        }
+      ],
+      "requests": [
+        {
+          "at": "2026-10-07T17:04:21.341Z",
+          "url": "https://api.modrinth.com/v2/search?query=%E7%A2%A7%E6%B5%B7%E6%96%B0%E7%94%9F&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "at": "2026-10-07T17:04:21.341Z",
+          "url": "https://api.modrinth.com/v2/search?query=upgrade-aquatic&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        }
+      ]
+    },
+    {
+      "query": {
+        "keyword": "末地拓展",
+        "source": "modrinth",
+        "kind": "mod",
+        "mcVersion": "1.20.1",
+        "loader": "forge",
+        "offset": 0,
+        "limit": 20
+      },
+      "at": "2026-10-07T17:04:23.497Z",
+      "expectedSlug": "endergetic",
+      "complete": true,
+      "exactIdentityPresent": true,
+      "elapsedMs": 298.5711999999994,
+      "total": 1,
+      "warnings": [
+        "中文别名检索：末地拓展 → endergetic；保留原中文结果，仅补充来源标识完全匹配的项目。"
+      ],
+      "projects": [
+        {
+          "source": "modrinth",
+          "projectId": "cPle5Z8G",
+          "slug": "endergetic",
+          "title": "末地拓展 | The Endergetic Expansion"
+        }
+      ],
+      "requests": [
+        {
+          "at": "2026-10-07T17:04:23.498Z",
+          "url": "https://api.modrinth.com/v2/search?query=%E6%9C%AB%E5%9C%B0%E6%8B%93%E5%B1%95&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "at": "2026-10-07T17:04:23.498Z",
+          "url": "https://api.modrinth.com/v2/search?query=endergetic&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        }
+      ]
+    },
+    {
+      "query": {
+        "keyword": "静谧四季/季节",
+        "source": "modrinth",
+        "kind": "mod",
+        "mcVersion": "1.20.1",
+        "loader": "forge",
+        "offset": 0,
+        "limit": 20
+      },
+      "at": "2026-10-07T17:04:25.655Z",
+      "expectedSlug": "serene-seasons",
+      "complete": true,
+      "exactIdentityPresent": true,
+      "elapsedMs": 435.6634000000013,
+      "total": 1,
+      "warnings": [
+        "中文别名检索：静谧四季/季节 → serene-seasons；保留原中文结果，仅补充来源标识完全匹配的项目。"
+      ],
+      "projects": [
+        {
+          "source": "modrinth",
+          "projectId": "e0bNACJD",
+          "slug": "serene-seasons",
+          "title": "静谧四季 | Serene Seasons"
+        }
+      ],
+      "requests": [
+        {
+          "at": "2026-10-07T17:04:25.656Z",
+          "url": "https://api.modrinth.com/v2/search?query=%E9%9D%99%E8%B0%A7%E5%9B%9B%E5%AD%A3%2F%E5%AD%A3%E8%8A%82&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "at": "2026-10-07T17:04:25.656Z",
+          "url": "https://api.modrinth.com/v2/search?query=serene-seasons&limit=50&offset=0&index=relevance&facets=%5B%5B%22project_type%3Amod%22%5D%2C%5B%22versions%3A1.20.1%22%5D%2C%5B%22categories%3Aforge%22%5D%5D",
+          "status": 200,
+          "contentType": "application/json"
+        }
+      ]
+    }
+  ],
+  "curation": "Only public headings, repository identities and public unauthenticated search parameters are retained. Original raw HTML, headers, transport/auth state, local user inputs and private archives are excluded."
+}

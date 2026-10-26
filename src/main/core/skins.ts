@@ -5,7 +5,7 @@ import { withFileJob } from './fileJobs'
  * 存储：userData/skins/<id>.png + userData/skins.json [{id,variant,time}]（新→旧）
  * 所有 API 均以当前选中微软账号的 MC accessToken 走 Bearer 鉴权
  */
-import { app } from 'electron'
+import { app, nativeImage } from 'electron'
 import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
@@ -21,8 +21,48 @@ import { accountById, getValidAccount, selectedAccount } from './accounts'
 import { gameDir } from './paths'
 import { externalProfile } from './yggdrasil'
 import { SkinProfileCache } from './skinProfileCache'
+import { downloadTexture } from './skinTexture'
 import type { Account } from '../../shared/types'
+import { OfflineSkinStore, type OfflineSkinSnapshot } from './offlineSkinStore'
 const profileCache = new SkinProfileCache(() => path.join(app.getPath('userData'), 'skin-cache'))
+const offlineSkins = new OfflineSkinStore(() => path.join(app.getPath('userData'), 'offline-skins'), bytes => {
+  const image = nativeImage.createFromBuffer(bytes), size = image.getSize()
+  if (image.isEmpty() || size.width !== 64 || size.height !== 64) throw new Error('皮肤 PNG 无法解码，请选择有效的 64×64 图片')
+})
+
+/** Capture identity before any asynchronous work. A stale confirmation cannot affect another account. */
+function appearanceAccount(accountId?: string): Account {
+  const selected = selectedAccount(), account = accountId ? accountById(accountId) : selected
+  if (!account) throw new Error('请先选择账号')
+  if (accountId && selected?.id !== accountId) throw new Error('账号已变更，请重新确认应用账号')
+  return { ...account }
+}
+function offlineAccount(accountId: string): Account {
+  if (!accountId) throw new Error('请重新选择离线账号并确认应用')
+  const account = appearanceAccount(accountId)
+  if (account.type !== 'offline') throw new Error('请先选择离线账号')
+  return account
+}
+/** Launch consumes a checked immutable PNG; account name/UUID and credentials are unchanged. */
+export async function getOfflineSkin(accountId: string): Promise<OfflineSkinSnapshot | null> {
+  if (accountById(accountId)?.type !== 'offline') return null
+  return offlineSkins.snapshot(accountId)
+}
+export async function applyOfflineSkinBytes(bytes: Buffer, variant: SkinVariant, accountId: string, name?: string): Promise<ProfileSkins> {
+  const account = offlineAccount(accountId)
+  await offlineSkins.apply(account.id, bytes, variant, name)
+  return fetchProfile(account)
+}
+export async function applyOfflineSkin(filePath: string, variant: SkinVariant, accountId: string): Promise<ProfileSkins> {
+  const account = offlineAccount(accountId)
+  await offlineSkins.apply(account.id, await offlineSkins.readFile(filePath), variant, path.basename(filePath))
+  return fetchProfile(account)
+}
+export async function resetOfflineSkin(accountId: string): Promise<ProfileSkins> {
+  const account = offlineAccount(accountId)
+  await offlineSkins.reset(account.id)
+  return fetchProfile(account)
+}
 
 const API = 'https://api.minecraftservices.com'
 /** 历史皮肤上限，超出删除最旧 */
@@ -37,8 +77,7 @@ function historyFile(): string {
 }
 
 /** 取当前账号可用的 MC token：无账号 / 非微软账号直接抛中文错误 */
-async function requireMcToken(): Promise<string> {
-  const acc = selectedAccount()
+async function requireMcToken(acc = selectedAccount()): Promise<string> {
   if (!acc) throw new Error('请先选择账号')
   if (acc.type !== 'microsoft') throw new Error('皮肤功能需要微软正版账号')
   const valid = await getValidAccount(acc)
@@ -92,31 +131,16 @@ function validateSkinPng(filePath: string): Buffer {
   return buf
 }
 
-/**
- * 下载图片并转成 data:image/png;base64 形式（30s 超时）。
- * 主进程下载纹理后随档案返回，前端不再直连 textures.minecraft.net（CORS/网络不稳）。
- * 失败返回 undefined，不阻断主流程。
- */
-/**
- * 下载纹理图片转 dataURL（主进程侧，规避 renderer 的 CORS/WebGL 跨域限制）。
- * 重试 2 次；最终失败返回 undefined 并写日志，不阻断主流程。
- */
-async function fetchDataUrl(url: string): Promise<string | undefined> {
-  for (let attempt = 0; attempt < 2; attempt++) {
-    try {
-      const res = await fetch(url, { signal: AbortSignal.timeout(8000) })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const buf = Buffer.from(await res.arrayBuffer())
-      if (!buf.length) throw new Error('空响应')
-      return `data:image/png;base64,${buf.toString('base64')}`
-    } catch (e) {
-      if (attempt === 1) {
-        console.error(`[KAMUCL] 皮肤纹理下载失败(${url}):`, e instanceof Error ? e.message : e)
-        appendLauncherLog(`皮肤纹理下载失败(${url}): ${e instanceof Error ? e.message : e}`)
-      }
-    }
+/** Main-process PNG decoding keeps corrupt responses out of the appearance cache. */
+async function fetchTexture(url: string): Promise<{ dataUrl?: string; textureError?: string }> {
+  const result = await downloadTexture(url, fetch, bytes => {
+    if (nativeImage.createFromBuffer(bytes).isEmpty()) throw new Error('材质 PNG 无法解码')
+  })
+  if (result.textureError) {
+    console.error('[KAMUCL] 皮肤纹理下载失败:', result.textureError)
+    appendLauncherLog(`皮肤纹理下载失败: ${result.textureError}`)
   }
-  return undefined
+  return result
 }
 
 /** 启动器自身诊断日志：gameDir/kamucl-logs/launcher.log */
@@ -138,19 +162,18 @@ function appendLauncherLog(line: string): void {
 export async function getProfile(refresh = false, accountId?: string): Promise<ProfileSkins> {
   const account = accountId ? accountById(accountId) : selectedAccount()
   if (!account) throw new Error('请先选择账号')
+  // Never reuse the old minotar disk cache for an offline account: local manifests are authoritative.
+  if (account.type === 'offline') return fetchProfile({ ...account })
   const key = JSON.stringify([account.type, account.id, account.uuid, account.providerId, account.apiRoot])
   return profileCache.get(key, () => fetchProfile(account), refresh)
 }
 
 async function fetchProfile(account: Account): Promise<ProfileSkins> {
   if (account.type === 'offline') {
-    // 离线账号没有官方档案；复用头像服务的公开用户名皮肤接口给首页 3D 预览。
-    // 请求失败时返回空皮肤列表，由渲染器显示本地生成的可动画角色，不阻断首页。
-    const url = `https://minotar.net/skin/${encodeURIComponent(account.username)}`
-    const dataUrl = await fetchDataUrl(url)
+    const skin = await offlineSkins.profileSkin(account.id)
     return {
       username: account.username,
-      skins: dataUrl ? [{ variant: 'classic', url, dataUrl, state: 'ACTIVE' }] : [],
+      skins: skin ? [skin] : [],
       capes: []
     }
   }
@@ -159,10 +182,10 @@ async function fetchProfile(account: Account): Promise<ProfileSkins> {
     const profile = await externalProfile(valid)
     await Promise.all([
       ...profile.skins.map(async (skin) => {
-        skin.dataUrl = await fetchDataUrl(skin.url)
+        Object.assign(skin, await fetchTexture(skin.url))
       }),
       ...profile.capes.map(async (cape) => {
-        if (cape.url) cape.dataUrl = await fetchDataUrl(cape.url)
+        if (cape.url) Object.assign(cape, await fetchTexture(cape.url))
       })
     ])
     return profile
@@ -197,10 +220,10 @@ async function fetchProfile(account: Account): Promise<ProfileSkins> {
   // 主进程并发下载纹理转 dataURL 随档案返回；失败跳过该项的 dataUrl
   await Promise.all([
     ...skins.map(async (s) => {
-      s.dataUrl = await fetchDataUrl(s.url)
+      Object.assign(s, await fetchTexture(s.url))
     }),
     ...capes.map(async (c) => {
-      if (c.url) c.dataUrl = await fetchDataUrl(c.url)
+      if (c.url) Object.assign(c, await fetchTexture(c.url))
     })
   ])
   return { username: data.name ?? '', skins, capes }
@@ -215,10 +238,11 @@ export async function getAvatar(accountId?: string): Promise<string | null> {
 }
 
 /** 上传皮肤（multipart/form-data），成功后写入本地历史并返回最新档案 */
-export async function uploadSkin(filePath: string, variant: SkinVariant): Promise<ProfileSkins> {
+export async function uploadSkin(filePath: string, variant: SkinVariant, accountId?: string): Promise<ProfileSkins> {
+  const account = appearanceAccount(accountId)
   if (variant !== 'classic' && variant !== 'slim') throw new Error('无效的皮肤模型')
   const buf = validateSkinPng(String(filePath ?? ''))
-  const token = await requireMcToken()
+  const token = await requireMcToken(account)
   const form = new FormData()
   form.append('variant', variant)
   form.append(
@@ -235,7 +259,7 @@ export async function uploadSkin(filePath: string, variant: SkinVariant): Promis
   })
   if (!res.ok) throw await apiError(res, '皮肤上传失败')
   saveHistory(buf, variant, path.basename(String(filePath ?? '')) || undefined)
-  return await getProfile(true)
+  return await getProfile(true, account.id)
 }
 
 /** 激活披风（PUT {capeId}）；传 null 卸下（DELETE） */
@@ -337,7 +361,10 @@ function saveHistory(buf: Buffer, variant: SkinVariant, sourceName?: string): vo
 }
 
 /** 历史列表（新→旧），每条附带 data:image/png;base64 缩略图 */
-export async function history(): Promise<SkinHistoryEntry[]> {
+export async function history(accountId?: string): Promise<SkinHistoryEntry[]> {
+  const account = accountId ? accountById(accountId) : selectedAccount()
+  if (accountId && !account) throw new Error('账号不存在，请重新选择账号')
+  if (account?.type === 'offline') return offlineSkins.history(account.id)
   const out: SkinHistoryEntry[] = []
   for (const item of loadHistory()) {
     try {
@@ -351,7 +378,9 @@ export async function history(): Promise<SkinHistoryEntry[]> {
 }
 
 /** 删除某条历史（文件 + 记录），返回最新历史列表 */
-export async function historyDelete(id: string): Promise<SkinHistoryEntry[]> {
+export async function historyDelete(id: string, accountId?: string): Promise<SkinHistoryEntry[]> {
+  const account = accountId ? appearanceAccount(accountId) : selectedAccount()
+  if (account?.type === 'offline') { await offlineSkins.delete(account.id, id); return offlineSkins.history(account.id) }
   return withFileJob(skinsDir(), undefined, async () => {
     const list = loadHistory()
     const idx = list.findIndex(item => item.id === id)
@@ -365,7 +394,9 @@ export async function historyDelete(id: string): Promise<SkinHistoryEntry[]> {
 }
 
 /** 重命名历史记录（仅改显示名，不动文件），返回最新历史列表 */
-export async function historyRename(id: string, name: string): Promise<SkinHistoryEntry[]> {
+export async function historyRename(id: string, name: string, accountId?: string): Promise<SkinHistoryEntry[]> {
+  const account = accountId ? appearanceAccount(accountId) : selectedAccount()
+  if (account?.type === 'offline') { await offlineSkins.rename(account.id, id, name); return offlineSkins.history(account.id) }
   const safe = path.basename(String(id ?? ''))
   const trimmed = String(name ?? '').trim().slice(0, 80)
   const list = loadHistory()
@@ -379,11 +410,13 @@ export async function historyRename(id: string, name: string): Promise<SkinHisto
 }
 
 /** 用历史记录快速换回：找到记录后走标准上传流程 */
-export async function uploadHistory(id: string): Promise<ProfileSkins> {
+export async function uploadHistory(id: string, accountId?: string): Promise<ProfileSkins> {
+  const account = appearanceAccount(accountId)
+  if (account.type === 'offline') { await offlineSkins.restore(account.id, id); return fetchProfile(account) }
   const safe = path.basename(String(id ?? ''))
   const item = loadHistory().find((i) => i.id === safe)
   if (!item) throw new Error('历史记录不存在')
   const file = path.join(skinsDir(), `${safe}.png`)
   if (!fs.existsSync(file)) throw new Error('历史皮肤文件已丢失')
-  return await uploadSkin(file, item.variant)
+  return await uploadSkin(file, item.variant, account.id)
 }

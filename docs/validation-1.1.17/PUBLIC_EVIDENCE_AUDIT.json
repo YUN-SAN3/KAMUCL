@@ -1,0 +1,36 @@
+{
+  "complete": true,
+  "classification": "Independent read-only whole-byte public evidence origin+copy verification and whole-file privacy scan for new 4517 candidate. Self-implemented community behavior is not independently graded here.",
+  "binding": {
+    "file": "docs/validation-1.1.17/evidence/bindings.json",
+    "bytes": 2120780,
+    "sha256": "45215b9184d6575eb0f3106af0a78d812bb0cd63202f5f6e9f6204177cfccb07"
+  },
+  "application": {
+    "file": "E:\\KAMUCL\\release\\KAMUCL-1.1.17.exe",
+    "bytes": 97299290,
+    "sha256": "4517bdbb98b180c797f4e800a0d5c6d24b055db125876a3d27bf1b175332de2e",
+    "matchesDeclared": true,
+    "matchesNewCandidate": true
+  },
+  "publicRows": 6145,
+  "verifiedPublicBytes": 221965551,
+  "originalDistinctFiles": 6117,
+  "extensions": {
+    ".json": 50,
+    ".png": 199,
+    ".log": 25,
+    ".jpg": 5870,
+    ".md": 1
+  },
+  "bindingFailures": [],
+  "unlistedPublicEvidence": [],
+  "sourceFilesScanned": 8720,
+  "sourcePrivacyFailures": [],
+  "additionalSecretMarkerScan": {
+    "textFiles": 1236,
+    "hits": []
+  },
+  "qualification": "Secret markers including camelCase credential/JWT literals, private source paths, symlinks, exact approved out roots and original-copy bytes checked. Historical rejected candidates remain historical; raw JPEG timestamps and frames are preserved by byte identity. Visual/function grading is a separate reviewer scope. Final committed source/handoff archive membership remains pending.",
+  "recordedAt": "2026-10-06T17:56:09.068Z"
+}

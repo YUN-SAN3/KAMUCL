@@ -1,0 +1,484 @@
+{
+  "classification": "Actual production MRPACK installation orchestration, localhost HTTP and temporary filesystem with synthetic runtime/mod bytes. No native game or GUI.",
+  "root": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\actual-alias-7f7466da-087a-41a4-ad0f-4e6a17e99bd9",
+  "at": "2026-10-07T08:05:34.862Z",
+  "sources": {
+    "src/main/core/modpacks.ts": "7e6a1ba3f2d48d7c0168b9bf89c198ae2b9f271971ef90ee241bbeec5adfe138",
+    "src/main/core/modpackDownloads.ts": "b7ed0b1856d8245eaf5398bf4239fdb3598aeaea4134b12e400b66c4669d82c8"
+  },
+  "files": [
+    {
+      "path": "mods/a.jar",
+      "hashes": {
+        "sha1": "d3d1366ed7873d1bf5920c0c1ae5c4e1d73f9a68",
+        "sha512": "3e9127ba5407c55a5c01cb9dd19daf60d01c46532057a3fb74af5baf0b1e551c4b1c071fe67751ff0257e750cfbc21c919bb0c7245d0b409cefe29f71f1099f3"
+      },
+      "downloads": [
+        "https://mrpack-review.invalid/first"
+      ],
+      "fileSize": 16
+    },
+    {
+      "path": "mods//a.jar",
+      "hashes": {
+        "sha1": "9b3eaa4d9982b093f55b230a831cfeca58b27406",
+        "sha512": "dba177cdc2739099b49fa6f40652f9764f228a0d19544a838a105887c9db9181e2c9d94cfc1ffac790f175f295c260acf3e87432dc1b8afc0b2fa78e6ddf099c"
+      },
+      "downloads": [
+        "https://mrpack-review.invalid/second"
+      ],
+      "fileSize": 16
+    }
+  ],
+  "result": "SyntheticAlias119",
+  "requests": [
+    "/second",
+    "/first",
+    "/version",
+    "/client"
+  ],
+  "actual": {
+    "sha1": "9b3eaa4d9982b093f55b230a831cfeca58b27406",
+    "sha512": "dba177cdc2739099b49fa6f40652f9764f228a0d19544a838a105887c9db9181e2c9d94cfc1ffac790f175f295c260acf3e87432dc1b8afc0b2fa78e6ddf099c",
+    "matchesFirst": false,
+    "matchesSecond": true
+  },
+  "originalSHA256": "4211d7fd6cc28108b35f7bdeaecef256791e8bfda4397c2a41b1929fa585abcc",
+  "originalUnchanged": true,
+  "events": [
+    {
+      "stage": "modpack",
+      "progress": 0,
+      "text": "解析整合包信息…",
+      "manualFiles": null,
+      "overall": 0
+    },
+    {
+      "stage": "modpack",
+      "progress": 0.02,
+      "text": "Synthetic alias（MC 1.20.1）",
+      "manualFiles": null,
+      "overall": 0.02
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.04,
+      "overall": 0.04,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "label": "游戏环境与加载器",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.04,
+      "overall": 0.04,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "stage": "version-json",
+          "label": "游戏环境与加载器",
+          "text": "获取版本信息 1.20.1",
+          "progress": 0,
+          "state": "running"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "准备整合包文件清单",
+          "progress": 0,
+          "state": "running"
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.51,
+      "overall": 0.51,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "stage": "version-json",
+          "label": "游戏环境与加载器",
+          "text": "获取版本信息 1.20.1",
+          "progress": 0,
+          "state": "running"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 2/2（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.5276,
+      "overall": 0.5276,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 0,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/client",
+          "label": "游戏本体",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "runtime/assets",
+          "label": "资源文件",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 2/2（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.6770503999999999,
+      "overall": 0.6770503999999999,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 0.999,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/client",
+          "stage": "client",
+          "label": "游戏本体",
+          "text": "下载游戏本体 0.0MB",
+          "progress": 0,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/assets",
+          "label": "资源文件",
+          "text": "等待准备",
+          "progress": 0,
+          "state": "waiting"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 2/2（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.6770503999999999,
+      "overall": 0.6770503999999999,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 0.999,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/client",
+          "stage": "client",
+          "label": "游戏本体",
+          "text": "下载游戏本体 0.0MB",
+          "progress": 0,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 0,
+          "state": "running"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 2/2（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.7958504,
+      "overall": 0.7958504,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 0.999,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/client",
+          "stage": "client",
+          "label": "游戏本体",
+          "text": "下载游戏本体 0.0MB",
+          "progress": 0,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 2/2（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.796,
+      "overall": 0.796,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/client",
+          "stage": "client",
+          "label": "游戏本体",
+          "text": "下载游戏本体 0.0MB",
+          "progress": 0,
+          "state": "running",
+          "speed": 0,
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 2/2（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.8708,
+      "overall": 0.8708,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime/libraries",
+          "stage": "libraries",
+          "label": "依赖库",
+          "text": "下载依赖库 0/0",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/client",
+          "stage": "client",
+          "label": "游戏本体",
+          "text": "下载游戏本体 0.0MB",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "runtime/assets",
+          "stage": "assets",
+          "label": "资源文件",
+          "text": "获取资源索引",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 2/2（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.94956,
+      "overall": 0.94956,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "stage": "done",
+          "label": "游戏环境与加载器",
+          "text": "SyntheticAlias119 安装完成",
+          "progress": 0.999,
+          "state": "running"
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 2/2（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "parallel",
+      "progress": 0.95,
+      "overall": 0.95,
+      "text": "同步准备游戏环境与整合包文件",
+      "parallelStages": [
+        {
+          "id": "runtime",
+          "stage": "done",
+          "label": "游戏环境与加载器",
+          "text": "SyntheticAlias119 安装完成",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        },
+        {
+          "id": "pack",
+          "stage": "modpack",
+          "label": "整合包文件",
+          "text": "下载整合包文件 2/2（0.0MB/0.0MB）",
+          "progress": 1,
+          "state": "done",
+          "indeterminate": false
+        }
+      ],
+      "manualFiles": null
+    },
+    {
+      "stage": "modpack",
+      "progress": 0.95,
+      "text": "写入已校验的整合包文件…",
+      "manualFiles": null,
+      "overall": 0.95
+    },
+    {
+      "stage": "modpack",
+      "progress": 0.96,
+      "text": "解压覆盖文件…",
+      "manualFiles": null,
+      "overall": 0.96
+    },
+    {
+      "stage": "done",
+      "progress": 1,
+      "text": "Synthetic alias 安装完成",
+      "manualFiles": null,
+      "overall": 1
+    }
+  ]
+}

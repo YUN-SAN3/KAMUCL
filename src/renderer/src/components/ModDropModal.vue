@@ -174,7 +174,7 @@ async function onAutoDownload() {
       }
     }
     const filePaths = validMods.value.map((m) => m.filePath)
-    const destinationFolder = store.settings?.activeFolder || store.settings?.gameDir || ''
+    const destinationFolder = store.settings?.folders.find(folder => folder.isDefault)?.path || store.settings?.activeFolder || store.settings?.gameDir || ''
     emit('close')
     toast(
       `开始自动下载 ${target.id} + ${LOADER_TAG[loader]} ${loaderVersion}${fabricApi ? ' + Fabric API' : ''}，完成后将自动装入 ${filePaths.length} 个 MOD`,
@@ -192,7 +192,7 @@ async function onAutoDownload() {
       void autoInstallMods(filePaths, r.installedId, destinationFolder)
     })
     try {
-      await installVersion(target.id, { loader, loaderVersion, fabricApi })
+      await installVersion(target.id, { loader, loaderVersion, fabricApi }, destinationFolder)
     } catch (e) {
       off()
       throw e

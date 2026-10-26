@@ -6,13 +6,14 @@ import { MASCOT_INTERACTIVE } from '../mascotInteraction'
 import { AmbientLight, DirectionalLight, Mesh, NearestFilter, PerspectiveCamera, Raycaster, Scene, SRGBColorSpace, Texture, Vector2, WebGLRenderer } from 'three'
 import type { SkinFace } from '@shared/skinPixels'
 import { useMotion } from '../motion'
-import { PreviewPlayer } from '../skinModel'
-import { loadImage, migrateLegacySkin, detectSkinVariant } from '../skin-render'
+import { PreviewPlayer, skinPreviewDistance, skinPreviewPitch, skinPreviewYaw, type SkinPreviewAnimation } from '../skinModel'
+import { loadImage, migrateLegacySkin, detectSkinVariant, normalizeCape } from '../skin-render'
 import { beginBootTask } from '../bootTasks'
 import { createFallbackSkin } from '../fallbackSkin'
 import { SkinGestureOwner } from '../skinEditorInteraction'
-const props = withDefaults(defineProps<{ src?: string; cape?: string; variant?: 'classic' | 'slim'; animation?: 'walk' | 'idle'; paused?: boolean; editCanvas?: HTMLCanvasElement; revision?: number; editMode?: 'draw' | 'rotate'; editDisabled?: boolean; layer?: 'inner' | 'outer'; hiddenParts?: string[] }>(), { src:'', cape:'', variant:'classic', animation:'walk', paused:false })
-const emit = defineEmits<{ stroke: [active: boolean]; pixel: [x: number, y: number, face: SkinFace]; gap: []; rotate: [] }>()
+import { MascotFrameDriver } from '../mascotFrameDriver'
+const props = withDefaults(defineProps<{ src?: string; cape?: string; variant?: 'classic' | 'slim'; animation?: SkinPreviewAnimation; paused?: boolean; editCanvas?: HTMLCanvasElement; revision?: number; editMode?: 'draw' | 'rotate'; editDisabled?: boolean; layer?: 'inner' | 'outer'; hiddenParts?: string[] }>(), { src:'', cape:'', variant:'classic', animation:'walk', paused:false })
+const emit = defineEmits<{ stroke: [active: boolean]; pixel: [x: number, y: number, face: SkinFace]; gap: []; rotate: []; capeError: [message: string] }>()
 const interactive = inject(MASCOT_INTERACTIVE, undefined)
 // Editing and camera gestures continue; only decorative walking yields priority.
 const effectivePaused = computed(() => props.paused || (!!interactive?.value && !props.editCanvas))
@@ -20,14 +21,19 @@ const gestures = new SkinGestureOwner()
 const raycaster = new Raycaster()
 const { decorativeActive, hidden } = useMotion()
 watch(decorativeActive, wake)
-watch(hidden, value => { if (value) finishGesture() })
+watch(hidden, value => { if (value) { finishGesture(); frames.cancel() } else wake() })
 const container = ref<HTMLDivElement | null>(null), supported = ref(true), dragging = ref(false)
 let gl: WebGLRenderer | undefined, world: Scene, camera: PerspectiveCamera, player: PreviewPlayer
-let resize: ResizeObserver | undefined, frame = 0, closed = false, skinRequest = 0, capeRequest = 0
+let resize: ResizeObserver | undefined, closed = false, skinRequest = 0, capeRequest = 0
+const frames = new MascotFrameDriver(frame => render(frame.at), {
+  now: () => performance.now(), requestAnimationFrame: callback => requestAnimationFrame(callback),
+  cancelAnimationFrame: id => cancelAnimationFrame(id), setTimeout: (callback, delay) => setTimeout(callback, delay), clearTimeout: id => clearTimeout(id)
+})
 let skin: Texture | null = null, cape: Texture | null = null
 let ambient: AmbientLight | undefined, keyLight: DirectionalLight | undefined
 let yaw = -.35, pitch = 0, zoom = 1, targetYaw = yaw, targetPitch = pitch, targetZoom = zoom
 let previous = 0, seconds = 0, blend = 1, distance = 50, pointerX = 0, pointerY = 0
+let crouchBlend = 0, flightBlend = 0
 const clamp = (n:number,min:number,max:number) => Math.max(min,Math.min(max,n))
 const finishBoot = beginBootTask()
 let bootTimer: ReturnType<typeof setTimeout> | undefined
@@ -74,11 +80,12 @@ function paintAt(event: PointerEvent) {
 async function updateCape(): Promise<void> {
   if (!gl) return
   const request = ++capeRequest
-  let image: HTMLImageElement | undefined
-  try { if (props.cape) image = await loadImage(props.cape) } catch { /* Hide a failed cape, never reuse a stale texture. */ }
+  let image: HTMLCanvasElement | undefined, error = ''
+  try { if (props.cape) image = normalizeCape(await loadImage(props.cape)) }
+  catch { error = '披风材质无法加载或尺寸不受支持，请刷新重试' }
   if (closed || request !== capeRequest) return
   const next = image ? texture(image) : null, old = cape
-  cape = next; player.setCape(next); old?.dispose(); wake()
+  cape = next; player.setCape(next); old?.dispose(); emit('capeError', error); wake()
 }
 function fit(): void {
   const el = container.value
@@ -89,21 +96,35 @@ function fit(): void {
   wake()
 }
 function wake(): void {
-  if (closed || frame || document.hidden || !gl) return
-  previous = performance.now(); frame = requestAnimationFrame(render)
+  if (closed || frames.hasPending || hidden.value || !gl) return
+  previous = performance.now(); frames.request()
 }
 function render(now:number): void {
-  frame = 0
-  if (closed || !gl) return
+  if (closed || !gl || hidden.value) return
   const dt = clamp((now-previous)/1000,0,.05), k = 1-Math.exp(-14*dt)
   previous = now
-  if (!effectivePaused.value && decorativeActive.value) { seconds += dt; blend += ((props.animation === 'walk' ? 1 : 0)-blend)*Math.min(1,dt*6) }
+  const moving = !effectivePaused.value && decorativeActive.value && !props.editCanvas
+  if (moving) { seconds += dt; blend += ((props.animation === 'walk' ? 1 : 0)-blend)*Math.min(1,dt*6) }
+  else blend = 0 // A paused/reduced preview stands naturally instead of freezing mid-step.
+  const targetCrouch = !props.editCanvas && props.animation === 'crouch' ? 1 : 0
+  const targetFlight = !props.editCanvas && props.animation === 'fly' ? 1 : 0
+  const stanceEase = decorativeActive.value ? k : 1
+  crouchBlend += (targetCrouch-crouchBlend)*stanceEase
+  flightBlend += (targetFlight-flightBlend)*stanceEase
   yaw += (targetYaw-yaw)*k; pitch += (targetPitch-pitch)*k; zoom += (targetZoom-zoom)*k
-  player.pose(seconds,props.editCanvas ? 0 : blend,yaw)
-  const d=distance/zoom
-  camera.position.set(0,16+Math.sin(pitch)*d,Math.cos(pitch)*d); camera.lookAt(0,16,0)
+  // Flight adds a reversible presentation angle; pointer rotation and reset keep
+  // their own underlying camera orientation, and the editor remains unchanged.
+  const viewYaw = skinPreviewYaw(yaw, flightBlend, !!props.editCanvas)
+  const viewPitch = skinPreviewPitch(pitch, flightBlend, !!props.editCanvas)
+  player.pose(seconds,props.editCanvas ? 0 : blend,viewYaw,{crouch:crouchBlend,fly:flightBlend})
+  const d=skinPreviewDistance(distance/zoom,flightBlend,!!props.editCanvas)
+  camera.position.set(0,16+Math.sin(viewPitch)*d,Math.cos(viewPitch)*d); camera.lookAt(0,16,0)
   gl.render(world,camera)
-  if ((!effectivePaused.value && decorativeActive.value) || dragging.value || Math.abs(targetYaw-yaw)+Math.abs(targetPitch-pitch)+Math.abs(targetZoom-zoom)>.0001) frame=requestAnimationFrame(render)
+  if (container.value) {
+    container.value.dataset.animationState = moving ? props.animation : 'paused'
+    container.value.dataset.pose = JSON.stringify({seconds, arm:player.skin.leftArm.rotation.x, leg:player.skin.leftLeg.rotation.x, crouch:crouchBlend, flight:flightBlend, yaw, viewYaw, pitch, viewPitch, fallbacks:frames.fallbacks})
+  }
+  if (moving || dragging.value || Math.abs(targetYaw-yaw)+Math.abs(targetPitch-pitch)+Math.abs(targetZoom-zoom)+Math.abs(targetCrouch-crouchBlend)+Math.abs(targetFlight-flightBlend)>.0001) frames.request()
 }
 function down(event:PointerEvent):void {
   if (props.editDisabled || !supported.value || !gestures.begin(event, !!props.editCanvas, props.editMode)) return
@@ -143,7 +164,7 @@ function wheel(event:WheelEvent):void {
 function resetView():void { finishGesture();targetYaw=-.35;targetPitch=0;targetZoom=1;wake() }
 function zoomBy(factor: number):void { if(props.editDisabled || !Number.isFinite(factor) || factor <= 0)return;finishGesture();targetZoom=clamp(targetZoom*factor,.5,3);wake() }
 function setLighting(studio: boolean):void { if(ambient)ambient.intensity=studio?2:1.35;if(keyLight){keyLight.intensity=studio?1:1.6;keyLight.position.set(studio?-15:35,30,50)}wake() }
-function visibility():void { if(document.hidden){finishGesture();cancelAnimationFrame(frame);frame=0}else wake() }
+function visibility():void { if(document.hidden){finishGesture();frames.cancel()}else wake() }
 onMounted(()=>{
   try {
     gl=new WebGLRenderer({alpha:true,antialias:true});gl.setPixelRatio(Math.min(devicePixelRatio||1,2));gl.setClearColor(0,0)
@@ -167,7 +188,7 @@ watch(()=>props.cape,()=>void updateCape())
 watch([effectivePaused,()=>props.animation],wake)
 onUnmounted(()=>{
   finishGesture()
-  closed=true;skinRequest++;capeRequest++;cancelAnimationFrame(frame);clearTimeout(bootTimer);finishBoot()
+  closed=true;skinRequest++;capeRequest++;frames.dispose();clearTimeout(bootTimer);finishBoot()
   resize?.disconnect();document.removeEventListener('visibilitychange',visibility)
   window.removeEventListener('blur',finishGesture)
   player?.dispose();skin?.dispose();cape?.dispose();gl?.dispose();gl?.forceContextLoss();gl?.domElement.remove()

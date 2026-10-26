@@ -1,0 +1,11 @@
+{
+  "app": {
+    "bundleName": "com.kamucl.launcher",
+    "vendor": "KAMUCL",
+    "versionCode": 1,
+    "versionName": "0.0.0",
+    "icon": "$media:app_icon",
+    "label": "$string:app_name",
+    "configuration": "$profile:configuration"
+  }
+}

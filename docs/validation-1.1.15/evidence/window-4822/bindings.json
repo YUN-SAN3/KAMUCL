@@ -1,0 +1,610 @@
+{
+  "application": {
+    "file": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+    "sha256": "4822890c6cc94353a16687d812fdfb0be9379dad1c0258ef4b1a35c14d686df9"
+  },
+  "complete": true,
+  "scope": "Three themes × cold/warm × five actual native states; seven compiled-helper guards; three clean package payloads. User original gray not reproduced; quarter bounds request is not native Snap. Collector pixels judged separately.",
+  "publicFiles": [
+    {
+      "original": "out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\driver.json",
+      "file": "evidence/window-4822/driver.json",
+      "bytes": 2802,
+      "sha256": "9788fb3501a4046ab26fd961def69ff285ddfda48fd532a3931b5f0775fac112"
+    },
+    {
+      "original": "out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\blue-white.log",
+      "file": "evidence/window-4822/blue-white.log",
+      "bytes": 90,
+      "sha256": "cfb4bac24f81e0e800af3cdb12003b0b9a5eb9ae8893d7097573f43235ac3a74"
+    },
+    {
+      "original": "out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\transparent.log",
+      "file": "evidence/window-4822/transparent.log",
+      "bytes": 90,
+      "sha256": "509a5ef350d1231141c34c42c644db11e69efef1a3972f876a65a3f6e9dcbdee"
+    },
+    {
+      "original": "out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\black-orange.log",
+      "file": "evidence/window-4822/black-orange.log",
+      "bytes": 90,
+      "sha256": "c39adc06ff53151643ec58294f83aaf4979570fd5cfe8f6f34ea0a2049da0e10"
+    },
+    {
+      "original": "out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\opacity.log",
+      "file": "evidence/window-4822/opacity.log",
+      "bytes": 2933,
+      "sha256": "b710a14d38001abc510363202471b476f79c7acc54e912314cdac7385908aa42"
+    },
+    {
+      "original": "out\\acceptance-1.1.15\\window-final-6f6c1dc7-bdb4-4470-be67-09c02421ef23\\package.log",
+      "file": "evidence/window-4822/package.log",
+      "bytes": 14732,
+      "sha256": "c9522fb3cd62d71da0a30f27a0b5176f50fe7b28c5c06c69b81e008161c8d9e6"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\report.json",
+      "file": "evidence/window-4822/blue-white/report.json",
+      "bytes": 58370,
+      "sha256": "bb43ab9b84f07be128da916d44c1065eb256108996cce71d2ed9626b95b66f74"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-initial-unmoved-renderer.png",
+      "file": "evidence/window-4822/blue-white/cold-initial-unmoved-renderer.png",
+      "bytes": 871088,
+      "sha256": "2046525c335f65a9baf61d97c562e2258c04c41c9c5ce0c4c3bbe49960674e48"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-initial-unmoved-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/cold-initial-unmoved-native-sidebar.png",
+      "bytes": 51106,
+      "sha256": "f54ecd7f660defca698bd4c528e213b1b8ac00b06ff7433389e80e6ada43ca1a"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-quarter-request-renderer.png",
+      "file": "evidence/window-4822/blue-white/cold-quarter-request-renderer.png",
+      "bytes": 835646,
+      "sha256": "22d92b7e5e0ce54a2163026b8a3f1ebd655b5f1bef8abe9af40858e1d654963b"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-quarter-request-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/cold-quarter-request-native-sidebar.png",
+      "bytes": 109885,
+      "sha256": "61df1c6d5b4d03b5709d14d5a213cfc7283d480ea325339620c2144e4291a1b0"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-same-bounds-restored-renderer.png",
+      "file": "evidence/window-4822/blue-white/cold-same-bounds-restored-renderer.png",
+      "bytes": 854004,
+      "sha256": "db49f41d5043d8a2433a87c8d582070e7d10e92673f8d4bebb872db833f1124a"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-same-bounds-restored-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/cold-same-bounds-restored-native-sidebar.png",
+      "bytes": 51177,
+      "sha256": "fa57e7d4e096de098ce9b97d47308a588fa4b90020847085757db2aaf3cada2e"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-maximized-renderer.png",
+      "file": "evidence/window-4822/blue-white/cold-maximized-renderer.png",
+      "bytes": 896144,
+      "sha256": "993d3a48827afe00c9ef084ba3d53b74e7446b3511599f98c3ea2d5ddb6da149"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-maximized-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/cold-maximized-native-sidebar.png",
+      "bytes": 184626,
+      "sha256": "070b3996c6717fdd025555683c9a04cf4cebb900b04fc9643cd52e544a37ec3d"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-unmaximized-renderer.png",
+      "file": "evidence/window-4822/blue-white/cold-unmaximized-renderer.png",
+      "bytes": 887892,
+      "sha256": "46e0177b043b1104fe7f309e39c387dd8816038b0a2a146b3bf2d12aaf38e30b"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-unmaximized-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/cold-unmaximized-native-sidebar.png",
+      "bytes": 51130,
+      "sha256": "9e8b34343a3829ec6d5c0823937fdf7519e01e22b30ba67421f3b7987a83416f"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-initial-unmoved-renderer.png",
+      "file": "evidence/window-4822/blue-white/warm-initial-unmoved-renderer.png",
+      "bytes": 764032,
+      "sha256": "4eb18b18c65f9d0127eba728675f3c69700f667fc0578b34ae3cbd0bb75435ab"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-initial-unmoved-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/warm-initial-unmoved-native-sidebar.png",
+      "bytes": 51239,
+      "sha256": "216aac7e4f5afd138e1ba50f046f4a067e1ad0075ffb81b55c14a688c66d1acb"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-quarter-request-renderer.png",
+      "file": "evidence/window-4822/blue-white/warm-quarter-request-renderer.png",
+      "bytes": 817707,
+      "sha256": "ca644c6a45e5b512b5b47a990e48223e2855051197a4fed06223cf859361006c"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-quarter-request-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/warm-quarter-request-native-sidebar.png",
+      "bytes": 109885,
+      "sha256": "61df1c6d5b4d03b5709d14d5a213cfc7283d480ea325339620c2144e4291a1b0"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-same-bounds-restored-renderer.png",
+      "file": "evidence/window-4822/blue-white/warm-same-bounds-restored-renderer.png",
+      "bytes": 767713,
+      "sha256": "9919304cc87558eeda283a21cf81b31d61e4194ca693205481dde54f073d3e78"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-same-bounds-restored-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/warm-same-bounds-restored-native-sidebar.png",
+      "bytes": 51190,
+      "sha256": "3b99ac0bd650c951e632721184b13879a6c3defe0a6a996e8336dcefeb4837e1"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-maximized-renderer.png",
+      "file": "evidence/window-4822/blue-white/warm-maximized-renderer.png",
+      "bytes": 980169,
+      "sha256": "fef1162b46c5a363ef64a6fea322b616ade7f5b5cae76685e4c702f24e9d7640"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-maximized-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/warm-maximized-native-sidebar.png",
+      "bytes": 184626,
+      "sha256": "070b3996c6717fdd025555683c9a04cf4cebb900b04fc9643cd52e544a37ec3d"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-unmaximized-renderer.png",
+      "file": "evidence/window-4822/blue-white/warm-unmaximized-renderer.png",
+      "bytes": 862706,
+      "sha256": "a9275be4c8c687ac5c452ca95c0e26d89ff2c3c757541bb24773479a652d53c0"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-unmaximized-native-sidebar.png",
+      "file": "evidence/window-4822/blue-white/warm-unmaximized-native-sidebar.png",
+      "bytes": 51171,
+      "sha256": "59477ea19383b3eca47ab8f8e94141a011aea70f77237ad5bda1d70e4a98d4dc"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\report.json",
+      "file": "evidence/window-4822/transparent/report.json",
+      "bytes": 58292,
+      "sha256": "0219b6b3d122f519de078dc7fdd2753819cee1f89d2f763a6ed8539a2b42f305"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-initial-unmoved-renderer.png",
+      "file": "evidence/window-4822/transparent/cold-initial-unmoved-renderer.png",
+      "bytes": 845330,
+      "sha256": "18a8a9a61e1c1ab4b2a89cf17fdd2ecb93550f61d0af5eb3d05102cefe345940"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-initial-unmoved-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/cold-initial-unmoved-native-sidebar.png",
+      "bytes": 57475,
+      "sha256": "a261e6523e3d13c62005afc27cb5a25c43ad842fb685d093df6d286c1c91993a"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-quarter-request-renderer.png",
+      "file": "evidence/window-4822/transparent/cold-quarter-request-renderer.png",
+      "bytes": 816003,
+      "sha256": "4d5febe408ecf0d87b67d8a1defa15ca3fe6c270482fa18522d5410b77ecce31"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-quarter-request-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/cold-quarter-request-native-sidebar.png",
+      "bytes": 128155,
+      "sha256": "fcb6ca7f522c835596138e2cc37fdb162e76eb992185716b0555a0c2e93df381"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-same-bounds-restored-renderer.png",
+      "file": "evidence/window-4822/transparent/cold-same-bounds-restored-renderer.png",
+      "bytes": 828269,
+      "sha256": "72432e060087561caab2902de51c56860111e13bdd6affafdbe940f7ef57dcf4"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-same-bounds-restored-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/cold-same-bounds-restored-native-sidebar.png",
+      "bytes": 57397,
+      "sha256": "c3d2b509feb861cf8dd8e576abcc912cddccf01b3e88eb4e19ec48036247368b"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-maximized-renderer.png",
+      "file": "evidence/window-4822/transparent/cold-maximized-renderer.png",
+      "bytes": 876517,
+      "sha256": "4b0d0caaedfa07de6eb281069fa024b03488a2fd45f0601044889c32413ddbc0"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-maximized-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/cold-maximized-native-sidebar.png",
+      "bytes": 219956,
+      "sha256": "8611608738368981296fa578bb1dfc952bc3426256b609fe64ca9c5501c901f1"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-unmaximized-renderer.png",
+      "file": "evidence/window-4822/transparent/cold-unmaximized-renderer.png",
+      "bytes": 864027,
+      "sha256": "80bb61e2e914a68f3269d9399b7dc891fdf1288aaf643891c6abc62070e3904c"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-unmaximized-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/cold-unmaximized-native-sidebar.png",
+      "bytes": 57446,
+      "sha256": "abd2938bd0d4e45ab9b53056d76575f38c0dab23db15d86fa80eaae279667cbf"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-initial-unmoved-renderer.png",
+      "file": "evidence/window-4822/transparent/warm-initial-unmoved-renderer.png",
+      "bytes": 746412,
+      "sha256": "0f6dc31961a3546385c2d5db4e6125ad5f4927d4bb0051391ae01b973b5de899"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-initial-unmoved-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/warm-initial-unmoved-native-sidebar.png",
+      "bytes": 57511,
+      "sha256": "67460808e6026726ac66efaf43fda35f39bba77f33989edeff90925a74dfb475"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-quarter-request-renderer.png",
+      "file": "evidence/window-4822/transparent/warm-quarter-request-renderer.png",
+      "bytes": 799653,
+      "sha256": "d2c6feb3be727c36537d39e2a6a98fb8719ce55c114c708d841f9cdcfc176150"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-quarter-request-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/warm-quarter-request-native-sidebar.png",
+      "bytes": 128155,
+      "sha256": "fcb6ca7f522c835596138e2cc37fdb162e76eb992185716b0555a0c2e93df381"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-same-bounds-restored-renderer.png",
+      "file": "evidence/window-4822/transparent/warm-same-bounds-restored-renderer.png",
+      "bytes": 750407,
+      "sha256": "e070feb17b627d402d59525193393abee93a9e24211a708a8b377a2dddffb6a1"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-same-bounds-restored-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/warm-same-bounds-restored-native-sidebar.png",
+      "bytes": 57615,
+      "sha256": "04faa1b09ee485e9e0c4ae2c93c9ceaf9e860e983814f609fb3e2f068102dea5"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-maximized-renderer.png",
+      "file": "evidence/window-4822/transparent/warm-maximized-renderer.png",
+      "bytes": 964088,
+      "sha256": "c6794bd75dc634c81534f1ebc91d35fb50ba9daa374045b2cd06ccdc7c9b3a98"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-maximized-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/warm-maximized-native-sidebar.png",
+      "bytes": 219956,
+      "sha256": "8611608738368981296fa578bb1dfc952bc3426256b609fe64ca9c5501c901f1"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-unmaximized-renderer.png",
+      "file": "evidence/window-4822/transparent/warm-unmaximized-renderer.png",
+      "bytes": 845058,
+      "sha256": "8ba9eeb144dc26c16aba379b2b46e1e792acfcb3e85171e47e81519932c516a6"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-unmaximized-native-sidebar.png",
+      "file": "evidence/window-4822/transparent/warm-unmaximized-native-sidebar.png",
+      "bytes": 57589,
+      "sha256": "c65fa4cf8be2bd9f82e77b58688717899e83e29d102bc5b5be961ea8b101073d"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\report.json",
+      "file": "evidence/window-4822/black-orange/report.json",
+      "bytes": 58349,
+      "sha256": "271f29801babdb669e6f974a6f66c53a35da0e00d104c0c555d3ced3f6ebfac1"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-initial-unmoved-renderer.png",
+      "file": "evidence/window-4822/black-orange/cold-initial-unmoved-renderer.png",
+      "bytes": 868785,
+      "sha256": "8b6aadb009a2c3b28d596f9376945e69634fcbe9345b5ffd41b5eff4d8367b91"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-initial-unmoved-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/cold-initial-unmoved-native-sidebar.png",
+      "bytes": 58753,
+      "sha256": "137bcd25394f8b0d378e21393d030cebd8331ef47a620bed090bfdb7a577ead3"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-quarter-request-renderer.png",
+      "file": "evidence/window-4822/black-orange/cold-quarter-request-renderer.png",
+      "bytes": 822932,
+      "sha256": "2f402ac9ebb3fc114c227d51adbd1b4bf6da8ea99d32517f9f261ce28095d47e"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-quarter-request-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/cold-quarter-request-native-sidebar.png",
+      "bytes": 128187,
+      "sha256": "41b08f4b73bdd54b05fd3a6babca11f3f9905e2fbd78a28100f8c0f2cd4ecd7a"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-same-bounds-restored-renderer.png",
+      "file": "evidence/window-4822/black-orange/cold-same-bounds-restored-renderer.png",
+      "bytes": 848587,
+      "sha256": "1f1334ec8d921e9d843225c543cfd91b4a8eec87dc1f7eeb0c7f0f4ad73749d0"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-same-bounds-restored-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/cold-same-bounds-restored-native-sidebar.png",
+      "bytes": 58823,
+      "sha256": "1fd612c70b5354de49bc15a7f13e910ece6c32472e5a1db9be9d87b46c58b147"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-maximized-renderer.png",
+      "file": "evidence/window-4822/black-orange/cold-maximized-renderer.png",
+      "bytes": 874050,
+      "sha256": "a61a886aa84b247bc8ed0bd4bbdfa039634be500bfbf77b93a62499b0b73eb62"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-maximized-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/cold-maximized-native-sidebar.png",
+      "bytes": 219827,
+      "sha256": "e9464d1645e0ce75f7ea94fa1eee39f2a8cc51557ed9f3a236a029e4e7e2c847"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-unmaximized-renderer.png",
+      "file": "evidence/window-4822/black-orange/cold-unmaximized-renderer.png",
+      "bytes": 884072,
+      "sha256": "a051a10a8fa2519d501eb2f2f399d7043082959a011b502a391b93259a14b608"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-unmaximized-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/cold-unmaximized-native-sidebar.png",
+      "bytes": 58827,
+      "sha256": "1ceb1f76c59d258055e4bf2da83687311f063a4ce296e28e4dec578997b89f7d"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-initial-unmoved-renderer.png",
+      "file": "evidence/window-4822/black-orange/warm-initial-unmoved-renderer.png",
+      "bytes": 752098,
+      "sha256": "bb661aea03a617176686065b597d3a1006b0a915d0e9ac1dfbf23285327d9b78"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-initial-unmoved-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/warm-initial-unmoved-native-sidebar.png",
+      "bytes": 58828,
+      "sha256": "1356ef99b84da936e41b9b6e24f00e5ee9df062cc09433eb1cda7644eb62e6fc"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-quarter-request-renderer.png",
+      "file": "evidence/window-4822/black-orange/warm-quarter-request-renderer.png",
+      "bytes": 804260,
+      "sha256": "08ee93a4a48f2926c580cd7a2d848496c75cf48b38f577958074d1b415fbfe85"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-quarter-request-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/warm-quarter-request-native-sidebar.png",
+      "bytes": 128187,
+      "sha256": "41b08f4b73bdd54b05fd3a6babca11f3f9905e2fbd78a28100f8c0f2cd4ecd7a"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-same-bounds-restored-renderer.png",
+      "file": "evidence/window-4822/black-orange/warm-same-bounds-restored-renderer.png",
+      "bytes": 755355,
+      "sha256": "b030dddb4ee1e0f2c959d01f5c2ec8601845110b5fd5cf6a8ac80bcf68c297b6"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-same-bounds-restored-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/warm-same-bounds-restored-native-sidebar.png",
+      "bytes": 58654,
+      "sha256": "2fe1699fa18f0b59f04fd7d10abaad70a942a64a6f434a82d07ad46bc0059949"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-maximized-renderer.png",
+      "file": "evidence/window-4822/black-orange/warm-maximized-renderer.png",
+      "bytes": 968959,
+      "sha256": "901f9a487935f628724ae4a8654b78363e6e42c1667aed2b73786efd408b7cdf"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-maximized-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/warm-maximized-native-sidebar.png",
+      "bytes": 219827,
+      "sha256": "e9464d1645e0ce75f7ea94fa1eee39f2a8cc51557ed9f3a236a029e4e7e2c847"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-unmaximized-renderer.png",
+      "file": "evidence/window-4822/black-orange/warm-unmaximized-renderer.png",
+      "bytes": 849683,
+      "sha256": "490ef825456f5045f7974620737db7d1bcee2b02f214d85091c417882cd2aaf0"
+    },
+    {
+      "original": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-unmaximized-native-sidebar.png",
+      "file": "evidence/window-4822/black-orange/warm-unmaximized-native-sidebar.png",
+      "bytes": 58699,
+      "sha256": "a7b67ed5521bb5bfb323e71d43fcf29fb249235f8079ffa4d440c0f99b161747"
+    },
+    {
+      "original": "out\\acceptance-1.1.15\\native-opacity-helper-5931b82a-5a1c-4deb-991a-e5ba151eda2f.json",
+      "file": "evidence/window-4822/compiled-helper.json",
+      "bytes": 4988,
+      "sha256": "6c36d5330fbd995ccbd5386f4005a7a4f6b83db468103943199f684ff3c31a34"
+    },
+    {
+      "original": "out/windows-package-1.1.15.json",
+      "file": "evidence/window-4822/package.json",
+      "bytes": 14731,
+      "sha256": "2c47fa5fb1cce9a0d1a7f153e46a2db99517fe6419fbec40da2c8bb8d36d7d6c"
+    },
+    {
+      "original": "scripts/verify-initial-backdrop115.cjs",
+      "file": "evidence/window-4822/observer/verify-initial-backdrop115.cjs",
+      "bytes": 9939,
+      "sha256": "009395a701a976bc453157a13c3572586ef9e522a230677308944616264c1e05"
+    },
+    {
+      "original": "out/run-window115-final.cjs",
+      "file": "evidence/window-4822/observer/run-window115-final.cjs",
+      "bytes": 2331,
+      "sha256": "bf892e1aecb5ba1d37e80bf362d64efec7e6bc21414740076424e7c7ea777a48"
+    }
+  ],
+  "privateNativeExcluded": [
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-initial-unmoved-native-application.png",
+      "sha256": "0127e0c53da5a967bb822f0ac3c5bb243138d3b44e5380ce8eef8b887a419d43",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-quarter-request-native-application.png",
+      "sha256": "e6aafabbfd75e72c288f9087093e5f3101568cbbae24159fd4fde4ee0da7684b",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-same-bounds-restored-native-application.png",
+      "sha256": "5b8f23926f365557df2f4bd17cd2aaf8b511591c91344185e1ceb7654fdf82c8",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-maximized-native-application.png",
+      "sha256": "5c5c61c1f0cffe364b40d0a4259562bfd2c96137f70b52e23860e6c207437a68",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\cold-unmaximized-native-application.png",
+      "sha256": "27406ab5333fe4360229d0cb280be6e3d8b80bbfd85513f93216a90cfb4428cc",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-initial-unmoved-native-application.png",
+      "sha256": "0010794dec63803d70ab8daca8e73c79d877c7ab006b8fa978b35fe45ea5f21b",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-quarter-request-native-application.png",
+      "sha256": "4b2bb1f57e9d0d5cbd54fc22d9de54bd159fbdc54a3bbc0d7f3f99d7140203bc",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-same-bounds-restored-native-application.png",
+      "sha256": "b1399634d3b5f83bffa81e520f2701d4bb5d94de5d917dca31a8c5d6868bffe4",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-maximized-native-application.png",
+      "sha256": "78c6e477cc1a0f9edd2f23bcb1af55232e54abf382416ac4d1facce0ec320d8c",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 ubD4Ek\\warm-unmaximized-native-application.png",
+      "sha256": "b9d3b2efb39bcdcd9c5c16b4fa76712e379ce0feed31373150f6a0c97e4f3d2e",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-initial-unmoved-native-application.png",
+      "sha256": "ba150f813442eeb4f7341dad7f94ff28c11b6c2a55a8e131cc5a86190c950719",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-quarter-request-native-application.png",
+      "sha256": "38604999b59c2d854780c38a1541af73b09684423d87c1bc81313970be99ea26",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-same-bounds-restored-native-application.png",
+      "sha256": "ac9faf0961e0fb175710ec717f10f4fb880fd67244076d6f57b02594235ff8b5",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-maximized-native-application.png",
+      "sha256": "71f86d41d07459a4f8c6f1dec378ad24d7458c9af520520b611a993e20c4d477",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\cold-unmaximized-native-application.png",
+      "sha256": "1465abee03a02271ea0625b5727c87f28f6ccfea3b4dd720a35c3e2e2de152b2",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-initial-unmoved-native-application.png",
+      "sha256": "986821559a49587c318ace8972865738d60d448d589279db715022d39bac61d2",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-quarter-request-native-application.png",
+      "sha256": "2af827c0a860c41fc8c1ac28dc191cf6b0dd5e68c696e67576dbf875497c036e",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-same-bounds-restored-native-application.png",
+      "sha256": "74dcb4558bea6d7bb06c3f5551873a4abd332bfe0873a151957e1e011ec6e842",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-maximized-native-application.png",
+      "sha256": "d320d2f27b88a363ff8e9818d5d1422c510d47efda8778965ef38b0415d0273b",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 PcTxXb\\warm-unmaximized-native-application.png",
+      "sha256": "30abfd6dcd168d726a8981f98a136bea3b9f6d1b60c27b6fc202a9109b5ec657",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-initial-unmoved-native-application.png",
+      "sha256": "d63608b3a7362578c575513888593390158cc6db6e3a7ded79bae6a28015f176",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-quarter-request-native-application.png",
+      "sha256": "90fdf97e39e63cb5927facb82be14c3a32cac86b5909061bf66b0d689930879a",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-same-bounds-restored-native-application.png",
+      "sha256": "21caf28543f21779d63a85f76cb8c60acb4508232463dc424d725d5a0fbf6674",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-maximized-native-application.png",
+      "sha256": "0d29cda76607ccaf43b7ea0ccd079e50aeed5b8df2665f68051bbcb611f764e1",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\cold-unmaximized-native-application.png",
+      "sha256": "e7a11c34ad4043ae6a7e0281ceeac81cb42baed79b34ca1b31206d96b6049038",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-initial-unmoved-native-application.png",
+      "sha256": "fcba59a0b1175e157bd82e3ea96918f635b32f4e3cf05bf135f4157d8f15bf71",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-quarter-request-native-application.png",
+      "sha256": "1de145c6151e5d24e750dd9db71c39346f9a2cfc7241ae2388736f2623c1d6b6",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-same-bounds-restored-native-application.png",
+      "sha256": "c2bbd111ef7f0e053360533608d70a3ddd54b357dca67bd6a1df65d4e58d5c8e",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-maximized-native-application.png",
+      "sha256": "dce3024d9d8f7a9ff92059ee931a4a2e5e0b7948d2fc596462728d55e962a260",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    },
+    {
+      "file": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL 初次背景 d4KPBy\\warm-unmaximized-native-application.png",
+      "sha256": "96b8ba7edb9cb99499ab3081c693e56bd5f6bac7d16e402d57d5402381be5dce",
+      "qualification": "Actual native application crop retained privately; may include external always-on-top overlay. Not included in public evidence."
+    }
+  ],
+  "history": [
+    {
+      "file": "evidence/history/window-final-bf45cecd-1f35-4e4e-bc8f-2a70c04d3475.json",
+      "sha256": "d4e3cc0a2e9e04137626b8a5ed6abd52fc3582009338632488e29d5ddff4cf4c"
+    },
+    {
+      "file": "evidence/history/window-final-870f7760-81ae-4102-9032-7a37417108f9.json",
+      "sha256": "92bcbdbfb88182f4c6ef0961a59ec98314ffcc8586423733bb4a6c3f862b7393"
+    }
+  ]
+}

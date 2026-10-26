@@ -1,0 +1,306 @@
+{
+  "version": "1.1.21",
+  "projection": true,
+  "complete": true,
+  "thresholdPerApplicableScore": 8.5,
+  "averaged": false,
+  "rows": [
+    {
+      "scope": "Windows appearance/editor/navigation/server renderer and native material supplement; bounded modified scope",
+      "reviewer": "updater121",
+      "ratings": {
+        "reasonableness": 9.2,
+        "functionality": 9.1,
+        "appearance": 8.7
+      },
+      "scoreScope": "Unchanged Windows appearance/editor/navigation/server product source, a844 driver441977/helper58e9 sixteen actual offscreen configurations and400 UI captures, separately retained earlier 8e driver865/helper22c matrix and previously verified112 packaged Windows DWM/GPU/DPI120 crops plus1.1.20 same-host baseline. Controlled appearance/settings/community services are explicit. No overall Mac/full-platform acceptance. Own updater/resourcepack/parity implementations are excluded.",
+      "sourceReviewComplete": true,
+      "newDriverExecutionComplete": true,
+      "originalReviewBinding": {
+        "originalReceiptLabel": "updater121-a844-windows-independent-review.json",
+        "bytes": 15702,
+        "sha256": "2a1448c7e7c35559dfaf063abb50d41b6aacb18ca7792901a208069b65252dcc"
+      },
+      "observedCounts": {
+        "configurations": 16,
+        "uiImages": 400,
+        "syntheticFixturePNG": 16,
+        "imagesFullyDecoded": 416,
+        "manualImages": 24,
+        "rendererComparisons": 896,
+        "sourceSelections": 80,
+        "completedUniqueActualSourceInvocations": 80,
+        "trustedTargetChanges": 80,
+        "sourceFailureRollbackFocus": 32,
+        "otherFailedSourceFocus": 48,
+        "fullSelectionClearReplacement": 64,
+        "actualCoordinateInteractions": 864,
+        "maxGeometryCSSPx": 0.34246826171875
+      }
+    },
+    {
+      "scope": "Community queue, dialog and resource interface only; no score for own appearance implementation",
+      "reviewer": "appearance121",
+      "ratings": {
+        "reasonableness": 9.1,
+        "functionality": 9.2,
+        "appearance": 8.9
+      },
+      "classification": "Independent Windows actual Electron and final production renderer review; disposable IPC and offscreen/softwareGPU; native Mac execution belongs to separate CI",
+      "originalReviewBinding": {
+        "originalReceiptLabel": "community121-final-review.json",
+        "bytes": 3798,
+        "sha256": "7c20bafbbbd75f70a097f137ee42544320011f55542951d672ed093afab92c93"
+      },
+      "latestHelperMatrixIndependentAudit": "updater121 inspected both final proofs, source/renderer bindings and actual control images"
+    }
+  ],
+  "backendAndControlsSeparateRatings": [
+    {
+      "scope": "root server display",
+      "reviewer": "community121",
+      "reasonableness": 9.1,
+      "functionality": 9.2,
+      "appearance": 8.8,
+      "appearanceScope": "Four-theme actual offscreen renderer list/details layout and text; excludes native material",
+      "appearanceReason": null
+    },
+    {
+      "scope": "root synthetic large nested PCL/MRPACK probe",
+      "reviewer": "community121",
+      "reasonableness": 9.2,
+      "functionality": 8.9,
+      "appearance": null,
+      "appearanceScope": null,
+      "appearanceReason": "Backend probe/stream classification has no independently reviewed UI surface"
+    },
+    {
+      "scope": "root Finder .DS_Store filtering",
+      "reviewer": "community121",
+      "reasonableness": 9.2,
+      "functionality": 9.1,
+      "appearance": null,
+      "appearanceScope": null,
+      "appearanceReason": "Backend name filtering; no corresponding new UI screenshot was inspected"
+    },
+    {
+      "scope": "updater121 mirror probe/shared transfer/trust",
+      "reviewer": "community121",
+      "reasonableness": 9.2,
+      "functionality": 9,
+      "appearance": null,
+      "appearanceScope": null,
+      "appearanceReason": "Backend ranking, transfer and hash trust have no appearance"
+    },
+    {
+      "scope": "root/updater121 UpdateSources controls",
+      "reviewer": "community121",
+      "reasonableness": 9.1,
+      "functionality": 9.2,
+      "appearance": 8.8,
+      "appearanceScope": "16 theme/window/pagezoom actual control layout and native input, five 150ms failure/retry states; excludes desktop material",
+      "appearanceReason": null
+    },
+    {
+      "scope": "updater121 resourcePackArchive/defaultResourcePacks",
+      "reviewer": "community121",
+      "reasonableness": 9.2,
+      "functionality": 9,
+      "appearance": null,
+      "appearanceScope": null,
+      "appearanceReason": "Archive normalization/copy transaction backend; no paid original/game-render evidence"
+    },
+    {
+      "scope": "community implemented by community121",
+      "reviewer": "appearance121",
+      "reasonableness": 9.1,
+      "functionality": 9.2,
+      "appearance": 8.9,
+      "appearanceScope": null,
+      "appearanceReason": null
+    },
+    {
+      "scope": "appearance/navigation implemented partly by community121",
+      "reviewer": "updater121",
+      "reasonableness": 9.2,
+      "functionality": 9.1,
+      "appearance": 8.7,
+      "appearanceScope": null,
+      "appearanceReason": null
+    }
+  ],
+  "finalMatrix": {
+    "expectedHead": "a8440a1bfcc088b243c1c5cb7d2e3a541d91b6ef",
+    "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0",
+    "scriptSHA256": "441977fa002276d337adaa62013eddad5a3ec40952946473633e6669a9e1be80",
+    "helperSHA256": "58e9dd8454979e01acbe0c4325b2db9e3eff48c07ad6fcd374ec9eb8c357944e",
+    "runCount": 16,
+    "screenshotCount": 416.0,
+    "uiScreenshotCount": 400.0,
+    "nativeFixturePngCount": 16.0,
+    "guardCount": 32,
+    "productionFilesComparedPerGuard": 539,
+    "qaFilesComparedPerGuard": 9,
+    "rendererFilesComparedPerGuard": 147,
+    "maxGeometryError": 0.34246826171875,
+    "classification": "Actual frozen production renderer/native codec; sequential offscreen Electron with disposable business fixtures and Windows software GPU. WebGL creation and real Ctrl+A/Backspace full-selection gates passed. No full-app, game/network/profile, desktop DWM or OS physical keyboard claims."
+  },
+  "finalMatrixOriginalBinding": {
+    "originalReceiptLabel": "matrix-proof.json",
+    "bytes": 281849,
+    "sha256": "51838f6d39919b681294bdf1d0f73846af4fd8b2674ed4ee18d78dcc97702519"
+  },
+  "communityFinalHelpers": [
+    {
+      "binding": {
+        "originalReceiptLabel": "proof.json",
+        "bytes": 69988,
+        "sha256": "2f071710f7fdc2fb4115a612ec7e19bcbf27fadb17eb99770cbf2ef38148d268"
+      },
+      "scope": "Actual Electron runtime with production renderer and coordinate input; disposable IPC business fixtures, offscreen/software-swiftshader GPU; no real transfer or user profile",
+      "runtime": {
+        "platform": "win32",
+        "arch": "x64",
+        "electron": "44.3.0",
+        "node": "24.20.0",
+        "osRelease": "10.0.26200",
+        "startedAt": "2026-10-08T17:52:03.058Z"
+      },
+      "pageZoom": 1,
+      "themeCount": 6
+    },
+    {
+      "binding": {
+        "originalReceiptLabel": "proof.json",
+        "bytes": 73393,
+        "sha256": "43c62c47d41680536032e925be3afcd291f6068f828da7f394f3384ebafb7b5e"
+      },
+      "scope": "Actual Electron runtime with production renderer and coordinate input; disposable IPC business fixtures, offscreen/software-swiftshader GPU; no real transfer or user profile",
+      "runtime": {
+        "platform": "win32",
+        "arch": "x64",
+        "electron": "44.3.0",
+        "node": "24.20.0",
+        "osRelease": "10.0.26200",
+        "startedAt": "2026-10-08T17:52:56.549Z"
+      },
+      "pageZoom": 1.25,
+      "themeCount": 6
+    }
+  ],
+  "nativeWindows": {
+    "ownActualEXE": true,
+    "nativeCroppedPNGs": 112,
+    "themes": 4,
+    "observedDPI": 120,
+    "observedSystemScale": 1.25,
+    "GPU": "RTX5080 ANGLE D3D11; original runtime not replaced",
+    "originalSummaryBinding": {
+      "originalReceiptLabel": "summary.json",
+      "bytes": 34744,
+      "sha256": "551410281fb786a9605c34c21977ca91ce4d9a31c480de8e435a08af90ee914f"
+    },
+    "old120BaselineOriginalBytesRetained": true,
+    "blackOrangeSecondaryTextWeaknessAlsoPresentInBaseline": true,
+    "privacy": "Native cropped desktop pixels remain private; cropped ownership is not automatic privacy eligibility"
+  },
+  "qualification": "Reviewer independence excludes each author own product scope. Old and new driver matrices are distinct; repeated896 comparisons bind current renderer files, not a1.1.20 behavior comparison. OS/native material uses separate old/current captures. Controlled IPC is not public download/game evidence, and no full-platform/complete FPS/audio claim follows from these scores.",
+  "previous8eCompletedReview": {
+    "review": {
+      "scope": "Final appearance/navigation/alpha/server renderer and actual Windows native material supplement",
+      "reviewer": "updater121",
+      "ratings": {
+        "reasonableness": 9.2,
+        "functionality": 9.1,
+        "appearance": 8.7
+      },
+      "scoreScope": "Independent Windows product/source review, current frozen8e29307 QA driver865a5e/helper22c509 sixteen actual offscreen configurations and400 UI captures, separate earlier driver36889 sixteen configurations/896 renderer comparisons, previously verified112 actual packaged Windows/DWM/GPU/DPI120 crops and1.1.20 native baseline. Community and gallery controlled services are explicit. Not native Mac/other physical DPI/full platform acceptance; excludes own parity/updater/resourcepack work.",
+      "sourceReviewComplete": true,
+      "newDriverExecutionComplete": true,
+      "originalReviewBinding": {
+        "originalReceiptLabel": "updater121-qa-fix-independent-review.json",
+        "bytes": 21608,
+        "sha256": "5048eccc6273592cf39779246efd8b75cd8cda6a0248e2f07fa820a2692199eb"
+      }
+    },
+    "matrix": {
+      "expectedHead": "8e29307b0eefa95d12dea948fab2002b7807854b",
+      "rendererEntrySHA256": "dddda49ce2632af552d366d16eacbfa2f9f35021967e005f7c0c7d021ac428e0",
+      "scriptSHA256": "865a5ea267c42678e749a4fdcd012084588c7da3e6633c0ac46d853febde7b7e",
+      "helperSHA256": "22c50913947045bd1367e01b34650fab8e0b01e29e701267a4fcef9cda33c1e0",
+      "runCount": 16,
+      "screenshotCount": 416.0,
+      "uiScreenshotCount": 400.0,
+      "nativeFixturePngCount": 16.0,
+      "guardCount": 32,
+      "productionFilesComparedPerGuard": 539,
+      "qaFilesComparedPerGuard": 9,
+      "rendererFilesComparedPerGuard": 147,
+      "maxGeometryError": 0.34246826171875,
+      "classification": "Actual frozen production renderer/native codec; sequential offscreen Electron with disposable business fixtures and Windows software GPU. WebGL creation and real Ctrl+A/Backspace full-selection gates passed. No full-app, game/network/profile, desktop DWM or OS physical keyboard claims."
+    },
+    "matrixOriginalBinding": {
+      "originalReceiptLabel": "matrix-proof.json",
+      "bytes": 281688,
+      "sha256": "030659fd389477a7e30581ac5ddf936bbfffbd1f5e91086bf108717bf4bbf434"
+    }
+  },
+  "laterDarwinOnlyQAFollowup": {
+    "qaSourceCommit": "7528a9b47beb728635ff60d37f72a8d202ad6fcc",
+    "originalReviewBinding": {
+      "originalReceiptLabel": "updater121-typeahead-final-independent-review.json",
+      "bytes": 11338,
+      "sha256": "61f38877e708937c22ea1e0ce9f64ee6a179b0a50062a192679b50347153eedd"
+    },
+    "windowsActualSmokeBinding": {
+      "originalReceiptLabel": "proof.json",
+      "bytes": 87168,
+      "sha256": "f6ae86d60f62cef047ada72feedf49a8db055861c78086bfc1f9b2131e3e4d47"
+    },
+    "contracts": 35,
+    "contractsPassed": 35,
+    "nativeMacResult": "Separately bound in MAC_ACCEPTANCE.json; not inferred from this Windows smoke",
+    "qualification": "Later Darwin-only helper and protocol changes do not become the a844 sixteen-row driver. Windows input branch remained unchanged; live minimal125% Windows smoke was independently audited. No product rebuild or whole-platform approval follows."
+  },
+  "representativeImageSource": "Sixteen published representative original images retain their earlier immutable EVIDENCE_BINDINGS sources; they are not relabelled as the later a844 or Darwin protocol captures.",
+  "latestMinimumFailureIntervalFollowup": {
+    "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "producerChanges": [
+      "scripts/qa-fixture-ui121.cjs",
+      "scripts/qa-fixture-ui121-tests.cjs",
+      "scripts/verify-appearance-121-ui.cjs"
+    ],
+    "originalIndependentReview": {
+      "originalReceiptLabel": "updater121-deadline-final-independent-review.json",
+      "bytes": 15585,
+      "sha256": "2b07418e974652abb66e9bcfc2594380b45d768472cd144bb76b7a5e0b314f18"
+    },
+    "otherIndependentReview": {
+      "originalReceiptLabel": "community121-deadline-independent-review.json",
+      "bytes": 1555,
+      "sha256": "67ff30dfcc959cf92a6996c535700ab701542f57079481959afa16ea1f20c45e"
+    },
+    "actualWindowsSmoke": {
+      "originalReceiptLabel": "proof.json",
+      "bytes": 90076,
+      "sha256": "0466f2a2850ff71f956b343c78aa39ee35a05f21b472a40187853ebe00208a3f"
+    },
+    "focusedContracts": 44,
+    "focusedPassed": 44,
+    "actualFailedSettingsJournalMs": [
+      158,
+      164,
+      166,
+      153,
+      156
+    ],
+    "draftWallMs": 152,
+    "draftMonotonicMs": 151.28880000000026,
+    "actualAdditionalEarlyWakeWaits": [
+      150,
+      1
+    ],
+    "consumer150msThresholdUnchanged": true,
+    "qualification": "QA producer waits for actual wall and monotonic>=150ms, repeats a real wait on early wake and records original timestamps. Frozen product and the completed a844 sixteen-row captures remain unchanged; the latest QA smoke is not another full Windows matrix or native Mac acceptance."
+  }
+}

@@ -1,0 +1,1212 @@
+{
+  "schema": "kamucl-capes115-qualified-final-public-index",
+  "createdAt": "2026-10-06T10:01:16.798Z",
+  "application": {
+    "file": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+    "sha256": "4822890c6cc94353a16687d812fdfb0be9379dad1c0258ef4b1a35c14d686df9"
+  },
+  "driver": {
+    "file": "E:\\KAMUCL\\out\\acceptance-1.1.15\\capes-final-025880de-13b6-4597-9aee-163f43971bbe\\driver.json",
+    "bytes": 932850,
+    "sha256": "75f5bd9655e6b93e0113f7646b13fe6dad96283f6936e13ab46d486e7d82fb3b"
+  },
+  "fourThemeReceipt": {
+    "file": "E:\\KAMUCL\\out\\acceptance-1.1.15\\capes-final-four-theme-receipt-20261006.json",
+    "bytes": 57747,
+    "sha256": "623890b19b8d661ed3c0b5f8f57587ef074cd660cf8db63c6363389e319aa204"
+  },
+  "complete": true,
+  "classification": "Actual native Windows executable and foreground HWND/PID, original trusted UI gestures, independent public-PNG pixel comparisons and real GL uploads. Accounts/profiles are synthetic fixture IPC, not Microsoft Services validation. Precise PID+creation identities and observed descendant families are absent after original clean close; PID reuse records remain original.",
+  "visualScore": null,
+  "visualPending": "Independent review of all original back/thumbnail pictures is required; no score inferred from metrics.",
+  "summary": [
+    {
+      "theme": "black-orange",
+      "mainPid": 41780,
+      "qaDriverPid": 41176,
+      "portableRootPid": 51412,
+      "minimum": {
+        "bounds": {
+          "x": 855,
+          "y": 409,
+          "width": 962,
+          "height": 623
+        },
+        "content": {
+          "x": 855,
+          "y": 409,
+          "width": 961,
+          "height": 622
+        },
+        "renderer": {
+          "width": 769,
+          "height": 498,
+          "zoom": 1.25
+        }
+      },
+      "observations": {
+        "actualForeground": 399,
+        "trustedCoordinateOperations": 19,
+        "rawInputs": 60,
+        "thumbnailImages": 5,
+        "backImages": 5,
+        "privateNativeCrops": 10
+      },
+      "windowsOwnedOriginalIdentityCount": 10,
+      "exactOwnedIdentityAfterCount": 0,
+      "appMetricsBeforeClose": [
+        {
+          "pid": 41780,
+          "type": "Browser",
+          "creationTime": 1791280571916.77
+        },
+        {
+          "pid": 37060,
+          "type": "GPU",
+          "creationTime": 1791280572452.216
+        },
+        {
+          "pid": 43396,
+          "type": "Utility",
+          "creationTime": 1791280572479.407
+        },
+        {
+          "pid": 34496,
+          "type": "Tab",
+          "creationTime": 1791280572599.827
+        }
+      ],
+      "actualClose": {
+        "pid": 41176,
+        "code": 0,
+        "signal": null,
+        "closedAt": "2026-10-06T09:56:55.666Z"
+      },
+      "actualPortableClose": {
+        "event": "close",
+        "at": 234965250.0918,
+        "code": 0,
+        "signal": null
+      },
+      "originalPidReuseObservations": [],
+      "directory": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0",
+      "backFiles": [
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-aurora-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-hero-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-twisted-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-common-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-pan-3d.png"
+      ],
+      "thumbnailFiles": [
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-aurora-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-hero-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-twisted-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-common-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-pan-thumbnail.png"
+      ]
+    },
+    {
+      "theme": "blue-white",
+      "mainPid": 41664,
+      "qaDriverPid": 2860,
+      "portableRootPid": 39012,
+      "minimum": {
+        "bounds": {
+          "x": 855,
+          "y": 409,
+          "width": 962,
+          "height": 623
+        },
+        "content": {
+          "x": 855,
+          "y": 409,
+          "width": 961,
+          "height": 622
+        },
+        "renderer": {
+          "width": 769,
+          "height": 498,
+          "zoom": 1.25
+        }
+      },
+      "observations": {
+        "actualForeground": 399,
+        "trustedCoordinateOperations": 19,
+        "rawInputs": 60,
+        "thumbnailImages": 5,
+        "backImages": 5,
+        "privateNativeCrops": 10
+      },
+      "windowsOwnedOriginalIdentityCount": 10,
+      "exactOwnedIdentityAfterCount": 0,
+      "appMetricsBeforeClose": [
+        {
+          "pid": 41664,
+          "type": "Browser",
+          "creationTime": 1791280617951.349
+        },
+        {
+          "pid": 42636,
+          "type": "GPU",
+          "creationTime": 1791280618351.907
+        },
+        {
+          "pid": 56880,
+          "type": "Utility",
+          "creationTime": 1791280618376.818
+        },
+        {
+          "pid": 54044,
+          "type": "Tab",
+          "creationTime": 1791280618459.443
+        }
+      ],
+      "actualClose": {
+        "pid": 2860,
+        "code": 0,
+        "signal": null,
+        "closedAt": "2026-10-06T09:57:39.910Z"
+      },
+      "actualPortableClose": {
+        "event": "close",
+        "at": 235009496.3213,
+        "code": 0,
+        "signal": null
+      },
+      "originalPidReuseObservations": [],
+      "directory": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c",
+      "backFiles": [
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-aurora-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-hero-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-twisted-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-common-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-pan-3d.png"
+      ],
+      "thumbnailFiles": [
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-aurora-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-hero-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-twisted-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-common-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-pan-thumbnail.png"
+      ]
+    },
+    {
+      "theme": "transparent",
+      "mainPid": 45760,
+      "qaDriverPid": 49492,
+      "portableRootPid": 53100,
+      "minimum": {
+        "bounds": {
+          "x": 855,
+          "y": 409,
+          "width": 962,
+          "height": 623
+        },
+        "content": {
+          "x": 855,
+          "y": 409,
+          "width": 961,
+          "height": 622
+        },
+        "renderer": {
+          "width": 769,
+          "height": 498,
+          "zoom": 1.25
+        }
+      },
+      "observations": {
+        "actualForeground": 405,
+        "trustedCoordinateOperations": 19,
+        "rawInputs": 60,
+        "thumbnailImages": 5,
+        "backImages": 5,
+        "privateNativeCrops": 10
+      },
+      "windowsOwnedOriginalIdentityCount": 10,
+      "exactOwnedIdentityAfterCount": 0,
+      "appMetricsBeforeClose": [
+        {
+          "pid": 45760,
+          "type": "Browser",
+          "creationTime": 1791280661420.247
+        },
+        {
+          "pid": 43784,
+          "type": "GPU",
+          "creationTime": 1791280661865.496
+        },
+        {
+          "pid": 21288,
+          "type": "Utility",
+          "creationTime": 1791280661889.3
+        },
+        {
+          "pid": 34604,
+          "type": "Tab",
+          "creationTime": 1791280661997.519
+        }
+      ],
+      "actualClose": {
+        "pid": 49492,
+        "code": 0,
+        "signal": null,
+        "closedAt": "2026-10-06T09:58:23.555Z"
+      },
+      "actualPortableClose": {
+        "event": "close",
+        "at": 235053156.417,
+        "code": 0,
+        "signal": null
+      },
+      "originalPidReuseObservations": [],
+      "directory": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb",
+      "backFiles": [
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-aurora-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-hero-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-twisted-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-common-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-pan-3d.png"
+      ],
+      "thumbnailFiles": [
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-aurora-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-hero-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-twisted-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-common-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-pan-thumbnail.png"
+      ]
+    },
+    {
+      "theme": "custom",
+      "mainPid": 50460,
+      "qaDriverPid": 48600,
+      "portableRootPid": 15044,
+      "minimum": {
+        "bounds": {
+          "x": 855,
+          "y": 409,
+          "width": 962,
+          "height": 623
+        },
+        "content": {
+          "x": 855,
+          "y": 409,
+          "width": 961,
+          "height": 622
+        },
+        "renderer": {
+          "width": 769,
+          "height": 498,
+          "zoom": 1.25
+        }
+      },
+      "observations": {
+        "actualForeground": 396,
+        "trustedCoordinateOperations": 19,
+        "rawInputs": 60,
+        "thumbnailImages": 5,
+        "backImages": 5,
+        "privateNativeCrops": 10
+      },
+      "windowsOwnedOriginalIdentityCount": 11,
+      "exactOwnedIdentityAfterCount": 0,
+      "appMetricsBeforeClose": [
+        {
+          "pid": 50460,
+          "type": "Browser",
+          "creationTime": 1791280705136.871
+        },
+        {
+          "pid": 20368,
+          "type": "GPU",
+          "creationTime": 1791280705530.221
+        },
+        {
+          "pid": 53068,
+          "type": "Utility",
+          "creationTime": 1791280705552.312
+        },
+        {
+          "pid": 7708,
+          "type": "Tab",
+          "creationTime": 1791280705635.818
+        }
+      ],
+      "actualClose": {
+        "pid": 48600,
+        "code": 0,
+        "signal": null,
+        "closedAt": "2026-10-06T09:59:07.732Z"
+      },
+      "actualPortableClose": {
+        "event": "close",
+        "at": 235097351.7536,
+        "code": 0,
+        "signal": null
+      },
+      "originalPidReuseObservations": [],
+      "directory": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06",
+      "backFiles": [
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-aurora-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-hero-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-twisted-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-common-3d.png",
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-pan-3d.png"
+      ],
+      "thumbnailFiles": [
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-aurora-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-hero-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-twisted-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-common-thumbnail.png",
+        "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-pan-thumbnail.png"
+      ]
+    }
+  ],
+  "counts": {
+    "themes": 4,
+    "activeThumbnailImages": 20,
+    "backViewImages": 20,
+    "privateNativeCrops": 40,
+    "publicFiles": 124
+  },
+  "publicAllowlist": [
+    {
+      "file": "E:\\KAMUCL\\out\\acceptance-1.1.15\\capes-final-025880de-13b6-4597-9aee-163f43971bbe\\driver.json",
+      "bytes": 932850,
+      "sha256": "75f5bd9655e6b93e0113f7646b13fe6dad96283f6936e13ab46d486e7d82fb3b"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\acceptance-1.1.15\\capes-final-four-theme-receipt-20261006.json",
+      "bytes": 57747,
+      "sha256": "623890b19b8d661ed3c0b5f8f57587ef074cd660cf8db63c6363389e319aa204"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\run-capes115-final.cjs",
+      "bytes": 5821,
+      "sha256": "659d67f8cb3ac1edd80631854923ac5ab14ca565f3c111f44bf866f2da480f2d"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\owned-cim115.cjs",
+      "bytes": 3026,
+      "sha256": "bfd88d6c5657808ac90cbc2afab465d5ae184f42547989b5a5a2afaa4e98afe8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\receipt-capes115.cjs",
+      "bytes": 11045,
+      "sha256": "c7dc2a1ab0139c7c9496f4a19f76e50802fd30b3cf5808a0c3f0c516842bdfca"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\proof.json",
+      "bytes": 2269652,
+      "sha256": "4472ab2511bdf0421e9056e33474480a585a1d2619724052ffd9aafabfe87265"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\mojang_cape.png",
+      "bytes": 1076,
+      "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\legacy_cape.png",
+      "bytes": 589,
+      "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\hd_cape.png",
+      "bytes": 284580,
+      "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\cape-aurora.png",
+      "bytes": 284580,
+      "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\cape-hero.png",
+      "bytes": 589,
+      "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\cape-twisted.png",
+      "bytes": 1063,
+      "sha256": "2cd76cb38ca1fc78f1475d5d5e7e2895df7005b2ca334b7f03d1b4d1908814c3"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\cape-pan.png",
+      "bytes": 1076,
+      "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\cape-common.png",
+      "bytes": 875,
+      "sha256": "03dab697472e8b7934e749469432ff571c5565e8c7a8a3736ad50688a668aa84"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\01-incomplete-capes.png",
+      "bytes": 92898,
+      "sha256": "2d068b9aa9d97cacae8f86ac556abce874e30307d7e9300be99eb32e49ba18df"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\02-refreshed-five-capes.png",
+      "bytes": 126923,
+      "sha256": "da37e303698917a428beaba2c0bdd9be2de80a011402a98a2ad399259733efcb"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-aurora-thumbnail.png",
+      "bytes": 125951,
+      "sha256": "cd8ddc92095189e8b877e80cd23403b73fd1ef7d149c779397c101556ed78f43"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-aurora-3d.png",
+      "bytes": 148941,
+      "sha256": "487f6f555a793d4cbe866f03ee63f88e6a9ff13f266f144471e0025048d80712"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-hero-thumbnail.png",
+      "bytes": 125611,
+      "sha256": "b0d7dae11b170ef2e01d06fd5401d4e285bca066a0fef7c83432c729fddd55ad"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-hero-3d.png",
+      "bytes": 74219,
+      "sha256": "6d29d6be124de9f259098603972ca388bc20f16ce383d69afd5e654fc840c4b3"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-twisted-thumbnail.png",
+      "bytes": 121056,
+      "sha256": "71c6eeb8fa993e230229c84ea7143062ba1f771b7e52d7f971608b2f5c43a522"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-twisted-3d.png",
+      "bytes": 72889,
+      "sha256": "eaa3ab3fd20cb36e4da27d484fdcd894892f2ec7042be6c604d9fbc37d3a4b31"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-common-thumbnail.png",
+      "bytes": 111223,
+      "sha256": "23d60fec7be9d2fc44b2ee1eebbc2f55eb0637675937a6b0725feeba38a79290"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-common-3d.png",
+      "bytes": 74215,
+      "sha256": "0b2ee619043aaa675b20c50d0ef554b2488b46dc3bb42573b569e7a73dbfc6e4"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-pan-thumbnail.png",
+      "bytes": 118987,
+      "sha256": "4eac3e69fa8176670e06e53ebb63c91b6c1d2d2741cbeddb356b4bf35a0cea42"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-pan-3d.png",
+      "bytes": 74126,
+      "sha256": "d386a64e534c7ec94620e50d88713e9135a0a1d2e457745962b66d73c24642cc"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\04-unworn.png",
+      "bytes": 73224,
+      "sha256": "b7ee366ce1de12795103ff3286c4cdfa3ee66ae9ebe09684fe46a223ba25b208"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\05-confirm-before-cancel.png",
+      "bytes": 175950,
+      "sha256": "ff37407ec28edd1c89462f402e45c9454207adbb3c9a3a3040ac5548df2315ab"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\05-cancel-zero-upload.png",
+      "bytes": 106554,
+      "sha256": "5141352561571e13fb256b45fce47f89cf21213814aa31de536006d5e61fd1a3"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\06-account-B-before-old-response.png",
+      "bytes": 77496,
+      "sha256": "9e1727b7d78522d9a63663c6af75858e291f9185df04c5eb3dd0f10d3a8eb023"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\07-account-B-after-old-response.png",
+      "bytes": 77561,
+      "sha256": "4703fc92636bcbb5b6e47ed217e4f20532a07422e566511e9eef20b12b8761bf"
+    },
+    {
+      "file": "E:\\KAMUCL\\scripts\\qa-capes115.cjs",
+      "bytes": 50877,
+      "sha256": "248ce1c30a4de1e3466a1e1e1faa467e3f6fa15457b9abc6110a37319d0c4105"
+    },
+    {
+      "file": "E:\\KAMUCL\\scripts\\qa-capes115-tests.cjs",
+      "bytes": 20301,
+      "sha256": "0b9d40f2c01876fb7819b2b9fe6de432f5bcd02c072650a02b488936785f98f6"
+    },
+    {
+      "file": "E:\\KAMUCL\\scripts\\qa-coordinate-geometry114.cjs",
+      "bytes": 8161,
+      "sha256": "f5256990685a9cbb03ba7b713bd287fd5dc8f24ca121db0b4c1bb9860f55afce"
+    },
+    {
+      "file": "E:\\KAMUCL\\scripts\\qa-privacy-categories115.cjs",
+      "bytes": 46418,
+      "sha256": "008b64ef7283109365c4eb150504a9fee616aee80fe0b58981ab27b23318e075"
+    },
+    {
+      "file": "E:\\KAMUCL\\scripts\\qa-owned-process-119.cjs",
+      "bytes": 4322,
+      "sha256": "0e0b124d027c40e5ff4b092d024e48da8889b4d85d9737e728011e59a173d5cc"
+    },
+    {
+      "file": "E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs",
+      "bytes": 59884,
+      "sha256": "5a1602e0480f468ebe0449ee23c45aecdeeba850e11f917b53ac0efb1bea7698"
+    },
+    {
+      "file": "E:\\KAMUCL\\scripts\\qa-native-window115.cjs",
+      "bytes": 7855,
+      "sha256": "71a872a4e82a7e9a48545f2718b03413ce548baed8161fd0f401372e6031c56e"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\acceptance-1.1.15\\capes-final-025880de-13b6-4597-9aee-163f43971bbe\\black-orange.log",
+      "bytes": 1349,
+      "sha256": "123ba613c7615f0baec4dabe1c011b4f9f0e39c952f20a517e4d844d9f3bdb25"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-owned-process-119-b383da2d-553b-48f5-b448-e7a1d2ed292a.json",
+      "bytes": 1007,
+      "sha256": "ab791a8c7b1784cbe012274238f612ce559fb5b01036de043b6306e311942529"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\proof.json",
+      "bytes": 2270223,
+      "sha256": "feff1b6ea30380136648f46e38abf2e9afc5251d1b58fdddb63377cf8805a83a"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\mojang_cape.png",
+      "bytes": 1076,
+      "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\legacy_cape.png",
+      "bytes": 589,
+      "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\hd_cape.png",
+      "bytes": 284580,
+      "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\cape-aurora.png",
+      "bytes": 284580,
+      "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\cape-hero.png",
+      "bytes": 589,
+      "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\cape-twisted.png",
+      "bytes": 1063,
+      "sha256": "2cd76cb38ca1fc78f1475d5d5e7e2895df7005b2ca334b7f03d1b4d1908814c3"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\cape-pan.png",
+      "bytes": 1076,
+      "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\cape-common.png",
+      "bytes": 875,
+      "sha256": "03dab697472e8b7934e749469432ff571c5565e8c7a8a3736ad50688a668aa84"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\01-incomplete-capes.png",
+      "bytes": 101410,
+      "sha256": "69dbbf3d1eebb11379557589b30dbdcc5f6bece50b870219a0e4df1fa4b1f67c"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\02-refreshed-five-capes.png",
+      "bytes": 130037,
+      "sha256": "af6d8684413e0d972d64d9acc39ebdbf30c0cf4fd5d293e7628177d442890850"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-aurora-thumbnail.png",
+      "bytes": 129571,
+      "sha256": "ce85a93ee44f35bf6cde75198330b6acefd00e6831a3cc362ec35bc4a09392fd"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-aurora-3d.png",
+      "bytes": 151081,
+      "sha256": "97e567d0502053c5248b5e16a197a73fbf0f491c39e7f76159667d5470a066ce"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-hero-thumbnail.png",
+      "bytes": 130386,
+      "sha256": "0e675e3d6ef306a65532c74f6e2d826c34871577c63f7179ee4d613b005761a3"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-hero-3d.png",
+      "bytes": 77753,
+      "sha256": "362c980b35d3f5403bd20609b1a45456781ce979f27d65a37847f2a4f19ad2ba"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-twisted-thumbnail.png",
+      "bytes": 124219,
+      "sha256": "fcc6368136db17dce19e2fb8fb6a4a4e173745ee76adaab6e4ec6f3a06d56e01"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-twisted-3d.png",
+      "bytes": 75555,
+      "sha256": "34a946a70ad2ae878f5f8db5fc8a15095d6ea2a06b2168cff79771d4d045862b"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-common-thumbnail.png",
+      "bytes": 113939,
+      "sha256": "e797bf99e78b1d08af2d571f7e831dfce2163583002a13dc57324acfdb9cc656"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-common-3d.png",
+      "bytes": 74865,
+      "sha256": "64c4427213f5c3c29f931976017e91ea54fa306f8c027515f9f64000df5d8c0a"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-pan-thumbnail.png",
+      "bytes": 125561,
+      "sha256": "d145ff0f778c3b05ae7ab730260a6c3966e9e08e140c800f3f236110a14bc501"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-pan-3d.png",
+      "bytes": 77025,
+      "sha256": "fb732b9fede48e0bf56a18d0a3b07a7ea60a6da0370bd72800f8369d8a4332dc"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\04-unworn.png",
+      "bytes": 76543,
+      "sha256": "6fdd368dec8c3f47287ed83dde2145d069db4356e67bf06b77daa437c2a3654f"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\05-confirm-before-cancel.png",
+      "bytes": 273503,
+      "sha256": "85382a812a9813f51221c2a23e97b58a273011056739b7610457c18eb5b27fa8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\05-cancel-zero-upload.png",
+      "bytes": 110071,
+      "sha256": "d6498e02632f46a0c9876bbdcb49f42b80e0eabfc374932562b5bd7e3d38aeaf"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\06-account-B-before-old-response.png",
+      "bytes": 79934,
+      "sha256": "2ce6589c59329bb3b89192985c2b4c24089b7f0ab12fa2c1437e311717bda20c"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\07-account-B-after-old-response.png",
+      "bytes": 80764,
+      "sha256": "478f33219e27b92a4c5b72ab305cb4a59138ebbd6787aca3c90eea508805d2a8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\acceptance-1.1.15\\capes-final-025880de-13b6-4597-9aee-163f43971bbe\\blue-white.log",
+      "bytes": 370,
+      "sha256": "55ca9ce782c1c8512a8f43954fe3e814871d97806dbf4d99fc2bd1785e314b88"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-owned-process-119-05a55631-8aaf-4a43-b5f7-d246753cab4b.json",
+      "bytes": 1007,
+      "sha256": "b6eefdc48536648e13711ecccbd876e5a2a0ccc3948e1ff04236c77dffd7bc1b"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\proof.json",
+      "bytes": 2293866,
+      "sha256": "f93a6225846291c791bb40b7348087953d25fab78d8d38782c6d9be9c40d376d"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\mojang_cape.png",
+      "bytes": 1076,
+      "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\legacy_cape.png",
+      "bytes": 589,
+      "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\hd_cape.png",
+      "bytes": 284580,
+      "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\cape-aurora.png",
+      "bytes": 284580,
+      "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\cape-hero.png",
+      "bytes": 589,
+      "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\cape-twisted.png",
+      "bytes": 1063,
+      "sha256": "2cd76cb38ca1fc78f1475d5d5e7e2895df7005b2ca334b7f03d1b4d1908814c3"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\cape-pan.png",
+      "bytes": 1076,
+      "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\cape-common.png",
+      "bytes": 875,
+      "sha256": "03dab697472e8b7934e749469432ff571c5565e8c7a8a3736ad50688a668aa84"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\01-incomplete-capes.png",
+      "bytes": 88916,
+      "sha256": "c36a4668fecf1704dd6f82abe752194c3cfa8004a0c203bedae3a4f4162e7867"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\02-refreshed-five-capes.png",
+      "bytes": 117631,
+      "sha256": "9d53a1985f9dc40d5663531100bb0d9df8d804820696fe9cf30e4467b47cf7e7"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-aurora-thumbnail.png",
+      "bytes": 114533,
+      "sha256": "816188694e990c44eba50dae7658051ca2a5d7faa307d4f1e1201a395d72b72d"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-aurora-3d.png",
+      "bytes": 146280,
+      "sha256": "5a37d96686225a9de9e4c7628234b2ee733537222ce7aad9e2f97a6f8be1ca97"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-hero-thumbnail.png",
+      "bytes": 114612,
+      "sha256": "25f06aa155f419d5d41d596cafe451fe86f755fc34795988d150c737c37a7ed4"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-hero-3d.png",
+      "bytes": 71038,
+      "sha256": "db088b0d79a45bf1838bd40843274d9051211c7581352717ea9a0fa095d2e704"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-twisted-thumbnail.png",
+      "bytes": 115364,
+      "sha256": "31ce1789260e78a73841d60e922d337db19485f67c7cb84802f9d9c485997536"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-twisted-3d.png",
+      "bytes": 70224,
+      "sha256": "6b75fb8a00603aa7e6f3177cf21fe9e44781fedad7d1c8f57380679275cedbc8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-common-thumbnail.png",
+      "bytes": 106151,
+      "sha256": "03ad510a0190673b6c0a64f97b51bfa629ccdd21c8fb2b2eab0747cb9522770d"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-common-3d.png",
+      "bytes": 69190,
+      "sha256": "b8e1972b7125d3c872d7564048420d1162fc86b9c9313d4897ba1fda1de7f447"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-pan-thumbnail.png",
+      "bytes": 114041,
+      "sha256": "32f6dee77cef610a778bab433d6bcfbafc7b140b5bcc7b78739dec8b0e0ee1bd"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-pan-3d.png",
+      "bytes": 71191,
+      "sha256": "c18c53853532f87acee98355c9b929a4462bad7a6e158b1918c79acec2bd016e"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\04-unworn.png",
+      "bytes": 69603,
+      "sha256": "ec9f5fa27197c0db94efe851116f5051f87754a76d023baf7beba6f75b28b151"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\05-confirm-before-cancel.png",
+      "bytes": 142720,
+      "sha256": "c5841b5cdfb8fd1965903c2a7c6fce58305d21b027df158b8eb3419825438990"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\05-cancel-zero-upload.png",
+      "bytes": 99158,
+      "sha256": "67fa546cfb85ddb1e33247bc55185de918bbe7dda40d9464e64a66911d3076b9"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\06-account-B-before-old-response.png",
+      "bytes": 73466,
+      "sha256": "b5c9fd570ec147c00f9bd30745792166481f63ddafa135f07952408df3127bff"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\07-account-B-after-old-response.png",
+      "bytes": 72826,
+      "sha256": "3ab0f48a75230539e937c39e91379bd4420e6cf915f35476b0769997b9b370a6"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\acceptance-1.1.15\\capes-final-025880de-13b6-4597-9aee-163f43971bbe\\transparent.log",
+      "bytes": 372,
+      "sha256": "346f371f3f19bd4e9a9aa2e16083685493b3b72a37b4ad1df62e5fdebdc4e6f6"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-owned-process-119-d2e6740a-41dd-41c0-a003-0f4675b939bd.json",
+      "bytes": 1006,
+      "sha256": "4c7a7e2e58d4408afc88556b5ac611fb58f7dc447a5a39f1bb4e8b53076a1067"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\proof.json",
+      "bytes": 2258107,
+      "sha256": "ca46ee3ec58118c6a3d9cf2ef636945d73ea5ca08e7531f8a4afa8f65a30cf0a"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\mojang_cape.png",
+      "bytes": 1076,
+      "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\legacy_cape.png",
+      "bytes": 589,
+      "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\hd_cape.png",
+      "bytes": 284580,
+      "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\cape-aurora.png",
+      "bytes": 284580,
+      "sha256": "6b224a49046b5a17e9f14e857eee2d33a1e33de02d2c3eb565fbb217b88fa928"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\cape-hero.png",
+      "bytes": 589,
+      "sha256": "51557146be1091c8eb20fffc963760168b225f2642fa861f5220df5595ef8e51"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\cape-twisted.png",
+      "bytes": 1063,
+      "sha256": "2cd76cb38ca1fc78f1475d5d5e7e2895df7005b2ca334b7f03d1b4d1908814c3"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\cape-pan.png",
+      "bytes": 1076,
+      "sha256": "5786fe99be377dfb6858859f926c4dbc995751e91cee373468c5fbf4865e7151"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\cape-common.png",
+      "bytes": 875,
+      "sha256": "03dab697472e8b7934e749469432ff571c5565e8c7a8a3736ad50688a668aa84"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\01-incomplete-capes.png",
+      "bytes": 97207,
+      "sha256": "16efdf2b63d52d1fc0cd668927ef6a57b1a14fd4554ea642d6b8026bf82dd86c"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\02-refreshed-five-capes.png",
+      "bytes": 127391,
+      "sha256": "7065346efb3b6b9d6a6df1d7159f87d35ce41c4275524e97821f9a45f01b7767"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-aurora-thumbnail.png",
+      "bytes": 128498,
+      "sha256": "4745be1509134f0568653951ddcc8a6e436b381fe2f845c1585ea607b5e4cc98"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-aurora-3d.png",
+      "bytes": 148713,
+      "sha256": "69982459c18296f1080b10b17427fbc3634f92232a71288b9e9591387a02f2ed"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-hero-thumbnail.png",
+      "bytes": 127305,
+      "sha256": "cb8b3347046d7d983b516db2af2d0c3483d385131ea4dcdd1f1ccc15cc056f6f"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-hero-3d.png",
+      "bytes": 74390,
+      "sha256": "9714b887cdb6e9b89f93a94c607acf9c56d09fd694a1a6253ca18f1503586d58"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-twisted-thumbnail.png",
+      "bytes": 123555,
+      "sha256": "bf57ed22bca9d3ef85af52747f5a465945796af0c6a56488c5791445d011f70a"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-twisted-3d.png",
+      "bytes": 73645,
+      "sha256": "5a823b7d14882e9e898de2327f745ae4d9af042eec531c40ee86b2d17dba6089"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-common-thumbnail.png",
+      "bytes": 112820,
+      "sha256": "ba75b50714fb8ff8983a361506fa53476a3392ff2758664f8288df10dbfc6cc4"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-common-3d.png",
+      "bytes": 73427,
+      "sha256": "05fa27fa792dd4d464aee8c9f529a5ac312d5d522d1482f728e89f05d938b49e"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-pan-thumbnail.png",
+      "bytes": 121831,
+      "sha256": "2b7054885b12558024f3c3da6c728f2011f5ac587bbe3ed166888fb3ae0f4bd8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-pan-3d.png",
+      "bytes": 71988,
+      "sha256": "e35c7efc9502df436b2b1a0da21c75946c432a7a277c88025aa3afb0d23f10ab"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\04-unworn.png",
+      "bytes": 71951,
+      "sha256": "80198f754101d621b9e0f46eb558643d35032774a42901faa70ade5072f8d0a8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\05-confirm-before-cancel.png",
+      "bytes": 169557,
+      "sha256": "0fea545bbcc83ae70746d8c1e4f72b62ed2141bd35cb78fe41499df1a762452f"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\05-cancel-zero-upload.png",
+      "bytes": 108121,
+      "sha256": "ddbb0e83b765023da94f7a7507c41d5410940a09eff6d0e99e1003c4a4700b6e"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\06-account-B-before-old-response.png",
+      "bytes": 76262,
+      "sha256": "a489d7d8921e46f411800e3f6717d34010872eac496e79510eb8f5ba29f016f9"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\07-account-B-after-old-response.png",
+      "bytes": 77424,
+      "sha256": "5ef42ed55fb1e7bbdf4125999665b8a1a6d09f01785a89fcc1f3b3881d700313"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\acceptance-1.1.15\\capes-final-025880de-13b6-4597-9aee-163f43971bbe\\custom.log",
+      "bytes": 362,
+      "sha256": "8b6c17c39e2994a7eda1130b30e0a771623ce0477cd97c39b9217e5014b96726"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-owned-process-119-412a9636-c301-4789-959d-bd7346b5f153.json",
+      "bytes": 1006,
+      "sha256": "7d3147fc0477fe1591b7cd0894e34386133df22de60525cacd9454aba82d1cb1"
+    }
+  ],
+  "privateNativeAllowlist": [
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-aurora-3d-native-application.png",
+      "bytes": 183185,
+      "sha256": "c58803426ede6da5ff0f94c3bd12d0a26353bbca95fc77cf63c38905e774f20d"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-aurora-3d-native-sidebar.png",
+      "bytes": 77074,
+      "sha256": "675375851f1675869f697f467fb520afe282ed4ef646e051da659943b62571a8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-hero-3d-native-application.png",
+      "bytes": 119082,
+      "sha256": "e2c9cf05d8c4c7381926543ba8d6d8c4690fd322edb4a99b2a96c180dd8996ac"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-hero-3d-native-sidebar.png",
+      "bytes": 77074,
+      "sha256": "675375851f1675869f697f467fb520afe282ed4ef646e051da659943b62571a8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-twisted-3d-native-application.png",
+      "bytes": 118981,
+      "sha256": "11ea62a784adb7e75c829955eeacbfe67f4224fb9d5a1a095f8dfe3fecf8d6c7"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-twisted-3d-native-sidebar.png",
+      "bytes": 77074,
+      "sha256": "675375851f1675869f697f467fb520afe282ed4ef646e051da659943b62571a8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-common-3d-native-application.png",
+      "bytes": 118647,
+      "sha256": "9984c683524dca51d0f6cae6f0ce623fbe467d7ddc19b08952e8ac4460e7face"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-common-3d-native-sidebar.png",
+      "bytes": 77074,
+      "sha256": "675375851f1675869f697f467fb520afe282ed4ef646e051da659943b62571a8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-pan-3d-native-application.png",
+      "bytes": 119025,
+      "sha256": "3026dc21b412fa3080e2761c1d84e190a641a2ce0983f4f158b6eaa75d6b04fd"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-black-orange-dbeb3d32-772e-42a1-8e89-6fa0876bdac0\\03-active-cape-pan-3d-native-sidebar.png",
+      "bytes": 77074,
+      "sha256": "675375851f1675869f697f467fb520afe282ed4ef646e051da659943b62571a8"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-aurora-3d-native-application.png",
+      "bytes": 173351,
+      "sha256": "a8a242c83cb4f3260b5e951462b2a75155bc8bf83faab8b6d5315ad1ca1a1815"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-aurora-3d-native-sidebar.png",
+      "bytes": 70807,
+      "sha256": "3f506895578e44d00a9803d0cd9c673d6d2577b208c0f6d2bee85396eff6e8f7"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-hero-3d-native-application.png",
+      "bytes": 109507,
+      "sha256": "afedbb272787db15218db541cb5068acc2fa5aefa97c1556bcf94167161f1fad"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-hero-3d-native-sidebar.png",
+      "bytes": 70807,
+      "sha256": "3f506895578e44d00a9803d0cd9c673d6d2577b208c0f6d2bee85396eff6e8f7"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-twisted-3d-native-application.png",
+      "bytes": 108568,
+      "sha256": "eee1dc89533ee0f369fd394232ca10008d695e397d56b795f12de6001b0d1ae6"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-twisted-3d-native-sidebar.png",
+      "bytes": 70807,
+      "sha256": "3f506895578e44d00a9803d0cd9c673d6d2577b208c0f6d2bee85396eff6e8f7"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-common-3d-native-application.png",
+      "bytes": 108457,
+      "sha256": "79159259302cf96a97b6cdf2e201bed9a06a36fd9ff969679f9cec7cef496a3e"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-common-3d-native-sidebar.png",
+      "bytes": 70807,
+      "sha256": "3f506895578e44d00a9803d0cd9c673d6d2577b208c0f6d2bee85396eff6e8f7"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-pan-3d-native-application.png",
+      "bytes": 108165,
+      "sha256": "a43bbe33e8fe651a2167252ca022800130ef5bc00b9bc8630a9dfd79055e1532"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-blue-white-5db4e9f4-c51c-4403-b930-b4ec760bf40c\\03-active-cape-pan-3d-native-sidebar.png",
+      "bytes": 70807,
+      "sha256": "3f506895578e44d00a9803d0cd9c673d6d2577b208c0f6d2bee85396eff6e8f7"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-aurora-3d-native-application.png",
+      "bytes": 182632,
+      "sha256": "e93bba1baa2cf38ca6d3e7fa8dcaf8c9dad72020988337995187900cf81b6a71"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-aurora-3d-native-sidebar.png",
+      "bytes": 75801,
+      "sha256": "60c7cda6f3362f7c99d0eec31eb6f3ff19b44a334bb89dd3cf7746b708e74eb5"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-hero-3d-native-application.png",
+      "bytes": 117445,
+      "sha256": "8a6f04a78fcfc4cb391c9f5f389f7e2f94b031e0d100c42d66de78ce8a417381"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-hero-3d-native-sidebar.png",
+      "bytes": 75801,
+      "sha256": "60c7cda6f3362f7c99d0eec31eb6f3ff19b44a334bb89dd3cf7746b708e74eb5"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-twisted-3d-native-application.png",
+      "bytes": 115535,
+      "sha256": "726d1ed976729a23aea9dfd493239391f5d2aee37bd5d2ced1fb1f85f77f0867"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-twisted-3d-native-sidebar.png",
+      "bytes": 75801,
+      "sha256": "60c7cda6f3362f7c99d0eec31eb6f3ff19b44a334bb89dd3cf7746b708e74eb5"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-common-3d-native-application.png",
+      "bytes": 115588,
+      "sha256": "98bfb44c2da5e645e917357e17dc8b4a8d687f28a2cc82c1623cb802cc5aad49"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-common-3d-native-sidebar.png",
+      "bytes": 75801,
+      "sha256": "60c7cda6f3362f7c99d0eec31eb6f3ff19b44a334bb89dd3cf7746b708e74eb5"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-pan-3d-native-application.png",
+      "bytes": 116130,
+      "sha256": "47e1e7bdc5b6d1d87b13a7124ce487ae75bd88c281ed29355a8abe9a194706e3"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-transparent-6d7fe951-6f37-486e-89d2-fe4291ff5adb\\03-active-cape-pan-3d-native-sidebar.png",
+      "bytes": 75801,
+      "sha256": "60c7cda6f3362f7c99d0eec31eb6f3ff19b44a334bb89dd3cf7746b708e74eb5"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-aurora-3d-native-application.png",
+      "bytes": 185282,
+      "sha256": "75afa9b546b0bbff1847763e3cea974517da8d1a99e05981e64496d29961c4b6"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-aurora-3d-native-sidebar.png",
+      "bytes": 77796,
+      "sha256": "052a461414fc8f40e68bbf682c2e2dfe8c87fd16320f8767bab1066ee588a01a"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-hero-3d-native-application.png",
+      "bytes": 119624,
+      "sha256": "7e95c7fec58b402fa15fe907940103a141f7af4f36765a191c9fcaf64e3d5504"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-hero-3d-native-sidebar.png",
+      "bytes": 77796,
+      "sha256": "052a461414fc8f40e68bbf682c2e2dfe8c87fd16320f8767bab1066ee588a01a"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-twisted-3d-native-application.png",
+      "bytes": 120045,
+      "sha256": "859350211f4e458d6ddb53a53c3dd971f0a17004dfa0e67e7d4e2177c857f490"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-twisted-3d-native-sidebar.png",
+      "bytes": 77796,
+      "sha256": "052a461414fc8f40e68bbf682c2e2dfe8c87fd16320f8767bab1066ee588a01a"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-common-3d-native-application.png",
+      "bytes": 120064,
+      "sha256": "90f416dc1800339a70790e67896198ea3eca173c2efd0ea9c9a03f1a7615e716"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-common-3d-native-sidebar.png",
+      "bytes": 77796,
+      "sha256": "052a461414fc8f40e68bbf682c2e2dfe8c87fd16320f8767bab1066ee588a01a"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-pan-3d-native-application.png",
+      "bytes": 118929,
+      "sha256": "6d6dbec7014669d9e286d2423d12adfc15dd23ab114ca3a160196af5b67f4d2f"
+    },
+    {
+      "file": "E:\\KAMUCL\\out\\qa-capes115-custom-c464dfaf-9b33-4c8f-901e-f08b00ff7a06\\03-active-cape-pan-3d-native-sidebar.png",
+      "bytes": 77796,
+      "sha256": "052a461414fc8f40e68bbf682c2e2dfe8c87fd16320f8767bab1066ee588a01a"
+    }
+  ],
+  "privateNativeRule": "Native screen was cropped in memory. Application/sidebar crops can include another always-on-top window; exclude these images from public source/handoff until separate pixel privacy review.",
+  "historicalFailures": [
+    {
+      "directory": "out/acceptance-1.1.15/capes-final-46c3bfa1-bb6a-4db4-bdc1-7484e0845f6f",
+      "cause": "UI proof complete, aggregate driver incorrectly assumed Darwin-only ownedInventory had Windows rows; failed driver retained, original ec9 QA source preserved byte-for-byte."
+    },
+    {
+      "directory": "out/acceptance-1.1.15/capes-final-0ed36405-013a-4452-941a-f1f6d14c3acc",
+      "cause": "UI three themes complete, old private CIM map keyed only PID rejected a real PID reuse. Failed attempt and old driver/helper sources retained; final fresh four-theme run uses distinct process-generation identities."
+    }
+  ],
+  "uncovered": [
+    "Original user Minecraft Services account response and Aurora/Hero/Twisted specific network failure",
+    "Human audio listening",
+    "Other operating systems or GPU machines",
+    "Game-world launch acceptance is outside this cape fixture"
+  ]
+}

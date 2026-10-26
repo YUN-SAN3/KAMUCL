@@ -1,0 +1,30 @@
+✔ actual clamped geometry can be stable without substituting requested dimensions (0.704ms)
+✔ foreign identities, reload, old viewport, hidden document and obscured targets cannot qualify (0.9102ms)
+✔ two individually valid but changing real bounds, zoom or target coordinates cannot qualify (0.1447ms)
+✔ poll preserves every original read and needs two consecutive valid observations (0.7603ms)
+✔ an observation error breaks continuity and cannot be filled with an earlier hit (0.254ms)
+✔ original absolute deadline rejects a late second match and caps poll waits (0.4106ms)
+✔ an already exhausted deadline performs no original reads or polling (0.1253ms)
+✔ a stalled read cannot hold the coordinator beyond the original deadline (35.0881ms)
+✔ actual generated coordinate expression reads absence, ancestor animation and hit state (1.0597ms)
+✔ trusted target observer preserves actual trust, target and token without manufacturing input (1.1936ms)
+✔ active ownership, document changes and overflowing original input ledgers are retained (0.7456ms)
+✔ pure trusted-sequence contract rejects forged trust, wrong target, missing event and context change (1.4681ms)
+✔ Dedicated restart root requires actual own marker, parent identity and successful original first phase (20.5071ms)
+✔ Privacy assertions reject invisible title/aria/DOM/input and raw host leaks (0.7123ms)
+✔ Explicit show is instance-scoped and cannot reveal another fixture (0.1471ms)
+✔ Legacy folder-specific false favorite cannot be inferred from the global favorite ID (0.2914ms)
+✔ Filesystem fixture setup retains original instance bytes and seeds same-ID scoped favorite distinction (38.2455ms)
+✔ Clipboard boundary records only fixture copy calls, suppresses OS mutation, restores exact inherited function (0.643ms)
+✔ Clipboard cleanup refuses foreign replacement instead of overwriting another owner (0.5575ms)
+✔ Harness registration retains cape and isolates explicit owned profile restart behavior (0.5191ms)
+✔ Name/mask/status region uses measured geometry and rejects foreign hit or invisible child (0.8128ms)
+✔ Actual minimum is proven by two distinct smaller requests and unchanged actual geometry, not requested-size substitution (1.2683ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 187.6805

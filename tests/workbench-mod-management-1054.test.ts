@@ -35,3 +35,24 @@ test('1054 draft saves do not commit, failed apply retains draft, and unrelated 
 test('1058 dependency repair requires an exact installed hash and never replaces its parent or lock',async()=>{
  const t=await harness();try{t.write('parent.jar','old');t.api.setModLocked(t.dir,hash('old'),true);await assert.rejects(t.api.planMissingDependencies('source',t.root,'parent.jar'),/完全一致/);t.h.dependency={...t.h.files[0],projectId:'dep',fileId:'dep',fileName:'dependency.jar'};t.h.files[0]={...t.h.files[0],fileId:'old',fileName:'parent.jar',sha1:hash('old'),dependencies:[{required:true,projectId:'dep',fileId:'dep'}]};const p=await t.api.planMissingDependencies('source',t.root,'parent.jar');assert.deepEqual(p.files.map((f:any)=>f.fileName),['dependency.jar']);await assert.rejects(t.api.applyMissingDependencies(p.id,false),/确认/);await assert.rejects(t.api.applyModVersionChange(p.id,true),/过期/);await t.api.applyMissingDependencies(p.id,true);assert.equal(t.read('parent.jar'),'old');assert.equal(t.read('dependency.jar'),'new');assert(t.api.isModLocked(t.dir,hash('old')))}finally{t.close()}
 })
+
+test('1113 discarding a version list prevents a late remote plan from reviving snapshots',async()=>{
+ const t=await harness();try{
+  t.write('old.jar','old');const c=await t.api.modVersionChoices('source',t.root,'old.jar')
+  let reply!:(value:any)=>void,started!:()=>void;const reached=new Promise<void>(resolve=>started=resolve),post=t.h.post
+  t.h.post=async(url:string)=>url.includes('/version/new')?{ok:true,json:()=>{started();return new Promise(resolve=>reply=resolve)}}:post(url)
+  const pending=t.api.planModVersionChange(c.id,'new');await reached;t.api.discardModVersionPlan(c.id);reply({changelog:'late'})
+  await assert.rejects(pending,/关闭或过期/);await assert.rejects(t.api.planModVersionChange(c.id,'new'),/过期/)
+ }finally{t.close()}
+})
+
+test('1113 discarding while applying preserves the active transaction and retires it after completion',async()=>{
+ const t=await harness();try{
+  t.write('old.jar','old');const c=await t.api.modVersionChoices('source',t.root,'old.jar'),p=await t.api.planModVersionChange(c.id,'new')
+  let release!:()=>void,started!:()=>void;const reached=new Promise<void>(resolve=>started=resolve),hold=new Promise<void>(resolve=>release=resolve)
+  t.h.onDownload=()=>{started();return hold}
+  const applying=t.api.applyModVersionChange(p.id,true);await reached;t.api.discardModVersionPlan(c.id);t.api.discardModVersionPlan(p.id);release();await applying
+  assert.equal(t.read('new.jar'),'new');assert(!fs.existsSync(path.join(t.dir,'old.jar')))
+  await assert.rejects(t.api.applyModVersionChange(p.id,true),/过期/)
+ }finally{t.close()}
+})

@@ -1,0 +1,46 @@
+{
+  "classification": "Actual production MRPACK installation orchestration, localhost HTTP and temporary filesystem with synthetic runtime/mod bytes. No native game or GUI.",
+  "root": "E:\\KAMUCL\\out\\review119-mrpack-readonly\\actual-alias-11f444bc-5e5f-4abc-affc-8ff785c8e2c9",
+  "at": "2026-10-07T08:08:16.683Z",
+  "sources": {
+    "src/main/core/modpacks.ts": "842b7a859373b6403d9209757c8b56896a154fc44e41e8eea8aec32c8deb99e6",
+    "src/main/core/modpackDownloads.ts": "b7ed0b1856d8245eaf5398bf4239fdb3598aeaea4134b12e400b66c4669d82c8"
+  },
+  "files": [
+    {
+      "path": "mods/a.jar",
+      "hashes": {
+        "sha1": "d3d1366ed7873d1bf5920c0c1ae5c4e1d73f9a68",
+        "sha512": "3e9127ba5407c55a5c01cb9dd19daf60d01c46532057a3fb74af5baf0b1e551c4b1c071fe67751ff0257e750cfbc21c919bb0c7245d0b409cefe29f71f1099f3"
+      },
+      "downloads": [
+        "https://mrpack-review.invalid/first"
+      ],
+      "fileSize": 16
+    },
+    {
+      "path": "mods//a.jar",
+      "hashes": {
+        "sha1": "9b3eaa4d9982b093f55b230a831cfeca58b27406",
+        "sha512": "dba177cdc2739099b49fa6f40652f9764f228a0d19544a838a105887c9db9181e2c9d94cfc1ffac790f175f295c260acf3e87432dc1b8afc0b2fa78e6ddf099c"
+      },
+      "downloads": [
+        "https://mrpack-review.invalid/second"
+      ],
+      "fileSize": 16
+    }
+  ],
+  "failure": "Modrinth 清单包含重复目标路径：mods//a.jar",
+  "requests": [],
+  "originalSHA256": "3947c809726ee95d667da579de4c9b595a349601136167174d67d7611e0fa2e1",
+  "originalUnchanged": true,
+  "events": [
+    {
+      "stage": "modpack",
+      "progress": 0,
+      "text": "解析整合包信息…",
+      "manualFiles": null,
+      "overall": 0
+    }
+  ]
+}

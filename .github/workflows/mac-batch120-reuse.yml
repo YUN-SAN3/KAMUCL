@@ -1,0 +1,77 @@
+name: macOS batch120 exact artifact QA retry
+on:
+  workflow_dispatch:
+    inputs:
+      resume_mac_arm64:
+        description: 'Run the authorized native APP and DMG QA repair against the original signed 1.1.20 artifact'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  actions: read
+jobs:
+  batch120:
+    if: inputs.resume_mac_arm64 == true
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: [app, dmg]
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Strict original source, QA-only differences and binding contracts
+        run: |
+          node --test scripts/verify-mac-batch120-reuse-tests.cjs scripts/qa-community-input120-tests.cjs
+          node -e "require('./scripts/verify-mac-batch120-reuse.cjs').proveReuseSource('0649ed5c7035a0809b9e73117da2b4ff0ea378bd',process.env.GITHUB_SHA)"
+      - name: Read immutable original package run and artifact provenance
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const assert = require('node:assert/strict')
+            const fs = require('node:fs')
+            const base = { owner: context.repo.owner, repo: context.repo.repo, run_id: 37680785679 }
+            const run = (await github.rest.actions.getWorkflowRun(base)).data
+            assert.equal(run.head_sha, '0649ed5c7035a0809b9e73117da2b4ff0ea378bd')
+            assert.equal(run.event, 'workflow_dispatch')
+            assert.equal(run.path, '.github/workflows/mac-build.yml')
+            assert.equal(run.repository.full_name, context.repo.owner + '/' + context.repo.repo)
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, { ...base, per_page: 100 })
+            const packageJobs = jobs.filter(j => j.name === 'package (macos-26, arm64)')
+            assert.equal(packageJobs.length, 1)
+            assert.equal(packageJobs[0].conclusion, 'success')
+            const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, { ...base, per_page: 100 })
+            const matches = artifacts.filter(a => a.name === 'mac-packages-arm64')
+            assert.equal(matches.length, 1)
+            assert.equal(matches[0].id, 11509975002)
+            assert.equal(matches[0].digest, 'sha256:c9edd19db7211b0f5358828195417fffb3f18f537e4c85497b270e6bd51b9e0b')
+            assert.equal(matches[0].expired, false)
+            assert.equal(matches[0].workflow_run.head_sha, run.head_sha)
+            fs.mkdirSync('release', { recursive: true })
+            fs.writeFileSync('release/artifact-origin120.json', JSON.stringify({ run, packageJob: packageJobs[0], artifact: matches[0] }, null, 2))
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          artifact-ids: 11509975002
+          run-id: 37680785679
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: release
+      - name: Enable actual desktop material
+        run: defaults write com.apple.universalaccess reduceTransparency -bool false
+      - name: Original signed bytes, current bounded QA and actual native four-theme APP or DMG
+        run: node scripts/verify-mac-batch120-reuse.cjs ${{ matrix.stage }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: mac-batch120-reuse-arm64-${{ matrix.stage }}
+          path: |
+            release/artifact-origin120.json
+            release/mac-batch120-reuse-*
+            release/mac-batch120-proof-*
+          if-no-files-found: error

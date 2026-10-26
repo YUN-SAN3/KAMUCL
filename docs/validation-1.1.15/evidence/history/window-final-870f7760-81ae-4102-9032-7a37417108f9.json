@@ -1,0 +1,32 @@
+{
+  "schema": "windows115-owned-native-final",
+  "application": {
+    "file": "E:\\KAMUCL\\release\\KAMUCL-1.1.15.exe",
+    "sha256": "4822890c6cc94353a16687d812fdfb0be9379dad1c0258ef4b1a35c14d686df9"
+  },
+  "startedAt": "2026-10-06T10:09:42.971Z",
+  "runs": [
+    {
+      "name": "blue-white",
+      "logFile": "E:\\KAMUCL\\out\\acceptance-1.1.15\\window-final-870f7760-81ae-4102-9032-7a37417108f9\\blue-white.log",
+      "startedAt": "2026-10-06T10:09:43.040Z",
+      "pid": 52840,
+      "close": {
+        "code": 1,
+        "signal": null,
+        "at": "2026-10-06T10:10:12.438Z"
+      },
+      "log": {
+        "bytes": 760,
+        "sha256": "d5316ba1accc35fdada70bf23160e7fc2f1d7f47ddcaf77358563762a6d80f91"
+      }
+    }
+  ],
+  "complete": false,
+  "classification": "Native initial backdrop, compiled helper and clean package proof are separate. No user-window automation.",
+  "error": {
+    "name": "AssertionError",
+    "message": "Expected values to be strictly equal:\n\n1 !== 0\n"
+  },
+  "finishedAt": "2026-10-06T10:10:12.441Z"
+}

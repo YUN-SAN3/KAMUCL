@@ -1,0 +1,1 @@
+{"complete":true,"directory":"E:\\KAMUCL\\out\\qa-skin-layers119-transparent-ce2a3f69-670c-435e-8b0a-a97ee76fb4e0","legacy":false}

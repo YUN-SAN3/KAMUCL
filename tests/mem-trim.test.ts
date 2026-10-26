@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { EventEmitter } from 'node:events'
 import { once } from 'node:events'
-import type { ChildProcess } from 'node:child_process'
+import { ChildProcess } from 'node:child_process'
 import {
   selectElectronProcessPids,
   sumWorkingSetByType,
@@ -76,32 +76,50 @@ test('windowsQuote 生成自包含命令行参数（不依赖父进程解析方�
   assert.equal(windowsQuote('a b\\'), '"a b\\\\"')
 })
 
-test('spawnGameProcess 创建的进程独立运行、stdout 管道回传、可被 kill', async () => {
+test('spawnGameProcess 创建的进程独立运行、stdout 管道回传、可被 kill', { timeout: 15000 }, async t => {
   const proc = await spawnGameProcess(
     process.execPath,
     ['-e', 'console.log("detached-spawn-ok"); setTimeout(() => {}, 30000)'],
     { cwd: process.cwd() }
   )
-  assert.equal(typeof proc.pid, 'number')
-  const chunks: Buffer[] = []
-  proc.stdout?.on('data', (chunk: Buffer) => chunks.push(chunk))
-  await once(proc, 'spawn')
-  // 轮询等首行输出（管道数据到达是异步的）
-  for (let i = 0; i < 50 && !Buffer.concat(chunks).includes('detached-spawn-ok'); i++) {
-    await new Promise((resolve) => setTimeout(resolve, 100))
-  }
-  assert.ok(Buffer.concat(chunks).includes('detached-spawn-ok'), 'stdout 数据应经管道回流')
-  // 强制结束路径：kill() → close 事件（与 GameSession.stop 的等待方式一致）
   const closed = once(proc, 'close')
-  assert.equal(proc.kill(), true)
-  await closed
-  assert.equal(proc.signalCode, 'SIGTERM')
-  assert.equal(proc.killed, true)
-}, { timeout: 15000 })
+  const chunks: Buffer[] = []
+  let spawnEventsAfterReturn = 0
+  const observeSpawn = () => { spawnEventsAfterReturn++ }
+  proc.on('spawn', observeSpawn)
+  proc.stdout?.on('data', (chunk: Buffer) => chunks.push(chunk))
+  try {
+    assert.equal(typeof proc.pid, 'number')
+    // The POSIX Promise already awaits native spawn. Observe timing without
+    // waiting for that consumed event again; stdout proves actual readiness.
+    for (let i = 0; i < 50 && !Buffer.concat(chunks).includes('detached-spawn-ok'); i++) {
+      await new Promise((resolve) => setTimeout(resolve, 100))
+    }
+    assert.ok(Buffer.concat(chunks).includes('detached-spawn-ok'), 'stdout 数据应经管道回流')
+    assert.equal(spawnEventsAfterReturn, proc instanceof ChildProcess ? 0 : 1)
+    t.diagnostic(JSON.stringify({ pid: proc.pid, nativeNodeChild: proc instanceof ChildProcess, spawnEventsAfterReturn, stdoutReady: true }))
+    // 强制结束路径：kill() → close 事件（与 GameSession.stop 的等待方式一致）
+    assert.equal(proc.kill(), true)
+    await closed
+    assert.equal(proc.signalCode, 'SIGTERM')
+    assert.equal(proc.killed, true)
+  } finally {
+    proc.off('spawn', observeSpawn)
+    // This exact handle belongs to this fixture; never enumerate or kill games.
+    if (proc.exitCode === null && proc.signalCode === null) proc.kill()
+    await closed
+  }
+})
 
-test('spawnGameProcess 自然退出：exit/close 带真实退出码', async () => {
+test('spawnGameProcess 自然退出：exit/close 带真实退出码', { timeout: 15000 }, async () => {
   const proc = await spawnGameProcess(process.execPath, ['-e', 'process.exit(7)'], { cwd: process.cwd() })
-  const [code] = await once(proc, 'close')
-  assert.equal(code, 7)
-  assert.equal(proc.exitCode, 7)
-}, { timeout: 15000 })
+  const closed = once(proc, 'close')
+  try {
+    const [code] = await closed
+    assert.equal(code, 7)
+    assert.equal(proc.exitCode, 7)
+  } finally {
+    if (proc.exitCode === null && proc.signalCode === null) proc.kill()
+    await closed
+  }
+})

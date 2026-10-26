@@ -5,9 +5,10 @@
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import DefaultGameOptions from '../components/DefaultGameOptions.vue'
-import { errText, getDefaultKeys, resetDefaultKeys, setDefaultKey, getDefaultResourcePacks, importDefaultResourcePacks, pickDefaultResourcePacks, removeDefaultResourcePack, moveDefaultResourcePack, setDefaultResourcePackEnabled } from '../api'
+import SelectMenu from '../components/SelectMenu.vue'
+import { errText, getDefaultKeys, resetDefaultKeys, setDefaultKey, getDefaultResourcePacks, importDefaultResourcePacks, pickDefaultResourcePacks, removeDefaultResourcePack, moveDefaultResourcePack, setDefaultResourcePackEnabled, reapplyDefaultResourcePacks } from '../api'
 import type { DefaultResourcePack } from '@shared/types'
-import { store, toast } from '../store'
+import { activeInstalled, selectedInstance, displayVersionName, store, toast } from '../store'
 import { updateSettings } from '../settingsUpdates'
 import { KEYBIND_CATEGORIES, VANILLA_KEYBINDS, codeToMcKey, mcKeyLabel, mouseButtonToMcKey } from '@shared/keybindings'
 
@@ -19,6 +20,19 @@ const keySearch = ref('')
 const capturing = ref('')
 const resourcePacks = ref<DefaultResourcePack[]>([])
 const packsBusy = ref(false)
+const reapplying = ref(false)
+const packTargets = computed(() => activeInstalled.value.map(v => ({ value: v.id, label: displayVersionName(v), description: `${v.mcVersion}${v.isolated ? ' · 独立游戏目录' : ' · 共享游戏目录'}` })))
+async function reapplyPacks() {
+  const target = selectedInstance.value
+  if (packsBusy.value || !target) return
+  const folder = target.folder || store.settings?.activeFolder || store.settings?.gameDir || ''
+  packsBusy.value = true; reapplying.value = true
+  try {
+    const result = await reapplyDefaultResourcePacks(folder, target.id)
+    toast(`已重新应用 ${result.count} 个默认材质包${result.shared ? '（共享游戏目录）' : ''}`, 'success')
+  } catch (e) { toast('重新应用失败：' + errText(e), 'error') }
+  finally { packsBusy.value = false; reapplying.value = false }
+}
 const dragActive = ref(false)
 async function togglePackSync(on: boolean) {
   try { await updateSettings({ resourcePackSync: on }) } catch (e) { toast('保存失败：' + errText(e), 'error') }
@@ -156,19 +170,27 @@ onUnmounted(stopCapture)
     <div data-ui="KeysView:69a14d0edda5" v-show="section === 'packs'" class="card cfg-col default-packs" :class="{ 'drag-active': dragActive }" @dragover.prevent="dragActive = true" @dragleave.self="dragActive = false" @drop.prevent="dropPacks">
       <div class="cfg-col-head">
         <div><h3 class="group-title">默认材质包</h3><p class="muted group-hint">拖入多个 ZIP 材质包，列表靠后的包优先级更高</p></div>
-        <button data-ui="KeysView:876c0145d0d4" class="btn btn-ghost" :disabled="packsBusy" @click="editPacks(pickDefaultResourcePacks, true)">{{ packsBusy ? '正在导入…' : '添加材质包…' }}</button>
-        <label data-ui="KeysView:f73970a957ff" class="cfg-sync"><span>材质包同步</span><span class="switch"><input data-ui="KeysView:78b789615abb" type="checkbox" :checked="store.settings?.resourcePackSync === true" @change="togglePackSync(($event.target as HTMLInputElement).checked)"/><span class="switch-ui"></span></span></label>
+        <button data-ui="KeysView:876c0145d0d4" class="btn btn-ghost" :disabled="packsBusy" @click="editPacks(pickDefaultResourcePacks, true)">{{ packsBusy && !reapplying ? '正在导入…' : '添加材质包…' }}</button>
+        <label data-ui="KeysView:f73970a957ff" class="cfg-sync"><span>新实例默认启用</span><span class="switch"><input data-ui="KeysView:78b789615abb" type="checkbox" :checked="store.settings?.resourcePackSync === true" :disabled="packsBusy" @change="togglePackSync(($event.target as HTMLInputElement).checked)"/><span class="switch-ui"></span></span></label>
       </div>
       <div data-ui="KeysView:22e226a30b38" v-for="(pack, index) in resourcePacks" :key="pack.id" class="cfg-row">
         <span data-ui="KeysView:deb0c6a821a6" class="cfg-label" :title="pack.name">{{ pack.name }}</span>
-        <label class="cfg-sync pack-enable" :data-ui="`default-pack:${pack.id}:enabled`"><span>{{ pack.enabled ? '已启用' : '未启用' }}</span><span class="switch"><input data-ui="KeysView:068b826fa09a" type="checkbox" :aria-label="`启用材质包 ${pack.name}`" :checked="pack.enabled" :disabled="packsBusy" @change="editPacks(() => setDefaultResourcePackEnabled(pack.id, ($event.target as HTMLInputElement).checked))"/><span class="switch-ui"></span></span></label>
+        <label data-ui="KeysView:8de22abf738d" class="cfg-sync pack-enable"><span>{{ pack.enabled ? '已启用' : '未启用' }}</span><span class="switch"><input data-ui="KeysView:068b826fa09a" type="checkbox" :aria-label="`启用材质包 ${pack.name}`" :checked="pack.enabled" :disabled="packsBusy" @change="editPacks(() => setDefaultResourcePackEnabled(pack.id, ($event.target as HTMLInputElement).checked))"/><span class="switch-ui"></span></span></label>
         <button data-ui="KeysView:1cbe8606de10" class="btn btn-ghost btn-sm" :disabled="packsBusy || index === 0" title="降低优先级" @click="editPacks(() => moveDefaultResourcePack(pack.id, -1))">↑</button>
         <button data-ui="KeysView:2a307d6181f9" class="btn btn-ghost btn-sm" :disabled="packsBusy || index === resourcePacks.length - 1" title="提高优先级" @click="editPacks(() => moveDefaultResourcePack(pack.id, 1))">↓</button>
         <button data-ui="KeysView:6e625dac35a7" class="btn btn-ghost btn-sm" :disabled="packsBusy" @click="editPacks(() => removeDefaultResourcePack(pack.id))">移除</button>
       </div>
       <p data-ui="KeysView:27229a3b7fa7" v-if="!resourcePacks.length" class="muted">将材质包拖到这里，或点击上方按钮添加。</p>
 
-      <p class="muted group-hint">添加后自动开启同步。每个材质包可独立启停，下次启动游戏时生效；未启用的包不会复制，并取消其默认启用。关闭总同步不改动实例。原文件和已复制文件保留。</p>
+      <p data-ui="KeysView:packs-instance-priority" class="muted group-hint">全局列表作为初始默认。启用后，在尚未配置资源包的游戏目录首次应用；已有实例以游戏内选择为准，后续启动保留启停和排序。新增默认包只补充可选文件。</p>
+      <div class="pack-reapply">
+        <div><strong>重新应用到实例</strong><p class="muted group-hint">按当前默认列表重设此实例的默认材质包选择，保留其他资源包。原文件和已复制文件保留。</p></div>
+        <div class="pack-reapply-actions">
+          <SelectMenu data-ui="KeysView:packs-target" v-model="store.resourceVersionId" :options="packTargets" :disabled="packsBusy || !packTargets.length" placeholder="选择目标实例" aria-label="默认材质包目标实例" />
+          <button data-ui="KeysView:packs-reapply" class="btn btn-ghost" :disabled="packsBusy || !selectedInstance" @click="reapplyPacks">{{ reapplying ? '正在应用…' : '重新应用默认材质包' }}</button>
+        </div>
+        <p v-if="selectedInstance && !selectedInstance.isolated" data-ui="KeysView:packs-shared-hint" class="muted group-hint">此实例使用共享游戏目录，重新应用也会影响使用同一目录的其他实例。</p>
+      </div>
     </div>
     <div data-ui="KeysView:22b5e108771c" v-if="loading" class="card empty"><span data-ui="KeysView:9c54c2c06f78" class="spin"></span></div>
     <!-- 按键配置（同步开关整合进卡片头部，不再单独占一张卡） -->
@@ -230,6 +252,10 @@ onUnmounted(stopCapture)
 @media(max-width:700px){.cfg-sections{gap:8px}.cfg-sections button{padding:12px}.cfg-sections small{display:none}}
 .default-packs { margin-bottom: var(--sec-gap); }
 .default-packs.drag-active { outline: 2px solid var(--accent); background: var(--accent-soft); }
+.pack-reapply { border-top: 1px solid var(--border); margin-top: var(--space-3); padding-top: var(--space-4); }
+.pack-reapply-actions { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-3); }
+.pack-reapply-actions :deep(.select-menu-btn) { flex: 1; min-width: 180px; }
+@media(max-width:700px) { .pack-reapply-actions .btn { width: 100%; } }
 .cfg-col { display: flex; flex-direction: column; min-height: 0; }
 .cfg-col-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); flex-wrap: wrap; }
 /* 头部操作区：同步开关 + 恢复默认 同行右置 */

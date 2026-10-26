@@ -1,0 +1,1390 @@
+{
+  "complete": true,
+  "version": "1.1.20",
+  "platform": "Windows x64",
+  "portableSHA256": "d2fad1f339c109c306d6a0740e1576b9e7cfd4e1090c63cac926758ecfe2648a",
+  "rawReceiptSHA256": "d89ed3bc0d7e2053274e3a837c282631895edfc57b0edc44e7609c2a3e0c5277",
+  "classification": "Final portable production renderer/IPC receiver and real native foreground. Task messages are synthetic visual replays; no actual network, installation, cancellation or performance claim.",
+  "themes": [
+    {
+      "theme": "black-orange",
+      "ownedPID": 54584,
+      "normalClose": true,
+      "naturalBootFinished": true,
+      "runtimeExecutableSHA256": "ddddd55084d7e29dc5f475d83d58fea361b13802dd77d16b3855fbbe731090f3",
+      "layouts": [
+        {
+          "requested": {
+            "width": 960,
+            "height": 620,
+            "zoom": 1
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "zoom": 1,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 293
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 288.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/black-orange/black-orange-960-1-tail.png",
+              "bytes": 516007,
+              "sha256": "5c2e7c72c63186134ee6b26bfb6aba08fca6700440b6f6760f65f3d563a98873"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 239
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 270.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/black-orange/black-orange-960-1-wait.png",
+              "bytes": 451774,
+              "sha256": "4b66fbba1a55902a4fdc740affcaae1362751832e4fe247203be896da6ba39c2"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 239
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 270.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/black-orange/black-orange-960-1-switching.png",
+              "bytes": 452214,
+              "sha256": "93103cc0102654b7a298555cb68e82ffde9dadb317bf5b89d58f87c405a1529a"
+            }
+          ]
+        },
+        {
+          "requested": {
+            "width": 960,
+            "height": 620,
+            "zoom": 1.25
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "zoom": 1.25,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 292.1999816894531
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 288.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/black-orange/black-orange-960-1.25-tail.png",
+              "bytes": 506520,
+              "sha256": "926d1d9a4e3c22de8053da6f8691a13f1c9450495c34b1e166419595a4f843d5"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/black-orange/black-orange-960-1.25-wait.png",
+              "bytes": 412903,
+              "sha256": "b59d3e414a94dbe46859842b6dd417de9151559be537506739d24d7b168896b7"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/black-orange/black-orange-960-1.25-switching.png",
+              "bytes": 413892,
+              "sha256": "a4a03dc5d9ed998608483658a1bc0622227fde73cb221fbc2c67b22ce6599e1f"
+            }
+          ]
+        },
+        {
+          "requested": {
+            "width": 1280,
+            "height": 900,
+            "zoom": 1.25
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 1281,
+              "height": 901
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 1280,
+              "height": 900
+            },
+            "zoom": 1.25,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 292.1999816894531
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 288.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/black-orange/black-orange-1280-1.25-tail.png",
+              "bytes": 825028,
+              "sha256": "5d9403aed989c9ef1cbb3399384cbd99f28a108d617d5b9f595e6d756346993f"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/black-orange/black-orange-1280-1.25-wait.png",
+              "bytes": 724568,
+              "sha256": "9098f678dd84a59cc0efa7bcfaa681d25d8fb79bca70ff9fb0fbe53870f4a5ed"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/black-orange/black-orange-1280-1.25-switching.png",
+              "bytes": 725381,
+              "sha256": "0460370151710e8013c2b8df4e11a73aaca8d93bb77c17b669563961799489f7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "blue-white",
+      "ownedPID": 21012,
+      "normalClose": true,
+      "naturalBootFinished": true,
+      "runtimeExecutableSHA256": "ddddd55084d7e29dc5f475d83d58fea361b13802dd77d16b3855fbbe731090f3",
+      "layouts": [
+        {
+          "requested": {
+            "width": 960,
+            "height": 620,
+            "zoom": 1
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "zoom": 1,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 293
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 288.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/blue-white/blue-white-960-1-tail.png",
+              "bytes": 527886,
+              "sha256": "645c2e3f98b08a8413873261a1d823170c290d47c105fe0eb5a2f445f36ff7db"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 239
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 270.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/blue-white/blue-white-960-1-wait.png",
+              "bytes": 457130,
+              "sha256": "3ea19a191a6fe75730353350797002f438f21dc7a48e51f65314bc7e1911de3d"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 239
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 270.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/blue-white/blue-white-960-1-switching.png",
+              "bytes": 457506,
+              "sha256": "f8100a07800fbb8b65522926ac1184cb7db93da66f6dd7a80921b561d90b5ef1"
+            }
+          ]
+        },
+        {
+          "requested": {
+            "width": 960,
+            "height": 620,
+            "zoom": 1.25
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "zoom": 1.25,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 292.1999816894531
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 288.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/blue-white/blue-white-960-1.25-tail.png",
+              "bytes": 504936,
+              "sha256": "275287528041d70639b66ff3a9e13a624f266fd31fb1ceb936e38d5db61be238"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/blue-white/blue-white-960-1.25-wait.png",
+              "bytes": 419435,
+              "sha256": "3a76579a30ee6b91ad46b4a05d0610246529599529da9fec9b5ce8c4cbc477fc"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/blue-white/blue-white-960-1.25-switching.png",
+              "bytes": 420240,
+              "sha256": "2da45d15b09926b889bf30a6ed5a054fcd3a7b40a3f98fdf80f1a004260c5451"
+            }
+          ]
+        },
+        {
+          "requested": {
+            "width": 1280,
+            "height": 900,
+            "zoom": 1.25
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 1281,
+              "height": 901
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 1280,
+              "height": 900
+            },
+            "zoom": 1.25,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 292.1999816894531
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 288.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/blue-white/blue-white-1280-1.25-tail.png",
+              "bytes": 802758,
+              "sha256": "7355d1a5082a760d58e90d383cf18d51a127b706cf8c86b37dcd6bad9c67c8e2"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/blue-white/blue-white-1280-1.25-wait.png",
+              "bytes": 733127,
+              "sha256": "3a4764e4612d5a29afc94819d444e2c7b094fe8acc12907d77998d0b39acaef3"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/blue-white/blue-white-1280-1.25-switching.png",
+              "bytes": 733814,
+              "sha256": "2a24f81c498b09e472f89fa3616ff30c4e5ca8f70950cfa4864dd66dd45c51c0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "transparent",
+      "ownedPID": 19524,
+      "normalClose": true,
+      "naturalBootFinished": true,
+      "runtimeExecutableSHA256": "ddddd55084d7e29dc5f475d83d58fea361b13802dd77d16b3855fbbe731090f3",
+      "layouts": [
+        {
+          "requested": {
+            "width": 960,
+            "height": 620,
+            "zoom": 1
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "zoom": 1,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 293
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 288.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/transparent/transparent-960-1-tail.png",
+              "bytes": 517788,
+              "sha256": "6179ff068f9d28c26d335cc8c9a0c8ab073c5b2794aaf01402991788d2508a3c"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 239
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 270.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/transparent/transparent-960-1-wait.png",
+              "bytes": 447334,
+              "sha256": "4e2c9cdaaa82bd12c04676ae045fe11d15e4e0773ee53a0e1bf2f9c8ac2939f0"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 239
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 270.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/transparent/transparent-960-1-switching.png",
+              "bytes": 447846,
+              "sha256": "bd7826f896218e7061d25b8dc52624ece8bf33a99eb33ab908bd3a7b413d0cab"
+            }
+          ]
+        },
+        {
+          "requested": {
+            "width": 960,
+            "height": 620,
+            "zoom": 1.25
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "zoom": 1.25,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 292.1999816894531
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 288.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/transparent/transparent-960-1.25-tail.png",
+              "bytes": 489738,
+              "sha256": "6b707d9e5bb6da672537a1f90d2358e70d6f8666d2d690f4b7c2f440e8bd9d02"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/transparent/transparent-960-1.25-wait.png",
+              "bytes": 406609,
+              "sha256": "a4cf0084cb5f3b9eea5c0abf825d837a59089d1503d93179539a64279796a667"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/transparent/transparent-960-1.25-switching.png",
+              "bytes": 407675,
+              "sha256": "c3bbdbc4054dbd6b64653c5093738b331b16a74b58f3cfc289fdd2233a9f4380"
+            }
+          ]
+        },
+        {
+          "requested": {
+            "width": 1280,
+            "height": 900,
+            "zoom": 1.25
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 1281,
+              "height": 901
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 1280,
+              "height": 900
+            },
+            "zoom": 1.25,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 292.1999816894531
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 288.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/transparent/transparent-1280-1.25-tail.png",
+              "bytes": 813721,
+              "sha256": "fa90f77ee18a810b6bf489f1c32ee1734110ab4505afc70430c35aad35007db9"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/transparent/transparent-1280-1.25-wait.png",
+              "bytes": 713031,
+              "sha256": "2679350217e9c95a06ea3c8da06c4c9ded52ee215531032bf47ab62ce27966a8"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/transparent/transparent-1280-1.25-switching.png",
+              "bytes": 713841,
+              "sha256": "0eec5449537acfa30b3b93fca42b041eade5ffd1b941f47e594a6e8897a2e402"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "custom",
+      "ownedPID": 42548,
+      "normalClose": true,
+      "naturalBootFinished": true,
+      "runtimeExecutableSHA256": "ddddd55084d7e29dc5f475d83d58fea361b13802dd77d16b3855fbbe731090f3",
+      "layouts": [
+        {
+          "requested": {
+            "width": 960,
+            "height": 620,
+            "zoom": 1
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "zoom": 1,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 293
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 288.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/custom/custom-960-1-tail.png",
+              "bytes": 519061,
+              "sha256": "b7ed4336fa287af2d094cc66eb736c2f9743bde266122c6bd9d24cdb8923466d"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 239
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 270.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/custom/custom-960-1-wait.png",
+              "bytes": 454402,
+              "sha256": "3bfcbae59feecf9cf5f3bf3438bc8104550b793463cd9df05eb0c9ea5cd6b513"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 489.6000061035156,
+                  "y": 82,
+                  "width": 380,
+                  "height": 239
+                },
+                "detail": {
+                  "x": 517.2000122070312,
+                  "y": 270.6000061035156,
+                  "width": 324.8000183105469,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 962,
+                  "height": 622
+                }
+              },
+              "file": "download-windows/custom/custom-960-1-switching.png",
+              "bytes": 454689,
+              "sha256": "b0714be9c5a7332eb300761e7a50e2332b52d559341b345dc13c86dc9fe25613"
+            }
+          ]
+        },
+        {
+          "requested": {
+            "width": 960,
+            "height": 620,
+            "zoom": 1.25
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 962,
+              "height": 623
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 961,
+              "height": 622
+            },
+            "zoom": 1.25,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 292.1999816894531
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 288.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/custom/custom-960-1.25-tail.png",
+              "bytes": 497237,
+              "sha256": "6213845c88f1833d3fc4be62fcaeb3e512de8b4220142f68493c3d0dbf16ef5b"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/custom/custom-960-1.25-wait.png",
+              "bytes": 414933,
+              "sha256": "7a73cb70eff3845d5c749f94cddeecf9cd0a7a4bdf0eb254559c01f7713b0aed"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 297.2799987792969,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 324.55999755859375,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 769,
+                  "height": 498
+                }
+              },
+              "file": "download-windows/custom/custom-960-1.25-switching.png",
+              "bytes": 415979,
+              "sha256": "b3e13fa8ba586ecfded357c67610d6cccc8af6aea17dbd1e3fce9630994c9a83"
+            }
+          ]
+        },
+        {
+          "requested": {
+            "width": 1280,
+            "height": 900,
+            "zoom": 1.25
+          },
+          "actual": {
+            "bounds": {
+              "x": 855,
+              "y": 409,
+              "width": 1281,
+              "height": 901
+            },
+            "contentBounds": {
+              "x": 855,
+              "y": 409,
+              "width": 1280,
+              "height": 900
+            },
+            "zoom": 1.25,
+            "displayScale": 1.25
+          },
+          "states": [
+            {
+              "state": "tail",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 正在处理 minecraft/sounds/fixture120/very-long-folder-name/long-tail-resource-with-a-readable-name.ogg",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 292.1999816894531
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 288.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 54
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/custom/custom-1280-1.25-tail.png",
+              "bytes": 828286,
+              "sha256": "de96633b4c1345fe2d431228280a21d8a476b230cecc573864eeaa521a4fac9f"
+            },
+            {
+              "state": "wait",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，24 秒后重试",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/custom/custom-1280-1.25-wait.png",
+              "bytes": 726982,
+              "sha256": "48c66c747f8f2eeb75d108db73b6cfbfe9be255aa57a5d40829d72e0ba558711"
+            },
+            {
+              "state": "switching",
+              "geometry": {
+                "text": "下载资源文件 3574/3575 · 下载源限流，切换备用来源",
+                "scrollWidth": 325,
+                "clientWidth": 325,
+                "whiteSpace": "normal",
+                "bodyOverflow": false,
+                "panel": {
+                  "x": 552,
+                  "y": 82,
+                  "width": 380,
+                  "height": 238.1999969482422
+                },
+                "detail": {
+                  "x": 579.2799682617188,
+                  "y": 270.2799987792969,
+                  "width": 325.44000244140625,
+                  "height": 18
+                },
+                "viewport": {
+                  "width": 1024,
+                  "height": 720
+                }
+              },
+              "file": "download-windows/custom/custom-1280-1.25-switching.png",
+              "bytes": 727939,
+              "sha256": "176cf8a937316d51b872c8bd3c0297c1d0eeebb4254df76aa038b3b2b0fa132b"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

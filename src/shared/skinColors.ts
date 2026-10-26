@@ -58,6 +58,20 @@ export function skinBrushRgba(color: string, alpha: number, outer: boolean): num
   return [rgb.r, rgb.g, rgb.b, outer ? Math.round(clamp(alpha, 1) * 255) : 255]
 }
 
+/** Transparent overlay texels have no visible colour to sample. Do not turn
+ * the user's next brush into an invisible brush when picking an empty shell. */
+export function sampleSkinBrush(pixel: ArrayLike<number>, outer: boolean): { color: string; alpha: number } | undefined {
+  if (pixel.length !== 4 || Array.from(pixel).some(value => !Number.isInteger(value) || value < 0 || value > 255)) return undefined
+  if (outer && pixel[3] === 0) return undefined
+  return { color: rgbToSkinHex({ r: pixel[0], g: pixel[1], b: pixel[2] }), alpha: outer ? pixel[3] / 255 : 1 }
+}
+
+/** PNG alpha is stored in whole bytes; very small intentional values also
+ * round to invisible. Show the recovery affordance without changing them. */
+export function skinBrushIsInvisible(alpha: number, outer: boolean): boolean {
+  return outer && Number.isFinite(alpha) && Math.round(clamp(alpha, 1) * 255) === 0
+}
+
 export function rememberSkinColor(recent: string[], color: string, limit = 24): string[] {
   const rgb = parseSkinHex(color)
   if (!rgb) return [...recent]

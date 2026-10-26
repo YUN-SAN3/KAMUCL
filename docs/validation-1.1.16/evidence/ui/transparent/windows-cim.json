@@ -1,0 +1,4339 @@
+{
+  "classification": "Exact fields projected from original driver Windows CIM records; original complete driver retained separately, no resampling or altered observations",
+  "rootPid": 48472,
+  "samples": [
+    {
+      "startedAt": "2026-10-06T13:34:43.096Z",
+      "finishedAt": "2026-10-06T13:34:43.992Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:44.248Z",
+      "finishedAt": "2026-10-06T13:34:45.248Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:45.510Z",
+      "finishedAt": "2026-10-06T13:34:46.461Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:46.730Z",
+      "finishedAt": "2026-10-06T13:34:47.435Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:47.691Z",
+      "finishedAt": "2026-10-06T13:34:48.442Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:48.706Z",
+      "finishedAt": "2026-10-06T13:34:49.525Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:49.780Z",
+      "finishedAt": "2026-10-06T13:34:50.520Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:50.775Z",
+      "finishedAt": "2026-10-06T13:34:51.478Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:51.738Z",
+      "finishedAt": "2026-10-06T13:34:52.485Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:52.744Z",
+      "finishedAt": "2026-10-06T13:34:53.468Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:53.736Z",
+      "finishedAt": "2026-10-06T13:34:54.484Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:54.748Z",
+      "finishedAt": "2026-10-06T13:34:55.481Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:55.745Z",
+      "finishedAt": "2026-10-06T13:34:56.501Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:56.765Z",
+      "finishedAt": "2026-10-06T13:34:57.472Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:57.732Z",
+      "finishedAt": "2026-10-06T13:34:58.561Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:58.826Z",
+      "finishedAt": "2026-10-06T13:34:59.543Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:34:59.806Z",
+      "finishedAt": "2026-10-06T13:35:00.540Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:00.805Z",
+      "finishedAt": "2026-10-06T13:35:01.508Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:01.765Z",
+      "finishedAt": "2026-10-06T13:35:02.469Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:02.738Z",
+      "finishedAt": "2026-10-06T13:35:03.379Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:03.645Z",
+      "finishedAt": "2026-10-06T13:35:04.312Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:04.579Z",
+      "finishedAt": "2026-10-06T13:35:05.219Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:05.473Z",
+      "finishedAt": "2026-10-06T13:35:06.139Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:06.394Z",
+      "finishedAt": "2026-10-06T13:35:07.044Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:07.313Z",
+      "finishedAt": "2026-10-06T13:35:08.002Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:08.271Z",
+      "finishedAt": "2026-10-06T13:35:09.213Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:09.471Z",
+      "finishedAt": "2026-10-06T13:35:10.356Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:10.614Z",
+      "finishedAt": "2026-10-06T13:35:11.278Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:11.534Z",
+      "finishedAt": "2026-10-06T13:35:12.219Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:12.473Z",
+      "finishedAt": "2026-10-06T13:35:13.290Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:13.548Z",
+      "finishedAt": "2026-10-06T13:35:14.263Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:14.530Z",
+      "finishedAt": "2026-10-06T13:35:15.224Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:15.486Z",
+      "finishedAt": "2026-10-06T13:35:16.186Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:16.454Z",
+      "finishedAt": "2026-10-06T13:35:17.266Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:17.520Z",
+      "finishedAt": "2026-10-06T13:35:18.375Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:18.639Z",
+      "finishedAt": "2026-10-06T13:35:19.328Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    },
+    {
+      "startedAt": "2026-10-06T13:35:19.598Z",
+      "finishedAt": "2026-10-06T13:35:20.308Z",
+      "rows": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823
+        }
+      ],
+      "seen": [
+        {
+          "pid": 48472,
+          "ppid": 54128,
+          "createdAtUnixMs": 1791293683063,
+          "identity": "48472:1791293683063",
+          "linkedBy": "Actually spawned QA Node driver root with original creation time"
+        },
+        {
+          "pid": 44596,
+          "ppid": 48472,
+          "createdAtUnixMs": 1791293683576,
+          "identity": "44596:1791293683576",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 39916,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684268,
+          "identity": "39916:1791293684268",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 38140,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684502,
+          "identity": "38140:1791293684502",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 57020,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684522,
+          "identity": "57020:1791293684522",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 34424,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293684570,
+          "identity": "34424:1791293684570",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 25084,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293687804,
+          "identity": "25084:1791293687804",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 8428,
+          "ppid": 25084,
+          "createdAtUnixMs": 1791293687823,
+          "identity": "8428:1791293687823",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 46412,
+          "ppid": 44596,
+          "createdAtUnixMs": 1791293691967,
+          "identity": "46412:1791293691967",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        },
+        {
+          "pid": 29536,
+          "ppid": 46412,
+          "createdAtUnixMs": 1791293691983,
+          "identity": "29536:1791293691983",
+          "linkedBy": "Observed live parent identity belonging to the original own process family"
+        }
+      ],
+      "pidReuseObservations": [],
+      "rootPid": 48472,
+      "rootIdentity": "48472:1791293683063",
+      "available": true,
+      "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+    }
+  ],
+  "after": {
+    "startedAt": "2026-10-06T13:35:20.572Z",
+    "finishedAt": "2026-10-06T13:35:18.976Z",
+    "rows": [],
+    "seen": [
+      {
+        "pid": 48472,
+        "ppid": 54128,
+        "createdAtUnixMs": 1791293683063,
+        "identity": "48472:1791293683063",
+        "linkedBy": "Actually spawned QA Node driver root with original creation time"
+      },
+      {
+        "pid": 44596,
+        "ppid": 48472,
+        "createdAtUnixMs": 1791293683576,
+        "identity": "44596:1791293683576",
+        "linkedBy": "Observed live parent identity belonging to the original own process family"
+      },
+      {
+        "pid": 39916,
+        "ppid": 44596,
+        "createdAtUnixMs": 1791293684268,
+        "identity": "39916:1791293684268",
+        "linkedBy": "Observed live parent identity belonging to the original own process family"
+      },
+      {
+        "pid": 38140,
+        "ppid": 44596,
+        "createdAtUnixMs": 1791293684502,
+        "identity": "38140:1791293684502",
+        "linkedBy": "Observed live parent identity belonging to the original own process family"
+      },
+      {
+        "pid": 57020,
+        "ppid": 44596,
+        "createdAtUnixMs": 1791293684522,
+        "identity": "57020:1791293684522",
+        "linkedBy": "Observed live parent identity belonging to the original own process family"
+      },
+      {
+        "pid": 34424,
+        "ppid": 44596,
+        "createdAtUnixMs": 1791293684570,
+        "identity": "34424:1791293684570",
+        "linkedBy": "Observed live parent identity belonging to the original own process family"
+      },
+      {
+        "pid": 25084,
+        "ppid": 44596,
+        "createdAtUnixMs": 1791293687804,
+        "identity": "25084:1791293687804",
+        "linkedBy": "Observed live parent identity belonging to the original own process family"
+      },
+      {
+        "pid": 8428,
+        "ppid": 25084,
+        "createdAtUnixMs": 1791293687823,
+        "identity": "8428:1791293687823",
+        "linkedBy": "Observed live parent identity belonging to the original own process family"
+      },
+      {
+        "pid": 46412,
+        "ppid": 44596,
+        "createdAtUnixMs": 1791293691967,
+        "identity": "46412:1791293691967",
+        "linkedBy": "Observed live parent identity belonging to the original own process family"
+      },
+      {
+        "pid": 29536,
+        "ppid": 46412,
+        "createdAtUnixMs": 1791293691983,
+        "identity": "29536:1791293691983",
+        "linkedBy": "Observed live parent identity belonging to the original own process family"
+      }
+    ],
+    "pidReuseObservations": [],
+    "rootPid": 48472,
+    "rootIdentity": "48472:1791293683063",
+    "available": true,
+    "classification": "Original Windows Win32_Process PID/parent/creation-time snapshot. Each generation is a separate identity, descendants require an actual live owned parent; PID reuse alone never grants ownership. Previously seen exact identities remain tracked after parents exit. No name/command-line matching or signals."
+  },
+  "close": {
+    "code": 0,
+    "signal": null
+  },
+  "appMetrics": [
+    {
+      "pid": 44596,
+      "type": "Browser"
+    },
+    {
+      "pid": 38140,
+      "type": "GPU"
+    },
+    {
+      "pid": 57020,
+      "type": "Utility"
+    },
+    {
+      "pid": 34424,
+      "type": "Tab"
+    }
+  ]
+}

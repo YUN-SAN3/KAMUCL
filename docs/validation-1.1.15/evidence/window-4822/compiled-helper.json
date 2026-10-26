@@ -1,0 +1,219 @@
+{
+  "root": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL fade115 NwxQTb",
+  "helperFile": "E:\\KAMUCL\\release\\win-unpacked\\resources\\app.asar.unpacked\\out\\main\\WindowMaterial.exe",
+  "helperSha256": "229d7f0029741bc7b5b04949ad23d1029f2592d950c9528d3f5448701eee16a1",
+  "checks": [
+    {
+      "name": "fractional-opacity-preserved",
+      "before": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2621696,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 0.5
+      },
+      "response": "0",
+      "after": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2621696,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 0.5
+      }
+    },
+    {
+      "name": "foreign-owner-refused",
+      "before": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2621696,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 1
+      },
+      "response": "denied",
+      "after": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2621696,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 1
+      }
+    },
+    {
+      "name": "hidden-preserved",
+      "before": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2621696,
+        "foreground": 7475008,
+        "visible": false,
+        "minimized": false,
+        "opacity": 1
+      },
+      "response": "0",
+      "after": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2621696,
+        "foreground": 7475008,
+        "visible": false,
+        "minimized": false,
+        "opacity": 1
+      }
+    },
+    {
+      "name": "minimized-preserved",
+      "before": {
+        "physical": {
+          "left": -32000,
+          "top": -32000,
+          "right": -31801,
+          "bottom": -31966
+        },
+        "style": 2621696,
+        "foreground": 179507178,
+        "visible": false,
+        "minimized": true,
+        "opacity": 1
+      },
+      "response": "0",
+      "after": {
+        "physical": {
+          "left": -32000,
+          "top": -32000,
+          "right": -31801,
+          "bottom": -31966
+        },
+        "style": 2621696,
+        "foreground": 179507178,
+        "visible": false,
+        "minimized": true,
+        "opacity": 1
+      }
+    },
+    {
+      "name": "full-opacity-style-refreshed",
+      "before": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2621696,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 1
+      },
+      "response": "0",
+      "after": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2097408,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 1
+      }
+    },
+    {
+      "name": "idempotent-normal-window",
+      "before": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2097408,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 1
+      },
+      "response": "0",
+      "after": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2097408,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 1
+      }
+    },
+    {
+      "name": "click-through-preserved",
+      "before": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2621728,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 1
+      },
+      "response": "0",
+      "after": {
+        "physical": {
+          "left": 41,
+          "top": 50,
+          "right": 564,
+          "bottom": 363
+        },
+        "style": 2621728,
+        "foreground": 7475008,
+        "visible": true,
+        "minimized": false,
+        "opacity": 1
+      }
+    }
+  ],
+  "classification": "Native compiled helper contract on own disposable Electron windows; separate from production renderer and reported user-device reproduction",
+  "passed": true
+}

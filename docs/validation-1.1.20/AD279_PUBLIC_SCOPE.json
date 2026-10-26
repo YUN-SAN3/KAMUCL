@@ -1,0 +1,704 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-07T20:50:30.912Z",
+  "run": 37683666380,
+  "qaSourceCommit": "ad279ae2f0e556165d557bc7121153bd34a23d60",
+  "artifactSourceCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+  "productionSourceCommit": "6af4611d819f652b14bd37e6b67b4f32a761fc28",
+  "originalRun": 37680785679,
+  "originalArtifact": 11509975002,
+  "originalArchiveDigest": "sha256:c9edd19db7211b0f5358828195417fffb3f18f537e4c85497b270e6bd51b9e0b",
+  "overallJobAcceptancePassed": false,
+  "originalNativeAllPassed": false,
+  "immutableCollectionVerified": true,
+  "scopedIndexSHA256": "aecbb2bdd601e00312ab2123c3c51353a8b4287e17c5656da458a0fa30d0f911",
+  "sourceComparison": {
+    "baselineTag": "v1.1.19",
+    "baselineCommit": "9b232fda1344636dd8a91aaa8c3b551d8b3dddd3",
+    "productionCommit": "6af4611d819f652b14bd37e6b67b4f32a761fc28",
+    "comparisonPaths": [
+      "src/main/index.ts",
+      "src/main/startupSplash.ts",
+      "src/preload/splash.ts",
+      "src/renderer/src/splash.ts",
+      "src/renderer/src/splash.css",
+      "src/renderer/src/bootTasks.ts",
+      "src/renderer/src/views/HomeView.vue",
+      "src/renderer/src/App.vue"
+    ],
+    "changedPaths": [
+      "src/renderer/src/App.vue"
+    ],
+    "files": [
+      {
+        "file": "src/main/index.ts",
+        "beforeSHA256": "3e26951ada813d3c42000cb5a621a8f6bebfabe70c1f1cbdc1c2fb7d8c2fbb10",
+        "productionSHA256": "3e26951ada813d3c42000cb5a621a8f6bebfabe70c1f1cbdc1c2fb7d8c2fbb10",
+        "identical": true
+      },
+      {
+        "file": "src/main/startupSplash.ts",
+        "beforeSHA256": "2f3cbcde70a183a4409cb71bb1adcf6c55ae5cf9a1c2d336305c08168a0da28d",
+        "productionSHA256": "2f3cbcde70a183a4409cb71bb1adcf6c55ae5cf9a1c2d336305c08168a0da28d",
+        "identical": true
+      },
+      {
+        "file": "src/preload/splash.ts",
+        "beforeSHA256": "d58f9146ae425803cb36b1aff485cd9b652d0d1284d7ea9579a17a2f7a425a8f",
+        "productionSHA256": "d58f9146ae425803cb36b1aff485cd9b652d0d1284d7ea9579a17a2f7a425a8f",
+        "identical": true
+      },
+      {
+        "file": "src/renderer/src/splash.ts",
+        "beforeSHA256": "20e0d5f244ec82d53c8f0b2c9448b3db6c35162ceca0264bba5e942e5ae47818",
+        "productionSHA256": "20e0d5f244ec82d53c8f0b2c9448b3db6c35162ceca0264bba5e942e5ae47818",
+        "identical": true
+      },
+      {
+        "file": "src/renderer/src/splash.css",
+        "beforeSHA256": "de9819187b78f5dea1f09812ab1d6cda9d1177ef077df4d9f7b1d54bd031154c",
+        "productionSHA256": "de9819187b78f5dea1f09812ab1d6cda9d1177ef077df4d9f7b1d54bd031154c",
+        "identical": true
+      },
+      {
+        "file": "src/renderer/src/bootTasks.ts",
+        "beforeSHA256": "9c56f3c26e95d1809db6fe0d8a81b3afee46d7fb673e7514e560dcca7e8ee829",
+        "productionSHA256": "9c56f3c26e95d1809db6fe0d8a81b3afee46d7fb673e7514e560dcca7e8ee829",
+        "identical": true
+      },
+      {
+        "file": "src/renderer/src/views/HomeView.vue",
+        "beforeSHA256": "ab0ec2b475bbf9f9f3197c908b01b97d84f61676520cd8eea26b565a9cd3c301",
+        "productionSHA256": "ab0ec2b475bbf9f9f3197c908b01b97d84f61676520cd8eea26b565a9cd3c301",
+        "identical": true
+      },
+      {
+        "file": "src/renderer/src/App.vue",
+        "beforeSHA256": "a4e86f750b5fb3529262b6ca839a672121bbd02694b62cc49dba3adbc6293aa4",
+        "productionSHA256": "6c417ae55edaecc9eafbc0f931c781b034d67737efbe8a84ecbdcf4484da47a4",
+        "identical": false
+      }
+    ],
+    "rawDiffSHA256": "8b1ad7eae4aa02e211ca507da2631f35403095c6df1d37cd8a006901838a5aea",
+    "rawDiffBytes": 931,
+    "classification": "Full diff over explicitly named startup implementation/entry/boot-task/HomeView/App paths. App.vue sole change in this range is download-detail wrapping CSS; startup implementation and boot readiness behavior are unchanged. This source result does not explain every runtime scheduling difference.",
+    "artifactCommit": "0649ed5c7035a0809b9e73117da2b4ff0ea378bd",
+    "productionToArtifactQaOnlyPaths": [
+      ".github/workflows/mac-build.yml",
+      "scripts/mac-boot-failure120-tests.cjs",
+      "scripts/mac-boot-failure120.cjs",
+      "scripts/mac-boot-observer120-tests.cjs",
+      "scripts/mac-boot-observer120.cjs",
+      "scripts/mac-current-evidence120-tests.cjs",
+      "scripts/mac-current-evidence120.cjs",
+      "scripts/mac-opengl-capability120-tests.cjs",
+      "scripts/mac-opengl-capability120.swift",
+      "scripts/mac-parity-coordinate114-tests.cjs",
+      "scripts/qa-native-mac120-tests.cjs",
+      "scripts/qa-native-mac120.cjs",
+      "scripts/qa-native-mac120.swift",
+      "scripts/qa-ux116.cjs",
+      "scripts/verify-mac-batch120-reuse-tests.cjs",
+      "scripts/verify-mac-batch120.cjs",
+      "scripts/verify-mac-extra.cjs",
+      "scripts/verify-mac-opengl120.cjs",
+      "scripts/verify-mac-parity-ui.cjs",
+      "scripts/verify-mac.cjs",
+      "scripts/verify-ui-refinement.cjs",
+      "tests/all.test.ts"
+    ],
+    "qaCommit": "ad279ae2f0e556165d557bc7121153bd34a23d60",
+    "artifactToScopedQaOnlyPaths": [
+      ".github/workflows/mac-batch120-reuse.yml",
+      "scripts/qa-community-input120-tests.cjs",
+      "scripts/qa-community120.cjs",
+      "scripts/verify-mac-batch120-reuse-tests.cjs",
+      "scripts/verify-mac-batch120-reuse.cjs",
+      "tests/all.test.ts"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": 11510297951,
+      "name": "mac-batch120-reuse-arm64-app",
+      "bytes": 50174218,
+      "apiDigest": "sha256:e8e1d65f6cd3c5aed731b06b2bd6715a7d4b671be53811825b297250396613c3",
+      "sha256": "e8e1d65f6cd3c5aed731b06b2bd6715a7d4b671be53811825b297250396613c3"
+    },
+    {
+      "id": 11509659076,
+      "name": "mac-batch120-reuse-arm64-dmg",
+      "bytes": 38842619,
+      "apiDigest": "sha256:1019102cfa4fe15a55a36537346af689a23ffbc67746b43ac7f7754cee0903bf",
+      "sha256": "1019102cfa4fe15a55a36537346af689a23ffbc67746b43ac7f7754cee0903bf"
+    }
+  ],
+  "stages": [
+    {
+      "stage": "app",
+      "uiBatchComplete": true,
+      "wholeReuseComplete": false,
+      "displayRestored": false,
+      "displayRestorationPassed": false,
+      "cleanupErrors": [
+        {
+          "stage": "display",
+          "message": "Native normal restoration failed\n\nfalse !== true\n"
+        }
+      ],
+      "strictSignedArm64Package": "strict deep verification passed",
+      "actualAsarSHA256": "75eb10c3394ee2bc1f8578dc2572ffa979c120a8369f92ebc4251b68de652ecf",
+      "rows": [
+        {
+          "theme": "black-orange",
+          "startupDeadlineMs": 10000,
+          "startupDeadlinePassed": true,
+          "elapsedAtLastOriginalSampleMs": 9371,
+          "complete": true,
+          "downloadStatusReplayComplete": true,
+          "communityControlledMetadataComplete": true,
+          "inputMethod": "Real trusted Chromium editing commands plus read-only selection/isTrusted receiver ledger; no OS Cmd+A post claim",
+          "inputReplacementCount": 4,
+          "exactFinalCustomVersion": "1.21.1",
+          "actualLaunchStages": [
+            {
+              "at": "2026-10-07T20:40:54.696Z",
+              "unixMs": 1791405654696,
+              "message": "KAMUCL 1.1.20 session started (darwin arm64)"
+            },
+            {
+              "at": "2026-10-07T20:40:56.718Z",
+              "unixMs": 1791405656718,
+              "message": "[INFO] [main] 主窗口创建完成"
+            },
+            {
+              "at": "2026-10-07T20:41:00.166Z",
+              "unixMs": 1791405660166,
+              "message": "[INFO] Startup: floating desktop glass visible"
+            },
+            {
+              "at": "2026-10-07T20:41:01.321Z",
+              "unixMs": 1791405661321,
+              "message": "[INFO] Startup: settings complete"
+            },
+            {
+              "at": "2026-10-07T20:41:02.493Z",
+              "unixMs": 1791405662493,
+              "message": "[INFO] Startup: accounts complete"
+            },
+            {
+              "at": "2026-10-07T20:41:02.493Z",
+              "unixMs": 1791405662493,
+              "message": "[INFO] Startup: instances complete"
+            },
+            {
+              "at": "2026-10-07T20:41:02.745Z",
+              "unixMs": 1791405662745,
+              "message": "[INFO] Startup: assets complete"
+            },
+            {
+              "at": "2026-10-07T20:41:05.379Z",
+              "unixMs": 1791405665379,
+              "message": "[INFO] Startup: paint complete"
+            },
+            {
+              "at": "2026-10-07T20:41:05.380Z",
+              "unixMs": 1791405665380,
+              "message": "[INFO] Startup: renderer resources settled"
+            },
+            {
+              "at": "2026-10-07T20:41:06.201Z",
+              "unixMs": 1791405666201,
+              "message": "[INFO] Startup: main window revealed after renderer + compositor + avatar ready"
+            }
+          ],
+          "originalError": null
+        },
+        {
+          "theme": "blue-white",
+          "startupDeadlineMs": 10000,
+          "startupDeadlinePassed": true,
+          "elapsedAtLastOriginalSampleMs": 2247,
+          "complete": true,
+          "downloadStatusReplayComplete": true,
+          "communityControlledMetadataComplete": true,
+          "inputMethod": "Real trusted Chromium editing commands plus read-only selection/isTrusted receiver ledger; no OS Cmd+A post claim",
+          "inputReplacementCount": 4,
+          "exactFinalCustomVersion": "1.21.1",
+          "actualLaunchStages": [
+            {
+              "at": "2026-10-07T20:41:46.965Z",
+              "unixMs": 1791405706965,
+              "message": "KAMUCL 1.1.20 session started (darwin arm64)"
+            },
+            {
+              "at": "2026-10-07T20:41:47.466Z",
+              "unixMs": 1791405707466,
+              "message": "[INFO] [main] 主窗口创建完成"
+            },
+            {
+              "at": "2026-10-07T20:41:47.592Z",
+              "unixMs": 1791405707592,
+              "message": "[INFO] Startup: floating desktop glass visible"
+            },
+            {
+              "at": "2026-10-07T20:41:48.139Z",
+              "unixMs": 1791405708139,
+              "message": "[INFO] Startup: settings complete"
+            },
+            {
+              "at": "2026-10-07T20:41:48.245Z",
+              "unixMs": 1791405708245,
+              "message": "[INFO] Startup: accounts complete"
+            },
+            {
+              "at": "2026-10-07T20:41:48.250Z",
+              "unixMs": 1791405708250,
+              "message": "[INFO] Startup: instances complete"
+            },
+            {
+              "at": "2026-10-07T20:41:48.379Z",
+              "unixMs": 1791405708379,
+              "message": "[INFO] Startup: assets complete"
+            },
+            {
+              "at": "2026-10-07T20:41:49.383Z",
+              "unixMs": 1791405709383,
+              "message": "[INFO] Startup: paint complete"
+            },
+            {
+              "at": "2026-10-07T20:41:49.383Z",
+              "unixMs": 1791405709383,
+              "message": "[INFO] Startup: renderer resources settled"
+            },
+            {
+              "at": "2026-10-07T20:41:49.433Z",
+              "unixMs": 1791405709433,
+              "message": "[INFO] Startup: main window revealed after renderer + compositor + avatar ready"
+            }
+          ],
+          "originalError": null
+        },
+        {
+          "theme": "transparent",
+          "startupDeadlineMs": 10000,
+          "startupDeadlinePassed": true,
+          "elapsedAtLastOriginalSampleMs": 2782,
+          "complete": true,
+          "downloadStatusReplayComplete": true,
+          "communityControlledMetadataComplete": true,
+          "inputMethod": "Real trusted Chromium editing commands plus read-only selection/isTrusted receiver ledger; no OS Cmd+A post claim",
+          "inputReplacementCount": 4,
+          "exactFinalCustomVersion": "1.21.1",
+          "actualLaunchStages": [
+            {
+              "at": "2026-10-07T20:42:30.072Z",
+              "unixMs": 1791405750072,
+              "message": "KAMUCL 1.1.20 session started (darwin arm64)"
+            },
+            {
+              "at": "2026-10-07T20:42:30.698Z",
+              "unixMs": 1791405750698,
+              "message": "[INFO] [main] 主窗口创建完成"
+            },
+            {
+              "at": "2026-10-07T20:42:30.882Z",
+              "unixMs": 1791405750882,
+              "message": "[INFO] Startup: floating desktop glass visible"
+            },
+            {
+              "at": "2026-10-07T20:42:31.552Z",
+              "unixMs": 1791405751552,
+              "message": "[INFO] Startup: settings complete"
+            },
+            {
+              "at": "2026-10-07T20:42:31.578Z",
+              "unixMs": 1791405751578,
+              "message": "[INFO] Startup: accounts complete"
+            },
+            {
+              "at": "2026-10-07T20:42:31.581Z",
+              "unixMs": 1791405751581,
+              "message": "[INFO] Startup: instances complete"
+            },
+            {
+              "at": "2026-10-07T20:42:31.664Z",
+              "unixMs": 1791405751664,
+              "message": "[INFO] Startup: assets complete"
+            },
+            {
+              "at": "2026-10-07T20:42:31.687Z",
+              "unixMs": 1791405751687,
+              "message": "[INFO] Startup: paint complete"
+            },
+            {
+              "at": "2026-10-07T20:42:31.688Z",
+              "unixMs": 1791405751688,
+              "message": "[INFO] Startup: renderer resources settled"
+            },
+            {
+              "at": "2026-10-07T20:42:32.154Z",
+              "unixMs": 1791405752154,
+              "message": "[INFO] Startup: main window revealed after renderer + compositor + avatar ready"
+            }
+          ],
+          "originalError": null
+        },
+        {
+          "theme": "custom",
+          "startupDeadlineMs": 10000,
+          "startupDeadlinePassed": true,
+          "elapsedAtLastOriginalSampleMs": 3059,
+          "complete": true,
+          "downloadStatusReplayComplete": true,
+          "communityControlledMetadataComplete": true,
+          "inputMethod": "Real trusted Chromium editing commands plus read-only selection/isTrusted receiver ledger; no OS Cmd+A post claim",
+          "inputReplacementCount": 4,
+          "exactFinalCustomVersion": "1.21.1",
+          "actualLaunchStages": [
+            {
+              "at": "2026-10-07T20:43:38.250Z",
+              "unixMs": 1791405818250,
+              "message": "KAMUCL 1.1.20 session started (darwin arm64)"
+            },
+            {
+              "at": "2026-10-07T20:43:38.869Z",
+              "unixMs": 1791405818869,
+              "message": "[INFO] [main] 主窗口创建完成"
+            },
+            {
+              "at": "2026-10-07T20:43:39.260Z",
+              "unixMs": 1791405819260,
+              "message": "[INFO] Startup: floating desktop glass visible"
+            },
+            {
+              "at": "2026-10-07T20:43:39.627Z",
+              "unixMs": 1791405819627,
+              "message": "[INFO] Startup: settings complete"
+            },
+            {
+              "at": "2026-10-07T20:43:39.718Z",
+              "unixMs": 1791405819718,
+              "message": "[INFO] Startup: accounts complete"
+            },
+            {
+              "at": "2026-10-07T20:43:39.788Z",
+              "unixMs": 1791405819788,
+              "message": "[INFO] Startup: instances complete"
+            },
+            {
+              "at": "2026-10-07T20:43:39.898Z",
+              "unixMs": 1791405819898,
+              "message": "[INFO] Startup: assets complete"
+            },
+            {
+              "at": "2026-10-07T20:43:41.459Z",
+              "unixMs": 1791405821459,
+              "message": "[INFO] Startup: paint complete"
+            },
+            {
+              "at": "2026-10-07T20:43:41.460Z",
+              "unixMs": 1791405821460,
+              "message": "[INFO] Startup: renderer resources settled"
+            },
+            {
+              "at": "2026-10-07T20:43:41.557Z",
+              "unixMs": 1791405821557,
+              "message": "[INFO] Startup: main window revealed after renderer + compositor + avatar ready"
+            }
+          ],
+          "originalError": null
+        }
+      ]
+    },
+    {
+      "stage": "dmg",
+      "uiBatchComplete": false,
+      "wholeReuseComplete": false,
+      "displayRestored": false,
+      "displayRestorationPassed": false,
+      "cleanupErrors": [
+        {
+          "stage": "display",
+          "message": "Native normal restoration failed\n\nfalse !== true\n"
+        }
+      ],
+      "mountDetached": true,
+      "strictSignedArm64Package": "strict deep verification passed",
+      "actualAsarSHA256": "75eb10c3394ee2bc1f8578dc2572ffa979c120a8369f92ebc4251b68de652ecf",
+      "rows": [
+        {
+          "theme": "black-orange",
+          "startupDeadlineMs": 10000,
+          "startupDeadlinePassed": false,
+          "elapsedAtLastOriginalSampleMs": 9984,
+          "complete": false,
+          "downloadStatusReplayComplete": false,
+          "communityControlledMetadataComplete": false,
+          "inputMethod": "Real trusted Chromium editing commands plus read-only selection/isTrusted receiver ledger; no OS Cmd+A post claim",
+          "inputReplacementCount": 0,
+          "exactFinalCustomVersion": null,
+          "actualLaunchStages": [
+            {
+              "at": "2026-10-07T20:41:15.634Z",
+              "unixMs": 1791405675634,
+              "message": "KAMUCL 1.1.20 session started (darwin arm64)"
+            },
+            {
+              "at": "2026-10-07T20:41:17.851Z",
+              "unixMs": 1791405677851,
+              "message": "[INFO] [main] 主窗口创建完成"
+            },
+            {
+              "at": "2026-10-07T20:41:19.940Z",
+              "unixMs": 1791405679940,
+              "message": "[INFO] Startup: floating desktop glass visible"
+            },
+            {
+              "at": "2026-10-07T20:41:22.389Z",
+              "unixMs": 1791405682389,
+              "message": "[INFO] Startup: settings complete"
+            },
+            {
+              "at": "2026-10-07T20:41:22.477Z",
+              "unixMs": 1791405682477,
+              "message": "[INFO] Startup: accounts complete"
+            },
+            {
+              "at": "2026-10-07T20:41:22.713Z",
+              "unixMs": 1791405682713,
+              "message": "[INFO] Startup: instances complete"
+            },
+            {
+              "at": "2026-10-07T20:41:22.779Z",
+              "unixMs": 1791405682779,
+              "message": "[INFO] Startup: assets complete"
+            },
+            {
+              "at": "2026-10-07T20:41:28.011Z",
+              "unixMs": 1791405688011,
+              "message": "[INFO] Startup: paint complete"
+            },
+            {
+              "at": "2026-10-07T20:41:28.011Z",
+              "unixMs": 1791405688011,
+              "message": "[INFO] Startup: renderer resources settled"
+            },
+            {
+              "at": "2026-10-07T20:41:29.025Z",
+              "unixMs": 1791405689025,
+              "message": "[INFO] Startup: main window revealed after renderer + compositor + avatar ready"
+            }
+          ],
+          "originalError": "Unique actual production renderer did not become ready within 10000 ms; original window inventory retained"
+        },
+        {
+          "theme": "blue-white",
+          "startupDeadlineMs": 10000,
+          "startupDeadlinePassed": true,
+          "elapsedAtLastOriginalSampleMs": 4687,
+          "complete": true,
+          "downloadStatusReplayComplete": true,
+          "communityControlledMetadataComplete": true,
+          "inputMethod": "Real trusted Chromium editing commands plus read-only selection/isTrusted receiver ledger; no OS Cmd+A post claim",
+          "inputReplacementCount": 4,
+          "exactFinalCustomVersion": "1.21.1",
+          "actualLaunchStages": [
+            {
+              "at": "2026-10-07T20:41:34.868Z",
+              "unixMs": 1791405694868,
+              "message": "KAMUCL 1.1.20 session started (darwin arm64)"
+            },
+            {
+              "at": "2026-10-07T20:41:35.587Z",
+              "unixMs": 1791405695587,
+              "message": "[INFO] [main] 主窗口创建完成"
+            },
+            {
+              "at": "2026-10-07T20:41:36.064Z",
+              "unixMs": 1791405696064,
+              "message": "[INFO] Startup: floating desktop glass visible"
+            },
+            {
+              "at": "2026-10-07T20:41:36.376Z",
+              "unixMs": 1791405696376,
+              "message": "[INFO] Startup: settings complete"
+            },
+            {
+              "at": "2026-10-07T20:41:36.439Z",
+              "unixMs": 1791405696439,
+              "message": "[INFO] Startup: accounts complete"
+            },
+            {
+              "at": "2026-10-07T20:41:36.439Z",
+              "unixMs": 1791405696439,
+              "message": "[INFO] Startup: instances complete"
+            },
+            {
+              "at": "2026-10-07T20:41:36.910Z",
+              "unixMs": 1791405696910,
+              "message": "[INFO] Startup: assets complete"
+            },
+            {
+              "at": "2026-10-07T20:41:38.357Z",
+              "unixMs": 1791405698357,
+              "message": "[INFO] Startup: paint complete"
+            },
+            {
+              "at": "2026-10-07T20:41:38.357Z",
+              "unixMs": 1791405698357,
+              "message": "[INFO] Startup: renderer resources settled"
+            },
+            {
+              "at": "2026-10-07T20:41:38.745Z",
+              "unixMs": 1791405698745,
+              "message": "[INFO] Startup: main window revealed after renderer + compositor + avatar ready"
+            }
+          ],
+          "originalError": null
+        },
+        {
+          "theme": "transparent",
+          "startupDeadlineMs": 10000,
+          "startupDeadlinePassed": true,
+          "elapsedAtLastOriginalSampleMs": 2949,
+          "complete": true,
+          "downloadStatusReplayComplete": true,
+          "communityControlledMetadataComplete": true,
+          "inputMethod": "Real trusted Chromium editing commands plus read-only selection/isTrusted receiver ledger; no OS Cmd+A post claim",
+          "inputReplacementCount": 4,
+          "exactFinalCustomVersion": "1.21.1",
+          "actualLaunchStages": [
+            {
+              "at": "2026-10-07T20:42:26.164Z",
+              "unixMs": 1791405746164,
+              "message": "KAMUCL 1.1.20 session started (darwin arm64)"
+            },
+            {
+              "at": "2026-10-07T20:42:26.832Z",
+              "unixMs": 1791405746832,
+              "message": "[INFO] [main] 主窗口创建完成"
+            },
+            {
+              "at": "2026-10-07T20:42:27.063Z",
+              "unixMs": 1791405747063,
+              "message": "[INFO] Startup: floating desktop glass visible"
+            },
+            {
+              "at": "2026-10-07T20:42:27.559Z",
+              "unixMs": 1791405747559,
+              "message": "[INFO] Startup: settings complete"
+            },
+            {
+              "at": "2026-10-07T20:42:27.579Z",
+              "unixMs": 1791405747579,
+              "message": "[INFO] Startup: accounts complete"
+            },
+            {
+              "at": "2026-10-07T20:42:27.605Z",
+              "unixMs": 1791405747605,
+              "message": "[INFO] Startup: instances complete"
+            },
+            {
+              "at": "2026-10-07T20:42:28.085Z",
+              "unixMs": 1791405748085,
+              "message": "[INFO] Startup: assets complete"
+            },
+            {
+              "at": "2026-10-07T20:42:28.596Z",
+              "unixMs": 1791405748596,
+              "message": "[INFO] Startup: paint complete"
+            },
+            {
+              "at": "2026-10-07T20:42:28.596Z",
+              "unixMs": 1791405748596,
+              "message": "[INFO] Startup: renderer resources settled"
+            },
+            {
+              "at": "2026-10-07T20:42:29.168Z",
+              "unixMs": 1791405749168,
+              "message": "[INFO] Startup: main window revealed after renderer + compositor + avatar ready"
+            }
+          ],
+          "originalError": null
+        },
+        {
+          "theme": "custom",
+          "startupDeadlineMs": 10000,
+          "startupDeadlinePassed": true,
+          "elapsedAtLastOriginalSampleMs": 2619,
+          "complete": true,
+          "downloadStatusReplayComplete": true,
+          "communityControlledMetadataComplete": true,
+          "inputMethod": "Real trusted Chromium editing commands plus read-only selection/isTrusted receiver ledger; no OS Cmd+A post claim",
+          "inputReplacementCount": 4,
+          "exactFinalCustomVersion": "1.21.1",
+          "actualLaunchStages": [
+            {
+              "at": "2026-10-07T20:43:24.027Z",
+              "unixMs": 1791405804027,
+              "message": "KAMUCL 1.1.20 session started (darwin arm64)"
+            },
+            {
+              "at": "2026-10-07T20:43:24.635Z",
+              "unixMs": 1791405804635,
+              "message": "[INFO] [main] 主窗口创建完成"
+            },
+            {
+              "at": "2026-10-07T20:43:24.821Z",
+              "unixMs": 1791405804821,
+              "message": "[INFO] Startup: floating desktop glass visible"
+            },
+            {
+              "at": "2026-10-07T20:43:25.291Z",
+              "unixMs": 1791405805291,
+              "message": "[INFO] Startup: settings complete"
+            },
+            {
+              "at": "2026-10-07T20:43:25.515Z",
+              "unixMs": 1791405805515,
+              "message": "[INFO] Startup: accounts complete"
+            },
+            {
+              "at": "2026-10-07T20:43:25.547Z",
+              "unixMs": 1791405805547,
+              "message": "[INFO] Startup: instances complete"
+            },
+            {
+              "at": "2026-10-07T20:43:25.898Z",
+              "unixMs": 1791405805898,
+              "message": "[INFO] Startup: assets complete"
+            },
+            {
+              "at": "2026-10-07T20:43:26.838Z",
+              "unixMs": 1791405806838,
+              "message": "[INFO] Startup: paint complete"
+            },
+            {
+              "at": "2026-10-07T20:43:26.838Z",
+              "unixMs": 1791405806838,
+              "message": "[INFO] Startup: renderer resources settled"
+            },
+            {
+              "at": "2026-10-07T20:43:26.944Z",
+              "unixMs": 1791405806944,
+              "message": "[INFO] Startup: main window revealed after renderer + compositor + avatar ready"
+            }
+          ],
+          "originalError": null
+        }
+      ]
+    }
+  ],
+  "imageMemberCount": 324,
+  "limits": [
+    "APP four themes passed the unchanged actual cold readiness and full modified-module assertions on this attempt; this never rewrites the original 0649 all-run black failure.",
+    "DMG three nonblack themes passed full modified-module assertions; black remained an original 10000ms readiness failure with later natural visibility, and its community/download module was not executed.",
+    "Both jobs remain failure because the native display helper did not verify restoration to the original mode/frame/workArea. No cleanup result was waived.",
+    "Text used real Chromium editing commands/Input.insertText plus trusted coordinate focus; the read-only DOM isTrusted/selection ledger is not a native OS Cmd+A post receipt. Swift keyboard support was not expanded.",
+    "Download status fixtures are synthetic messages through actual production webContents/renderer; community metadata and installed non-runnable fixtures are synthetic. No new real download/network/game claim.",
+    "Fresh source0649 package bytes, exact QA sourcead279, API archive/manifest/asset/ASAR/signature identities are separately bound. No rebuild, altered product or overwritten original failure evidence.",
+    "Page compositor PNGs and full native CI desktop screenshots are separately identified in their original proof. Stills do not prove complete motion, FPS or physical audio listening."
+  ],
+  "scope": "Modified launcher download-status and community controls only. Complete APP four-theme scoped UI; DMG three-theme scoped UI, black not executed after original readiness failure. Job/restoration failures and original all failures retained. Not whole-platform/no-difference/all-games acceptance."
+}

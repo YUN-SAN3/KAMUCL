@@ -1,0 +1,383 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "compliance_scope_audit",
+  "observedAt": "2026-10-13T17:28:40.981Z",
+  "classification": "Independent final Windows artifact material verification, not a score of reviewer-owned license implementation or universal legal clearance.",
+  "version": "1.1.22",
+  "actualEXE": {
+    "file": "release/KAMUCL-1.1.22.exe",
+    "bytes": 99124081,
+    "sha256": "9ae86b2944c3f88ac0e59178398192b161503f9ba7700a34ed9bff0af7687ec7",
+    "archiveType": "Nsis",
+    "method": "Deflate",
+    "plugins": [
+      {
+        "file": "System.dll",
+        "bytes": 12288,
+        "sha256": "3eb38ae99653a7dbc724132ee240f6e5c4af4bfe7c01d31d23faf373f9f2eaca",
+        "sameAsOriginal121AndPrimary": true
+      },
+      {
+        "file": "StdUtils.dll",
+        "bytes": 102400,
+        "sha256": "b72e9013a6204e9f01076dc38dabbf30870d44dfc66962adbf73619d4331601e",
+        "sameAsOriginal121AndPrimary": true
+      },
+      {
+        "file": "nsis7z.dll",
+        "bytes": 434176,
+        "sha256": "b393f05e8ff919ef071181050e1873c9a776e1a0ae8329aefff7007d0cadf592",
+        "sameAsOriginal121AndPrimary": true
+      }
+    ],
+    "payloadBytes": 98760700,
+    "actualASAR": {
+      "bytes": 21066295,
+      "sha256": "5da49ae0aa8b28c3a6d3d24ef6f74050d356fe32a0a0460c95286aba4c7a3ea4",
+      "entryCount": 453,
+      "matchesUnpacked": true,
+      "packages": [
+        {
+          "file": "node_modules/@iarna/toml/package.json",
+          "name": "@iarna/toml",
+          "version": "2.2.5",
+          "license": "ISC"
+        },
+        {
+          "file": "node_modules/@koromix/koffi-win32-x64/package.json",
+          "name": "@koromix/koffi-win32-x64",
+          "version": "3.2.1",
+          "license": "MIT"
+        },
+        {
+          "file": "node_modules/adm-zip/package.json",
+          "name": "adm-zip",
+          "version": "0.6.1",
+          "license": "MIT"
+        },
+        {
+          "file": "node_modules/koffi/package.json",
+          "name": "koffi",
+          "version": "3.2.1",
+          "license": "MIT"
+        },
+        {
+          "file": "node_modules/undici/package.json",
+          "name": "undici",
+          "version": "6.28.1",
+          "license": "MIT"
+        },
+        {
+          "file": "node_modules/ws/package.json",
+          "name": "ws",
+          "version": "8.22.0",
+          "license": "MIT"
+        }
+      ]
+    }
+  },
+  "runtimeNotices": [
+    {
+      "file": "LICENSE.electron.txt",
+      "bytes": 1096,
+      "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d",
+      "matchesUnpacked": true
+    },
+    {
+      "file": "LICENSES.chromium.html",
+      "bytes": 20472830,
+      "sha256": "7b328b8c7463ac9bfc7dc648c751533517c8441a0b5b21047d6c0b2620e60d70",
+      "matchesUnpacked": true
+    }
+  ],
+  "ffmpeg": {
+    "bytes": 3113472,
+    "sha256": "336587847c4ed3ef1a195d1aaea3d3951c9749a035ffa7951df4c0e02971e4e0"
+  },
+  "materials": [
+    {
+      "file": "LICENSE",
+      "bytes": 1314,
+      "sha256": "72b7ee01719dc8ee23b648b40570668eb0392d6e56a5d562dfdee96ab4043bed",
+      "matchesWorktree": true
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.md",
+      "bytes": 12180,
+      "sha256": "32827edb7a18c03f080ec73a7bc306d69325e600c5f8e4fa64c4370da30a058e",
+      "matchesWorktree": true
+    },
+    {
+      "file": "docs/CORRESPONDING_SOURCE.md",
+      "bytes": 2944,
+      "sha256": "373f34a711da5c9b928a2737da1a0bdc0e1b9b8c679830499615bcd919ae2d75",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/7zip-19.00-COPYING.txt",
+      "bytes": 27032,
+      "sha256": "1e7e6bae5a5bde32f1ae5a7c37a082d1ab03cf89354f7f936ac40be9e39a6531",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/7zip-19.00.txt",
+      "bytes": 4193,
+      "sha256": "8b726d14f08a7fe230ee17d26862712c1bf9a34fbca8d97609ec951148e9e27d",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/FFmpeg-COPYING.LGPLv2.1",
+      "bytes": 26517,
+      "sha256": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/FFmpeg-COPYING.LGPLv3",
+      "bytes": 7651,
+      "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/FFmpeg-LICENSE.txt",
+      "bytes": 4346,
+      "sha256": "2e1d16c72fd74e12063776371da757322f8b77589386532f4fd8634bde7de1af",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/GPL-3.0.txt",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/LGPL-2.1.txt",
+      "bytes": 26530,
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/LGPL-3.0.txt",
+      "bytes": 7633,
+      "sha256": "6557adc4bc1d59232e27567a185dd70cf2ecca3154018b0be61ea29cf9e814e2",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/NSIS-3.0.4.1-COPYING.txt",
+      "bytes": 15488,
+      "sha256": "3c8de989f6504d52f5f8dfafedb6668cd47201f5d01f1319570727c091425dd6",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/Nsis7z-SDK-License.txt",
+      "bytes": 476,
+      "sha256": "63fcfe54826809b5a9f9df8a8ff53c04330122319ec67a2dd815085586adaf0e",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/StdUtils-LGPL-CLARIFICATION.txt",
+      "bytes": 2703,
+      "sha256": "49287ffa37d51910a8cb595d7ab64ebd2d42525384b16d4322783a0e57a77194",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/StdUtils-README.txt",
+      "bytes": 1350,
+      "sha256": "7d1b40bfdf3d6ef857b361929f8bfa3de38f53968ab1c084fac50ce0086e23f1",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/adm-zip.txt",
+      "bytes": 1106,
+      "sha256": "6bb5b2d4c07d793ca928daa63a8899c6914fafb5ac3aa04ec10cae07f3d57dca",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/authlib-injector-AGPL-exception.txt",
+      "bytes": 35009,
+      "sha256": "3ae6da2502108d2bf777508663a6c4ca55fb937137507bebb642e4506c0ccd0b",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/iarna-toml.txt",
+      "bytes": 751,
+      "sha256": "22754885597e9864dbb792209ce75e58d691cba24c55beaa45023b218515e33e",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/koffi.txt",
+      "bytes": 1117,
+      "sha256": "22bcbbbacd739b026a8dc484f62a31484ce4c4e31f3408b60b29b4e41d62b290",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/minecraft-data.txt",
+      "bytes": 1338,
+      "sha256": "81ca556083602e2074b4a0ed450f7c0a1e64d373cf98691147e8e9ef5d2d32d0",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/node-addon-api.txt",
+      "bytes": 1150,
+      "sha256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/node-api-headers.txt",
+      "bytes": 1064,
+      "sha256": "a553508f516031c91f3af1148d44970cb81bbae6c4f091be6835d39cc252238c",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/skinview-utils.txt",
+      "bytes": 1140,
+      "sha256": "7eb7128de2e4de70932ce370c2c602136b4d7648fce9fc4a50c93fc59be94d94",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/skinview3d.txt",
+      "bytes": 1140,
+      "sha256": "7eb7128de2e4de70932ce370c2c602136b4d7648fce9fc4a50c93fc59be94d94",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/source/7zip-19.00-source.7z",
+      "bytes": 1071569,
+      "sha256": "9ba70a5e8485cf9061b30a2a84fe741de5aeb8dd271aab8889da0e9b3bf1868e",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/source/Nsis7z_19.00.7z",
+      "bytes": 461078,
+      "sha256": "6f2f3730049926f40442ee0c8b7d3e3dee7ace544d82467ff8059ea3f4201c58",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/source/README.md",
+      "bytes": 2225,
+      "sha256": "e4f43c41edb6ee00efd9904f9b9c3859d6f1da2b3982d600ed01a1cc389e82dc",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/source/stdutils-1.14.tar.gz",
+      "bytes": 222751,
+      "sha256": "3687ab4e09005a8a0b93c1a07a36285d93466070e94b8bf6f12781fb53c419e1",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/three.txt",
+      "bytes": 1081,
+      "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/undici.txt",
+      "bytes": 1090,
+      "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/vue-reactivity.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/vue-runtime-core.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/vue-runtime-dom.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/vue-shared.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/vue.txt",
+      "bytes": 1091,
+      "sha256": "1bb85cc9b13b81ef41c81c51866172fc345e0503c86726a6755b796590b70175",
+      "matchesWorktree": true
+    },
+    {
+      "file": "licenses/ws.txt",
+      "bytes": 1183,
+      "sha256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef",
+      "matchesWorktree": true
+    }
+  ],
+  "compactZIP": {
+    "file": "release/KAMUCL-1.1.22-windows-x64.zip",
+    "bytes": 100972803,
+    "sha256": "4b7e80621f51490131aacd5b53acf0a6c0f6c6edf55887be3dbe559c7caed8d8",
+    "samePortableEXE": true,
+    "materials": [
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md",
+      "docs/CORRESPONDING_SOURCE.md",
+      "licenses/7zip-19.00-COPYING.txt",
+      "licenses/7zip-19.00.txt",
+      "licenses/FFmpeg-COPYING.LGPLv2.1",
+      "licenses/FFmpeg-COPYING.LGPLv3",
+      "licenses/FFmpeg-LICENSE.txt",
+      "licenses/GPL-3.0.txt",
+      "licenses/LGPL-2.1.txt",
+      "licenses/LGPL-3.0.txt",
+      "licenses/NSIS-3.0.4.1-COPYING.txt",
+      "licenses/Nsis7z-SDK-License.txt",
+      "licenses/StdUtils-LGPL-CLARIFICATION.txt",
+      "licenses/StdUtils-README.txt",
+      "licenses/adm-zip.txt",
+      "licenses/authlib-injector-AGPL-exception.txt",
+      "licenses/iarna-toml.txt",
+      "licenses/koffi.txt",
+      "licenses/minecraft-data.txt",
+      "licenses/node-addon-api.txt",
+      "licenses/node-api-headers.txt",
+      "licenses/skinview-utils.txt",
+      "licenses/skinview3d.txt",
+      "licenses/source/7zip-19.00-source.7z",
+      "licenses/source/Nsis7z_19.00.7z",
+      "licenses/source/README.md",
+      "licenses/source/stdutils-1.14.tar.gz",
+      "licenses/three.txt",
+      "licenses/undici.txt",
+      "licenses/vue-reactivity.txt",
+      "licenses/vue-runtime-core.txt",
+      "licenses/vue-runtime-dom.txt",
+      "licenses/vue-shared.txt",
+      "licenses/vue.txt",
+      "licenses/ws.txt"
+    ]
+  },
+  "unpackedZIP": {
+    "file": "release/KAMUCL-1.1.22-windows-x64-unpacked.zip",
+    "bytes": 144860079,
+    "sha256": "bfbc9bcb34ab80813d05b8fdea63f6eade0d8f0a2432267119ed59eaf827b0a9",
+    "sameASARAndRuntimeNotices": true
+  },
+  "correspondingRuntimeSource": {
+    "file": "out/audit122-ffmpeg/KAMUCL-1.1.22-runtime-source.zip",
+    "bytes": 38905320,
+    "sha256": "af40243e21439aa77af20319c00fbb8d83f76975e88d6cd2249d15ff73d8ebe3",
+    "matchesProvenance": true,
+    "publicAttachmentVerified": false
+  },
+  "missingRequiredCurrentPackageMaterials": [],
+  "tools": {
+    "sevenZipFileSHA256": "4cd7d776c686427226a151789d2d61f0b2ed2c392148cc4e69c0238362fafecf",
+    "used": "Static archive list/extract only; no EXE or DLL execution."
+  },
+  "limits": [
+    "This verifies actual final Windows byte material; own license implementation is not independently scored.",
+    "Final source/handoff packaging, tag/commit/release attachment and anonymous public source download are root-owned pending checks.",
+    "Original121 Mac notice omission remains historical failure; no new Mac/native/full-platform acceptance inferred.",
+    "Full Chromium graph, source-rebuild bit equivalence, patent/asset/brand rights and all historical legal clearance are not asserted."
+  ]
+}

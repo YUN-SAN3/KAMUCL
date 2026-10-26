@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 1,
+  "version": "1.1.22",
+  "observedAt": "2026-10-13T17:45:44.211Z",
+  "executedOn": "win32",
+  "classification": "Original final Mac ZIP complete ASAR/JAR/member byte scan on this host; raw compressed DMG scan bound separately to exact actual native mounted/decoded verification. Not a Windows DMG mount or full Mac qualification.",
+  "complete": true,
+  "scannerSHA256": "9f04e5883b622a69390b285049205148aedd6475ae74b404ee261bfe762e73b4",
+  "driverSHA256": "c289b1aea6266fd680ac1eaba679575c794b532c97a560b84b949e846a5b30d7",
+  "nativeSourceCommit": "48f2161292850fcf5c6ecdcc41a2517b766796e9",
+  "nativeReceiptBindings": [
+    {
+      "name": "mac-package-arm64.json",
+      "sha256": "2c324fbb095a3f6a9cf932c33b06e1ba5ceed862ba957ef1e24725cddecc9578"
+    },
+    {
+      "name": "mac-auth122-proof/receipt.json",
+      "sha256": "8e40491292a52cea8bddf96bf2139b1691aaedf42c7cab1eade56984d2e12ce2"
+    },
+    {
+      "name": "mac-auth122-proof/zip-ui/proof.json",
+      "sha256": "f920974fb3e9cd51f3f7e20c5d00f108a46c493aa2c3d808b71374354b52e070"
+    },
+    {
+      "name": "mac-auth122-proof/zip-smoke/receipt.json",
+      "sha256": "aba9b91a2fa8d122cf2150e841abd060d81826c57d12bf5915c2a10137808a1e"
+    },
+    {
+      "name": "mac-auth122-proof/dmg-ui/proof.json",
+      "sha256": "c813628ca93a912e0ba9039023c1d5cc4d5af88c22924cc17cb56fa387be5226"
+    },
+    {
+      "name": "mac-auth122-proof/dmg-smoke/receipt.json",
+      "sha256": "d09d1a3df5fcb749362cafbc0fc8a795d031a89272528624c334552845287fbf"
+    },
+    {
+      "name": "mac-auth122-proof/safe-storage-write.json",
+      "sha256": "54e4dd20d2c111066281147d9515b1a16fc00bcf9178fd3635a5a5544c81e217"
+    },
+    {
+      "name": "mac-auth122-proof/safe-storage-read.json",
+      "sha256": "2d50183b17590d110f4a4558d0513c79e9851e3db82d425cdb2185b951495073"
+    }
+  ],
+  "artifacts": [
+    {
+      "coverage": {
+        "label": "final-1.1.22-mac-arm64",
+        "name": "KAMUCL-1.1.22-mac-arm64.zip",
+        "bytes": 129893677,
+        "sha256": "7d30bd37527df961e71415af7c648b6c30aef9b9265df7ac3a5fdf6b43cb7f5a",
+        "entries": 122,
+        "files": 69,
+        "decompressedBytes": 292434027,
+        "scannedBytes": 292434027,
+        "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+        "excludedEntries": [],
+        "sensitiveStateFileNames": [],
+        "asar": [
+          {
+            "entry": "KAMUCL.app/Contents/Resources/app.asar",
+            "bytes": 21999776,
+            "sha256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+            "members": 461,
+            "scannedBytes": 21877996
+          }
+        ],
+        "nestedJars": [
+          {
+            "label": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+            "name": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+            "bytes": 12496,
+            "sha256": "fd09a13fedfcc9cfd92a723cbcafabd07a631958a8d9934f70d43c1cb426a6ab",
+            "entries": 11,
+            "files": 7,
+            "decompressedBytes": 20384,
+            "scannedBytes": 20384,
+            "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+            "excludedEntries": [],
+            "sensitiveStateFileNames": [],
+            "asar": [],
+            "nestedJars": []
+          },
+          {
+            "label": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+            "name": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+            "bytes": 21828,
+            "sha256": "2cd7cfef1af9c599c7549c892b0d1dd0327e7a3f705d607d22609b7ee5874db9",
+            "entries": 19,
+            "files": 15,
+            "decompressedBytes": 38421,
+            "scannedBytes": 38421,
+            "sourceTextAndBinaryScope": "Every regular entry, ASCII text/bytes; PE additionally UTF-16LE strings. Nested ASAR members separately scanned. No Mach-O/PE decompilation or code execution.",
+            "excludedEntries": [],
+            "sensitiveStateFileNames": [],
+            "asar": [],
+            "nestedJars": []
+          }
+        ]
+      },
+      "nativeMembers": [
+        {
+          "path": "KAMUCL.app/Contents/MacOS/KAMUCL",
+          "bytes": 51920,
+          "sha256": "ec69b655102702ec26021eee33cc277aa9c67a921fe8372f7b300861f0a875cc"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-offline-skin.jar",
+          "bytes": 12496,
+          "sha256": "fd09a13fedfcc9cfd92a723cbcafabd07a631958a8d9934f70d43c1cb426a6ab"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/kamucl-bridge.jar",
+          "bytes": 21828,
+          "sha256": "2cd7cfef1af9c599c7549c892b0d1dd0327e7a3f705d607d22609b7ee5874db9"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/out/main/MacGameWindow",
+          "bytes": 60352,
+          "sha256": "4790b57234a1e5f7dcedcacf75fd8aaa6e0755b3a98128e1473b38c0f2dc6ea2"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Resources/app.asar.unpacked/node_modules/@koromix/koffi-darwin-arm64/darwin_arm64/koffi.node",
+          "bytes": 1224408,
+          "sha256": "07bae31b943d7dcadfa0350e2a95944cb4dfb84b7f097cfd126478e370b9c705"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (GPU).app/Contents/MacOS/KAMUCL Helper (GPU)",
+          "bytes": 220544,
+          "sha256": "2d808ea1ad5a527338560b95a8c90adff33c634008586fb056a34d58b5634637"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Renderer).app/Contents/MacOS/KAMUCL Helper (Renderer)",
+          "bytes": 220560,
+          "sha256": "7a4393c0f2135f8af69c5f98956b1dff1fb08a6628dba37b0fc6b52db7a35d2b"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Electron Framework",
+          "bytes": 35,
+          "sha256": "36542878344780f376c0b91f24aeffb4cb21243d6c1dfd8f222add6cc617018e"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "bytes": 200442848,
+          "sha256": "2eb6ed4695e0b8de33f060fed63befd05426d07cd53c3363a91ad039d74d45bf"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libvk_swiftshader.dylib",
+          "bytes": 16607280,
+          "sha256": "ae9a01c0c49c9969606cf90f206776aac51e0ff4689d42936e52f5cb1e8b26bd"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib",
+          "bytes": 2317968,
+          "sha256": "73fc0f18b5d30dbed26bf1c2ecbd061f4cd793ebf905a0c884c9ba10ef4c1e41"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper (Plugin).app/Contents/MacOS/KAMUCL Helper (Plugin)",
+          "bytes": 220560,
+          "sha256": "c4b53f5dd87957e01a3955cbaa06367754dcbdb770a6b6c9e2b23d302c6594af"
+        },
+        {
+          "path": "KAMUCL.app/Contents/Frameworks/KAMUCL Helper.app/Contents/MacOS/KAMUCL Helper",
+          "bytes": 220544,
+          "sha256": "adad9c07b436a3b1e86197b3869d4b566da56ec788f0ddf80ac5e1ff8e230311"
+        }
+      ],
+      "findings": [
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+          "line": null,
+          "byteOffset": 7860453,
+          "fingerprint": "cd7a894b7eaaac6b",
+          "valueLength": 51
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+          "line": null,
+          "byteOffset": 4973974,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar!out\\main\\index.js",
+          "line": 50,
+          "byteOffset": 460224,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar!out\\renderer\\assets\\AccountsView-Cc0Twfso.js",
+          "line": 280,
+          "byteOffset": 8242,
+          "fingerprint": "35cef3ee281eadc0",
+          "valueLength": 17
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "line": null,
+          "byteOffset": 184941441,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "line": null,
+          "byteOffset": 187210424,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22
+        }
+      ],
+      "decisions": [
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+          "line": null,
+          "byteOffset": 7860453,
+          "fingerprint": "cd7a894b7eaaac6b",
+          "valueLength": 51,
+          "status": "false-positive-ui-prose",
+          "reason": "Exact reviewed Chinese password-input UI prose in the verified application ASAR; no actual credential. Both text and raw-container encodings are identified."
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar",
+          "line": null,
+          "byteOffset": 4973974,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60,
+          "status": "opaque-application-key-ownership-pending",
+          "reason": "Same built-in application-key value in the verified application ASAR as the reviewed source/baseline bundle. No independent ownership/distribution authorization established; value not disclosed or tested."
+        },
+        {
+          "kind": "bcrypt-shaped-api-key-or-password-hash",
+          "classification": "opaque-application-key-or-password-hash-needs-context",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar!out\\main\\index.js",
+          "line": 50,
+          "byteOffset": 460224,
+          "fingerprint": "f0fe1a77e3852628",
+          "valueLength": 60,
+          "status": "opaque-application-key-ownership-pending",
+          "reason": "Same built-in application-key value in the verified application ASAR as the reviewed source/baseline bundle. No independent ownership/distribution authorization established; value not disclosed or tested."
+        },
+        {
+          "kind": "credential-literal",
+          "classification": "literal-credential-candidate-needs-review",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Resources/app.asar!out\\renderer\\assets\\AccountsView-Cc0Twfso.js",
+          "line": 280,
+          "byteOffset": 8242,
+          "fingerprint": "35cef3ee281eadc0",
+          "valueLength": 17,
+          "status": "false-positive-ui-prose",
+          "reason": "Exact reviewed Chinese password-input UI prose in the verified application ASAR; no actual credential. Both text and raw-container encodings are identified."
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "line": null,
+          "byteOffset": 184941441,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "status": "false-positive-chromium-example",
+          "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account."
+        },
+        {
+          "kind": "url-user-password",
+          "classification": "potential-secret-needs-review",
+          "location": "final-1.1.22-mac-arm64:KAMUCL.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework",
+          "line": null,
+          "byteOffset": 187210424,
+          "fingerprint": "ae7c9f95165aff0b",
+          "valueLength": 22,
+          "status": "false-positive-chromium-example",
+          "reason": "Exact reviewed Chromium embedded-credential example in the shared Electron runtime; matching original native bytes/context, not an account."
+        }
+      ]
+    },
+    {
+      "coverage": {
+        "name": "KAMUCL-1.1.22-mac-arm64.dmg",
+        "bytes": 141299910,
+        "sha256": "f240034586197a70018d281d3e3b57376dafb1e69239faae1552a661fb1d0f15",
+        "scannedRawBytes": 141299910,
+        "compressedFilesystemDecodedOnThisHost": false,
+        "nativeFilesystemDecodeEvidence": "8e40491292a52cea8bddf96bf2139b1691aaedf42c7cab1eade56984d2e12ce2",
+        "nativeAsarSHA256": "de91b0de96031c8fc2e9013919fadf49b0e46dfdd6e53169c946b8ddc7ce3491",
+        "nativeStrictSignatureAndIdentity": true
+      },
+      "findings": [],
+      "decisions": []
+    }
+  ],
+  "nativeResults": {
+    "exactOriginalZIPAndDMG": true,
+    "sourceCommit": "48f2161292850fcf5c6ecdcc41a2517b766796e9",
+    "minimumSystemVersion": "13.0.0",
+    "runtimeVersion": "44.3.0",
+    "signing": "ad-hoc; not Developer ID or notarized",
+    "actualAPPStartup": true,
+    "accountsCFAndFRPMatrixCountPerStage": [
+      16,
+      16,
+      16
+    ],
+    "keychainTwoProcessSyntheticRoundtrip": true,
+    "originalRuntimeNotices": [
+      {
+        "name": "LICENSE.electron.txt",
+        "bytes": 1096,
+        "sha256": "5154e165bd6c2cc0cfbcd8916498c7abab0497923bafcd5cb07673fe8480087d"
+      },
+      {
+        "name": "LICENSES.chromium.html",
+        "bytes": 20111209,
+        "sha256": "a62dabd1c6ef1327365b2a3fdffb806222684a746dcb8f4afd1c1f690eba5535"
+      }
+    ],
+    "wholePlatformGameMicrosoftAndNotarizationPass": false
+  },
+  "limits": [
+    "Raw DMG bytes cannot prove its compressed filesystem has no secrets; decoded content and signature come from separately SHA-bound native receipts.",
+    "Current Mac UI receipts use actual packaged renderer and synthetic IPC; native Keychain uses only an isolated random synthetic value, not a real Microsoft account.",
+    "No actual player profiles, discovered credentials or distributed application code were executed by this audit.",
+    "No image OCR, binary disassembly, all unknown packed formats or universal absence of secrets is asserted."
+  ],
+  "unknownCandidates": 0,
+  "confirmedPrivateCredentialLeakFound": false,
+  "finishedAt": "2026-10-13T17:45:46.969Z"
+}

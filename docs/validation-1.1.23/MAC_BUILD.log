@@ -1,0 +1,144 @@
+
+> kamucl@1.1.23 build
+> electron-vite build
+
+[36mvite v5.4.21 [32mbuilding SSR bundle for production...[36m[39m
+transforming...
+[32m✓[39m 545 modules transformed.
+node_modules/@iarna/toml/lib/toml-parser.js (178:22): Use of eval in "node_modules/@iarna/toml/lib/toml-parser.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+rendering chunks...
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/settings.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/index.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/assetsSettings.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/accounts.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/appearanceDraft.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/community.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/curseforgeChannel.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/exportLogs.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/gameFolders.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceCenter.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceDiagnostics.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/java.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/loaders.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modTransaction.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modUpdates.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modpacks.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/paths.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/projectionsIpc.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/recordingsIpc.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/servers.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/versionCategories.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/versions.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/visualTheme.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/yggdrasil.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/index.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceMetadata.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/voxlink/modsyncService.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/defaultResourcePackApply.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceCenter.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceVersionEvidence.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/java.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/javaCompatibility.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modManagement.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modUpdates.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/supplementalMods.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/versions.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceVersionEvidence.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/defaultResourcePackApply.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceDiagnostics.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/versions.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/systemDownload.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/httpClient.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/downloadFetch.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/paths.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/voxlink/modsyncService.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/community.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/defaultResourcePackApply.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/exportLogs.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/gamedir.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceCenter.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceDiagnostics.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instances.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/java.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/loaders.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modManagement.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modMigration.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modUpdates.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modinfo.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modpackDownloads.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modpacks.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/skins.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/supplementalMods.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/versions.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/worlds.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/versions.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/loaders.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/voxlink/modsyncService.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/index.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/community.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/defaultResourcePackApply.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/directConnect.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/exportLogs.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/gameFolders.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceCenter.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceDiagnostics.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/loaders.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modBridge.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modManagement.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modMigration.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modUpdates.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modpacks.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/projectionsIpc.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/recordingsIpc.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/servers.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/supplementalMods.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/versionCategories.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/worlds.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/gracefulClose.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/applyUpdate.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/loaders.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/versions.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modMigration.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/launch.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/versions.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/directConnect.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/exportLogs.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceCenter.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/instanceDiagnostics.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/memoryOrganizer.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/modManagement.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/index.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/selfUpdate.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/index.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/core/applyUpdate.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/core/macUpdate.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/main/core/applyUpdate.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/index.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/main/index.ts, /Users/runner/work/KAMUCL/KAMUCL/src/main/ipc.ts, dynamic import will not move module into another chunk.
+[39m
+[2mout/main/[22m[36mcurseforgeChannel-C9iXbsqg.js     [39m[1m[2m    1.48 kB[22m[1m[22m
+[2mout/main/[22m[36mmodScanWorker.cjs                 [39m[1m[2m    1.58 kB[22m[1m[22m
+[2mout/main/[22m[36mprojectionWorker.cjs              [39m[1m[2m    1.65 kB[22m[1m[22m
+[2mout/main/[22m[36mkeybindings-Db6logXO.js           [39m[1m[2m    1.71 kB[22m[1m[22m
+[2mout/main/[22m[36mrecordingMods-UuqKsl_A.js         [39m[1m[2m    2.33 kB[22m[1m[22m
+[2mout/main/[22m[36mmemoryOrganizer-CxJOm-Dn.js       [39m[1m[2m    3.51 kB[22m[1m[22m
+[2mout/main/[22m[36msupplementalMods-DPUx4mUM.js      [39m[1m[2m    3.86 kB[22m[1m[22m
+[2mout/main/[22m[36mplugins-P5XXqstH.js               [39m[1m[2m    4.41 kB[22m[1m[22m
+[2mout/main/[22m[36mkeybindings-5462CZ5v.js           [39m[1m[2m    5.66 kB[22m[1m[22m
+[2mout/main/[22m[36mindex-BnvP7ea9.js                 [39m[1m[2m    6.89 kB[22m[1m[22m
+[2mout/main/[22m[36mdefaultGameOptions-BCmdVmzm.js    [39m[1m[2m    8.49 kB[22m[1m[22m
+[2mout/main/[22m[36minstanceCenter-BvQVO5_8.js        [39m[1m[2m   11.02 kB[22m[1m[22m
+[2mout/main/[22m[36mdefaultResourcePacks-MPQE0V6B.js  [39m[1m[2m   11.19 kB[22m[1m[22m
+[2mout/main/[22m[36mmodFavorites-Re4gFE0b.js          [39m[1m[2m   30.19 kB[22m[1m[22m
+[2mout/main/[22m[36mmodCompatibility-BIvvRZ1G.js      [39m[1m[2m   43.07 kB[22m[1m[22m
+[2mout/main/[22m[36mmodMetadata-B6uXh2-U.js           [39m[1m[2m   45.92 kB[22m[1m[22m
+[2mout/main/[22m[36mmodTransaction-DxlN7YZO.js        [39m[1m[2m   55.47 kB[22m[1m[22m
+[2mout/main/[22m[36mmodpacks-DRIzwSXz.js              [39m[1m[2m   60.22 kB[22m[1m[22m
+[2mout/main/[22m[36mipc-CvMTyEF1.js                   [39m[1m[2m  130.91 kB[22m[1m[22m
+[2mout/main/[22m[36mindex.js                          [39m[1m[33m  989.17 kB[39m[22m
+[2mout/main/[22m[36mprojectionConversion-Cr8_EyNz.js  [39m[1m[33m1,903.50 kB[39m[22m
+[32m✓ built in 7.13s[39m
+Built local skin provider: /Users/runner/work/KAMUCL/KAMUCL/offline-skin-agent/dist/kamucl-offline-skin.jar
+[36mvite v5.4.21 [32mbuilding SSR bundle for production...[36m[39m
+transforming...
+[32m✓[39m 2 modules transformed.
+rendering chunks...
+[2mout/preload/[22m[36mindex.js   [39m[1m[2m0.36 kB[22m[1m[22m
+[2mout/preload/[22m[36msplash.js  [39m[1m[2m0.65 kB[22m[1m[22m
+[32m✓ built in 65ms[39m
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 362 modules transformed.
+rendering chunks...
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/api.ts is dynamically imported by /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/App.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ModDropModal.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ModDropModal.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ModDropModal.vue?vue&type=script&setup=true&lang.ts but also statically imported by /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/App.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/catalogCache.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/AppearanceThemeCard.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/Avatar.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/CommunityFavorites.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/CommunityModDetails.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/DefaultGameOptions.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/DupCleanModal.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/FavoriteModsPicker.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/FileManager.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/HomeLayoutEditor.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/IconPickerModal.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/InstanceCenter.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/MascotStage.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/MemoryOrganizer.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/MinecraftVersionPicker.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ModDropModal.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ModInstallDialog.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ModMigrationModal.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ModVersionModal.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ModpackSupplement.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ProjectionConvert.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/RecordingModPicker.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/SkinEditor.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/SupplementalModsResult.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/ThumbnailPickerModal.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/UpdateSources.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/WorldImportModal.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/connection/FrpPanel.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/connection/TerracottaPanel.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/components/connection/VoxLinkPanel.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/composables/useDesignSession.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/composables/usePlatformUpdate.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/modFavorites.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/plugins.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/settingsUpdates.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/store.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/useCommunityDownloadQueue.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/AccountsView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/BridgeView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/CommunityView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/GameView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/HomeView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/KeysView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/ProjectionsView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/RecordingsView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/ServersView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/SettingsView.vue?vue&type=script&setup=true&lang.ts, /Users/runner/work/KAMUCL/KAMUCL/src/renderer/src/views/SkinsView.vue?vue&type=script&setup=true&lang.ts, dynamic import will not move module into another chunk.
+[39m
+[2m../../out/renderer/[22m[32mindex.html                                                              [39m[1m[2m    0.61 kB[22m[1m[22m
+[2m../../out/renderer/[22m[32msplash.html                                                             [39m[1m[2m    0.61 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[32mcactus-ZHT28Bbx.webp                                             [39m[1m[2m1,391.55 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[32mbrewer-_t6hu0qJ.webp                                             [39m[1m[2m1,405.07 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[32mpiston-CXXgq7BE.webp                                             [39m[1m[2m1,406.15 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[32mcamp-KA8qI3ns.webp                                               [39m[1m[2m1,413.78 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[32mcannon-CrDDsD5Q.webp                                             [39m[1m[2m1,543.37 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[32msunset--N5hnz1m.webp                                             [39m[1m[2m1,582.70 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[32mfarmer-3krkG6Tm.webp                                             [39m[1m[2m1,588.56 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mContentSkeleton-EajBTAHq.css                                     [39m[1m[2m    0.59 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mThirdPartyNotices-CgBuT8G3.css                                   [39m[1m[2m    0.76 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35msplash-D5-Isy3u.css                                              [39m[1m[2m    1.26 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mMascotStage-DWCq4Dyb.css                                         [39m[1m[2m    2.84 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mSelectMenu-DShRHZC1.css                                          [39m[1m[2m    3.56 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mRecordingsView-CD2oTJ_H.css                                      [39m[1m[2m    3.78 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mBridgeView-BT5l8TAd.css                                          [39m[1m[2m    4.43 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mProjectionsView-Dp9tI4Ld.css                                     [39m[1m[2m    4.53 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mFriendConnectView-B-5W-4sr.css                                   [39m[1m[2m    5.06 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mInstanceCenter-D_i8gW0K.css                                      [39m[1m[2m    5.64 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mTerracottaPanel-CE9u-vBO.css                                     [39m[1m[2m    5.76 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mVoxLinkPanel-D9fuG8qD.css                                        [39m[1m[2m    9.18 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mAccountsView-jW9PmeuP.css                                        [39m[1m[2m   10.48 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mKeysView-H82G0T6m.css                                            [39m[1m[2m   11.12 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mFrpPanel-CfoZ94UC.css                                            [39m[1m[2m   12.11 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mconnection-BGdzdtl5.css                                          [39m[1m[2m   12.40 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mServersView-EqcX99i9.css                                         [39m[1m[2m   13.50 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mFileManager-my-4LZ5D.css                                         [39m[1m[2m   22.66 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mCommunityView-D28t333R.css                                       [39m[1m[2m   22.97 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mGameView-EWZJiMFZ.css                                            [39m[1m[2m   32.85 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mSkinsView-uE0tE1RW.css                                           [39m[1m[2m   34.80 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mSettingsView-DQ6csXGV.css                                        [39m[1m[2m   39.23 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[35mindex-CZV0tK3M.css                                               [39m[1m[2m  119.26 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36muiPresentation-DBTJW4DM.js                                       [39m[1m[2m    0.62 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36msettingsUpdates-BTsW56u_.js                                      [39m[1m[2m    0.83 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mModsView-B8AEnQgR.js                                             [39m[1m[2m    0.91 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mPacksView-tpLkCU6J.js                                            [39m[1m[2m    0.94 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mShadersView-CeKB6HvR.js                                          [39m[1m[2m    0.99 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mplugins-t1_H4_k3.js                                              [39m[1m[2m    1.73 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mUiGlyph.vue_vue_type_script_setup_true_lang-DLqtcP9K.js          [39m[1m[2m    2.33 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mContentSkeleton-h1zSW6QV.js                                      [39m[1m[2m    2.56 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mConnectionPanel.vue_vue_type_script_setup_true_lang-BXXBwtT_.js  [39m[1m[2m    2.74 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mmodFavorites-VHvH78WF.js                                         [39m[1m[2m    2.92 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36msplash-face-D7cFdy8J.js                                          [39m[1m[2m    5.17 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36msplash-k65xAguc.js                                               [39m[1m[2m    8.44 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mFriendConnectView-BPW_1hVu.js                                    [39m[1m[2m    9.08 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mSelectMenu-BGnvDZZ3.js                                           [39m[1m[2m    9.13 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mBridgeView-7AuzN7iD.js                                           [39m[1m[2m   21.65 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mRecordingsView-CkMKFuiO.js                                       [39m[1m[2m   23.37 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mTerracottaPanel-Vb--xZOt.js                                      [39m[1m[2m   27.33 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mProjectionsView-ql6S16lB.js                                      [39m[1m[2m   35.06 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mFrpPanel-W8n1WNgU.js                                             [39m[1m[2m   40.40 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mAccountsView-DzwhccDe.js                                         [39m[1m[2m   48.84 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mInstanceCenter-CsiiSpGK.js                                       [39m[1m[2m   49.03 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mServersView-BLCB5P7v.js                                          [39m[1m[2m   55.95 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mKeysView-C7N8ZOMu.js                                             [39m[1m[2m   59.49 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mMascotStage-Bxftr94m.js                                          [39m[1m[2m   71.74 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mVoxLinkPanel-Ctt8n4D6.js                                         [39m[1m[2m   83.28 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mFileManager-DAIQBPzZ.js                                          [39m[1m[2m  111.97 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mSkinsView-BrnDVpak.js                                            [39m[1m[2m  116.65 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mCommunityView-943HERJw.js                                        [39m[1m[2m  138.97 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mSettingsView-jgKUueI0.js                                         [39m[1m[2m  167.86 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mGameView-B0129gFc.js                                             [39m[1m[2m  169.49 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mThirdPartyNotices-JbINqz1d.js                                    [39m[1m[2m  194.49 kB[22m[1m[22m
+[2m../../out/renderer/[22m[2massets/[22m[36mindex-D9J3UxMH.js                                                [39m[1m[33m1,853.60 kB[39m[22m
+[32m✓ built in 10.33s[39m

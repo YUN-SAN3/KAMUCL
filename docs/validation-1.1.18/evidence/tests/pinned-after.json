@@ -1,0 +1,30 @@
+{
+  "root": "E:\\KAMUCL\\out\\review118-pinned-L9UwQP",
+  "pinnedFile": "front-v2",
+  "requestedPlan": [
+    {
+      "name": "root",
+      "version": "1.0.0",
+      "dependency": false,
+      "fileName": "root.jar"
+    },
+    {
+      "name": "front-project",
+      "version": "2.0.0",
+      "dependency": true,
+      "fileName": "front-v2.jar",
+      "source": "modrinth",
+      "projectId": "front-project"
+    }
+  ],
+  "requests": [
+    "/root.jar",
+    "/front-v2.jar"
+  ],
+  "failure": "前置版本冲突：front 要求精确版本 front-v2，已有 1.0.0；未写入任何 MOD，请先处理旧文件后重新检测",
+  "files": [
+    "front-v1.jar"
+  ],
+  "v1Unchanged": true,
+  "v2Present": false
+}

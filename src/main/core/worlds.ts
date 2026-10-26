@@ -14,10 +14,11 @@ import type {
 } from '../../shared/types'
 import { parseNbt, type NbtCompound } from './nbt'
 import { canonicalPath, samePath } from './folderPaths'
-import { listGameFolders, setActiveGameFolder } from './gameFolders'
+import { listGameFolders } from './gameFolders'
 import { instanceDirectoryState, setNewInstanceIsolation } from './instances'
 import { installVersion, scanInstalledFolder, type VersionJson } from './versions'
 import { throwIfCancelled } from './tasks'
+import { withGameFolder } from './paths'
 
 const MAX_LEVEL_DAT = 32 * 1024 * 1024
 const MAX_ARCHIVE_ENTRIES = 250_000
@@ -609,6 +610,17 @@ export async function importWorld(
   emit: ProgressEmit,
   signal?: AbortSignal
 ): Promise<WorldImportResult> {
+  const targetFolder = registeredFolder(options.targetFolder)
+  const accepted = { ...options, targetFolder, newInstance: options.newInstance ? { ...options.newInstance } : undefined }
+  return withGameFolder(targetFolder, () => importWorldInFolder(input, accepted, emit, signal))
+}
+
+async function importWorldInFolder(
+  input: string,
+  options: WorldImportOptions,
+  emit: ProgressEmit,
+  signal?: AbortSignal
+): Promise<WorldImportResult> {
   const info = await probeWorld(input)
   if (!info) throw new Error('该路径不是有效的 Minecraft 存档')
   const candidate = info.candidates.find((item) => item.id === options.candidateId)
@@ -628,7 +640,6 @@ export async function importWorld(
       if (!minecraftVersion) throw new Error('新实例必须指定 Minecraft 版本')
       createdInstanceDir = path.join(targetFolder, 'versions', instanceName)
       if (fs.existsSync(createdInstanceDir)) throw new Error(`实例名称已存在：${instanceName}`)
-      setActiveGameFolder(targetFolder)
       versionId = await installVersion(
         minecraftVersion,
         {

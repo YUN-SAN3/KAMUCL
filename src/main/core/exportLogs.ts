@@ -10,6 +10,7 @@ import { gameDir } from './paths'
 import { readVersionJson, listAllInstalled } from './versions'
 import { getLastLaunch } from './launch'
 import { samePath } from './folderPaths'
+import { JAVA_PROBE_VM_ARGS } from './javaScanUtils'
 import { exitHistory } from './exitHistory'
 import { instanceDirectoryState } from './instances'
 import { selectedAccount } from './accounts'
@@ -86,7 +87,7 @@ async function javaSummary(
   }
   if (!javaPath) return unknown
   try {
-    const result = await execFileAsync(javaPath, ['-version'], {
+    const result = await execFileAsync(javaPath, [...JAVA_PROBE_VM_ARGS, '-version'], {
       encoding: 'utf-8',
       timeout: 8_000,
       windowsHide: true,

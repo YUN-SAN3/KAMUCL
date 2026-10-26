@@ -5,7 +5,6 @@ import ContentSkeleton from '../components/ContentSkeleton.vue'
 import { catalogSession } from '../catalogCache'
 import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import {
-  addFolder,
   cleanupPartialInstall,
   errText,
   formatSpeed,
@@ -28,11 +27,12 @@ import {
   saveSettings,
   scanFolder,
   selectDir,
-  setActiveFolder,
   setDefaultFolder,
+  setDownloadFolder,
   setVersionIsolation,
   setVersionJava,
-  setVersionResolution
+  setVersionResolution,
+  updateVersionCategories
 } from '../api'
 import { selectInstance, applyLaunchState, displayVersionName, displayVersionSub, fmtLastPlayed, isFavorite, progressMono, refreshInstalled, renameLastPlayed, sortWithFavorite, store, toast, toggleFavorite, versionIconUrl } from '../store'
 import { instanceLaunchBusy } from '@shared/launchTracking'
@@ -42,6 +42,8 @@ import SelectMenu from '../components/SelectMenu.vue'
 import RecordingModPicker from '../components/RecordingModPicker.vue'
 import FavoriteModsPicker from '../components/FavoriteModsPicker.vue'
 import UiGlyph from '../components/UiGlyph.vue'
+import VersionCategoriesPanel from '../components/VersionCategoriesPanel.vue'
+import { VERSION_CATEGORY_ALL, VERSION_CATEGORY_FAVORITES, VERSION_CATEGORY_UNCLASSIFIED, versionCategoryOf, versionMatchesCategory } from '@shared/versionCategories'
 const favoritesReady = ref(true)
 import ThumbnailPickerModal from '../components/ThumbnailPickerModal.vue'
 import type {
@@ -55,7 +57,8 @@ import type {
   ImageFit,
   IsolationMigrationPlan,
   LoaderName,
-  RemoteVersion
+  RemoteVersion,
+  VersionCategoryAction
 } from '@shared/types'
 
 // 列表范围独立于安装目标，保留其他页面的当前目录语义。
@@ -65,6 +68,28 @@ const installedError = ref('')
 const installedLoading = ref(false)
 const folderToolsOpen = ref(false)
 const installedSearch = ref('')
+const installedCategory = ref(VERSION_CATEGORY_ALL), categoryManagerOpen = ref(false), categoryBusy = ref(false), categoryError = ref('')
+const categories = computed(() => store.settings?.versionCategories ?? [])
+const categoryOf = (v: InstalledVersion) => versionCategoryOf(store.settings, v.folder, v.id, window.kamucl.platform)
+const categoryLabel = (v: InstalledVersion) => categories.value.find(c => c.id === categoryOf(v))?.name ?? ''
+const categoryCounts = computed(() => Object.fromEntries(categories.value.map(c => [c.id, allInstalled.value.filter(v => categoryOf(v) === c.id).length])))
+watch(categories, list => { if (![VERSION_CATEGORY_ALL, VERSION_CATEGORY_FAVORITES, VERSION_CATEGORY_UNCLASSIFIED, ...list.map(c => c.id)].includes(installedCategory.value)) installedCategory.value = VERSION_CATEGORY_ALL })
+async function onCategoryAction(action: VersionCategoryAction): Promise<boolean> {
+  if (categoryBusy.value) return false
+  categoryBusy.value = true; categoryError.value = ''
+  try {
+    store.settings = await updateVersionCategories(action)
+    if (action.type === 'remove' && installedCategory.value === action.id) installedCategory.value = VERSION_CATEGORY_UNCLASSIFIED
+    return true
+  } catch (error) { categoryError.value = '保存分类失败：' + errText(error); return false }
+  finally { categoryBusy.value = false }
+}
+async function assignCategory(v: InstalledVersion, event: Event) {
+  const field = event.target as HTMLSelectElement, categoryId = field.value
+  await onCategoryAction({ type: 'assign', target: { id: v.id, folder: v.folder }, categoryId })
+  // Retain the last confirmed value on IPC/write failure, with a visible error.
+  field.value = categoryOf(v)
+}
 let installedGeneration = 0
 async function refreshAllInstalled() {
   const generation = ++installedGeneration
@@ -154,6 +179,8 @@ onUnmounted(() => {
 // ---------------- 游戏文件夹（统一管理入口） ----------------
 const folders = ref<GameFolder[]>([])
 const activeFolder = ref('')
+const installFolder = computed(() => store.settings?.folders.find(folder => folder.isDefault)?.path || activeFolder.value)
+watch(() => store.settings?.folders, value => { if (value) folders.value = value }, { deep: true })
 watch(() => store.settings?.activeFolder, folder => {
   if (folder && folder !== activeFolder.value) { activeFolder.value = folder; void refreshFolderScan(false) }
 })
@@ -212,43 +239,38 @@ async function loadFolderState() {
 }
 
 async function chooseFolderPath(selected: string) {
-  if (!selected || selected === activeFolder.value || folderBusy.value) return
+  if (!selected || selected === installFolder.value || folderBusy.value) return
   folderBusy.value = true
+  let committed = false
   try {
-    activeFolder.value = await setActiveFolder(selected)
+    folders.value = await setDefaultFolder(selected)
+    committed = true
+    const destination = folders.value.find(folder => folder.isDefault)!.path
+    if (store.settings) store.settings = { ...store.settings, folders: folders.value, activeFolder: destination, gameDir: destination }
     store.settings = await getSettings()
+    activeFolder.value = store.settings.activeFolder
     store.resourceVersionId = ''
     await refreshInstalled()
     await refreshFolderScan(false)
-    toast(`已切换到「${currentFolder.value?.name ?? '游戏文件夹'}」`, 'success')
+    toast(`默认下载位置已改为「${currentFolder.value?.name ?? '游戏文件夹'}」`, 'success')
   } catch (error) {
-    // 失效文件夹死锁修复：文件夹已不存在（被删除/重命名）→ 直接移除绑定记录，不再弹切换失败
-    if (errText(error).includes('文件夹已不存在')) {
-      try {
-        await removeFolder(selected)
-        await loadFolderState()
-        store.settings = await getSettings()
-        toast('该文件夹已不存在，已从启动器移除其绑定记录', 'info')
-      } catch (e2) {
-        toast(`移除绑定失败：${errText(e2)}`, 'error')
-      }
-      folderBusy.value = false
-      return
-    }
-    toast(`切换失败：${errText(error)}`, 'error')
-    await loadFolderState()
+    toast(committed ? `下载位置已保存，但列表暂未刷新，请重试：${errText(error)}` : `切换失败：${errText(error)}`, committed ? 'info' : 'error')
+    if (!committed) await loadFolderState()
   } finally {
     folderBusy.value = false
   }
 }
 
 async function addGameFolder() {
+  let committed = false
   try {
     const selected = await selectDir()
     if (!selected) return
     folderBusy.value = true
-    const added = await addFolder(selected)
-    await setActiveFolder(added.folder.path)
+    folders.value = await setDownloadFolder(selected)
+    committed = true
+    const destination = folders.value.find(folder => folder.isDefault)!.path
+    if (store.settings) store.settings = { ...store.settings, folders: folders.value, activeFolder: destination, gameDir: destination }
     const state = await listFolders()
     folders.value = state.folders
     activeFolder.value = state.active
@@ -256,9 +278,9 @@ async function addGameFolder() {
     await refreshInstalled()
     await refreshFolderScan(false)
     const count = folderScan.value?.versions.length ?? 0
-    toast(`已添加并切换游戏文件夹，识别到 ${count} 个版本`, 'success')
+    toast(`默认下载位置已更改，识别到 ${count} 个版本；原位置的游戏已保留`, 'success')
   } catch (error) {
-    toast(`添加失败：${errText(error)}`, 'error')
+    toast(committed ? `下载位置已保存，但列表暂未刷新，请重试：${errText(error)}` : `添加失败：${errText(error)}`, committed ? 'info' : 'error')
   } finally {
     folderBusy.value = false
   }
@@ -267,12 +289,16 @@ async function addGameFolder() {
 async function markCurrentDefault() {
   if (!activeFolder.value || currentFolder.value?.isDefault) return
   folderBusy.value = true
+  let committed = false
   try {
     folders.value = await setDefaultFolder(activeFolder.value)
+    committed = true
+    const destination = folders.value.find(folder => folder.isDefault)!.path
+    if (store.settings) store.settings = { ...store.settings, folders: folders.value, activeFolder: destination, gameDir: destination }
     store.settings = await getSettings()
     toast('已设为默认游戏文件夹', 'success')
   } catch (error) {
-    toast(`设置失败：${errText(error)}`, 'error')
+    toast(committed ? `下载位置已保存，请刷新页面读取：${errText(error)}` : `设置失败：${errText(error)}`, committed ? 'info' : 'error')
   } finally {
     folderBusy.value = false
   }
@@ -407,8 +433,10 @@ const modal = reactive({
   apiError: '',
   recordingMod: undefined as InstallOptions['recordingMod'],
   favoriteMods: undefined as InstallOptions['favoriteMods'],
+  favoriteInstallIntent: undefined as InstallOptions['favoriteInstallIntent'],
   instanceName: '',
-  instanceEdited: false
+  instanceEdited: false,
+  targetFolder: ''
 })
 
 /** 默认实例名（加载器类型+版本自动生成；纯净版固定为 MC 版本号） */
@@ -428,7 +456,7 @@ const instanceError = computed(() => {
   if (n.length > 64) return '实例名过长（最多 64 字符）'
   if (/[\\/:*?"<>|]/.test(n)) return '实例名不能包含 \\ / : * ? " < > | 字符'
   if (/^[.\s]|[.\s]$/.test(n)) return '实例名不能以空格或点开头/结尾'
-  if (store.installed.some((v) => v.id === n)) return `实例「${n}」已存在，请改名后安装`
+  if (allInstalled.value.some((v) => v.id === n && v.folder === modal.targetFolder)) return `实例「${n}」已存在，请改名后安装`
   return ''
 })
 
@@ -451,9 +479,11 @@ function openInstall(v: RemoteVersion) {  modal.open = true
   modal.apiError = ''
   modal.recordingMod = undefined
   modal.favoriteMods = undefined
+  modal.favoriteInstallIntent = undefined
   favoritesReady.value = true
   modal.instanceName = ''
   modal.instanceEdited = false
+  modal.targetFolder = installFolder.value
 }
 
 const apiRetry = ref(0)
@@ -522,6 +552,7 @@ async function confirmInstall() {
         loader: modal.loader,
         recordingMod: modal.recordingMod,
         favoriteMods: modal.favoriteMods,
+        favoriteInstallIntent: modal.favoriteInstallIntent,
         loaderVersion: modal.loaderVersion || undefined,
         fabricApi:
           modal.loader === 'fabric' && modal.apiOn && modal.apiVersion
@@ -529,14 +560,14 @@ async function confirmInstall() {
             : undefined,
         instanceName: effectiveInstanceName.value || undefined
       }
-    : { instanceName: effectiveInstanceName.value || undefined }
+    : { instanceName: effectiveInstanceName.value || undefined, favoriteMods: modal.favoriteMods, favoriteInstallIntent: modal.favoriteInstallIntent }
   modal.open = false
   // 主进程后台异步下载，invoke 仅表示任务已受理；
   // 完成/失败由 App.vue 订阅的 installDone 事件统一提示并刷新已安装列表
   store.installing.add(v.id)
   toast(`开始下载版本 ${v.id}，请稍候…`, 'info')
   try {
-    await installVersion(v.id, opts)
+    await installVersion(v.id, opts, modal.targetFolder)
   } catch (e) {
     store.installing.delete(v.id)
     toast('安装失败：' + errText(e), 'error')
@@ -635,7 +666,7 @@ let menuTrigger: HTMLElement | null = null
 function closeManageMenu() { manageMenu.id = ''; menuTrigger?.focus() }
 function trapMenuFocus(event: KeyboardEvent) {
   if (event.key !== 'Tab') return
-  const items = [...(event.currentTarget as HTMLElement).querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), [tabindex="0"]')]
+  const items = [...(event.currentTarget as HTMLElement).querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select:not(:disabled), [tabindex="0"]')]
   const edge = event.shiftKey ? items[0] : items[items.length - 1]
   if (document.activeElement === edge) { event.preventDefault(); (event.shiftKey ? items[items.length - 1] : items[0])?.focus() }
 }
@@ -677,7 +708,14 @@ const folderShortName = (p: string): string => {
 }
 
 /** 收藏置顶 + 组内最近游玩倒序 */
-const sortedInstalled = computed(() => sortWithFavorite(allInstalled.value.filter(v => !installedFolder.value || folderKey(v.folder) === folderKey(installedFolder.value === '@current' ? activeFolder.value : installedFolder.value)).filter(v => `${displayVersionName(v)} ${v.mcVersion || ''} ${v.loader || ''} ${folderShortName(v.folder)}`.toLowerCase().includes(installedSearch.value.trim().toLowerCase()))))
+const scopedInstalled = computed(() => allInstalled.value.filter(v => !installedFolder.value || folderKey(v.folder) === folderKey(installedFolder.value === '@current' ? activeFolder.value : installedFolder.value)).filter(v => `${displayVersionName(v)} ${v.mcVersion || ''} ${v.loader || ''} ${folderShortName(v.folder)}`.toLowerCase().includes(installedSearch.value.trim().toLowerCase())))
+const sortedInstalled = computed(() => sortWithFavorite(scopedInstalled.value.filter(v => versionMatchesCategory(installedCategory.value, categoryOf(v), isFavorite(v.id, v.folder)))))
+const categoryFilters = computed(() => [
+  { id: VERSION_CATEGORY_ALL, name: '全部', count: scopedInstalled.value.length },
+  { id: VERSION_CATEGORY_FAVORITES, name: '收藏', count: scopedInstalled.value.filter(v => isFavorite(v.id, v.folder)).length },
+  { id: VERSION_CATEGORY_UNCLASSIFIED, name: '未分类', count: scopedInstalled.value.filter(v => !categoryOf(v)).length },
+  ...categories.value.map(c => ({ ...c, count: scopedInstalled.value.filter(v => categoryOf(v) === c.id).length }))
+])
 /** 已收藏分组（不含残缺/失败版本） */
 const favoriteInstalled = computed(() =>
   store.installed.filter((v) => isFavorite(v.id, v.folder) && !v.incomplete && !v.failed)
@@ -859,6 +897,7 @@ async function onConfirmRename() {
   const newId = renameModal.name.trim()
   try {
     await renameVersion(oldId, newId, renameModal.folder)
+    store.settings = await getSettings()
     // 引用同步（渲染端）：最近游玩记录以版本 id 为键（收藏/服务器绑定由主进程同步）
     renameLastPlayed(oldId, newId)
     await refreshInstalled()
@@ -950,21 +989,22 @@ async function confirmIsolation() {
     <section class="card folder-manager" data-ui="games:folders" @contextmenu.prevent="showFolderContextMenu(activeFolder)">
       <div class="folder-manager-main">
         <div class="folder-select-wrap">
-          <span class="folder-caption">新版本安装位置</span>
+          <span class="folder-caption">默认下载位置</span>
           <SelectMenu
             class="folder-select"
-            :model-value="activeFolder"
+            :model-value="installFolder"
             :options="folders.map(f => ({ value: f.path, label: f.name + (f.isDefault ? '（默认）' : '') }))"
             :disabled="folderBusy || !folders.length"
             @change="chooseFolderPath"
           />
-          <span class="muted folder-current-path" :title="activeFolder">{{ activeFolder }}</span>
+          <span class="muted folder-current-path" data-ui="download-location:game-path" :title="installFolder">{{ installFolder }}</span>
         </div>
         <button class="btn btn-ghost btn-sm folder-tools-trigger" :aria-expanded="folderToolsOpen" @click="folderToolsOpen = !folderToolsOpen">管理文件夹 <span class="muted">{{ folders.length }}</span></button>
       </div>
         <div v-if="folderToolsOpen" class="folder-manager-actions" @keydown.esc="folderToolsOpen = false">
+          <p class="muted folder-managed-path" :title="activeFolder">正在管理：{{ currentFolder?.name || '游戏文件夹' }} · {{ activeFolder }}</p>
           <button class="btn btn-ghost btn-sm" :disabled="folderBusy" @click="addGameFolder">
-            + 添加新的绑定游戏文件夹
+            + 更改到其他下载位置
           </button>
           <button class="btn btn-ghost btn-sm" :disabled="folderBusy" @click="refreshFolderScan()">
             <span v-if="folderBusy" class="spin"></span>
@@ -982,7 +1022,7 @@ async function confirmIsolation() {
             :disabled="folderBusy"
             @click="markCurrentDefault"
           >
-            设为默认
+            将当前管理文件夹设为默认下载位置
           </button>
           <button
             class="btn btn-danger btn-sm"
@@ -1003,6 +1043,7 @@ async function confirmIsolation() {
           <button class="btn btn-ghost btn-sm" @click="folderMissingDismissed = true">稍后处理</button>
         </div>
       </div>
+      <p class="muted folder-location-hint">新版本、整合包和共享资源使用默认下载位置；已有游戏保留原目录。<button class="btn btn-ghost btn-sm" @click="store.settingsSection = 'installation'; store.currentView = 'settings'">下载位置设置</button></p>
       <p v-if="folderScan?.errors.length" class="folder-scan-error" role="status">{{ folderScan.errors[0] }}</p>
     </section>
 
@@ -1139,9 +1180,15 @@ async function confirmIsolation() {
         <button class="btn btn-ghost btn-sm" :disabled="installedLoading" @click="refreshAllInstalled">{{ installedLoading ? '刷新中…' : '刷新列表' }}</button>
       </div>
       <p v-if="installedError" class="error" role="alert">{{ installedError }}</p>
+      <div class="version-category-bar" data-ui="games:category-filters">
+        <div class="version-category-filters" role="group" aria-label="版本分类筛选"><button v-for="category in categoryFilters" :key="category.id" class="btn btn-ghost btn-sm" :class="{ active: installedCategory === category.id }" :aria-pressed="installedCategory === category.id" :data-category="category.id" @click="installedCategory = category.id">{{ category.name }} <span class="category-count">{{ category.count }}</span></button></div>
+        <button class="btn btn-ghost btn-sm" data-ui="games:categories-manage" :disabled="categoryBusy" @click="categoryError = ''; categoryManagerOpen = true">管理分类</button>
+      </div>
+      <p v-if="categoryError && !categoryManagerOpen" class="error" role="alert">{{ categoryError }}</p>
       <div v-if="!sortedInstalled.length && !installingVersions.length" class="empty installed-empty">
-        <span>{{ installedLoading ? '正在读取已安装实例…' : installedSearch ? '没有匹配的实例，请调整搜索条件' : '当前范围没有已安装版本' }}</span>
-        <button class="btn btn-gold btn-sm" @click="tab = 'download'">去版本下载看看</button>
+        <span>{{ installedLoading ? '正在读取已安装实例…' : installedCategory === VERSION_CATEGORY_FAVORITES ? '此范围还没有收藏版本，点击实例旁的星标即可收藏' : installedCategory !== VERSION_CATEGORY_ALL ? '此分类暂无匹配实例，可在实例的更多操作中设置分类' : installedSearch ? '没有匹配的实例，请调整搜索条件' : '当前范围没有已安装版本' }}</span>
+        <button v-if="installedCategory !== VERSION_CATEGORY_ALL" class="btn btn-ghost btn-sm" @click="installedCategory = VERSION_CATEGORY_ALL">查看全部版本</button>
+        <button v-else class="btn btn-gold btn-sm" @click="tab = 'download'">去版本下载看看</button>
       </div>
       <div v-else class="installed-list">
         <!-- 同一实例仅渲染一次；sortWithFavorite 已负责收藏置顶。 -->
@@ -1165,6 +1212,7 @@ async function confirmIsolation() {
             <div class="instance-meta">
               <span>{{ v.mcVersion || '版本未知' }}</span><span>{{ loaderLabel(v) }}</span>
               <span class="instance-directory" :title="v.folder">{{ folderShortName(v.folder) }}</span>
+              <span v-if="categoryLabel(v)" class="instance-category" :title="categoryLabel(v)">{{ categoryLabel(v) }}</span>
               <span :title="v.gameDirectory || v.folder">{{ v.isolated ? '已隔离' : '共享目录' }}</span>
               <span v-if="v.incomplete" class="error">下载未完成</span><span v-else-if="v.failed" class="error">安装失败</span>
               <span v-else-if="v.modpackName" :title="v.modpackName">整合包</span>
@@ -1194,6 +1242,8 @@ async function confirmIsolation() {
         <div v-if="menuVersion" class="instance-technical" tabindex="0"><strong>{{ displayVersionName(menuVersion) }}</strong><span>实例 ID：{{ menuVersion.id }}</span><span>绑定目录：{{ menuVersion.folder }}</span><span>游戏目录：{{ menuVersion.gameDirectory || menuVersion.folder }}</span></div>
         <button v-if="menuVersion" class="menu-item" @click="openVersionFolder(menuVersion); closeManageMenu()">打开实例文件夹</button>
         <button v-if="menuVersion" class="menu-item" @click="openInstanceCenter(menuVersion); closeManageMenu()">实例设置与详情</button>
+        <label v-if="menuVersion" class="instance-category-field">所属分类<select class="select" data-ui="games:instance-category" :aria-label="displayVersionName(menuVersion) + '的所属分类'" :value="categoryOf(menuVersion)" :disabled="categoryBusy" @change="assignCategory(menuVersion, $event)"><option value="">未分类</option><option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option></select></label>
+        <p v-if="categoryError" class="error instance-category-error" role="alert">{{ categoryError }}</p>
         <label v-if="menuVersion && !menuVersion.modpackName && !menuVersion.incomplete && !menuVersion.failed" class="menu-item"><input type="checkbox" :checked="!!menuVersion.isolated" :disabled="isoBusy === menuVersion.id" @change="onToggleIsolation(menuVersion, $event)" />实例隔离</label>
         <button class="menu-item" @click="goManage('mods')">
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></svg>
@@ -1233,6 +1283,8 @@ async function confirmIsolation() {
         </div>
       </div>
     </Teleport>
+
+    <VersionCategoriesPanel :open="categoryManagerOpen" :categories="categories" :counts="categoryCounts" :busy="categoryBusy" :error="categoryError" @close="categoryManagerOpen = false" @action="onCategoryAction" />
 
     <!-- 实例窗口设置；未覆盖时始终跟随全局配置。 -->
     <Teleport to="body">
@@ -1421,6 +1473,7 @@ async function confirmIsolation() {
       <div v-if="modal.open" class="modal-mask" @pointerdown.self="modal.open = false">
         <div class="modal game-install-modal" role="dialog" aria-modal="true" :aria-label="`安装 ${modal.version?.id}`">
           <header class="install-header"><h3 class="modal-title">安装 {{ modal.version?.id }}</h3><button class="icon-btn" aria-label="关闭安装窗口" data-modal-dismiss @click="modal.open=false"><UiGlyph name="close" /></button></header>
+          <p class="install-location muted" data-ui="download-location:install-target">本次安装到 <span class="mono">{{ modal.targetFolder }}</span></p>
           <div class="install-content">
 
           <p class="modal-label">选择模组加载器</p>
@@ -1439,20 +1492,20 @@ async function confirmIsolation() {
 
           <template v-if="modal.loader">
             <p class="modal-label">加载器版本</p>
-            <div v-if="modal.loadingLoaders" class="loaders-loading">
+            <div v-if="modal.loadingLoaders" class="loaders-loading" data-ui="install:loader-loading">
               <span class="spin"></span>
               <span class="muted">正在获取 {{ modal.loader }} 版本列表…</span>
             </div>
             <template v-else>
-              <select v-if="modal.loaderVersions.length" v-model="modal.loaderVersion" class="select">
+              <select v-if="modal.loaderVersions.length" v-model="modal.loaderVersion" class="select" data-ui="install:loader-version">
                 <option v-for="lv in modal.loaderVersions" :key="lv" :value="lv">{{ lv }}</option>
               </select>
-              <p v-if="modal.loadLoadersError" class="loaders-error">{{ modal.loadLoadersError }}</p>
+              <p v-if="modal.loadLoadersError" class="loaders-error" data-ui="install:loader-error">{{ modal.loadLoadersError }}</p>
             </template>
 
             <!-- Fabric 联动：Fabric API 自动选择 -->
             <template v-if="modal.loader === 'fabric'">
-              <label class="check-option fapi-head"><input v-model="modal.apiOn" type="checkbox" /><span><strong>Fabric API</strong><small>同时安装，多数 Fabric 模组需要此项支持。</small></span></label>
+              <label class="check-option fapi-head"><input v-model="modal.apiOn" type="checkbox" data-ui="install:fabric-api" /><span><strong>Fabric API</strong><small>同时安装，多数 Fabric 模组需要此项支持。</small></span></label>
               <template v-if="modal.apiOn">
                 <div v-if="modal.loadingApi" class="loaders-loading">
                   <span class="spin"></span>
@@ -1473,7 +1526,7 @@ async function confirmIsolation() {
           </template>
 
           <RecordingModPicker v-model="modal.recordingMod" :mc="modal.version?.id || ''" :loader="modal.loader" />
-          <FavoriteModsPicker v-model="modal.favoriteMods" :mc="modal.version?.id || ''" :loader="modal.loader" @ready="favoritesReady=$event" />
+          <FavoriteModsPicker v-model="modal.favoriteMods" v-model:intent="modal.favoriteInstallIntent" :mc="modal.version?.id || ''" :loader="modal.loader" @ready="favoritesReady=$event" />
 
           <!-- 实例名（所有实例均可自定义；纯净版默认 MC 版本号，加载器实例按规则生成） -->
           <p class="modal-label">实例名</p>
@@ -1498,6 +1551,10 @@ async function confirmIsolation() {
 </template>
 
 <style scoped>
+.version-category-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}.version-category-filters{display:flex;flex-wrap:wrap;gap:6px;min-width:0}.version-category-filters button{max-width:100%;overflow-wrap:anywhere;white-space:normal}.version-category-filters button.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}.category-count{opacity:.75;margin-left:3px}.instance-category{max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--accent)}.instance-category-field{display:flex;flex-direction:column;gap:6px;padding:10px 12px;font-size:13px}.instance-category-field select{width:100%;min-width:0}.instance-category-error{padding:0 12px;line-height:1.6;overflow-wrap:anywhere}@media(max-width:600px){.version-category-bar{flex-wrap:wrap}.version-category-bar>button{margin-left:auto}}
+.install-location { margin: 0; padding: 4px 24px 10px; overflow-wrap: anywhere; flex-shrink: 0; font-size: var(--text-sm); }
+.folder-location-hint { margin: var(--space-2) 0 0; line-height: 1.6; }
+.folder-managed-path { flex-basis: 100%; margin: 0; overflow-wrap: anywhere; font-size: var(--text-sm); }
 .game-install-modal{width:min(620px,calc(100vw - 32px));max-height:calc(100dvh - 32px);padding:0;overflow:hidden;display:flex;flex-direction:column;border-radius:20px}.install-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px 8px;flex-shrink:0}.install-header .modal-title{font-size:26px;margin:0}.install-content{padding:0 24px 20px;min-height:0;overflow:auto;scrollbar-gutter:stable}.install-footer{padding:16px 24px;margin:0!important;border-top:1px solid var(--border);flex-shrink:0}.install-footer .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:42px;min-width:116px;border-radius:12px}.game-install-modal .loader-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.game-install-modal .loader-option{flex-direction:column;gap:6px;height:72px;border-radius:14px;padding:10px 6px;font-size:13px}.game-install-modal .loader-option.active{box-shadow:0 0 14px color-mix(in srgb,var(--accent) 12%,transparent)}.game-install-modal .modal-label{font-size:14px;margin:20px 0 10px}.game-install-modal .input,.game-install-modal .select{min-height:42px;border-radius:12px;width:100%}.game-install-modal .fapi-head{justify-content:flex-start;align-items:flex-start;margin-top:18px}.game-install-modal .inst-hint{overflow-wrap:anywhere;line-height:1.7}.game-install-modal :deep(.select-menu-btn){min-height:42px;border-radius:12px}.game-install-modal :deep(.recording-picker .modal-label){font-size:14px}.game-install-modal .loaders-error{padding:9px 12px;background:var(--danger-soft);border-radius:9px;line-height:1.5}.game-install-modal .fapi-tip{line-height:1.6}
 @media(max-width:520px){.install-header{padding:16px}.install-header .modal-title{font-size:22px}.install-content{padding:0 16px 16px}.install-footer{padding:12px 16px}.game-install-modal .loader-options{grid-template-columns:repeat(3,minmax(0,1fr))}.game-install-modal .loader-option{height:62px}}
 .folder-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}.folder-summary strong{display:flex;gap:10px;align-items:center}.folder-summary>.muted{font-size:12px}

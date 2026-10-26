@@ -23,7 +23,10 @@ async function isolated(entry:string, root:string, plugins:any[]=[]) {
   return mod.exports
 }
 test('资源扫描：空版本友好错误、同名版本按文件夹隔离、3000 项非递归读取且后台解析不阻塞',async t=>{
-  const root=fs.mkdtempSync(path.join(os.tmpdir(),'kamucl-resource-1046-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}))
+  const createdRoot=fs.mkdtempSync(path.join(os.tmpdir(),'kamucl-resource-1046-')),root=fs.realpathSync.native(createdRoot);t.after(()=>fs.rmSync(root,{recursive:true,force:true}))
+  const aliasStat=fs.statSync(createdRoot),canonicalStat=fs.statSync(root)
+  assert.equal(aliasStat.dev,canonicalStat.dev);assert.equal(aliasStat.ino,canonicalStat.ino,'临时别名与规范路径必须指向同一目录')
+  t.diagnostic(JSON.stringify({temporaryRoot:createdRoot,canonicalRoot:root,device:canonicalStat.dev,inode:canonicalStat.ino}))
   const api=await isolated('src/main/core/resourceDirectory.ts',root)
   await assert.rejects(api.resolveResourceDirectory(root,'','mods'),/请先安装或选择/)
   await assert.rejects(api.resolveResourceDirectory(root,'missing','mods'),/已移除或版本描述损坏/)

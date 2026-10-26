@@ -1,0 +1,49 @@
+// Observe the actual portable EXE before any focus, resize, reload or maximize.
+// Only disposable QA profiles and the child spawned here are controlled.
+const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),net=require('node:net'),assert=require('node:assert/strict'),{spawn}=require('node:child_process'),crypto=require('node:crypto');
+const owned=require('./qa-owned-process-119.cjs');
+const {captureOwned}=require('./qa-native-window115.cjs');
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function port(){const s=net.createServer();await new Promise(r=>s.listen(0,'127.0.0.1',r));const p=s.address().port;await new Promise(r=>s.close(r));return p}
+async function connect(p){for(let i=0;i<90;i++){try{const list=await(await fetch(`http://127.0.0.1:${p}/json`,{signal:AbortSignal.timeout(1500)})).json(),page=list.find(p=>p.webSocketDebuggerUrl);if(page){const ws=new WebSocket(page.webSocketDebuggerUrl);await new Promise((r,j)=>{ws.addEventListener('open',r,{once:true});ws.addEventListener('error',j,{once:true})});let id=0;const calls=new Map();ws.addEventListener('message',e=>{const m=JSON.parse(e.data);calls.get(m.id)?.(m)});return{ws,run:(expression)=>new Promise((r,j)=>{const n=++id,t=setTimeout(()=>{calls.delete(n);j(Error('inspector deadline'))},20000);calls.set(n,m=>{clearTimeout(t);calls.delete(n);if(m.error||m.result.exceptionDetails)j(Error(JSON.stringify(m.error||m.result.exceptionDetails)));else r(m.result.result.value)});ws.send(JSON.stringify({id:n,method:'Runtime.evaluate',params:{expression,returnByValue:true,awaitPromise:true}}))})}}}catch{}await wait(500)}throw Error('owned inspector unavailable')}
+async function verify(){
+ const exe=path.resolve(process.env.KAMUCL_GUI_APP||`release/KAMUCL-${require('../package.json').version}.exe`),theme=process.argv[2]||'blue-white';assert(['blue-white','transparent','black-orange'].includes(theme));
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'KAMUCL 初次背景 ')),profile=path.join(root,'profile'),games=path.join(root,'games');fs.mkdirSync(profile);fs.mkdirSync(games);fs.writeFileSync(path.join(profile,'settings.json'),JSON.stringify({theme,gameDir:games,activeFolder:games,folders:[{path:games}],autoUpdate:false}));
+ const exeSha=crypto.createHash('sha256').update(fs.readFileSync(exe)).digest('hex'),report={exe,exeSha,theme,root,classification:'Actual portable EXE and native desktop compositor crop; first capture before any window mutation; quarter phase uses explicit owned bounds, not a claim of physical Snap',phases:[],launches:[],startedAt:new Date().toISOString()};
+ let error;
+ for(const launch of ['cold','warm']){
+  const inspect=await port(),log=fs.openSync(path.join(root,launch+'.log'),'w'),env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
+  const child=spawn(exe,[`--user-data-dir=${profile}`,`--inspect=127.0.0.1:${inspect}`],{env,stdio:['ignore',log,log]}),track=owned.trackOwnedChild(child,'initial-backdrop-'+launch);let client;
+  try{
+   client=await connect(inspect);const run=client.run;
+   const setup=await run(`globalThis.qe=process.mainModule.require('electron');globalThis.testElectron=qe;globalThis.qw=qe.BrowserWindow.getAllWindows().find(w=>w.getTitle()==='KAMUCL');({pid:process.pid,ppid:process.ppid,profile:qe.app.getPath('userData')})`);
+   assert(setup.pid===child.pid||setup.ppid===child.pid,'wrong owned process');assert.equal(fs.realpathSync.native(setup.profile),fs.realpathSync.native(profile));
+   let ready;for(let i=0;i<120;i++){ready=await run(`(async()=>{qw=qe.BrowserWindow.getAllWindows().find(w=>w.getTitle()==='KAMUCL');if(!qw||qw.isDestroyed()||!qw.isVisible()||qw.getOpacity()!==1)return null;return await qw.webContents.executeJavaScript("({theme:document.documentElement.dataset.theme,text:document.body.innerText.includes('开始游戏'),ready:document.readyState})")})()`);if(ready?.theme===theme&&ready.text&&ready.ready==='complete')break;await wait(100)}report.readiness=ready;assert(ready?.theme===theme&&ready.text,'actual initial UI not ready');await wait(1000);
+   await run(`globalThis.qoriginal=qw.getBounds();globalThis.qdisplay=qe.screen.getDisplayMatching(qoriginal);globalThis.qfs=process.mainModule.require('node:fs');globalThis.qk=process.mainModule.require(${JSON.stringify(path.resolve('node_modules/koffi'))});globalThis.qu=qk.load('user32.dll');globalThis.qstyle=qu.func('int32_t __stdcall GetWindowLongW(uintptr_t,int)');globalThis.qdpi=qu.func('uint32_t __stdcall GetDpiForWindow(uintptr_t)');globalThis.qrect=qk.struct('QaRect115',{left:'int32_t',top:'int32_t',right:'int32_t',bottom:'int32_t'});globalThis.qgetrect=qu.func('bool __stdcall GetWindowRect(uintptr_t,_Out_ QaRect115 *)');globalThis.qpos=qu.func('bool __stdcall SetWindowPos(uintptr_t,uintptr_t,int,int,int,int,uint32_t)');globalThis.qhandle=()=>{const h=qw.getNativeWindowHandle();return Number(h.length===8?h.readBigUInt64LE():h.readUInt32LE())};globalThis.qphysical={};qgetrect(qhandle(),qphysical);true`);
+   await run(`globalThis.qforeground=qu.func('uintptr_t __stdcall GetForegroundWindow()');globalThis.qowner=qu.func('uint32_t __stdcall GetWindowThreadProcessId(uintptr_t,_Out_ uint32_t *)');true`);
+   const foreground=async()=>run(`(()=>{const handle=Number(qforeground()),owner=[0];qowner(handle,owner);return{handle,pid:owner[0],ownedHandle:qhandle(),ownedPid:process.pid}})()`);
+   const capture=async phase=>{
+    const file=path.join(root,launch+'-'+phase+'.png'),dom=path.join(root,launch+'-'+phase+'-renderer.png');
+    const beforeForeground=await foreground();assert.equal(beforeForeground.handle,beforeForeground.ownedHandle,'Actual foreground HWND is not the owned window');assert.equal(beforeForeground.pid,beforeForeground.ownedPid,'Actual foreground PID is not the owned main process');
+    const sidebar=await run(`qw.webContents.executeJavaScript("document.querySelector('.sidebar').getBoundingClientRect().toJSON()")`);
+    const binding=await run('({pid:process.pid,windowId:qw.id,webContentsId:qw.webContents.id})');
+    const nativeCapture=await run(`(${captureOwned.toString()})(${JSON.stringify(binding)},${JSON.stringify(sidebar)},${JSON.stringify(root)},${JSON.stringify(launch+'-'+phase)},${JSON.stringify(path.resolve('node_modules/koffi'))})`);
+    const sample=await run(`(async()=>{const bounds=qw.getBounds(),h=qw.getNativeWindowHandle(),hwnd=Number(h.length===8?h.readBigUInt64LE():h.readUInt32LE()),style=qstyle(hwnd,-20);qfs.writeFileSync(${JSON.stringify(dom)},(await qw.webContents.capturePage()).toPNG());return{pid:process.pid,hwnd,bounds,contentBounds:qw.getContentBounds(),dpi:qdpi(hwnd),style,layered:!!(style&0x80000),opacity:qw.getOpacity(),visible:qw.isVisible(),focused:qw.isFocused(),minimized:qw.isMinimized(),maximized:qw.isMaximized(),theme:await qw.webContents.executeJavaScript('document.documentElement.dataset.theme')}})()`);
+    sample.nativeCapture=nativeCapture;
+    const afterForeground=await foreground();sample.foreground={before:beforeForeground,after:afterForeground};sample.nativeFile=path.join(root,launch+'-'+phase+'-native-application.png');sample.rendererFile=dom;sample.phase=phase;sample.launch=launch;report.phases.push(sample);assert.equal(afterForeground.handle,beforeForeground.ownedHandle,'Actual foreground HWND changed during native capture');assert.equal(afterForeground.pid,beforeForeground.ownedPid,'Actual foreground PID changed during native capture');assert.equal(sample.opacity,1);assert.equal(sample.theme,theme);assert.equal(sample.layered,false,'completed fade remains layered');assert(sample.focused,'native capture was not foreground; cannot compare');return sample;
+   };
+   const first=await capture('initial-unmoved');
+   await run(`(()=>{const a=qdisplay.workArea;qw.setBounds({x:a.x+20,y:a.y+20,width:Math.max(960,Math.round(a.width/2)),height:Math.max(620,Math.round(a.height/2))});return true})()`);await wait(1200);await capture('quarter-request');
+   // Electron's DIP getters and setters round the nonclient frame differently
+   // at 125% DPI. Restore the original measured Win32 rectangle exactly; do not
+   // loosen comparison or treat the earlier DIP mismatch as a product pass.
+   await run('qpos(qhandle(),0,qphysical.left,qphysical.top,qphysical.right-qphysical.left,qphysical.bottom-qphysical.top,0x214)');await wait(1200);await capture('same-bounds-restored');const restoredPhysical=await run('(()=>{const r={};qgetrect(qhandle(),r);return r})()');assert.deepEqual(restoredPhysical,await run('qphysical'),'owned physical original bounds did not restore');
+   await run('qw.maximize();true');await wait(1200);await capture('maximized');await run('qw.unmaximize();true');await wait(1200);await capture('unmaximized');
+   report.gpu=await run('qe.app.getGPUFeatureStatus()');
+  }catch(e){error=e;report.error={launch,name:e.name,message:e.message};}
+  finally{if(client){try{await client.run('qe.app.quit();true')}catch{}client.ws.close()}try{const closed=await owned.finishOwnedChild(track,{terminate:!!error,timeoutMs:6000});if(!error){assert.equal(closed.code,0);assert.equal(closed.signal,null);assert(!track.ledger.events.some(e=>e.event==='SIGTERM-request'),'normal verification must finish without forced termination');}}catch(cleanupError){error=error?new AggregateError([error,cleanupError],'original observation and owned cleanup failed'):cleanupError;report.error={launch,name:error.name,message:error.message};}finally{report.launches.push({launch,owned:track.ledger});report.owned=track.ledger;fs.closeSync(log);fs.writeFileSync(path.join(root,'report.json'),JSON.stringify(report,null,2));}}
+  if(error)break;
+ }
+ report.finishedAt=new Date().toISOString();report.passed=!error;fs.writeFileSync(path.join(root,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({root,passed:report.passed,error:report.error}));if(error)throw error;
+}
+if(require.main===module)verify().catch(e=>{console.error(e);process.exitCode=1});

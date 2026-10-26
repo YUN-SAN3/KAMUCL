@@ -1,0 +1,6453 @@
+{
+  "complete": false,
+  "version": "1.1.16",
+  "directory": "E:\\KAMUCL\\out\\qa-ux116-black-orange-8032f153-aab8-483d-8bfd-70aa7b6c1874",
+  "theme": "black-orange",
+  "observations": [
+    {
+      "label": "actual focus",
+      "samples": [
+        {
+          "at": 1791291891753,
+          "value": true
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=settings]",
+      "samples": [
+        {
+          "at": 1791291891758,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.39999866485596,
+            "y": 484.8000183105469,
+            "width": 183.1999969482422,
+            "height": 48,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation settings",
+      "samples": [
+        {
+          "at": 1791291892042,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-section=\"ui-window-fit\"] label.switch",
+      "samples": [
+        {
+          "at": 1791291892417,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1266,
+            "y": 466.1499938964844,
+            "width": 40,
+            "height": 22,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual auto-fit enabled and saved",
+      "samples": [
+        {
+          "at": 1791291892597,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 1362,
+                "height": 863
+              },
+              "content": [
+                1361,
+                862
+              ],
+              "zoom": 1,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 1362,
+              "height": 862,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-section=\"ui-window-fit\"] label.switch",
+      "samples": [
+        {
+          "at": 1791291893065,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1266,
+            "y": 466.1499938964844,
+            "width": 40,
+            "height": 22,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "failed setting rolls back actual switch",
+      "samples": [
+        {
+          "at": 1791291893256,
+          "value": {
+            "state": {
+              "native": {
+                "bounds": {
+                  "x": 855,
+                  "y": 409,
+                  "width": 1362,
+                  "height": 863
+                },
+                "content": [
+                  1361,
+                  862
+                ],
+                "zoom": 1,
+                "maximized": false,
+                "workArea": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 3072,
+                  "height": 1680
+                }
+              },
+              "renderer": {
+                "width": 1362,
+                "height": 862,
+                "hasFocus": true,
+                "hidden": false,
+                "theme": "black-orange"
+              },
+              "settings": {
+                "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                "folders": [
+                  {
+                    "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                    "name": "独立验证目录",
+                    "isDefault": true
+                  },
+                  {
+                    "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                    "name": "整合包收藏",
+                    "isDefault": false
+                  }
+                ],
+                "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                "javaPath": "",
+                "javaAuto": true,
+                "javaCustom": [],
+                "javaHidden": [],
+                "memoryMB": 4096,
+                "memoryAuto": true,
+                "jvmArgs": "",
+                "resolution": {
+                  "width": 854,
+                  "height": 480,
+                  "mode": "windowed",
+                  "fullscreen": false
+                },
+                "mirror": "bmclapi",
+                "downloadThreads": 16,
+                "downloadSpeedKBps": 0,
+                "defaultIsolation": true,
+                "reduceMotion": false,
+                "uiWindowAutoFit": true,
+                "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+                "theme": "black-orange",
+                "custom": {
+                  "colors": {
+                    "accent": "#2563eb",
+                    "bg": "#edf0f7",
+                    "card": "#ffffff",
+                    "text": "#1b2437",
+                    "textDim": "#68718a",
+                    "border": "#e1e6f0",
+                    "sidebarBg": "#f5f7fb",
+                    "sidebarText": "#1b2437",
+                    "bannerText": "#ffffff"
+                  },
+                  "layout": {
+                    "sidebarWidth": 208,
+                    "bannerHeight": 430,
+                    "radius": 14
+                  }
+                },
+                "disabledFeatures": [],
+                "favoriteVersions": [],
+                "versionCategories": [],
+                "versionCategoryAssignments": {},
+                "homeLayout": {
+                  "main": [
+                    {
+                      "key": "banner",
+                      "visible": true
+                    },
+                    {
+                      "key": "logDrawer",
+                      "visible": true
+                    },
+                    {
+                      "key": "recentGames",
+                      "visible": true
+                    }
+                  ],
+                  "side": [
+                    {
+                      "key": "accountCard",
+                      "visible": true
+                    },
+                    {
+                      "key": "sysInfo",
+                      "visible": true
+                    },
+                    {
+                      "key": "quickActions",
+                      "visible": true
+                    },
+                    {
+                      "key": "authorCard",
+                      "visible": true
+                    }
+                  ]
+                },
+                "background": {
+                  "mode": "none",
+                  "color": "#1b2437",
+                  "image": "",
+                  "opacity": 0.5,
+                  "blur": 0,
+                  "fit": "crop"
+                },
+                "launchThumbnail": {
+                  "image": "",
+                  "fit": "crop",
+                  "images": [],
+                  "order": [
+                    "builtin:piston",
+                    "builtin:brewer",
+                    "builtin:cannon",
+                    "builtin:cactus",
+                    "builtin:farmer",
+                    "builtin:camp",
+                    "builtin:sunset"
+                  ],
+                  "disabled": [],
+                  "randomPlayback": false,
+                  "intervalSeconds": 6.5,
+                  "durations": {}
+                },
+                "skinEditorPalette": {
+                  "custom": [],
+                  "recent": [],
+                  "color": "#d88c58",
+                  "alpha": 1
+                },
+                "closeAfterLaunch": false,
+                "configVersion": 1,
+                "autoUpdate": false,
+                "visualDesign": {
+                  "version": 1,
+                  "pages": {}
+                }
+              }
+            },
+            "failed": true,
+            "checked": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "enabled survives actual document reload",
+      "samples": [
+        {
+          "at": 1791291893640,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 1362,
+                "height": 863
+              },
+              "content": [
+                1361,
+                862
+              ],
+              "zoom": 1,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 1362,
+              "height": 862,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "actual minimum comfortable layout",
+      "samples": [
+        {
+          "at": 1791291893652,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 962,
+                "height": 623
+              },
+              "content": [
+                961,
+                622
+              ],
+              "zoom": 1,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 962,
+              "height": 622,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        },
+        {
+          "at": 1791291893750,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 962,
+                "height": 623
+              },
+              "content": [
+                961,
+                622
+              ],
+              "zoom": 0.8405405405405405,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 1144,
+              "height": 740,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=home]",
+      "samples": [
+        {
+          "at": 1791291893754,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.47146701812744,
+            "y": 116.92625045776367,
+            "width": 183.0667266845703,
+            "height": 47.989952087402344,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation home",
+      "samples": [
+        {
+          "at": 1791291894000,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=settings]",
+      "samples": [
+        {
+          "at": 1791291895445,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.47146701812744,
+            "y": 484.7401542663574,
+            "width": 183.0667266845703,
+            "height": 47.989952087402344,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation settings",
+      "samples": [
+        {
+          "at": 1791291895622,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=home]",
+      "samples": [
+        {
+          "at": 1791291895979,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.47146701812744,
+            "y": 116.92625045776367,
+            "width": 183.0667266845703,
+            "height": 47.989952087402344,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation home",
+      "samples": [
+        {
+          "at": 1791291896201,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "auto-fit respects maximize",
+      "samples": [
+        {
+          "at": 1791291898250,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": -7,
+                "y": -7,
+                "width": 3088,
+                "height": 1696
+              },
+              "content": [
+                3072,
+                1679
+              ],
+              "zoom": 0.8405405405405405,
+              "maximized": true,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 3655,
+              "height": 1998,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        },
+        {
+          "at": 1791291898339,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": -7,
+                "y": -7,
+                "width": 3088,
+                "height": 1696
+              },
+              "content": [
+                3072,
+                1680
+              ],
+              "zoom": 1,
+              "maximized": true,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 3072,
+              "height": 1680,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "auto-fit restored after unmaximize",
+      "samples": [
+        {
+          "at": 1791291898352,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 962,
+                "height": 623
+              },
+              "content": [
+                961,
+                622
+              ],
+              "zoom": 1,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 962,
+              "height": 622,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        },
+        {
+          "at": 1791291898449,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 962,
+                "height": 623
+              },
+              "content": [
+                961,
+                622
+              ],
+              "zoom": 0.8405405405405405,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 1144,
+              "height": 740,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=settings]",
+      "samples": [
+        {
+          "at": 1791291898453,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.47146701812744,
+            "y": 484.7401542663574,
+            "width": 183.0667266845703,
+            "height": 47.989952087402344,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation settings",
+      "samples": [
+        {
+          "at": 1791291898652,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-section=\"ui-window-fit\"] label.switch",
+      "samples": [
+        {
+          "at": 1791291899015,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 1056.9314651489258,
+            "y": 479.07417011260986,
+            "width": 39.98915100097656,
+            "height": 21.994775772094727,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "disabling restores manual zoom",
+      "samples": [
+        {
+          "at": 1791291899202,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 962,
+                "height": 623
+              },
+              "content": [
+                961,
+                622
+              ],
+              "zoom": 1,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 962,
+              "height": 622,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": false,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-section=\"ui-window-fit\"] label.switch",
+      "samples": [
+        {
+          "at": 1791291899656,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 882,
+            "y": 417.3500061035156,
+            "width": 40,
+            "height": 22,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "enabled for minimum community",
+      "samples": [
+        {
+          "at": 1791291899835,
+          "value": {
+            "native": {
+              "bounds": {
+                "x": 855,
+                "y": 409,
+                "width": 962,
+                "height": 623
+              },
+              "content": [
+                961,
+                622
+              ],
+              "zoom": 0.8405405405405405,
+              "maximized": false,
+              "workArea": {
+                "x": 0,
+                "y": 0,
+                "width": 3072,
+                "height": 1680
+              }
+            },
+            "renderer": {
+              "width": 1144,
+              "height": 740,
+              "hasFocus": true,
+              "hidden": false,
+              "theme": "black-orange"
+            },
+            "settings": {
+              "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "folders": [
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+                  "name": "独立验证目录",
+                  "isDefault": true
+                },
+                {
+                  "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+                  "name": "整合包收藏",
+                  "isDefault": false
+                }
+              ],
+              "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+              "javaPath": "",
+              "javaAuto": true,
+              "javaCustom": [],
+              "javaHidden": [],
+              "memoryMB": 4096,
+              "memoryAuto": true,
+              "jvmArgs": "",
+              "resolution": {
+                "width": 854,
+                "height": 480,
+                "mode": "windowed",
+                "fullscreen": false
+              },
+              "mirror": "bmclapi",
+              "downloadThreads": 16,
+              "downloadSpeedKBps": 0,
+              "defaultIsolation": true,
+              "reduceMotion": false,
+              "uiWindowAutoFit": true,
+              "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+              "theme": "black-orange",
+              "custom": {
+                "colors": {
+                  "accent": "#2563eb",
+                  "bg": "#edf0f7",
+                  "card": "#ffffff",
+                  "text": "#1b2437",
+                  "textDim": "#68718a",
+                  "border": "#e1e6f0",
+                  "sidebarBg": "#f5f7fb",
+                  "sidebarText": "#1b2437",
+                  "bannerText": "#ffffff"
+                },
+                "layout": {
+                  "sidebarWidth": 208,
+                  "bannerHeight": 430,
+                  "radius": 14
+                }
+              },
+              "disabledFeatures": [],
+              "favoriteVersions": [],
+              "versionCategories": [],
+              "versionCategoryAssignments": {},
+              "homeLayout": {
+                "main": [
+                  {
+                    "key": "banner",
+                    "visible": true
+                  },
+                  {
+                    "key": "logDrawer",
+                    "visible": true
+                  },
+                  {
+                    "key": "recentGames",
+                    "visible": true
+                  }
+                ],
+                "side": [
+                  {
+                    "key": "accountCard",
+                    "visible": true
+                  },
+                  {
+                    "key": "sysInfo",
+                    "visible": true
+                  },
+                  {
+                    "key": "quickActions",
+                    "visible": true
+                  },
+                  {
+                    "key": "authorCard",
+                    "visible": true
+                  }
+                ]
+              },
+              "background": {
+                "mode": "none",
+                "color": "#1b2437",
+                "image": "",
+                "opacity": 0.5,
+                "blur": 0,
+                "fit": "crop"
+              },
+              "launchThumbnail": {
+                "image": "",
+                "fit": "crop",
+                "images": [],
+                "order": [
+                  "builtin:piston",
+                  "builtin:brewer",
+                  "builtin:cannon",
+                  "builtin:cactus",
+                  "builtin:farmer",
+                  "builtin:camp",
+                  "builtin:sunset"
+                ],
+                "disabled": [],
+                "randomPlayback": false,
+                "intervalSeconds": 6.5,
+                "durations": {}
+              },
+              "skinEditorPalette": {
+                "custom": [],
+                "recent": [],
+                "color": "#d88c58",
+                "alpha": 1
+              },
+              "closeAfterLaunch": false,
+              "configVersion": 1,
+              "autoUpdate": false,
+              "visualDesign": {
+                "version": 1,
+                "pages": {}
+              }
+            }
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-nav=community]",
+      "samples": [
+        {
+          "at": 1791291899842,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 104.47146701812744,
+            "y": 432.7646903991699,
+            "width": 183.0667266845703,
+            "height": 47.989952087402344,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "navigation community",
+      "samples": [
+        {
+          "at": 1791291900022,
+          "value": "page"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [data-ui=\"CommunityView:bc0450fd9c8f\"]",
+      "samples": [
+        {
+          "at": 1791291900382,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 573.3661651611328,
+            "y": 370.3866767883301,
+            "width": 646.994384765625,
+            "height": 35.988746643066406,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    },
+    {
+      "label": "coordinate target [aria-label=\"Minecraft 版本\"]",
+      "samples": [
+        {
+          "at": 1791291900581,
+          "value": {
+            "exists": true,
+            "disabled": false,
+            "inert": false,
+            "x": 570.1911468505859,
+            "y": 405.9887580871582,
+            "width": 232.60330200195312,
+            "height": 35.988746643066406,
+            "hit": true,
+            "viewport": true
+          }
+        }
+      ],
+      "complete": true
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "adaptive-setting-enabled.png",
+      "bytes": 146472,
+      "sha256": "9efe58500a461ee85523195662809853a3a1595fa2c98429b613e4c8d2e7f723",
+      "before": {
+        "hwnd": 11734520,
+        "foreground": 11734520,
+        "ownerPid": 49412,
+        "foregroundPid": 49412,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291893015,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 11734520,
+        "foreground": 11734520,
+        "ownerPid": 49412,
+        "foregroundPid": 49412,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291893063,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1362,
+        "height": 862
+      }
+    },
+    {
+      "file": "adaptive-minimum-home.png",
+      "bytes": 471290,
+      "sha256": "5563ec033522021dd08e400b0c80ee8cb1b813bc36a8fe34f392ba1f2646540e",
+      "before": {
+        "hwnd": 11734520,
+        "foreground": 11734520,
+        "ownerPid": 49412,
+        "foregroundPid": 49412,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291894765,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 11734520,
+        "foreground": 11734520,
+        "ownerPid": 49412,
+        "foregroundPid": 49412,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291894911,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1144,
+        "height": 740
+      }
+    },
+    {
+      "file": "adaptive-disabled-minimum.png",
+      "bytes": 121472,
+      "sha256": "ac3c1f91b390e4ba6bbc2de0ddce5bb96a274bb7e92c7e47b4af820c7f8c1b95",
+      "before": {
+        "hwnd": 11734520,
+        "foreground": 11734520,
+        "ownerPid": 49412,
+        "foregroundPid": 49412,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291899612,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 11734520,
+        "foreground": 11734520,
+        "ownerPid": 49412,
+        "foregroundPid": 49412,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291899653,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 962,
+        "height": 622
+      }
+    },
+    {
+      "file": "community116-version-popup-uncovered.png",
+      "bytes": 136201,
+      "sha256": "91592019deb027bdefca7a55d653b6b35222e9860f82c233b6b51b9d74c40d9e",
+      "before": {
+        "hwnd": 11734520,
+        "foreground": 11734520,
+        "ownerPid": 49412,
+        "foregroundPid": 49412,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291901165,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "after": {
+        "hwnd": 11734520,
+        "foreground": 11734520,
+        "ownerPid": 49412,
+        "foregroundPid": 49412,
+        "visible": true,
+        "minimized": false,
+        "focused": true,
+        "dpi": 120,
+        "dpiContext": "18",
+        "dpiAwareness": 2,
+        "observedAt": 1791291901207,
+        "classification": "Read-only actual GetForegroundWindow/HWND/PID for the exactly bound owned window. No focus, visibility or desktop changes; hidden and non-foreground states remain original."
+      },
+      "renderer": {
+        "hasFocus": true,
+        "hidden": false,
+        "width": 1144,
+        "height": 740
+      }
+    }
+  ],
+  "classification": "Actual Windows portable UI, foreground-checked coordinate/keyboard input. Synthetic provider/installation responses, not live services. Actual host display unchanged; 1366x768/DPI geometry is separately unit-tested.",
+  "identity": {
+    "pid": 49412,
+    "ppid": 45480,
+    "windowId": 1,
+    "webContentsId": 1,
+    "profile": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\profile",
+    "electron": "44.3.0",
+    "arch": "x64"
+  },
+  "nativeFocus": {
+    "hwnd": 11734520,
+    "pid": 49412,
+    "before": 11734520,
+    "simpleSet": true,
+    "attached": false,
+    "detached": null,
+    "after": 11734520
+  },
+  "defaultOff": {
+    "native": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "content": [
+        1361,
+        862
+      ],
+      "zoom": 1,
+      "maximized": false,
+      "workArea": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      }
+    },
+    "renderer": {
+      "width": 1362,
+      "height": 862,
+      "hasFocus": true,
+      "hidden": false,
+      "theme": "black-orange"
+    },
+    "settings": {
+      "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "folders": [
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+          "name": "独立验证目录",
+          "isDefault": true
+        },
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+          "name": "整合包收藏",
+          "isDefault": false
+        }
+      ],
+      "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "javaPath": "",
+      "javaAuto": true,
+      "javaCustom": [],
+      "javaHidden": [],
+      "memoryMB": 4096,
+      "memoryAuto": true,
+      "jvmArgs": "",
+      "resolution": {
+        "width": 854,
+        "height": 480,
+        "mode": "windowed",
+        "fullscreen": false
+      },
+      "mirror": "bmclapi",
+      "downloadThreads": 16,
+      "downloadSpeedKBps": 0,
+      "defaultIsolation": true,
+      "reduceMotion": false,
+      "uiWindowAutoFit": false,
+      "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+      "theme": "black-orange",
+      "custom": {
+        "colors": {
+          "accent": "#2563eb",
+          "bg": "#edf0f7",
+          "card": "#ffffff",
+          "text": "#1b2437",
+          "textDim": "#68718a",
+          "border": "#e1e6f0",
+          "sidebarBg": "#f5f7fb",
+          "sidebarText": "#1b2437",
+          "bannerText": "#ffffff"
+        },
+        "layout": {
+          "sidebarWidth": 208,
+          "bannerHeight": 430,
+          "radius": 14
+        }
+      },
+      "disabledFeatures": [],
+      "favoriteVersions": [],
+      "versionCategories": [],
+      "versionCategoryAssignments": {},
+      "homeLayout": {
+        "main": [
+          {
+            "key": "banner",
+            "visible": true
+          },
+          {
+            "key": "logDrawer",
+            "visible": true
+          },
+          {
+            "key": "recentGames",
+            "visible": true
+          }
+        ],
+        "side": [
+          {
+            "key": "accountCard",
+            "visible": true
+          },
+          {
+            "key": "sysInfo",
+            "visible": true
+          },
+          {
+            "key": "quickActions",
+            "visible": true
+          },
+          {
+            "key": "authorCard",
+            "visible": true
+          }
+        ]
+      },
+      "background": {
+        "mode": "none",
+        "color": "#1b2437",
+        "image": "",
+        "opacity": 0.5,
+        "blur": 0,
+        "fit": "crop"
+      },
+      "launchThumbnail": {
+        "image": "",
+        "fit": "crop",
+        "images": [],
+        "order": [
+          "builtin:piston",
+          "builtin:brewer",
+          "builtin:cannon",
+          "builtin:cactus",
+          "builtin:farmer",
+          "builtin:camp",
+          "builtin:sunset"
+        ],
+        "disabled": [],
+        "randomPlayback": false,
+        "intervalSeconds": 6.5,
+        "durations": {}
+      },
+      "skinEditorPalette": {
+        "custom": [],
+        "recent": [],
+        "color": "#d88c58",
+        "alpha": 1
+      },
+      "closeAfterLaunch": false,
+      "configVersion": 1,
+      "autoUpdate": false,
+      "visualDesign": {
+        "version": 1,
+        "pages": {}
+      }
+    }
+  },
+  "settingsFailureSetup": {
+    "owned": true
+  },
+  "settingsFailure": {
+    "state": {
+      "native": {
+        "bounds": {
+          "x": 855,
+          "y": 409,
+          "width": 1362,
+          "height": 863
+        },
+        "content": [
+          1361,
+          862
+        ],
+        "zoom": 1,
+        "maximized": false,
+        "workArea": {
+          "x": 0,
+          "y": 0,
+          "width": 3072,
+          "height": 1680
+        }
+      },
+      "renderer": {
+        "width": 1362,
+        "height": 862,
+        "hasFocus": true,
+        "hidden": false,
+        "theme": "black-orange"
+      },
+      "settings": {
+        "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+        "folders": [
+          {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+            "name": "独立验证目录",
+            "isDefault": true
+          },
+          {
+            "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+            "name": "整合包收藏",
+            "isDefault": false
+          }
+        ],
+        "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+        "javaPath": "",
+        "javaAuto": true,
+        "javaCustom": [],
+        "javaHidden": [],
+        "memoryMB": 4096,
+        "memoryAuto": true,
+        "jvmArgs": "",
+        "resolution": {
+          "width": 854,
+          "height": 480,
+          "mode": "windowed",
+          "fullscreen": false
+        },
+        "mirror": "bmclapi",
+        "downloadThreads": 16,
+        "downloadSpeedKBps": 0,
+        "defaultIsolation": true,
+        "reduceMotion": false,
+        "uiWindowAutoFit": true,
+        "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+        "theme": "black-orange",
+        "custom": {
+          "colors": {
+            "accent": "#2563eb",
+            "bg": "#edf0f7",
+            "card": "#ffffff",
+            "text": "#1b2437",
+            "textDim": "#68718a",
+            "border": "#e1e6f0",
+            "sidebarBg": "#f5f7fb",
+            "sidebarText": "#1b2437",
+            "bannerText": "#ffffff"
+          },
+          "layout": {
+            "sidebarWidth": 208,
+            "bannerHeight": 430,
+            "radius": 14
+          }
+        },
+        "disabledFeatures": [],
+        "favoriteVersions": [],
+        "versionCategories": [],
+        "versionCategoryAssignments": {},
+        "homeLayout": {
+          "main": [
+            {
+              "key": "banner",
+              "visible": true
+            },
+            {
+              "key": "logDrawer",
+              "visible": true
+            },
+            {
+              "key": "recentGames",
+              "visible": true
+            }
+          ],
+          "side": [
+            {
+              "key": "accountCard",
+              "visible": true
+            },
+            {
+              "key": "sysInfo",
+              "visible": true
+            },
+            {
+              "key": "quickActions",
+              "visible": true
+            },
+            {
+              "key": "authorCard",
+              "visible": true
+            }
+          ]
+        },
+        "background": {
+          "mode": "none",
+          "color": "#1b2437",
+          "image": "",
+          "opacity": 0.5,
+          "blur": 0,
+          "fit": "crop"
+        },
+        "launchThumbnail": {
+          "image": "",
+          "fit": "crop",
+          "images": [],
+          "order": [
+            "builtin:piston",
+            "builtin:brewer",
+            "builtin:cannon",
+            "builtin:cactus",
+            "builtin:farmer",
+            "builtin:camp",
+            "builtin:sunset"
+          ],
+          "disabled": [],
+          "randomPlayback": false,
+          "intervalSeconds": 6.5,
+          "durations": {}
+        },
+        "skinEditorPalette": {
+          "custom": [],
+          "recent": [],
+          "color": "#d88c58",
+          "alpha": 1
+        },
+        "closeAfterLaunch": false,
+        "configVersion": 1,
+        "autoUpdate": false,
+        "visualDesign": {
+          "version": 1,
+          "pages": {}
+        }
+      }
+    },
+    "failed": true,
+    "checked": true
+  },
+  "settingsFailureRestored": {
+    "complete": true
+  },
+  "reload": {
+    "native": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 1362,
+        "height": 863
+      },
+      "content": [
+        1361,
+        862
+      ],
+      "zoom": 1,
+      "maximized": false,
+      "workArea": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      }
+    },
+    "renderer": {
+      "width": 1362,
+      "height": 862,
+      "hasFocus": true,
+      "hidden": false,
+      "theme": "black-orange"
+    },
+    "settings": {
+      "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "folders": [
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+          "name": "独立验证目录",
+          "isDefault": true
+        },
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+          "name": "整合包收藏",
+          "isDefault": false
+        }
+      ],
+      "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "javaPath": "",
+      "javaAuto": true,
+      "javaCustom": [],
+      "javaHidden": [],
+      "memoryMB": 4096,
+      "memoryAuto": true,
+      "jvmArgs": "",
+      "resolution": {
+        "width": 854,
+        "height": 480,
+        "mode": "windowed",
+        "fullscreen": false
+      },
+      "mirror": "bmclapi",
+      "downloadThreads": 16,
+      "downloadSpeedKBps": 0,
+      "defaultIsolation": true,
+      "reduceMotion": false,
+      "uiWindowAutoFit": true,
+      "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+      "theme": "black-orange",
+      "custom": {
+        "colors": {
+          "accent": "#2563eb",
+          "bg": "#edf0f7",
+          "card": "#ffffff",
+          "text": "#1b2437",
+          "textDim": "#68718a",
+          "border": "#e1e6f0",
+          "sidebarBg": "#f5f7fb",
+          "sidebarText": "#1b2437",
+          "bannerText": "#ffffff"
+        },
+        "layout": {
+          "sidebarWidth": 208,
+          "bannerHeight": 430,
+          "radius": 14
+        }
+      },
+      "disabledFeatures": [],
+      "favoriteVersions": [],
+      "versionCategories": [],
+      "versionCategoryAssignments": {},
+      "homeLayout": {
+        "main": [
+          {
+            "key": "banner",
+            "visible": true
+          },
+          {
+            "key": "logDrawer",
+            "visible": true
+          },
+          {
+            "key": "recentGames",
+            "visible": true
+          }
+        ],
+        "side": [
+          {
+            "key": "accountCard",
+            "visible": true
+          },
+          {
+            "key": "sysInfo",
+            "visible": true
+          },
+          {
+            "key": "quickActions",
+            "visible": true
+          },
+          {
+            "key": "authorCard",
+            "visible": true
+          }
+        ]
+      },
+      "background": {
+        "mode": "none",
+        "color": "#1b2437",
+        "image": "",
+        "opacity": 0.5,
+        "blur": 0,
+        "fit": "crop"
+      },
+      "launchThumbnail": {
+        "image": "",
+        "fit": "crop",
+        "images": [],
+        "order": [
+          "builtin:piston",
+          "builtin:brewer",
+          "builtin:cannon",
+          "builtin:cactus",
+          "builtin:farmer",
+          "builtin:camp",
+          "builtin:sunset"
+        ],
+        "disabled": [],
+        "randomPlayback": false,
+        "intervalSeconds": 6.5,
+        "durations": {}
+      },
+      "skinEditorPalette": {
+        "custom": [],
+        "recent": [],
+        "color": "#d88c58",
+        "alpha": 1
+      },
+      "closeAfterLaunch": false,
+      "configVersion": 1,
+      "autoUpdate": false,
+      "visualDesign": {
+        "version": 1,
+        "pages": {}
+      }
+    }
+  },
+  "minimum": {
+    "native": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 962,
+        "height": 623
+      },
+      "content": [
+        961,
+        622
+      ],
+      "zoom": 0.8405405405405405,
+      "maximized": false,
+      "workArea": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      }
+    },
+    "renderer": {
+      "width": 1144,
+      "height": 740,
+      "hasFocus": true,
+      "hidden": false,
+      "theme": "black-orange"
+    },
+    "settings": {
+      "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "folders": [
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+          "name": "独立验证目录",
+          "isDefault": true
+        },
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+          "name": "整合包收藏",
+          "isDefault": false
+        }
+      ],
+      "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "javaPath": "",
+      "javaAuto": true,
+      "javaCustom": [],
+      "javaHidden": [],
+      "memoryMB": 4096,
+      "memoryAuto": true,
+      "jvmArgs": "",
+      "resolution": {
+        "width": 854,
+        "height": 480,
+        "mode": "windowed",
+        "fullscreen": false
+      },
+      "mirror": "bmclapi",
+      "downloadThreads": 16,
+      "downloadSpeedKBps": 0,
+      "defaultIsolation": true,
+      "reduceMotion": false,
+      "uiWindowAutoFit": true,
+      "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+      "theme": "black-orange",
+      "custom": {
+        "colors": {
+          "accent": "#2563eb",
+          "bg": "#edf0f7",
+          "card": "#ffffff",
+          "text": "#1b2437",
+          "textDim": "#68718a",
+          "border": "#e1e6f0",
+          "sidebarBg": "#f5f7fb",
+          "sidebarText": "#1b2437",
+          "bannerText": "#ffffff"
+        },
+        "layout": {
+          "sidebarWidth": 208,
+          "bannerHeight": 430,
+          "radius": 14
+        }
+      },
+      "disabledFeatures": [],
+      "favoriteVersions": [],
+      "versionCategories": [],
+      "versionCategoryAssignments": {},
+      "homeLayout": {
+        "main": [
+          {
+            "key": "banner",
+            "visible": true
+          },
+          {
+            "key": "logDrawer",
+            "visible": true
+          },
+          {
+            "key": "recentGames",
+            "visible": true
+          }
+        ],
+        "side": [
+          {
+            "key": "accountCard",
+            "visible": true
+          },
+          {
+            "key": "sysInfo",
+            "visible": true
+          },
+          {
+            "key": "quickActions",
+            "visible": true
+          },
+          {
+            "key": "authorCard",
+            "visible": true
+          }
+        ]
+      },
+      "background": {
+        "mode": "none",
+        "color": "#1b2437",
+        "image": "",
+        "opacity": 0.5,
+        "blur": 0,
+        "fit": "crop"
+      },
+      "launchThumbnail": {
+        "image": "",
+        "fit": "crop",
+        "images": [],
+        "order": [
+          "builtin:piston",
+          "builtin:brewer",
+          "builtin:cannon",
+          "builtin:cactus",
+          "builtin:farmer",
+          "builtin:camp",
+          "builtin:sunset"
+        ],
+        "disabled": [],
+        "randomPlayback": false,
+        "intervalSeconds": 6.5,
+        "durations": {}
+      },
+      "skinEditorPalette": {
+        "custom": [],
+        "recent": [],
+        "color": "#d88c58",
+        "alpha": 1
+      },
+      "closeAfterLaunch": false,
+      "configVersion": 1,
+      "autoUpdate": false,
+      "visualDesign": {
+        "version": 1,
+        "pages": {}
+      }
+    }
+  },
+  "keyboardBefore": {
+    "native": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 962,
+        "height": 623
+      },
+      "content": [
+        961,
+        622
+      ],
+      "zoom": 0.8405405405405405,
+      "maximized": false,
+      "workArea": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      }
+    },
+    "renderer": {
+      "width": 1144,
+      "height": 740,
+      "hasFocus": true,
+      "hidden": false,
+      "theme": "black-orange"
+    },
+    "settings": {
+      "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "folders": [
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+          "name": "独立验证目录",
+          "isDefault": true
+        },
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+          "name": "整合包收藏",
+          "isDefault": false
+        }
+      ],
+      "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "javaPath": "",
+      "javaAuto": true,
+      "javaCustom": [],
+      "javaHidden": [],
+      "memoryMB": 4096,
+      "memoryAuto": true,
+      "jvmArgs": "",
+      "resolution": {
+        "width": 854,
+        "height": 480,
+        "mode": "windowed",
+        "fullscreen": false
+      },
+      "mirror": "bmclapi",
+      "downloadThreads": 16,
+      "downloadSpeedKBps": 0,
+      "defaultIsolation": true,
+      "reduceMotion": false,
+      "uiWindowAutoFit": true,
+      "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+      "theme": "black-orange",
+      "custom": {
+        "colors": {
+          "accent": "#2563eb",
+          "bg": "#edf0f7",
+          "card": "#ffffff",
+          "text": "#1b2437",
+          "textDim": "#68718a",
+          "border": "#e1e6f0",
+          "sidebarBg": "#f5f7fb",
+          "sidebarText": "#1b2437",
+          "bannerText": "#ffffff"
+        },
+        "layout": {
+          "sidebarWidth": 208,
+          "bannerHeight": 430,
+          "radius": 14
+        }
+      },
+      "disabledFeatures": [],
+      "favoriteVersions": [],
+      "versionCategories": [],
+      "versionCategoryAssignments": {},
+      "homeLayout": {
+        "main": [
+          {
+            "key": "banner",
+            "visible": true
+          },
+          {
+            "key": "logDrawer",
+            "visible": true
+          },
+          {
+            "key": "recentGames",
+            "visible": true
+          }
+        ],
+        "side": [
+          {
+            "key": "accountCard",
+            "visible": true
+          },
+          {
+            "key": "sysInfo",
+            "visible": true
+          },
+          {
+            "key": "quickActions",
+            "visible": true
+          },
+          {
+            "key": "authorCard",
+            "visible": true
+          }
+        ]
+      },
+      "background": {
+        "mode": "none",
+        "color": "#1b2437",
+        "image": "",
+        "opacity": 0.5,
+        "blur": 0,
+        "fit": "crop"
+      },
+      "launchThumbnail": {
+        "image": "",
+        "fit": "crop",
+        "images": [],
+        "order": [
+          "builtin:piston",
+          "builtin:brewer",
+          "builtin:cannon",
+          "builtin:cactus",
+          "builtin:farmer",
+          "builtin:camp",
+          "builtin:sunset"
+        ],
+        "disabled": [],
+        "randomPlayback": false,
+        "intervalSeconds": 6.5,
+        "durations": {}
+      },
+      "skinEditorPalette": {
+        "custom": [],
+        "recent": [],
+        "color": "#d88c58",
+        "alpha": 1
+      },
+      "closeAfterLaunch": false,
+      "configVersion": 1,
+      "autoUpdate": false,
+      "visualDesign": {
+        "version": 1,
+        "pages": {}
+      }
+    }
+  },
+  "nativeMinusInput": {
+    "pid": 49412,
+    "hwnd": 11734520,
+    "before": 11734520,
+    "after": 11734520,
+    "accepted": 4,
+    "vk": 189,
+    "classification": "Actual Win32 four-event SendInput batch, no user-held modifier, exact foreground HWND/PID checked before and after; unrelated windows untouched"
+  },
+  "keyboardAfterMinus": {
+    "native": {
+      "bounds": {
+        "x": 855,
+        "y": 409,
+        "width": 962,
+        "height": 623
+      },
+      "content": [
+        961,
+        622
+      ],
+      "zoom": 0.7641277641277641,
+      "maximized": false,
+      "workArea": {
+        "x": 0,
+        "y": 0,
+        "width": 3072,
+        "height": 1680
+      }
+    },
+    "renderer": {
+      "width": 1258,
+      "height": 814,
+      "hasFocus": true,
+      "hidden": false,
+      "theme": "black-orange"
+    },
+    "settings": {
+      "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "folders": [
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+          "name": "独立验证目录",
+          "isDefault": true
+        },
+        {
+          "path": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\second-games",
+          "name": "整合包收藏",
+          "isDefault": false
+        }
+      ],
+      "activeFolder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "javaPath": "",
+      "javaAuto": true,
+      "javaCustom": [],
+      "javaHidden": [],
+      "memoryMB": 4096,
+      "memoryAuto": true,
+      "jvmArgs": "",
+      "resolution": {
+        "width": 854,
+        "height": 480,
+        "mode": "windowed",
+        "fullscreen": false
+      },
+      "mirror": "bmclapi",
+      "downloadThreads": 16,
+      "downloadSpeedKBps": 0,
+      "defaultIsolation": true,
+      "reduceMotion": false,
+      "uiWindowAutoFit": true,
+      "msClientId": "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb",
+      "theme": "black-orange",
+      "custom": {
+        "colors": {
+          "accent": "#2563eb",
+          "bg": "#edf0f7",
+          "card": "#ffffff",
+          "text": "#1b2437",
+          "textDim": "#68718a",
+          "border": "#e1e6f0",
+          "sidebarBg": "#f5f7fb",
+          "sidebarText": "#1b2437",
+          "bannerText": "#ffffff"
+        },
+        "layout": {
+          "sidebarWidth": 208,
+          "bannerHeight": 430,
+          "radius": 14
+        }
+      },
+      "disabledFeatures": [],
+      "favoriteVersions": [],
+      "versionCategories": [],
+      "versionCategoryAssignments": {},
+      "homeLayout": {
+        "main": [
+          {
+            "key": "banner",
+            "visible": true
+          },
+          {
+            "key": "logDrawer",
+            "visible": true
+          },
+          {
+            "key": "recentGames",
+            "visible": true
+          }
+        ],
+        "side": [
+          {
+            "key": "accountCard",
+            "visible": true
+          },
+          {
+            "key": "sysInfo",
+            "visible": true
+          },
+          {
+            "key": "quickActions",
+            "visible": true
+          },
+          {
+            "key": "authorCard",
+            "visible": true
+          }
+        ]
+      },
+      "background": {
+        "mode": "none",
+        "color": "#1b2437",
+        "image": "",
+        "opacity": 0.5,
+        "blur": 0,
+        "fit": "crop"
+      },
+      "launchThumbnail": {
+        "image": "",
+        "fit": "crop",
+        "images": [],
+        "order": [
+          "builtin:piston",
+          "builtin:brewer",
+          "builtin:cannon",
+          "builtin:cactus",
+          "builtin:farmer",
+          "builtin:camp",
+          "builtin:sunset"
+        ],
+        "disabled": [],
+        "randomPlayback": false,
+        "intervalSeconds": 6.5,
+        "durations": {}
+      },
+      "skinEditorPalette": {
+        "custom": [],
+        "recent": [],
+        "color": "#d88c58",
+        "alpha": 1
+      },
+      "closeAfterLaunch": false,
+      "configVersion": 1,
+      "autoUpdate": false,
+      "visualDesign": {
+        "version": 1,
+        "pages": {}
+      }
+    }
+  },
+  "keyboardEvents": [
+    {
+      "type": "keyDown",
+      "key": "-",
+      "control": true,
+      "meta": false,
+      "alt": false,
+      "zoom": 0.7641277641277641,
+      "at": 1791291894930
+    }
+  ],
+  "nativeResetInput": {
+    "pid": 49412,
+    "hwnd": 11734520,
+    "before": 11734520,
+    "after": 11734520,
+    "accepted": 4,
+    "vk": 48,
+    "classification": "Actual Win32 four-event SendInput batch, no user-held modifier, exact foreground HWND/PID checked before and after; unrelated windows untouched"
+  },
+  "keyboardZoom": {
+    "minus": 0.7641277641277641,
+    "restored": 0.8405405405405405
+  },
+  "recording": {
+    "version": "1.1.16",
+    "directory": "E:\\KAMUCL\\out\\ux116-minimum-e972caa7-adf5-40de-a849-7399ad7c85ba-black-orange",
+    "capture": {
+      "format": "jpeg",
+      "quality": 70,
+      "maxWidth": 960,
+      "maxHeight": 620,
+      "everyNthFrame": 1
+    },
+    "source": "actual Page.startScreencast full compositor frames scaled to fit 960x620, JPEG quality70, acknowledged before decode and buffered in memory until recording stops; no interpolated frames",
+    "startedAt": "2026-10-06T13:04:55.341Z",
+    "frames": [
+      {
+        "file": "frame-0000.jpg",
+        "receivedAt": 1791291895352,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.348154
+      },
+      {
+        "file": "frame-0001.jpg",
+        "receivedAt": 1791291895356,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.352175
+      },
+      {
+        "file": "frame-0002.jpg",
+        "receivedAt": 1791291895363,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.360057
+      },
+      {
+        "file": "frame-0003.jpg",
+        "receivedAt": 1791291895372,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.368627
+      },
+      {
+        "file": "frame-0004.jpg",
+        "receivedAt": 1791291895384,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.38088
+      },
+      {
+        "file": "frame-0005.jpg",
+        "receivedAt": 1791291895393,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.389053
+      },
+      {
+        "file": "frame-0006.jpg",
+        "receivedAt": 1791291895404,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.400405
+      },
+      {
+        "file": "frame-0007.jpg",
+        "receivedAt": 1791291895413,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.410209
+      },
+      {
+        "file": "frame-0008.jpg",
+        "receivedAt": 1791291895421,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.418493
+      },
+      {
+        "file": "frame-0009.jpg",
+        "receivedAt": 1791291895434,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.430717
+      },
+      {
+        "file": "frame-0010.jpg",
+        "receivedAt": 1791291895443,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.439357
+      },
+      {
+        "file": "frame-0011.jpg",
+        "receivedAt": 1791291895455,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.451553
+      },
+      {
+        "file": "frame-0012.jpg",
+        "receivedAt": 1791291895463,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.459996
+      },
+      {
+        "file": "frame-0013.jpg",
+        "receivedAt": 1791291895503,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.493911
+      },
+      {
+        "file": "frame-0014.jpg",
+        "receivedAt": 1791291895504,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.502484
+      },
+      {
+        "file": "frame-0015.jpg",
+        "receivedAt": 1791291895514,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.512409
+      },
+      {
+        "file": "frame-0016.jpg",
+        "receivedAt": 1791291895515,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.51357
+      },
+      {
+        "file": "frame-0017.jpg",
+        "receivedAt": 1791291895518,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.516562
+      },
+      {
+        "file": "frame-0018.jpg",
+        "receivedAt": 1791291895528,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.52622
+      },
+      {
+        "file": "frame-0019.jpg",
+        "receivedAt": 1791291895541,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.539394
+      },
+      {
+        "file": "frame-0020.jpg",
+        "receivedAt": 1791291895549,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.547451
+      },
+      {
+        "file": "frame-0021.jpg",
+        "receivedAt": 1791291895559,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.555827
+      },
+      {
+        "file": "frame-0022.jpg",
+        "receivedAt": 1791291895567,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.565283
+      },
+      {
+        "file": "frame-0023.jpg",
+        "receivedAt": 1791291895579,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.5767
+      },
+      {
+        "file": "frame-0024.jpg",
+        "receivedAt": 1791291895587,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.58488
+      },
+      {
+        "file": "frame-0025.jpg",
+        "receivedAt": 1791291895597,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.594495
+      },
+      {
+        "file": "frame-0026.jpg",
+        "receivedAt": 1791291895607,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.604923
+      },
+      {
+        "file": "frame-0027.jpg",
+        "receivedAt": 1791291895621,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.618486
+      },
+      {
+        "file": "frame-0028.jpg",
+        "receivedAt": 1791291895629,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.626572
+      },
+      {
+        "file": "frame-0029.jpg",
+        "receivedAt": 1791291895641,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.6392
+      },
+      {
+        "file": "frame-0030.jpg",
+        "receivedAt": 1791291895650,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.647341
+      },
+      {
+        "file": "frame-0031.jpg",
+        "receivedAt": 1791291895657,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.654168
+      },
+      {
+        "file": "frame-0032.jpg",
+        "receivedAt": 1791291895671,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.668301
+      },
+      {
+        "file": "frame-0033.jpg",
+        "receivedAt": 1791291895679,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.676784
+      },
+      {
+        "file": "frame-0034.jpg",
+        "receivedAt": 1791291895691,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.689217
+      },
+      {
+        "file": "frame-0035.jpg",
+        "receivedAt": 1791291895700,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.697355
+      },
+      {
+        "file": "frame-0036.jpg",
+        "receivedAt": 1791291895708,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.7057
+      },
+      {
+        "file": "frame-0037.jpg",
+        "receivedAt": 1791291895720,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.718246
+      },
+      {
+        "file": "frame-0038.jpg",
+        "receivedAt": 1791291895729,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.726436
+      },
+      {
+        "file": "frame-0039.jpg",
+        "receivedAt": 1791291895741,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.739
+      },
+      {
+        "file": "frame-0040.jpg",
+        "receivedAt": 1791291895750,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.747288
+      },
+      {
+        "file": "frame-0041.jpg",
+        "receivedAt": 1791291895758,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.755714
+      },
+      {
+        "file": "frame-0042.jpg",
+        "receivedAt": 1791291895797,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.79425
+      },
+      {
+        "file": "frame-0043.jpg",
+        "receivedAt": 1791291895993,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291895.990505
+      },
+      {
+        "file": "frame-0044.jpg",
+        "receivedAt": 1791291896003,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.000205
+      },
+      {
+        "file": "frame-0045.jpg",
+        "receivedAt": 1791291896037,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.033495
+      },
+      {
+        "file": "frame-0046.jpg",
+        "receivedAt": 1791291896038,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.034513
+      },
+      {
+        "file": "frame-0047.jpg",
+        "receivedAt": 1791291896038,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.035471
+      },
+      {
+        "file": "frame-0048.jpg",
+        "receivedAt": 1791291896050,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.04783
+      },
+      {
+        "file": "frame-0049.jpg",
+        "receivedAt": 1791291896062,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.058853
+      },
+      {
+        "file": "frame-0050.jpg",
+        "receivedAt": 1791291896064,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.061769
+      },
+      {
+        "file": "frame-0051.jpg",
+        "receivedAt": 1791291896079,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.076914
+      },
+      {
+        "file": "frame-0052.jpg",
+        "receivedAt": 1791291896089,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.084917
+      },
+      {
+        "file": "frame-0053.jpg",
+        "receivedAt": 1791291896101,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.097811
+      },
+      {
+        "file": "frame-0054.jpg",
+        "receivedAt": 1791291896107,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.104
+      },
+      {
+        "file": "frame-0055.jpg",
+        "receivedAt": 1791291896117,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.114229
+      },
+      {
+        "file": "frame-0056.jpg",
+        "receivedAt": 1791291896129,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.126519
+      },
+      {
+        "file": "frame-0057.jpg",
+        "receivedAt": 1791291896138,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.134951
+      },
+      {
+        "file": "frame-0058.jpg",
+        "receivedAt": 1791291896151,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.147602
+      },
+      {
+        "file": "frame-0059.jpg",
+        "receivedAt": 1791291896159,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.156111
+      },
+      {
+        "file": "frame-0060.jpg",
+        "receivedAt": 1791291896167,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.164014
+      },
+      {
+        "file": "frame-0061.jpg",
+        "receivedAt": 1791291896180,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.17691
+      },
+      {
+        "file": "frame-0062.jpg",
+        "receivedAt": 1791291896188,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.184864
+      },
+      {
+        "file": "frame-0063.jpg",
+        "receivedAt": 1791291896201,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.197744
+      },
+      {
+        "file": "frame-0064.jpg",
+        "receivedAt": 1791291896209,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.205678
+      },
+      {
+        "file": "frame-0065.jpg",
+        "receivedAt": 1791291896222,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.218503
+      },
+      {
+        "file": "frame-0066.jpg",
+        "receivedAt": 1791291896230,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.226836
+      },
+      {
+        "file": "frame-0067.jpg",
+        "receivedAt": 1791291896238,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.235165
+      },
+      {
+        "file": "frame-0068.jpg",
+        "receivedAt": 1791291896249,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.246436
+      },
+      {
+        "file": "frame-0069.jpg",
+        "receivedAt": 1791291896259,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.255976
+      },
+      {
+        "file": "frame-0070.jpg",
+        "receivedAt": 1791291896271,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.268402
+      },
+      {
+        "file": "frame-0071.jpg",
+        "receivedAt": 1791291896280,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.27688
+      },
+      {
+        "file": "frame-0072.jpg",
+        "receivedAt": 1791291896289,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.285185
+      },
+      {
+        "file": "frame-0073.jpg",
+        "receivedAt": 1791291896301,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.297505
+      },
+      {
+        "file": "frame-0074.jpg",
+        "receivedAt": 1791291896309,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.306006
+      },
+      {
+        "file": "frame-0075.jpg",
+        "receivedAt": 1791291896321,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.318172
+      },
+      {
+        "file": "frame-0076.jpg",
+        "receivedAt": 1791291896330,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.326658
+      },
+      {
+        "file": "frame-0077.jpg",
+        "receivedAt": 1791291896338,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.33485
+      },
+      {
+        "file": "frame-0078.jpg",
+        "receivedAt": 1791291896350,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.34736
+      },
+      {
+        "file": "frame-0079.jpg",
+        "receivedAt": 1791291896358,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.355077
+      },
+      {
+        "file": "frame-0080.jpg",
+        "receivedAt": 1791291896367,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.36403
+      },
+      {
+        "file": "frame-0081.jpg",
+        "receivedAt": 1791291896380,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.376525
+      },
+      {
+        "file": "frame-0082.jpg",
+        "receivedAt": 1791291896388,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.385016
+      },
+      {
+        "file": "frame-0083.jpg",
+        "receivedAt": 1791291896401,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.397352
+      },
+      {
+        "file": "frame-0084.jpg",
+        "receivedAt": 1791291896409,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.405696
+      },
+      {
+        "file": "frame-0085.jpg",
+        "receivedAt": 1791291896421,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.418087
+      },
+      {
+        "file": "frame-0086.jpg",
+        "receivedAt": 1791291896430,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.426387
+      },
+      {
+        "file": "frame-0087.jpg",
+        "receivedAt": 1791291896438,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.434812
+      },
+      {
+        "file": "frame-0088.jpg",
+        "receivedAt": 1791291896450,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.447231
+      },
+      {
+        "file": "frame-0089.jpg",
+        "receivedAt": 1791291896459,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.455715
+      },
+      {
+        "file": "frame-0090.jpg",
+        "receivedAt": 1791291896472,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.468168
+      },
+      {
+        "file": "frame-0091.jpg",
+        "receivedAt": 1791291896480,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.4765
+      },
+      {
+        "file": "frame-0092.jpg",
+        "receivedAt": 1791291896488,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.484918
+      },
+      {
+        "file": "frame-0093.jpg",
+        "receivedAt": 1791291896501,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.497328
+      },
+      {
+        "file": "frame-0094.jpg",
+        "receivedAt": 1791291896509,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.505683
+      },
+      {
+        "file": "frame-0095.jpg",
+        "receivedAt": 1791291896521,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.518142
+      },
+      {
+        "file": "frame-0096.jpg",
+        "receivedAt": 1791291896529,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.526444
+      },
+      {
+        "file": "frame-0097.jpg",
+        "receivedAt": 1791291896538,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.534821
+      },
+      {
+        "file": "frame-0098.jpg",
+        "receivedAt": 1791291896551,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.547427
+      },
+      {
+        "file": "frame-0099.jpg",
+        "receivedAt": 1791291896559,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.555512
+      },
+      {
+        "file": "frame-0100.jpg",
+        "receivedAt": 1791291896572,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.568158
+      },
+      {
+        "file": "frame-0101.jpg",
+        "receivedAt": 1791291896580,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.576514
+      },
+      {
+        "file": "frame-0102.jpg",
+        "receivedAt": 1791291896588,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.584818
+      },
+      {
+        "file": "frame-0103.jpg",
+        "receivedAt": 1791291896600,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.597318
+      },
+      {
+        "file": "frame-0104.jpg",
+        "receivedAt": 1791291896609,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.605683
+      },
+      {
+        "file": "frame-0105.jpg",
+        "receivedAt": 1791291896621,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.618236
+      },
+      {
+        "file": "frame-0106.jpg",
+        "receivedAt": 1791291896630,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.626489
+      },
+      {
+        "file": "frame-0107.jpg",
+        "receivedAt": 1791291896638,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.634463
+      },
+      {
+        "file": "frame-0108.jpg",
+        "receivedAt": 1791291896651,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.647351
+      },
+      {
+        "file": "frame-0109.jpg",
+        "receivedAt": 1791291896659,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.655685
+      },
+      {
+        "file": "frame-0110.jpg",
+        "receivedAt": 1791291896671,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.668159
+      },
+      {
+        "file": "frame-0111.jpg",
+        "receivedAt": 1791291896680,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.67652
+      },
+      {
+        "file": "frame-0112.jpg",
+        "receivedAt": 1791291896688,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.684831
+      },
+      {
+        "file": "frame-0113.jpg",
+        "receivedAt": 1791291896701,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.697446
+      },
+      {
+        "file": "frame-0114.jpg",
+        "receivedAt": 1791291896709,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.70575
+      },
+      {
+        "file": "frame-0115.jpg",
+        "receivedAt": 1791291896722,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.718081
+      },
+      {
+        "file": "frame-0116.jpg",
+        "receivedAt": 1791291896730,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.726522
+      },
+      {
+        "file": "frame-0117.jpg",
+        "receivedAt": 1791291896738,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.734816
+      },
+      {
+        "file": "frame-0118.jpg",
+        "receivedAt": 1791291896750,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.747334
+      },
+      {
+        "file": "frame-0119.jpg",
+        "receivedAt": 1791291896759,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.75571
+      },
+      {
+        "file": "frame-0120.jpg",
+        "receivedAt": 1791291896772,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.768192
+      },
+      {
+        "file": "frame-0121.jpg",
+        "receivedAt": 1791291896780,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.77644
+      },
+      {
+        "file": "frame-0122.jpg",
+        "receivedAt": 1791291896788,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.784983
+      },
+      {
+        "file": "frame-0123.jpg",
+        "receivedAt": 1791291896801,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.797633
+      },
+      {
+        "file": "frame-0124.jpg",
+        "receivedAt": 1791291896809,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.805541
+      },
+      {
+        "file": "frame-0125.jpg",
+        "receivedAt": 1791291896821,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.818214
+      },
+      {
+        "file": "frame-0126.jpg",
+        "receivedAt": 1791291896830,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.826448
+      },
+      {
+        "file": "frame-0127.jpg",
+        "receivedAt": 1791291896838,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.834869
+      },
+      {
+        "file": "frame-0128.jpg",
+        "receivedAt": 1791291896850,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.847324
+      },
+      {
+        "file": "frame-0129.jpg",
+        "receivedAt": 1791291896859,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.855613
+      },
+      {
+        "file": "frame-0130.jpg",
+        "receivedAt": 1791291896871,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.868293
+      },
+      {
+        "file": "frame-0131.jpg",
+        "receivedAt": 1791291896879,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.876415
+      },
+      {
+        "file": "frame-0132.jpg",
+        "receivedAt": 1791291896888,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.884806
+      },
+      {
+        "file": "frame-0133.jpg",
+        "receivedAt": 1791291896901,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.897277
+      },
+      {
+        "file": "frame-0134.jpg",
+        "receivedAt": 1791291896909,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.905678
+      },
+      {
+        "file": "frame-0135.jpg",
+        "receivedAt": 1791291896920,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.917314
+      },
+      {
+        "file": "frame-0136.jpg",
+        "receivedAt": 1791291896929,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.926491
+      },
+      {
+        "file": "frame-0137.jpg",
+        "receivedAt": 1791291896938,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.934754
+      },
+      {
+        "file": "frame-0138.jpg",
+        "receivedAt": 1791291896950,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.947321
+      },
+      {
+        "file": "frame-0139.jpg",
+        "receivedAt": 1791291896959,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.955803
+      },
+      {
+        "file": "frame-0140.jpg",
+        "receivedAt": 1791291896971,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.968125
+      },
+      {
+        "file": "frame-0141.jpg",
+        "receivedAt": 1791291896979,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.976484
+      },
+      {
+        "file": "frame-0142.jpg",
+        "receivedAt": 1791291896988,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.984887
+      },
+      {
+        "file": "frame-0143.jpg",
+        "receivedAt": 1791291897000,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291896.997288
+      },
+      {
+        "file": "frame-0144.jpg",
+        "receivedAt": 1791291897009,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.005632
+      },
+      {
+        "file": "frame-0145.jpg",
+        "receivedAt": 1791291897021,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.018159
+      },
+      {
+        "file": "frame-0146.jpg",
+        "receivedAt": 1791291897029,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.026037
+      },
+      {
+        "file": "frame-0147.jpg",
+        "receivedAt": 1791291897038,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.034813
+      },
+      {
+        "file": "frame-0148.jpg",
+        "receivedAt": 1791291897050,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.047289
+      },
+      {
+        "file": "frame-0149.jpg",
+        "receivedAt": 1791291897059,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.05562
+      },
+      {
+        "file": "frame-0150.jpg",
+        "receivedAt": 1791291897071,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.068151
+      },
+      {
+        "file": "frame-0151.jpg",
+        "receivedAt": 1791291897080,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.076498
+      },
+      {
+        "file": "frame-0152.jpg",
+        "receivedAt": 1791291897088,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.084819
+      },
+      {
+        "file": "frame-0153.jpg",
+        "receivedAt": 1791291897100,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.097388
+      },
+      {
+        "file": "frame-0154.jpg",
+        "receivedAt": 1791291897109,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.105582
+      },
+      {
+        "file": "frame-0155.jpg",
+        "receivedAt": 1791291897121,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.118183
+      },
+      {
+        "file": "frame-0156.jpg",
+        "receivedAt": 1791291897130,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.126501
+      },
+      {
+        "file": "frame-0157.jpg",
+        "receivedAt": 1791291897138,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.134562
+      },
+      {
+        "file": "frame-0158.jpg",
+        "receivedAt": 1791291897150,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.147344
+      },
+      {
+        "file": "frame-0159.jpg",
+        "receivedAt": 1791291897158,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.155547
+      },
+      {
+        "file": "frame-0160.jpg",
+        "receivedAt": 1791291897171,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.168074
+      },
+      {
+        "file": "frame-0161.jpg",
+        "receivedAt": 1791291897180,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.176388
+      },
+      {
+        "file": "frame-0162.jpg",
+        "receivedAt": 1791291897188,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.18493
+      },
+      {
+        "file": "frame-0163.jpg",
+        "receivedAt": 1791291897200,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.197311
+      },
+      {
+        "file": "frame-0164.jpg",
+        "receivedAt": 1791291897209,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.205661
+      },
+      {
+        "file": "frame-0165.jpg",
+        "receivedAt": 1791291897221,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.218153
+      },
+      {
+        "file": "frame-0166.jpg",
+        "receivedAt": 1791291897229,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.226402
+      },
+      {
+        "file": "frame-0167.jpg",
+        "receivedAt": 1791291897238,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.234817
+      },
+      {
+        "file": "frame-0168.jpg",
+        "receivedAt": 1791291897251,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.247352
+      },
+      {
+        "file": "frame-0169.jpg",
+        "receivedAt": 1791291897259,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.255653
+      },
+      {
+        "file": "frame-0170.jpg",
+        "receivedAt": 1791291897272,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.26815
+      },
+      {
+        "file": "frame-0171.jpg",
+        "receivedAt": 1791291897280,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.276374
+      },
+      {
+        "file": "frame-0172.jpg",
+        "receivedAt": 1791291897288,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.284806
+      },
+      {
+        "file": "frame-0173.jpg",
+        "receivedAt": 1791291897300,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.297353
+      },
+      {
+        "file": "frame-0174.jpg",
+        "receivedAt": 1791291897308,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.305597
+      },
+      {
+        "file": "frame-0175.jpg",
+        "receivedAt": 1791291897321,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.318174
+      },
+      {
+        "file": "frame-0176.jpg",
+        "receivedAt": 1791291897329,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.326586
+      },
+      {
+        "file": "frame-0177.jpg",
+        "receivedAt": 1791291897338,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.334827
+      },
+      {
+        "file": "frame-0178.jpg",
+        "receivedAt": 1791291897350,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.347258
+      },
+      {
+        "file": "frame-0179.jpg",
+        "receivedAt": 1791291897359,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.35556
+      },
+      {
+        "file": "frame-0180.jpg",
+        "receivedAt": 1791291897372,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.368222
+      },
+      {
+        "file": "frame-0181.jpg",
+        "receivedAt": 1791291897380,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.37663
+      },
+      {
+        "file": "frame-0182.jpg",
+        "receivedAt": 1791291897387,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.384059
+      },
+      {
+        "file": "frame-0183.jpg",
+        "receivedAt": 1791291897400,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.397378
+      },
+      {
+        "file": "frame-0184.jpg",
+        "receivedAt": 1791291897409,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.405639
+      },
+      {
+        "file": "frame-0185.jpg",
+        "receivedAt": 1791291897421,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.418264
+      },
+      {
+        "file": "frame-0186.jpg",
+        "receivedAt": 1791291897429,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.426478
+      },
+      {
+        "file": "frame-0187.jpg",
+        "receivedAt": 1791291897438,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.434776
+      },
+      {
+        "file": "frame-0188.jpg",
+        "receivedAt": 1791291897450,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.447262
+      },
+      {
+        "file": "frame-0189.jpg",
+        "receivedAt": 1791291897459,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.455531
+      },
+      {
+        "file": "frame-0190.jpg",
+        "receivedAt": 1791291897472,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.468161
+      },
+      {
+        "file": "frame-0191.jpg",
+        "receivedAt": 1791291897479,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.476132
+      },
+      {
+        "file": "frame-0192.jpg",
+        "receivedAt": 1791291897488,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.484796
+      },
+      {
+        "file": "frame-0193.jpg",
+        "receivedAt": 1791291897501,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.497437
+      },
+      {
+        "file": "frame-0194.jpg",
+        "receivedAt": 1791291897509,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.505641
+      },
+      {
+        "file": "frame-0195.jpg",
+        "receivedAt": 1791291897521,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.518122
+      },
+      {
+        "file": "frame-0196.jpg",
+        "receivedAt": 1791291897530,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.526453
+      },
+      {
+        "file": "frame-0197.jpg",
+        "receivedAt": 1791291897538,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.534738
+      },
+      {
+        "file": "frame-0198.jpg",
+        "receivedAt": 1791291897550,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.547458
+      },
+      {
+        "file": "frame-0199.jpg",
+        "receivedAt": 1791291897557,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.554481
+      },
+      {
+        "file": "frame-0200.jpg",
+        "receivedAt": 1791291897571,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.568181
+      },
+      {
+        "file": "frame-0201.jpg",
+        "receivedAt": 1791291897579,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.576385
+      },
+      {
+        "file": "frame-0202.jpg",
+        "receivedAt": 1791291897588,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.585054
+      },
+      {
+        "file": "frame-0203.jpg",
+        "receivedAt": 1791291897601,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.597339
+      },
+      {
+        "file": "frame-0204.jpg",
+        "receivedAt": 1791291897609,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.605658
+      },
+      {
+        "file": "frame-0205.jpg",
+        "receivedAt": 1791291897621,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.618073
+      },
+      {
+        "file": "frame-0206.jpg",
+        "receivedAt": 1791291897630,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.626464
+      },
+      {
+        "file": "frame-0207.jpg",
+        "receivedAt": 1791291897638,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.634827
+      },
+      {
+        "file": "frame-0208.jpg",
+        "receivedAt": 1791291897651,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.647377
+      },
+      {
+        "file": "frame-0209.jpg",
+        "receivedAt": 1791291897659,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.655671
+      },
+      {
+        "file": "frame-0210.jpg",
+        "receivedAt": 1791291897672,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.668203
+      },
+      {
+        "file": "frame-0211.jpg",
+        "receivedAt": 1791291897680,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.6765
+      },
+      {
+        "file": "frame-0212.jpg",
+        "receivedAt": 1791291897688,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.684774
+      },
+      {
+        "file": "frame-0213.jpg",
+        "receivedAt": 1791291897700,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.697248
+      },
+      {
+        "file": "frame-0214.jpg",
+        "receivedAt": 1791291897709,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.705643
+      },
+      {
+        "file": "frame-0215.jpg",
+        "receivedAt": 1791291897721,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.718284
+      },
+      {
+        "file": "frame-0216.jpg",
+        "receivedAt": 1791291897730,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.726419
+      },
+      {
+        "file": "frame-0217.jpg",
+        "receivedAt": 1791291897738,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.734683
+      },
+      {
+        "file": "frame-0218.jpg",
+        "receivedAt": 1791291897750,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.747259
+      },
+      {
+        "file": "frame-0219.jpg",
+        "receivedAt": 1791291897759,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.755623
+      },
+      {
+        "file": "frame-0220.jpg",
+        "receivedAt": 1791291897771,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.768122
+      },
+      {
+        "file": "frame-0221.jpg",
+        "receivedAt": 1791291897780,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.776472
+      },
+      {
+        "file": "frame-0222.jpg",
+        "receivedAt": 1791291897788,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.784836
+      },
+      {
+        "file": "frame-0223.jpg",
+        "receivedAt": 1791291897800,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.797309
+      },
+      {
+        "file": "frame-0224.jpg",
+        "receivedAt": 1791291897809,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.805693
+      },
+      {
+        "file": "frame-0225.jpg",
+        "receivedAt": 1791291897821,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.818048
+      },
+      {
+        "file": "frame-0226.jpg",
+        "receivedAt": 1791291897829,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.826404
+      },
+      {
+        "file": "frame-0227.jpg",
+        "receivedAt": 1791291897838,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.834766
+      },
+      {
+        "file": "frame-0228.jpg",
+        "receivedAt": 1791291897850,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.847257
+      },
+      {
+        "file": "frame-0229.jpg",
+        "receivedAt": 1791291897858,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.85558
+      },
+      {
+        "file": "frame-0230.jpg",
+        "receivedAt": 1791291897871,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.86819
+      },
+      {
+        "file": "frame-0231.jpg",
+        "receivedAt": 1791291897880,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.876416
+      },
+      {
+        "file": "frame-0232.jpg",
+        "receivedAt": 1791291897887,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.884112
+      },
+      {
+        "file": "frame-0233.jpg",
+        "receivedAt": 1791291897900,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.897287
+      },
+      {
+        "file": "frame-0234.jpg",
+        "receivedAt": 1791291897909,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.905677
+      },
+      {
+        "file": "frame-0235.jpg",
+        "receivedAt": 1791291897921,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.91811
+      },
+      {
+        "file": "frame-0236.jpg",
+        "receivedAt": 1791291897929,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.926395
+      },
+      {
+        "file": "frame-0237.jpg",
+        "receivedAt": 1791291897938,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.93478
+      },
+      {
+        "file": "frame-0238.jpg",
+        "receivedAt": 1791291897950,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.946589
+      },
+      {
+        "file": "frame-0239.jpg",
+        "receivedAt": 1791291897959,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.955616
+      },
+      {
+        "file": "frame-0240.jpg",
+        "receivedAt": 1791291897972,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.968158
+      },
+      {
+        "file": "frame-0241.jpg",
+        "receivedAt": 1791291897980,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.976483
+      },
+      {
+        "file": "frame-0242.jpg",
+        "receivedAt": 1791291897988,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.984844
+      },
+      {
+        "file": "frame-0243.jpg",
+        "receivedAt": 1791291898001,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291897.997243
+      },
+      {
+        "file": "frame-0244.jpg",
+        "receivedAt": 1791291898008,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291898.00558
+      },
+      {
+        "file": "frame-0245.jpg",
+        "receivedAt": 1791291898021,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291898.018186
+      },
+      {
+        "file": "frame-0246.jpg",
+        "receivedAt": 1791291898028,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291898.025349
+      },
+      {
+        "file": "frame-0247.jpg",
+        "receivedAt": 1791291898038,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291898.034666
+      },
+      {
+        "file": "frame-0248.jpg",
+        "receivedAt": 1791291898051,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 961.6000366210938,
+        "deviceHeight": 622.4000244140625,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791291898.047414
+      }
+    ],
+    "elapsed": 2.6992599964141846,
+    "fps": 91.87703308664378,
+    "intervals": [
+      0.0040209293365478516,
+      0.007882118225097656,
+      0.008569955825805664,
+      0.012253046035766602,
+      0.008172988891601562,
+      0.011351823806762695,
+      0.009804010391235352,
+      0.00828409194946289,
+      0.012223958969116211,
+      0.008640050888061523,
+      0.012196063995361328,
+      0.008442878723144531,
+      0.033915042877197266,
+      0.008573055267333984,
+      0.009924888610839844,
+      0.0011610984802246094,
+      0.002991914749145508,
+      0.009658098220825195,
+      0.013173818588256836,
+      0.008057117462158203,
+      0.008375883102416992,
+      0.009456157684326172,
+      0.011416912078857422,
+      0.00818014144897461,
+      0.009614944458007812,
+      0.01042795181274414,
+      0.013562917709350586,
+      0.008085966110229492,
+      0.01262807846069336,
+      0.008141040802001953,
+      0.006826877593994141,
+      0.014133214950561523,
+      0.008482933044433594,
+      0.012433052062988281,
+      0.008137941360473633,
+      0.008344888687133789,
+      0.012546062469482422,
+      0.008189916610717773,
+      0.01256418228149414,
+      0.008287906646728516,
+      0.00842595100402832,
+      0.03853607177734375,
+      0.19625496864318848,
+      0.00970005989074707,
+      0.03328990936279297,
+      0.0010180473327636719,
+      0.0009579658508300781,
+      0.012359142303466797,
+      0.011022806167602539,
+      0.002916097640991211,
+      0.015145063400268555,
+      0.008002996444702148,
+      0.012893915176391602,
+      0.006189107894897461,
+      0.010228872299194336,
+      0.012290000915527344,
+      0.008432149887084961,
+      0.01265096664428711,
+      0.008508920669555664,
+      0.007903099060058594,
+      0.012895822525024414,
+      0.007954120635986328,
+      0.01287984848022461,
+      0.007934093475341797,
+      0.01282501220703125,
+      0.008332967758178711,
+      0.008329153060913086,
+      0.011270999908447266,
+      0.00953984260559082,
+      0.012426137924194336,
+      0.008477926254272461,
+      0.008305072784423828,
+      0.012319803237915039,
+      0.008501052856445312,
+      0.012166023254394531,
+      0.008486032485961914,
+      0.008192062377929688,
+      0.012509822845458984,
+      0.007717132568359375,
+      0.008952856063842773,
+      0.012495040893554688,
+      0.008491039276123047,
+      0.012336015701293945,
+      0.008343935012817383,
+      0.012391090393066406,
+      0.008300065994262695,
+      0.008424997329711914,
+      0.012418985366821289,
+      0.00848388671875,
+      0.012453079223632812,
+      0.008332014083862305,
+      0.008418083190917969,
+      0.01240992546081543,
+      0.008354902267456055,
+      0.012459039688110352,
+      0.008301973342895508,
+      0.0083770751953125,
+      0.012605905532836914,
+      0.008085012435913086,
+      0.012645959854125977,
+      0.008356094360351562,
+      0.00830388069152832,
+      0.01250004768371582,
+      0.008365154266357422,
+      0.012552976608276367,
+      0.008252859115600586,
+      0.00797414779663086,
+      0.012887954711914062,
+      0.008333921432495117,
+      0.01247406005859375,
+      0.008361101150512695,
+      0.008310794830322266,
+      0.012615203857421875,
+      0.00830388069152832,
+      0.012331008911132812,
+      0.008440971374511719,
+      0.008294105529785156,
+      0.012517929077148438,
+      0.008375883102416992,
+      0.012482166290283203,
+      0.008247852325439453,
+      0.008543014526367188,
+      0.012650012969970703,
+      0.007908105850219727,
+      0.012672901153564453,
+      0.008234024047851562,
+      0.008420944213867188,
+      0.012454986572265625,
+      0.008289098739624023,
+      0.0126800537109375,
+      0.008121967315673828,
+      0.00839090347290039,
+      0.012471199035644531,
+      0.008400917053222656,
+      0.011636018753051758,
+      0.009176969528198242,
+      0.008262872695922852,
+      0.01256704330444336,
+      0.008481979370117188,
+      0.012322187423706055,
+      0.008358955383300781,
+      0.008402824401855469,
+      0.012401103973388672,
+      0.008343935012817383,
+      0.012526988983154297,
+      0.00787806510925293,
+      0.008775949478149414,
+      0.012475967407226562,
+      0.008331060409545898,
+      0.012531042098999023,
+      0.008347034454345703,
+      0.008321046829223633,
+      0.012568950653076172,
+      0.0081939697265625,
+      0.012600898742675781,
+      0.008318185806274414,
+      0.008060932159423828,
+      0.012782096862792969,
+      0.008202791213989258,
+      0.012526988983154297,
+      0.008314132690429688,
+      0.008542060852050781,
+      0.012380838394165039,
+      0.008350133895874023,
+      0.012491941452026367,
+      0.008249044418334961,
+      0.008414983749389648,
+      0.012534856796264648,
+      0.008301019668579102,
+      0.012497186660766602,
+      0.008224010467529297,
+      0.00843191146850586,
+      0.012547016143798828,
+      0.008244037628173828,
+      0.012576818466186523,
+      0.00841212272644043,
+      0.008240938186645508,
+      0.012431144714355469,
+      0.008301973342895508,
+      0.012661933898925781,
+      0.008408069610595703,
+      0.007428884506225586,
+      0.013319015502929688,
+      0.008260965347290039,
+      0.012624979019165039,
+      0.008213996887207031,
+      0.008298158645629883,
+      0.012485980987548828,
+      0.00826883316040039,
+      0.012630224227905273,
+      0.007970809936523438,
+      0.008664131164550781,
+      0.012640953063964844,
+      0.008203983306884766,
+      0.012480974197387695,
+      0.008331060409545898,
+      0.008285045623779297,
+      0.012719869613647461,
+      0.0070230960845947266,
+      0.013700008392333984,
+      0.008203983306884766,
+      0.008668899536132812,
+      0.012284994125366211,
+      0.00831913948059082,
+      0.012414932250976562,
+      0.00839090347290039,
+      0.008363008499145508,
+      0.012550115585327148,
+      0.008293867111206055,
+      0.012532234191894531,
+      0.008296966552734375,
+      0.008273839950561523,
+      0.01247406005859375,
+      0.008394956588745117,
+      0.012640953063964844,
+      0.008135080337524414,
+      0.00826406478881836,
+      0.012575864791870117,
+      0.008364200592041016,
+      0.012498855590820312,
+      0.008350133895874023,
+      0.008363962173461914,
+      0.012472867965698242,
+      0.008383989334106445,
+      0.01235508918762207,
+      0.008356094360351562,
+      0.00836181640625,
+      0.012490987777709961,
+      0.008323192596435547,
+      0.01260995864868164,
+      0.00822591781616211,
+      0.007695913314819336,
+      0.013175010681152344,
+      0.008390188217163086,
+      0.01243281364440918,
+      0.008285045623779297,
+      0.008384943008422852,
+      0.011809110641479492,
+      0.00902700424194336,
+      0.012542009353637695,
+      0.00832509994506836,
+      0.008360862731933594,
+      0.012398958206176758,
+      0.008337020874023438,
+      0.012606143951416016,
+      0.007162809371948242,
+      0.009317159652709961,
+      0.012748003005981445
+    ]
+  },
+  "fixture": {
+    "channels": [
+      "community:search",
+      "community:files",
+      "community:project",
+      "mods:targets",
+      "mods:prepare",
+      "mods:commit",
+      "mods:discard"
+    ],
+    "target": {
+      "id": "联机验证实例",
+      "folder": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games",
+      "gameDir": "C:\\Users\\ROG\\AppData\\Local\\Temp\\KAMUCL EXE GUI 中文 nBs0ZI\\games\\versions\\联机验证实例",
+      "mcVersion": "1.20.1",
+      "loader": "fabric",
+      "loaderVersion": "0.19.5"
+    },
+    "classification": "Owned-profile-only synthetic metadata and plan fixture; original production renderer, selectors and inputs are unchanged"
+  },
+  "error": {
+    "name": "Error",
+    "message": "keyboard version chosen did not reach the required actual state",
+    "stack": "Error: keyboard version chosen did not reach the required actual state\n    at until (E:\\KAMUCL\\scripts\\qa-community116.cjs:61:11)\n    at async Object.runCommunityChecks (E:\\KAMUCL\\scripts\\qa-community116.cjs:75:20)\n    at async module.exports (E:\\KAMUCL\\scripts\\qa-ux116.cjs:91:23)\n    at async E:\\KAMUCL\\scripts\\verify-ui-refinement.cjs:233:9"
+  },
+  "keyboardObserverRestored": true,
+  "finalSettingsRestoration": {
+    "complete": true,
+    "absent": true
+  },
+  "finalFixtureRestoration": {
+    "complete": true,
+    "records": [
+      {
+        "channel": "community:search",
+        "args": [
+          {
+            "keyword": "",
+            "kind": "mod",
+            "source": "all",
+            "mcVersion": "26.3",
+            "loader": "fabric",
+            "sort": "relevance",
+            "offset": 0,
+            "limit": 20
+          }
+        ],
+        "startedAt": 1791291899855,
+        "completedAt": 1791291899855
+      },
+      {
+        "channel": "community:search",
+        "args": [
+          {
+            "keyword": "中文搜索保持116",
+            "kind": "mod",
+            "source": "all",
+            "mcVersion": "26.3",
+            "loader": "fabric",
+            "sort": "relevance",
+            "offset": 0,
+            "limit": 20
+          }
+        ],
+        "startedAt": 1791291900574,
+        "completedAt": 1791291900574
+      },
+      {
+        "channel": "community:search",
+        "args": [
+          {
+            "keyword": "中文搜索保持116",
+            "kind": "mod",
+            "source": "all",
+            "loader": "fabric",
+            "sort": "relevance",
+            "offset": 0,
+            "limit": 20
+          }
+        ],
+        "startedAt": 1791291901212,
+        "completedAt": 1791291901212
+      }
+    ],
+    "classification": "Synthetic source and install-plan UI responses only; original IPC identity restored; no real download or disk commit"
+  },
+  "finishedAt": "2026-10-06T13:05:11.253Z"
+}

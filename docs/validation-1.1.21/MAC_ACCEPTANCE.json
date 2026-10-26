@@ -1,0 +1,1446 @@
+{
+  "schemaVersion": 1,
+  "projectionCompleteForEvidenceSnapshot": true,
+  "version": "1.1.21",
+  "repository": "kamubaba-i/KAMUCL",
+  "finalTagCommit": null,
+  "sourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+  "finalRunObserved": true,
+  "fullPlatformQualified": false,
+  "modifiedScopeNativeQualified": true,
+  "sourceSeparation": {
+    "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+    "primaryQASourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+    "supplementaryQASourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "finalTagCommit": null,
+    "finalTagBinding": "DELIVERY binds the eventual tag independently; no self-reference in this projection",
+    "reproductionCheckoutCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "reproductionNote": "Use the actual QA263 checkout and its unchanged seven-path source guard; the eventual documentation tag is a separate DELIVERY binding and is not asserted to be the QA execution commit."
+  },
+  "fullPlatformAcceptance": false,
+  "wholeUIAcceptance": false,
+  "originalPackage": {
+    "artifact": {
+      "id": 11568754732,
+      "name": "mac-packages-arm64",
+      "bytes": 260027091,
+      "digest": "sha256:c1113626d40d6ce3af75ac1c4d14d55685e51526da2a9e202b6fb98fed2009ca",
+      "expiredAtMetadataSnapshot": false
+    },
+    "packageJobId": 113460274229,
+    "packageJobConclusion": "success",
+    "version": "1.1.21",
+    "arch": "arm64",
+    "runtimeVersion": "44.3.0",
+    "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+    "manifest": {
+      "name": "mac-package-arm64.json",
+      "bytes": 1305,
+      "sha256": "d08f11007cfe20caa4d7cb6f4f4da7c8113623918f1356a5b908ed4c10ad7cec"
+    },
+    "assets": [
+      {
+        "name": "KAMUCL-1.1.21-mac-arm64.zip",
+        "bytes": 125954202,
+        "sha256": "a4930cc3a722b9308ee7df18b9f97484419306a0782257ef821b1bcd30b27579"
+      },
+      {
+        "name": "KAMUCL-1.1.21-mac-arm64.dmg",
+        "bytes": 135777009,
+        "sha256": "36969f1095a211cfede974b34fe0884a4119a6f019095b960ee57861108c07a5"
+      }
+    ],
+    "appAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+    "buildIdentitySHA256": "63b0b6b8cce46ef7f5d6b170927e113fdf3a5ac5d7648dcd2b304eed8cfd7f86",
+    "signing": "ad-hoc; not Developer ID or notarized",
+    "minimumSystemVersion": "13.0.0",
+    "minimumSystemVersionActuallyTested": false,
+    "reusedRenderer": {
+      "copiedWithoutBuild": true,
+      "originalAsarFileCount": 147,
+      "indexSHA256": "5520586b3dbe9554ba3901023891b6572e1fb7fc359fdbcaceae26aebfb2f3a9",
+      "fixtureLoadedFiles": 56
+    }
+  },
+  "originalFullNative": {
+    "runId": 37820579554,
+    "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554",
+    "workflow": ".github/workflows/mac-build.yml",
+    "event": "workflow_dispatch",
+    "runAttempt": 1,
+    "status": "completed",
+    "conclusion": "failure",
+    "jobs": [
+      {
+        "jobId": 113460274229,
+        "name": "package (macos-26, arm64)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-08T17:57:44Z",
+        "completedAt": "2026-10-08T18:04:39Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113460274229"
+      },
+      {
+        "jobId": 113463353285,
+        "name": "game (macos-26, arm64)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-08T18:04:47Z",
+        "completedAt": "2026-10-08T18:08:39Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353285"
+      },
+      {
+        "jobId": 113463353313,
+        "name": "ui (macos-26, arm64, app)",
+        "status": "completed",
+        "conclusion": "failure",
+        "startedAt": "2026-10-08T18:04:46Z",
+        "completedAt": "2026-10-08T18:11:45Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353313"
+      },
+      {
+        "jobId": 113463353355,
+        "name": "favorites (app)",
+        "status": "completed",
+        "conclusion": "failure",
+        "startedAt": "2026-10-08T18:07:15Z",
+        "completedAt": "2026-10-08T18:14:47Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353355"
+      },
+      {
+        "jobId": 113463353358,
+        "name": "download-location (app)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-08T18:04:47Z",
+        "completedAt": "2026-10-08T18:07:08Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353358"
+      },
+      {
+        "jobId": 113463353385,
+        "name": "ui (macos-26, arm64, dmg)",
+        "status": "completed",
+        "conclusion": "failure",
+        "startedAt": "2026-10-08T18:04:47Z",
+        "completedAt": "2026-10-08T18:13:46Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353385"
+      },
+      {
+        "jobId": 113463353387,
+        "name": "parity (macos-26, arm64)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-08T18:08:49Z",
+        "completedAt": "2026-10-08T18:14:45Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353387"
+      },
+      {
+        "jobId": 113463353459,
+        "name": "favorites (dmg)",
+        "status": "completed",
+        "conclusion": "failure",
+        "startedAt": "2026-10-08T18:04:46Z",
+        "completedAt": "2026-10-08T18:12:18Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353459"
+      },
+      {
+        "jobId": 113463353558,
+        "name": "integration (macos-26, arm64, startup)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-08T18:11:50Z",
+        "completedAt": "2026-10-08T18:13:12Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353558"
+      },
+      {
+        "jobId": 113463353559,
+        "name": "download-location (dmg)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-08T18:14:54Z",
+        "completedAt": "2026-10-08T18:17:46Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353559"
+      },
+      {
+        "jobId": 113463353638,
+        "name": "integration (macos-26, arm64, update)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-08T18:12:25Z",
+        "completedAt": "2026-10-08T18:15:20Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353638"
+      },
+      {
+        "jobId": 113463353706,
+        "name": "integration (macos-26, arm64, tools)",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-08T18:13:19Z",
+        "completedAt": "2026-10-08T18:15:19Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353706"
+      },
+      {
+        "jobId": 113463353723,
+        "name": "batch121-fixture-ui",
+        "status": "completed",
+        "conclusion": "failure",
+        "startedAt": "2026-10-08T18:13:53Z",
+        "completedAt": "2026-10-08T18:23:58Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463353723"
+      },
+      {
+        "jobId": 113463355889,
+        "name": "resources",
+        "status": "completed",
+        "conclusion": "skipped",
+        "startedAt": "2026-10-08T18:04:39Z",
+        "completedAt": "2026-10-08T18:04:39Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463355889"
+      },
+      {
+        "jobId": 113463355894,
+        "name": "batch120",
+        "status": "completed",
+        "conclusion": "skipped",
+        "startedAt": "2026-10-08T18:04:39Z",
+        "completedAt": "2026-10-08T18:04:39Z",
+        "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37820579554/job/113463355894"
+      }
+    ],
+    "jobCounts": {
+      "total": 15,
+      "success": 8,
+      "failure": 5,
+      "skipped": 2
+    },
+    "strictFixture": {
+      "planned": 18,
+      "executed": 18,
+      "completed": 2,
+      "failed": 16,
+      "rows": [
+        {
+          "kind": "appearance",
+          "theme": "dark",
+          "viewport": "960x620",
+          "zoom": 1,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "dark",
+          "viewport": "960x620",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "dark",
+          "viewport": "1366x768",
+          "zoom": 1,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "dark",
+          "viewport": "1366x768",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "black-purple",
+          "viewport": "960x620",
+          "zoom": 1,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "black-purple",
+          "viewport": "960x620",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "black-purple",
+          "viewport": "1366x768",
+          "zoom": 1,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "black-purple",
+          "viewport": "1366x768",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "blue-white",
+          "viewport": "960x620",
+          "zoom": 1,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "blue-white",
+          "viewport": "960x620",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "blue-white",
+          "viewport": "1366x768",
+          "zoom": 1,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "blue-white",
+          "viewport": "1366x768",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "custom",
+          "viewport": "960x620",
+          "zoom": 1,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "custom",
+          "viewport": "960x620",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "custom",
+          "viewport": "1366x768",
+          "zoom": 1,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "appearance",
+          "theme": "custom",
+          "viewport": "1366x768",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": false
+        },
+        {
+          "kind": "community",
+          "zoom": 1,
+          "executed": true,
+          "complete": true
+        },
+        {
+          "kind": "community",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true
+        }
+      ]
+    },
+    "historicalFailuresPermanent": true
+  },
+  "supplementaryReuse": {
+    "runId": 37831726301,
+    "url": "https://github.com/kamubaba-i/KAMUCL/actions/runs/37831726301",
+    "workflow": ".github/workflows/mac-batch121-reuse.yml",
+    "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+    "status": "completed",
+    "conclusion": "success",
+    "jobId": 113498503470,
+    "artifact": {
+      "id": 11574591513,
+      "digest": "sha256:885a3b414d52c2345774ab300cb5db28c305482799eb900b7c018aff9a5bd323",
+      "bytes": 53337330
+    },
+    "classification": "Native ARM64 Electron44.3 offscreen fixture with exact original8e ASAR renderer, platform-default ANGLE Metal Apple Paravirtual graphics and native image codec; disposable controlled settings/community IPC. Chromium trusted key/change reception is observed; no physical OS shortcut/desktop receipt is claimed.",
+    "trackedSourceDifference": {
+      "allowedQAPaths": [
+        ".github/workflows/mac-batch121-reuse.yml",
+        "scripts/verify-mac-batch121-reuse.cjs",
+        "scripts/verify-mac-batch121-reuse-tests.cjs",
+        "scripts/verify-appearance-121-ui.cjs",
+        "scripts/qa-fixture-ui121.cjs",
+        "scripts/qa-fixture-ui121-tests.cjs",
+        "tests/all.test.ts"
+      ],
+      "changedPaths": [
+        ".github/workflows/mac-batch121-reuse.yml",
+        "scripts/qa-fixture-ui121-tests.cjs",
+        "scripts/qa-fixture-ui121.cjs",
+        "scripts/verify-appearance-121-ui.cjs",
+        "scripts/verify-mac-batch121-reuse-tests.cjs",
+        "scripts/verify-mac-batch121-reuse.cjs",
+        "tests/all.test.ts"
+      ],
+      "allOtherTrackedBytesAndModesUnchanged": true,
+      "rebuildPerformed": false
+    },
+    "runtime": {
+      "platform": "darwin",
+      "arch": "arm64",
+      "node": "24.20.0",
+      "electron": "44.3.0",
+      "osRelease": "25.6.0",
+      "executableSHA256": "588478afc5f2bc73b6433d6e565a214dc830144be39a3d79805723292754ccd8"
+    },
+    "qaSources": [
+      {
+        "path": ".github/workflows/mac-batch121-reuse.yml",
+        "bytes": 3076,
+        "sha256": "51b38c42127c31311d5dbd34d53a5db291ad1db9fe0a244b62aa30b29c2ac02b"
+      },
+      {
+        "path": "scripts/verify-mac-batch121-reuse.cjs",
+        "bytes": 29487,
+        "sha256": "e45159235e4d9df795b4bf47122d747b3f2c3767d2017d77cb845dfff86fed39"
+      },
+      {
+        "path": "scripts/verify-mac-batch121-reuse-tests.cjs",
+        "bytes": 25397,
+        "sha256": "780684f316977dfb28ebf08cb9cc2446213b7a9a747a01f7380866207351a7bd"
+      },
+      {
+        "path": "scripts/verify-appearance-121-ui.cjs",
+        "bytes": 43358,
+        "sha256": "b0ace5699cd82edf4a53bd638b06bba788b29c6b27e5f69a3a5a71d56098a3ab"
+      },
+      {
+        "path": "scripts/qa-fixture-ui121.cjs",
+        "bytes": 16488,
+        "sha256": "6485167ca8b179238272131f8b21f75f167f899a8c85beea00d8c270af21b720"
+      },
+      {
+        "path": "scripts/qa-fixture-ui121-tests.cjs",
+        "bytes": 17027,
+        "sha256": "007b223e7908cbe8a6f6df033ee762fa9475db7679c402715d7d48d3434d1bb0"
+      },
+      {
+        "path": "tests/all.test.ts",
+        "bytes": 8634,
+        "sha256": "cfefd5fcca225f06642093220493467beacfc5d2724a17e9ea71cdbc3c97a1ad"
+      },
+      {
+        "path": "scripts/verify-community121-ui.cjs",
+        "bytes": 18652,
+        "sha256": "d940dda0a85d33bc135ae0d8941ec66c407f1f9388c3e9a95be091c58daed509"
+      },
+      {
+        "path": "scripts/verify-mac-batch121.cjs",
+        "bytes": 13447,
+        "sha256": "c1a06d92f65cdfce469396d486f90705a942a96b1dcee51b642d3e026e4dfc9e"
+      }
+    ],
+    "smoke": {
+      "theme": "custom",
+      "viewport": "960x620",
+      "zoom": 1.25,
+      "timeoutMs": 180000,
+      "complete": true,
+      "childExit": {
+        "status": 0,
+        "signal": null,
+        "error": null
+      },
+      "proofBinding": {
+        "name": "smoke-proof.json",
+        "bytes": 165211,
+        "sha256": "a8cdbd7eea824734b9b4ac58bd43222e1884e322c5ffc87e1d7f2e18fe457298"
+      }
+    },
+    "matrix": {
+      "planned": 18,
+      "executed": 18,
+      "producerComplete": 18,
+      "childExitZero": 18,
+      "completed": 18,
+      "failedExecuted": 0,
+      "unexecuted": 0,
+      "complete": true,
+      "rows": [
+        {
+          "number": 1,
+          "kind": "appearance",
+          "theme": "dark",
+          "viewport": "960x620",
+          "zoom": 1,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "1-proof.json",
+            "bytes": 160860,
+            "sha256": "0ec40b75e0cc3e5d027bb8b8da7fc061d345df33473049d39574e88294a45869"
+          },
+          "images": 26
+        },
+        {
+          "number": 2,
+          "kind": "appearance",
+          "theme": "dark",
+          "viewport": "960x620",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "2-proof.json",
+            "bytes": 164820,
+            "sha256": "18f08377fd290e32723b1de1cd003c2f3719b217ac8c4436190852c9e06c0b08"
+          },
+          "images": 26
+        },
+        {
+          "number": 3,
+          "kind": "appearance",
+          "theme": "dark",
+          "viewport": "1366x768",
+          "zoom": 1,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "3-proof.json",
+            "bytes": 161601,
+            "sha256": "47177d6ae663ba67e99b520b0b0d94d01891709894c73116e1cf799f4dccdaad"
+          },
+          "images": 26
+        },
+        {
+          "number": 4,
+          "kind": "appearance",
+          "theme": "dark",
+          "viewport": "1366x768",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "4-proof.json",
+            "bytes": 165317,
+            "sha256": "7618d869044501c9bf343adcd33e0eccea122e73216842206c0fe90e3021501b"
+          },
+          "images": 26
+        },
+        {
+          "number": 5,
+          "kind": "appearance",
+          "theme": "black-purple",
+          "viewport": "960x620",
+          "zoom": 1,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "5-proof.json",
+            "bytes": 161353,
+            "sha256": "a62334e78cfd96aa73aa751b411808b1c52ba76727ec30d590936b9924326591"
+          },
+          "images": 26
+        },
+        {
+          "number": 6,
+          "kind": "appearance",
+          "theme": "black-purple",
+          "viewport": "960x620",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "6-proof.json",
+            "bytes": 165306,
+            "sha256": "4467bac6a3f52c21076c041292774c28fa027b9b5b38869986d4e70968622608"
+          },
+          "images": 26
+        },
+        {
+          "number": 7,
+          "kind": "appearance",
+          "theme": "black-purple",
+          "viewport": "1366x768",
+          "zoom": 1,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "7-proof.json",
+            "bytes": 162595,
+            "sha256": "541feb110ad9de2c760cc3809b718c47fa69cc033426db96029f097e33e15a45"
+          },
+          "images": 26
+        },
+        {
+          "number": 8,
+          "kind": "appearance",
+          "theme": "black-purple",
+          "viewport": "1366x768",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "8-proof.json",
+            "bytes": 165435,
+            "sha256": "4f0163193cf74841c876aa3221ca60f6cbca27e990c4edd5fb9563e8b4e57816"
+          },
+          "images": 26
+        },
+        {
+          "number": 9,
+          "kind": "appearance",
+          "theme": "blue-white",
+          "viewport": "960x620",
+          "zoom": 1,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "9-proof.json",
+            "bytes": 161229,
+            "sha256": "87ab3b18b2c893b57a26607066773b7bfcba1e4c921ba4ecdeff8aadf537b987"
+          },
+          "images": 26
+        },
+        {
+          "number": 10,
+          "kind": "appearance",
+          "theme": "blue-white",
+          "viewport": "960x620",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "10-proof.json",
+            "bytes": 165209,
+            "sha256": "72b06f03dfa23a8c6e89138350d5a38750e2bf3fc26ec4fbe09f9973fb64cd88"
+          },
+          "images": 26
+        },
+        {
+          "number": 11,
+          "kind": "appearance",
+          "theme": "blue-white",
+          "viewport": "1366x768",
+          "zoom": 1,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "11-proof.json",
+            "bytes": 162439,
+            "sha256": "8d595ad5e91589999f338380d1def4e84642c66f228ff31753cb5f5f3cda0082"
+          },
+          "images": 26
+        },
+        {
+          "number": 12,
+          "kind": "appearance",
+          "theme": "blue-white",
+          "viewport": "1366x768",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "12-proof.json",
+            "bytes": 165693,
+            "sha256": "5fe33d5a4f4981066c907602691a8cd9f63b504cb22b08245c198b1d9dc9ae44"
+          },
+          "images": 26
+        },
+        {
+          "number": 13,
+          "kind": "appearance",
+          "theme": "custom",
+          "viewport": "960x620",
+          "zoom": 1,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "13-proof.json",
+            "bytes": 161250,
+            "sha256": "79e2aed5e8346c7689d244e301aad380c371940c15450b8ef0a18e7947ca8c81"
+          },
+          "images": 26
+        },
+        {
+          "number": 14,
+          "kind": "appearance",
+          "theme": "custom",
+          "viewport": "960x620",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "14-proof.json",
+            "bytes": 165354,
+            "sha256": "cefc1aa95b5c3169231aba62182d339771bd0ba5161caedcf360bbeb9fd6b245"
+          },
+          "images": 26
+        },
+        {
+          "number": 15,
+          "kind": "appearance",
+          "theme": "custom",
+          "viewport": "1366x768",
+          "zoom": 1,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "15-proof.json",
+            "bytes": 162478,
+            "sha256": "b2d9e6c84f66e743d24ff8412fe0c529462147ee03c93b70f14e807946487b98"
+          },
+          "images": 26
+        },
+        {
+          "number": 16,
+          "kind": "appearance",
+          "theme": "custom",
+          "viewport": "1366x768",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "16-proof.json",
+            "bytes": 165320,
+            "sha256": "76d862a231cd0c04c2c790f3a7af6d4cd5858b61e9b355c94cd40ff0053c32d5"
+          },
+          "images": 26
+        },
+        {
+          "number": 17,
+          "kind": "community",
+          "zoom": 1,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "17-proof.json",
+            "bytes": 69242,
+            "sha256": "f0466ce5637336ae73a4c963d676a40e5b1ba761d4671a51791d7360bb926385"
+          },
+          "images": 30
+        },
+        {
+          "number": 18,
+          "kind": "community",
+          "zoom": 1.25,
+          "executed": true,
+          "complete": true,
+          "childExit": {
+            "status": 0,
+            "signal": null,
+            "error": null
+          },
+          "consumerError": null,
+          "proofBinding": {
+            "name": "18-proof.json",
+            "bytes": 72171,
+            "sha256": "60787631d60e9a38ee11e37c6fa5d4b1bad6e86d239f0a423ea8652747e7b679"
+          },
+          "images": 30
+        }
+      ]
+    },
+    "sourceInputContract": {
+      "protocol": "chromium-select-typeahead-v1",
+      "actualSelectionTransactionsIncludingSmoke": 85,
+      "exactFiveOrderedRowsPerAppearanceProof": true,
+      "originalTrustedChangeAndUniqueCompletedTargetIPCRequired": true,
+      "freshCharacterKeypressAndKeyUpAndEnterReceiptTargetSelect": true,
+      "popupClosedAndSetupConsumesZeroSettingsCalls": true,
+      "failedSourceTransactions": 34,
+      "originalRollbackErrorAndProductFocusRequired": true,
+      "commandDispatchCompletionIsNotOSReceiverAcknowledgement": true
+    },
+    "controlledFailureDeadline": {
+      "requestedMs": 150,
+      "actualAppearanceProofs": 17,
+      "actualSettingsFailureIntervals": 85,
+      "actualDraftFailureIntervals": 17,
+      "actualRescheduledEarlyWakeIntervals": 2,
+      "minimumRecordedSettingsJournalMs": 150,
+      "minimumRecordedSettingsMonotonicMs": 150.04354199999943,
+      "twoActualClocksRequired": true,
+      "timestampsRewritten": false,
+      "originalConsumerThresholdChanged": false,
+      "binding": {
+        "name": "263-independent-deadline-observation-audit.json",
+        "bytes": 58892,
+        "sha256": "f4b3a3feeb49b832e4f8dc3963c581e02f4e1f7f73d9c2fe59cfe40d30732b66"
+      }
+    },
+    "images": {
+      "originalPNGs": 502,
+      "independentlyDecodedAndHashed": 502,
+      "manualReviewsByReviewer": [
+        {
+          "reviewer": "updater121",
+          "actualOriginalMacPngManuallyViewed": 22,
+          "separateWindowsComparisonImages": 4,
+          "reportBinding": {
+            "name": "updater121-263-mac-final-independent-review.json",
+            "bytes": 36635,
+            "sha256": "f0d26d47679e8ad1db08cb97cc2fd864f0a063b93aeb9ceddf67acbebf6dbca5"
+          }
+        },
+        {
+          "reviewer": "appearance121",
+          "actualOriginalMacPngManuallyViewed": 16,
+          "reportBinding": {
+            "name": "appearance121-mac-reuse263df7-community-independent-review.json",
+            "bytes": 35249,
+            "sha256": "c1859cc03c3c80330e1337f462540f3de906421fb623243b79f8ce604b8964c4"
+          }
+        }
+      ],
+      "allImagesVisuallyReviewed": false,
+      "publicImageCopiesIncluded": false,
+      "bindingsAudit": {
+        "name": "263-independent-raw-artifact-audit.json",
+        "bytes": 194237,
+        "sha256": "b8378d32db1ecd9b23074550c3c1fca5fc28c04002db47c0c9e139fe36daf13b"
+      }
+    },
+    "proofCount": 19,
+    "sourceBindingsVerified": 9,
+    "canonicalUniqueSourceFilesVerified": 21,
+    "packagedRendererCopiedWithoutBuild": true,
+    "originalAsarRendererFiles": 147,
+    "originalRendererIndexSHA256": "5520586b3dbe9554ba3901023891b6572e1fb7fc359fdbcaceae26aebfb2f3a9",
+    "full18MatrixAcceptance": true,
+    "parentFullRunAcceptance": false,
+    "primaryFullNativeAcceptance": false,
+    "independentScopedReviews": [
+      {
+        "scope": "All16 strict appearance rows plus separate strict smoke; source/editor/navigation/server display scope only. Native Darwin ARM64 Electron44.3 offscreen Chromium rendering/input and native PNG/JPEG/WebP codec on the exact original8e ASAR renderer, using disposable controlled IPC fixtures. All18 modified-scope fixture configurations qualify. Excludes physical OS shortcuts, visible Mac desktop/material, gameplay, public service installation and own updater/resourcepack/parity implementation.",
+        "reviewer": "updater121",
+        "ratings": {
+          "reasonableness": 9.2,
+          "functionality": 9.1,
+          "appearance": 8.7
+        },
+        "reviewBinding": {
+          "name": "updater121-263-mac-final-independent-review.json",
+          "bytes": 36635,
+          "sha256": "f0d26d47679e8ad1db08cb97cc2fd864f0a063b93aeb9ceddf67acbebf6dbca5"
+        },
+        "qualifiedAppearanceRows": 16,
+        "additionalQualifiedSmoke": 1,
+        "runId": 37831726301,
+        "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+        "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+        "receiptBinding": {
+          "name": "263-receipt.json",
+          "bytes": 238324,
+          "sha256": "59b12fcd2c71b82a9d82e90e60f72b80b3f0a9d56ae1fee09c0e6a4fc46971fc"
+        },
+        "originalAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+        "rendererIndexSHA256": "5520586b3dbe9554ba3901023891b6572e1fb7fc359fdbcaceae26aebfb2f3a9",
+        "criticalDefectsObservedWithinScope": []
+      },
+      {
+        "scope": "Both strict original community rows with six themes, two exact requested windows and100/125% page zoom; queue/dialog/dependency-controls scope only. Native Darwin ARM64 Electron44.3 offscreen Chromium rendering/input and native PNG/JPEG/WebP codec on the exact original8e ASAR renderer, using disposable controlled IPC fixtures. All18 modified-scope fixture configurations qualify. Excludes physical OS shortcuts, visible Mac desktop/material, gameplay, public service installation and own updater/resourcepack/parity implementation.",
+        "reviewer": "updater121",
+        "ratings": {
+          "reasonableness": 9.1,
+          "functionality": 9.2,
+          "appearance": 8.8
+        },
+        "reviewBinding": {
+          "name": "updater121-263-mac-final-independent-review.json",
+          "bytes": 36635,
+          "sha256": "f0d26d47679e8ad1db08cb97cc2fd864f0a063b93aeb9ceddf67acbebf6dbca5"
+        },
+        "qualifiedCommunityRows": 2,
+        "runId": 37831726301,
+        "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+        "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+        "receiptBinding": {
+          "name": "263-receipt.json",
+          "bytes": 238324,
+          "sha256": "59b12fcd2c71b82a9d82e90e60f72b80b3f0a9d56ae1fee09c0e6a4fc46971fc"
+        },
+        "originalAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+        "rendererIndexSHA256": "5520586b3dbe9554ba3901023891b6572e1fb7fc359fdbcaceae26aebfb2f3a9",
+        "criticalDefectsObservedWithinScope": []
+      },
+      {
+        "scope": "Controlled-IPC production community fixture only: two actual native ARM64 Electron processes, six themes, two physical windows and100/125% page zoom. Original installer, public networking/transfer overlap, physical desktop keys and whole Mac acceptance are outside this score.",
+        "reviewer": "appearance121",
+        "ratings": {
+          "reasonableness": 9.1,
+          "functionality": 9,
+          "appearance": 8.8
+        },
+        "reviewBinding": {
+          "name": "appearance121-mac-reuse263df7-community-independent-review.json",
+          "bytes": 35249,
+          "sha256": "c1859cc03c3c80330e1337f462540f3de906421fb623243b79f8ce604b8964c4"
+        },
+        "qualifiedCommunityRows": 2,
+        "originalPngHashesVerified": 60,
+        "manuallyViewedOriginalPng": 16,
+        "runId": 37831726301,
+        "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+        "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+        "receiptBinding": {
+          "name": "263-receipt.json",
+          "bytes": 238324,
+          "sha256": "59b12fcd2c71b82a9d82e90e60f72b80b3f0a9d56ae1fee09c0e6a4fc46971fc"
+        },
+        "originalAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+        "rendererIndexSHA256": "5520586b3dbe9554ba3901023891b6572e1fb7fc359fdbcaceae26aebfb2f3a9",
+        "criticalDefectsObservedWithinScope": []
+      }
+    ]
+  },
+  "originalServiceAndRuntimeScope": {
+    "publicInstallerParity": {
+      "complete": true,
+      "fullParityAcceptance": false,
+      "originalPrepareCalls": 1,
+      "originalCommitCalls": 1,
+      "originalOperationProgressEvents": 7,
+      "originalPublicFile": {
+        "project": "Fabric API",
+        "version": "0.92.12+1.20.1",
+        "bytes": 2137232,
+        "declaredSHA1": "3e9cdd3e2f827ca9a259df9eb8e31949437b6bd4",
+        "nativeReadbackSHA256": "4197ff4fbdac13cffccd267c1bc59e9fbabb2b5683a9d5f8023f4b5ea16a1c1e"
+      },
+      "originalFilesHashVerified": 678,
+      "externalNecessaryDependencies": 0,
+      "syntheticTargetMetadata": true,
+      "prepareDurationMs": 346,
+      "browseDuringPrepare": false,
+      "browseAfterPrepareConfirmationVerified": true,
+      "originalHandlerRestorationVerified": true,
+      "installedJARAttached": false,
+      "localInstalledJARRehashPerformed": false,
+      "bindings": [
+        {
+          "name": "summary.json",
+          "bytes": 6662613,
+          "sha256": "b64458f6ac4690328eee158fd46a6c1764fda824c79e1d71d40bab3dfb9c1e70"
+        },
+        {
+          "name": "first.json",
+          "bytes": 5769137,
+          "sha256": "ff78790effc62d4678389e6abe3157b5d1addd9bb5d70e2109df40e10dd636b0"
+        },
+        {
+          "name": "restart.json",
+          "bytes": 43622,
+          "sha256": "8db47024ff47c7f74d68ef2683ed88bb74a400e8f7e93e0ed8b13f5b3166577c"
+        }
+      ]
+    },
+    "controlledGallery": {
+      "completeSubreceipt": true,
+      "wholeAPPAndDMGUIJobsRemainFailed": true,
+      "publicServiceOrOriginalInstallerAcceptance": false,
+      "classification": "Real packaged renderer/native input/queue, controlled prepare and commit IPC, 900/700ms disposable delays and 40/25 percent synthetic progress",
+      "syntheticJARBytes": [
+        237,
+        225
+      ],
+      "queueRetryCancellationDependencyAndDiskReadbackObserved": true,
+      "originalJARBytesAttached": false,
+      "privatePathScreenshotsExcludedFromPublic": true,
+      "proofBinding": {
+        "name": "gallery-favorites-118-ui-black-orange.json",
+        "bytes": 23045,
+        "sha256": "4eb96f3cce6973437e2986c7536734158b36432c2af2918971caff77f9a0f107"
+      }
+    },
+    "favorites": [
+      {
+        "stage": "app",
+        "installComplete": true,
+        "selectedFavoriteMods": 2,
+        "necessaryDependencies": 1,
+        "originalFilesHashVerified": 25,
+        "gameComplete": false,
+        "gameFirstFailure": "Player did not enter the generated world within 240 seconds",
+        "nativeScreenshotFinding": "GLFW 65545 / NSGL suitable pixel format error; no generated world visible",
+        "boundOwnedJavaProcessVerified": true,
+        "sampleCount": 1930,
+        "restartPhaseReached": false,
+        "displayNormalRestorationPassed": false,
+        "scope": "Observed macOS26 ARM64 cloud graphics initialization failure; physical Mac behavior and exact host cause remain unverified",
+        "summaryBinding": {
+          "name": "summary.json",
+          "bytes": 3690884,
+          "sha256": "71c271950b76c84ba88558580d8ac02e25e3060e596f3dd0ef968337b0bf4da1"
+        },
+        "displayBinding": {
+          "name": "display-proof.json",
+          "bytes": 20068,
+          "sha256": "ce788cb1847c0ad53967af05b3337c90e8b5ea5f2f623373259e9eb749df2d9f"
+        }
+      },
+      {
+        "stage": "dmg",
+        "installComplete": true,
+        "selectedFavoriteMods": 2,
+        "necessaryDependencies": 1,
+        "originalFilesHashVerified": 25,
+        "gameComplete": false,
+        "gameFirstFailure": "Player did not enter the generated world within 240 seconds",
+        "nativeScreenshotFinding": "GLFW 65545 / NSGL suitable pixel format error; no generated world visible",
+        "boundOwnedJavaProcessVerified": true,
+        "sampleCount": 1981,
+        "restartPhaseReached": false,
+        "displayNormalRestorationPassed": false,
+        "scope": "Observed macOS26 ARM64 cloud graphics initialization failure; physical Mac behavior and exact host cause remain unverified",
+        "summaryBinding": {
+          "name": "summary.json",
+          "bytes": 3736078,
+          "sha256": "63e18c7674d95f181b06c5eeb3143cca2a70df11e8ba2e65f1f7b8e77833a6b2"
+        },
+        "displayBinding": {
+          "name": "display-proof.json",
+          "bytes": 20068,
+          "sha256": "a329c99526d9d341f89cfe2e761a85622933bc15034895a9b6d7918adcdeda11"
+        }
+      }
+    ],
+    "game": {
+      "version": "26.2",
+      "loader": "Fabric0.19.5",
+      "installedAndWorldJoinSaveNormalExitChain": true,
+      "originalOwnedNormalExitCode": 0,
+      "actualDemoControlInvokedByTestOnlyFabricProbe": true,
+      "physicalManualPlayerInputVerified": false,
+      "saveFiles": {
+        "recordedCount": 5,
+        "originalBytesIncluded": false,
+        "localRehashOrNBTReopenPerformed": false
+      },
+      "recognizableGameplayVisualAcceptance": false,
+      "motionOrSmoothnessAcceptance": false,
+      "visualFinding": "Original client area is black in the first still; the world still shows blurred background and a large gray area without HUD, crosshair or recognizable normal terrain. Logs and save hashes do not establish acceptable gameplay pixels.",
+      "launcherActivationHandlerObserved": true,
+      "physicalDockClickVerified": false,
+      "rawPNGHashes": [
+        {
+          "name": "minecraft.png",
+          "bytes": 197431,
+          "sha256": "6a7eca38581bd6ed5bcc5a3f101db57f1c40800493d6d193486d43847a099ac9"
+        },
+        {
+          "name": "dock-reopen.png",
+          "bytes": 551157,
+          "sha256": "a060c74d6245d52d3d35a0e512036d776230b266d17647472d3c8848b025fd47"
+        },
+        {
+          "name": "minecraft-world.png",
+          "bytes": 416673,
+          "sha256": "210e7746871d33e3e129878e0f219d590fad882531b6c828a527cb112c93c9f3"
+        }
+      ],
+      "privateWorldFilesPubliclyIncluded": false,
+      "bindings": [
+        {
+          "name": "verification.json",
+          "bytes": 2874,
+          "sha256": "7c79976b5e68cdecf6675540b063357a93d9f45ed48140211cc285d0386d3316"
+        },
+        {
+          "name": "events.json",
+          "bytes": 970549,
+          "sha256": "993531595d174013f3a8f5aa5c722b2db2c56229aa8bad9fd01662410df3135b"
+        },
+        {
+          "name": "capture-state.json",
+          "bytes": 79776,
+          "sha256": "5f629445ec44ff0f8ce49d6fb489e0f757fdd58f1534f48e6d1adc04ed0f70f4"
+        },
+        {
+          "name": "saved-world-hashes.json",
+          "bytes": 1163,
+          "sha256": "57be19614994799ba2e55cbb158648e5bdac9bd327311ee7f23c48ba2549fcbc"
+        },
+        {
+          "name": "package-identity.json",
+          "bytes": 647,
+          "sha256": "e4c537a9987a365483e416a69627e056c4219cbe4b41aad27bed6822cc1d86e5"
+        },
+        {
+          "name": "launcher.log",
+          "bytes": 827,
+          "sha256": "c100fe1f4dd65886b0acd821f9c86799134ca8dcc6658fa0a833e9b06630804f"
+        },
+        {
+          "name": "dock-reopen.json",
+          "bytes": 3701,
+          "sha256": "c8cddb51ceed9059f6e8c8ef7e18f0a252f02eeb5332fa87dae12ed3877fc635"
+        },
+        {
+          "name": "job.json",
+          "bytes": 2697,
+          "sha256": "a7dbc514ed5584a578b18e9e354fd358450037949029161f45127f9b39d756c5"
+        },
+        {
+          "name": "game-original-job.log",
+          "bytes": 63014,
+          "sha256": "3f9c8f93d93218bf0e86f0bb4ebf609dec06dc5c93577c62c2e18647885b18a8"
+        }
+      ]
+    },
+    "update": {
+      "originalApplyLocalAndStartupBackupRestoreChain": true,
+      "sameVersion": "1.1.21 to 1.1.21",
+      "localReZIPpedFormalAPP": true,
+      "installedAsarSHA256": "75981e1837d06425234c1279db65e499174fd7898be2bf24c978f7aec1964196",
+      "originalPrivateExecutableRelaunchObserved": true,
+      "appendedPayloadNegative": "Size/type gate rejected the changed staged package",
+      "sameSizeHashNegativeVerified": false,
+      "finalPublicReleaseAutoDownloadInstallChainVerified": false,
+      "crossVersionUpgradeVerified": false,
+      "publicMirrorUpdateChainVerified": false,
+      "physicalApplicationsPermissionVerified": false,
+      "proofBinding": {
+        "name": "update.json",
+        "bytes": 2512,
+        "sha256": "36e45802d3bb26fcd5240b767baa42e2a417daad214a4d83ff57418e21a5562b"
+      }
+    }
+  },
+  "uncovered": [
+    "Original full APP/DMG UI and native shortcut key-up reception remain failed.",
+    "Both original favorite-mod game-world and display-restoration failures remain.",
+    "Original full15-job native run remains failure with five failed and two skipped jobs; the strict supplementary18 fixture acceptance does not change that result.",
+    "Modern Minecraft recognizable visual quality, animation, smoothness and physical audio are not qualified by world/save/normal-exit logs or the retained stills.",
+    "Physical Mac Intel/ARM hardware, macOS13, other displays/DPI/desktops and real native material are not covered by this macOS26 ARM64 cloud offscreen fixture.",
+    "Final public GitHub Release self-update download/install and cross-version rollback were not run.",
+    "Controlled community IPC, synthetic resource bytes and generated progress do not qualify public-service transfer overlap or the original installer. Original separate real public parity forwarding/hash evidence retains its explicitly bounded scope."
+  ],
+  "evidenceBindings": {
+    "originalStatus": {
+      "name": "original-8e-final-15-job-status.json",
+      "bytes": 32762,
+      "sha256": "f17a854da2c7d6a2de742e045695cbdb6c97f8b065d6f3e249a6d75f101a0573"
+    },
+    "originalRuntimeReview": {
+      "name": "original-8e-fresh-runtime-independent-review.json",
+      "bytes": 47386,
+      "sha256": "c2e79b2b5d03b68c67fc3253181591aeac85bd48946fd5fb020d765f1f6c07de"
+    },
+    "originalGameReview": {
+      "name": "original-8e-fresh-game-independent-review.json",
+      "bytes": 15034,
+      "sha256": "2c79ec8b342dba570716dd67cab101919454042da43fd7b0c68d612f374c3aaf"
+    },
+    "originalFixtureAudit": {
+      "name": "original-8e-fixture-independent-audit.json",
+      "bytes": 68304,
+      "sha256": "b3c035b69fedde470bb2ed6dea259422140b6113cf34f7fc26efe8218ee54509"
+    },
+    "originalFixtureReceipt": {
+      "name": "original-8e-batch121-receipt.json",
+      "sha256": "b33b1e2575f987146248c22a3b7401195b03cb92081842554af2c22ba1f9cdc0"
+    },
+    "originalUpdaterReview": {
+      "name": "original-8e-updater-independent-review.json",
+      "bytes": 13802,
+      "sha256": "267d4427fa47d0fa91e445e49b04deb804eb2ace08cac68b05a3207f6d1d9a05"
+    },
+    "originalPackageOrigin": {
+      "name": "original-8e-package-origin-reuse.json",
+      "bytes": 86170,
+      "sha256": "1bf500a21f6bbdaaf711f79a898a4b7eac97def43fdb5341baf47aef8731a440"
+    },
+    "latestSupplementary": {
+      "run": {
+        "name": "263-run-api-original.json",
+        "bytes": 11974,
+        "sha256": "0265a4048929f56fbb5011df5e2e660df968cec46d03592041f7f5ef45654436"
+      },
+      "artifactMetadata": {
+        "name": "263-artifact-metadata-original.json",
+        "bytes": 733,
+        "sha256": "9dbb825207f7ac15c7ed3af6048375671a32c80d3a295e7ede7f64d25e811693"
+      },
+      "jobLog": {
+        "name": "263-job-original.log",
+        "bytes": 75448,
+        "sha256": "c60f8f143e80b7a1466ba502c61b1b0e530eda722b9549184180c6dad6205031"
+      },
+      "receipt": {
+        "name": "263-receipt.json",
+        "bytes": 238324,
+        "sha256": "59b12fcd2c71b82a9d82e90e60f72b80b3f0a9d56ae1fee09c0e6a4fc46971fc"
+      },
+      "audit": {
+        "name": "263-independent-raw-artifact-audit.json",
+        "bytes": 194237,
+        "sha256": "b8378d32db1ecd9b23074550c3c1fca5fc28c04002db47c0c9e139fe36daf13b"
+      },
+      "originalAsarAndSources": {
+        "name": "263-independent-asar-source-binding-audit.json",
+        "bytes": 28154,
+        "sha256": "c823b3b676d4a935c29ae4adef904990614e14c4993b6b420e3b04a498fd409c"
+      },
+      "actualDeadlineObservations": {
+        "name": "263-independent-deadline-observation-audit.json",
+        "bytes": 58892,
+        "sha256": "f4b3a3feeb49b832e4f8dc3963c581e02f4e1f7f73d9c2fe59cfe40d30732b66"
+      },
+      "updaterReview": {
+        "name": "updater121-263-mac-final-independent-review.json",
+        "bytes": 36635,
+        "sha256": "f0d26d47679e8ad1db08cb97cc2fd864f0a063b93aeb9ceddf67acbebf6dbca5"
+      },
+      "appearanceReview": {
+        "name": "appearance121-mac-reuse263df7-community-independent-review.json",
+        "bytes": 35249,
+        "sha256": "c1859cc03c3c80330e1337f462540f3de906421fb623243b79f8ce604b8964c4"
+      }
+    },
+    "historicalSupplementaryA844": {
+      "supplementaryRun": {
+        "name": "reuse-a844-run-api-original.json",
+        "bytes": 11974,
+        "sha256": "79239df277266a2970a41fab0e20fff30add3b11192c4aab92bf96b04af95574"
+      },
+      "supplementaryArtifactMetadata": {
+        "name": "reuse-a844-artifact-metadata-original.json",
+        "bytes": 734,
+        "sha256": "89260a6d3dfeff471f0a24356b6cf45375e77a58301f94b3f5a22cb036817c49"
+      },
+      "supplementaryReceipt": {
+        "name": "reuse-a844-receipt.json",
+        "bytes": 72852,
+        "sha256": "8b468bd1d5f613d653576e778aa0939893f9f1a8d83bbd29ba1d6464203a35c3"
+      },
+      "supplementaryProof": {
+        "name": "reuse-a844-custom-960x620-125-proof.json",
+        "bytes": 66665,
+        "sha256": "e5e92e111d7de84119f9758e2c5653b7ff070ee93e10b7473b9535353e7c551f"
+      },
+      "supplementaryJobLog": {
+        "name": "reuse-a844-job-original.log",
+        "bytes": 67439,
+        "sha256": "9bb9abbbb2c9d045cb372add9bdb4dee0956afb654b0a5659a684cfaf671a369"
+      },
+      "supplementaryStderr": {
+        "name": "reuse-a844-smoke-stderr-original.log",
+        "bytes": 2632,
+        "sha256": "15caff2919efbdacf1e4142f359245ef8ffcd757dfd0cb31d83a266ab66d0a69"
+      },
+      "supplementaryStdout": {
+        "name": "reuse-a844-smoke-stdout-original.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "supplementaryFailure": {
+        "name": "reuse-a844-smoke-failure-original.log",
+        "bytes": 394,
+        "sha256": "2fda5087afc7eef3c904953f24d31a996972f35109ffcab5678b0bf117a9d14f"
+      },
+      "supplementaryContracts": {
+        "name": "reuse-a844-contracts-original.log",
+        "bytes": 3553,
+        "sha256": "c15a9a46d3e2bdda333f7fa3c676514db86ba95fe46710a65c536ab35bdf5fcd"
+      }
+    }
+  },
+  "privacy": {
+    "publicProjectionContainsPrivatePaths": false,
+    "userLogBodiesIncluded": false,
+    "userWorldBytesIncluded": false,
+    "privateGalleryScreenshotCopiesIncluded": false,
+    "originalRawFilesRetainedPrivately": true,
+    "publicImageCopiesIncluded": false
+  },
+  "priorSupplementaryFailureSnapshots": [
+    {
+      "runId": 37826058947,
+      "qaSourceCommit": "a8440a1bfcc088b243c1c5cb7d2e3a541d91b6ef",
+      "smokeComplete": false,
+      "matrixExecuted": 0,
+      "matrixComplete": false,
+      "evidenceBindings": {
+        "acceptance": {
+          "name": "a844-MAC_ACCEPTANCE-failed-history.json",
+          "bytes": 40074,
+          "sha256": "4cac85956849ba508222399d85a094e4efa82cc8af3d0ecf778c266fe2647779"
+        },
+        "independent": {
+          "name": "a844-INDEPENDENT_MAC-failed-history.json",
+          "bytes": 9799,
+          "sha256": "98c7ceecea0c9a5408a8be2885949bda975a04f22618d906ef2e6659424a751c"
+        }
+      }
+    },
+    {
+      "runId": 37828551113,
+      "qaSourceCommit": "7528a9b47beb728635ff60d37f72a8d202ad6fcc",
+      "conclusion": "failure",
+      "smokeComplete": true,
+      "matrixExecuted": 18,
+      "qualifiedMatrixRows": 17,
+      "matrixComplete": false,
+      "actualRejectedIntervalMs": 149,
+      "requiredMinimumMs": 150,
+      "evidenceBindings": {
+        "acceptance": {
+          "name": "7528-MAC_ACCEPTANCE-failed-history.json",
+          "bytes": 42758,
+          "sha256": "7dbeff898af0047d660cb546ba66ad9bc8f8390087490fdc0726a1c517071d94"
+        },
+        "independent": {
+          "name": "7528-INDEPENDENT_MAC-failed-history.json",
+          "bytes": 13555,
+          "sha256": "692724dc1ffe51fdebc58378af525788db111d198b26bd29c1c49567e779896b"
+        },
+        "scopedScores": {
+          "name": "7528-INDEPENDENT_SCOPED_SCORES-history.json",
+          "bytes": 2998,
+          "sha256": "6a9664c5a8de25b2be4949a77d84cd0ad744bda04ea85f367d5520c4a3441996"
+        }
+      }
+    }
+  ],
+  "skippedSupplementaryInvocations": [
+    {
+      "runId": 37831509135,
+      "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+      "status": "completed",
+      "conclusion": "skipped",
+      "nativeExecutionPerformed": false,
+      "qualifiedRows": 0,
+      "triggerDifference": "Required resume_mac_arm64 input omitted; unchanged workflow gate skipped the job. Corrected invocation is a distinct run.",
+      "evidenceBinding": {
+        "name": "263-omitted-input-skipped-history.json",
+        "bytes": 1035,
+        "sha256": "92465ace5694631a76d6d833c14f1e4d2fae87e9e5d29df2c14576cfeeb98af5"
+      }
+    }
+  ],
+  "modifiedScopeNativeQualification": {
+    "runId": 37831726301,
+    "qaSourceCommit": "263df7aacacbb4577e2f8c0f0232cec5d1a4b9b1",
+    "artifactSourceCommit": "8e29307b0eefa95d12dea948fab2002b7807854b",
+    "scope": "Only the strict18 original-renderer appearance/community fixture rows, additional smoke and independently reviewed named visual/interaction scope. It does not replace primary APP/DMG, game, favorites, public self-update or whole-platform acceptance.",
+    "independentScoreRows": 3
+  }
+}
